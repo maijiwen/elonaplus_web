@@ -1,0 +1,1729 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2729",
+ "entries": [
+  {
+   "id": "s12376",
+   "kind": "lang",
+   "jp": "願いの女神の力も、ここには届かないようだ…。",
+   "en": "The power of the goddess of wishes does not seem to reach here...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287740
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12377",
+   "kind": "lang",
+   "jp": "願いの女神も、今は神力に余裕がないようだ…。",
+   "en": "Even the goddess of wishes can't afford now...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287749
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12378",
+   "kind": "lang",
+   "jp": "何を望む？",
+   "en": "What do you wish for? ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287759
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12379",
+   "kind": "lang",
+   "jp": "水中でゴボゴボ言われてもよく分かんないんだけど…。",
+   "en": "I don't quite understand what you're saying underwater...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287789
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12380",
+   "kind": "raw",
+   "jp": "中の神",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287793
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12381",
+   "kind": "lang",
+   "jp": "中の神も大変…あ…中の神なんているわけないじゃない！…ねえ、聞かなかったことにしてね。",
+   "en": "There's no God inside.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287797
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12382",
+   "kind": "raw",
+   "jp": "中の人",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287801
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12383",
+   "kind": "lang",
+   "jp": "中の人も大変ね。",
+   "en": "There's no man inside.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287805
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12384",
+   "kind": "raw",
+   "jp": "エヘカトル",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287809
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12385",
+   "kind": "raw",
+   "jp": "ルルウィ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287820
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12386",
+   "kind": "raw",
+   "jp": "オパートス",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287831
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12387",
+   "kind": "raw",
+   "jp": "クミロミ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287842
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12388",
+   "kind": "raw",
+   "jp": "マニ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287853
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12389",
+   "kind": "raw",
+   "jp": "イツパロトル",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287865
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12390",
+   "kind": "raw",
+   "jp": "ヤカテクト",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287876
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12391",
+   "kind": "raw",
+   "jp": "ジュア",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287887
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12392",
+   "kind": "raw",
+   "jp": "若さ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287909
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12393",
+   "kind": "raw",
+   "jp": "若返り",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287909
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12394",
+   "kind": "raw",
+   "jp": "美貌",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287909
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12395",
+   "kind": "lang",
+   "jp": "ふぅん…そんな願いでいいんだ。",
+   "en": "A typical wish.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287913
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12396",
+   "kind": "raw",
+   "jp": "通り名",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287921
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12397",
+   "kind": "raw",
+   "jp": "異名",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287921
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12398",
+   "kind": "lang",
+   "jp": "だめよ。",
+   "en": "*laugh*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287926
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12399",
+   "kind": "lang",
+   "jp": "新しい異名は？",
+   "en": "What's your new alias?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287933
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12400",
+   "kind": "raw",
+   "jp": "は今後",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287943
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12401",
+   "kind": "raw",
+   "jp": "と名乗ることにした。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287943
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12402",
+   "kind": "lang",
+   "jp": "あら、そのままでいいの？",
+   "en": "What a waste of a wish!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287950
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12403",
+   "kind": "raw",
+   "jp": "あら、そのままでいいの？",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287952
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12404",
+   "kind": "raw",
+   "jp": "転職",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287956
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12405",
+   "kind": "raw",
+   "jp": "職",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287956
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12406",
+   "kind": "lang",
+   "jp": "なりたい職業は？",
+   "en": "What's your new job?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287960
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12407",
+   "kind": "lang",
+   "jp": "やっぱりやめた。",
+   "en": "You changed your mind.",
+   "zh": "",
+   "count": 6,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287970
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288034
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 352039
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 356604
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358295
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 364390
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12408",
+   "kind": "raw",
+   "jp": "戦士",
+   "en": "",
+   "zh": "",
+   "count": 7,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287974
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358300
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434674
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434677
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 564910
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 564949
+    },
+    {
+     "fn": "randnameinit",
+     "label": null,
+     "line": 589878
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12409",
+   "kind": "raw",
+   "jp": "遺跡荒らし",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287977
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358303
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434732
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434735
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12410",
+   "kind": "raw",
+   "jp": "魔法使い",
+   "en": "",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287980
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358306
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434787
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434790
+    },
+    {
+     "fn": "randnameinit",
+     "label": null,
+     "line": 589878
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12411",
+   "kind": "raw",
+   "jp": "農民",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287983
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358309
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434841
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434844
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12412",
+   "kind": "raw",
+   "jp": "プレデター",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287986
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358312
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434894
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434897
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12413",
+   "kind": "raw",
+   "jp": "狩人",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287989
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358315
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434946
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434949
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12414",
+   "kind": "raw",
+   "jp": "魔法戦士",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287992
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358318
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435001
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435004
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12415",
+   "kind": "raw",
+   "jp": "ピアニスト",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287998
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358324
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435102
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435105
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12416",
+   "kind": "raw",
+   "jp": "機工兵",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288001
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358327
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435155
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435158
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12417",
+   "kind": "raw",
+   "jp": "プリースト",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288004
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358330
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435209
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435212
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12418",
+   "kind": "raw",
+   "jp": "の職に就いた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288016
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12419",
+   "kind": "raw",
+   "jp": "転生",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288020
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12420",
+   "kind": "raw",
+   "jp": "種族",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288020
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12421",
+   "kind": "lang",
+   "jp": "生まれ変わりたい種族は？",
+   "en": "What's your new race?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288024
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12422",
+   "kind": "raw",
+   "jp": "に転生した。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288044
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12423",
+   "kind": "raw",
+   "jp": "性転換",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288048
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12424",
+   "kind": "raw",
+   "jp": "性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288048
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12425",
+   "kind": "raw",
+   "jp": "異性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288048
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12426",
+   "kind": "raw",
+   "jp": "贖罪",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288064
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12427",
+   "kind": "lang",
+   "jp": "…罪なんて犯してないじゃない。",
+   "en": "You aren't a sinner.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288069
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12428",
+   "kind": "lang",
+   "jp": "あら…都合のいいことを言うのね。",
+   "en": "What a convenient wish!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288077
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12429",
+   "kind": "raw",
+   "jp": "死",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288081
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12430",
+   "kind": "lang",
+   "jp": "それがお望みなら…",
+   "en": "If you wish so...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288085
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12431",
+   "kind": "raw",
+   "jp": "仲間",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288090
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12432",
+   "kind": "raw",
+   "jp": "金",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288094
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12433",
+   "kind": "raw",
+   "jp": "富",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288094
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12434",
+   "kind": "raw",
+   "jp": "財産",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288094
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12435",
+   "kind": "lang",
+   "jp": "金貨が降ってきた！",
+   "en": "Lots of gold pieces appear.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288099
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12436",
+   "kind": "raw",
+   "jp": "ちいさなメダル",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288105
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12437",
+   "kind": "lang",
+   "jp": "小さなメダルが降ってきた！",
+   "en": "A small coin appears.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288110
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12438",
+   "kind": "raw",
+   "jp": "プラチナ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288116
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12439",
+   "kind": "lang",
+   "jp": "プラチナ硬貨が降ってきた！",
+   "en": "Platinum pieces appear.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288121
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12440",
+   "kind": "raw",
+   "jp": "あの犬",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288127
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12441",
+   "kind": "raw",
+   "jp": "Ano犬",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288127
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12442",
+   "kind": "raw",
+   "jp": "あけましておめでとう！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288137
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12443",
+   "kind": "raw",
+   "jp": "あけましておめでとう",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288137
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12444",
+   "kind": "raw",
+   "jp": "あけおめ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288137
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12445",
+   "kind": "raw",
+   "jp": "おめでとう",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288137
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12446",
+   "kind": "raw",
+   "jp": "メリークリスマス！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288147
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12447",
+   "kind": "raw",
+   "jp": "メリークリスマス",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288147
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12448",
+   "kind": "raw",
+   "jp": "クリスマス中止",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288147
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12449",
+   "kind": "raw",
+   "jp": "クリスマスの中止",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288147
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12450",
+   "kind": "raw",
+   "jp": "バレンタインの中止",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288155
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12451",
+   "kind": "raw",
+   "jp": "バレンタイン中止",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288155
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12452",
+   "kind": "raw",
+   "jp": "チョコ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288155
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12453",
+   "kind": "raw",
+   "jp": "バレンタインチョコ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288155
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12454",
+   "kind": "raw",
+   "jp": "チョコレート",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288155
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12455",
+   "kind": "raw",
+   "jp": "隠しキャラ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288168
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12456",
+   "kind": "raw",
+   "jp": "送還",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288180
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12457",
+   "kind": "lang",
+   "jp": "スキルチケット",
+   "en": "skill ticket",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288264
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12458",
+   "kind": "lang",
+   "jp": "カード",
+   "en": "card",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288282
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  },
+  {
+   "id": "s12459",
+   "kind": "lang",
+   "jp": "剥製",
+   "en": "figure",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 288285
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2729",
+   "owner": "label_2729"
+  }
+ ]
+}

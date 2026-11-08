@@ -1,0 +1,2514 @@
+{
+ "meta": {
+  "source": "hsp/start.hsp",
+  "dispatch": "349962-364788",
+  "create": "38464-169602",
+  "branchCount": 147,
+  "coveredLines": 14638,
+  "doneCount": 16,
+  "ownedCount": 21
+ },
+ "effects": {
+  "5": {
+   "id": 5,
+   "start": 353981,
+   "end": 354106,
+   "lines": 126,
+   "hint": "要把听诊器贴到什么上？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 478,
+     "name": "stethoscope"
+    }
+   ]
+  },
+  "6": {
+   "id": 6,
+   "start": 358370,
+   "end": 358385,
+   "lines": 16,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 544,
+     "name": "disc"
+    }
+   ]
+  },
+  "7": {
+   "id": 7,
+   "start": 358426,
+   "end": 358475,
+   "lines": 50,
+   "hint": "应该在世界地图上建设。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 555,
+     "name": "shelter"
+    }
+   ]
+  },
+  "8": {
+   "id": 8,
+   "start": 350459,
+   "end": 350568,
+   "lines": 110,
+   "hint": "总之先把一大堆笔记和文件整理了一下……。",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 562,
+     "name": "register"
+    },
+    {
+     "id": 611,
+     "name": "house board"
+    },
+    {
+     "id": 1199,
+     "name": "operating board"
+    }
+   ]
+  },
+  "9": {
+   "id": 9,
+   "start": 353955,
+   "end": 353967,
+   "lines": 13,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 488,
+     "name": "training machine"
+    }
+   ]
+  },
+  "10": {
+   "id": 10,
+   "start": 358386,
+   "end": 358393,
+   "lines": 8,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 576,
+     "name": "playback disc"
+    }
+   ]
+  },
+  "11": {
+   "id": 11,
+   "start": 358476,
+   "end": 358503,
+   "lines": 28,
+   "hint": "金币不够……",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 578,
+     "name": "kitty bank"
+    }
+   ]
+  },
+  "13": {
+   "id": 13,
+   "start": 353931,
+   "end": 353954,
+   "lines": 24,
+   "hint": "点燃了火把。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 583,
+     "name": "torch"
+    }
+   ]
+  },
+  "14": {
+   "id": 14,
+   "start": 353904,
+   "end": 353930,
+   "lines": 27,
+   "hint": "雪不够……",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 587,
+     "name": "snow"
+    }
+   ]
+  },
+  "15": {
+   "id": 15,
+   "start": 353874,
+   "end": 353880,
+   "lines": 7,
+   "hint": "",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 112,
+     "name": "oven"
+    },
+    {
+     "id": 142,
+     "name": "food maker"
+    },
+    {
+     "id": 153,
+     "name": "kitchen"
+    },
+    {
+     "id": 154,
+     "name": "sink"
+    },
+    {
+     "id": 155,
+     "name": "kitchen oven"
+    },
+    {
+     "id": 223,
+     "name": "pot"
+    },
+    {
+     "id": 255,
+     "name": "campfire"
+    },
+    {
+     "id": 256,
+     "name": "portable cooking tool"
+    },
+    {
+     "id": 306,
+     "name": "food processor"
+    },
+    {
+     "id": 606,
+     "name": "barbecue set"
+    },
+    {
+     "id": 789,
+     "name": "pot for fusion"
+    },
+    {
+     "id": 790,
+     "name": "pot of alchemist"
+    }
+   ]
+  },
+  "16": {
+   "id": 16,
+   "start": 353881,
+   "end": 353887,
+   "lines": 7,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 342,
+     "name": "fishing pole"
+    }
+   ]
+  },
+  "17": {
+   "id": 17,
+   "start": 353888,
+   "end": 353903,
+   "lines": 16,
+   "hint": "",
+   "done": false,
+   "owner": "perform.js",
+   "items": [
+    {
+     "id": 88,
+     "name": "grand piano"
+    },
+    {
+     "id": 254,
+     "name": "horn"
+    },
+    {
+     "id": 328,
+     "name": "upright piano"
+    },
+    {
+     "id": 690,
+     "name": "pan flute"
+    },
+    {
+     "id": 691,
+     "name": "lute"
+    },
+    {
+     "id": 692,
+     "name": "harmonica"
+    },
+    {
+     "id": 693,
+     "name": "harp"
+    },
+    {
+     "id": 707,
+     "name": "<Stradivarius>"
+    },
+    {
+     "id": 761,
+     "name": "<Gould's Piano>"
+    },
+    {
+     "id": 845,
+     "name": "wadaiko"
+    },
+    {
+     "id": 927,
+     "name": "serpent"
+    },
+    {
+     "id": 928,
+     "name": "recorder"
+    },
+    {
+     "id": 929,
+     "name": "ocarina"
+    },
+    {
+     "id": 959,
+     "name": "<Melodyus>"
+    }
+   ]
+  },
+  "19": {
+   "id": 19,
+   "start": 350569,
+   "end": 350620,
+   "lines": 52,
+   "hint": "要以谁为目标？",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 299,
+     "name": "high grade dresser"
+    },
+    {
+     "id": 309,
+     "name": "dresser"
+    },
+    {
+     "id": 322,
+     "name": "simple dresser"
+    }
+   ]
+  },
+  "20": {
+   "id": 20,
+   "start": 358664,
+   "end": 358671,
+   "lines": 8,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 629,
+     "name": "disguise set"
+    }
+   ]
+  },
+  "21": {
+   "id": 21,
+   "start": 358773,
+   "end": 358792,
+   "lines": 20,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 630,
+     "name": "material kit"
+    }
+   ]
+  },
+  "22": {
+   "id": 22,
+   "start": 358719,
+   "end": 358755,
+   "lines": 37,
+   "hint": "那只能在城镇里使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 343,
+     "name": "rune"
+    }
+   ]
+  },
+  "23": {
+   "id": 23,
+   "start": 354107,
+   "end": 354200,
+   "lines": 94,
+   "hint": "要用绳子绑住谁？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 634,
+     "name": "leash"
+    }
+   ]
+  },
+  "24": {
+   "id": 24,
+   "start": 349966,
+   "end": 349998,
+   "lines": 33,
+   "hint": "这里不能使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 635,
+     "name": "mine"
+    }
+   ]
+  },
+  "25": {
+   "id": 25,
+   "start": 358793,
+   "end": 358807,
+   "lines": 15,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 640,
+     "name": "unicorn horn"
+    }
+   ]
+  },
+  "26": {
+   "id": 26,
+   "start": 358808,
+   "end": 358826,
+   "lines": 19,
+   "hint": "奥帕托斯：「哈哈哈！不久之后，这片土地将发生变动！」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 665,
+     "name": "Opatos"
+    }
+   ]
+  },
+  "27": {
+   "id": 27,
+   "start": 359017,
+   "end": 359067,
+   "lines": 51,
+   "hint": "露露薇：「真愚蠢。你以为我会为你停下以太之风吗？」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 666,
+     "name": "Lulwy"
+    }
+   ]
+  },
+  "28": {
+   "id": 28,
+   "start": 360579,
+   "end": 360619,
+   "lines": 41,
+   "hint": "这里不能使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 671,
+     "name": "nuclear bomb"
+    },
+    {
+     "id": 1009,
+     "name": "NUCLEAR DEAD LION"
+    }
+   ]
+  },
+  "29": {
+   "id": 29,
+   "start": 360639,
+   "end": 360660,
+   "lines": 22,
+   "hint": "你获得了新的专长！",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 672,
+     "name": "secret treasure"
+    }
+   ]
+  },
+  "30": {
+   "id": 30,
+   "start": 364084,
+   "end": 364098,
+   "lines": 15,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 680,
+     "name": "god speed"
+    },
+    {
+     "id": 681,
+     "name": "holy rain"
+    },
+    {
+     "id": 683,
+     "name": "matrix"
+    },
+    {
+     "id": 745,
+     "name": "heart"
+    }
+   ]
+  },
+  "31": {
+   "id": 31,
+   "start": 364492,
+   "end": 364534,
+   "lines": 43,
+   "hint": "那必须在种下种子的地方使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 682,
+     "name": "rejuvenation"
+    }
+   ]
+  },
+  "32": {
+   "id": 32,
+   "start": 364535,
+   "end": 364670,
+   "lines": 136,
+   "hint": "首先需要选择作为素体的同伴。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 684,
+     "name": "gene machine"
+    }
+   ]
+  },
+  "33": {
+   "id": 33,
+   "start": 364249,
+   "end": 364291,
+   "lines": 43,
+   "hint": "这里不能使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 685,
+     "name": "monster ball"
+    }
+   ]
+  },
+  "34": {
+   "id": 34,
+   "start": 358827,
+   "end": 358845,
+   "lines": 19,
+   "hint": "朱亚：「我、我才不是为了你才做的呢。笨蛋！」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 686,
+     "name": "Jure"
+    }
+   ]
+  },
+  "35": {
+   "id": 35,
+   "start": 364671,
+   "end": 364701,
+   "lines": 31,
+   "hint": "你进入了铁处女之中。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 688,
+     "name": "iron maiden"
+    }
+   ]
+  },
+  "36": {
+   "id": 36,
+   "start": 364702,
+   "end": 364732,
+   "lines": 31,
+   "hint": "你把头伸进了断头台。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 689,
+     "name": "guillotine"
+    }
+   ]
+  },
+  "37": {
+   "id": 37,
+   "start": 364746,
+   "end": 364765,
+   "lines": 20,
+   "hint": "收起了牌组。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 701,
+     "name": "deck"
+    },
+    {
+     "id": 857,
+     "name": "effect scanner"
+    }
+   ]
+  },
+  "38": {
+   "id": 38,
+   "start": 364766,
+   "end": 364788,
+   "lines": 23,
+   "hint": "没有持有牌组。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 504,
+     "name": "card"
+    }
+   ]
+  },
+  "39": {
+   "id": 39,
+   "start": 364733,
+   "end": 364745,
+   "lines": 13,
+   "hint": " *哔————* ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 703,
+     "name": "whistle"
+    }
+   ]
+  },
+  "41": {
+   "id": 41,
+   "start": 364099,
+   "end": 364128,
+   "lines": 30,
+   "hint": "传来了库米罗米的声音。「不行……经验……不够……」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 715,
+     "name": "Kumiromi"
+    }
+   ]
+  },
+  "42": {
+   "id": 42,
+   "start": 364129,
+   "end": 364140,
+   "lines": 12,
+   "hint": "总觉得有种不祥的预感……",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 717,
+     "name": "Lomias"
+    }
+   ]
+  },
+  "43": {
+   "id": 43,
+   "start": 358907,
+   "end": 358924,
+   "lines": 18,
+   "hint": "艾赫卡特尔：「叫我了？叫我了？」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 721,
+     "name": "Ehekatl"
+    }
+   ]
+  },
+  "44": {
+   "id": 44,
+   "start": 349999,
+   "end": 350071,
+   "lines": 73,
+   "hint": "不放在地板上就不能使用。",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 77,
+     "name": "round chair"
+    },
+    {
+     "id": 81,
+     "name": "rag doll"
+    },
+    {
+     "id": 92,
+     "name": "modern chair"
+    },
+    {
+     "id": 101,
+     "name": "square chair"
+    },
+    {
+     "id": 102,
+     "name": "cheap chair"
+    },
+    {
+     "id": 327,
+     "name": "wide chair"
+    },
+    {
+     "id": 330,
+     "name": "stump"
+    },
+    {
+     "id": 334,
+     "name": "throne"
+    },
+    {
+     "id": 603,
+     "name": "president's chair"
+    },
+    {
+     "id": 648,
+     "name": "sofa"
+    },
+    {
+     "id": 778,
+     "name": "luxury sofa"
+    },
+    {
+     "id": 864,
+     "name": "wooden horse"
+    },
+    {
+     "id": 1267,
+     "name": "fukagurumi"
+    }
+   ]
+  },
+  "45": {
+   "id": 45,
+   "start": 354201,
+   "end": 354298,
+   "lines": 98,
+   "hint": "这个区域不能使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 733,
+     "name": "sand bag"
+    }
+   ]
+  },
+  "46": {
+   "id": 46,
+   "start": 364165,
+   "end": 364248,
+   "lines": 84,
+   "hint": "真的要切腹吗？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 219,
+     "name": "tight rope"
+    }
+   ]
+  },
+  "47": {
+   "id": 47,
+   "start": 358690,
+   "end": 358718,
+   "lines": 29,
+   "hint": "它发出暗淡的光辉。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 748,
+     "name": "summoning crystal"
+    }
+   ]
+  },
+  "48": {
+   "id": 48,
+   "start": 360620,
+   "end": 360638,
+   "lines": 19,
+   "hint": "它在这个地方显得很寒酸。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 749,
+     "name": "Creator"
+    }
+   ]
+  },
+  "49": {
+   "id": 49,
+   "start": 358756,
+   "end": 358772,
+   "lines": 17,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 760,
+     "name": "Garok's hammer"
+    }
+   ]
+  },
+  "50": {
+   "id": 50,
+   "start": 358846,
+   "end": 358888,
+   "lines": 43,
+   "hint": "库米罗米：「种子……要出来了……」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 776,
+     "name": "Kumiromi"
+    }
+   ]
+  },
+  "51": {
+   "id": 51,
+   "start": 358889,
+   "end": 358906,
+   "lines": 18,
+   "hint": "玛尼：「来吧，让我看看你的超级模式！」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 777,
+     "name": "Mani"
+    }
+   ]
+  },
+  "52": {
+   "id": 52,
+   "start": 355538,
+   "end": 355946,
+   "lines": 409,
+   "hint": "要以谁为目标？",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 746,
+     "name": "tamer's whip"
+    }
+   ]
+  },
+  "53": {
+   "id": 53,
+   "start": 359068,
+   "end": 359210,
+   "lines": 143,
+   "hint": "「我说啊……这个月份的我已经给过了吧？」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 797,
+     "name": "god medal"
+    }
+   ]
+  },
+  "54": {
+   "id": 54,
+   "start": 360513,
+   "end": 360578,
+   "lines": 66,
+   "hint": "从卫星轨道上发射了荷电粒子炮！",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 818,
+     "name": "satellite shooter"
+    }
+   ]
+  },
+  "55": {
+   "id": 55,
+   "start": 358925,
+   "end": 358974,
+   "lines": 50,
+   "hint": "亚卡泰克特：「那么，今天的零花钱！连1金币都不许浪费哦？」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 858,
+     "name": "Yacatect"
+    }
+   ]
+  },
+  "56": {
+   "id": 56,
+   "start": 358975,
+   "end": 359016,
+   "lines": 42,
+   "hint": "伊茨帕罗托尔：「火焰、冷气，还有雷电。响应我的命令，此刻化作遮蔽属性的墙壁吧。」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 859,
+     "name": "Itzpalt"
+    }
+   ]
+  },
+  "57": {
+   "id": 57,
+   "start": 360299,
+   "end": 360512,
+   "lines": 214,
+   "hint": "要给同伴下达什么指示呢。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 865,
+     "name": "command flag"
+    }
+   ]
+  },
+  "58": {
+   "id": 58,
+   "start": 360661,
+   "end": 364083,
+   "lines": 3423,
+   "hint": "",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 869,
+     "name": ""
+    }
+   ]
+  },
+  "59": {
+   "id": 59,
+   "start": 356551,
+   "end": 356631,
+   "lines": 81,
+   "hint": "要让谁戴上？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 877,
+     "name": "Philosopher's Stone Mask"
+    }
+   ]
+  },
+  "60": {
+   "id": 60,
+   "start": 358234,
+   "end": 358358,
+   "lines": 125,
+   "hint": "要让谁写？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 878,
+     "name": "Blank Business Card"
+    }
+   ]
+  },
+  "61": {
+   "id": 61,
+   "start": 356894,
+   "end": 356966,
+   "lines": 73,
+   "hint": "什么也没发生…… ",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 886,
+     "name": "<Cleaning Doll>"
+    },
+    {
+     "id": 962,
+     "name": "small wooden golem"
+    },
+    {
+     "id": 965,
+     "name": "small stone golem"
+    },
+    {
+     "id": 1127,
+     "name": "bisque doll"
+    }
+   ]
+  },
+  "62": {
+   "id": 62,
+   "start": 356373,
+   "end": 356550,
+   "lines": 178,
+   "hint": "要以谁为目标？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 900,
+     "name": "astral light pen"
+    }
+   ]
+  },
+  "63": {
+   "id": 63,
+   "start": 355947,
+   "end": 356064,
+   "lines": 118,
+   "hint": "什么也没发生…… ",
+   "done": false,
+   "owner": "necro.js",
+   "items": [
+    {
+     "id": 903,
+     "name": "coffin of necromancy"
+    }
+   ]
+  },
+  "64": {
+   "id": 64,
+   "start": 357036,
+   "end": 357234,
+   "lines": 199,
+   "hint": "等待下一个二月吧。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 907,
+     "name": "kit of making chocolate"
+    }
+   ]
+  },
+  "65": {
+   "id": 65,
+   "start": 364292,
+   "end": 364335,
+   "lines": 44,
+   "hint": "不能在农田以外施肥。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 920,
+     "name": "organic fertilizer"
+    }
+   ]
+  },
+  "66": {
+   "id": 66,
+   "start": 354420,
+   "end": 354574,
+   "lines": 155,
+   "hint": "那是不可能的。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 930,
+     "name": "soul spindle"
+    }
+   ]
+  },
+  "67": {
+   "id": 67,
+   "start": 359885,
+   "end": 359920,
+   "lines": 36,
+   "hint": "应该在世界地图上使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 931,
+     "name": "Wake up of nefia"
+    }
+   ]
+  },
+  "68": {
+   "id": 68,
+   "start": 358359,
+   "end": 358369,
+   "lines": 11,
+   "hint": "要播放哪首曲子？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 947,
+     "name": "Juke box"
+    }
+   ]
+  },
+  "69": {
+   "id": 69,
+   "start": 357024,
+   "end": 357035,
+   "lines": 12,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 971,
+     "name": "nine god sign"
+    }
+   ]
+  },
+  "70": {
+   "id": 70,
+   "start": 359921,
+   "end": 359960,
+   "lines": 40,
+   "hint": " *哔————* ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 876,
+     "name": "<Dog Whistle>"
+    }
+   ]
+  },
+  "72": {
+   "id": 72,
+   "start": 356967,
+   "end": 357023,
+   "lines": 57,
+   "hint": "要以谁为目标？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 980,
+     "name": "insight lens"
+    }
+   ]
+  },
+  "73": {
+   "id": 73,
+   "start": 356677,
+   "end": 356893,
+   "lines": 217,
+   "hint": "什么也没发生…… ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 990,
+     "name": "wonder body former"
+    }
+   ]
+  },
+  "74": {
+   "id": 74,
+   "start": 356065,
+   "end": 356088,
+   "lines": 24,
+   "hint": "在世界地图上时不能进行该行为。",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 78,
+     "name": "bookshelf"
+    },
+    {
+     "id": 100,
+     "name": "potions"
+    },
+    {
+     "id": 124,
+     "name": "breads"
+    },
+    {
+     "id": 151,
+     "name": "craft book shelf"
+    },
+    {
+     "id": 318,
+     "name": "old bookshelf"
+    },
+    {
+     "id": 773,
+     "name": "large bookshelf"
+    },
+    {
+     "id": 991,
+     "name": "DD cemetery key"
+    }
+   ]
+  },
+  "75": {
+   "id": 75,
+   "start": 356332,
+   "end": 356372,
+   "lines": 41,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 992,
+     "name": "large picnic basket"
+    }
+   ]
+  },
+  "76": {
+   "id": 76,
+   "start": 358672,
+   "end": 358689,
+   "lines": 18,
+   "hint": "这里不能使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 994,
+     "name": "4-Dimensional mirror"
+    }
+   ]
+  },
+  "77": {
+   "id": 77,
+   "start": 354915,
+   "end": 355125,
+   "lines": 211,
+   "hint": "要让谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 999,
+     "name": "omega shift core"
+    },
+    {
+     "id": 1000,
+     "name": "delta shift core"
+    },
+    {
+     "id": 1001,
+     "name": "gamma shift core"
+    },
+    {
+     "id": 1002,
+     "name": "beta shift core"
+    },
+    {
+     "id": 1003,
+     "name": "alpha shift core"
+    }
+   ]
+  },
+  "78": {
+   "id": 78,
+   "start": 353844,
+   "end": 353873,
+   "lines": 30,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1004,
+     "name": "Juice mixer"
+    }
+   ]
+  },
+  "79": {
+   "id": 79,
+   "start": 360247,
+   "end": 360298,
+   "lines": 52,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1021,
+     "name": "Taktstock"
+    }
+   ]
+  },
+  "80": {
+   "id": 80,
+   "start": 354816,
+   "end": 354914,
+   "lines": 99,
+   "hint": "要让谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1022,
+     "name": "special ammos box"
+    }
+   ]
+  },
+  "81": {
+   "id": 81,
+   "start": 354678,
+   "end": 354746,
+   "lines": 69,
+   "hint": "要治疗谁？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1023,
+     "name": "first aid kit"
+    }
+   ]
+  },
+  "82": {
+   "id": 82,
+   "start": 353582,
+   "end": 353664,
+   "lines": 83,
+   "hint": "魔力储备不足……。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1029,
+     "name": "panzerfaust X"
+    }
+   ]
+  },
+  "83": {
+   "id": 83,
+   "start": 353665,
+   "end": 353827,
+   "lines": 163,
+   "hint": "魔力储备不足……。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1030,
+     "name": "M202 special"
+    }
+   ]
+  },
+  "84": {
+   "id": 84,
+   "start": 353244,
+   "end": 353333,
+   "lines": 90,
+   "hint": "看不见那个地方。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1031,
+     "name": "atomic launcher"
+    }
+   ]
+  },
+  "85": {
+   "id": 85,
+   "start": 352467,
+   "end": 352676,
+   "lines": 210,
+   "hint": "要让谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1037,
+     "name": "<Elements Eyes>"
+    }
+   ]
+  },
+  "86": {
+   "id": 86,
+   "start": 352800,
+   "end": 352803,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": []
+  },
+  "87": {
+   "id": 87,
+   "start": 352804,
+   "end": 352807,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": []
+  },
+  "88": {
+   "id": 88,
+   "start": 352808,
+   "end": 352811,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": []
+  },
+  "89": {
+   "id": 89,
+   "start": 352796,
+   "end": 352799,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": []
+  },
+  "90": {
+   "id": 90,
+   "start": 352812,
+   "end": 352983,
+   "lines": 172,
+   "hint": "要让谁使用？",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 1043,
+     "name": "tobacco"
+    },
+    {
+     "id": 1044,
+     "name": "cigarette"
+    },
+    {
+     "id": 1045,
+     "name": "hamaki"
+    },
+    {
+     "id": 1046,
+     "name": "tobacco pipe"
+    },
+    {
+     "id": 1047,
+     "name": "kiseru"
+    }
+   ]
+  },
+  "91": {
+   "id": 91,
+   "start": 355215,
+   "end": 355537,
+   "lines": 323,
+   "hint": "什么也没发生…… ",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 1049,
+     "name": "<Necromantis>"
+    }
+   ]
+  },
+  "92": {
+   "id": 92,
+   "start": 352984,
+   "end": 352993,
+   "lines": 10,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1051,
+     "name": "hanabi"
+    }
+   ]
+  },
+  "93": {
+   "id": 93,
+   "start": 354575,
+   "end": 354677,
+   "lines": 103,
+   "hint": "要对谁使用？",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 785,
+     "name": "salt"
+    },
+    {
+     "id": 786,
+     "name": "sugar"
+    },
+    {
+     "id": 1052,
+     "name": "pepper"
+    },
+    {
+     "id": 1053,
+     "name": "soy sauce"
+    }
+   ]
+  },
+  "94": {
+   "id": 94,
+   "start": 356632,
+   "end": 356676,
+   "lines": 45,
+   "hint": "什么也没发生…… ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1060,
+     "name": "craft repair kit"
+    }
+   ]
+  },
+  "95": {
+   "id": 95,
+   "start": 358145,
+   "end": 358233,
+   "lines": 89,
+   "hint": "「请选择扫描及采集的对象」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1062,
+     "name": "bio printer"
+    }
+   ]
+  },
+  "96": {
+   "id": 96,
+   "start": 357281,
+   "end": 357326,
+   "lines": 46,
+   "hint": "什么也没发生…… ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1066,
+     "name": "stardust"
+    }
+   ]
+  },
+  "97": {
+   "id": 97,
+   "start": 359832,
+   "end": 359884,
+   "lines": 53,
+   "hint": "应该在世界地图上使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1068,
+     "name": "Heart of twilight "
+    }
+   ]
+  },
+  "98": {
+   "id": 98,
+   "start": 364161,
+   "end": 364164,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1083,
+     "name": "<Harakiri>"
+    }
+   ]
+  },
+  "99": {
+   "id": 99,
+   "start": 358512,
+   "end": 358663,
+   "lines": 152,
+   "hint": "「好像算错了……抱歉啊」",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1097,
+     "name": "yacatect's bank"
+    }
+   ]
+  },
+  "100": {
+   "id": 100,
+   "start": 356293,
+   "end": 356331,
+   "lines": 39,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1106,
+     "name": "christmas cake set"
+    }
+   ]
+  },
+  "101": {
+   "id": 101,
+   "start": 356089,
+   "end": 356278,
+   "lines": 190,
+   "hint": "要把饵撒在哪里？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1116,
+     "name": "ground bait"
+    }
+   ]
+  },
+  "102": {
+   "id": 102,
+   "start": 356279,
+   "end": 356292,
+   "lines": 14,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1120,
+     "name": "encount canceller"
+    }
+   ]
+  },
+  "103": {
+   "id": 103,
+   "start": 360189,
+   "end": 360213,
+   "lines": 25,
+   "hint": "深渊魔力",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1130,
+     "name": "dark fragment"
+    }
+   ]
+  },
+  "104": {
+   "id": 104,
+   "start": 352363,
+   "end": 352466,
+   "lines": 104,
+   "hint": "要让谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1135,
+     "name": "Fixity anchor"
+    }
+   ]
+  },
+  "105": {
+   "id": 105,
+   "start": 353828,
+   "end": 353843,
+   "lines": 16,
+   "hint": "生起了火。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1139,
+     "name": "twig"
+    }
+   ]
+  },
+  "106": {
+   "id": 106,
+   "start": 364336,
+   "end": 364491,
+   "lines": 156,
+   "hint": "那必须在种下种子的地方使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1174,
+     "name": "crop management tools"
+    }
+   ]
+  },
+  "107": {
+   "id": 107,
+   "start": 353968,
+   "end": 353980,
+   "lines": 13,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1175,
+     "name": "<moku-jin>"
+    }
+   ]
+  },
+  "108": {
+   "id": 108,
+   "start": 359211,
+   "end": 359469,
+   "lines": 259,
+   "hint": "那只能在店里或家中使用。",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 1180,
+     "name": "yaca point card"
+    }
+   ]
+  },
+  "109": {
+   "id": 109,
+   "start": 354747,
+   "end": 354777,
+   "lines": 31,
+   "hint": "制服发生了变化！",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1186,
+     "name": "<Clothworld>"
+    }
+   ]
+  },
+  "110": {
+   "id": 110,
+   "start": 352292,
+   "end": 352362,
+   "lines": 71,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1191,
+     "name": "debris"
+    }
+   ]
+  },
+  "111": {
+   "id": 111,
+   "start": 360171,
+   "end": 360174,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1194,
+     "name": "crimson dark orb"
+    }
+   ]
+  },
+  "112": {
+   "id": 112,
+   "start": 360175,
+   "end": 360178,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1195,
+     "name": "blue dark orb"
+    }
+   ]
+  },
+  "113": {
+   "id": 113,
+   "start": 360179,
+   "end": 360188,
+   "lines": 10,
+   "hint": "开发中。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1196,
+     "name": "green dark orb"
+    }
+   ]
+  },
+  "114": {
+   "id": 114,
+   "start": 350072,
+   "end": 350458,
+   "lines": 387,
+   "hint": "不放在地板上就不能使用。",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 83,
+     "name": "modern table"
+    },
+    {
+     "id": 99,
+     "name": "academic table"
+    },
+    {
+     "id": 280,
+     "name": "comfortable table"
+    },
+    {
+     "id": 295,
+     "name": "ragged table"
+    },
+    {
+     "id": 332,
+     "name": "table"
+    },
+    {
+     "id": 535,
+     "name": "big table"
+    }
+   ]
+  },
+  "115": {
+   "id": 115,
+   "start": 352994,
+   "end": 353243,
+   "lines": 250,
+   "hint": "药水塞不够……。",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 1200,
+     "name": ""
+    },
+    {
+     "id": 1201,
+     "name": ""
+    },
+    {
+     "id": 1202,
+     "name": ""
+    },
+    {
+     "id": 1203,
+     "name": ""
+    }
+   ]
+  },
+  "116": {
+   "id": 116,
+   "start": 359470,
+   "end": 359831,
+   "lines": 362,
+   "hint": "要以谁为目标？",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 1113,
+     "name": "nyoi mimikaki"
+    }
+   ]
+  },
+  "117": {
+   "id": 117,
+   "start": 350819,
+   "end": 350949,
+   "lines": 131,
+   "hint": "要对谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1209,
+     "name": "G-Finger"
+    }
+   ]
+  },
+  "118": {
+   "id": 118,
+   "start": 350950,
+   "end": 350974,
+   "lines": 25,
+   "hint": "获得了200发言力。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1208,
+     "name": "Photon Fairy"
+    }
+   ]
+  },
+  "119": {
+   "id": 119,
+   "start": 350975,
+   "end": 351008,
+   "lines": 34,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1207,
+     "name": "Contradiction"
+    }
+   ]
+  },
+  "120": {
+   "id": 120,
+   "start": 351009,
+   "end": 351122,
+   "lines": 114,
+   "hint": "在这个地方没有效果。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1206,
+     "name": "Bigamy Permit"
+    }
+   ]
+  },
+  "121": {
+   "id": 121,
+   "start": 350775,
+   "end": 350818,
+   "lines": 44,
+   "hint": "你往净水筒里加了水",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1213,
+     "name": "filtration bottle"
+    }
+   ]
+  },
+  "122": {
+   "id": 122,
+   "start": 351131,
+   "end": 351237,
+   "lines": 107,
+   "hint": "要让谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1210,
+     "name": "Lesimas Fragment"
+    }
+   ]
+  },
+  "123": {
+   "id": 123,
+   "start": 351127,
+   "end": 351130,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1211,
+     "name": "Rehmido Fragment"
+    }
+   ]
+  },
+  "124": {
+   "id": 124,
+   "start": 351123,
+   "end": 351126,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1212,
+     "name": "Chaos Fragment"
+    }
+   ]
+  },
+  "125": {
+   "id": 125,
+   "start": 350621,
+   "end": 350774,
+   "lines": 154,
+   "hint": "要以谁为目标？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1248,
+     "name": "socks"
+    }
+   ]
+  },
+  "126": {
+   "id": 126,
+   "start": 360214,
+   "end": 360246,
+   "lines": 33,
+   "hint": " *哔* ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1250,
+     "name": "command whistle"
+    }
+   ]
+  },
+  "127": {
+   "id": 127,
+   "start": 351482,
+   "end": 351544,
+   "lines": 63,
+   "hint": "要对谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1251,
+     "name": "anering"
+    }
+   ]
+  },
+  "128": {
+   "id": 128,
+   "start": 352677,
+   "end": 352795,
+   "lines": 119,
+   "hint": "要让谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 933,
+     "name": "drug kiseru"
+    }
+   ]
+  },
+  "129": {
+   "id": 129,
+   "start": 357235,
+   "end": 357280,
+   "lines": 46,
+   "hint": "什么也没发生…… ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1252,
+     "name": "starfiber"
+    }
+   ]
+  },
+  "130": {
+   "id": 130,
+   "start": 351376,
+   "end": 351481,
+   "lines": 106,
+   "hint": "要对谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1255,
+     "name": "spiritium"
+    }
+   ]
+  },
+  "131": {
+   "id": 131,
+   "start": 351256,
+   "end": 351259,
+   "lines": 4,
+   "hint": "",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1254,
+     "name": "SurvivabilityEXtenderX"
+    }
+   ]
+  },
+  "132": {
+   "id": 132,
+   "start": 351260,
+   "end": 351375,
+   "lines": 116,
+   "hint": "要给谁注射？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1253,
+     "name": "SurvivabilityEXtenderY"
+    }
+   ]
+  },
+  "133": {
+   "id": 133,
+   "start": 353499,
+   "end": 353581,
+   "lines": 83,
+   "hint": "魔力储备不足……。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1260,
+     "name": "laser bazooka"
+    }
+   ]
+  },
+  "134": {
+   "id": 134,
+   "start": 359961,
+   "end": 360170,
+   "lines": 210,
+   "hint": "你是「",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1256,
+     "name": "master of spade"
+    },
+    {
+     "id": 1257,
+     "name": "master of club"
+    },
+    {
+     "id": 1258,
+     "name": "master of heart"
+    },
+    {
+     "id": 1259,
+     "name": "master of diamond"
+    }
+   ]
+  },
+  "135": {
+   "id": 135,
+   "start": 351238,
+   "end": 351255,
+   "lines": 18,
+   "hint": "获得了100个药水塞。[剩余",
+   "done": false,
+   "owner": "camp.js",
+   "items": [
+    {
+     "id": 1261,
+     "name": "cork pack"
+    }
+   ]
+  },
+  "136": {
+   "id": 136,
+   "start": 357439,
+   "end": 357559,
+   "lines": 121,
+   "hint": "什么也没发生…… ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1266,
+     "name": "slime mold"
+    }
+   ]
+  },
+  "137": {
+   "id": 137,
+   "start": 357560,
+   "end": 357849,
+   "lines": 290,
+   "hint": "要对谁使用？",
+   "done": true,
+   "owner": "itemfx.js",
+   "items": [
+    {
+     "id": 1265,
+     "name": ""
+    }
+   ]
+  },
+  "138": {
+   "id": 138,
+   "start": 357327,
+   "end": 357438,
+   "lines": 112,
+   "hint": "要以哪个药水人为对象？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1268,
+     "name": "X-Frame"
+    }
+   ]
+  },
+  "139": {
+   "id": 139,
+   "start": 357850,
+   "end": 357950,
+   "lines": 101,
+   "hint": "要给谁注射？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1271,
+     "name": "Res upper"
+    }
+   ]
+  },
+  "140": {
+   "id": 140,
+   "start": 357951,
+   "end": 358047,
+   "lines": 97,
+   "hint": "要给谁注射？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1270,
+     "name": "DV fixer"
+    }
+   ]
+  },
+  "141": {
+   "id": 141,
+   "start": 358048,
+   "end": 358144,
+   "lines": 97,
+   "hint": "要给谁注射？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1269,
+     "name": "PV fixer"
+    }
+   ]
+  },
+  "142": {
+   "id": 142,
+   "start": 351709,
+   "end": 351775,
+   "lines": 67,
+   "hint": "要对谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1273,
+     "name": "mana destone"
+    }
+   ]
+  },
+  "143": {
+   "id": 143,
+   "start": 351776,
+   "end": 351842,
+   "lines": 67,
+   "hint": "要对谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1272,
+     "name": "fighting destone"
+    }
+   ]
+  },
+  "144": {
+   "id": 144,
+   "start": 351545,
+   "end": 351577,
+   "lines": 33,
+   "hint": "需要5点深渊魔力。[当前深渊魔力：",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1275,
+     "name": "white dark orb "
+    }
+   ]
+  },
+  "145": {
+   "id": 145,
+   "start": 351578,
+   "end": 351708,
+   "lines": 131,
+   "hint": "要对谁使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1274,
+     "name": "awake destone"
+    }
+   ]
+  },
+  "146": {
+   "id": 146,
+   "start": 354299,
+   "end": 354419,
+   "lines": 121,
+   "hint": "这个区域不能使用。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1295,
+     "name": "float cage"
+    }
+   ]
+  },
+  "147": {
+   "id": 147,
+   "start": 358394,
+   "end": 358409,
+   "lines": 16,
+   "hint": "在收容所以外不能积蓄能量。",
+   "done": false,
+   "owner": "camp.js",
+   "items": [
+    {
+     "id": 1294,
+     "name": "slave spinner"
+    }
+   ]
+  },
+  "148": {
+   "id": 148,
+   "start": 358410,
+   "end": 358425,
+   "lines": 16,
+   "hint": "在收容所以外不能积蓄能量。",
+   "done": false,
+   "owner": "camp.js",
+   "items": [
+    {
+     "id": 1293,
+     "name": "slave wheel"
+    }
+   ]
+  },
+  "149": {
+   "id": 149,
+   "start": 355126,
+   "end": 355214,
+   "lines": 89,
+   "hint": "需要力量槽达到100%。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1301,
+     "name": "<Hiden Mashi>"
+    }
+   ]
+  },
+  "150": {
+   "id": 150,
+   "start": 352023,
+   "end": 352134,
+   "lines": 112,
+   "hint": "还是算了。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1308,
+     "name": "mimirrocry"
+    }
+   ]
+  },
+  "151": {
+   "id": 151,
+   "start": 354797,
+   "end": 354815,
+   "lines": 19,
+   "hint": "发型发生了变化！",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1310,
+     "name": "<Hairmet>"
+    }
+   ]
+  },
+  "152": {
+   "id": 152,
+   "start": 354778,
+   "end": 354796,
+   "lines": 19,
+   "hint": "发型发生了变化！",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1311,
+     "name": "<Genocide Tail>"
+    }
+   ]
+  },
+  "153": {
+   "id": 153,
+   "start": 351909,
+   "end": 352022,
+   "lines": 114,
+   "hint": "要朝哪个方向使用？",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1316,
+     "name": "waribasi"
+    }
+   ]
+  },
+  "154": {
+   "id": 154,
+   "start": 353334,
+   "end": 353498,
+   "lines": 165,
+   "hint": "魔力储备不足……。",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1317,
+     "name": "TZ-30"
+    },
+    {
+     "id": 1318,
+     "name": "TZ30-C"
+    },
+    {
+     "id": 1319,
+     "name": "TZC-500"
+    },
+    {
+     "id": 1320,
+     "name": "TZ500-K"
+    }
+   ]
+  },
+  "155": {
+   "id": 155,
+   "start": 351843,
+   "end": 351908,
+   "lines": 66,
+   "hint": "什么也没发生…… ",
+   "done": false,
+   "owner": "",
+   "items": [
+    {
+     "id": 1332,
+     "name": "glasses"
+    }
+   ]
+  }
+ }
+}

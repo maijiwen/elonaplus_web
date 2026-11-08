@@ -1,0 +1,2061 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0357",
+ "entries": [
+  {
+   "id": "s03489",
+   "kind": "lang",
+   "jp": "バグ",
+   "en": "bug",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28893
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2479",
+     "line": 263081
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03490",
+   "kind": "lang",
+   "jp": "金魚",
+   "en": "goldfish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28896
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03491",
+   "kind": "lang",
+   "jp": "亀",
+   "en": "turtle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28899
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03492",
+   "kind": "lang",
+   "jp": "ゼニタナゴ",
+   "en": "bitterling",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28902
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03493",
+   "kind": "lang",
+   "jp": "おたまじゃくし",
+   "en": "tadpole",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28905
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03494",
+   "kind": "lang",
+   "jp": "海水パンツ",
+   "en": "swimming trunks",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28908
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03495",
+   "kind": "lang",
+   "jp": "小汚い長靴",
+   "en": "dirty long boots",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28911
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03496",
+   "kind": "lang",
+   "jp": "コイ",
+   "en": "carp",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28914
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03497",
+   "kind": "lang",
+   "jp": "ウナギ",
+   "en": "eel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28917
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03498",
+   "kind": "lang",
+   "jp": "ハゼ",
+   "en": "goby",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28920
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03499",
+   "kind": "lang",
+   "jp": "キンメダイ",
+   "en": "alfonsino",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28923
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03500",
+   "kind": "lang",
+   "jp": "空き缶",
+   "en": "empty can",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28926
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03501",
+   "kind": "lang",
+   "jp": "壊れた機械",
+   "en": "broken machine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28929
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03502",
+   "kind": "lang",
+   "jp": "カジカ",
+   "en": "sculpin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28932
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03503",
+   "kind": "lang",
+   "jp": "スズキ",
+   "en": "sea bass",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28935
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03504",
+   "kind": "lang",
+   "jp": "ウニ",
+   "en": "sea urchin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28938
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03505",
+   "kind": "lang",
+   "jp": "シロアマダイ",
+   "en": "red tilefish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28941
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03506",
+   "kind": "lang",
+   "jp": "空きビン",
+   "en": "empty bottle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28944
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03507",
+   "kind": "lang",
+   "jp": "汚い指輪",
+   "en": "dirty ring",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28947
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03508",
+   "kind": "lang",
+   "jp": "キレアジ",
+   "en": "sword fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28950
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03509",
+   "kind": "lang",
+   "jp": "アロワナ",
+   "en": "moonfish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28953
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03510",
+   "kind": "lang",
+   "jp": "ハリマグロ",
+   "en": "tuna fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28956
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03511",
+   "kind": "lang",
+   "jp": "古代魚",
+   "en": "ancient fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28959
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03512",
+   "kind": "lang",
+   "jp": "破れた傘",
+   "en": "broken umbrella",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28962
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03513",
+   "kind": "lang",
+   "jp": "かつら",
+   "en": "hairpiece",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28965
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03514",
+   "kind": "lang",
+   "jp": "カツオ",
+   "en": "bonito",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28968
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03515",
+   "kind": "lang",
+   "jp": "アユ",
+   "en": "sweetfish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28971
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03516",
+   "kind": "lang",
+   "jp": "シマアジ",
+   "en": "yellow jack",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28974
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03517",
+   "kind": "lang",
+   "jp": "ブラックバス",
+   "en": "black bass",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28977
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03518",
+   "kind": "lang",
+   "jp": "北からの漂着物",
+   "en": "ashore from the north",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28980
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03519",
+   "kind": "lang",
+   "jp": "エロ本",
+   "en": "pornographic book",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28983
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03520",
+   "kind": "lang",
+   "jp": "サバ",
+   "en": "mackerel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28986
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03521",
+   "kind": "lang",
+   "jp": "大食いマグロ",
+   "en": "big tuna fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28989
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03522",
+   "kind": "lang",
+   "jp": "コバンザメ",
+   "en": "remora",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28992
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03523",
+   "kind": "lang",
+   "jp": "クジラ",
+   "en": "whale",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28995
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03524",
+   "kind": "lang",
+   "jp": "空き箱",
+   "en": "empty box",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 28998
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03525",
+   "kind": "lang",
+   "jp": "壊れた携帯",
+   "en": "broken cell phone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29001
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03526",
+   "kind": "lang",
+   "jp": "ムーピー",
+   "en": "moopy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29004
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03527",
+   "kind": "lang",
+   "jp": "カラウオ",
+   "en": "hollow fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29007
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03528",
+   "kind": "lang",
+   "jp": "ロックフィッシュ",
+   "en": " rock fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29010
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03529",
+   "kind": "lang",
+   "jp": "マンサ",
+   "en": "yruas",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29013
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03530",
+   "kind": "lang",
+   "jp": "キンブナ",
+   "en": "buergeri",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29016
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03531",
+   "kind": "lang",
+   "jp": "石亀",
+   "en": "pond turtle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29019
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03532",
+   "kind": "lang",
+   "jp": "ビワタナゴ",
+   "en": "longipinnis",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29022
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03533",
+   "kind": "lang",
+   "jp": "金珠杓子",
+   "en": "eartadpole",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29025
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03534",
+   "kind": "lang",
+   "jp": "半ズボン",
+   "en": "knickerbockers",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29028
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03535",
+   "kind": "lang",
+   "jp": "穴あきブーツ",
+   "en": "tattered boots",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29031
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03536",
+   "kind": "lang",
+   "jp": "ニゴロブナ",
+   "en": "grandoculis",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29034
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03537",
+   "kind": "lang",
+   "jp": "スッポン",
+   "en": "soft turtle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29037
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03538",
+   "kind": "lang",
+   "jp": "カネヒラ",
+   "en": "rhombeus",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29040
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03539",
+   "kind": "lang",
+   "jp": "御魂杓子",
+   "en": "spiritadpole",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29043
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03540",
+   "kind": "lang",
+   "jp": "スパッツ",
+   "en": "leggings",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29046
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03541",
+   "kind": "lang",
+   "jp": "カビ臭いブーツ",
+   "en": "moldy boots",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29049
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03542",
+   "kind": "lang",
+   "jp": "ニゴイ",
+   "en": "barbus",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29052
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03543",
+   "kind": "lang",
+   "jp": "デンキウナギ",
+   "en": "electric eel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29055
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03544",
+   "kind": "lang",
+   "jp": "ボウズハゼ",
+   "en": "sicy goby",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29058
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03545",
+   "kind": "lang",
+   "jp": "キラメダイ",
+   "en": "kiralfonsino",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29061
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03546",
+   "kind": "lang",
+   "jp": "潰れた缶",
+   "en": "collapsed can",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29064
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03547",
+   "kind": "lang",
+   "jp": "ジャンクパーツ",
+   "en": "junk parts",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29067
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03548",
+   "kind": "lang",
+   "jp": "マゴイ",
+   "en": "koi",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29070
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03549",
+   "kind": "lang",
+   "jp": "クロウナギ",
+   "en": "marbled eel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29073
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03550",
+   "kind": "lang",
+   "jp": "ウロハゼ",
+   "en": "glosso goby",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29076
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03551",
+   "kind": "lang",
+   "jp": "クロメダイ",
+   "en": "black porgy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29079
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03552",
+   "kind": "lang",
+   "jp": "腐食した缶",
+   "en": "corrosed can",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29082
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03553",
+   "kind": "lang",
+   "jp": "錆びた機械",
+   "en": "rusted machine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29085
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03554",
+   "kind": "lang",
+   "jp": "ハナカジカ",
+   "en": "nozawae sculpin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29088
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03555",
+   "kind": "lang",
+   "jp": "ホシスズキ",
+   "en": "spotted sea bass",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29091
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03556",
+   "kind": "lang",
+   "jp": "シマウニ",
+   "en": "striped sea urchin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29094
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03557",
+   "kind": "lang",
+   "jp": "キアマダイ",
+   "en": "yellow tilefish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29097
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03558",
+   "kind": "lang",
+   "jp": "ヒビ入りビン",
+   "en": "cracked bottle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29100
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03559",
+   "kind": "lang",
+   "jp": "割れた指輪",
+   "en": "broken ring",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29103
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03560",
+   "kind": "lang",
+   "jp": "アユカケ",
+   "en": "fourspine sculpin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29106
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03561",
+   "kind": "lang",
+   "jp": "ヒラスズキ",
+   "en": "blackfin sea bass",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29109
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03562",
+   "kind": "lang",
+   "jp": "クロヒゲウニ",
+   "en": "dark sea urchin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29112
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03563",
+   "kind": "lang",
+   "jp": "スミツキアマダイ",
+   "en": "charcoal tilefish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29115
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03564",
+   "kind": "lang",
+   "jp": "欠けたビン",
+   "en": "chipped bottle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29118
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03565",
+   "kind": "lang",
+   "jp": "玩具の指輪",
+   "en": "toy ring",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29121
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03566",
+   "kind": "lang",
+   "jp": "カキアジ",
+   "en": "write fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29124
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03567",
+   "kind": "lang",
+   "jp": "バラムンディ",
+   "en": "gulf saratoga",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29127
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03568",
+   "kind": "lang",
+   "jp": "キハダマグロ",
+   "en": "yellowfin tuna",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29130
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03569",
+   "kind": "lang",
+   "jp": "億年魚",
+   "en": "billion year fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29133
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03570",
+   "kind": "lang",
+   "jp": "傘の残骸",
+   "en": "umbrella wreckage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29136
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03571",
+   "kind": "lang",
+   "jp": "汚れたウィッグ",
+   "en": "dirty wig",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29139
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03572",
+   "kind": "lang",
+   "jp": "カクシアジ",
+   "en": "hide fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29142
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03573",
+   "kind": "lang",
+   "jp": "ブラックアロワナ",
+   "en": "black arowana",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29145
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03574",
+   "kind": "lang",
+   "jp": "クロマグロ",
+   "en": "bluefin tuna",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29148
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03575",
+   "kind": "lang",
+   "jp": "化石魚",
+   "en": "fossil fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29151
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03576",
+   "kind": "lang",
+   "jp": "ゾンビ傘",
+   "en": "zombie umbrella",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29154
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03577",
+   "kind": "lang",
+   "jp": "カビの生えたモップ",
+   "en": "moldy mop",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29157
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03578",
+   "kind": "lang",
+   "jp": "ハガツオ",
+   "en": "striped bonito",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29160
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03579",
+   "kind": "lang",
+   "jp": "ワカサギ",
+   "en": "wakasagi",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29163
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03580",
+   "kind": "lang",
+   "jp": "コガネアジ",
+   "en": "spotted trevally",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29166
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03581",
+   "kind": "lang",
+   "jp": "サンフィッシュ",
+   "en": "centrarchidae",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29169
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03582",
+   "kind": "lang",
+   "jp": "球形ブイ",
+   "en": "spherical buoy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29172
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03583",
+   "kind": "lang",
+   "jp": "アダルト雑誌",
+   "en": "adult magazine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29175
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03584",
+   "kind": "lang",
+   "jp": "マナガツオ",
+   "en": "mana bonito",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29178
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03585",
+   "kind": "lang",
+   "jp": "シシャモ",
+   "en": "shishamo",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29181
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03586",
+   "kind": "lang",
+   "jp": "クロヒラアジ",
+   "en": "black trevally",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29184
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03587",
+   "kind": "lang",
+   "jp": "ブラックサンバス",
+   "en": "black sun bass",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29187
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03588",
+   "kind": "lang",
+   "jp": "絡まった玉",
+   "en": "entangled ball",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29190
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03589",
+   "kind": "lang",
+   "jp": "エロ同人",
+   "en": "erotic doujin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29193
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03590",
+   "kind": "lang",
+   "jp": "ニジョウサバ",
+   "en": "lined mackerel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29196
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03591",
+   "kind": "lang",
+   "jp": "人食いマグロ",
+   "en": "biting tuna fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29199
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03592",
+   "kind": "lang",
+   "jp": "ナガコバン",
+   "en": "shark sucker",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29202
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03593",
+   "kind": "lang",
+   "jp": "ニタリクジラ",
+   "en": "tropical whale",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29205
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03594",
+   "kind": "lang",
+   "jp": "傷んだ木箱",
+   "en": "damaged box",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29208
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03595",
+   "kind": "lang",
+   "jp": "古代の端末",
+   "en": "ancient device",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29211
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03596",
+   "kind": "lang",
+   "jp": "ゴマサバ",
+   "en": "black mackerel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29214
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03597",
+   "kind": "lang",
+   "jp": "共食いマグロ",
+   "en": "boring tuna fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29217
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03598",
+   "kind": "lang",
+   "jp": "クロコバン",
+   "en": "spearfish remora",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29220
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03599",
+   "kind": "lang",
+   "jp": "クロナガスクジラ",
+   "en": "fin whale",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29223
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03600",
+   "kind": "lang",
+   "jp": "焦げたコンテナ",
+   "en": "burnt container",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29226
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  },
+  {
+   "id": "s03601",
+   "kind": "lang",
+   "jp": "ガラケー",
+   "en": "feature phone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0357",
+     "line": 29229
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0357",
+   "owner": "label_0357"
+  }
+ ]
+}

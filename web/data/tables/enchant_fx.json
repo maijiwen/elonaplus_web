@@ -1,0 +1,186 @@
+{
+ "src": {
+  "file": "hsp/start.hsp",
+  "range": [
+   26336,
+   26363
+  ],
+  "note": "var_653 特效发表（附魔类型 8 的特技/魔法表）"
+ },
+ "fields": [
+  "spell(=var_653(0))",
+  "judge(=var_653(1)：2000=对敌 3000=对己)",
+  "base(=var_653(2))",
+  "chance(=var_653(5)：发动概率%)"
+ ],
+ "fx": {
+  "0": {
+   "spell": 450,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 10
+  },
+  "1": {
+   "spell": 620,
+   "judge": 2000,
+   "base": 6000,
+   "chance": 50
+  },
+  "2": {
+   "spell": 452,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 10
+  },
+  "3": {
+   "spell": 434,
+   "judge": 2000,
+   "base": 800,
+   "chance": 12
+  },
+  "4": {
+   "spell": 433,
+   "judge": 2000,
+   "base": 600,
+   "chance": 12
+  },
+  "5": {
+   "spell": 625,
+   "judge": 3000,
+   "base": 400,
+   "chance": 2
+  },
+  "6": {
+   "spell": 627,
+   "judge": 3000,
+   "base": 1000,
+   "chance": 50
+  },
+  "7": {
+   "spell": 468,
+   "judge": 3000,
+   "base": 1000,
+   "chance": 2
+  },
+  "8": {
+   "spell": 604,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 45
+  },
+  "9": {
+   "spell": 609,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 45
+  },
+  "10": {
+   "spell": 608,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 45
+  },
+  "11": {
+   "spell": 453,
+   "judge": 3000,
+   "base": 1000,
+   "chance": 4
+  },
+  "12": {
+   "spell": 451,
+   "judge": 3000,
+   "base": 1000,
+   "chance": 4
+  },
+  "13": {
+   "spell": 448,
+   "judge": 3000,
+   "base": 1000,
+   "chance": 4
+  },
+  "14": {
+   "spell": 446,
+   "judge": 3000,
+   "base": 400,
+   "chance": 1
+  },
+  "15": {
+   "spell": 444,
+   "judge": 3000,
+   "base": 1000,
+   "chance": 3
+  },
+  "16": {
+   "spell": 442,
+   "judge": 3000,
+   "base": 1000,
+   "chance": 2
+  },
+  "17": {
+   "spell": 443,
+   "judge": 2000,
+   "base": 800,
+   "chance": 10
+  },
+  "18": {
+   "spell": 436,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 10
+  },
+  "19": {
+   "spell": 421,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 20
+  },
+  "20": {
+   "spell": 422,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 20
+  },
+  "21": {
+   "spell": 423,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 20
+  },
+  "22": {
+   "spell": 419,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 20
+  },
+  "23": {
+   "spell": 404,
+   "judge": 3000,
+   "base": 800,
+   "chance": 2
+  },
+  "24": {
+   "spell": 655,
+   "judge": 2000,
+   "base": 1000,
+   "chance": 20
+  },
+  "25": {
+   "spell": 812,
+   "judge": 2000,
+   "base": 20,
+   "chance": 44
+  },
+  "26": {
+   "spell": 691,
+   "judge": 2000,
+   "base": 500,
+   "chance": 60
+  },
+  "27": {
+   "spell": 649,
+   "judge": 2000,
+   "base": 500,
+   "chance": 20
+  }
+ }
+}

@@ -1,0 +1,286 @@
+{
+"1": {
+"jp": "聖なる盾",
+"en": "Holy Shield"
+},
+"55": {
+"jp": "守護石",
+"en": "Gem Power"
+},
+"70": {
+"jp": "エナジーマックス",
+"en": "Energy MAX"
+},
+"2": {
+"jp": "沈黙の霧",
+"en": "Mist of Silence"
+},
+"3": {
+"jp": "リジェネレーション",
+"en": "Regeneration"
+},
+"4": {
+"jp": "属性保護",
+"en": "Attribution Shield"
+},
+"66": {
+"jp": "土竜闘気",
+"en": "Mogranic Aura"
+},
+"5": {
+"jp": "加速",
+"en": "Speed"
+},
+"6": {
+"jp": "鈍足",
+"en": "Slow"
+},
+"7": {
+"jp": "英雄",
+"en": "Hero"
+},
+"59": {
+"jp": "シューティングモード",
+"en": "Shooting Mode"
+},
+"62": {
+"jp": "一投入魂",
+"en": "OverLimit-Throw"
+},
+"63": {
+"jp": "データスキャン",
+"en": "Data scan"
+},
+"60": {
+"jp": "ディスインフェクション",
+"en": "Disinfection"
+},
+"49": {
+"jp": "錬成掌",
+"en": "Resolution Hand"
+},
+"50": {
+"jp": "瞳の奥の深淵",
+"en": "Abyss in the eye"
+},
+"54": {
+"jp": "黒曜鏡",
+"en": "Black Mirror"
+},
+"53": {
+"jp": "烈走破",
+"en": "Hyper Dash"
+},
+"52": {
+"jp": "重力偏向",
+"en": "Gravity Accel"
+},
+"43": {
+"jp": "集中",
+"en": "Concentration"
+},
+"71": {
+"jp": "冥界の瘴気",
+"en": "Miasma of Hell"
+},
+"8": {
+"jp": "脆弱の霧",
+"en": "Mist of Frailness"
+},
+"61": {
+"jp": "飢餓の呪い",
+"en": "Curse of Hunger"
+},
+"9": {
+"jp": "元素の傷跡",
+"en": "Element Scar"
+},
+"10": {
+"jp": "ホーリーヴェイル",
+"en": "Holy Veil"
+},
+"11": {
+"jp": "ナイトメア",
+"en": "Nightmare"
+},
+"12": {
+"jp": "知者の加護",
+"en": "Divine Wisdom"
+},
+"13": {
+"jp": "天罰",
+"en": "Punishment"
+},
+"14": {
+"jp": "ルルウィの憑依",
+"en": "Lulwy's Trick"
+},
+"15": {
+"jp": "インコグニート",
+"en": "Incognito"
+},
+"16": {
+"jp": "死の宣告",
+"en": "Death Word"
+},
+"17": {
+"jp": "ブースト",
+"en": "Boost"
+},
+"18": {
+"jp": "契約",
+"en": "Contingency"
+},
+"39": {
+"jp": "不幸",
+"en": "Unlucky"
+},
+"57": {
+"jp": "鬱",
+"en": "Melancholy"
+},
+"56": {
+"jp": "散漫",
+"en": "Distracted"
+},
+"19": {
+"jp": "幸運",
+"en": "Luck"
+},
+"67": {
+"jp": "人生の含味",
+"en": "Life Tasting"
+},
+"20": {
+"jp": "筋力の成長",
+"en": "Grow Strength"
+},
+"21": {
+"jp": "耐久の成長",
+"en": "Grow Endurance"
+},
+"22": {
+"jp": "器用の成長",
+"en": "Grow Dexterity"
+},
+"23": {
+"jp": "感覚の成長",
+"en": "Grow Perception"
+},
+"24": {
+"jp": "習得の成長",
+"en": "Grow Learning"
+},
+"25": {
+"jp": "意志の成長",
+"en": "Grow Will"
+},
+"26": {
+"jp": "魔力の成長",
+"en": "Grow Magic"
+},
+"27": {
+"jp": "魅力の成長",
+"en": "Grow Charisma"
+},
+"28": {
+"jp": "速度の成長",
+"en": "Grow Speed"
+},
+"29": {
+"jp": "明鏡止水",
+"en": "ClearMind"
+},
+"30": {
+"jp": "超再生",
+"en": "Super Regene"
+},
+"31": {
+"jp": "フェザー",
+"en": "Feather"
+},
+"32": {
+"jp": "チャージ",
+"en": "Charge"
+},
+"33": {
+"jp": "緊急回避",
+"en": "Emergency Evasion"
+},
+"34": {
+"jp": "魔装",
+"en": "Magic Equip"
+},
+"35": {
+"jp": "超重装",
+"en": "Super Armor"
+},
+"51": {
+"jp": "シールドパリィ",
+"en": "Shield Parry"
+},
+"64": {
+"jp": "呪装豪身",
+"en": "Jyusou Goushin"
+},
+"65": {
+"jp": "ハーモニックアサルト",
+"en": "Harmonic Assault"
+},
+"58": {
+"jp": "死神の舞踏",
+"en": "Killing Dance"
+},
+"36": {
+"jp": "アトリビウト",
+"en": "Attribute"
+},
+"37": {
+"jp": "絶対防衛",
+"en": "AutoGuard"
+},
+"38": {
+"jp": "パワーアイテム",
+"en": "Power Item"
+},
+"40": {
+"jp": "暴走",
+"en": "Run Wildly"
+},
+"41": {
+"jp": "空間掌握",
+"en": "Retention"
+},
+"42": {
+"jp": "タッグフォース",
+"en": "Form Shift"
+},
+"44": {
+"jp": "フォルムシフト",
+"en": "Form Shift"
+},
+"45": {
+"jp": "フォルムシフト",
+"en": "Form Shift"
+},
+"46": {
+"jp": "フォルムシフト",
+"en": "Form Shift"
+},
+"47": {
+"jp": "フォルムシフト",
+"en": "Form Shift"
+},
+"48": {
+"jp": "ファイナルシフト",
+"en": "Final Form Shift"
+},
+"68": {
+"jp": "操魔の鎖",
+"en": "Chain of Mana"
+},
+"69": {
+"jp": "偽命の灯",
+"en": "Flame of Life"
+}
+}

@@ -1,0 +1,1336 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2435",
+ "entries": [
+  {
+   "id": "s08587",
+   "kind": "lang",
+   "jp": "ここはあなたの家ではない。",
+   "en": "You can only use it in your home.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 232977
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08588",
+   "kind": "lang",
+   "jp": "何でも屋",
+   "en": "Goods shop",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233026
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2442",
+     "line": 234484
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08589",
+   "kind": "lang",
+   "jp": "食品店",
+   "en": "Food shop",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233029
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2442",
+     "line": 234487
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08590",
+   "kind": "lang",
+   "jp": "魔法店",
+   "en": "Magic shop",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233032
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2442",
+     "line": 234490
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08591",
+   "kind": "lang",
+   "jp": "武具店",
+   "en": "Blacksmith",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233035
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2442",
+     "line": 234493
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08592",
+   "kind": "lang",
+   "jp": "宿屋",
+   "en": "Inn shop",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233038
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2442",
+     "line": 234496
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08593",
+   "kind": "lang",
+   "jp": "装飾家具店",
+   "en": "Decorative arts shop",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233041
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2442",
+     "line": 234499
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08594",
+   "kind": "lang",
+   "jp": "ジャンク屋",
+   "en": "Junk shop",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233044
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2442",
+     "line": 234502
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08595",
+   "kind": "lang",
+   "jp": "1日15品限定販売。",
+   "en": "15 items limited sale.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233062
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08596",
+   "kind": "lang",
+   "jp": "1日5品限定販売。",
+   "en": "5 items limited sale",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233069
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08597",
+   "kind": "lang",
+   "jp": "現在店主はいない。",
+   "en": "You haven't assigned a shopkeeper yet.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233083
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08598",
+   "kind": "lang",
+   "jp": "[交渉潜在：Supreme]",
+   "en": "[Trade potential : Supreme]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233093
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08599",
+   "kind": "lang",
+   "jp": "[交渉潜在：Amazing]",
+   "en": "[Trade potential : Amazing]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233100
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08600",
+   "kind": "lang",
+   "jp": "[交渉潜在：Superb]",
+   "en": "[Trade potential : Superb]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233107
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08601",
+   "kind": "lang",
+   "jp": "[交渉潜在：Great]",
+   "en": "[Trade potential : Great]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233114
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08602",
+   "kind": "lang",
+   "jp": "[交渉潜在：Good]",
+   "en": "[Trade potential : Good]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233121
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08603",
+   "kind": "lang",
+   "jp": "[交渉潜在：Bad]",
+   "en": "[Trade potential : Bad]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233128
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08604",
+   "kind": "lang",
+   "jp": "[交渉潜在：Hopeless]",
+   "en": "[Trade potential : Hopeless]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233135
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08605",
+   "kind": "lang",
+   "jp": "[魅力潜在：Supreme]",
+   "en": "[Charisma potential : Supreme]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233143
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08606",
+   "kind": "lang",
+   "jp": "[魅力潜在：Amazing]",
+   "en": "[Charisma potential : Amazing]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233150
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08607",
+   "kind": "lang",
+   "jp": "[魅力潜在：Superb]",
+   "en": "[Charisma potential : Superb]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233157
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08608",
+   "kind": "lang",
+   "jp": "[魅力潜在：Great]",
+   "en": "[Charisma potential : Great]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233164
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08609",
+   "kind": "lang",
+   "jp": "[魅力潜在：Good]",
+   "en": "[Charisma potential : Good]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233171
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08610",
+   "kind": "lang",
+   "jp": "[魅力潜在：Bad]",
+   "en": "[Charisma potential : Bad]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233178
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08611",
+   "kind": "lang",
+   "jp": "[魅力潜在：Hopeless]",
+   "en": "[Charisma potential : Hopeless]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233185
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08612",
+   "kind": "lang",
+   "jp": "現在ブリーダーはいない。",
+   "en": "You haven't assigned a breeder yet.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233207
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08613",
+   "kind": "lang",
+   "jp": "何をする？",
+   "en": "What do you want to do?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233231
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08614",
+   "kind": "lang",
+   "jp": "旅経験の整理・共有",
+   "en": "Organize and share travelExp",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233234
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08615",
+   "kind": "lang",
+   "jp": "仲間に店主を頼む",
+   "en": "Assign a shopkeeper",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233245
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08616",
+   "kind": "lang",
+   "jp": "店を拡張",
+   "en": "Extend",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233248
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08617",
+   "kind": "lang",
+   "jp": "店の種類変更",
+   "en": "Change shop type",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233251
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08618",
+   "kind": "lang",
+   "jp": "営業フィート獲得",
+   "en": "Get shopkeeper feat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233260
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08619",
+   "kind": "lang",
+   "jp": "1日の販売数を制限",
+   "en": "Limited sales per day",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233263
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08620",
+   "kind": "lang",
+   "jp": "ブリーダーを任命する",
+   "en": "Assign a breeder",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233267
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08621",
+   "kind": "lang",
+   "jp": "家畜・ブリーダー移動",
+   "en": "Move a livestock",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233269
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08622",
+   "kind": "lang",
+   "jp": "餌を撒く（家畜の餌消費）",
+   "en": "Consume livestock feed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233271
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08623",
+   "kind": "lang",
+   "jp": "場内消毒（浄化消毒薬消費）",
+   "en": "Consume disinfectant",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233273
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08624",
+   "kind": "lang",
+   "jp": "繁殖防止コード発動",
+   "en": "Activate breeding-prevent code",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233276
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08625",
+   "kind": "lang",
+   "jp": "生産防止コード発動",
+   "en": "Activate production-prevent code",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233280
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08626",
+   "kind": "lang",
+   "jp": "繁殖防止コード解除",
+   "en": "Cancel breeding-prevent code",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233284
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08627",
+   "kind": "lang",
+   "jp": "生産防止コード解除",
+   "en": "Cancel production-prevent code",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233288
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08628",
+   "kind": "lang",
+   "jp": "檻から出して収容",
+   "en": "Removed from cage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233293
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08629",
+   "kind": "lang",
+   "jp": "収容者の移動",
+   "en": "Move a inmate",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233295
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08630",
+   "kind": "lang",
+   "jp": "労働強度の変更",
+   "en": "Change Toil-Lv",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233297
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08631",
+   "kind": "lang",
+   "jp": "労働エナジー交換",
+   "en": "Exchange Toil-Energy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233299
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08632",
+   "kind": "lang",
+   "jp": "ペットを放す",
+   "en": "Release ally",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233303
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08633",
+   "kind": "lang",
+   "jp": "滞在者の移動",
+   "en": "Move a stayer",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233305
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233309
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233323
+    },
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233327
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08634",
+   "kind": "lang",
+   "jp": "家の模様替え",
+   "en": "Design",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233312
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08635",
+   "kind": "lang",
+   "jp": "家の情報",
+   "en": "Home rank",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233315
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08636",
+   "kind": "lang",
+   "jp": "仲間の滞在",
+   "en": "Allies in your home",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233317
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08637",
+   "kind": "lang",
+   "jp": "使用人を募集する",
+   "en": "Recruit a servant",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233320
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08638",
+   "kind": "lang",
+   "jp": "生成される扉変更",
+   "en": "Change door type",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233330
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08639",
+   "kind": "lang",
+   "jp": "タイルグループ変更",
+   "en": "Change tile group",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233332
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08640",
+   "kind": "lang",
+   "jp": "外装変更",
+   "en": "Change Map Icon",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233334
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08641",
+   "kind": "lang",
+   "jp": "施設名称変更",
+   "en": "Change Map Name",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233338
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08642",
+   "kind": "lang",
+   "jp": "お片付け機能",
+   "en": "Collecting function",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233342
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08643",
+   "kind": "lang",
+   "jp": "バイトを募集する",
+   "en": "Hiring part time worker",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233345
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08644",
+   "kind": "lang",
+   "jp": "マウスの左クリックでタイルの敷設、右クリックでタイルの取得、移動キーでスクリーン移動、決定キーでタイル一覧、キャンセルキーで終了。",
+   "en": "Left click to place the tile, right click to pick the tile under your mouse cursor, movement keys to move current position, hit the enter key to show the list of tiles, hit the cancel key to exit.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233370
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08645",
+   "kind": "lang",
+   "jp": "名前をつけるのはやめた。",
+   "en": "You changed your mind.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233501
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2750",
+     "line": 291083
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08646",
+   "kind": "lang",
+   "jp": "家の情報",
+   "en": "Home Value",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233533
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08647",
+   "kind": "lang",
+   "jp": "決定ｷｰ,",
+   "en": "Enter key,",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233533
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08648",
+   "kind": "lang",
+   "jp": "価値",
+   "en": "Value",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233536
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08649",
+   "kind": "lang",
+   "jp": "家宝ランク",
+   "en": "Heirloom Rank",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233537
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08650",
+   "kind": "lang",
+   "jp": "基本.",
+   "en": "Base",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233546
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08651",
+   "kind": "lang",
+   "jp": "家具.",
+   "en": "Deco",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233546
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08652",
+   "kind": "lang",
+   "jp": "家宝.",
+   "en": "Heir",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233546
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08653",
+   "kind": "lang",
+   "jp": "総合.",
+   "en": "Total",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233546
+    }
+   ],
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  },
+  {
+   "id": "s08654",
+   "kind": "lang",
+   "jp": "位.",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "dimmix",
+     "label": "label_2435",
+     "line": 233631
+    }
+   ],
+   "concat": true,
+   "fn": "dimmix",
+   "label": "label_2435",
+   "owner": "label_2435"
+  }
+ ]
+}

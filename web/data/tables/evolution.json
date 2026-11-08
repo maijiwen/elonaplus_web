@@ -1,0 +1,6219 @@
+[
+    {
+        "id": 1,
+        "species": [
+            210
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "猫之公主",
+        "old": "妹猫",
+        "spriteBase": 569,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                50000
+            ],
+            [
+                18,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 2,
+        "species": [
+            210
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "妹猫之神",
+        "old": "妹猫",
+        "spriteBase": 348,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                100000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 3,
+        "species": [
+            267,
+            268,
+            275,
+            276,
+            277
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "独角兽",
+        "old": "劣马",
+        "spriteBase": 452,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                15,
+                20000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 4,
+        "species": [
+            386
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "麒麟",
+        "old": "长颈鹿",
+        "spriteBase": 458,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                35000
+            ],
+            [
+                10,
+                25000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                13,
+                10000
+            ],
+            [
+                15,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 5,
+        "species": [
+            50,
+            165
+        ],
+        "f25": 13,
+        "rankEq": 1,
+        "sex": false,
+        "name": "湿婆之犬",
+        "old": "银牙",
+        "spriteBase": 325,
+        "spritePal": 10,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                50000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 6,
+        "species": [
+            164,
+            246,
+            332
+        ],
+        "f25": 13,
+        "rankEq": 1,
+        "sex": false,
+        "name": "白虎",
+        "old": "猫",
+        "spriteBase": 481,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                5000
+            ],
+            [
+                13,
+                5000
+            ],
+            [
+                15,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            200
+        ],
+        "dweight": [
+            50,
+            150
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 7,
+        "species": [
+            162,
+            234
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "新型武装兵",
+        "old": "耶鲁士机械兵",
+        "spriteBase": 440,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                13,
+                10000
+            ],
+            [
+                15,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 8,
+        "species": [
+            282,
+            296,
+            298,
+            299
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "牛头人之王",
+        "old": "牛头人",
+        "spriteBase": 398,
+        "spritePal": 10,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                30000
+            ],
+            [
+                15,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                32,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 9,
+        "species": [
+            282,
+            296,
+            298,
+            299
+        ],
+        "f25": 13,
+        "rankEq": 1,
+        "sex": false,
+        "name": "アルデバラン",
+        "old": "ミノタウロスの王者",
+        "spriteBase": 656,
+        "spritePal": 5,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                50000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 10,
+        "species": [
+            95,
+            96
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "库库尔坎",
+        "old": "眼镜蛇",
+        "spriteBase": 522,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                15,
+                20000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 11,
+        "species": [
+            354
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "紧那罗",
+        "old": "白金鹅",
+        "spriteBase": 533,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                13,
+                10000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                15,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 12,
+        "species": [
+            260
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 0,
+        "name": "大黒猫",
+        "old": "黒猫",
+        "spriteBase": 521,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                13,
+                10000
+            ],
+            [
+                15,
+                10000
+            ],
+            [
+                16,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            200
+        ],
+        "dweight": [
+            50,
+            150
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 13,
+        "species": [
+            260
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "黑猫娘",
+        "old": "黑猫",
+        "spriteBase": 534,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                13,
+                10000
+            ],
+            [
+                15,
+                10000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 14,
+        "species": [
+            261
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 0,
+        "name": "デスサイズ",
+        "old": "妖精さん",
+        "spriteBase": 523,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                15,
+                10000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 15,
+        "species": [
+            261
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "森林女神",
+        "old": "大妖精",
+        "spriteBase": 541,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                13,
+                10000
+            ],
+            [
+                11,
+                10000
+            ],
+            [
+                15,
+                10000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 16,
+        "species": [
+            262
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 0,
+        "name": "ガンレイザー",
+        "old": "アンドロイド",
+        "spriteBase": 525,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                13,
+                20000
+            ],
+            [
+                12,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            200
+        ],
+        "dweight": [
+            20,
+            300
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 17,
+        "species": [
+            262
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "雕文枪手",
+        "old": "人造人",
+        "spriteBase": 526,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                13,
+                25000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            20,
+            50
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 18,
+        "species": [
+            263
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "黑炽天使",
+        "old": "黑天使",
+        "spriteBase": 538,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                13,
+                10000
+            ],
+            [
+                12,
+                30000
+            ],
+            [
+                15,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 19,
+        "species": [
+            264
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 0,
+        "name": "暗黒魔竜",
+        "old": "追放者",
+        "spriteBase": 527,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                11,
+                20000
+            ],
+            [
+                16,
+                20000
+            ],
+            [
+                188,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                1031,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 20,
+        "species": [
+            264
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "永久追放者",
+        "old": "追放者",
+        "spriteBase": 536,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                16,
+                30000
+            ],
+            [
+                188,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                1031,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 21,
+        "species": [
+            265
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "黄金圣骑士",
+        "old": "黄金骑士",
+        "spriteBase": 537,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                40000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 22,
+        "species": [
+            266
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "绝对防卫者",
+        "old": "防卫者",
+        "spriteBase": 532,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                11,
+                40000
+            ],
+            [
+                16,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 23,
+        "species": [
+            3,
+            4
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "皇家波球",
+        "old": "波球",
+        "spriteBase": 549,
+        "spritePal": 3,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                17,
+                30000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            20,
+            50
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 24,
+        "species": [
+            108,
+            109
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "鬼熊",
+        "old": "棕熊",
+        "spriteBase": 551,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 25,
+        "species": [
+            372
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "波球指挥官",
+        "old": "军用波球",
+        "spriteBase": 299,
+        "spritePal": 3,
+        "skills": [
+            [
+                13,
+                50000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 26,
+        "species": [
+            50,
+            165
+        ],
+        "f25": 11,
+        "rankEq": 1,
+        "sex": false,
+        "name": "狼王",
+        "old": "银牙",
+        "spriteBase": 543,
+        "spritePal": 0,
+        "rank": 10,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                30000
+            ]
+        ],
+        "cbits": [
+            [
+                32,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            20,
+            50
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 27,
+        "species": [
+            50,
+            165
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "银牙",
+        "old": "猎犬",
+        "spriteBase": 260,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 28,
+        "species": [
+            164,
+            246,
+            332
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "猫又",
+        "old": "猫",
+        "spriteBase": 259,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                12,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 29,
+        "species": [
+            228,
+            229
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "蝎尾狮",
+        "old": "宝玉兽",
+        "spriteBase": 369,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                12,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            20,
+            50
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 30,
+        "species": [
+            361
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "夏之姐",
+        "old": "姐",
+        "spriteBase": 519,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                17,
+                40000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 31,
+        "species": [
+            361
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "樱桃姐",
+        "old": "姐",
+        "spriteBase": 553,
+        "spritePal": 0,
+        "rank": 10,
+        "skills": [
+            [
+                18,
+                20000
+            ]
+        ],
+        "cbits": [
+            [
+                32,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 32,
+        "species": [
+            176
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "妹猫？",
+        "old": "妹",
+        "spriteBase": 307,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 33,
+        "species": [
+            176
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "病妹",
+        "old": "妹",
+        "spriteBase": 567,
+        "spritePal": 0,
+        "rank": 10,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                32,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 34,
+        "species": [
+            450
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "火焰龙成体",
+        "old": "火焰龙幼体",
+        "spriteBase": 338,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 35,
+        "species": [
+            450
+        ],
+        "f25": 12,
+        "rankEq": 1,
+        "sex": false,
+        "name": "火焰机龙",
+        "old": "火焰龙幼体",
+        "spriteBase": 456,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            500,
+            500
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 36,
+        "species": [
+            22
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "卡布特丽安",
+        "old": "甲壳虫",
+        "spriteBase": 563,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                70000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 37,
+        "species": [
+            404
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "超级甲壳虫",
+        "old": "圣甲虫",
+        "spriteBase": 0,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                40000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 38,
+        "species": [
+            416
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "黑龙",
+        "old": "丧尸龙",
+        "spriteBase": 342,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                30000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 39,
+        "species": [
+            47,
+            48,
+            49
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "死灵奇美拉",
+        "old": "巫妖",
+        "spriteBase": 339,
+        "spritePal": 4,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                16,
+                40000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 40,
+        "species": [
+            150,
+            151
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "骷髅兽",
+        "old": "骸骨战士",
+        "spriteBase": 448,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            20,
+            50
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 41,
+        "species": [
+            153,
+            154,
+            155,
+            156,
+            157,
+            158
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "<将军>",
+        "old": "<士兵>",
+        "spriteBase": 561,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 42,
+        "species": [
+            14,
+            148
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "黄金龙虫",
+        "old": "蜈蚣",
+        "spriteBase": 562,
+        "spritePal": 5,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 43,
+        "species": [
+            93,
+            94
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "尖牙植物",
+        "old": "食人花",
+        "spriteBase": 565,
+        "spritePal": 7,
+        "skills": [
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                18,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 44,
+        "species": [
+            439,
+            523
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "混乱者",
+        "old": "茶色恶魔",
+        "spriteBase": 547,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                40000
+            ],
+            [
+                12,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            50,
+            50
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 45,
+        "species": [
+            110,
+            111
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "无头骑士",
+        "old": "幽灵盔甲",
+        "spriteBase": 341,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 46,
+        "species": [
+            363
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "狼姐",
+        "old": "犬姐",
+        "spriteBase": 884,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                30000
+            ],
+            [
+                18,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 47,
+        "species": [
+            363
+        ],
+        "f25": 12,
+        "rankEq": 1,
+        "sex": false,
+        "name": "阿努比斯",
+        "old": "犬姐",
+        "spriteBase": 572,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                13,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 48,
+        "species": [
+            108,
+            109
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "纳努克",
+        "old": "棕熊",
+        "spriteBase": 568,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                40000
+            ],
+            [
+                2,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                51,
+                50
+            ]
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 49,
+        "species": [
+            166
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "幼女",
+        "old": "少女",
+        "spriteBase": 573,
+        "spritePal": 0,
+        "skills": [
+            [
+                17,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 50,
+        "species": [
+            211
+        ],
+        "f25": 16,
+        "rankEq": 1,
+        "sex": false,
+        "name": "吸血娘",
+        "old": "纯白大小姐",
+        "spriteBase": 574,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+            [
+                29,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 51,
+        "species": [
+            211
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "纯白大小姐",
+        "old": "大小姐",
+        "spriteBase": 93,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 52,
+        "species": [
+            166
+        ],
+        "f25": 16,
+        "rankEq": 1,
+        "sex": false,
+        "name": "魔女",
+        "old": "少女",
+        "spriteBase": 575,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                16,
+                40000
+            ],
+            [
+                172,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 53,
+        "species": [
+            420
+        ],
+        "f25": 12,
+        "rankEq": 0,
+        "sex": false,
+        "name": "量产型梅洛卡斯特",
+        "old": "耶鲁士自律飞行单位",
+        "spriteBase": 580,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                13,
+                40000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 54,
+        "species": [
+            881
+        ],
+        "f25": 12,
+        "rankEq": 0,
+        "sex": false,
+        "name": "泽兰人型战车",
+        "old": "泽兰自动轻战车",
+        "spriteBase": 349,
+        "spritePal": 9,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                13,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            20,
+            100
+        ],
+        "dweight": [
+            100,
+            150
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 55,
+        "species": [
+            535
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "狮鹫",
+        "old": "狮鹫幼崽",
+        "spriteBase": 571,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            100,
+            500
+        ],
+        "dweight": [
+            100,
+            500
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 56,
+        "species": [
+            465
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "魔歇拉·索尔达多",
+        "old": "同化兵",
+        "spriteBase": 460,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                13,
+                20000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            100,
+            200
+        ],
+        "dweight": [
+            100,
+            200
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 57,
+        "species": [
+            463
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "咖啡布丁精灵",
+        "old": "布丁精灵",
+        "spriteBase": 467,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                60,
+                50
+            ]
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 58,
+        "species": [
+            461,
+            462,
+            487
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "高等精灵",
+        "old": "战争精魂",
+        "spriteBase": 97,
+        "spritePal": 16,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                60,
+                50
+            ]
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 59,
+        "species": [
+            114,
+            115,
+            116
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "美杜莎·解咒",
+        "old": "美杜莎",
+        "spriteBase": 599,
+        "spritePal": 16,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                17,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 60,
+        "species": [
+            281
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "击龙人",
+        "old": "蜥蜴人",
+        "spriteBase": 588,
+        "spritePal": 2,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                13,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 61,
+        "species": [
+            61,
+            62
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "拉塔托斯克",
+        "old": "巨大松鼠",
+        "spriteBase": 204,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 62,
+        "species": [
+            83,
+            84
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "冰冻巨人",
+        "old": "独眼巨人",
+        "spriteBase": 351,
+        "spritePal": 4,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                11,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 63,
+        "species": [
+            118
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "闪耀鸡",
+        "old": "哈比",
+        "spriteBase": 226,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                16,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 64,
+        "species": [
+            319
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "『大姐姐』",
+        "old": "『小妹妹』",
+        "spriteBase": 315,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                60000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 65,
+        "species": [
+            409
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "电气龙",
+        "old": "电气羊",
+        "spriteBase": 233,
+        "spritePal": 5,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                16,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 66,
+        "species": [
+            10
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "巴风特",
+        "old": "羊",
+        "spriteBase": 592,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            20,
+            50
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 67,
+        "species": [
+            117
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "丘比特领主",
+        "old": "丘比特",
+        "spriteBase": 863,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                13,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 68,
+        "species": [
+            802
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "迷失天使",
+        "old": "见习天使",
+        "spriteBase": 862,
+        "spritePal": 6,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                16,
+                30000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 69,
+        "species": [
+            166
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "女武神",
+        "old": "少女",
+        "spriteBase": 609,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                2,
+                10000
+            ],
+            [
+                10,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 70,
+        "species": [
+            245
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "爆弹黑水晶",
+        "old": "爆弹岩",
+        "spriteBase": 524,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                11,
+                40000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 71,
+        "species": [
+            236,
+            237,
+            238,
+            240,
+            241
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "小鬼皇",
+        "old": "小鬼",
+        "spriteBase": 381,
+        "spritePal": 5,
+        "skills": [
+            [
+                2,
+                30000
+            ],
+            [
+                10,
+                30000
+            ],
+            [
+                13,
+                30000
+            ],
+            [
+                16,
+                30000
+            ],
+            [
+                11,
+                30000
+            ],
+            [
+                18,
+                30000
+            ],
+            [
+                12,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 72,
+        "species": [
+            167
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "电气鼠",
+        "old": "老鼠",
+        "spriteBase": 1150,
+        "spritePal": 25,
+        "p435": 1,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                16,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 73,
+        "species": [
+            169,
+            194
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "スライムノイド",
+        "old": "弱酸性スライム",
+        "spriteBase": 611,
+        "spritePal": 2,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                15,
+                30000
+            ],
+            [
+                14,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 74,
+        "species": [
+            169,
+            194
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 0,
+        "name": "生化史莱姆",
+        "old": "史莱姆",
+        "spriteBase": 613,
+        "spritePal": 2,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                12,
+                30000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 75,
+        "species": [
+            330
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "异形女王",
+        "old": "异形",
+        "spriteBase": 643,
+        "spritePal": 17,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                30000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 76,
+        "species": [
+            150,
+            151
+        ],
+        "f25": 16,
+        "rankEq": 1,
+        "sex": false,
+        "name": "逝眼白骨龙",
+        "old": "骷髅兽",
+        "spriteBase": 449,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                40000
+            ],
+            [
+                12,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 77,
+        "species": [
+            195
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "究级小鸡",
+        "old": "鸡",
+        "spriteBase": 614,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                15,
+                10000
+            ],
+            [
+                17,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            5,
+            5
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 78,
+        "species": [
+            162,
+            234
+        ],
+        "f25": 12,
+        "rankEq": 1,
+        "sex": false,
+        "name": "装甲机兵",
+        "old": "耶鲁士机械兵",
+        "spriteBase": 566,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                13,
+                30000
+            ],
+            [
+                11,
+                10000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                14,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 79,
+        "species": [
+            13
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "狗头人",
+        "old": "卡通狗头人",
+        "spriteBase": 350,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                15000
+            ],
+            [
+                11,
+                20000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 80,
+        "species": [
+            186,
+            187
+        ],
+        "f25": 12,
+        "rankEq": 0,
+        "sex": false,
+        "name": "危险之刃",
+        "old": "刀锋机兵",
+        "spriteBase": 618,
+        "spritePal": 3,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 81,
+        "species": [
+            65,
+            66,
+            191
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "暗魂",
+        "old": "放电云",
+        "spriteBase": 272,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                18,
+                30000
+            ],
+            [
+                16,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                53,
+                50
+            ]
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 82,
+        "species": [
+            538
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "火狐弟",
+        "old": "狐弟",
+        "spriteBase": 621,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                50,
+                50
+            ]
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 83,
+        "species": [
+            538
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "九尾狐弟",
+        "old": "狐弟",
+        "spriteBase": 617,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                16,
+                25000
+            ],
+            [
+                2,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 84,
+        "species": [
+            168
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "ヤドナシ",
+        "old": "やどかり",
+        "spriteBase": 638,
+        "spritePal": 3,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 85,
+        "species": [
+            372
+        ],
+        "f25": 12,
+        "rankEq": 1,
+        "sex": false,
+        "name": "机甲军用波球",
+        "old": "军用波球",
+        "spriteBase": 726,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                20000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 86,
+        "species": [
+            213
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "天真无邪的战士",
+        "old": "天真无邪的少女『格温』",
+        "spriteBase": 513,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                10000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 87,
+        "species": [
+            18
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "愚弄敌人的艾莱亚战士",
+        "old": "艾莱亚族战士",
+        "spriteBase": 729,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 88,
+        "species": [
+            24
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "艾莱亚的魔法学者",
+        "old": "艾莱亚族魔法师",
+        "spriteBase": 728,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                16,
+                40000
+            ]
+        ],
+        "cbits": [
+            [
+                1031,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 89,
+        "species": [
+            167
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "火鼠",
+        "old": "老鼠",
+        "spriteBase": 733,
+        "spritePal": 0,
+        "p435": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                50,
+                50
+            ]
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 90,
+        "species": [
+            63,
+            64
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "万圣节·夜首",
+        "old": "怨魂",
+        "spriteBase": 732,
+        "spritePal": 2,
+        "skills": [
+            [
+                2,
+                10000
+            ],
+            [
+                11,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 91,
+        "species": [
+            81,
+            82,
+            507
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "Q-Bee",
+        "old": "胡蜂",
+        "spriteBase": 736,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                15000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                60,
+                50
+            ]
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 92,
+        "species": [
+            15,
+            283,
+            284
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "蘑菇人",
+        "old": "蘑菇",
+        "spriteBase": 737,
+        "spritePal": 0,
+        "skills": [
+            [
+                10,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                12,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 93,
+        "species": [
+            95,
+            96
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "拉米亚",
+        "old": "眼镜蛇",
+        "spriteBase": 738,
+        "spritePal": 0,
+        "skills": [
+            [
+                10,
+                10000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                12,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 94,
+        "species": [
+            68,
+            505
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "扩散·双足飞龙",
+        "old": "双足飞龙",
+        "spriteBase": 640,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 95,
+        "species": [
+            147
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "决斗蟹",
+        "old": "火蟹",
+        "spriteBase": 237,
+        "spritePal": 4,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                12,
+                50000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 96,
+        "species": [
+            233,
+            235
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "朱伊安魔铠战士",
+        "old": "朱伊安步兵",
+        "spriteBase": 740,
+        "spritePal": 4,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                11,
+                20000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 97,
+        "species": [
+            346
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "本田萃智特装型",
+        "old": "本田小狼",
+        "spriteBase": 741,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            20,
+            50
+        ],
+        "dweight": [
+            50,
+            150
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 98,
+        "species": [
+            642
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "晓星仓鼠",
+        "old": "仓鼠",
+        "spriteBase": 0,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                103,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 99,
+        "species": [
+            450
+        ],
+        "f25": 16,
+        "rankEq": 2,
+        "sex": false,
+        "name": "华焰辉龙",
+        "old": "火焰龙幼体",
+        "spriteBase": 579,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            50
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 100,
+        "species": [
+            118
+        ],
+        "f25": 16,
+        "rankEq": 1,
+        "sex": false,
+        "name": "凤凰",
+        "old": "闪耀鸡",
+        "spriteBase": 648,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                20000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 101,
+        "species": [
+            108,
+            109
+        ],
+        "f25": 14,
+        "rankMin": 1,
+        "rankMax": 3,
+        "sex": false,
+        "name": "蛮力暴熊",
+        "old": "纳努克",
+        "spriteBase": 0,
+        "spritePal": 0,
+        "rank": 3,
+        "skills": [
+            [
+                18,
+                5000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                60,
+                50
+            ]
+        ],
+        "variants": [
+            {
+                "rank": 1,
+                "old": "鬼熊",
+                "spriteBase": 778,
+                "spritePal": 22,
+                "skills": [
+                    [
+                        152,
+                        10000
+                    ]
+                ]
+            },
+            {
+                "rank": 2,
+                "old": "ナヌーク",
+                "spriteBase": 778,
+                "spritePal": 0,
+                "skills": [
+                ]
+            }
+        ]
+    },
+    {
+        "id": 102,
+        "species": [
+            132,
+            133,
+            134,
+            682,
+            683
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "城堡魔像",
+        "old": "木魔像",
+        "spriteBase": 651,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                5000
+            ],
+            [
+                11,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            500,
+            1000
+        ],
+        "dweight": [
+            5000,
+            15000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 103,
+        "species": [
+            132,
+            133,
+            134,
+            682,
+            683
+        ],
+        "f25": 15,
+        "rankEq": 1,
+        "sex": false,
+        "name": "究极城堡魔像",
+        "old": "木魔像",
+        "spriteBase": 651,
+        "spritePal": 4,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            100,
+            500
+        ],
+        "dweight": [
+            2000,
+            10000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 104,
+        "species": [
+            127,
+            128,
+            129,
+            130,
+            131
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "灼铜大蜘蛛",
+        "old": "斑纹蜘蛛",
+        "spriteBase": 787,
+        "spritePal": 10,
+        "skills": [
+            [
+                18,
+                35000
+            ],
+            [
+                18,
+                25000
+            ],
+            [
+                18,
+                15000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            200
+        ],
+        "dweight": [
+            30,
+            100
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 105,
+        "species": [
+            248
+        ],
+        "f25": 12,
+        "rankEq": 0,
+        "sex": false,
+        "name": "赤之守护兽",
+        "old": "暴龙",
+        "spriteBase": 652,
+        "spritePal": 3,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                2,
+                30000
+            ],
+            [
+                11,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                50,
+                50
+            ]
+        ],
+        "dheight": [
+            100,
+            500
+        ],
+        "dweight": [
+            2000,
+            10000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 106,
+        "species": [
+            248
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "暗黑恐龙",
+        "old": "暴龙",
+        "spriteBase": 389,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                40000
+            ],
+            [
+                2,
+                10000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                53,
+                50
+            ]
+        ],
+        "dheight": [
+            100,
+            500
+        ],
+        "dweight": [
+            2000,
+            10000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 107,
+        "species": [
+            127,
+            128,
+            129,
+            130,
+            131
+        ],
+        "f25": 16,
+        "rankEq": 1,
+        "sex": false,
+        "name": "灼铜多脚战车",
+        "old": "斑纹蜘蛛",
+        "spriteBase": 790,
+        "spritePal": 10,
+        "skills": [
+            [
+                17,
+                20000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                2,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 108,
+        "species": [
+            255,
+            256
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "精铜大蝎",
+        "old": "蝎子",
+        "spriteBase": 629,
+        "spritePal": 19,
+        "skills": [
+            [
+                18,
+                35000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            200
+        ],
+        "dweight": [
+            30,
+            100
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 109,
+        "species": [
+            255,
+            256
+        ],
+        "f25": 16,
+        "rankEq": 1,
+        "sex": false,
+        "name": "精铜多脚战车",
+        "old": "精铜大蝎",
+        "spriteBase": 790,
+        "spritePal": 9,
+        "skills": [
+            [
+                17,
+                10000
+            ],
+            [
+                10,
+                30000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 110,
+        "species": [
+            741
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "王企鹅",
+        "old": "流浪企鹅",
+        "spriteBase": 833,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                15,
+                20000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 111,
+        "species": [
+            748
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "僵尸行动",
+        "old": "僵尸少女",
+        "spriteBase": 835,
+        "spritePal": 13,
+        "skills": [
+            [
+                18,
+                15000
+            ],
+            [
+                2,
+                15000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 112,
+        "species": [
+            748
+        ],
+        "f25": 12,
+        "rankEq": 0,
+        "sex": false,
+        "name": "罗曼艺术",
+        "old": "僵尸少女",
+        "spriteBase": 835,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                12,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 113,
+        "species": [
+            748
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "塔那托斯",
+        "old": "僵尸少女",
+        "spriteBase": 835,
+        "spritePal": 10,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                25000
+            ]
+        ],
+        "cbits": [
+            [
+                1031,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 114,
+        "species": [
+            6
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "蛞蝓",
+        "old": "蜗牛",
+        "spriteBase": 837,
+        "spritePal": 6,
+        "skills": [
+            [
+                18,
+                5000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 115,
+        "species": [
+            6
+        ],
+        "f25": 12,
+        "rankEq": 1,
+        "sex": false,
+        "name": "合金蛞蝓",
+        "old": "蛞蝓",
+        "spriteBase": 838,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                5000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                13,
+                20000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+            [
+                28,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            100
+        ],
+        "dweight": [
+            20,
+            80
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 116,
+        "species": [
+            65,
+            66
+        ],
+        "f25": 14,
+        "rankEq": 1,
+        "sex": false,
+        "name": "混沌の雷雲龍",
+        "old": "ダークソウル",
+        "spriteBase": 654,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                25000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                59,
+                50
+            ],
+            [
+                52,
+                50
+            ]
+        ],
+        "dheight": [
+            50,
+            300
+        ],
+        "dweight": [
+            10,
+            5
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 117,
+        "species": [
+            191
+        ],
+        "f25": 16,
+        "rankEq": 1,
+        "sex": false,
+        "name": "冥王幽魂",
+        "old": "鬼火",
+        "spriteBase": 843,
+        "spritePal": 4,
+        "skills": [
+            [
+                18,
+                15000
+            ],
+            [
+                16,
+                30000
+            ]
+        ],
+        "cbits": [
+            [
+                1031,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            50
+        ],
+        "dweight": [
+            20,
+            20
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 118,
+        "species": [
+            581
+        ],
+        "f25": 12,
+        "rankEq": 0,
+        "sex": false,
+        "name": "十字毛利像",
+        "old": "摩艾石像",
+        "spriteBase": 841,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                15000
+            ],
+            [
+                11,
+                15000
+            ],
+            [
+                13,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            100,
+            500
+        ],
+        "dweight": [
+            200,
+            2000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 119,
+        "species": [
+            21,
+            47,
+            99,
+            100,
+            101,
+            254,
+            307
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "死灵奇美拉",
+        "old": "僵尸",
+        "spriteBase": 840,
+        "spritePal": 0,
+        "skills": [
+            [
+                10,
+                25000
+            ],
+            [
+                16,
+                20000
+            ],
+            [
+                16,
+                20000
+            ],
+            [
+                15,
+                25000
+            ],
+            [
+                15,
+                20000
+            ],
+            [
+                15,
+                15000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 120,
+        "species": [
+            766
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "疾风的银骑",
+        "old": "半人马",
+        "spriteBase": 846,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 121,
+        "species": [
+            772
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "暴牛神",
+        "old": "牛",
+        "spriteBase": 848,
+        "spritePal": 7,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                15,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 122,
+        "species": [
+            631
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "イノブタ",
+        "old": "うりぼう",
+        "spriteBase": 847,
+        "spritePal": 24,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 123,
+        "species": [
+            631
+        ],
+        "f25": 14,
+        "rankEq": 1,
+        "sex": false,
+        "name": "Big Pig",
+        "old": "野猪崽",
+        "spriteBase": 847,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                11,
+                15000
+            ],
+            [
+                12,
+                15000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 124,
+        "species": [
+            5
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "真·红眼白兔",
+        "old": "野兔",
+        "spriteBase": 852,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 125,
+        "species": [
+            5
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "兔子希尔",
+        "old": "野兔",
+        "spriteBase": 791,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                17,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 126,
+        "species": [
+            91
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "亡灵姬",
+        "old": "亡灵",
+        "spriteBase": 825,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                17,
+                20000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 127,
+        "species": [
+            92
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "罗蕾莱",
+        "old": "宁芙",
+        "spriteBase": 825,
+        "spritePal": 5,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                17,
+                10000
+            ],
+            [
+                16,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 128,
+        "species": [
+            11,
+            797
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "青蛙洛拉",
+        "old": "飞蛙",
+        "spriteBase": 859,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                35000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                13,
+                20000
+            ],
+            [
+                17,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 129,
+        "species": [
+            585
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "巨大钝口螈",
+        "old": "梅尔卡钝口螈",
+        "spriteBase": 860,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                2,
+                30000
+            ],
+            [
+                10,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            300
+        ],
+        "dweight": [
+            20,
+            200
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 130,
+        "species": [
+            250
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "妖精玛格娜",
+        "old": "妖精",
+        "spriteBase": 867,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                2,
+                30000
+            ],
+            [
+                16,
+                30000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 131,
+        "species": [
+            281,
+            811
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "蜥蜴人之王",
+        "old": "蜥蜴人",
+        "spriteBase": 869,
+        "spritePal": 25,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 132,
+        "species": [
+            119
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "フレアチック",
+        "old": "ハーピー",
+        "spriteBase": 872,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                10000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 133,
+        "species": [
+            119
+        ],
+        "f25": 16,
+        "rankEq": 1,
+        "sex": false,
+        "name": "フェニキシアン",
+        "old": "フレアチック",
+        "spriteBase": 871,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                2,
+                25000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+            [
+                50,
+                50
+            ]
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 134,
+        "species": [
+            196,
+            197,
+            198,
+            201
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "鬼王",
+        "old": "南瓜",
+        "spriteBase": 896,
+        "spritePal": 3,
+        "skills": [
+            [
+                18,
+                35000
+            ],
+            [
+                18,
+                30000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                30000
+            ],
+            [
+                11,
+                20000
+            ],
+            [
+                12,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            20,
+            100
+        ],
+        "dweight": [
+            50,
+            150
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 135,
+        "species": [
+            19
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "剑士曼德拉",
+        "old": "曼德拉草",
+        "spriteBase": 894,
+        "spritePal": 8,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                3,
+                20000
+            ],
+            [
+                10,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 136,
+        "species": [
+            85,
+            86,
+            87
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "大恶魔",
+        "old": "小恶魔",
+        "spriteBase": 212,
+        "spritePal": 5,
+        "skills": [
+            [
+                18,
+                35000
+            ],
+            [
+                18,
+                25000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                10000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 137,
+        "species": [
+            843
+        ],
+        "f25": 12,
+        "rankEq": 0,
+        "sex": false,
+        "name": "太空枪翻车鱼",
+        "old": "枪翻车鱼",
+        "spriteBase": 902,
+        "spritePal": 9,
+        "skills": [
+            [
+                18,
+                30000
+            ],
+            [
+                13,
+                30000
+            ],
+            [
+                12,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 138,
+        "species": [
+            168
+        ],
+        "f25": 14,
+        "rankEq": 1,
+        "sex": false,
+        "name": "大地领主蟹",
+        "old": "寄居蟹",
+        "spriteBase": 256,
+        "spritePal": 25,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                11,
+                20000
+            ]
+        ],
+        "cbits": [
+            [
+                33,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 139,
+        "species": [
+            880
+        ],
+        "f25": 12,
+        "rankEq": 0,
+        "sex": false,
+        "name": "暴风机器",
+        "old": "大型摩托车",
+        "spriteBase": 890,
+        "spritePal": 2,
+        "skills": [
+            [
+                18,
+                75000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 140,
+        "species": [
+            45
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "红叶龙树",
+        "old": "火焰树",
+        "spriteBase": 928,
+        "spritePal": 3,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                11,
+                10000
+            ],
+            [
+                15,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 141,
+        "species": [
+            46
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "雪叶龙树",
+        "old": "冰结树",
+        "spriteBase": 928,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                13,
+                10000
+            ]
+        ],
+        "cbits": [
+            [
+                5,
+                1
+            ]
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 142,
+        "species": [
+            894
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "混沌萌芽",
+        "old": "混沌之种",
+        "spriteBase": 518,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                11,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            20,
+            100
+        ],
+        "dweight": [
+            10,
+            30
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 143,
+        "species": [
+            894
+        ],
+        "f25": 13,
+        "rankEq": 1,
+        "sex": false,
+        "name": "混沌植株",
+        "old": "混沌之种",
+        "spriteBase": 930,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                12,
+                15000
+            ],
+            [
+                11,
+                15000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            200,
+            1000
+        ],
+        "dweight": [
+            1000,
+            5000
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 144,
+        "species": [
+            903
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "天虫",
+        "old": "毛虫狙击手",
+        "spriteBase": 1004,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                20000
+            ],
+            [
+                18,
+                30000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                12,
+                15000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 145,
+        "species": [
+            285,
+            286
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "泡泡龙",
+        "old": "蓝色泡沫怪",
+        "spriteBase": 336,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                20000
+            ],
+            [
+                172,
+                10000
+            ],
+            [
+                188,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 146,
+        "species": [
+            78
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "魔斗人偶",
+        "old": "人偶",
+        "spriteBase": 937,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                10000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                11,
+                15000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 147,
+        "species": [
+            214,
+            215
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "义贼",
+        "old": "见习盗贼",
+        "spriteBase": 335,
+        "spritePal": 3,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                18,
+                15000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                15,
+                10000
+            ],
+            [
+                300,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 148,
+        "species": [
+            182
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "白衣的红十字",
+        "old": "白衣天使",
+        "spriteBase": 156,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                10000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                15,
+                15000
+            ],
+            [
+                16,
+                15000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 149,
+        "species": [
+            7
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "不屈的斗将",
+        "old": "残兵",
+        "spriteBase": 970,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                25000
+            ],
+            [
+                18,
+                15000
+            ],
+            [
+                15,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 150,
+        "species": [
+            110,
+            111
+        ],
+        "f25": 11,
+        "rankEq": 1,
+        "sex": false,
+        "name": "盔甲领主",
+        "old": "无头骑士",
+        "spriteBase": 942,
+        "spritePal": 17,
+        "skills": [
+            [
+                2,
+                50000
+            ],
+            [
+                18,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 151,
+        "species": [
+            962
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "少年童子军",
+        "old": "少年",
+        "spriteBase": 1096,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                10000
+            ],
+            [
+                11,
+                10000
+            ],
+            [
+                184,
+                10000
+            ],
+            [
+                176,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 152,
+        "species": [
+            962
+        ],
+        "f25": 14,
+        "rankEq": 1,
+        "sex": false,
+        "name": "斗拳男子",
+        "old": "少年童子军",
+        "spriteBase": 1097,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                15000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                12,
+                15000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 153,
+        "species": [
+            964
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": false,
+        "name": "管家羊",
+        "old": "管家",
+        "spriteBase": 1098,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                10000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                16,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 154,
+        "species": [
+            972
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "陶瓷人偶们",
+        "old": "陶瓷人偶",
+        "spriteBase": 1099,
+        "spritePal": 0,
+        "skills": [
+            [
+                16,
+                20000
+            ],
+            [
+                18,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 155,
+        "species": [
+            13
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "狗头人王",
+        "old": "狗头人",
+        "spriteBase": 951,
+        "spritePal": 0,
+        "skills": [
+            [
+                2,
+                10000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                18,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 156,
+        "species": [
+            17,
+            20
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "王躯",
+        "old": "兽人",
+        "spriteBase": 953,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                15000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                2,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            20,
+            50
+        ],
+        "dweight": [
+            10,
+            40
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 157,
+        "species": [
+            983
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "烧猪肉人",
+        "old": "猪肉人",
+        "spriteBase": 847,
+        "spritePal": 0,
+        "skills": [
+            [
+                10,
+                20000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                301,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 158,
+        "species": [
+            1008
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "九头龙公主",
+        "old": "克苏鲁幼崽",
+        "spriteBase": 1105,
+        "spritePal": 0,
+        "skills": [
+            [
+                14,
+                20000
+            ],
+            [
+                16,
+                25000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                190,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 159,
+        "species": [
+            309
+        ],
+        "f25": 11,
+        "rankEq": 0,
+        "sex": false,
+        "name": "阿修罗王",
+        "old": "阿修罗",
+        "spriteBase": 954,
+        "spritePal": 0,
+        "skills": [
+            [
+                10,
+                30000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 160,
+        "species": [
+            310
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "密特拉",
+        "old": "密多罗",
+        "spriteBase": 954,
+        "spritePal": 2,
+        "skills": [
+            [
+                10,
+                20000
+            ],
+            [
+                13,
+                20000
+            ],
+            [
+                18,
+                15000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 161,
+        "species": [
+            311
+        ],
+        "f25": 15,
+        "rankEq": 0,
+        "sex": false,
+        "name": "水天伐楼拿",
+        "old": "伐楼拿",
+        "spriteBase": 954,
+        "spritePal": 3,
+        "skills": [
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                10000
+            ],
+            [
+                18,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 162,
+        "species": [
+            189,
+            190
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": false,
+        "name": "多目",
+        "old": "异形之眼",
+        "spriteBase": 1040,
+        "spritePal": 3,
+        "p435": 1,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                13,
+                20000
+            ],
+            [
+                2,
+                30000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "dheight": [
+            50,
+            300
+        ],
+        "dweight": [
+            300,
+            900
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 163,
+        "species": [
+            67,
+            314,
+            315,
+            316
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "邪视女子",
+        "old": "漂浮之眼",
+        "spriteBase": 1106,
+        "spritePal": 3,
+        "p435": 1,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                15000
+            ],
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                12,
+                15000
+            ],
+            [
+                2,
+                20000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 164,
+        "species": [
+            909
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "神兽爪兵",
+        "old": "兽爪兵",
+        "spriteBase": 1041,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                20000
+            ],
+            [
+                12,
+                20000
+            ],
+            [
+                15,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 165,
+        "species": [
+            910
+        ],
+        "f25": 13,
+        "rankEq": 0,
+        "sex": false,
+        "name": "希埤露托托利",
+        "old": "白鳄",
+        "spriteBase": 1107,
+        "spritePal": 0,
+        "skills": [
+            [
+                18,
+                50000
+            ],
+            [
+                10,
+                30000
+            ],
+            [
+                11,
+                10000
+            ],
+            [
+                2,
+                10000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 166,
+        "species": [
+            88,
+            89,
+            90
+        ],
+        "f25": 14,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 0,
+        "name": "决胜一手",
+        "old": "亡者之手",
+        "spriteBase": 1042,
+        "spritePal": 16,
+        "p435": 1,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                15000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                15000
+            ],
+            [
+                13,
+                15000
+            ],
+            [
+                11,
+                15000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    },
+    {
+        "id": 167,
+        "species": [
+            88,
+            89,
+            90
+        ],
+        "f25": 16,
+        "rankEq": 0,
+        "sex": true,
+        "sexCode": 1,
+        "name": "公主大手口",
+        "old": "亡者之手",
+        "spriteBase": 1110,
+        "spritePal": 16,
+        "p435": 1,
+        "skills": [
+            [
+                18,
+                20000
+            ],
+            [
+                18,
+                15000
+            ],
+            [
+                18,
+                10000
+            ],
+            [
+                10,
+                10000
+            ],
+            [
+                17,
+                25000
+            ],
+            [
+                11,
+                25000
+            ]
+        ],
+        "cbits": [
+        ],
+        "resist": [
+        ],
+        "variants": [
+        ]
+    }
+]

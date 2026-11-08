@@ -1,0 +1,1912 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2645",
+ "entries": [
+  {
+   "id": "s11874",
+   "kind": "lang",
+   "jp": "がらくた錬成",
+   "en": "create junk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280050
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11875",
+   "kind": "lang",
+   "jp": "不等価交換",
+   "en": "inequivalent exchange",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280056
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11876",
+   "kind": "lang",
+   "jp": "蒸留",
+   "en": "distillation",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280062
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11877",
+   "kind": "lang",
+   "jp": "瞬間発酵",
+   "en": "instant ale",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280068
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11878",
+   "kind": "lang",
+   "jp": "抗体結晶",
+   "en": "cure crystal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280074
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11879",
+   "kind": "lang",
+   "jp": "有害ポーション",
+   "en": "harmful potion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280080
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11880",
+   "kind": "lang",
+   "jp": "消毒薬",
+   "en": "antidote",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280086
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11881",
+   "kind": "lang",
+   "jp": "魔物よけ",
+   "en": "encount canceller",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280092
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11882",
+   "kind": "lang",
+   "jp": "精油抽出",
+   "en": "extract essential oil",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280098
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11883",
+   "kind": "lang",
+   "jp": "古の薬",
+   "en": "ancient medicine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280104
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11884",
+   "kind": "lang",
+   "jp": "新式の薬",
+   "en": "new medicine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280110
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11885",
+   "kind": "lang",
+   "jp": "苦しみの薬",
+   "en": "agony medicine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280116
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11886",
+   "kind": "lang",
+   "jp": "呪いの薬",
+   "en": "calamity medicine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280122
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11887",
+   "kind": "lang",
+   "jp": "手作りボール",
+   "en": "ball making",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280128
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11888",
+   "kind": "lang",
+   "jp": "誰かの日記",
+   "en": "mysterious diary",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280134
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11889",
+   "kind": "lang",
+   "jp": "生体復元",
+   "en": "fossil restoration",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280140
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11890",
+   "kind": "lang",
+   "jp": "錆取り",
+   "en": "rust removal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280146
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11891",
+   "kind": "lang",
+   "jp": "硫酸",
+   "en": "sulfuric",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280152
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11892",
+   "kind": "lang",
+   "jp": "自家製火炎瓶",
+   "en": "homemade molotov",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280158
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11893",
+   "kind": "lang",
+   "jp": "撒き餌",
+   "en": "ground bait",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280164
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11894",
+   "kind": "lang",
+   "jp": "にぎりプチ",
+   "en": "putitoro",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280170
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11895",
+   "kind": "lang",
+   "jp": "パンつくり",
+   "en": "puff puff bread",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280177
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11896",
+   "kind": "lang",
+   "jp": "マンドラサラダ",
+   "en": "mandrake salad",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280183
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11897",
+   "kind": "lang",
+   "jp": "特製の肉まん",
+   "en": "meat bun",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280190
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11898",
+   "kind": "lang",
+   "jp": "性転換の儀",
+   "en": "sex change",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280197
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11899",
+   "kind": "lang",
+   "jp": "謎の種",
+   "en": "unknown seed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280203
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11900",
+   "kind": "lang",
+   "jp": "ハーブ調合",
+   "en": "herb infusion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280209
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11901",
+   "kind": "lang",
+   "jp": "進化の側枝",
+   "en": "another evolution",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280215
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11902",
+   "kind": "lang",
+   "jp": "友情の証",
+   "en": "friendship token",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280221
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11903",
+   "kind": "lang",
+   "jp": "ネクロマンシー",
+   "en": "necromancy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280227
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11904",
+   "kind": "lang",
+   "jp": "ネクロチューニング",
+   "en": "necro remodel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280233
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11905",
+   "kind": "lang",
+   "jp": "魔統合",
+   "en": "dark fusion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280239
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11906",
+   "kind": "lang",
+   "jp": "ルビナス細工",
+   "en": "brilliant rubynus",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280245
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11907",
+   "kind": "lang",
+   "jp": "エメラルド細工",
+   "en": "emerald tablet",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280251
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11908",
+   "kind": "lang",
+   "jp": "ダイヤモンド細工",
+   "en": "brilliant diamond",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280257
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11909",
+   "kind": "lang",
+   "jp": "木の加工",
+   "en": "wood craft",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280263
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11910",
+   "kind": "lang",
+   "jp": "石の加工",
+   "en": "stone craft",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280269
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11911",
+   "kind": "lang",
+   "jp": "焼き物",
+   "en": "clay craft",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280275
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11912",
+   "kind": "lang",
+   "jp": "クラフトマイン",
+   "en": "craft mine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280281
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11913",
+   "kind": "lang",
+   "jp": "たる爆弾",
+   "en": "barrel bomb",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280287
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11914",
+   "kind": "lang",
+   "jp": "ウンチ爆弾",
+   "en": "poop bomb",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280293
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11915",
+   "kind": "lang",
+   "jp": "魔力爆弾",
+   "en": "crystal bomb",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280299
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11916",
+   "kind": "lang",
+   "jp": "すごい魔力爆弾",
+   "en": "big crystal bomb",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280305
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11917",
+   "kind": "lang",
+   "jp": "魔剣転生",
+   "en": "makenn tensei",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280311
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11918",
+   "kind": "lang",
+   "jp": "真・魔剣転生",
+   "en": "shin makenn tensei",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280317
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11919",
+   "kind": "lang",
+   "jp": "空の大型バスケット",
+   "en": "large empty basket",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280323
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11920",
+   "kind": "lang",
+   "jp": "ピクニックバスケット",
+   "en": "large picnic basket",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280329
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11921",
+   "kind": "lang",
+   "jp": "ファーストエイド",
+   "en": "first aid kit",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280335
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11922",
+   "kind": "lang",
+   "jp": "特殊矢弾箱",
+   "en": "special ammos box",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280341
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11923",
+   "kind": "lang",
+   "jp": "戦術核",
+   "en": "tactical nuke",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280347
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11924",
+   "kind": "lang",
+   "jp": "煙草加工",
+   "en": "tobacco processing",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280353
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11925",
+   "kind": "lang",
+   "jp": "にぎりめし",
+   "en": "onigiri",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280359
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11926",
+   "kind": "lang",
+   "jp": "こだわりコーヒー",
+   "en": "coffee",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280365
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11927",
+   "kind": "lang",
+   "jp": "喫茶",
+   "en": "tea",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280371
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11928",
+   "kind": "lang",
+   "jp": "麦加工",
+   "en": "barley and wheat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280377
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11929",
+   "kind": "lang",
+   "jp": "乳製品",
+   "en": "dairy products",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280383
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11930",
+   "kind": "lang",
+   "jp": "発酵凝固",
+   "en": "fermentation coagulation",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280389
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11931",
+   "kind": "lang",
+   "jp": "配合飼料",
+   "en": "mix feed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280395
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11932",
+   "kind": "lang",
+   "jp": "ジャンクフード",
+   "en": "junk food",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280401
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11933",
+   "kind": "lang",
+   "jp": "ハンバーガー",
+   "en": "hamburger",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280407
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11934",
+   "kind": "lang",
+   "jp": "鏡開き",
+   "en": "kagami biraki",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280413
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11935",
+   "kind": "lang",
+   "jp": "肉詰め蘇生",
+   "en": "Meat-filling resuscitation",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280419
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11936",
+   "kind": "lang",
+   "jp": "素敵な花束",
+   "en": "lovely bouquet",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280425
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11937",
+   "kind": "lang",
+   "jp": "ログハウス",
+   "en": "log house",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280431
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11938",
+   "kind": "lang",
+   "jp": "柔武具改修",
+   "en": "Soft equip update",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280437
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11939",
+   "kind": "lang",
+   "jp": "剛武具改修",
+   "en": "Hard equip update",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280443
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11940",
+   "kind": "lang",
+   "jp": "鋭武具改修",
+   "en": "Sharp equip update",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280449
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11941",
+   "kind": "lang",
+   "jp": "柔武具の作成",
+   "en": "Soft equip making",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280455
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11942",
+   "kind": "lang",
+   "jp": "剛武具の作成",
+   "en": "Hard equip making",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280461
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11943",
+   "kind": "lang",
+   "jp": "鋭武具の作成",
+   "en": "Sharp equip making",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280467
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11944",
+   "kind": "lang",
+   "jp": "強化星維",
+   "en": "Starfiber",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280473
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11945",
+   "kind": "lang",
+   "jp": "外見模倣",
+   "en": "Appearance imitation",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280479
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11946",
+   "kind": "lang",
+   "jp": "家具の強化合成",
+   "en": "Furniture synthesis",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280485
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11947",
+   "kind": "lang",
+   "jp": "日記帳",
+   "en": "any diary",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280525
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11948",
+   "kind": "lang",
+   "jp": "適当な野菜",
+   "en": "any vege",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280526
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11949",
+   "kind": "lang",
+   "jp": "適当な種",
+   "en": "any seed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280527
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11950",
+   "kind": "lang",
+   "jp": "希少ハーブ",
+   "en": "rare herb",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280528
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11951",
+   "kind": "lang",
+   "jp": "適当な調味料",
+   "en": "suitable flavoring",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280529
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11952",
+   "kind": "lang",
+   "jp": "適当な鉱石",
+   "en": "any ore",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280530
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11953",
+   "kind": "lang",
+   "jp": "木材を含む何か",
+   "en": "something made of wood",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280531
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11954",
+   "kind": "lang",
+   "jp": "魚介類",
+   "en": "fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280532
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11955",
+   "kind": "lang",
+   "jp": "進化アイテム",
+   "en": "EVitem",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280533
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11956",
+   "kind": "lang",
+   "jp": "状態異常薬",
+   "en": "nega potion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280534
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11957",
+   "kind": "lang",
+   "jp": "デバフ薬",
+   "en": "debuff potion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280535
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11958",
+   "kind": "lang",
+   "jp": "適当な果物",
+   "en": "any fruit",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280536
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11959",
+   "kind": "lang",
+   "jp": "パン類",
+   "en": "any bread",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280537
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11960",
+   "kind": "lang",
+   "jp": "適当なアルコール",
+   "en": "any alcohol",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280538
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11961",
+   "kind": "lang",
+   "jp": "適当な浄化アイテム",
+   "en": "any holy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280539
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11962",
+   "kind": "lang",
+   "jp": "魔力爆弾",
+   "en": "any crystal bomb",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280540
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11963",
+   "kind": "lang",
+   "jp": "暴魔剣",
+   "en": "any makenn",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280541
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11964",
+   "kind": "lang",
+   "jp": "スターダストなど",
+   "en": "stardust etc.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280542
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11965",
+   "kind": "lang",
+   "jp": "適当な花",
+   "en": "any flower",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280543
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11966",
+   "kind": "lang",
+   "jp": "適当な頭の骨",
+   "en": "any head bone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280544
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11967",
+   "kind": "lang",
+   "jp": "適当な剛武具",
+   "en": "any hard equip",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280545
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11968",
+   "kind": "lang",
+   "jp": "適当な柔武具",
+   "en": "any soft equip",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280546
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11969",
+   "kind": "lang",
+   "jp": "適当な鋭武具",
+   "en": "any sharp equip",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280547
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11970",
+   "kind": "lang",
+   "jp": "適当な棺",
+   "en": "any coffin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280548
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11971",
+   "kind": "lang",
+   "jp": "何か物体",
+   "en": "any item",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280549
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11972",
+   "kind": "lang",
+   "jp": "適当な釣り餌",
+   "en": "any bait",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280550
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11973",
+   "kind": "lang",
+   "jp": "適当なタル",
+   "en": "any bait",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280551
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11974",
+   "kind": "lang",
+   "jp": "薬草類",
+   "en": "any healthy leaf",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280552
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11975",
+   "kind": "lang",
+   "jp": "ブランケット類",
+   "en": "any blanket",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280553
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11976",
+   "kind": "lang",
+   "jp": "参考にする物体",
+   "en": "reference item",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280554
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11977",
+   "kind": "lang",
+   "jp": "強化する家具",
+   "en": "reinforce furniture",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280555
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  },
+  {
+   "id": "s11978",
+   "kind": "lang",
+   "jp": "素材にする家具",
+   "en": "material furniture",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "clear_rprefmat",
+     "label": "label_2645",
+     "line": 280556
+    }
+   ],
+   "fn": "clear_rprefmat",
+   "label": "label_2645",
+   "owner": "label_2645"
+  }
+ ]
+}

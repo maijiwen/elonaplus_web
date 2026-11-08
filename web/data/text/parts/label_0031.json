@@ -1,0 +1,2646 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0031",
+ "entries": [
+  {
+   "id": "s00106",
+   "kind": "lang",
+   "jp": "聖なる盾",
+   "en": "Holy Shield",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 414
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2679
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00107",
+   "kind": "lang",
+   "jp": "は光り輝いた。",
+   "en": "begin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 415
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00108",
+   "kind": "lang",
+   "jp": "守護石",
+   "en": "Gem Power",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 417
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2775
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00109",
+   "kind": "lang",
+   "jp": "は宝石の輝きを纏った。",
+   "en": "wear",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 418
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00110",
+   "kind": "lang",
+   "jp": "エナジーマックス",
+   "en": "Energy MAX",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 420
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00111",
+   "kind": "lang",
+   "jp": "に労働エナジーがみなぎった。",
+   "en": "get",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 421
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00112",
+   "kind": "lang",
+   "jp": "沈黙の霧",
+   "en": "Mist of Silence",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 423
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2685
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00113",
+   "kind": "lang",
+   "jp": "はぼやけた霧に覆われた。",
+   "en": "get",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 424
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00114",
+   "kind": "lang",
+   "jp": "リジェネレーション",
+   "en": "Regeneration",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 426
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2691
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00115",
+   "kind": "lang",
+   "jp": "の代謝が活性化した。",
+   "en": "start",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 427
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00116",
+   "kind": "lang",
+   "jp": "属性保護",
+   "en": "Attribution Shield",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 429
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2697
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00117",
+   "kind": "lang",
+   "jp": "は属性への耐性を得た。",
+   "en": "obtain",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 430
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00118",
+   "kind": "lang",
+   "jp": "土竜闘気",
+   "en": "Mogranic Aura",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 432
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4131
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00119",
+   "kind": "lang",
+   "jp": "は闘気を纏った。",
+   "en": "wore",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 433
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00120",
+   "kind": "lang",
+   "jp": "加速",
+   "en": "Speed",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 435
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2703
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00121",
+   "kind": "lang",
+   "jp": "は機敏になった。",
+   "en": "speed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 436
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00122",
+   "kind": "lang",
+   "jp": "鈍足",
+   "en": "Slow",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 438
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2709
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00123",
+   "kind": "lang",
+   "jp": "は鈍重になった。",
+   "en": "slow",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 439
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00124",
+   "kind": "lang",
+   "jp": "英雄",
+   "en": "Hero",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 441
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2715
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00125",
+   "kind": "lang",
+   "jp": "の士気が向上した。",
+   "en": "feel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 442
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00126",
+   "kind": "lang",
+   "jp": "シューティングモード",
+   "en": "Shooting Mode",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 444
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00127",
+   "kind": "lang",
+   "jp": "は姿勢を固定した。",
+   "en": "shift",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 445
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00128",
+   "kind": "lang",
+   "jp": "一投入魂",
+   "en": "OverLimit-Throw",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 447
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4125
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00129",
+   "kind": "lang",
+   "jp": "は投擲に魂を込めた。",
+   "en": "pour",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 448
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00130",
+   "kind": "lang",
+   "jp": "データスキャン",
+   "en": "Data scan",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 450
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 3897
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00131",
+   "kind": "lang",
+   "jp": "はスキャンモードに移行した。",
+   "en": "shift",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 451
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00132",
+   "kind": "lang",
+   "jp": "ディスインフェクション",
+   "en": "Disinfection",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 453
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00133",
+   "kind": "lang",
+   "jp": "は汚染から守られた。",
+   "en": "get",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 454
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00134",
+   "kind": "lang",
+   "jp": "錬成掌",
+   "en": "Resolution Hand",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 456
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 3057
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00135",
+   "kind": "lang",
+   "jp": "の手が光りだした。",
+   "en": "shine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 457
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00136",
+   "kind": "lang",
+   "jp": "瞳の奥の深淵",
+   "en": "Abyss in the eye",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 459
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 3591
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00137",
+   "kind": "lang",
+   "jp": "の眼に深みが増した。",
+   "en": "represent",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 460
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00138",
+   "kind": "lang",
+   "jp": "黒曜鏡",
+   "en": "Black Mirror",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 462
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00139",
+   "kind": "lang",
+   "jp": "はあなたの力を写し取った。",
+   "en": "copy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 463
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00140",
+   "kind": "lang",
+   "jp": "烈走破",
+   "en": "Hyper Dash",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 465
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4011
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00141",
+   "kind": "lang",
+   "jp": "は脚に力を込めた。",
+   "en": "put",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 466
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00142",
+   "kind": "lang",
+   "jp": "重力偏向",
+   "en": "Gravity Accel",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 468
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 3867
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00143",
+   "kind": "lang",
+   "jp": "の重力の向きが変わった。",
+   "en": "accel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 469
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00144",
+   "kind": "lang",
+   "jp": "集中",
+   "en": "Concentration",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 471
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2769
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00145",
+   "kind": "lang",
+   "jp": "の集中力が向上した。",
+   "en": "feel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 472
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00146",
+   "kind": "lang",
+   "jp": "冥界の瘴気",
+   "en": "Miasma of Hell",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 474
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4317
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00147",
+   "kind": "lang",
+   "jp": "は瘴気に包み込まれた。",
+   "en": "surrounded",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 475
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00148",
+   "kind": "lang",
+   "jp": "脆弱の霧",
+   "en": "Mist of Frailness",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 477
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00149",
+   "kind": "lang",
+   "jp": "は脆くなった。",
+   "en": "feel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 478
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00150",
+   "kind": "lang",
+   "jp": "飢餓の呪い",
+   "en": "Curse of Hunger",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 480
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00151",
+   "kind": "lang",
+   "jp": "はお腹が減りやすくなった。",
+   "en": "feel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 481
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00152",
+   "kind": "lang",
+   "jp": "元素の傷跡",
+   "en": "Element Scar",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 483
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2727
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00153",
+   "kind": "lang",
+   "jp": "は元素への耐性を失った。",
+   "en": "lose",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 484
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00154",
+   "kind": "lang",
+   "jp": "ホーリーヴェイル",
+   "en": "Holy Veil",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 486
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2733
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00155",
+   "kind": "lang",
+   "jp": "は聖なる衣に保護された。",
+   "en": "receive",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 487
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00156",
+   "kind": "lang",
+   "jp": "ナイトメア",
+   "en": "Nightmare",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 489
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2739
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00157",
+   "kind": "lang",
+   "jp": "は悪夢に襲われた。",
+   "en": "start",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 490
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00158",
+   "kind": "lang",
+   "jp": "知者の加護",
+   "en": "Divine Wisdom",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 492
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2745
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00159",
+   "kind": "lang",
+   "jp": "の思考は冴え渡った。",
+   "en": "start",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 493
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00160",
+   "kind": "lang",
+   "jp": "天罰",
+   "en": "Punishment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 495
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00161",
+   "kind": "lang",
+   "jp": "は雷に打たれた！",
+   "en": "incur",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 496
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00162",
+   "kind": "lang",
+   "jp": "ルルウィの憑依",
+   "en": "Lulwy's Trick",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 498
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2799
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00163",
+   "kind": "lang",
+   "jp": "にルルウィが乗り移った。",
+   "en": "repeat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 499
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00164",
+   "kind": "lang",
+   "jp": "インコグニート",
+   "en": "Incognito",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 501
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2751
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00165",
+   "kind": "lang",
+   "jp": "は別人になりすました。",
+   "en": "start",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 502
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00166",
+   "kind": "lang",
+   "jp": "死の宣告",
+   "en": "Death Word",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 504
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2787
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00167",
+   "kind": "lang",
+   "jp": "は死の宣告を受けた！",
+   "en": "receive",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 505
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00168",
+   "kind": "lang",
+   "jp": "ブースト",
+   "en": "Boost",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 507
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2781
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00169",
+   "kind": "lang",
+   "jp": "はブーストした！",
+   "en": "gain",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 508
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00170",
+   "kind": "lang",
+   "jp": "契約",
+   "en": "Contingency",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 510
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2757
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00171",
+   "kind": "lang",
+   "jp": "は死神と契約した。",
+   "en": "feel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 511
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00172",
+   "kind": "lang",
+   "jp": "不幸",
+   "en": "Unlucky",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 513
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00173",
+   "kind": "lang",
+   "jp": "に不幸な日が訪れた！",
+   "en": "feel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 514
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00174",
+   "kind": "lang",
+   "jp": "鬱",
+   "en": "Melancholy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 516
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00175",
+   "kind": "lang",
+   "jp": "は鬱になった。",
+   "en": "became",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 517
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00176",
+   "kind": "lang",
+   "jp": "散漫",
+   "en": "Distracted",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 519
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00177",
+   "kind": "lang",
+   "jp": "は気が散り始めた。",
+   "en": "feel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 520
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00178",
+   "kind": "lang",
+   "jp": "幸運",
+   "en": "Luck",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 522
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00179",
+   "kind": "lang",
+   "jp": "に幸運な日が訪れた！",
+   "en": "feel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 523
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00180",
+   "kind": "lang",
+   "jp": "人生の含味",
+   "en": "Life Tasting",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 525
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00181",
+   "kind": "lang",
+   "jp": "はスキルの成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 526
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00182",
+   "kind": "lang",
+   "jp": "筋力の成長",
+   "en": "Grow Strength",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 528
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00183",
+   "kind": "lang",
+   "jp": "は筋力の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 529
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00184",
+   "kind": "lang",
+   "jp": "耐久の成長",
+   "en": "Grow Endurance",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 531
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00185",
+   "kind": "lang",
+   "jp": "は耐久の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 532
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00186",
+   "kind": "lang",
+   "jp": "器用の成長",
+   "en": "Grow Dexterity",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 534
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00187",
+   "kind": "lang",
+   "jp": "は器用の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 535
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00188",
+   "kind": "lang",
+   "jp": "感覚の成長",
+   "en": "Grow Perception",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 537
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00189",
+   "kind": "lang",
+   "jp": "は感覚の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 538
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00190",
+   "kind": "lang",
+   "jp": "習得の成長",
+   "en": "Grow Learning",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 540
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00191",
+   "kind": "lang",
+   "jp": "は習得の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 541
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00192",
+   "kind": "lang",
+   "jp": "意志の成長",
+   "en": "Grow Will",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 543
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00193",
+   "kind": "lang",
+   "jp": "は意志の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 544
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00194",
+   "kind": "lang",
+   "jp": "魔力の成長",
+   "en": "Grow Magic",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 546
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00195",
+   "kind": "lang",
+   "jp": "は魔力の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 547
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00196",
+   "kind": "lang",
+   "jp": "魅力の成長",
+   "en": "Grow Charisma",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 549
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00197",
+   "kind": "lang",
+   "jp": "は魅力の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 550
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00198",
+   "kind": "lang",
+   "jp": "速度の成長",
+   "en": "Grow Speed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 552
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00199",
+   "kind": "lang",
+   "jp": "は速度の成長期に突入した。",
+   "en": "enters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 553
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00200",
+   "kind": "lang",
+   "jp": "明鏡止水",
+   "en": "ClearMind",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 555
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00201",
+   "kind": "lang",
+   "jp": "は己の心を研ぎ澄ました…。",
+   "en": "sharpen",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 556
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00202",
+   "kind": "lang",
+   "jp": "超再生",
+   "en": "Super Regene",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 558
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4377
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00203",
+   "kind": "lang",
+   "jp": "の体は超再生を始めた。",
+   "en": "'s body",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 559
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00204",
+   "kind": "lang",
+   "jp": "フェザー",
+   "en": "Feather",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 561
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 2763
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00205",
+   "kind": "lang",
+   "jp": "の体が羽のように軽くなった。",
+   "en": "'s body",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 562
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00206",
+   "kind": "lang",
+   "jp": "チャージ",
+   "en": "Charge",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 564
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00207",
+   "kind": "lang",
+   "jp": "の力が最大限に達した。",
+   "en": "charged",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 565
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00208",
+   "kind": "lang",
+   "jp": "緊急回避",
+   "en": "Emergency Evasion",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 567
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4155
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00209",
+   "kind": "lang",
+   "jp": "は装備の力を引き出した。",
+   "en": "bring out",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 568
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 571
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 574
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00210",
+   "kind": "lang",
+   "jp": "魔装",
+   "en": "Magic Equip",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 570
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4161
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00211",
+   "kind": "lang",
+   "jp": "超重装",
+   "en": "Super Armor",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 573
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4167
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00212",
+   "kind": "lang",
+   "jp": "シールドパリィ",
+   "en": "Shield Parry",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 576
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4173
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00213",
+   "kind": "lang",
+   "jp": "は盾の力を引き出した。",
+   "en": "bring out",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 577
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00214",
+   "kind": "lang",
+   "jp": "呪装豪身",
+   "en": "Jyusou Goushin",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 579
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 3507
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00215",
+   "kind": "lang",
+   "jp": "は呪いの力を引き出した。",
+   "en": "bring out",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 580
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00216",
+   "kind": "lang",
+   "jp": "ハーモニックアサルト",
+   "en": "Harmonic Assault",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 582
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 3471
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00217",
+   "kind": "lang",
+   "jp": "は言葉の力を引き出した。",
+   "en": "bring out",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 583
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00218",
+   "kind": "lang",
+   "jp": "死神の舞踏",
+   "en": "Killing Dance",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 585
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4179
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00219",
+   "kind": "lang",
+   "jp": "は戦闘動作を最適化した。",
+   "en": "optimized",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 586
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00220",
+   "kind": "lang",
+   "jp": "アトリビウト",
+   "en": "Attribute",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 588
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 4119
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00221",
+   "kind": "lang",
+   "jp": "は己の属性を纏った。",
+   "en": "taken into",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 589
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00222",
+   "kind": "lang",
+   "jp": "絶対防衛",
+   "en": "AutoGuard",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 591
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00223",
+   "kind": "lang",
+   "jp": "は仲間を庇う体勢に入った。",
+   "en": "joined",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 592
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00224",
+   "kind": "lang",
+   "jp": "パワーアイテム",
+   "en": "Power Item",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 594
+    },
+    {
+     "fn": "calcbuff",
+     "label": "label_0034",
+     "line": 3531
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00225",
+   "kind": "lang",
+   "jp": "はアイテムの力を引き出した。",
+   "en": "bring out",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 595
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00226",
+   "kind": "lang",
+   "jp": "暴走",
+   "en": "Run Wildly",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 597
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00227",
+   "kind": "lang",
+   "jp": "は暴走を始めた。",
+   "en": "began to",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 598
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00228",
+   "kind": "lang",
+   "jp": "空間掌握",
+   "en": "Retention",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 600
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00229",
+   "kind": "lang",
+   "jp": "は周囲の空間を掌握した。",
+   "en": "stabilize",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 601
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00230",
+   "kind": "lang",
+   "jp": "タッグフォース",
+   "en": "Form Shift",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 603
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00231",
+   "kind": "lang",
+   "jp": "は結束した。",
+   "en": "shine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 604
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00232",
+   "kind": "lang",
+   "jp": "フォルムシフト",
+   "en": "Form Shift",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 606
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 609
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 612
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 615
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00233",
+   "kind": "lang",
+   "jp": "に変化した。",
+   "en": "change",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 607
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 610
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 613
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 616
+    },
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 619
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00234",
+   "kind": "lang",
+   "jp": "ファイナルシフト",
+   "en": "Final Form Shift",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 618
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00235",
+   "kind": "lang",
+   "jp": "操魔の鎖",
+   "en": "Chain of Mana",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 621
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00236",
+   "kind": "lang",
+   "jp": "は魔力を帯びた鎖に繋がれた。",
+   "en": "was chained",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 622
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00237",
+   "kind": "lang",
+   "jp": "偽命の灯",
+   "en": "Flame of Life",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 624
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  },
+  {
+   "id": "s00238",
+   "kind": "lang",
+   "jp": "の身体に生命力が満ち始めた。",
+   "en": "gained",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "guildname",
+     "label": "label_0031",
+     "line": 625
+    }
+   ],
+   "fn": "guildname",
+   "label": "label_0031",
+   "owner": "label_0031"
+  }
+ ]
+}

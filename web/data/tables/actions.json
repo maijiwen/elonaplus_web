@@ -1,0 +1,8507 @@
+{
+    "2": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "生命力",
+            "en": "Life",
+            "ch": "生命力"
+        },
+        "desc": {}
+    },
+    "3": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "マナ",
+            "en": "Mana",
+            "ch": "法力"
+        },
+        "desc": {}
+    },
+    "10": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "筋力",
+            "en": "Strength",
+            "ch": "力量"
+        },
+        "desc": {}
+    },
+    "11": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "耐久",
+            "en": "Constitution",
+            "ch": "耐久"
+        },
+        "desc": {}
+    },
+    "12": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "器用",
+            "en": "Dexterity",
+            "ch": "灵巧"
+        },
+        "desc": {}
+    },
+    "13": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "感覚",
+            "en": "Perception",
+            "ch": "感知"
+        },
+        "desc": {}
+    },
+    "14": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "習得",
+            "en": "Learning",
+            "ch": "学习"
+        },
+        "desc": {}
+    },
+    "15": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "意志",
+            "en": "Will",
+            "ch": "意志"
+        },
+        "desc": {}
+    },
+    "16": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "魔力",
+            "en": "Magic",
+            "ch": "魔力"
+        },
+        "desc": {}
+    },
+    "17": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "魅力",
+            "en": "Charisma",
+            "ch": "魅力"
+        },
+        "desc": {}
+    },
+    "18": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "速度",
+            "en": "Speed",
+            "ch": "速度"
+        },
+        "desc": {}
+    },
+    "19": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "運勢",
+            "en": "Luck",
+            "ch": "幸运"
+        },
+        "desc": {}
+    },
+    "50": {
+        "f": [0, 0, 0, 1, 0, null, null],
+        "name": {
+            "jp": "火炎",
+            "en": "fire",
+            "ch": "火焰"
+        },
+        "desc": {
+            "jp": "火炎攻撃や怯みへの抵抗",
+            "en": "Resist fire, Wince.",
+            "ch": "抵抗火焰攻击与畏缩。"
+        }
+    },
+    "51": {
+        "f": [0, 0, 0, 1, 0, null, null],
+        "name": {
+            "jp": "冷気",
+            "en": "cold",
+            "ch": "寒冷"
+        },
+        "desc": {
+            "jp": "冷気攻撃や震えへの抵抗",
+            "en": "Resist cold, Chills.",
+            "ch": "抵抗寒冷攻击与颤抖。"
+        }
+    },
+    "52": {
+        "f": [0, 0, 0, 1, 0, null, null],
+        "name": {
+            "jp": "電撃",
+            "en": "lightning",
+            "ch": "电击"
+        },
+        "desc": {
+            "jp": "電撃攻撃や麻痺への抵抗",
+            "en": "Resist lightning, Paralyze.",
+            "ch": "抵抗电击攻击与麻痹。"
+        }
+    },
+    "53": {
+        "f": [0, 0, 0, 2, 0, null, null],
+        "name": {
+            "jp": "暗黒",
+            "en": "darkness",
+            "ch": "黑暗"
+        },
+        "desc": {
+            "jp": "暗黒攻撃や盲目への抵抗",
+            "en": "Resist dark, Blind.",
+            "ch": "抵抗黑暗攻击与失明。"
+        }
+    },
+    "54": {
+        "f": [0, 0, 0, 2, 0, null, null],
+        "name": {
+            "jp": "幻惑",
+            "en": "mind",
+            "ch": "幻惑"
+        },
+        "desc": {
+            "jp": "幻惑攻撃や恐怖への抵抗",
+            "en": "Resist mind, Fear.",
+            "ch": "抵抗幻惑攻击与恐惧。"
+        }
+    },
+    "55": {
+        "f": [0, 0, 0, 3, 0, null, null],
+        "name": {
+            "jp": "毒",
+            "en": "poison",
+            "ch": "毒"
+        },
+        "desc": {
+            "jp": "毒攻撃や毒への抵抗",
+            "en": "Resist poison, Poison.",
+            "ch": "抵抗毒攻击与中毒。"
+        }
+    },
+    "56": {
+        "f": [0, 0, 0, 4, 0, null, null],
+        "name": {
+            "jp": "地獄",
+            "en": "nether",
+            "ch": "地狱"
+        },
+        "desc": {
+            "jp": "地獄攻撃や侵蝕への抵抗",
+            "en": "Resist nether, Erosion.",
+            "ch": "抵抗地狱攻击与侵蚀。"
+        }
+    },
+    "57": {
+        "f": [0, 0, 0, 3, 0, null, null],
+        "name": {
+            "jp": "音",
+            "en": "sound",
+            "ch": "音"
+        },
+        "desc": {
+            "jp": "音攻撃や朦朧への抵抗",
+            "en": "Resist sound, Dim.",
+            "ch": "抵抗音波攻击与朦胧。"
+        }
+    },
+    "58": {
+        "f": [0, 0, 0, 3, 0, null, null],
+        "name": {
+            "jp": "神経",
+            "en": "nerve",
+            "ch": "神经"
+        },
+        "desc": {
+            "jp": "神経攻撃や睡眠への抵抗",
+            "en": "Resist nerve, Sleep.",
+            "ch": "抵抗神经攻击与睡眠。"
+        }
+    },
+    "59": {
+        "f": [0, 0, 0, 4, 0, null, null],
+        "name": {
+            "jp": "混沌",
+            "en": "chaos",
+            "ch": "混沌"
+        },
+        "desc": {
+            "jp": "混沌攻撃や混乱への抵抗",
+            "en": "Resist chaos, Confuse.",
+            "ch": "抵抗混沌攻击与混乱。"
+        }
+    },
+    "60": {
+        "f": [0, 0, 0, 5, 0, null, null],
+        "name": {
+            "jp": "魔法",
+            "en": "magic",
+            "ch": "魔法"
+        },
+        "desc": {
+            "jp": "魔法攻撃への抵抗",
+            "en": "Resist magic.",
+            "ch": "抵抗魔法攻击。"
+        }
+    },
+    "61": {
+        "f": [0, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "出血",
+            "en": "cut",
+            "ch": "出血"
+        },
+        "desc": {
+            "jp": "切り傷攻撃への抵抗",
+            "en": "Resist cut.",
+            "ch": "抵抗切割攻击。"
+        }
+    },
+    "100": {
+        "f": [10, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "長剣",
+            "en": "Long Sword",
+            "ch": "长剑"
+        },
+        "desc": {
+            "jp": "刃渡りの長い剣を扱う技術",
+            "en": "Indicates your skill with long swords.",
+            "ch": "使用长刃剑的技术。"
+        }
+    },
+    "101": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "短剣",
+            "en": "Short Sword",
+            "ch": "短剑"
+        },
+        "desc": {
+            "jp": "刃渡りの短い剣を扱う技術",
+            "en": "Indicates your skill with short swords.",
+            "ch": "使用短刃剑的技术。"
+        }
+    },
+    "102": {
+        "f": [10, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "斧",
+            "en": "Axe",
+            "ch": "斧"
+        },
+        "desc": {
+            "jp": "斧を扱う技術",
+            "en": "Indicates your skill with axes.",
+            "ch": "使用斧的技术。"
+        }
+    },
+    "103": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "鈍器",
+            "en": "Blunt",
+            "ch": "钝器"
+        },
+        "desc": {
+            "jp": "鈍器を扱う技術",
+            "en": "Indicates your skill with blunt weapons.",
+            "ch": "使用钝器的技术。"
+        }
+    },
+    "104": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "槍",
+            "en": "Polearm",
+            "ch": "长枪"
+        },
+        "desc": {
+            "jp": "槍を扱う技術",
+            "en": "Indicates your skill with polearms.",
+            "ch": "使用长枪的技术。"
+        }
+    },
+    "105": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "杖",
+            "en": "Stave",
+            "ch": "法杖"
+        },
+        "desc": {
+            "jp": "杖を扱う技術",
+            "en": "Indicates your skill with staves.",
+            "ch": "使用法杖的技术。"
+        }
+    },
+    "106": {
+        "f": [10, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "格闘",
+            "en": "Martial Arts",
+            "ch": "格斗"
+        },
+        "desc": {
+            "jp": "格闘の技術",
+            "en": "Indicates your skill fighting unarmed.",
+            "ch": "徒手格斗的技术。"
+        }
+    },
+    "107": {
+        "f": [10, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "鎌",
+            "en": "Scythe",
+            "ch": "镰刀"
+        },
+        "desc": {
+            "jp": "鎌を扱う技術",
+            "en": "Indicates your skill with sycthes.",
+            "ch": "使用镰刀的技术。"
+        }
+    },
+    "108": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "弓",
+            "en": "Bow",
+            "ch": "弓"
+        },
+        "desc": {
+            "jp": "弓を扱う技術",
+            "en": "Indicates your skill with bows.",
+            "ch": "使用弓的技术。"
+        }
+    },
+    "109": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "クロスボウ",
+            "en": "Crossbow",
+            "ch": "弩"
+        },
+        "desc": {
+            "jp": "クロスボウを扱う技術",
+            "en": "Indicates your skill with cross bows",
+            "ch": "使用弩的技术。"
+        }
+    },
+    "110": {
+        "f": [13, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "銃器",
+            "en": "Firearm",
+            "ch": "枪械"
+        },
+        "desc": {
+            "jp": "遠隔機装を扱う技術",
+            "en": "Indicates your skill with firearms.",
+            "ch": "使用枪械等远程装备的技术。"
+        }
+    },
+    "111": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "投擲",
+            "en": "Throwing",
+            "ch": "投掷"
+        },
+        "desc": {
+            "jp": "投擲道具を扱う技術",
+            "en": "Indicates your skill with throwing objects.",
+            "ch": "使用投掷道具的技术。"
+        }
+    },
+    "150": {
+        "f": [14, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "読書",
+            "en": "Literacy",
+            "ch": "阅读"
+        },
+        "desc": {
+            "jp": "難解な本の解読を可能にする本の理解を深める",
+            "en": "Allows you to read difficult books.makes you literate.",
+            "ch": "加深对书籍的理解，使你能解读难懂的书。"
+        }
+    },
+    "151": {
+        "f": [14, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "生化学",
+            "en": "Gene engineer",
+            "ch": "基因工程"
+        },
+        "desc": {
+            "jp": "能力複合の知識を高める生化学の知識を深める",
+            "en": "Allows you to control genes.makes you a better gene engineer.",
+            "ch": "加深生化学知识，提升能力复合相关知识。"
+        }
+    },
+    "152": {
+        "f": [10, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "戦術",
+            "en": "Tactics",
+            "ch": "战术"
+        },
+        "desc": {
+            "jp": "近接攻撃の威力をあげる戦術の理解を深める",
+            "en": "Increases melee damage.makes you a better tactician.",
+            "ch": "提升近战攻击威力，加深战术理解。"
+        }
+    },
+    "153": {
+        "f": [10, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "重量挙げ",
+            "en": "Weight Lifting",
+            "ch": "举重"
+        },
+        "desc": {
+            "jp": "重い荷物を持ち運ぶことを可能にするより重い物の運搬を可能にする",
+            "en": "Allows you to carry more stuff.makes you better at weight lifting.",
+            "ch": "使你能搬运更重的物品，提升负重能力。"
+        }
+    },
+    "154": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "治癒",
+            "en": "Healing",
+            "ch": "治愈"
+        },
+        "desc": {
+            "jp": "怪我を自然に治癒する体力回復を強化する",
+            "en": "Gradually heals your wounds.enhances your body metabolism.",
+            "ch": "强化体力恢复，使伤口自然愈合。"
+        }
+    },
+    "155": {
+        "f": [16, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "瞑想",
+            "en": "Meditation",
+            "ch": "冥想"
+        },
+        "desc": {
+            "jp": "消耗したマナを回復させるマナ回復を強化する",
+            "en": "Gradually restores your magic points.enhances your meditation.",
+            "ch": "强化法力回复，恢复消耗的法力。"
+        }
+    },
+    "156": {
+        "f": [17, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "交渉",
+            "en": "Negotiation",
+            "ch": "交涉"
+        },
+        "desc": {
+            "jp": "交渉や商談を有利に進める交渉を有利に進めさせる",
+            "en": "Convinces someone to give you better deals.grants you knowledge of negotiation.",
+            "ch": "使交涉和商谈更有利。"
+        }
+    },
+    "157": {
+        "f": [13, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "隠密",
+            "en": "Stealth",
+            "ch": "潜行"
+        },
+        "desc": {
+            "jp": "周囲に気づかれず行動する隠密能力を強化する",
+            "en": "Allows you to move quietly.strengthens your ability to hide.",
+            "ch": "强化不被周围察觉而行动的能力。"
+        }
+    },
+    "158": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "鍵開け",
+            "en": "Lock Picking",
+            "ch": "开锁"
+        },
+        "desc": {
+            "jp": "鍵を開ける鍵開けの能力を強化する",
+            "en": "Allows you to pick more difficult locks.grants you the trick of lock picking.",
+            "ch": "强化开锁能力，可打开更难的锁。"
+        }
+    },
+    "159": {
+        "f": [13, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "探知",
+            "en": "Detection",
+            "ch": "探知"
+        },
+        "desc": {
+            "jp": "隠された場所や罠を見つける探知能力を強化する",
+            "en": "It is used to search hidden locations and traps.strengthens your ability to detect objects.",
+            "ch": "强化发现隐藏地点和陷阱的探知能力。"
+        }
+    },
+    "160": {
+        "f": [17, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "投資",
+            "en": "Investing",
+            "ch": "投资"
+        },
+        "desc": {
+            "jp": "効果的に投資を行うより安い価格での投資を可能にする",
+            "en": "Lowers the money needed to invest in shops.grants you knowledge of investing.",
+            "ch": "使投资更有效，能以更低价格进行投资。"
+        }
+    },
+    "161": {
+        "f": [14, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "解剖学",
+            "en": "Anatomy",
+            "ch": "解剖学"
+        },
+        "desc": {
+            "jp": "死体などを残しやすくする死体などを残しやすくする",
+            "en": "Gives you a better chance of finding dead bodies.grants you knowledge of anatomy.",
+            "ch": "更容易留下尸体等，提升解剖学知识。"
+        }
+    },
+    "162": {
+        "f": [13, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "分析",
+            "en": "Analysis",
+            "ch": "分析"
+        },
+        "desc": {
+            "jp": "物の種類や敵の攻撃パターンを感じ取る分析能力を高める",
+            "en": "Allows you to feel the object-types and attack-patterns.improve your analytical ability.",
+            "ch": "提升感知物品种类和敌人攻击模式的分析能力。"
+        }
+    },
+    "163": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "採掘",
+            "en": "Mining",
+            "ch": "采矿"
+        },
+        "desc": {
+            "jp": "壁を掘る効率をあげる採掘能力を強化する",
+            "en": "Shows how good of a miner you are.enhances your mining skill.",
+            "ch": "提升挖掘墙壁的效率，强化采矿能力。"
+        }
+    },
+    "164": {
+        "f": [15, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "魔力の限界",
+            "en": "Magic Capacity",
+            "ch": "魔力上限"
+        },
+        "desc": {
+            "jp": "自分や杖から多くの魔力を引き出す魔力の限界の理解を深める",
+            "en": "Bring out a lot of power from yourself and rods.strengthens various magic capacity.",
+            "ch": "加深对魔力上限的理解，能从自身和法杖中引出更多魔力。"
+        }
+    },
+    "165": {
+        "f": [14, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "暗記",
+            "en": "Memorization",
+            "ch": "记忆"
+        },
+        "desc": {
+            "jp": "書物や攻撃の分析結果を記憶/巻物強化知識の忘却を防ぐ",
+            "en": "Memorize spells and analysis, Enhance scrolls.enhances your memory.",
+            "ch": "记忆书籍与攻击分析结果，强化卷轴并防止知识遗忘。"
+        }
+    },
+    "166": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "二刀流",
+            "en": "Dual Wield",
+            "ch": "双持"
+        },
+        "desc": {
+            "jp": "複数の武器を扱う技術",
+            "en": "Used when wielding two weapoms at the same time.",
+            "ch": "同时使用多把武器的技术。"
+        }
+    },
+    "167": {
+        "f": [10, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "両手持ち",
+            "en": "Two Hand",
+            "ch": "双手持握"
+        },
+        "desc": {
+            "jp": "両手で武器を扱う技術",
+            "en": "Used when wielding a weapon with both hands.",
+            "ch": "双手使用武器的技术。"
+        }
+    },
+    "168": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "盾",
+            "en": "Shield",
+            "ch": "盾牌"
+        },
+        "desc": {
+            "jp": "盾を扱う技術",
+            "en": "Increases the effectivness of using shields.",
+            "ch": "提升使用盾牌效果的技术。"
+        }
+    },
+    "169": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "重装備",
+            "en": "Heavy Armor",
+            "ch": "重装备"
+        },
+        "desc": {
+            "jp": "重い装備を扱う技術重装備の技術を上昇させる",
+            "en": "Skill to effectively act while wearing heavy armor.",
+            "ch": "穿着重型装备时有效行动的技术，提升重装备技能。"
+        }
+    },
+    "170": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "中装備",
+            "en": "Medium Armor",
+            "ch": "中装备"
+        },
+        "desc": {
+            "jp": "普通の装備を扱う技術中装備の技術を上昇させる",
+            "en": "Skill to effectively act while wearing medium armor.",
+            "ch": "穿着中型装备时有效行动的技术，提升中装备技能。"
+        }
+    },
+    "171": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "軽装備",
+            "en": "Light Armor",
+            "ch": "轻装备"
+        },
+        "desc": {
+            "jp": "軽い装備を扱う技術軽装備の技術を上昇させる",
+            "en": "Skill to effectively act while wearing light armor.",
+            "ch": "穿着轻型装备时有效行动的技术，提升轻装备技能。"
+        }
+    },
+    "172": {
+        "f": [16, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "詠唱",
+            "en": "Casting",
+            "ch": "咏唱"
+        },
+        "desc": {
+            "jp": "魔法の詠唱成功率と強度を高めるより高度な詠唱を可能にさせる",
+            "en": "Enhances casting success rate and spell power.enhances your casting ability.",
+            "ch": "提高魔法咏唱成功率和强度，使更高级咏唱成为可能。"
+        }
+    },
+    "173": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "回避",
+            "en": "Evasion",
+            "ch": "闪避"
+        },
+        "desc": {
+            "jp": "攻撃を回避する",
+            "en": "Increases your chance of evading enemy attacks.",
+            "ch": "提高回避敌人攻击的几率。"
+        }
+    },
+    "174": {
+        "f": [16, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "魔道具",
+            "en": "Magic Device",
+            "ch": "魔法道具"
+        },
+        "desc": {
+            "jp": "魔道具を効果的に扱う/魔杖強化魔道具の効果をあげる",
+            "en": "Improves effectiveness of magic devices, Enhance rods.enhances power of magical devices.",
+            "ch": "提升魔法道具效果，强化法杖，增强魔法道具威力。"
+        }
+    },
+    "175": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "罠の知識",
+            "en": "Disarm Trap",
+            "ch": "陷阱知识"
+        },
+        "desc": {
+            "jp": "罠の設置・解体能力を強化する罠の知識を深める",
+            "en": "Allows you to disarm harder traps.grants you the trick of disarming traps.",
+            "ch": "强化设置和拆除陷阱的能力，加深陷阱知识。"
+        }
+    },
+    "176": {
+        "f": [11, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "工作",
+            "en": "Carpentry",
+            "ch": "木工"
+        },
+        "desc": {
+            "jp": "物を加工し、アイテムを作り出す工作の腕をあげる",
+            "en": "Skill to cut trees and manufcture products.makes you a better carpenter.",
+            "ch": "加工物品并制作道具，提升木工技艺。"
+        }
+    },
+    "177": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "裁縫",
+            "en": "Tailoring",
+            "ch": "裁缝"
+        },
+        "desc": {
+            "jp": "革や蔓を用い、アイテムを作り出す裁縫の腕をあげる",
+            "en": "Skill to sew materials and manufucture products.makes you a better tailor.",
+            "ch": "使用皮革和藤蔓制作道具，提升裁缝技艺。"
+        }
+    },
+    "178": {
+        "f": [14, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "錬金術",
+            "en": "Alchemy",
+            "ch": "炼金术"
+        },
+        "desc": {
+            "jp": "様々な材料を調合/ポーション強化錬金の腕をあげる",
+            "en": "Enables you to perform alchemy, Enhance potions.grants you knowledge of alchemy.",
+            "ch": "调配各种材料，强化药水，提升炼金技艺。"
+        }
+    },
+    "179": {
+        "f": [12, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "宝石細工",
+            "en": "Jeweler",
+            "ch": "宝石加工"
+        },
+        "desc": {
+            "jp": "宝石を加工し、アイテムを作り出す宝石細工の腕をあげる",
+            "en": "Skill to process jewels and manufucture products.makes you a better jeweler.",
+            "ch": "加工宝石并制作道具，提升宝石加工技艺。"
+        }
+    },
+    "180": {
+        "f": [14, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "栽培",
+            "en": "Gardening",
+            "ch": "栽培"
+        },
+        "desc": {
+            "jp": "植物を育て、採取する栽培の腕をあげる",
+            "en": "Skill to plant seeds and gather harvests.grants you knowledge of gardening.",
+            "ch": "培育并采集植物，提升栽培技艺。"
+        }
+    },
+    "181": {
+        "f": [15, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "信仰",
+            "en": "Faith",
+            "ch": "信仰"
+        },
+        "desc": {
+            "jp": "神との距離を近める/呪いへの抵抗信仰を深める",
+            "en": "Gets you closer to god/resist to cursesmakes you pious.",
+            "ch": "拉近与神的距离，抵抗诅咒，加深信仰。"
+        }
+    },
+    "182": {
+        "f": [18, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "旅歩き",
+            "en": "Traveling",
+            "ch": "旅行"
+        },
+        "desc": {
+            "jp": "旅の進行を早め経験を深める旅の熟練をあげる",
+            "en": "Allows you to receive more EXP from traveling.makes you a better traveler.",
+            "ch": "加快旅行进程并获得更多经验，提升旅行熟练度。"
+        }
+    },
+    "183": {
+        "f": [17, 0, 25, 10000, 0, null, null],
+        "name": {
+            "jp": "演奏",
+            "en": "Performer",
+            "ch": "演奏"
+        },
+        "desc": {
+            "jp": "質の高い演奏を可能にする演奏の質をあげる",
+            "en": "Shows how good of a performer you are.makes your performance better.",
+            "ch": "使高质量演奏成为可能，提升演奏质量。"
+        }
+    },
+    "184": {
+        "f": [14, 0, 15, 10000, 0, null, null],
+        "name": {
+            "jp": "料理",
+            "en": "Cooking",
+            "ch": "料理"
+        },
+        "desc": {
+            "jp": "料理の腕を上げる料理の腕を上げる",
+            "en": "Improves your cooking skill.enhances your cooking skill.",
+            "ch": "提升料理技艺。"
+        }
+    },
+    "185": {
+        "f": [13, 0, 5, 10000, 0, null, null],
+        "name": {
+            "jp": "釣り",
+            "en": "Fishing",
+            "ch": "钓鱼"
+        },
+        "desc": {
+            "jp": "釣りを可能にする釣りの腕をあげる",
+            "en": "Displays your fishing skill.makes you better fisher.",
+            "ch": "使钓鱼成为可能，提升钓鱼技艺。"
+        }
+    },
+    "186": {
+        "f": [15, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "心眼",
+            "en": "Eye of Mind",
+            "ch": "心眼"
+        },
+        "desc": {
+            "jp": "クリティカル時の威力を高める心眼の技術を上昇させる",
+            "en": "Increases power of critical hits.",
+            "ch": "提升暴击威力，提升心眼技术。"
+        }
+    },
+    "187": {
+        "f": [13, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "見切り",
+            "en": "Greater Evasion",
+            "ch": "见切"
+        },
+        "desc": {
+            "jp": "不正確な攻撃を確実に避ける見切りの腕をあげる",
+            "en": "Makes you able to evade inaccurate attacks.",
+            "ch": "可靠回避不准确攻击，提升见切技艺。"
+        }
+    },
+    "188": {
+        "f": [16, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "魔力制御",
+            "en": "Control Magic",
+            "ch": "魔力控制"
+        },
+        "desc": {
+            "jp": "魔法による味方のまきこみを軽減するより高度な魔力制御を可能にさせる",
+            "en": "Prevents your allies to get hit by your spells.enhances your ability to control magics.",
+            "ch": "减轻魔法对队友的波及，使更高级魔力控制成为可能。"
+        }
+    },
+    "189": {
+        "f": [13, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "射撃",
+            "en": "Marksman",
+            "ch": "射击"
+        },
+        "desc": {
+            "jp": "射撃の威力をあげる射撃の理解を深める",
+            "en": "Increases shooting damage.makes you a better marksman.",
+            "ch": "提升射击威力，加深射击理解。"
+        }
+    },
+    "190": {
+        "f": [18, 0, 0, 0, 0, null, null],
+        "name": {
+            "jp": "着衣水泳",
+            "en": "Swimming",
+            "ch": "着装游泳"
+        },
+        "desc": {
+            "jp": "濡れた状態で素早く行動する/水中適応泳ぎの技術をあげる",
+            "en": "Allows you to move fast when wetting.makes you better swimmer.",
+            "ch": "在潮湿状态下快速行动，适应水中环境，提升游泳技术。"
+        }
+    },
+    "300": {
+        "f": [
+            12,
+            0,
+            20,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "窃盗",
+            "en": "Pickpocket",
+            "ch": "偷窃"
+        },
+        "desc": {
+            "jp": "貴重な物品を盗む窃盗の腕をあげる",
+            "en": "Shows how good of a thief you are.grants you the trick of pickpocketing.",
+            "ch": "偷盗贵重的物品"
+        }
+    },
+    "301": {
+        "f": [
+            15,
+            0,
+            20,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "乗馬",
+            "en": "Riding",
+            "ch": "骑乘"
+        },
+        "desc": {
+            "jp": "上手に乗りこなす乗馬の腕をあげる",
+            "en": "Allows you to ride creatures.enhances your ability to ride.",
+            "ch": "令你能骑乘生物"
+        }
+    },
+    "400": {
+        "f": [
+            15,
+            4,
+            6,
+            3000,
+            80,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "軽傷治癒",
+            "en": "Heal Light",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "体力回復",
+            "en": "Heal self",
+            "ch": ""
+        }
+    },
+    "401": {
+        "f": [
+            15,
+            4,
+            15,
+            3000,
+            350,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "致命傷治癒",
+            "en": "Heal Critical",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "体力回復",
+            "en": "Heal self",
+            "ch": ""
+        }
+    },
+    "402": {
+        "f": [
+            15,
+            4,
+            35,
+            3000,
+            800,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "エリスの癒し",
+            "en": "Cure of Eris",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "体力回復",
+            "en": "Heal self",
+            "ch": ""
+        }
+    },
+    "403": {
+        "f": [
+            15,
+            4,
+            80,
+            3000,
+            1300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ジュアの癒し",
+            "en": "Cure of Jua",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "体力回復",
+            "en": "Heal self",
+            "ch": ""
+        }
+    },
+    "404": {
+        "f": [
+            15,
+            3,
+            38,
+            3002,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "治癒の雨",
+            "en": "Healing Rain",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "体力回復の球",
+            "en": "Heal area",
+            "ch": ""
+        }
+    },
+    "405": {
+        "f": [
+            15,
+            4,
+            20,
+            8000,
+            400,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "癒しの手",
+            "en": "Healing Touch",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "体力回復",
+            "en": "Heal target",
+            "ch": ""
+        }
+    },
+    "406": {
+        "f": [
+            15,
+            0,
+            15,
+            3000,
+            400,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "清浄なる光",
+            "en": "Holy Light",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "1つの呪い(hex)除去",
+            "en": "Remove one hex",
+            "ch": ""
+        }
+    },
+    "407": {
+        "f": [
+            15,
+            0,
+            35,
+            8000,
+            850,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "全浄化",
+            "en": "Vanquish Hex",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "全ての呪い(hex)除去",
+            "en": "Remove all hexes",
+            "ch": ""
+        }
+    },
+    "408": {
+        "f": [
+            16,
+            5,
+            10,
+            10000,
+            400,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "テレポート",
+            "en": "Teleport",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "瞬間移動",
+            "en": "Teleport self",
+            "ch": ""
+        }
+    },
+    "409": {
+        "f": [
+            16,
+            5,
+            10,
+            8000,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "テレポートアザー",
+            "en": "Teleport Other",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "対象を瞬間移動させる",
+            "en": "Teleport target",
+            "ch": ""
+        }
+    },
+    "410": {
+        "f": [
+            16,
+            5,
+            8,
+            10000,
+            120,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ショートテレポート",
+            "en": "Short Teleport",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "近くへの瞬間移動",
+            "en": "Teleport self",
+            "ch": ""
+        }
+    },
+    "411": {
+        "f": [
+            13,
+            0,
+            28,
+            10000,
+            800,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "鑑定",
+            "en": "Identify",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "アイテム鑑定",
+            "en": "Identify one item",
+            "ch": ""
+        }
+    },
+    "412": {
+        "f": [
+            15,
+            0,
+            35,
+            3000,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "解呪",
+            "en": "Uncurse",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "装備品の解呪",
+            "en": "Uncurse equipments",
+            "ch": ""
+        }
+    },
+    "413": {
+        "f": [
+            16,
+            0,
+            150,
+            3000,
+            1500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神託",
+            "en": "Oracle",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "アーティファクト感知",
+            "en": "Reveal artifacts",
+            "ch": ""
+        }
+    },
+    "414": {
+        "f": [
+            16,
+            2,
+            5,
+            2006,
+            100,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔法の矢",
+            "en": "Magic Dart",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "魔法属性の矢",
+            "en": "Target(Magic)",
+            "ch": ""
+        }
+    },
+    "415": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "地獄の吐息",
+            "en": "Nether Sigh",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "地獄属性の矢",
+            "en": "Target(Nether)",
+            "ch": ""
+        }
+    },
+    "416": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神経の針",
+            "en": "Nerve Needle",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "神経属性の矢",
+            "en": "Target(Nerve)",
+            "ch": ""
+        }
+    },
+    "417": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "混沌の瞳",
+            "en": "Chaos Eye",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "混沌属性の矢",
+            "en": "Target(Chaos)",
+            "ch": ""
+        }
+    },
+    "418": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "暗黒の楔",
+            "en": "Darkness Wedge",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "暗黒属性の矢",
+            "en": "Target(Darkness)",
+            "ch": ""
+        }
+    },
+    "419": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            400,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "アイスボルト",
+            "en": "Ice Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "冷気属性のボルト",
+            "en": "Line(Cold)",
+            "ch": ""
+        }
+    },
+    "420": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            400,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ファイアボルト",
+            "en": "Fire Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "火炎属性のボルト",
+            "en": "Line(Fire)",
+            "ch": ""
+        }
+    },
+    "421": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            400,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ライトニングボルト",
+            "en": "Lightning Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "雷属性のボルト",
+            "en": "Line(Lightning)",
+            "ch": ""
+        }
+    },
+    "422": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ダークネスボルト",
+            "en": "Darkness Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "暗黒属性のボルト",
+            "en": "Line(Darkness)",
+            "ch": ""
+        }
+    },
+    "423": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マインドボルト",
+            "en": "Mind Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "幻惑属性のボルト",
+            "en": "Line(Mind)",
+            "ch": ""
+        }
+    },
+    "424": {
+        "f": [
+            16,
+            7,
+            15,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "モンスター召喚",
+            "en": "Summon Monsters",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "モンスターを召喚する",
+            "en": "Summon hostile creatures",
+            "ch": ""
+        }
+    },
+    "425": {
+        "f": [
+            16,
+            7,
+            15,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "野生召喚",
+            "en": "Summon Wild",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "野生の生き物を召喚する",
+            "en": "Summon wild creatures",
+            "ch": ""
+        }
+    },
+    "428": {
+        "f": [
+            13,
+            0,
+            28,
+            10000,
+            550,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "帰還",
+            "en": "Return",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "特定の場所への帰還",
+            "en": "Return",
+            "ch": ""
+        }
+    },
+    "429": {
+        "f": [
+            13,
+            0,
+            30,
+            10000,
+            450,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔法の地図",
+            "en": "Magic Map",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "周囲の地形感知",
+            "en": "Reveal surround map",
+            "ch": ""
+        }
+    },
+    "430": {
+        "f": [
+            13,
+            0,
+            22,
+            10000,
+            250,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "物質感知",
+            "en": "Sense Object",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "周囲の物質感知",
+            "en": "Reveal nearby objects",
+            "ch": ""
+        }
+    },
+    "431": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            600,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "氷結の波動",
+            "en": "Freezing Wave",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "冷気属性の範囲攻撃",
+            "en": "Surround(Cold)",
+            "ch": ""
+        }
+    },
+    "432": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            600,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "灼熱の嵐",
+            "en": "Burning Storm",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "火炎属性の範囲攻撃",
+            "en": "Surround(Fire)",
+            "ch": ""
+        }
+    },
+    "433": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "混沌の渦",
+            "en": "Chaos Vortex",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "混沌属性の範囲攻撃",
+            "en": "Surround(Chaos)",
+            "ch": ""
+        }
+    },
+    "434": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "轟音の波動",
+            "en": "Howling Wave",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "轟音属性の範囲攻撃",
+            "en": "Surround(Sound)",
+            "ch": ""
+        }
+    },
+    "435": {
+        "f": [
+            17,
+            0,
+            125,
+            2006,
+            2000,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "支配",
+            "en": "Dominate",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "対象を支配/仲間にできない対象には麻痺",
+            "en": "Dominate target",
+            "ch": ""
+        }
+    },
+    "436": {
+        "f": [
+            16,
+            0,
+            10,
+            7000,
+            150,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "蜘蛛の巣",
+            "en": "Web",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "蜘蛛の巣発生",
+            "en": "Create webs",
+            "ch": ""
+        }
+    },
+    "437": {
+        "f": [
+            16,
+            0,
+            12,
+            3000,
+            320,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "闇の霧",
+            "en": "Mist of Darkness",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "濃い霧の発生",
+            "en": "Create mist",
+            "ch": ""
+        }
+    },
+    "438": {
+        "f": [
+            16,
+            0,
+            20,
+            7000,
+            250,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "壁生成",
+            "en": "Wall Creation",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "壁の生成",
+            "en": "Create walls",
+            "ch": ""
+        }
+    },
+    "439": {
+        "f": [
+            15,
+            0,
+            18,
+            3000,
+            250,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "肉体復活",
+            "en": "Restore Body",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "肉体の弱体化を治療/スタミナ微回復",
+            "en": "Restore phisical",
+            "ch": ""
+        }
+    },
+    "440": {
+        "f": [
+            15,
+            0,
+            18,
+            3000,
+            250,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "精神復活",
+            "en": "Restore Spirit",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "精神の弱体化を治療/パワーゲージ微増",
+            "en": "Restore mind",
+            "ch": ""
+        }
+    },
+    "441": {
+        "f": [
+            16,
+            0,
+            580,
+            10000,
+            5250,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "願い",
+            "en": "Wish",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "願いの効果/LV高いほど難易度増加",
+            "en": "Wish/The higher LV, the higher difficulty",
+            "ch": ""
+        }
+    },
+    "442": {
+        "f": [
+            15,
+            1001,
+            8,
+            3000,
+            150,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "聖なる盾",
+            "en": "Holy Shield",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "防御力強化",
+            "en": "",
+            "ch": ""
+        }
+    },
+    "443": {
+        "f": [
+            13,
+            1002,
+            24,
+            2006,
+            620,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "沈黙の霧",
+            "en": "Mist of Silence",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "魔法使用不可",
+            "en": "",
+            "ch": ""
+        }
+    },
+    "444": {
+        "f": [
+            15,
+            1003,
+            16,
+            3000,
+            400,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "リジェネレーション",
+            "en": "Regeneration",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "445": {
+        "f": [
+            15,
+            1004,
+            14,
+            3000,
+            350,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "属性保護",
+            "en": "Attribution Shield",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "446": {
+        "f": [
+            15,
+            1005,
+            28,
+            3000,
+            1050,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "加速",
+            "en": "Speed",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "447": {
+        "f": [
+            16,
+            1006,
+            10,
+            2006,
+            450,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "鈍足",
+            "en": "Slow",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "448": {
+        "f": [
+            15,
+            1007,
+            12,
+            3000,
+            80,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "英雄",
+            "en": "Hero",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "449": {
+        "f": [
+            16,
+            1008,
+            8,
+            2006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "脆弱の霧",
+            "en": "Mist of frailness",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "450": {
+        "f": [
+            16,
+            1009,
+            15,
+            2006,
+            600,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "元素の傷跡",
+            "en": "Element Scar",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "451": {
+        "f": [
+            15,
+            1010,
+            20,
+            10000,
+            900,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ホーリーヴェイル",
+            "en": "Holy Veil",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "452": {
+        "f": [
+            13,
+            1011,
+            15,
+            2006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ナイトメア",
+            "en": "Nightmare",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "453": {
+        "f": [
+            14,
+            1012,
+            22,
+            10000,
+            350,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "知者の加護",
+            "en": "Divine Wisdom",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "454": {
+        "f": [
+            13,
+            0,
+            21,
+            3000,
+            2250,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "自己の変容",
+            "en": "Mutation",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "違う自分になる",
+            "en": "Mutate self",
+            "ch": ""
+        }
+    },
+    "455": {
+        "f": [
+            16,
+            0,
+            18,
+            7000,
+            480,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "酸の海",
+            "en": "Acid Ground",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "酸の発生",
+            "en": "Create acid grounds",
+            "ch": ""
+        }
+    },
+    "456": {
+        "f": [
+            16,
+            0,
+            24,
+            7000,
+            640,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "炎の壁",
+            "en": "Fire Wall",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "火柱の発生",
+            "en": "Create fire grounds",
+            "ch": ""
+        }
+    },
+    "457": {
+        "f": [
+            16,
+            0,
+            15,
+            7000,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ドア生成",
+            "en": "Door Creation",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "ドアの生成",
+            "en": "Create doors",
+            "ch": ""
+        }
+    },
+    "458": {
+        "f": [
+            13,
+            1015,
+            38,
+            10000,
+            250,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "インコグニート",
+            "en": "Incognito",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "459": {
+        "f": [
+            16,
+            1,
+            20,
+            9006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マジックボルト",
+            "en": "Magic Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "魔法属性のボルト",
+            "en": "Line(Magic)",
+            "ch": ""
+        }
+    },
+    "460": {
+        "f": [
+            16,
+            3,
+            40,
+            3002,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔力の嵐",
+            "en": "Magic Storm",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "魔法属性の範囲攻撃",
+            "en": "Surround(Magic)",
+            "ch": ""
+        }
+    },
+    "461": {
+        "f": [
+            15,
+            0,
+            60,
+            10000,
+            1650,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "復活",
+            "en": "Resurrection",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "死者の蘇生",
+            "en": "Resurrect dead",
+            "ch": ""
+        }
+    },
+    "462": {
+        "f": [
+            15,
+            1018,
+            25,
+            3000,
+            1250,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "契約",
+            "en": "Contingency",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "463": {
+        "f": [
+            13,
+            0,
+            60,
+            10000,
+            750,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "四次元ポケット",
+            "en": "4-Dimensional Pocket",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "四次元のポケットを召喚",
+            "en": "Summon 4-Dimensional Pocket",
+            "ch": ""
+        }
+    },
+    "464": {
+        "f": [
+            17,
+            0,
+            45,
+            10000,
+            350,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔術士の収穫",
+            "en": "Wizard's Harvest",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "ランダムな収穫",
+            "en": "Random harvest",
+            "ch": ""
+        }
+    },
+    "465": {
+        "f": [
+            16,
+            0,
+            220,
+            10000,
+            1450,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "メテオ",
+            "en": "Meteor",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "全域無差別火炎属性攻撃",
+            "en": "Indiscriminate(Fire)",
+            "ch": ""
+        }
+    },
+    "466": {
+        "f": [
+            16,
+            0,
+            24,
+            3002,
+            750,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "グラビティ",
+            "en": "Gravity",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "重力の発生",
+            "en": "Create gravity",
+            "ch": ""
+        }
+    },
+    "467": {
+        "f": [
+            16,
+            7,
+            30,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "精霊召喚",
+            "en": "Summon spirit",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "精霊を召喚する",
+            "en": "Summon spirit",
+            "ch": ""
+        }
+    },
+    "468": {
+        "f": [
+            12,
+            1031,
+            8,
+            3000,
+            150,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "フェザー",
+            "en": "Feather",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "回避力強化・浮遊",
+            "en": "",
+            "ch": ""
+        }
+    },
+    "469": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "月蝕の檻",
+            "en": "Eclipse Jail",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "暗黒属性の範囲攻撃",
+            "en": "Surround(Darkness)",
+            "ch": ""
+        }
+    },
+    "470": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            600,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "雷霆の渦",
+            "en": "Thunder Vortex",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "電撃属性の範囲攻撃",
+            "en": "Surround(Lightning)",
+            "ch": ""
+        }
+    },
+    "471": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "冥王の咆哮",
+            "en": "Nether Roar",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "地獄属性の範囲攻撃",
+            "en": "Surround(Nether)",
+            "ch": ""
+        }
+    },
+    "472": {
+        "f": [
+            16,
+            0,
+            12,
+            2006,
+            320,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "光の霧",
+            "en": "Mist of Dazzling",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "眩い霧の発生",
+            "en": "Create mist",
+            "ch": ""
+        }
+    },
+    "473": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "猛毒の嵐",
+            "en": "Poison Storm",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "毒属性の範囲攻撃",
+            "en": "Surround(Poison)",
+            "ch": ""
+        }
+    },
+    "474": {
+        "f": [
+            13,
+            1043,
+            12,
+            3000,
+            100,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "集中",
+            "en": "Concentration",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "475": {
+        "f": [
+            16,
+            1,
+            20,
+            9006,
+            600,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ハイドロボルト",
+            "en": "Hydro Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "PVDV属性のボルト",
+            "en": "Line(PVDV)",
+            "ch": ""
+        }
+    },
+    "476": {
+        "f": [
+            16,
+            3,
+            40,
+            3002,
+            800,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "泡沫の嵐",
+            "en": "Bubble Storm",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "PVDV属性の範囲攻撃",
+            "en": "Surround(PVDV)",
+            "ch": ""
+        }
+    },
+    "477": {
+        "f": [
+            11,
+            1055,
+            12,
+            3000,
+            120,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "守護石",
+            "en": "Gem Power",
+            "ch": ""
+        },
+        "desc": {
+        }
+    },
+    "478": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "夢幻の咆哮",
+            "en": "Illusion Roar",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "幻惑属性の範囲攻撃",
+            "en": "Surround(Mind)",
+            "ch": ""
+        }
+    },
+    "479": {
+        "f": [
+            16,
+            3,
+            56,
+            3002,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "苦悶の檻",
+            "en": "Anguish Jail",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "神経属性の範囲攻撃",
+            "en": "Surround(Nerve)",
+            "ch": ""
+        }
+    },
+    "480": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ネザーボルト",
+            "en": "Nether Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "地獄属性のボルト",
+            "en": "Line(Nether)",
+            "ch": ""
+        }
+    },
+    "481": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ポイズンボルト",
+            "en": "Poison Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "毒属性のボルト",
+            "en": "Line(Poison)",
+            "ch": ""
+        }
+    },
+    "482": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "サウンドボルト",
+            "en": "Sound Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "音属性のボルト",
+            "en": "Line(Sound)",
+            "ch": ""
+        }
+    },
+    "483": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "カオスボルト",
+            "en": "Chaos Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "混沌属性のボルト",
+            "en": "Line(Chaos)",
+            "ch": ""
+        }
+    },
+    "484": {
+        "f": [
+            16,
+            1,
+            28,
+            9006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ナーブボルト",
+            "en": "Nerve Bolt",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "神経属性のボルト",
+            "en": "Line(Nerve)",
+            "ch": ""
+        }
+    },
+    "485": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "火炎の爪",
+            "en": "Fire Claw",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "火炎属性の矢",
+            "en": "Target(Fire)",
+            "ch": ""
+        }
+    },
+    "486": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "冷気の刃",
+            "en": "Cold Blade",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "冷気属性の矢",
+            "en": "Target(Cold)",
+            "ch": ""
+        }
+    },
+    "487": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "電撃の槍",
+            "en": "Lightning Spear",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "電撃属性の矢",
+            "en": "Target(Lightning)",
+            "ch": ""
+        }
+    },
+    "488": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "幻惑の棘",
+            "en": "Mind Thorn",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "幻惑属性の矢",
+            "en": "Target(Mind)",
+            "ch": ""
+        }
+    },
+    "489": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "毒の粘液",
+            "en": "Poison Mucus",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "毒属性の矢",
+            "en": "Target(Poison)",
+            "ch": ""
+        }
+    },
+    "490": {
+        "f": [
+            16,
+            2,
+            7,
+            2006,
+            300,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "音の砲弾",
+            "en": "Sound Cannonball",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "音属性の矢",
+            "en": "Target(Sound)",
+            "ch": ""
+        }
+    },
+    "491": {
+        "f": [
+            16,
+            2,
+            5,
+            2006,
+            400,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "水の牙",
+            "en": "Hydro Fang",
+            "ch": ""
+        },
+        "desc": {
+            "jp": "PVDV属性の矢",
+            "en": "Target(PVDV)",
+            "ch": ""
+        }
+    },
+    "601": {
+        "f": [
+            12,
+            6,
+            7,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "吸血の牙",
+            "en": "Drain Blood",
+            "ch": "吸血之牙"
+        },
+        "desc": {
+            "jp": "出血付与/sp吸収",
+            "en": "Bleeding effect/Drain SP",
+            "ch": "体力·sp吸收"
+        }
+    },
+    "602": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "火炎放射",
+            "en": "Fire Breath",
+            "ch": "火焰吐息"
+        },
+        "desc": {
+            "jp": "炎属性の放射攻撃",
+            "en": "Breath(Fire)",
+            "ch": "火属性吐息攻击"
+        }
+    },
+    "603": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "冷気放射",
+            "en": "Cold Breath",
+            "ch": "冷气吐息"
+        },
+        "desc": {
+            "jp": "冷気属性の放射攻撃",
+            "en": "Breath(Cold)",
+            "ch": "冷气属性吐息攻击"
+        }
+    },
+    "604": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "電撃放射",
+            "en": "Lightning Breath",
+            "ch": "电击吐息"
+        },
+        "desc": {
+            "jp": "電撃属性の放射攻撃",
+            "en": "Breath(Lightning)",
+            "ch": "电属性吐息攻击"
+        }
+    },
+    "605": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "暗黒放射",
+            "en": "Darkness Breath",
+            "ch": "暗黑吐息"
+        },
+        "desc": {
+            "jp": "暗黒属性の放射攻撃",
+            "en": "Breath(Darkness)",
+            "ch": "暗黑属性吐息攻击"
+        }
+    },
+    "606": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "混沌放射",
+            "en": "Chaos Breath",
+            "ch": "混沌吐息"
+        },
+        "desc": {
+            "jp": "混沌属性の放射攻撃",
+            "en": "Breath(Chaos)",
+            "ch": "混沌属性吐息攻击"
+        }
+    },
+    "607": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "轟音放射",
+            "en": "Sound Breath",
+            "ch": "轰音吐息"
+        },
+        "desc": {
+            "jp": "音属性の放射攻撃",
+            "en": "Breath(Sound)",
+            "ch": "音属性吐息攻击"
+        }
+    },
+    "608": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "冥気放射",
+            "en": "Nether Breath",
+            "ch": "冥气吐息"
+        },
+        "desc": {
+            "jp": "地獄属性の放射攻撃",
+            "en": "Breath(Nether)",
+            "ch": "地狱属性吐息攻击"
+        }
+    },
+    "609": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神経波放射",
+            "en": "Nerve Breath",
+            "ch": "神经波吐息"
+        },
+        "desc": {
+            "jp": "神経属性の放射攻撃",
+            "en": "Breath(Nerve)",
+            "ch": "神经属性吐息攻击"
+        }
+    },
+    "610": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "猛毒放射",
+            "en": "Poison Breath",
+            "ch": "猛毒吐息"
+        },
+        "desc": {
+            "jp": "毒属性の放射攻撃",
+            "en": "Breath(Poison)",
+            "ch": "毒属性吐息攻击"
+        }
+    },
+    "611": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "幻影放射",
+            "en": "Mind Breath",
+            "ch": "幻影吐息"
+        },
+        "desc": {
+            "jp": "幻惑属性の放射攻撃",
+            "en": "Breath(Mind)",
+            "ch": "幻惑属性吐息攻击"
+        }
+    },
+    "612": {
+        "f": [
+            11,
+            8,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "エネルギー放射",
+            "en": "Power Breath",
+            "ch": "能量吐息"
+        },
+        "desc": {
+            "jp": "魔法属性の放射攻撃",
+            "en": "Breath",
+            "ch": "魔法属性吐息攻击"
+        }
+    },
+    "613": {
+        "f": [
+            16,
+            6,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "弱体化の手",
+            "en": "Touch of Weakness",
+            "ch": "弱化之手"
+        },
+        "desc": {
+            "jp": "耐久属性攻撃＋弱体化",
+            "en": "Weaken target",
+            "ch": "体质属性攻击＋弱化"
+        }
+    },
+    "614": {
+        "f": [
+            16,
+            6,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "飢餓の手",
+            "en": "Touch of Hunger",
+            "ch": "饥饿之手"
+        },
+        "desc": {
+            "jp": "耐久属性攻撃＋飢餓の呪い",
+            "en": "Starve target",
+            "ch": "体质属性攻击＋饥饿诅咒"
+        }
+    },
+    "615": {
+        "f": [
+            12,
+            6,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "毒の手",
+            "en": "Touch of Poison",
+            "ch": "毒手"
+        },
+        "desc": {
+            "jp": "耐久属性攻撃＋毒付与",
+            "en": "Poison target",
+            "ch": "体质属性攻击＋赋予毒"
+        }
+    },
+    "616": {
+        "f": [
+            12,
+            6,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "麻痺の手",
+            "en": "Touch of Paralyze",
+            "ch": "麻痹之手"
+        },
+        "desc": {
+            "jp": "耐久属性攻撃＋麻痺付与",
+            "en": "Paralyze target",
+            "ch": "体质属性攻击＋赋予麻痹"
+        }
+    },
+    "617": {
+        "f": [
+            15,
+            6,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "恐怖の手",
+            "en": "Touch of Fear",
+            "ch": "恐怖之手"
+        },
+        "desc": {
+            "jp": "耐久属性攻撃＋恐怖付与",
+            "en": "Fear target",
+            "ch": "体质属性攻击＋赋予恐怖"
+        }
+    },
+    "618": {
+        "f": [
+            15,
+            6,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "眠りの手",
+            "en": "Touch of Sleep",
+            "ch": "催眠之手"
+        },
+        "desc": {
+            "jp": "耐久属性攻撃＋睡眠付与",
+            "en": "Sleep target",
+            "ch": "体质属性攻击＋赋予睡眠"
+        }
+    },
+    "619": {
+        "f": [
+            15,
+            5,
+            27,
+            2006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "シャドウステップ",
+            "en": "Shadow Step",
+            "ch": "影步"
+        },
+        "desc": {
+            "jp": "対象へ突撃＋通常近接攻撃",
+            "en": "Teleport to target",
+            "ch": "对目标突击＋普通近战攻击"
+        }
+    },
+    "620": {
+        "f": [
+            15,
+            5,
+            10,
+            6006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "異次元の手",
+            "en": "Draw Shadow",
+            "ch": "异次元之手"
+        },
+        "desc": {
+            "jp": "対象を引き寄せ",
+            "en": "Draw target",
+            "ch": "把对象拉过来"
+        }
+    },
+    "621": {
+        "f": [
+            16,
+            0,
+            15,
+            10000,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マナ回復",
+            "en": "Harvest Mana",
+            "ch": "恢复魔力"
+        },
+        "desc": {
+            "jp": "マナ回復",
+            "en": "Restore MP",
+            "ch": "恢复魔力"
+        }
+    },
+    "622": {
+        "f": [
+            15,
+            1013,
+            15,
+            2006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神罰",
+            "en": "Punishment",
+            "ch": "神罚"
+        },
+        "desc": {
+            "ch": ""
+        }
+    },
+    "623": {
+        "f": [
+            15,
+            4,
+            30,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ジュアの祈り",
+            "en": "Prayer of Jure",
+            "ch": "朱亚的祈祷"
+        },
+        "desc": {
+            "jp": "体力回復",
+            "en": "Heal HP self",
+            "ch": "回复体力"
+        }
+    },
+    "624": {
+        "f": [
+            16,
+            0,
+            25,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔力の吸収",
+            "en": "Absorb Magic",
+            "ch": "魔力吸收"
+        },
+        "desc": {
+            "jp": "マナ回復",
+            "en": "Heal MP",
+            "ch": "恢复魔力"
+        }
+    },
+    "625": {
+        "f": [
+            12,
+            1014,
+            20,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ルルウィの憑依",
+            "en": "Lulwy's Trick",
+            "ch": "璐璐薇附体"
+        },
+        "desc": {
+            "ch": ""
+        }
+    },
+    "626": {
+        "f": [
+            13,
+            0,
+            30,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "精神分析",
+            "en": "Psychoanalysis",
+            "ch": "精神分析"
+        },
+        "desc": {
+            "jp": "対象の精神状態の感知",
+            "en": "Know mind",
+            "ch": "对象的精神状态的感知"
+        }
+    },
+    "627": {
+        "f": [
+            15,
+            5,
+            15,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "空間歪曲",
+            "en": "Dimensional Move",
+            "ch": "空间扭曲"
+        },
+        "desc": {
+            "jp": "近くへの瞬間移動",
+            "en": "Teleport self",
+            "ch": "瞬间移动到附近"
+        }
+    },
+    "628": {
+        "f": [
+            13,
+            0,
+            10,
+            2006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "他者変容",
+            "en": "Change",
+            "ch": "他人变异"
+        },
+        "desc": {
+            "jp": "対象変容",
+            "en": "Change target",
+            "ch": "令对象变异"
+        }
+    },
+    "629": {
+        "f": [
+            16,
+            0,
+            1,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔力の抽出",
+            "en": "Draw Charge",
+            "ch": "魔力抽取"
+        },
+        "desc": {
+            "jp": "杖の使用回数を充填用魔力に変換",
+            "en": "Destroy a rod and gain recharge powers",
+            "ch": "将杖的使用次数变成充填用的魔力"
+        }
+    },
+    "630": {
+        "f": [
+            16,
+            0,
+            10,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔力の充填",
+            "en": "Fill Charge",
+            "ch": "魔力充填"
+        },
+        "desc": {
+            "jp": "充填用魔力をアイテムの使用回数に変換",
+            "en": "Item charge by recharge powers",
+            "ch": "充填用的魔力变换为道具的使用次数"
+        }
+    },
+    "631": {
+        "f": [
+            10,
+            0,
+            27,
+            10000,
+            220,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "スウォーム",
+            "en": "Swarm",
+            "ch": "群击"
+        },
+        "desc": {
+            "jp": "隣接対象通常近接攻撃",
+            "en": "Attack circle",
+            "ch": "对邻近目标普通近战攻击"
+        }
+    },
+    "632": {
+        "f": [
+            15,
+            0,
+            5,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "変容の眼差し",
+            "en": "Eye of Mutation",
+            "ch": "变异凝视"
+        },
+        "desc": {
+            "jp": "対象変容",
+            "en": "Mutate target",
+            "ch": "令对象变异"
+        }
+    },
+    "633": {
+        "f": [
+            15,
+            0,
+            5,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "エーテルの眼差し",
+            "en": "Eye of Ether",
+            "ch": "以太凝视"
+        },
+        "desc": {
+            "jp": "対象エーテル侵食",
+            "en": "Corrupt target",
+            "ch": "令对象受到以太侵蚀"
+        }
+    },
+    "634": {
+        "f": [
+            16,
+            0,
+            18,
+            7000,
+            480,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "エーテルの海",
+            "en": "Ether Ground",
+            "ch": "以太之海"
+        },
+        "desc": {
+            "jp": "エーテルの発生",
+            "en": "Create ether grounds",
+            "ch": "制造以太云"
+        }
+    },
+    "635": {
+        "f": [
+            12,
+            5,
+            10,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "スリの指",
+            "en": "Suspicious Hand",
+            "ch": "顺手牵羊"
+        },
+        "desc": {
+            "jp": "盗み",
+            "en": "Steal from target",
+            "ch": "偷取金币"
+        }
+    },
+    "636": {
+        "f": [
+            17,
+            0,
+            5,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "狂気の眼差し",
+            "en": "Eye of Insanity",
+            "ch": "疯狂凝视"
+        },
+        "desc": {
+            "jp": "対象狂気",
+            "en": "Craze target",
+            "ch": "令对象发狂"
+        }
+    },
+    "637": {
+        "f": [
+            15,
+            3,
+            50,
+            3002,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "狂気治癒の雨",
+            "en": "Rain of sanity",
+            "ch": "狂气治愈之雨"
+        },
+        "desc": {
+            "jp": "狂気回復の球",
+            "en": "Cure insane area",
+            "ch": "恢复疯狂度的范围魔法"
+        }
+    },
+    "638": {
+        "f": [
+            17,
+            0,
+            5,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "朦朧の眼差し",
+            "en": "Eye of dimness",
+            "ch": "眩晕凝视"
+        },
+        "desc": {
+            "jp": "対象を朦朧とさせパワーゲージも微低下",
+            "en": "Makes the target dim and the power gauge drops slightly.",
+            "ch": "使对手眩晕并稍微减少斗志"
+        }
+    },
+    "639": {
+        "f": [
+            16,
+            7,
+            15,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "猫召喚",
+            "en": "Summon Cats",
+            "ch": "猫召唤"
+        },
+        "desc": {
+            "jp": "猫を召喚する",
+            "en": "Summon cats",
+            "ch": "召唤猫科生物"
+        }
+    },
+    "640": {
+        "f": [
+            16,
+            7,
+            15,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "イーク召喚",
+            "en": "Summon Yeek",
+            "ch": "小鬼召唤"
+        },
+        "desc": {
+            "jp": "イークを召喚する",
+            "en": "Summon Yeeks",
+            "ch": "召唤小鬼系怪物"
+        }
+    },
+    "641": {
+        "f": [
+            16,
+            7,
+            15,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "駒召喚",
+            "en": "Summon Pawn",
+            "ch": "棋子召唤"
+        },
+        "desc": {
+            "jp": "駒を召喚する",
+            "en": "Summon pieces",
+            "ch": "召唤棋子类怪物"
+        }
+    },
+    "642": {
+        "f": [
+            16,
+            7,
+            15,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "炎召喚",
+            "en": "Summon Fire",
+            "ch": "炎召唤"
+        },
+        "desc": {
+            "jp": "炎の生き物を召喚する",
+            "en": "Summon fire creatures",
+            "ch": "召唤火属性生物"
+        }
+    },
+    "643": {
+        "f": [
+            16,
+            7,
+            15,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "妹召喚",
+            "en": "",
+            "ch": "妹召唤"
+        },
+        "desc": {
+            "jp": "妹を召喚する",
+            "en": "",
+            "ch": "召唤妹妹"
+        }
+    },
+    "644": {
+        "f": [
+            11,
+            3,
+            1,
+            8000,
+            450,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "自爆",
+            "en": "Suicide Attack",
+            "ch": "自爆"
+        },
+        "desc": {
+            "jp": "PVDV属性範囲攻撃/瀕死気絶",
+            "en": "Suicide(PVDV)",
+            "ch": "PVDV属性范围攻击"
+        }
+    },
+    "645": {
+        "f": [
+            16,
+            0,
+            10,
+            2004,
+            100,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "呪いの言葉",
+            "en": "Curse",
+            "ch": "咒言邪术"
+        },
+        "desc": {
+            "jp": "呪いをかける",
+            "en": "Curse target",
+            "ch": "施加诅咒"
+        }
+    },
+    "646": {
+        "f": [
+            15,
+            1016,
+            15,
+            2006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "死の宣告",
+            "en": "Death Word",
+            "ch": "死亡宣告"
+        },
+        "desc": {
+            "ch": ""
+        }
+    },
+    "647": {
+        "f": [
+            15,
+            1017,
+            50,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ブースト",
+            "en": "Boost",
+            "ch": "增幅"
+        },
+        "desc": {
+            "ch": ""
+        }
+    },
+    "648": {
+        "f": [
+            17,
+            0,
+            10,
+            2004,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "罵倒",
+            "en": "Insult",
+            "ch": "痛骂"
+        },
+        "desc": {
+            "jp": "対象を朦朧とさせパワーゲージも微低下",
+            "en": "Makes the target dim and the power gauge drops slightly.",
+            "ch": "使对手眩晕并稍微减少斗志"
+        }
+    },
+    "649": {
+        "f": [
+            10,
+            0,
+            27,
+            2004,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "衝撃波動",
+            "en": "Shining Wave",
+            "ch": "冲击波动"
+        },
+        "desc": {
+            "jp": "一直線攻撃",
+            "en": "Line attack.",
+            "ch": "直线攻击"
+        }
+    },
+    "650": {
+        "f": [
+            10,
+            10,
+            2,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "遠距離打撃７",
+            "en": "Distant Attack 7",
+            "ch": "远距离打击７"
+        },
+        "desc": {
+            "jp": "有射程/通常近接攻撃",
+            "en": "Distant attack.",
+            "ch": "有射程/普通近战攻击"
+        }
+    },
+    "651": {
+        "f": [
+            12,
+            0,
+            10,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "食い漁り",
+            "en": "Scavenge",
+            "ch": "胡吃海喝"
+        },
+        "desc": {
+            "jp": "盗んで食べる",
+            "en": "Steal food",
+            "ch": "盗取食物"
+        }
+    },
+    "652": {
+        "f": [
+            16,
+            0,
+            5,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マナの眼差し",
+            "en": "Eye of Mana",
+            "ch": "魔力凝视"
+        },
+        "desc": {
+            "jp": "マナダメージ",
+            "en": "Damage MP target",
+            "ch": "令对象魔力减少"
+        }
+    },
+    "653": {
+        "f": [
+            13,
+            0,
+            10,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "退却",
+            "en": "Vanish",
+            "ch": "撤退"
+        },
+        "desc": {
+            "jp": "退却する",
+            "en": "Escape self.",
+            "ch": "撤退"
+        }
+    },
+    "654": {
+        "f": [
+            13,
+            0,
+            15,
+            2001,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "寄生攻撃",
+            "en": "Parasitize",
+            "ch": "中出"
+        },
+        "desc": {
+            "jp": "対象を寄生状態にする",
+            "en": "Parasite target",
+            "ch": "对象怀孕"
+        }
+    },
+    "655": {
+        "f": [
+            16,
+            3,
+            18,
+            10000,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "グレネード",
+            "en": "Grenade",
+            "ch": "手榴弹"
+        },
+        "desc": {
+            "jp": "轟音の球",
+            "en": "Surround(Sound)",
+            "ch": "轰鸣之球"
+        }
+    },
+    "656": {
+        "f": [
+            17,
+            0,
+            32,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "鼓舞",
+            "en": "Cheer",
+            "ch": "鼓舞"
+        },
+        "desc": {
+            "jp": "視界内仲間強化",
+            "en": "Strengthen allies",
+            "ch": "强化可视范围内的同伴"
+        }
+    },
+    "657": {
+        "f": [
+            19,
+            0,
+            1,
+            3000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "うみみゃぁ！",
+            "en": "Mewmewmew!",
+            "ch": "喵咪咪！"
+        },
+        "desc": {
+            "jp": "全体高ダメージ",
+            "en": "?",
+            "ch": "全屏超高伤害"
+        }
+    },
+    "658": {
+        "f": [
+            12,
+            0,
+            30,
+            2001,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "首狩り攻撃",
+            "en": "Decapitation",
+            "ch": "斩首攻击"
+        },
+        "desc": {
+            "jp": "器用依存攻撃/対象が瀕死なら即死",
+            "en": "Attack and kill target",
+            "ch": "灵巧属性攻击/对象濒死则即死"
+        }
+    },
+    "659": {
+        "f": [
+            16,
+            0,
+            15,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "地雷投下",
+            "en": "Drop Mine",
+            "ch": "地雷埋下"
+        },
+        "desc": {
+            "jp": "足元に地雷設置",
+            "en": "Set Mine",
+            "ch": "在脚下埋下地雷"
+        }
+    },
+    "660": {
+        "f": [
+            15,
+            0,
+            10,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マニの分解術",
+            "en": "Mani's Disassembly",
+            "ch": "玛尼的分解术"
+        },
+        "desc": {
+            "jp": "敵瀕死",
+            "en": "Almost kill target",
+            "ch": "令敌人进入濒死状态"
+        }
+    },
+    "661": {
+        "f": [
+            14,
+            0,
+            1,
+            3000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "病愛波動",
+            "en": "Insane Wave",
+            "ch": "病爱波动"
+        },
+        "desc": {
+            "jp": "全体発狂",
+            "en": "?",
+            "ch": "全体发狂"
+        }
+    },
+    "662": {
+        "f": [
+            10,
+            0,
+            1,
+            2002,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "超振動拳",
+            "en": "TyousindouKen",
+            "ch": "超振动拳"
+        },
+        "desc": {
+            "jp": "超威力単体攻撃",
+            "en": "?",
+            "ch": "超威力单体攻击"
+        }
+    },
+    "663": {
+        "f": [
+            12,
+            7,
+            1,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "嵐の流法",
+            "en": "TempestArrow",
+            "ch": "暴风流法"
+        },
+        "desc": {
+            "jp": "竜巻召喚",
+            "en": "?",
+            "ch": "龙卷召唤"
+        }
+    },
+    "664": {
+        "f": [
+            15,
+            0,
+            1,
+            2002,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "閃華裂光",
+            "en": "ExcessiveHeal",
+            "ch": "闪华裂光"
+        },
+        "desc": {
+            "jp": "大量出血させる",
+            "en": "?",
+            "ch": "令对象大出血"
+        }
+    },
+    "665": {
+        "f": [
+            15,
+            0,
+            100,
+            2002,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "シャインスネイル",
+            "en": "ShineSnail",
+            "ch": "蜗牛闪光"
+        },
+        "desc": {
+            "jp": "単体攻撃",
+            "en": "?",
+            "ch": "单体攻击"
+        }
+    },
+    "666": {
+        "f": [
+            11,
+            0,
+            32,
+            3002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "土竜乱舞",
+            "en": "Houzanha",
+            "ch": "土龙乱舞"
+        },
+        "desc": {
+            "jp": "広域地形破壊",
+            "en": "field break",
+            "ch": "大范围地形破坏"
+        }
+    },
+    "667": {
+        "f": [
+            16,
+            0,
+            50,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マナの解放",
+            "en": "Mana Burst",
+            "ch": "魔力解放"
+        },
+        "desc": {
+            "jp": "MP消費範囲攻撃",
+            "en": "Burn MP",
+            "ch": "消费MP范围攻击"
+        }
+    },
+    "668": {
+        "f": [
+            16,
+            0,
+            1,
+            2002,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "エレメンティア",
+            "en": "Elementia",
+            "ch": "元素撕裂"
+        },
+        "desc": {
+            "jp": "単体超マナダメージ",
+            "en": "?",
+            "ch": "单体超魔法伤害"
+        }
+    },
+    "669": {
+        "f": [
+            13,
+            0,
+            28,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ランページ",
+            "en": "rampage",
+            "ch": "狂化术"
+        },
+        "desc": {
+            "jp": "視界内の仲間狂暴化",
+            "en": "Increase damage ",
+            "ch": "视野内的同伴狂暴化"
+        }
+    },
+    "670": {
+        "f": [
+            17,
+            0,
+            1,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ゴールドラッシュ",
+            "en": "Gold Rush",
+            "ch": "淘金热"
+        },
+        "desc": {
+            "jp": "超強化",
+            "en": "?",
+            "ch": "超强化"
+        }
+    },
+    "671": {
+        "f": [
+            17,
+            0,
+            100,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魂のシンクロ",
+            "en": "Synchro hearts",
+            "ch": "灵魂同调"
+        },
+        "desc": {
+            "jp": "好感度依存仲間強化",
+            "en": "Strengthen allies",
+            "ch": "根据好感强化同伴"
+        }
+    },
+    "672": {
+        "f": [
+            17,
+            0,
+            2,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔法の口づけ",
+            "en": "Magic Kiss",
+            "ch": "魔法之吻"
+        },
+        "desc": {
+            "jp": "マナ吸収あるいはマナ分譲",
+            "en": "Heal mana",
+            "ch": "吸收魔力或者分出魔力"
+        }
+    },
+    "673": {
+        "f": [
+            15,
+            0,
+            22,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "明鏡止水",
+            "en": "Clear Mind",
+            "ch": "明镜止水"
+        },
+        "desc": {
+            "jp": "主能力と回避力が上昇",
+            "en": "Strengthen WIL and PER",
+            "ch": "主能力和回避上升"
+        }
+    },
+    "674": {
+        "f": [
+            16,
+            0,
+            20,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "プレッシャー",
+            "en": "Pressure",
+            "ch": "压迫"
+        },
+        "desc": {
+            "jp": "MP消費し周囲の敵のゲージ-50％",
+            "en": "Reduce power gauge of surrounding enemies.",
+            "ch": "消耗MP使周围敌人的斗志降低50%"
+        }
+    },
+    "675": {
+        "f": [
+            16,
+            7,
+            30,
+            2006,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "眷属召喚",
+            "en": "Summon chaos",
+            "ch": "眷属召唤"
+        },
+        "desc": {
+            "jp": "眷属を召喚する",
+            "en": "Summon chaos",
+            "ch": "召唤眷属"
+        }
+    },
+    "676": {
+        "f": [
+            17,
+            0,
+            45,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "アンサンブル",
+            "en": "Ensemble",
+            "ch": "合奏"
+        },
+        "desc": {
+            "jp": "仲間と合奏・合唱する/時間かかる",
+            "en": "Ensemble",
+            "ch": "和同伴合奏或合唱/需要花时间"
+        }
+    },
+    "677": {
+        "f": [
+            12,
+            0,
+            50,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "超再生",
+            "en": "Super Regene",
+            "ch": "超再生"
+        },
+        "desc": {
+            "jp": "治癒力超上昇",
+            "en": "?",
+            "ch": "治愈力超上升"
+        }
+    },
+    "678": {
+        "f": [
+            17,
+            0,
+            1,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "戦術指示",
+            "en": "Directive",
+            "ch": "战术指示"
+        },
+        "desc": {
+            "jp": "仲間に態勢と特殊弾指示",
+            "en": "Switch battle mode",
+            "ch": "指示同伴改变战斗姿态与特殊弹"
+        }
+    },
+    "679": {
+        "f": [
+            17,
+            0,
+            34,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "プラチナソング",
+            "en": "Platinum Song",
+            "ch": "白金之歌"
+        },
+        "desc": {
+            "jp": "視界内仲間強化",
+            "en": "Strengthen allies",
+            "ch": "强化可视范围内的同伴"
+        }
+    },
+    "680": {
+        "f": [
+            12,
+            0,
+            20,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "挑発",
+            "en": "Provoke",
+            "ch": "挑衅"
+        },
+        "desc": {
+            "jp": "自分をターゲットにさせる",
+            "en": "Attract attack",
+            "ch": "让自己成为敌人的目标"
+        }
+    },
+    "681": {
+        "f": [
+            15,
+            0,
+            20,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "束縛",
+            "en": "Bind",
+            "ch": "束缚"
+        },
+        "desc": {
+            "jp": "対象移動不能",
+            "en": "Forbid target move",
+            "ch": "令对象不能移动"
+        }
+    },
+    "682": {
+        "f": [
+            13,
+            0,
+            20,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "威嚇",
+            "en": "Browbeat",
+            "ch": "威吓"
+        },
+        "desc": {
+            "jp": "対象の攻撃力を下げる",
+            "en": "attack down",
+            "ch": "令对手攻击力下降"
+        }
+    },
+    "683": {
+        "f": [
+            17,
+            0,
+            10,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "洗脳の眼差し",
+            "en": "Eye of brainwashing",
+            "ch": "洗脑凝视"
+        },
+        "desc": {
+            "jp": "PCを襲わせる",
+            "en": "control ally",
+            "ch": "使目标袭击玩家"
+        }
+    },
+    "684": {
+        "f": [
+            17,
+            0,
+            2,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "コールファミリア",
+            "en": "Call Familiar",
+            "ch": "呼唤同伴"
+        },
+        "desc": {
+            "jp": "指定した仲間を呼ぶ/待機させる",
+            "en": "Call Ally",
+            "ch": "指定的同伴召唤/待机"
+        }
+    },
+    "685": {
+        "f": [
+            16,
+            0,
+            15,
+            8000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "爆裂拳",
+            "en": "BakuretuKen",
+            "ch": "爆裂拳"
+        },
+        "desc": {
+            "jp": "通常格闘攻撃＋グレネード発動",
+            "en": "Grenade martial",
+            "ch": "普通格斗攻击＋榴弹发动"
+        }
+    },
+    "686": {
+        "f": [
+            11,
+            0,
+            30,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "チャージ",
+            "en": "Charge Attack",
+            "ch": "充能暴击"
+        },
+        "desc": {
+            "jp": "溜めて通常攻撃/魔法/放射を一度強化",
+            "en": "charge power",
+            "ch": "储存一次普通攻击/魔法/吐息的强化"
+        }
+    },
+    "687": {
+        "f": [
+            11,
+            0,
+            30,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "緊急回避",
+            "en": "Emergency Evasion",
+            "ch": "紧急回避"
+        },
+        "desc": {
+            "jp": "軽装備ならクリティカル無効",
+            "en": "Enhance evasion",
+            "ch": "装备轻装备时无效化暴击"
+        }
+    },
+    "688": {
+        "f": [
+            11,
+            0,
+            30,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔装",
+            "en": "Magic Equip",
+            "ch": "魔装"
+        },
+        "desc": {
+            "jp": "中装備なら魔法威力上昇",
+            "en": "Enhance magic power",
+            "ch": "装备中装备时提升魔法威力"
+        }
+    },
+    "689": {
+        "f": [
+            11,
+            0,
+            30,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "超重装",
+            "en": "Super Armor",
+            "ch": "超重装"
+        },
+        "desc": {
+            "jp": "重装備なら大ダメージを軽減",
+            "en": "Enhance protection",
+            "ch": "装备重装备时减轻大伤害"
+        }
+    },
+    "690": {
+        "f": [
+            11,
+            0,
+            1,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "何もしない",
+            "en": "Do Nothing",
+            "ch": "什么也不做"
+        },
+        "desc": {
+            "jp": "ターン終了",
+            "en": "Turn End",
+            "ch": "回合结束"
+        }
+    },
+    "691": {
+        "f": [
+            11,
+            0,
+            8,
+            2006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "重力球",
+            "en": "Gravity Sphere",
+            "ch": "重力球"
+        },
+        "desc": {
+            "jp": "階層重力依存耐久属性攻撃/鈍足判定",
+            "en": "Gravity and ENDattack",
+            "ch": "根据阶层数与重力的体质属性攻击/减速判定"
+        }
+    },
+    "692": {
+        "f": [
+            15,
+            0,
+            24,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "アトリビウト",
+            "en": "Attribute",
+            "ch": "元素之拳"
+        },
+        "desc": {
+            "jp": "耐性が最も高い属性を格闘に付加する",
+            "en": "Add attribute to martial",
+            "ch": "格斗时附加抗性最高的属性伤害"
+        }
+    },
+    "693": {
+        "f": [
+            13,
+            0,
+            10,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "一斉射撃",
+            "en": "Fire a volley/gauge50",
+            "ch": "一齐射击"
+        },
+        "desc": {
+            "jp": "仲間と一斉に通常遠隔攻撃/ゲージ50％消費",
+            "en": "",
+            "ch": "与同伴一起普通远程攻击/消耗50％斗志"
+        }
+    },
+    "694": {
+        "f": [
+            11,
+            0,
+            80,
+            3000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "絶対防衛",
+            "en": "Absolute protect",
+            "ch": "绝对防御"
+        },
+        "desc": {
+            "jp": "仲間のダメージを肩代わり",
+            "en": "Take over the damage of ally",
+            "ch": "转移同伴所受到的伤害"
+        }
+    },
+    "695": {
+        "f": [
+            16,
+            0,
+            100,
+            3000,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "焼けつく波動",
+            "en": "Megid Flame",
+            "ch": "灼热波动"
+        },
+        "desc": {
+            "jp": "祝福を焼き尽くす",
+            "en": "Buff Bunish",
+            "ch": "烧尽所有的祝福"
+        }
+    },
+    "696": {
+        "f": [
+            10,
+            0,
+            20,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "強制連行",
+            "en": "Forced draft",
+            "ch": "强制同行"
+        },
+        "desc": {
+            "jp": "牢獄に入れる",
+            "en": "Put in prison.",
+            "ch": "入狱了"
+        }
+    },
+    "697": {
+        "f": [
+            12,
+            0,
+            5,
+            2003,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "高速ラッシュ",
+            "en": "Continuous attacks",
+            "ch": "高速猛攻"
+        },
+        "desc": {
+            "jp": "連続通常近接攻撃/追加効果無効",
+            "en": "Continuous attacks.",
+            "ch": "连续普通近战攻击/追加效果无效"
+        }
+    },
+    "698": {
+        "f": [
+            12,
+            0,
+            10,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "可変放射",
+            "en": "Variable Breath",
+            "ch": "可变吐息"
+        },
+        "desc": {
+            "jp": "耐性に応じた属性を放射",
+            "en": "Breath(variable)",
+            "ch": "对应抗性属性吐息"
+        }
+    },
+    "699": {
+        "f": [
+            15,
+            0,
+            100,
+            2006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神気発勝",
+            "en": "Divine Stream",
+            "ch": "神气溢发"
+        },
+        "desc": {
+            "jp": "神力の解放",
+            "en": "?",
+            "ch": "神力解放"
+        }
+    },
+    "700": {
+        "f": [
+            15,
+            0,
+            15,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "零の間撃",
+            "en": "Zero shoot",
+            "ch": "零距离射击"
+        },
+        "desc": {
+            "jp": "無射程/距離補正命中率上昇通常射撃",
+            "en": "Hitting the target",
+            "ch": "无射程/修正距离命中提升的普通射击"
+        }
+    },
+    "701": {
+        "f": [
+            12,
+            0,
+            2,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "愛撫の手",
+            "en": "Rubbing",
+            "ch": "爱抚之手"
+        },
+        "desc": {
+            "jp": "撫でまわす",
+            "en": "Rub npc",
+            "ch": "抚摸他人"
+        }
+    },
+    "702": {
+        "f": [
+            12,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神速の一閃",
+            "en": "Issen",
+            "ch": "神速一闪"
+        },
+        "desc": {
+            "jp": "敵ゲージ半減/ゲージ100％消費",
+            "en": "Rapid Slash",
+            "ch": "敌人斗志减半/消耗100％斗志"
+        }
+    },
+    "703": {
+        "f": [
+            15,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "逆手落とし",
+            "en": "Underhand Drop",
+            "ch": "逆手落"
+        },
+        "desc": {
+            "jp": "恐怖させる刺突/ゲージ100％消費",
+            "en": "Piercing fear",
+            "ch": "给予恐惧状态的突刺/消耗100％斗志"
+        }
+    },
+    "704": {
+        "f": [
+            10,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "大烈断",
+            "en": "Bisection",
+            "ch": "大烈断"
+        },
+        "desc": {
+            "jp": "出血させる切断/ゲージ100％消費",
+            "en": "Brute force",
+            "ch": "给予出血状态的斩断/消耗100％斗志"
+        }
+    },
+    "705": {
+        "f": [
+            10,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "砦崩し",
+            "en": "Pulverization",
+            "ch": "崩堡"
+        },
+        "desc": {
+            "jp": "防御一時的に下げる/ゲージ100％消費",
+            "en": "Defense break",
+            "ch": "防御暂时性降低/消耗100％斗志"
+        }
+    },
+    "706": {
+        "f": [
+            12,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "朧突き",
+            "en": "Penetration",
+            "ch": "胧刺"
+        },
+        "desc": {
+            "jp": "朦朧とさせる刺突/ゲージ100％消費",
+            "en": "Thrust dim",
+            "ch": "给予眩晕状态的突刺/消耗100％斗志"
+        }
+    },
+    "707": {
+        "f": [
+            12,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "怒涛の連撃",
+            "en": "Dance of blow",
+            "ch": "怒涛连击"
+        },
+        "desc": {
+            "jp": "回避一時的に下げる/ゲージ100％消費",
+            "en": "Reduce avoidance",
+            "ch": "回避暂时性下降/消耗100％斗志"
+        }
+    },
+    "708": {
+        "f": [
+            15,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魂の一撃",
+            "en": "Explosion",
+            "ch": "魂之一击"
+        },
+        "desc": {
+            "jp": "消費後15％回復/ゲージ100％消費",
+            "en": "Braze Fighting spirit",
+            "ch": "消耗后回复15％/消耗100％斗志"
+        }
+    },
+    "709": {
+        "f": [
+            16,
+            0,
+            20,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "パワーアイテム",
+            "en": "Power Item",
+            "ch": "强效道具"
+        },
+        "desc": {
+            "jp": "一部アイテム使用強化",
+            "en": "Enhances use items",
+            "ch": "部分道具效果强化"
+        }
+    },
+    "710": {
+        "f": [
+            10,
+            0,
+            10,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "スクイーズ",
+            "en": "Squeeze",
+            "ch": "紧抱"
+        },
+        "desc": {
+            "jp": "不仲耐久属性攻撃/友好抱擁/家畜搾乳",
+            "en": "ENDattack enemy/Hug friend/milking livestock",
+            "ch": "体质属性攻击非友/拥抱友人/家畜榨乳"
+        }
+    },
+    "711": {
+        "f": [
+            12,
+            0,
+            10,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "撹乱",
+            "en": "Disturbance",
+            "ch": "扰乱"
+        },
+        "desc": {
+            "jp": "互いのパワーゲージを減らす",
+            "en": "Decrease power gauge",
+            "ch": "互相的斗志减少"
+        }
+    },
+    "712": {
+        "f": [
+            10,
+            0,
+            12,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "樹木の伐採",
+            "en": "Cut Tree",
+            "ch": "砍伐树木"
+        },
+        "desc": {
+            "jp": "大斧などで伐採して材木化",
+            "en": "cut tree by bardish etc",
+            "ch": "砍伐以获得木材"
+        }
+    },
+    "713": {
+        "f": [
+            15,
+            0,
+            20,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "説法",
+            "en": "Preaching",
+            "ch": "传教"
+        },
+        "desc": {
+            "jp": "信仰のあり方について考えを広める",
+            "en": "Encourage conversion",
+            "ch": "传播自己的信仰"
+        }
+    },
+    "714": {
+        "f": [
+            10,
+            0,
+            26,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "暴走",
+            "en": "Uncontroll",
+            "ch": "暴走"
+        },
+        "desc": {
+            "jp": "能力の変動・暴れ回る",
+            "en": "?",
+            "ch": "能力值改变·横冲直撞"
+        }
+    },
+    "715": {
+        "f": [
+            12,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "収束放射",
+            "en": "Converge Breath",
+            "ch": "收束吐息"
+        },
+        "desc": {
+            "jp": "強力な一列放射/ゲージ100％消費",
+            "en": "Breath(converge)",
+            "ch": "强力的一列吐息/消耗100％斗志"
+        }
+    },
+    "716": {
+        "f": [
+            16,
+            0,
+            200,
+            3000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "刻の涙",
+            "en": "Time Stop",
+            "ch": "时之泪"
+        },
+        "desc": {
+            "jp": "時間を止める/ゲージ100％消費",
+            "en": "?",
+            "ch": "时间停止/消耗100％斗志"
+        }
+    },
+    "717": {
+        "f": [
+            15,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "零の間撃・突型",
+            "en": "Zero shoot2",
+            "ch": "零距离射击·突击型"
+        },
+        "desc": {
+            "jp": "近いほど貫通率上昇/ゲージ100％消費",
+            "en": "Hitting the target",
+            "ch": "靠近使贯通率上升/消耗100％斗志"
+        }
+    },
+    "718": {
+        "f": [
+            16,
+            0,
+            30,
+            2015,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔儀迦",
+            "en": "Diffusion Wave",
+            "ch": "魔仪迦"
+        },
+        "desc": {
+            "jp": "HPMP回復長射程攻撃/ゲージ100％消費",
+            "en": "Attack and heal",
+            "ch": "HPMP回复长射程攻击/消耗100％斗志"
+        }
+    },
+    "719": {
+        "f": [
+            10,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "同化吸収",
+            "en": "Assimilate",
+            "ch": "同化吸收"
+        },
+        "desc": {
+            "jp": "睡眠＋吸収",
+            "en": "Assimilate",
+            "ch": "睡眠＋吸收"
+        }
+    },
+    "720": {
+        "f": [
+            12,
+            0,
+            30,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "オーバーブースト",
+            "en": "Over Boost",
+            "ch": "Over Boost"
+        },
+        "desc": {
+            "jp": "能力強化",
+            "en": "Over Boost",
+            "ch": "能力值强化"
+        }
+    },
+    "721": {
+        "f": [
+            15,
+            0,
+            24,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ハーモニックアサルト",
+            "en": "Harmonic Assault",
+            "ch": "和声突击"
+        },
+        "desc": {
+            "jp": "交渉系技能強化",
+            "en": "Enhances negotiate abilities",
+            "ch": "交涉系技能强化"
+        }
+    },
+    "722": {
+        "f": [
+            15,
+            0,
+            30,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "レゾナントボイス",
+            "en": "Resonant Voice",
+            "ch": "共振音波"
+        },
+        "desc": {
+            "jp": "敵戦意喪失/ゲージ100％消費",
+            "en": "Fatigue enemies/gauge100",
+            "ch": "视野内敌人丧失战意/消耗100%斗志"
+        }
+    },
+    "723": {
+        "f": [
+            16,
+            0,
+            15,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "鬼神縛り",
+            "en": "Kijin Shibari",
+            "ch": "鬼神缚"
+        },
+        "desc": {
+            "jp": "巻物を10枚消費/全体束縛器用弱体化",
+            "en": "Consume 10 scrolls,enemies bind and weaken DEX",
+            "ch": "消耗10张卷轴/全体束缚+弱化灵巧"
+        }
+    },
+    "724": {
+        "f": [
+            16,
+            0,
+            10,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "灼熱絵巻",
+            "en": "Burn Scrolls",
+            "ch": "灼热绘卷"
+        },
+        "desc": {
+            "jp": "巻物を20枚消費/火炎属性攻撃",
+            "en": "Consume 20 scrolls, fire attack",
+            "ch": "消耗20张卷轴/火焰属性攻击"
+        }
+    },
+    "725": {
+        "f": [
+            15,
+            0,
+            20,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "呪装豪身",
+            "en": "Jyusou Goushin",
+            "ch": "咒装豪身"
+        },
+        "desc": {
+            "jp": "自分の装備に呪い/自己強化",
+            "en": "Self-curse and self-reinforcement",
+            "ch": "诅咒自己的装备/强化自己"
+        }
+    },
+    "726": {
+        "f": [
+            10,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "デスバインド",
+            "en": "Death Bind",
+            "ch": "死亡束缚"
+        },
+        "desc": {
+            "jp": "束縛＋貫通攻撃",
+            "en": "Penetrating attack",
+            "ch": "束缚＋贯通攻击"
+        }
+    },
+    "727": {
+        "f": [
+            16,
+            0,
+            28,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "降り注ぐ胞子",
+            "en": "Downpour Spore",
+            "ch": "孢子之雨"
+        },
+        "desc": {
+            "jp": "周囲の敵に睡眠と鈍足効果",
+            "en": "Sleep and speeddown surrounding enemies.",
+            "ch": "使周围的敌人睡眠并迟缓"
+        }
+    },
+    "728": {
+        "f": [
+            16,
+            0,
+            30,
+            2003,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "精神破壊光",
+            "en": "Mind Break",
+            "ch": "精神破坏光"
+        },
+        "desc": {
+            "jp": "精神攻撃/ゲージ100％消費",
+            "en": "Mental Pollution",
+            "ch": "精神攻击/消耗100％斗志"
+        }
+    },
+    "729": {
+        "f": [
+            15,
+            0,
+            30,
+            2020,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "光輝の手",
+            "en": "GHAND",
+            "ch": "光辉之手"
+        },
+        "desc": {
+            "jp": "光を叩きつける/ゲージ100％消費",
+            "en": "magic attack",
+            "ch": "用光全力攻击/消耗100％斗志"
+        }
+    },
+    "730": {
+        "f": [
+            11,
+            0,
+            20,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "グラビトンバスター",
+            "en": "Graviton Buster",
+            "ch": "重力爆发"
+        },
+        "desc": {
+            "jp": "階層依存放射/ゲージ100％消費",
+            "en": "Gravity Blast/gauge100",
+            "ch": "根据阶层数吐息/消耗100％斗志"
+        }
+    },
+    "731": {
+        "f": [
+            12,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔刃狩り",
+            "en": "Mana slash",
+            "ch": "魔刃之狩"
+        },
+        "desc": {
+            "jp": "敵のMPにもダメージ/ゲージ100％消費",
+            "en": "Kill target",
+            "ch": "对敌人的MP也施予伤害/消耗100％斗志"
+        }
+    },
+    "732": {
+        "f": [
+            16,
+            0,
+            30,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "力の集約",
+            "en": "Collected Power",
+            "ch": "力量凝聚"
+        },
+        "desc": {
+            "jp": "HPMP回復・ゲージ上昇",
+            "en": "Increase gauge",
+            "ch": "HPMP恢复·斗志上升"
+        }
+    },
+    "733": {
+        "f": [
+            11,
+            0,
+            30,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "空間掌握",
+            "en": "Space retention",
+            "ch": "空间控制"
+        },
+        "desc": {
+            "jp": "テレポート防止/フィールド変化解除",
+            "en": "Prevent teleport/Field change reset",
+            "ch": "防止传送/场地变化解除"
+        }
+    },
+    "734": {
+        "f": [
+            12,
+            10,
+            2,
+            2003,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "遠距離打撃",
+            "en": "Distant Attack",
+            "ch": "远距离攻击"
+        },
+        "desc": {
+            "jp": "有射程/通常近接攻撃",
+            "en": "Distant attack.",
+            "ch": "有射程/普通近战攻击"
+        }
+    },
+    "735": {
+        "f": [
+            12,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "超輪転",
+            "en": "Spinning Throw",
+            "ch": "超级旋转"
+        },
+        "desc": {
+            "jp": "貫通率上昇必中会心/ゲージ100％消費",
+            "en": "Revolve enough to penetrate",
+            "ch": "贯通率上升必中暴击/消耗100％斗志"
+        }
+    },
+    "736": {
+        "f": [
+            11,
+            0,
+            70,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "メタルコート",
+            "en": "Metal Guard",
+            "ch": "金属外套"
+        },
+        "desc": {
+            "jp": "一度だけ受けるダメージを1/10にする",
+            "en": "To 1/10 damage once.",
+            "ch": "一次将受到的伤害降至1/10"
+        }
+    },
+    "737": {
+        "f": [
+            12,
+            0,
+            35,
+            2006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "迅雷脚",
+            "en": "ZinlaiKyaku",
+            "ch": "迅雷脚"
+        },
+        "desc": {
+            "jp": "突撃＋通常電撃格闘/ゲージ25％消費",
+            "en": "Lightning martial/gauge25",
+            "ch": "突击＋普通电击格斗/消耗25％斗志"
+        }
+    },
+    "738": {
+        "f": [
+            12,
+            0,
+            15,
+            2006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ストラックアウト",
+            "en": "Struck Out",
+            "ch": "三振出局"
+        },
+        "desc": {
+            "jp": "3×3マスへの通常投擲攻撃",
+            "en": "Throwing attack circle",
+            "ch": "3×3范围的普通投掷攻击"
+        }
+    },
+    "739": {
+        "f": [
+            17,
+            0,
+            10,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "悩殺攻撃",
+            "en": "Bewitch",
+            "ch": "魅态攻击"
+        },
+        "desc": {
+            "jp": "成功すると金を巻き上げ動きを止める",
+            "en": "Stop movement of opponent",
+            "ch": "成功时夺走金钱并停止目标行动"
+        }
+    },
+    "740": {
+        "f": [
+            15,
+            0,
+            10,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "全軍突撃",
+            "en": "Shadow rush",
+            "ch": "全军突击"
+        },
+        "desc": {
+            "jp": "全員で突撃＋通常近接攻撃/ゲージ75％消費",
+            "en": "Attack by all allies/gauge70",
+            "ch": "全员突击普通近战攻击/消耗75％斗志"
+        }
+    },
+    "741": {
+        "f": [
+            15,
+            0,
+            24,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "タッグフォース",
+            "en": "Tag Force",
+            "ch": "组合力量"
+        },
+        "desc": {
+            "jp": "タッグ強化回復/ゲージ50％消費",
+            "en": "Strengthen tag/gauge50",
+            "ch": "组合强化回复/消耗50％斗志"
+        }
+    },
+    "742": {
+        "f": [
+            10,
+            0,
+            10,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ボディブロー",
+            "en": "Body Blow",
+            "ch": "腹部重击"
+        },
+        "desc": {
+            "jp": "通常格闘攻撃にボディブロー追加",
+            "en": "Add body blow to martial",
+            "ch": "为普通格斗攻击追加腹部重击"
+        }
+    },
+    "743": {
+        "f": [
+            16,
+            0,
+            0,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ネクロフォース",
+            "en": "Necro Force",
+            "ch": "役使死灵"
+        },
+        "desc": {
+            "jp": "使役アンデッド制御",
+            "en": "Control coffin undead",
+            "ch": "控制所使役的不死者"
+        }
+    },
+    "744": {
+        "f": [
+            11,
+            0,
+            18,
+            2000,
+            700,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "道連れ",
+            "en": "Close Suicide",
+            "ch": "一起上路"
+        },
+        "desc": {
+            "jp": "自爆",
+            "en": "Suicide",
+            "ch": "自爆"
+        }
+    },
+    "745": {
+        "f": [
+            12,
+            0,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ノックアウト攻撃",
+            "en": "Knockout",
+            "ch": "击晕攻击"
+        },
+        "desc": {
+            "jp": "命中減通常近接攻撃で気絶を狙う",
+            "en": "Attack to stun",
+            "ch": "进行减少命中、让对方眩晕的近战攻击"
+        }
+    },
+    "746": {
+        "f": [
+            16,
+            0,
+            10,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "多重詠唱魔法",
+            "en": "Over-Ray",
+            "ch": "多重咏唱魔法"
+        },
+        "desc": {
+            "jp": "仲間の魔力を集積/ゲージ50％消費",
+            "en": "Attack by integrating the magic of ally.",
+            "ch": "集聚同伴的魔力/消耗50％斗志"
+        }
+    },
+    "747": {
+        "f": [
+            10,
+            0,
+            12,
+            10000,
+            220,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "地砕き",
+            "en": "Smash Ground",
+            "ch": "碎地"
+        },
+        "desc": {
+            "jp": "隣接対象攻撃/怯み付与",
+            "en": "Attack circle",
+            "ch": "对邻近目标攻击/使其胆怯"
+        }
+    },
+    "748": {
+        "f": [
+            10,
+            6,
+            12,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "貪食の牙",
+            "en": "Voracity Fang",
+            "ch": "贪食之牙"
+        },
+        "desc": {
+            "jp": "出血付与/耐久弱化",
+            "en": "Bleeding effect/Weakened END",
+            "ch": "体力吸收·饱腹时无效"
+        }
+    },
+    "749": {
+        "f": [
+            12,
+            0,
+            30,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "盾殴り",
+            "en": "Mana slash",
+            "ch": "盾击"
+        },
+        "desc": {
+            "jp": "衝撃で敵を朦朧麻痺/ゲージ100％消費",
+            "en": "Kill target",
+            "ch": "冲击而使敌人眩晕麻痹/消耗100％斗志"
+        }
+    },
+    "750": {
+        "f": [
+            15,
+            0,
+            1,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "【力の温存/解放】",
+            "en": "<Gauge Save/Release>",
+            "ch": "【力之解放】"
+        },
+        "desc": {
+            "jp": "ゲージ技の使用を切替",
+            "en": "Switch the use of power gauge",
+            "ch": "下次攻击时消耗100％斗志进行强力攻击"
+        }
+    },
+    "751": {
+        "f": [
+            16,
+            0,
+            35,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "錬成雨",
+            "en": "Alchemical Rain",
+            "ch": "炼成雨"
+        },
+        "desc": {
+            "jp": "視界内の味方にポーション効果",
+            "en": "Enlarge effect range of potions to followers.",
+            "ch": "向视野内的我方施加药水的效果"
+        }
+    },
+    "752": {
+        "f": [
+            15,
+            0,
+            30,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "強制集合",
+            "en": "Multiple Gather",
+            "ch": "强制集合"
+        },
+        "desc": {
+            "jp": "複数の対象を引き寄せ",
+            "en": "Draw targets",
+            "ch": "把多名对象拉过来"
+        }
+    },
+    "753": {
+        "f": [
+            15,
+            0,
+            20,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "サイキックウェーブ",
+            "en": "Psychic Wave",
+            "ch": "心灵波动"
+        },
+        "desc": {
+            "jp": "束縛＋LV依存の変動固定ダメージ",
+            "en": "Bind and level dependent fixed damage",
+            "ch": "束缚+根据LV而变化的固定伤害"
+        }
+    },
+    "754": {
+        "f": [
+            14,
+            0,
+            25,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "読書会",
+            "en": "Reading Party",
+            "ch": "读书会"
+        },
+        "desc": {
+            "jp": "仲間と一緒に書物の解読を行う",
+            "en": "Reading Party",
+            "ch": "与伙伴一起解读书籍"
+        }
+    },
+    "755": {
+        "f": [
+            15,
+            0,
+            40,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "シャイニングスロー",
+            "en": "Shining Throw",
+            "ch": "闪耀投掷"
+        },
+        "desc": {
+            "jp": "PVDV範囲攻撃/ゲージ5％増加",
+            "en": "Surround(PVDV)/gauge5gain",
+            "ch": "PVDV范围攻击/增加5％斗志"
+        }
+    },
+    "756": {
+        "f": [
+            16,
+            0,
+            1,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "デュプリケイン",
+            "en": "Dupli-Cane",
+            "ch": "魔杖复制"
+        },
+        "desc": {
+            "jp": "攻撃杖の回数減無効/威力減/Sp3消費",
+            "en": "Use rod without reducing the remaining number.",
+            "ch": "攻击魔杖不减次数/减威力/消耗Sp3"
+        }
+    },
+    "757": {
+        "f": [
+            10,
+            0,
+            30,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "破錠攻撃",
+            "en": "Lock Break",
+            "ch": "暴力开锁"
+        },
+        "desc": {
+            "jp": "力を結集し鍵破壊/中身微破損",
+            "en": "Joining forces and break the lock",
+            "ch": "用蛮力破锁/略微损坏其中的物品"
+        }
+    },
+    "758": {
+        "f": [
+            11,
+            6,
+            150,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "侵食の毒牙",
+            "en": "Memory Poison",
+            "ch": "侵蚀之毒牙"
+        },
+        "desc": {
+            "jp": "毒属性/能力一時減少",
+            "en": "Decrease ability temporarily",
+            "ch": "毒属性/能力值暂时减少"
+        }
+    },
+    "759": {
+        "f": [
+            16,
+            0,
+            15,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "乱れ切風",
+            "en": "Blade Turbulence",
+            "ch": "风刃乱舞"
+        },
+        "desc": {
+            "jp": "周囲の敵に切り傷ダメージ",
+            "en": "Bleeding attack to surrounding enemies.",
+            "ch": "对周围敌人造成出血伤害"
+        }
+    },
+    "760": {
+        "f": [
+            15,
+            0,
+            25,
+            2006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "捨て身",
+            "en": "Clash Rush",
+            "ch": "舍身攻击"
+        },
+        "desc": {
+            "jp": "接近攻撃/反動あり/ゲージ25％消費",
+            "en": "Attack at the risk of life",
+            "ch": "接近敌人/有反伤/消耗25%斗志"
+        }
+    },
+    "761": {
+        "f": [
+            16,
+            0,
+            30,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "破滅の歌",
+            "en": "Death Song",
+            "ch": "毁灭之歌"
+        },
+        "desc": {
+            "jp": "周囲全員に音属性対抗死の宣告",
+            "en": "Death for surrounding.",
+            "ch": "周围全员用音抗性对抗死亡宣告"
+        }
+    },
+    "762": {
+        "f": [
+            13,
+            0,
+            12,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マルチロック射撃",
+            "en": "Homing Lazer",
+            "ch": "多重锁定射击"
+        },
+        "desc": {
+            "jp": "敵の数に応じて分散する射撃",
+            "en": "The entire distributed attack",
+            "ch": "分散射击"
+        }
+    },
+    "763": {
+        "f": [
+            11,
+            0,
+            25,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "破壊の奔流",
+            "en": "MP Breath",
+            "ch": "破坏奔流"
+        },
+        "desc": {
+            "jp": "MP25％消費/放射攻撃",
+            "en": "MP Breath",
+            "ch": "消耗25％MP/吐息攻击"
+        }
+    },
+    "764": {
+        "f": [
+            15,
+            0,
+            28,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "血の結束",
+            "en": "Bound in Blood",
+            "ch": "血脉联结"
+        },
+        "desc": {
+            "jp": "元々の種族が同じ仲間を強化",
+            "en": "Strengthen same race allies",
+            "ch": "强化同种族同伴"
+        }
+    },
+    "765": {
+        "f": [
+            16,
+            0,
+            28,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "沈黙の海",
+            "en": "Silent Ocean",
+            "ch": "沉默之海"
+        },
+        "desc": {
+            "jp": "視界内水化/範囲内沈黙",
+            "en": "Flooded and silence",
+            "ch": "视野内水化/范围内沉默"
+        }
+    },
+    "766": {
+        "f": [
+            13,
+            0,
+            16,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "亜空釣り",
+            "en": "Dimension Fishing",
+            "ch": "亚空垂钓"
+        },
+        "desc": {
+            "jp": "敵1体を引き寄せ",
+            "en": "Draw enemy",
+            "ch": "将一名敌人拽到身边"
+        }
+    },
+    "767": {
+        "f": [
+            17,
+            0,
+            21,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魅了の舞",
+            "en": "Fascination Dance",
+            "ch": "魅惑之舞"
+        },
+        "desc": {
+            "jp": "確率で視界内の敵を麻痺・疲労",
+            "en": "Stop movement of enemies",
+            "ch": "概率使视野内敌人麻痹·疲劳"
+        }
+    },
+    "768": {
+        "f": [
+            12,
+            0,
+            1,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ヴィンデリアン柔術",
+            "en": "Vindalian Jiu-jitsu",
+            "ch": "温戴尔柔术"
+        },
+        "desc": {
+            "jp": "格闘スタイルの切替",
+            "en": "Change martial style.",
+            "ch": "切换格斗风格"
+        }
+    },
+    "769": {
+        "f": [
+            12,
+            0,
+            10,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ブレードストリングス",
+            "en": "Blade Strings",
+            "ch": "钢弦利刃"
+        },
+        "desc": {
+            "jp": "戦術器用依存攻撃/トラップ設置",
+            "en": "Cutting attack/Trap installation",
+            "ch": "根据战术与灵巧造成伤害/设置陷阱"
+        }
+    },
+    "770": {
+        "f": [
+            12,
+            0,
+            18,
+            6006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "踊る鋼線",
+            "en": "Dancing Wire",
+            "ch": "舞动的钢弦"
+        },
+        "desc": {
+            "jp": "対象を束縛し引き寄せ",
+            "en": "Draw target/Binding target",
+            "ch": "将对方束缚并拉到跟前"
+        }
+    },
+    "771": {
+        "f": [
+            16,
+            0,
+            8,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "硬直の眼差し",
+            "en": "Eye of Stiffen",
+            "ch": "僵直凝视"
+        },
+        "desc": {
+            "jp": "神経ダメージ/対象の防御力一時上昇",
+            "en": "Damage nerve/Increases protect target",
+            "ch": "精神伤害/对方防御力短时间上升"
+        }
+    },
+    "772": {
+        "f": [
+            16,
+            0,
+            8,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "幻惑の眼差し",
+            "en": "Eye of Illusion",
+            "ch": "幻惑凝视"
+        },
+        "desc": {
+            "jp": "幻惑ダメージ",
+            "en": "Damage mind",
+            "ch": "幻惑伤害"
+        }
+    },
+    "773": {
+        "f": [
+            11,
+            0,
+            10,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "殲滅可変放射",
+            "en": "Extermination Breath",
+            "ch": "歼灭可变吐息"
+        },
+        "desc": {
+            "jp": "耐性属性視界内放射/ゲージ25％消費",
+            "en": "All Breath(variable)",
+            "ch": "视野内抗性属性吐息/消耗25％斗志"
+        }
+    },
+    "774": {
+        "f": [
+            16,
+            0,
+            15,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "錬成掌",
+            "en": "Resolution Hand",
+            "ch": "炼成掌"
+        },
+        "desc": {
+            "jp": "手系技能に追加ダメージ",
+            "en": "Touch and damage",
+            "ch": "手系能力追加伤害"
+        }
+    },
+    "775": {
+        "f": [
+            12,
+            0,
+            40,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マテリアライズ",
+            "en": "Materialise",
+            "ch": "化为材料"
+        },
+        "desc": {
+            "jp": "対象が瀕死ならマテリアル化",
+            "en": "Kill target",
+            "ch": "施术对象濒死时变成材料"
+        }
+    },
+    "776": {
+        "f": [
+            15,
+            0,
+            32,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "戦慄の笑顔",
+            "en": "Cowering Smile",
+            "ch": "可怕的笑脸"
+        },
+        "desc": {
+            "jp": "視界内に萎縮と震えをまき散らす",
+            "en": "Spread atrophy and chills around.",
+            "ch": "在视野内散布畏缩与颤栗"
+        }
+    },
+    "777": {
+        "f": [
+            15,
+            0,
+            20,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "スマイルフィールド",
+            "en": "Smile Field",
+            "ch": "微笑力场"
+        },
+        "desc": {
+            "jp": "視界内全員強化",
+            "en": "Strengthen everyone around.",
+            "ch": "视野内全员强化"
+        }
+    },
+    "778": {
+        "f": [
+            16,
+            0,
+            21,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "瞳の奥の深淵",
+            "en": "Abyss in the eye",
+            "ch": "瞳孔里的深渊"
+        },
+        "desc": {
+            "jp": "心眼強化/眼差し系の技能に効果追加",
+            "en": "Enhance Eye of Mind,Add absorption to Eye-skills",
+            "ch": "心眼强化/增强眼神系能力效果"
+        }
+    },
+    "779": {
+        "f": [
+            11,
+            0,
+            30,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "シールドパリィ",
+            "en": "Shield Parry",
+            "ch": "盾牌架挡"
+        },
+        "desc": {
+            "jp": "近接攻撃を盾で弾く",
+            "en": "Parry",
+            "ch": "用盾牌将近身攻击弹开"
+        }
+    },
+    "780": {
+        "f": [
+            13,
+            0,
+            20,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "砲弾発射",
+            "en": "Rocket Fire",
+            "ch": "炮弹发射"
+        },
+        "desc": {
+            "jp": "防御を下げる/ゲージ25％消費",
+            "en": "Attack and reduce the defense/gauge25",
+            "ch": "降低防御/消耗25％斗志"
+        }
+    },
+    "781": {
+        "f": [
+            13,
+            0,
+            50,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "核発射",
+            "en": "Nuclear Fire",
+            "ch": "核射击"
+        },
+        "desc": {
+            "jp": "広範囲爆破/ゲージ25％消費",
+            "en": "Attack and reduce the defense/gauge25",
+            "ch": "大范围爆破/消耗25％斗志"
+        }
+    },
+    "782": {
+        "f": [
+            17,
+            0,
+            18,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "デフレストーム",
+            "en": "Golden Storm",
+            "ch": "通货风暴"
+        },
+        "desc": {
+            "jp": "所持金貨２千枚を投げ散らす",
+            "en": "Consume 2000gold attack",
+            "ch": "掷出所持的2000枚金币"
+        }
+    },
+    "783": {
+        "f": [
+            11,
+            0,
+            21,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "重力偏向",
+            "en": "Gravity Accel",
+            "ch": "重力偏转"
+        },
+        "desc": {
+            "jp": "重力の向きを変えて戦闘に応用",
+            "en": "Gravity buff",
+            "ch": "改变重力的方向从而应用于战斗"
+        }
+    },
+    "784": {
+        "f": [
+            11,
+            0,
+            18,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "超重圧殺",
+            "en": "Giga Gravitation",
+            "ch": "超重压杀"
+        },
+        "desc": {
+            "jp": "重力依存耐久属性攻撃/MP10％消費",
+            "en": "Gravity and ENDattack Surround/MP10",
+            "ch": "根据重力的体质属性攻击/消耗10%MP"
+        }
+    },
+    "785": {
+        "f": [
+            15,
+            0,
+            21,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "烈走破",
+            "en": "Hyper Dash",
+            "ch": "烈走破"
+        },
+        "desc": {
+            "jp": "押しのけ移動しつつダメージ",
+            "en": "Run through and attack",
+            "ch": "推开对方地移动并造成伤害"
+        }
+    },
+    "786": {
+        "f": [
+            14,
+            0,
+            18,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "暴虐の庭園",
+            "en": "Violent Garden",
+            "ch": "暴虐的庭园"
+        },
+        "desc": {
+            "jp": "視界内束縛毒ダメージ",
+            "en": "Bind and poison",
+            "ch": "视野内束缚并给予毒伤害"
+        }
+    },
+    "787": {
+        "f": [
+            14,
+            0,
+            8,
+            2006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ミストルティン",
+            "en": "Misteltein",
+            "ch": "槲寄生"
+        },
+        "desc": {
+            "jp": "対象弱体・マナダメージ・神特効",
+            "en": "Damage MP and weaken",
+            "ch": "削弱对象·MP伤害·神特效"
+        }
+    },
+    "788": {
+        "f": [
+            14,
+            0,
+            24,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "アロマゲドン",
+            "en": "Aromageddon",
+            "ch": "芳香花园"
+        },
+        "desc": {
+            "jp": "味方MP回復敵弱体/精油消費",
+            "en": "Expend essential oil",
+            "ch": "我方mp回复并削弱敌方/精油消费"
+        }
+    },
+    "789": {
+        "f": [
+            16,
+            0,
+            31,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "黒煙のトバリ",
+            "en": "Curtain of Smoke",
+            "ch": "烟幕之帐"
+        },
+        "desc": {
+            "jp": "視界を狭める煙の発生",
+            "en": "Create smoke",
+            "ch": "产生让视野变狭小的烟雾"
+        }
+    },
+    "790": {
+        "f": [
+            16,
+            0,
+            1,
+            3000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "煙吐く鏡",
+            "en": "Smoke Mirror",
+            "ch": "散发着烟雾的镜"
+        },
+        "desc": {
+            "jp": "煙幕＆能力転写",
+            "en": "?",
+            "ch": "烟幕＆能力值复制"
+        }
+    },
+    "791": {
+        "f": [
+            13,
+            0,
+            10,
+            8000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "超認識",
+            "en": "Mirror",
+            "ch": "超认知"
+        },
+        "desc": {
+            "jp": "対象の状態の感知",
+            "en": "Know bonus",
+            "ch": "感知对手状态"
+        }
+    },
+    "792": {
+        "f": [
+            10,
+            0,
+            25,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "溶解クリンチ",
+            "en": "Melt Clinch",
+            "ch": "溶解之握"
+        },
+        "desc": {
+            "jp": "酸攻撃と萎縮/両者束縛",
+            "en": "Acid attack/daunted/bind",
+            "ch": "酸攻击并畏缩/双方束缚"
+        }
+    },
+    "793": {
+        "f": [
+            16,
+            0,
+            27,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "無形の枷",
+            "en": "Formless Fetter",
+            "ch": "无形枷锁"
+        },
+        "desc": {
+            "jp": "ﾏｯﾌﾟｴﾌｪｸﾄ上の敵に耐久属性攻撃束縛",
+            "en": "Bind and ENDattack on map effects",
+            "ch": "对地图效果影响的敌人体质属性攻击并束缚"
+        }
+    },
+    "794": {
+        "f": [
+            11,
+            0,
+            18,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "鮮血の撃刃",
+            "en": "Blood Stream",
+            "ch": "鲜血投刃"
+        },
+        "desc": {
+            "jp": "出血量依存攻撃/出血悪化",
+            "en": "Line attack.",
+            "ch": "根据出血量造成伤害/出血恶化"
+        }
+    },
+    "795": {
+        "f": [
+            15,
+            0,
+            22,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "怒りの爆炎",
+            "en": "Flame of Rage",
+            "ch": "愤怒的爆炎"
+        },
+        "desc": {
+            "jp": "激怒時のみ視界内火炎ダメージ",
+            "en": "Fire damage only when fury",
+            "ch": "仅激怒时可用，视野内火焰伤害"
+        }
+    },
+    "796": {
+        "f": [
+            13,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "重衝撃断動弾",
+            "en": "Impact Gunfire",
+            "ch": "重冲击止动弹"
+        },
+        "desc": {
+            "jp": "衝撃で敵転倒/ゲージ100％消費",
+            "en": "Invert target",
+            "ch": "冲击令敌人倒地/消耗100%斗志"
+        }
+    },
+    "797": {
+        "f": [
+            13,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "壱点連弾銃",
+            "en": "One Point Shoot",
+            "ch": "定点连弹枪"
+        },
+        "desc": {
+            "jp": "防御一時的に下げる/ゲージ100％消費",
+            "en": "Defense break",
+            "ch": "防御暂时性降低/消耗100％斗志"
+        }
+    },
+    "798": {
+        "f": [
+            13,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "臨界粒子砲",
+            "en": "Critical Particle Cannon",
+            "ch": "临界粒子炮"
+        },
+        "desc": {
+            "jp": "閃光で敵盲目/ゲージ100％消費",
+            "en": "hitting the target",
+            "ch": "闪光致敌失明/消耗100％斗志"
+        }
+    },
+    "799": {
+        "f": [
+            13,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "兜裂き",
+            "en": "Helm Smasher",
+            "ch": "贯盔"
+        },
+        "desc": {
+            "jp": "衝撃で敵麻痺/ゲージ100％消費",
+            "en": "Paralyze target",
+            "ch": "冲击并使敌麻痹/消耗100％斗志"
+        }
+    },
+    "800": {
+        "f": [
+            13,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "浴びせ滝矢射",
+            "en": "Arrow Rain",
+            "ch": "箭如飞瀑"
+        },
+        "desc": {
+            "jp": "回避一時的に下げる/ゲージ100％消費",
+            "en": "Reduce avoidance",
+            "ch": "回避暂时性下降/消耗100％斗志"
+        }
+    },
+    "801": {
+        "f": [
+            11,
+            0,
+            19,
+            2004,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "地獄の責め苦",
+            "en": "Blame Pain",
+            "ch": "地狱的责罚"
+        },
+        "desc": {
+            "jp": "地獄ダメージ/拷問成功時ゲージ減少",
+            "en": "Damage nether/Reduce power gauge",
+            "ch": "地狱属性攻击/拷问成功时斗志减少"
+        }
+    },
+    "802": {
+        "f": [
+            18,
+            0,
+            1,
+            2007,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "*勝利*",
+            "en": "<Win>",
+            "ch": "*胜利*"
+        },
+        "desc": {
+            "jp": "即死攻撃/Purgeモード専用",
+            "en": "Instant death attack / Purge mode only",
+            "ch": "即死攻击/Purge模式专用"
+        }
+    },
+    "803": {
+        "f": [
+            18,
+            0,
+            1,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "*Purge*",
+            "en": "<Purge>",
+            "ch": "*Purge*"
+        },
+        "desc": {
+            "jp": "視界内の敵瀕死化/Purgeモード専用",
+            "en": "Enemies dying / Purge mode only",
+            "ch": "视野内敌人濒死化/Purge模式专用"
+        }
+    },
+    "804": {
+        "f": [
+            15,
+            0,
+            10,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "【合体攻撃発動】",
+            "en": "<Unison Impact>",
+            "ch": "【发动合体攻击】"
+        },
+        "desc": {
+            "jp": "全員のゲージ全消費して合体攻撃",
+            "en": "Attack with all ally",
+            "ch": "消耗全员斗志进行合体攻击"
+        }
+    },
+    "805": {
+        "f": [
+            16,
+            0,
+            25,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "集団催眠",
+            "en": "Group Hypnosis",
+            "ch": "集体催眠"
+        },
+        "desc": {
+            "jp": "視界内の敵睡眠・洗脳",
+            "en": "Sleep or brainwashing enemies in sight",
+            "ch": "视野内敌人催眠·洗脑"
+        }
+    },
+    "806": {
+        "f": [
+            13,
+            0,
+            14,
+            2004,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神経支配の糸",
+            "en": "Thread of Innervation",
+            "ch": "神经支配之线"
+        },
+        "desc": {
+            "jp": "生化学感覚依存攻撃/瀕死なら人形化",
+            "en": "Nerve attack/Change doll",
+            "ch": "根据生化学与感知造成伤害/设置陷阱"
+        }
+    },
+    "807": {
+        "f": [
+            11,
+            0,
+            10,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マーキング",
+            "en": "Marking",
+            "ch": "标记"
+        },
+        "desc": {
+            "jp": "体内の水分を使いマーキングする",
+            "en": "Marking with moisture in the body",
+            "ch": "是用身体中的水分进行标记"
+        }
+    },
+    "808": {
+        "f": [
+            16,
+            0,
+            101,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "グランドフィナーレ",
+            "en": "Grand Finale",
+            "ch": "大结局"
+        },
+        "desc": {
+            "jp": "プレイヤー駆逐",
+            "en": "player and ally kill",
+            "ch": "驱逐玩家"
+        }
+    },
+    "809": {
+        "f": [
+            16,
+            0,
+            1,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "メモリーデリート",
+            "en": "Data Delete",
+            "ch": "消除记忆"
+        },
+        "desc": {
+            "jp": "能力を一部抹消/ゲージ100％消費",
+            "en": "Delete skill and power",
+            "ch": "消除一部分能力值/消耗100％斗志"
+        }
+    },
+    "810": {
+        "f": [
+            12,
+            5,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "飛獣送り",
+            "en": "Send throw",
+            "ch": "飞兽投送"
+        },
+        "desc": {
+            "jp": "対象の適正距離へ送る/Chain切り",
+            "en": "Send chara and chain cut",
+            "ch": "将对象投送到合适的距离/连击重置"
+        }
+    },
+    "811": {
+        "f": [
+            13,
+            0,
+            44,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "死神の舞踏",
+            "en": "Killing Dance",
+            "ch": "死神舞步"
+        },
+        "desc": {
+            "jp": "回避上昇/回避成功時反撃",
+            "en": "Increases Evasion, and add　counterattack",
+            "ch": "提升回避/回避成功时反击"
+        }
+    },
+    "812": {
+        "f": [
+            12,
+            0,
+            30,
+            2001,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "首狩り",
+            "en": "Decapitation",
+            "ch": "斩首"
+        },
+        "desc": {
+            "jp": "対象が瀕死なら即死",
+            "en": "Kill target",
+            "ch": "对象濒死时可令其立即死亡"
+        }
+    },
+    "813": {
+        "f": [
+            11,
+            0,
+            22,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "アナフィラキシー",
+            "en": "Anaphylaxis",
+            "ch": "引发过敏"
+        },
+        "desc": {
+            "jp": "視界内毒状態の敵に大ダメージ",
+            "en": "Attack enemies of the poison state",
+            "ch": "给予视野内中毒状态的敌人大伤害"
+        }
+    },
+    "814": {
+        "f": [
+            13,
+            0,
+            15,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ハザードレシピ",
+            "en": "Hazard Recipe",
+            "ch": "危险食谱"
+        },
+        "desc": {
+            "jp": "食品を化学兵器に作り変える",
+            "en": "Reshape food to chemical weapon",
+            "ch": "将食品做成化学武器"
+        }
+    },
+    "815": {
+        "f": [
+            12,
+            0,
+            20,
+            2010,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ヴェノトレイト",
+            "en": "Venotrate",
+            "ch": "蚀骨剧毒"
+        },
+        "desc": {
+            "jp": "問答無用で毒状態/ゲージ25％消費",
+            "en": "Poison target/gauge25",
+            "ch": "强行给予中毒状态/消耗25％斗志"
+        }
+    },
+    "816": {
+        "f": [
+            15,
+            0,
+            10,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "全力説得",
+            "en": "Persuasion",
+            "ch": "全力说服"
+        },
+        "desc": {
+            "jp": "意志対抗/SP減っている対象ほど疲労",
+            "en": "Against WIL,Fatigue decreasing SP enemies",
+            "ch": "意志对抗/目标SP越低越容易疲劳"
+        }
+    },
+    "817": {
+        "f": [
+            15,
+            0,
+            10,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "渾身のギャグ",
+            "en": "Peculiar joke",
+            "ch": "搞笑绝活"
+        },
+        "desc": {
+            "jp": "感覚対抗/ゲージが低い対象ほど疲労",
+            "en": "Against PER,Fatigue low power gauge enemies",
+            "ch": "感知对抗/目标斗志越低越容易疲劳"
+        }
+    },
+    "818": {
+        "f": [
+            15,
+            0,
+            10,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "少しの大嘘",
+            "en": "Blended lie",
+            "ch": "信口开河"
+        },
+        "desc": {
+            "jp": "器用対抗/MP減っている対象ほど疲労",
+            "en": "Against DEX,Fatigue decreasing MP enemies",
+            "ch": "敏捷对抗/目标MP越低越容易疲劳"
+        }
+    },
+    "819": {
+        "f": [
+            15,
+            0,
+            10,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "脅迫地獄",
+            "en": "Intimidation",
+            "ch": "胁迫地狱"
+        },
+        "desc": {
+            "jp": "筋力対抗/HP減っている対象ほど疲労",
+            "en": "Against STR,Fatigue decreasing HP enemies",
+            "ch": "力量对抗/目标HP越低越容易疲劳"
+        }
+    },
+    "820": {
+        "f": [
+            15,
+            0,
+            10,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "魔唱",
+            "en": "Mysterious song",
+            "ch": "魔唱"
+        },
+        "desc": {
+            "jp": "魔力対抗/ゲージが高い対象ほど疲労",
+            "en": "Against MAG,Fatigue high power gauge enemies",
+            "ch": "魔力对抗/目标斗志越高越容易疲劳"
+        }
+    },
+    "821": {
+        "f": [
+            17,
+            0,
+            5,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "快楽の園",
+            "en": "Tuin der Lusten",
+            "ch": "快活乐园"
+        },
+        "desc": {
+            "jp": "魅力意志対抗/広域気持ちいいこと",
+            "en": "Against CHR,Give pleasure wide",
+            "ch": "魅力对抗/大范围爽一爽/大疲劳"
+        }
+    },
+    "822": {
+        "f": [
+            15,
+            0,
+            5,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "一投入魂",
+            "en": "OverLimit-Throw",
+            "ch": "一投入魂"
+        },
+        "desc": {
+            "jp": "瞑想依存で通常投擲強化/MP消費",
+            "en": "Throwing reinforced with meditation/MP expend",
+            "ch": "根据冥想等级强化普通投掷/消耗MP"
+        }
+    },
+    "823": {
+        "f": [
+            19,
+            0,
+            9,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "荒ぶるダイス",
+            "en": "Destiny dice",
+            "ch": "乱骰一气"
+        },
+        "desc": {
+            "jp": "判定に応じて視界内投擲ダメージ",
+            "en": "Attack enemies when successful",
+            "ch": "根据判定对视野内造成投掷伤害"
+        }
+    },
+    "824": {
+        "f": [
+            11,
+            0,
+            5,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "腐食の烈風",
+            "en": "Acid Hurricane",
+            "ch": "腐蚀烈风"
+        },
+        "desc": {
+            "jp": "酸攻撃/鎧やメタルに毒",
+            "en": "Line(Acid)",
+            "ch": "酸属性/铠与金属敌人中毒"
+        }
+    },
+    "825": {
+        "f": [
+            16,
+            0,
+            1,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神威",
+            "en": "Kamui",
+            "ch": "神威"
+        },
+        "desc": {
+            "jp": "神々の力で多彩な攻撃",
+            "en": "Various attacks",
+            "ch": "使用诸神之力，进行各式各样的攻击"
+        }
+    },
+    "826": {
+        "f": [
+            16,
+            0,
+            28,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "液体操作弾",
+            "en": "Liquid Manipulation",
+            "ch": "液体操纵弹"
+        },
+        "desc": {
+            "jp": "視界内の敵にポーション効果",
+            "en": "Enlarge effect range of potions to enemies.",
+            "ch": "向视野内的敌人施加药水的效果"
+        }
+    },
+    "827": {
+        "f": [
+            13,
+            0,
+            1,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "データスキャン",
+            "en": "Data scan",
+            "ch": "数据扫描"
+        },
+        "desc": {
+            "jp": "分析力強化/毎ターン微疲労",
+            "en": "Raise the analysis power/SP expend",
+            "ch": "强化分析力/每回合轻微疲劳"
+        }
+    },
+    "828": {
+        "f": [
+            14,
+            0,
+            1,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "高度詠唱陣",
+            "en": "Advanced Casting",
+            "ch": "高度咏唱阵"
+        },
+        "desc": {
+            "jp": "味方魔法の消費MP威力経験値を増加",
+            "en": "Increase casting MP and power and EXP",
+            "ch": "增加我方魔法的消耗、威力和经验获取"
+        }
+    },
+    "829": {
+        "f": [
+            13,
+            0,
+            30,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "漏出する狂気",
+            "en": "Love Crafting",
+            "ch": "渗出的疯狂"
+        },
+        "desc": {
+            "jp": "視界内敵狂気",
+            "en": "Craze enemies in sight",
+            "ch": "视野内敌人疯狂"
+        }
+    },
+    "830": {
+        "f": [
+            15,
+            0,
+            15,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "本気物乞い",
+            "en": "Serious Begging",
+            "ch": "认真乞讨"
+        },
+        "desc": {
+            "jp": "金貨や食べる物をめぐんでもらう",
+            "en": "Ask for gold coins and foods",
+            "ch": "讨要钱或食物"
+        }
+    },
+    "831": {
+        "f": [
+            12,
+            0,
+            8,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "くすぐり天地獄",
+            "en": "Tickling Hell",
+            "ch": "挠痒地狱"
+        },
+        "desc": {
+            "jp": "束縛/条件次第でSPやゲージ減少",
+            "en": "Hold enemy/Tickling",
+            "ch": "束缚/根据条件减少SP或斗志"
+        }
+    },
+    "832": {
+        "f": [
+            13,
+            0,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "マグネコート",
+            "en": "Magnecoat",
+            "ch": "磁化"
+        },
+        "desc": {
+            "jp": "通常攻撃に影響するほどの磁気を付与/解除",
+            "en": "Add/remove magnetism enough to affect normal attacks",
+            "ch": "附加/解除可以影响普通攻击的磁力"
+        }
+    },
+    "833": {
+        "f": [
+            13,
+            0,
+            10,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "リニアランチャー",
+            "en": "Linear Launcher",
+            "ch": "质量发射器"
+        },
+        "desc": {
+            "jp": "感覚重量依存攻撃/アイテム1つ消費",
+            "en": "Consume 1 item, PER and weight dependent attack",
+            "ch": "根据感知与重量造成伤害/消耗1个道具"
+        }
+    },
+    "834": {
+        "f": [
+            13,
+            0,
+            20,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "電磁獄",
+            "en": "E-Mag Cage",
+            "ch": "电磁狱"
+        },
+        "desc": {
+            "jp": "全域電撃疲労麻痺/ゲージ80％消費",
+            "en": "Lightning fatigue and paralysis field/gauge80",
+            "ch": "全区域电击疲劳麻痹/消耗80%斗志"
+        }
+    },
+    "835": {
+        "f": [
+            13,
+            0,
+            25,
+            2007,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "超電磁トルネード",
+            "en": "E-Mag Tornado",
+            "ch": "超电磁龙卷"
+        },
+        "desc": {
+            "jp": "一直線電撃攻撃/束縛",
+            "en": "Line(Lightning)/bind",
+            "ch": "直线型电击攻击/束缚"
+        }
+    },
+    "836": {
+        "f": [
+            12,
+            0,
+            20,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "弦葬世界",
+            "en": "Wire World",
+            "ch": "弦葬世界"
+        },
+        "desc": {
+            "jp": "全域ワイヤー罠強化/ゲージ80％消費",
+            "en": "Wire trap strengthen field/gauge80",
+            "ch": "全区域钢丝陷阱强化/消耗80%斗志"
+        }
+    },
+    "837": {
+        "f": [
+            11,
+            0,
+            5,
+            9006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "砂塵砲",
+            "en": "Sand Cannon",
+            "ch": "沙尘炮"
+        },
+        "desc": {
+            "jp": "PVDV属性攻撃/盲目呼吸困難",
+            "en": "Breath(PVDV)",
+            "ch": "PVDV属性攻击/失明/呼吸困难"
+        }
+    },
+    "838": {
+        "f": [
+            11,
+            0,
+            20,
+            3006,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ロックラッシャー",
+            "en": "Rocrusher",
+            "ch": "岩锁压碎"
+        },
+        "desc": {
+            "jp": "全域近接会心時束縛/ゲージ80％消費",
+            "en": "Lock with melee critical field/gauge80",
+            "ch": "全区域近战暴击时束缚/消耗80%斗志"
+        }
+    },
+    "839": {
+        "f": [
+            11,
+            0,
+            50,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "土竜闘気",
+            "en": "Mogranic Aura",
+            "ch": "土龙斗气"
+        },
+        "desc": {
+            "jp": "魔法耐性増加/発動時MP大減少",
+            "en": "Resist to Magic/MP decrease",
+            "ch": "增加魔法抗性/发动时进入流出状态"
+        }
+    },
+    "840": {
+        "f": [
+            14,
+            0,
+            5,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "個別指導",
+            "en": "Individual Leading",
+            "ch": "个别指导"
+        },
+        "desc": {
+            "jp": "味方のガードブレイクゲージ減少",
+            "en": "Decrease guard break gauge",
+            "ch": "我方破防条减少"
+        }
+    },
+    "841": {
+        "f": [
+            14,
+            0,
+            8,
+            2006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "強烈花粉砲",
+            "en": "Pollen cannon",
+            "ch": "强烈花粉炮"
+        },
+        "desc": {
+            "jp": "対象弱体・状態異常",
+            "en": "Status ailment and weaken",
+            "ch": "对象弱化·状态异常"
+        }
+    },
+    "842": {
+        "f": [
+            15,
+            0,
+            50,
+            2002,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "姉の眼差し",
+            "en": "Eye of Ane",
+            "ch": "姐姐凝视"
+        },
+        "desc": {
+            "jp": "対象の姉になって精神的上位に立つ",
+            "en": "Become the target's sister",
+            "ch": "成为对方的姐姐在精神上占据上位"
+        }
+    },
+    "843": {
+        "f": [
+            12,
+            0,
+            10,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "直輸血",
+            "en": "Direct Transfusion",
+            "ch": "直接输血"
+        },
+        "desc": {
+            "jp": "近くのキャラ間で血と遺伝子受け渡し",
+            "en": "Transfer blood and genes between nearby characters",
+            "ch": "在临近角色之间交换血与遗传因子"
+        }
+    },
+    "844": {
+        "f": [
+            12,
+            0,
+            20,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "電気衝駆",
+            "en": "Electric Shock",
+            "ch": "电流驱使"
+        },
+        "desc": {
+            "jp": "生化学依存電撃/味方は呼吸困難半減",
+            "en": "Lightning attack/SP and Dyspnea recovery",
+            "ch": "根据生化学能力造成电击/对我方减半呼吸困难"
+        }
+    },
+    "845": {
+        "f": [
+            12,
+            0,
+            15,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神速縫合",
+            "en": "Instant Suture",
+            "ch": "神速缝合"
+        },
+        "desc": {
+            "jp": "敵を束縛/味方は出血半減",
+            "en": "Bind enemy/Halved bleeding",
+            "ch": "敌方束缚/对我方减半出血"
+        }
+    },
+    "846": {
+        "f": [
+            15,
+            0,
+            5,
+            10000,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "ポージング",
+            "en": "Posing",
+            "ch": "摆出架势"
+        },
+        "desc": {
+            "jp": "ｹﾞｰｼﾞ15％増加/ｶﾞｰﾄﾞﾌﾞﾚｲｸ15％減少",
+            "en": "gauge15gain/GBgauge15reduce",
+            "ch": "斗志增加15%/破防条减少15%"
+        }
+    },
+    "847": {
+        "f": [
+            15,
+            0,
+            8,
+            2000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "シャークトレード",
+            "en": "Shark Trade",
+            "ch": "鲨式交易"
+        },
+        "desc": {
+            "jp": "アイテムを押し付けゲージ20％奪う",
+            "en": "Drain gauge20",
+            "ch": "将道具强推给对方并夺取20%斗志"
+        }
+    },
+    "848": {
+        "f": [
+            12,
+            0,
+            5,
+            10000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "カスタムチェンジ",
+            "en": "Custom Change",
+            "ch": "构造改变"
+        },
+        "desc": {
+            "jp": "パーツ構成を変えて性能を変化",
+            "en": "Change the performance by changing the parts",
+            "ch": "通过更改零件来让性能变化"
+        }
+    },
+    "849": {
+        "f": [
+            13,
+            0,
+            30,
+            2010,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "爆栓連発",
+            "en": "Hyper Plug Burst",
+            "ch": "爆栓连发"
+        },
+        "desc": {
+            "jp": "ﾎﾟｰｼｮﾏﾝ充填/ゲージ100％消費",
+            "en": "charge the potioman",
+            "ch": "瓶塞超人装填/消耗100％斗志"
+        }
+    },
+    "850": {
+        "f": [
+            16,
+            0,
+            10,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "<能力の制限>",
+            "en": "<Limit Power>",
+            "ch": "<能力限制>"
+        },
+        "desc": {
+            "jp": "主能力を一時的に制限",
+            "en": "Temporarily limiter of main status",
+            "ch": "主能力暂时被限制"
+        }
+    },
+    "851": {
+        "f": [
+            16,
+            0,
+            5,
+            8000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "<リミッター解除>",
+            "en": "<Limiter Vanish>",
+            "ch": "<限制解除>"
+        },
+        "desc": {
+            "jp": "ゲージ50％以上時に制限解除と衝撃波",
+            "en": "Limiter lift/shock wave/gauge50",
+            "ch": "斗志50％以上时解除限制并冲击波"
+        }
+    },
+    "852": {
+        "f": [
+            15,
+            0,
+            5,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "シャドウジャンプ",
+            "en": "Shadow Jump",
+            "ch": "阴影跳跃"
+        },
+        "desc": {
+            "jp": "視界外でも敵を追跡束縛",
+            "en": "Chase and bind target",
+            "ch": "视野外敌人追踪束缚"
+        }
+    },
+    "853": {
+        "f": [
+            15,
+            0,
+            30,
+            3000,
+            200,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "シャドウホップ",
+            "en": "Shadow Hop",
+            "ch": "阴影跳行"
+        },
+        "desc": {
+            "jp": "HP半分消費し影分身を召喚",
+            "en": "Summon clones/halve HP",
+            "ch": "消耗一半hp召唤影分身"
+        }
+    },
+    "854": {
+        "f": [
+            15,
+            0,
+            0,
+            3006,
+            500,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "アクセルネクロ",
+            "en": "Accel Necro",
+            "ch": "死灵魔法加速"
+        },
+        "desc": {
+            "jp": "使役アンデッド加速/1体毎にSP5%消費",
+            "en": "Accelerate coffin undead/Consumes 5% SP per undead",
+            "ch": "控制不死者加速/每个增加SP5%消耗"
+        }
+    },
+    "855": {
+        "f": [
+            16,
+            0,
+            30,
+            2015,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "神填の杖",
+            "en": "God charge Rod",
+            "ch": "神填之杖"
+        },
+        "desc": {
+            "jp": "充填用魔力+10/攻撃/ゲージ100％消費",
+            "en": "Attack and get recharge power",
+            "ch": "充填用魔力+10/攻击/消耗100％斗志"
+        }
+    },
+    "856": {
+        "f": [
+            13,
+            0,
+            35,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "飛跳殺法",
+            "en": "Jumping Drop",
+            "ch": "飞跳杀法"
+        },
+        "desc": {
+            "jp": "5ターン後距離5以内なら強攻撃",
+            "en": "Chase PVDV atk after 5turns",
+            "ch": "5回合后对视野外也造成强攻击"
+        }
+    },
+    "857": {
+        "f": [
+            11,
+            0,
+            35,
+            3000,
+            0,
+            null,
+            null
+        ],
+        "name": {
+            "jp": "奇襲穿孔",
+            "en": "Diving Drill",
+            "ch": "奇袭穿孔"
+        },
+        "desc": {
+            "jp": "10ターン後距離5以内なら強攻撃",
+            "en": "Chase PVDV atk after 10turns",
+            "ch": "10回合后对视野外也造成强攻击"
+        }
+    },
+    "858": {
+        "f": [15, 0, 15, 2003, 0, null, null],
+        "name": {
+            "jp": "聖者の光刃",
+            "en": "Saint Blade",
+            "ch": "圣者光刃"
+        },
+        "desc": {
+            "jp": "カルマ依存PVDV属性攻撃",
+            "en": "Karma dependent PVDV atk",
+            "ch": "取决于业力的PVDV属性攻击。"
+        }
+    },
+    "859": {
+        "f": [15, 0, 18, 3006, 500, null, null],
+        "name": {
+            "jp": "浄化の波動",
+            "en": "Purification",
+            "ch": "净化波动"
+        },
+        "desc": {
+            "jp": "カルマ依存視界内耐久属性攻撃",
+            "en": "Surround(END)/Karma dependent",
+            "ch": "取决于业力，对视野内目标造成耐久属性攻击。"
+        }
+    },
+    "860": {
+        "f": [15, 0, 24, 3006, 500, null, null],
+        "name": {
+            "jp": "エンジェルハイロゥ",
+            "en": "Angel Halo",
+            "ch": "天使光环"
+        },
+        "desc": {
+            "jp": "無差別ゲージ変動/ゲージ15％消費",
+            "en": "Indiscriminate gauge fluctuation/gauge15",
+            "ch": "无差别槽值变动/消耗15%槽值。"
+        }
+    },
+    "861": {
+        "f": [15, 0, 20, 3006, 0, null, null],
+        "name": {
+            "jp": "懲罰の光",
+            "en": "Reprimand",
+            "ch": "惩罚之光"
+        },
+        "desc": {
+            "jp": "全域味方殺害罰する/ゲージ80％消費",
+            "en": "Punish killing of allies field/gauge80",
+            "ch": "对全域内杀害队友的行为施以惩罚/消耗80%槽值。"
+        }
+    },
+    "862": {
+        "f": [16, 0, 25, 3006, 500, null, null],
+        "name": {
+            "jp": "式折神・幻惑折鶴",
+            "en": "ShikiOrigami-Crane",
+            "ch": "式折神·幻惑折鹤"
+        },
+        "desc": {
+            "jp": "MP20%と魔法書消費し味方生成",
+            "en": "Create allies/Consume spell book and MP",
+            "ch": "消耗20%MP和魔法书生成盟友。"
+        }
+    },
+    "863": {
+        "f": [16, 0, 15, 3006, 500, null, null],
+        "name": {
+            "jp": "式折神・荒紙手裏剣",
+            "en": "ShikiOrigami-Shuriken",
+            "ch": "式折神·荒纸手里剑"
+        },
+        "desc": {
+            "jp": "MP20%と魔法書消費し味方生成",
+            "en": "Create allies/Consume book and MP",
+            "ch": "消耗20%MP和魔法书生成盟友。"
+        }
+    },
+    "864": {
+        "f": [16, 0, 20, 3006, 500, null, null],
+        "name": {
+            "jp": "式折神・紙風飛行機",
+            "en": "ShikiOrigami-Airplane",
+            "ch": "式折神·纸风飞机"
+        },
+        "desc": {
+            "jp": "MP20%と魔法書消費し味方生成",
+            "en": "Create allies/Consume book and MP",
+            "ch": "消耗20%MP和魔法书生成盟友。"
+        }
+    },
+    "865": {
+        "f": [13, 0, 15, 2001, 0, null, null],
+        "name": {
+            "jp": "脳髄寄生攻撃",
+            "en": "Brain Parasitize",
+            "ch": "脑髓寄生攻击"
+        },
+        "desc": {
+            "jp": "対象を脳髄寄生状態にする",
+            "en": "BParasite target",
+            "ch": "使目标进入脑髓寄生状态。"
+        }
+    },
+    "866": {
+        "f": [16, 0, 1, 9006, 500, null, null],
+        "name": {
+            "jp": "紙隠し",
+            "en": "Kamikakushi",
+            "ch": "纸隐"
+        },
+        "desc": {
+            "jp": "式折神を消して放射/回復",
+            "en": "Breath(END) or Heal/erasing ShikiOrigami",
+            "ch": "消除式折神并进行放射或回复。"
+        }
+    },
+    "867": {
+        "f": [10, 0, 10, 8000, 0, null, null],
+        "name": {
+            "jp": "ヒップアタック",
+            "en": "Hip Attack",
+            "ch": "臀击"
+        },
+        "desc": {
+            "jp": "戦術筋力依存攻撃/転倒付与",
+            "en": "Attack and cause to fall",
+            "ch": "依赖战术与力量的攻击/赋予倒地。"
+        }
+    },
+    "868": {
+        "f": [16, 0, 0, 3006, 500, null, null],
+        "name": {
+            "jp": "ポーカーフォース",
+            "en": "Poker Force",
+            "ch": "扑克之力"
+        },
+        "desc": {
+            "jp": "カード精霊制御",
+            "en": "Control card spirits",
+            "ch": "控制卡牌精灵。"
+        }
+    },
+    "869": {
+        "f": [15, 0, 10, 3006, 500, null, null],
+        "name": {
+            "jp": "【命乞い】",
+            "en": "<Clementia>",
+            "ch": "【求饶】"
+        },
+        "desc": {
+            "jp": "どうにかして見逃してもらう",
+            "en": "Somehow ask for forgiveness",
+            "ch": "设法请求对方放过。"
+        }
+    },
+    "870": {
+        "f": [16, 0, 20, 3006, 500, null, null],
+        "name": {
+            "jp": "冥界の瘴気",
+            "en": "Miasma of Hell",
+            "ch": "冥界瘴气"
+        },
+        "desc": {
+            "jp": "視界内の敵を毒と侵蝕で弱らせる",
+            "en": "Weakens enemies with poison and erosion",
+            "ch": "用毒和侵蚀削弱视野内敌人。"
+        }
+    },
+    "871": {
+        "f": [16, 0, 5, 8000, 500, null, null],
+        "name": {
+            "jp": "仕込み爆薬",
+            "en": "Hidden Explosive",
+            "ch": "预设炸药"
+        },
+        "desc": {
+            "jp": "MP5%消費/爆弾付着/自分選択で爆破",
+            "en": "Bomb placement/self select to explode/MP5",
+            "ch": "消耗5%MP/放置炸弹/选择自身引爆。"
+        }
+    },
+    "872": {
+        "f": [16, 0, 5, 10000, 500, null, null],
+        "name": {
+            "jp": "ロケットブースト",
+            "en": "Rocket Boost",
+            "ch": "火箭推进"
+        },
+        "desc": {
+            "jp": "MP50％消費して自己強化",
+            "en": "Self-enhancement/MP50",
+            "ch": "消耗50%MP强化自身。"
+        }
+    },
+    "873": {
+        "f": [16, 0, 5, 3006, 500, null, null],
+        "name": {
+            "jp": "誘導爆撃",
+            "en": "Guided Bombing",
+            "ch": "制导轰炸"
+        },
+        "desc": {
+            "jp": "MP10％消費/分散する音属性攻撃",
+            "en": "The entire distributed attack(Sound)/MP10",
+            "ch": "消耗10%MP/分散的音属性攻击。"
+        }
+    },
+    "874": {
+        "f": [17, 0, 10, 3006, 500, null, null],
+        "name": {
+            "jp": "救援要請",
+            "en": "Rescue request",
+            "ch": "请求救援"
+        },
+        "desc": {
+            "jp": "ゲージ30％消費し助けを求める",
+            "en": "Call for help/gauge30",
+            "ch": "消耗30%槽值请求援助。"
+        }
+    },
+    "875": {
+        "f": [15, 0, 10, 3006, 500, null, null],
+        "name": {
+            "jp": "響く声援",
+            "en": "Genuine cheering",
+            "ch": "响彻声援"
+        },
+        "desc": {
+            "jp": "味方ゲージ増加魅力対抗sp回復",
+            "en": "Ally gauge increase, SP recovery against CHR",
+            "ch": "增加队友槽值，依据魅力对抗恢复SP。"
+        }
+    },
+    "876": {
+        "f": [15, 0, 30, 3006, 0, null, null],
+        "name": {
+            "jp": "ダイナミックエール",
+            "en": "Dynamic Yell",
+            "ch": "动态声援"
+        },
+        "desc": {
+            "jp": "味方ゲージ増加/ゲージ100％消費",
+            "en": "Ally recovery/gauge100",
+            "ch": "增加队友槽值/消耗100%槽值。"
+        }
+    },
+    "877": {
+        "f": [17, 0, 1, 10000, 0, null, null],
+        "name": {
+            "jp": "スタンスセレクト",
+            "en": "Stance Select",
+            "ch": "姿态选择"
+        },
+        "desc": {
+            "jp": "気持ちいいこと時のスタンス選択",
+            "en": "Select your stance",
+            "ch": "选择舒适时的姿态。"
+        }
+    },
+    "878": {
+        "f": [17, 0, 18, 3006, 500, null, null],
+        "name": {
+            "jp": "破滅催眠",
+            "en": "Destrudo Hypnotism",
+            "ch": "破灭催眠"
+        },
+        "desc": {
+            "jp": "全域気持ちいいこと中MP減少/ゲージ80％消費",
+            "en": "In pleasure lose MP field/gauge80",
+            "ch": "全域处于舒适状态时MP减少/消耗80%槽值。"
+        }
+    }
+}

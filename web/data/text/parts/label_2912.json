@@ -1,0 +1,1344 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2912",
+ "entries": [
+  {
+   "id": "s13182",
+   "kind": "lang",
+   "jp": "ﾌﾟｵｰ♪ ",
+   "en": "*Zingo*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306551
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306553
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13183",
+   "kind": "lang",
+   "jp": "ﾎﾟｰ♪ ",
+   "en": "*Yowl*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306551
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306553
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13184",
+   "kind": "lang",
+   "jp": "ﾋﾟﾛｰ♪ ",
+   "en": "*Zip*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306553
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13185",
+   "kind": "lang",
+   "jp": "ﾌﾞｵｰ♪ ",
+   "en": "*Howl*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306558
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306560
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13186",
+   "kind": "lang",
+   "jp": "ﾎﾞｵｰ♪ ",
+   "en": "*Puff*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306558
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306560
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13187",
+   "kind": "lang",
+   "jp": "ﾌﾞｵﾝ♪ ",
+   "en": "*Blare*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306560
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13188",
+   "kind": "lang",
+   "jp": "ﾋﾟｮｰ♪ ",
+   "en": "*Whizz*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306565
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306567
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13189",
+   "kind": "lang",
+   "jp": "ﾊﾟｰ♪ ",
+   "en": "*Puff*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306565
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306567
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13190",
+   "kind": "lang",
+   "jp": "ﾌﾟｵｰ♪ ",
+   "en": "*Twang*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306565
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306567
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13191",
+   "kind": "lang",
+   "jp": "ﾎﾟｰ♪ ",
+   "en": "*Twang*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306567
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13192",
+   "kind": "lang",
+   "jp": "ﾁｬﾗﾗ♪ ",
+   "en": "*Dan*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306572
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306574
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13193",
+   "kind": "lang",
+   "jp": "ﾀﾞｰﾝ♪ ",
+   "en": "*Tiki*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306572
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306574
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13194",
+   "kind": "lang",
+   "jp": "ｼﾞｬﾝ♪ ",
+   "en": "*Cha*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306574
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13195",
+   "kind": "lang",
+   "jp": "ｷﾛｰ♪ ",
+   "en": "*Plunk*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306579
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306581
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13196",
+   "kind": "lang",
+   "jp": "ｷｺ♪ ",
+   "en": "*Ping*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306579
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306581
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13197",
+   "kind": "lang",
+   "jp": "ｷｲｰ♪ ",
+   "en": "*Zip*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306581
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13198",
+   "kind": "lang",
+   "jp": "ﾎﾟﾛﾝ♪ ",
+   "en": "*Plunk*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306586
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306588
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13199",
+   "kind": "lang",
+   "jp": "ﾎﾟﾛﾛ♪ ",
+   "en": "*Ding*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306586
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306588
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13200",
+   "kind": "lang",
+   "jp": "ﾁｬﾗﾝ♪ ",
+   "en": "*Tiki*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306588
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13201",
+   "kind": "lang",
+   "jp": "ｶｯｶ♪ ",
+   "en": "*Rat-a-tat*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306593
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306595
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13202",
+   "kind": "lang",
+   "jp": "ﾄﾞｺﾄﾞﾝ♪ ",
+   "en": "*Bash*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306593
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306595
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13203",
+   "kind": "lang",
+   "jp": "ﾄﾞｺﾄﾞｺ♪ ",
+   "en": "*Bump*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306593
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306595
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13204",
+   "kind": "lang",
+   "jp": "ﾄﾞﾝﾄﾞﾝ♪ ",
+   "en": "*Bam*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306595
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13205",
+   "kind": "lang",
+   "jp": " ♪血を吐きながら　乗り越えた日々も♪ ",
+   "en": "*Laaa*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306604
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306606
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13206",
+   "kind": "lang",
+   "jp": " ♪精一杯　胸に刻み込んで♪ ",
+   "en": "*Lulu*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306604
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306606
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13207",
+   "kind": "lang",
+   "jp": " ♪君と僕の向かう先は違うけれど♪ ",
+   "en": "*Lulu*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306604
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306606
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13208",
+   "kind": "lang",
+   "jp": " ♪明日は僕らの開拓地♪ ",
+   "en": "*Lala*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306604
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306606
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13209",
+   "kind": "lang",
+   "jp": " ♪僕らは明日の開拓者♪ ",
+   "en": "*Lala*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306604
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306606
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13210",
+   "kind": "lang",
+   "jp": " ♪振り返れば消えていく足跡　褪せていく思い出♪ ",
+   "en": "*Lulu*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306606
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13211",
+   "kind": "lang",
+   "jp": " ♪向かい風も　不安の影も♪ ",
+   "en": "*Lala*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306612
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306614
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13212",
+   "kind": "lang",
+   "jp": " ♪忘れたはずの約束が蘇る♪ ",
+   "en": "*Lala*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306612
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306614
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13213",
+   "kind": "lang",
+   "jp": " ♪夢の残骸も　汗の結晶も　新たな道の礎だから♪ ",
+   "en": "*Lala*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306612
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306614
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13214",
+   "kind": "lang",
+   "jp": " ♪それでも前へ　前へ進むのさ♪ ",
+   "en": "*Lala*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306612
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306614
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13215",
+   "kind": "lang",
+   "jp": " ♪情熱が恐怖焼き尽くして♪ ",
+   "en": "*Lala*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306614
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13216",
+   "kind": "lang",
+   "jp": "ﾗｰ♪ ",
+   "en": "*Laaa*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306623
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306625
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13217",
+   "kind": "lang",
+   "jp": "ﾙﾙﾙ♪ ",
+   "en": "*Lala*",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306623
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306625
+    }
+   ],
+   "concat": true,
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13218",
+   "kind": "lang",
+   "jp": "ﾗﾗﾗ♪ ",
+   "en": "*Lulu*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306625
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13219",
+   "kind": "raw",
+   "jp": "「うるさい！」",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306705
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306707
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2916",
+     "line": 307726
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2916",
+     "line": 307728
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13220",
+   "kind": "raw",
+   "jp": "「下手っぴ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306705
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306707
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13221",
+   "kind": "raw",
+   "jp": "「何のつもりだ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306705
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306707
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13222",
+   "kind": "raw",
+   "jp": "「引っ込め！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306707
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2916",
+     "line": 307728
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13223",
+   "kind": "raw",
+   "jp": "「前にも聴いたよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306741
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306743
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13224",
+   "kind": "raw",
+   "jp": "「またこの曲か…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306741
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306743
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13225",
+   "kind": "raw",
+   "jp": "「飽きた」",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306743
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2914",
+     "line": 307181
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2916",
+     "line": 307705
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13226",
+   "kind": "raw",
+   "jp": "は目を輝かせた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306821
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306823
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13227",
+   "kind": "raw",
+   "jp": "「ブラボー」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306821
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306823
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13228",
+   "kind": "raw",
+   "jp": "「いいぞ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306821
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306823
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13229",
+   "kind": "raw",
+   "jp": "はうっとりした。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306821
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306823
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13230",
+   "kind": "raw",
+   "jp": "の演奏を褒め称えた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306821
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306823
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13231",
+   "kind": "raw",
+   "jp": "は歓声を上げた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306823
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2916",
+     "line": 307920
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13232",
+   "kind": "lang",
+   "jp": "まるで駄目だ…",
+   "en": "It is a waste of time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306932
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13233",
+   "kind": "lang",
+   "jp": "不評だった…",
+   "en": "Almost everyone ignores you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306940
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13234",
+   "kind": "lang",
+   "jp": "もっと練習しなくては…",
+   "en": "You need to practice lot more.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306948
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13235",
+   "kind": "lang",
+   "jp": "演奏を終えた。",
+   "en": "You finish your performance.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306956
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13236",
+   "kind": "lang",
+   "jp": "いまいちだ。",
+   "en": "Not good.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306964
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13237",
+   "kind": "lang",
+   "jp": "手ごたえがあった。",
+   "en": "People seem to like your performance.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306972
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13238",
+   "kind": "lang",
+   "jp": "納得できる演奏ができた。",
+   "en": "Your performance is successful.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306980
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13239",
+   "kind": "lang",
+   "jp": "大盛況だ！",
+   "en": "Wonderful!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306988
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13240",
+   "kind": "lang",
+   "jp": "素晴らしい！",
+   "en": "Great performance. Everyone cheers you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 306996
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  },
+  {
+   "id": "s13241",
+   "kind": "lang",
+   "jp": "歴史に残る名演だ！",
+   "en": "A Legendary stage!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "efstatusfix",
+     "label": "label_2912",
+     "line": 307003
+    }
+   ],
+   "fn": "efstatusfix",
+   "label": "label_2912",
+   "owner": "label_2912"
+  }
+ ]
+}

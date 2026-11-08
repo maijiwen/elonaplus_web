@@ -1,0 +1,81 @@
+{
+ "_meta": {
+  "source": "start.hsp 195109-195478 resistmod/resistmodh",
+  "none_ja": "何もおきない… ",
+  "none_en": "Nothing happens...",
+  "note": "resistmod 阈值 delta>=50/-50；resistmodh 阈值 delta>=25/-50。分支仅提示，不改数值。",
+  "placeholders": "{name} {your} {s} {is} {have} {he}"
+ },
+ "none": {
+  "ja": "何もおきない… ",
+  "en": "Nothing happens..."
+ },
+ "elements": {
+  "50": {
+   "up_ja": "{name}の身体は急に火照りだした。",
+   "up_en": "Suddenly, {name} feel{s} very hot.",
+   "down_ja": "{name}は急に汗をかきだした。",
+   "down_en": "{name} sweat{s}."
+  },
+  "51": {
+   "up_ja": "{name}の身体は急に冷たくなった。",
+   "up_en": "Suddenly, {name} feel{s} cool.",
+   "down_ja": "{name}は急に寒気を感じた。",
+   "down_en": "{name} shivers{s}."
+  },
+  "52": {
+   "up_ja": "{name}の身体に電気が走った。",
+   "up_en": "{name} {is} struck by an electoric shock.",
+   "down_ja": "{name}は急に電気に敏感になった。",
+   "down_en": "{name} {is} shocked."
+  },
+  "53": {
+   "up_ja": "{name}は急に暗闇が怖くなくなった。",
+   "up_en": "{name} no longer fear{s} darkness.",
+   "down_ja": "{name}は急に暗闇が怖くなった。",
+   "down_en": "Suddenly, {name} fear{s} darkness."
+  },
+  "54": {
+   "up_ja": "{name}は急に明晰になった。",
+   "up_en": "Suddenly, {name}{your} mind becomes very clear.",
+   "down_ja": "{name}は以前ほど明晰ではなくなった。",
+   "down_en": "{name}{your} mind becomes slippery."
+  },
+  "55": {
+   "up_ja": "{name}の毒への耐性は強くなった。",
+   "up_en": "{name} now {have} antibodies to poisons.",
+   "down_ja": "{name}の毒への耐性は薄れた。",
+   "down_en": "{name} lose{s} antibodies to poisons."
+  },
+  "56": {
+   "up_ja": "{name}の魂は地獄に近づいた。",
+   "up_en": "{name} {is} no longer afraid{s} of hell.",
+   "down_ja": "{name}の魂は地獄から遠ざかった。",
+   "down_en": "{name} {is} afraid of hell."
+  },
+  "57": {
+   "up_ja": "{name}は騒音を気にしなくなった。",
+   "up_en": "{name}{your} eardrums get thick.",
+   "down_ja": "{name}は急に辺りをうるさく感じた。",
+   "down_en": "{name} become{s} very sensitive to noises."
+  },
+  "58": {
+   "up_ja": "{name}は急に神経が図太くなった。",
+   "up_en": "{name}{your} nerve is sharpened.",
+   "down_ja": "{name}の神経は急に萎縮した。",
+   "down_en": "{name} become{s} dull."
+  },
+  "59": {
+   "up_ja": "{name}は急にカオスを理解した。",
+   "up_en": "Suddenly, {name} understand{s} chaos.",
+   "down_ja": "{name}はカオスへの理解を失った。",
+   "down_en": "{name} no longer understand{s} chaos."
+  },
+  "60": {
+   "up_ja": "{name}の皮膚は魔力のオーラに包まれた。",
+   "up_en": "{name}{your} body is covered by a magical aura.",
+   "down_ja": "{name}の皮膚から魔力のオーラが消えた。",
+   "down_en": "The magical aura disappears from {name}{your} body."
+  }
+ }
+}

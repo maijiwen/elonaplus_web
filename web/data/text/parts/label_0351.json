@@ -1,0 +1,1561 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0351",
+ "entries": [
+  {
+   "id": "s03406",
+   "kind": "raw",
+   "jp": "野菜",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28262
+    },
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28271
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03407",
+   "kind": "raw",
+   "jp": "果実",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28263
+    },
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28272
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03408",
+   "kind": "raw",
+   "jp": "ハーブ",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28264
+    },
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28273
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03409",
+   "kind": "raw",
+   "jp": "謎の物体",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28265
+    },
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28274
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03410",
+   "kind": "raw",
+   "jp": "アーティファクト",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28266
+    },
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28275
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03411",
+   "kind": "raw",
+   "jp": "宝石",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28267
+    },
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28276
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03412",
+   "kind": "raw",
+   "jp": "魔法の木",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28268
+    },
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28277
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03413",
+   "kind": "raw",
+   "jp": "砂",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28281
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03414",
+   "kind": "raw",
+   "jp": "子供のおもちゃの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28281
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03415",
+   "kind": "raw",
+   "jp": "生もの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28290
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03416",
+   "kind": "raw",
+   "jp": "食用",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28290
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03417",
+   "kind": "raw",
+   "jp": "ナノマシン",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28299
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03418",
+   "kind": "raw",
+   "jp": "変形する",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28299
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03419",
+   "kind": "raw",
+   "jp": "竹",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28309
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03420",
+   "kind": "raw",
+   "jp": "渋い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28309
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03421",
+   "kind": "raw",
+   "jp": "木",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28319
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03422",
+   "kind": "raw",
+   "jp": "古き",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28319
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03423",
+   "kind": "raw",
+   "jp": "鉛",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28329
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03424",
+   "kind": "raw",
+   "jp": "重き",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28329
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03425",
+   "kind": "raw",
+   "jp": "ブロンズ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28339
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03426",
+   "kind": "raw",
+   "jp": "気高き",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28339
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03427",
+   "kind": "raw",
+   "jp": "ミカ",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28348
+    },
+    {
+     "fn": "prodcheck",
+     "label": "label_1936",
+     "line": 190814
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03428",
+   "kind": "raw",
+   "jp": "儚き",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28348
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03429",
+   "kind": "raw",
+   "jp": "珊瑚",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28357
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03430",
+   "kind": "raw",
+   "jp": "海からもたらされし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28357
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03431",
+   "kind": "raw",
+   "jp": "鉄",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28366
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03432",
+   "kind": "raw",
+   "jp": "鉄塊と呼ばれる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28366
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03433",
+   "kind": "raw",
+   "jp": "シルバー",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28376
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03434",
+   "kind": "raw",
+   "jp": "闇を砕く",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28376
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03435",
+   "kind": "raw",
+   "jp": "硝子",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28386
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03436",
+   "kind": "raw",
+   "jp": "透き通る",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28386
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03437",
+   "kind": "raw",
+   "jp": "オブシディアン",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28396
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03438",
+   "kind": "raw",
+   "jp": "神殺しの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28396
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03439",
+   "kind": "raw",
+   "jp": "スティール",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28405
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03440",
+   "kind": "raw",
+   "jp": "由緒ある",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28405
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03441",
+   "kind": "raw",
+   "jp": "白銀",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28415
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03442",
+   "kind": "raw",
+   "jp": "光を纏いし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28415
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03443",
+   "kind": "raw",
+   "jp": "真珠",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28425
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03444",
+   "kind": "raw",
+   "jp": "闇を照らす",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28425
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03445",
+   "kind": "raw",
+   "jp": "ミスリル",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28434
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03446",
+   "kind": "raw",
+   "jp": "古なる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28434
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03447",
+   "kind": "raw",
+   "jp": "クロム",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28444
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03448",
+   "kind": "raw",
+   "jp": "真実を暴く",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28444
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03449",
+   "kind": "raw",
+   "jp": "水晶",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28453
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03450",
+   "kind": "raw",
+   "jp": "異光を放つ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28453
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03451",
+   "kind": "raw",
+   "jp": "エメラルド",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28462
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03452",
+   "kind": "raw",
+   "jp": "奇跡を呼ぶ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28462
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03453",
+   "kind": "raw",
+   "jp": "アダマンタイト",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28471
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03454",
+   "kind": "raw",
+   "jp": "大地を揺るがす",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28471
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03455",
+   "kind": "raw",
+   "jp": "チタン",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28481
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03456",
+   "kind": "raw",
+   "jp": "色褪せぬ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28481
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03457",
+   "kind": "raw",
+   "jp": "ダイヤ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28491
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03458",
+   "kind": "raw",
+   "jp": "うつろいなき",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28491
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03459",
+   "kind": "raw",
+   "jp": "ルビナス",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28500
+    },
+    {
+     "fn": "prodcheck",
+     "label": "label_1936",
+     "line": 178143
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03460",
+   "kind": "raw",
+   "jp": "赤く染まった",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28500
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03461",
+   "kind": "raw",
+   "jp": "エーテル",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28510
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03462",
+   "kind": "raw",
+   "jp": "永遠なる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28510
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03463",
+   "kind": "raw",
+   "jp": "布",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28520
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03464",
+   "kind": "raw",
+   "jp": "艶やかなる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28520
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03465",
+   "kind": "raw",
+   "jp": "シルク",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28530
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03466",
+   "kind": "raw",
+   "jp": "美しき",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28530
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03467",
+   "kind": "raw",
+   "jp": "紙",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28540
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03468",
+   "kind": "raw",
+   "jp": "ふざけた",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28540
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03469",
+   "kind": "raw",
+   "jp": "ボーン",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28550
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03470",
+   "kind": "raw",
+   "jp": "不死なる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28550
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03471",
+   "kind": "raw",
+   "jp": "革",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28560
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03472",
+   "kind": "raw",
+   "jp": "全てを包む",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28560
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03473",
+   "kind": "raw",
+   "jp": "鱗",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28570
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03474",
+   "kind": "raw",
+   "jp": "逆鱗に触れし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28570
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03475",
+   "kind": "raw",
+   "jp": "鉄鎖",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28579
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03476",
+   "kind": "raw",
+   "jp": "連鎖せし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28579
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03477",
+   "kind": "raw",
+   "jp": "ザイロン",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28589
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03478",
+   "kind": "raw",
+   "jp": "異国からもたらされし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28589
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03479",
+   "kind": "raw",
+   "jp": "ゴールデン",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28599
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03480",
+   "kind": "raw",
+   "jp": "黄金に輝く",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28599
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03481",
+   "kind": "raw",
+   "jp": "霊布",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28609
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03482",
+   "kind": "raw",
+   "jp": "この世ならざる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28609
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03483",
+   "kind": "raw",
+   "jp": "竜鱗",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28619
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03484",
+   "kind": "raw",
+   "jp": "竜を統べし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28619
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03485",
+   "kind": "raw",
+   "jp": "宵晒",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28629
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03486",
+   "kind": "raw",
+   "jp": "宵闇を纏いし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28629
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03487",
+   "kind": "raw",
+   "jp": "翼鳥鱗",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28639
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  },
+  {
+   "id": "s03488",
+   "kind": "raw",
+   "jp": "翼を折られし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "egoadd",
+     "label": "label_0351",
+     "line": 28639
+    }
+   ],
+   "fn": "egoadd",
+   "label": "label_0351",
+   "owner": "label_0351"
+  }
+ ]
+}

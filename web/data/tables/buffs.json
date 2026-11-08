@@ -1,0 +1,3603 @@
+{
+ "67": {
+  "desc": {
+   "jp": "全スキルの成長率を",
+   "en": "%上昇"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 10 + prm_276 / 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"全スキルの成長率を\" + var_80 + \"%上昇\", \"Increases the growth rate skills by \" + var_80 + \"\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(270 + 19 - 10, prm_274) = var_80"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "1": {
+  "desc": {
+   "jp": "PVを10%と",
+   "en": "上昇/盾20%上昇/耐恐怖"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20 + prm_276 / 15"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = limit(25 + prm_276 / 8, 1, 1000)"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"PVを10%と\" + var_80 + \"上昇/盾20%上昇/耐恐怖\", \"Increases PV by 10% and \" + var_80 + \"/RES+ fear\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_58(70, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(70, prm_274) += var_58(70, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(70, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(255, prm_274) = 0"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(168, prm_274) = var_82(168, prm_274) * 12 / 10"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "2": {
+  "desc": {
+   "jp": "魔法の詠唱成功率低下",
+   "en": "Decreased success rate of casting spells"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 8 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"魔法の詠唱成功率低下\", \"Decreased success rate of casting spells\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "3": {
+  "desc": {
+   "jp": "体力、スタミナの回復強化/震え耐性",
+   "en": "Enhances regeneration/RES+ chills"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = limit(10 + prm_276 / 10, 11, 200)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 30 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"体力、スタミナの回復強化/震え耐性\", \"Enhances regeneration/RES+ chills\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(154, prm_274) += var_80 / 2"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "30": {
+  "desc": {
+   "jp": "体力の超回復",
+   "en": "Enhances regeneration hard"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 2000"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"体力の超回復\", \"Enhances regeneration hard\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(154, prm_274) += var_80"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "4": {
+  "desc": {
+   "jp": "火冷雷闇幻毒獄音神混耐性の獲得",
+   "en": "RES+ fire,cold,lightning,mind,nerve,nether,poison,sound,chaos,darkness"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 10 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"火冷雷闇幻毒獄音神混耐性の獲得\", \"RES+ fire,cold,lightning,mind,nerve,nether,poison,sound,chaos,darkness\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(50, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(51, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(52, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(58, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(54, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(56, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(55, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(57, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(59, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(53, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "66": {
+  "desc": {
+   "jp": "魔法耐性の獲得",
+   "en": "RES+ magic"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 10 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"魔法耐性の獲得\", \"RES+ magic\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(60, prm_274) += 100 + prm_276"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "69": {
+  "desc": {
+   "jp": "毎ターンHPと状態異常回復/火炎耐性の獲得",
+   "en": "Recovery every turn/RES+ fire"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 10 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"毎ターンHPと状態異常回復/火炎耐性の獲得\", \"Recovery every turn/RES+ fire\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(50, prm_274) += 100 + prm_276"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "68": {
+  "desc": {
+   "jp": "戦術魔力制御詠唱",
+   "en": "上昇/物理攻撃に魔法属性追加"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 10 + prm_276 / 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = limit(5 + prm_276, 5, 1000)"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"戦術魔力制御詠唱\" + var_80 + \"上昇/物理攻撃に魔法属性追加\", \"Increases some skills \" + var_80 + \"/Add magic to attack\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(152, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(188, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(172, prm_274) += var_80"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "44": {
+  "desc": {
+   "jp": "筋力・感覚の上昇/魔法反射",
+   "en": "Increases STR,PER,ReflectMagic"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 100"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"筋力・感覚の上昇/魔法反射\", \"Increases STR,PER,ReflectMagic\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(10, prm_274) = var_82(10, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) = var_82(13, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(94, prm_274) += 40"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(409, prm_274) = 1"
+   }
+  ]
+ },
+ "45": {
+  "desc": {
+   "jp": "器用・魔力・魔法耐性の上昇",
+   "en": "Increases DEX,MAG,resistance to magic"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 100"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"器用・魔力・魔法耐性の上昇\", \"Increases DEX,MAG,resistance to magic\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(12, prm_274) = var_82(12, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(16, prm_274) = var_82(16, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(60, prm_274) += 120"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(409, prm_274) = 2"
+   }
+  ]
+ },
+ "46": {
+  "desc": {
+   "jp": "速度・DVの上昇/部位減速無視",
+   "en": "Increases speed/complicated body invalid"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 100"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"速度・DVの上昇/部位減速無視\", \"Increases speed/complicated body invalid\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) = var_82(18, prm_274) * 12 / 10 + 50"
+   },
+   {
+    "op": "if",
+    "c": "var_58(71, prm_274) > 0"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(71, prm_274) = var_58(71, prm_274) * 12 / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(71, prm_274) += 50"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(409, prm_274) = 3"
+   }
+  ]
+ },
+ "47": {
+  "desc": {
+   "jp": "耐久・PV・回復効果の上昇/ダメージ無効率上昇",
+   "en": "Increases PV,heal magic/ImmuneDamage plus"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 100"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"耐久・PV・回復効果の上昇/ダメージ無効率上昇\", \"Increases PV,heal magic/ImmuneDamage plus\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(11, prm_274) = var_82(11, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "if",
+    "c": "var_58(70, prm_274) > 0"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(70, prm_274) = var_58(70, prm_274) * 12 / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(70, prm_274) += 50"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(91, prm_274) += 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(409, prm_274) = 4"
+   }
+  ]
+ },
+ "48": {
+  "desc": {
+   "jp": "能力と魔法耐性の上昇/HPMP消耗/ゲージ逓減オフ",
+   "en": "HPMP consumption/gauge diminishing invalid"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 100"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"能力と魔法耐性の上昇/HPMP消耗/ゲージ逓減オフ\", \"HPMP consumption/gauge diminishing invalid\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(10, prm_274) = var_82(10, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(11, prm_274) = var_82(11, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(12, prm_274) = var_82(12, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) = var_82(13, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(16, prm_274) = var_82(16, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) = var_82(18, prm_274) * 12 / 10 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(60, prm_274) += 120"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(409, prm_274) = 5"
+   }
+  ]
+ },
+ "53": {
+  "desc": {
+   "jp": "押しのけ移動しつつ乗馬依存ダメージ",
+   "en": "Run through and riding attack"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 30"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 5 + prm_276 / 30"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"押しのけ移動しつつ乗馬依存ダメージ\", \"Run through and riding attack\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "52": {
+  "desc": {
+   "jp": "通常攻撃＋10％と通常防御＋5％と",
+   "en": "の加速"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "var_80 > 300"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 300"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 8 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"通常攻撃＋10％と通常防御＋5％と\" + var_80 + \"の加速\", \"Increases attack by 10% /Increases defense by 5% /Increases speed by \" + var_80)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) += var_80"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "5": {
+  "desc": {
+   "jp": "",
+   "en": "の加速"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = limit(50 + prm_276 / 10, 1, 800)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 8 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == 0"
+   },
+   {
+    "op": "if",
+    "c": "var_58(192, 0) == 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = var_80 * 13 / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_80 > 1000"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 1000"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"\" + var_80 + \"の加速\", \"Increases speed by \" + var_80)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) += var_80"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "6": {
+  "desc": {
+   "jp": "速度割合低下",
+   "en": "Decreased rate of speed"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = 40"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 >= 0"
+   },
+   {
+    "op": "if",
+    "c": "var_58(25, prm_274) > 3"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 20"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 8 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"速度割合低下\", \"Decreased rate of speed\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) = var_82(18, prm_274) * (100 - var_80) / 100"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "7": {
+  "desc": {
+   "jp": "筋力・器用を10%と",
+   "en": "上昇/耐恐怖/耐混乱"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20 + prm_276 / 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 5 + prm_276 / 30"
+   },
+   {
+    "op": "if",
+    "c": "var_80 > 1000"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 1000"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"筋力・器用を10%と\" + var_80 + \"上昇/耐恐怖/耐混乱\", \"Increases STR,DEX by 10% and \" + var_80 + \"/RES+ fear,confusion\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(10, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(10, prm_274) += var_82(10, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(12, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(12, prm_274) += var_82(12, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(10, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(12, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(255, prm_274) = 0"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(254, prm_274) = 0"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "64": {
+  "desc": {
+   "jp": "筋力耐久器用感覚意志魔力速度を",
+   "en": "上昇/耐恐怖/魔法耐性上昇"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 66"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = limit(66 + prm_276 / 30, 66, 666)"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"筋力耐久器用感覚意志魔力速度を\" + var_80 + \"上昇/耐恐怖/魔法耐性上昇\", \"Increases status by \" + var_80 + \"/RES+ fear,Magic\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(10, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(11, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(12, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(15, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(16, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(255, prm_274) = 0"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(60, prm_274) += 80 + prm_276 / 20"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "59": {
+  "desc": {
+   "jp": "装備スキルで射撃力上昇/命中率上昇/不動",
+   "en": "Enhance shooting by equipped skill/Immobility"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 25"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 25"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"装備スキルで射撃力上昇/命中率上昇/不動\", \"Enhance shooting by equipped skill/Immobility\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "63": {
+  "desc": {
+   "jp": "分析率を上げやすくするが毎ターン微疲労",
+   "en": "To help raise the analysis rate/fatigue every turn/SP expend"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"分析率を上げやすくするが毎ターン微疲労\", \"To help raise the analysis rate/fatigue every turn/SP expend\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "62": {
+  "desc": {
+   "jp": "瞑想依存で通常投擲強化/MP消費",
+   "en": "Throwing reinforced with meditation/MP expend"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 25"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 25"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"瞑想依存で通常投擲強化/MP消費\", \"Throwing reinforced with meditation/MP expend\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "60": {
+  "desc": {
+   "jp": "能力低下効果を一部無効化/耐毒",
+   "en": "Partially invalidate reduction effect/RES+ poison"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 25"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 25"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"能力低下効果を一部無効化/耐毒\", \"Partially invalidate reduction effect/RES+ poison\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "70": {
+  "desc": {
+   "jp": "スタミナの減少を無効化",
+   "en": "Disable stamina reduction"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 10"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"スタミナの減少を無効化\", \"Disable stamina reduction\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "55": {
+  "desc": {
+   "jp": "耐久・魅力を10%と",
+   "en": "上昇/耐麻痺/耐盲目"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20 + prm_276 / 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 5 + prm_276 / 30"
+   },
+   {
+    "op": "if",
+    "c": "var_80 > 1000"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 1000"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"耐久・魅力を10%と\" + var_80 + \"上昇/耐麻痺/耐盲目\", \"Increases END,CHR by 10% and \" + var_80 + \"/RES+ paralyze,blind\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(11, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(11, prm_274) += var_82(11, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(17, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(17, prm_274) += var_82(17, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(11, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(17, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(252, prm_274) = 0"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(253, prm_274) = 0"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "54": {
+  "desc": {
+   "jp": "能力の平均化",
+   "en": "Averaging"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 200 + prm_276 / 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 5 + prm_276 / 30"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"能力の平均化\", \"Averaging\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(10, prm_274) = (var_82(10, 0) + var_82(10, prm_274)) / 2"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(11, prm_274) = (var_82(11, 0) + var_82(11, prm_274)) / 2"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(12, prm_274) = (var_82(12, 0) + var_82(12, prm_274)) / 2"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) = (var_82(13, 0) + var_82(13, prm_274)) / 2"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(14, prm_274) = (var_82(14, 0) + var_82(14, prm_274)) / 2"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(15, prm_274) = (var_82(15, 0) + var_82(15, prm_274)) / 2"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(16, prm_274) = (var_82(16, 0) + var_82(16, prm_274)) / 2"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(17, prm_274) = (var_82(17, 0) + var_82(17, prm_274)) / 2"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "43": {
+  "desc": {
+   "jp": "感覚・意志を10%と",
+   "en": "上昇/耐睡眠/耐混乱"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20 + prm_276 / 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 5 + prm_276 / 30"
+   },
+   {
+    "op": "if",
+    "c": "var_80 > 1000"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 1000"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"感覚・意志を10%と\" + var_80 + \"上昇/耐睡眠/耐混乱\", \"Increases PER,WIL by 10% and \" + var_80 + \"/RES+ sleep,confusion\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(13, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) += var_82(13, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(15, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(15, prm_274) += var_82(15, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(15, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(251, prm_274) = 0"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(254, prm_274) = 0"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "56": {
+  "desc": {
+   "jp": "感覚・意志が20％減少/詠唱成功率3％減少",
+   "en": "Decreases PER,WIL,LER by 20%,decreases casting chance by 3%"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 200"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 200"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"感覚・意志が20％減少/詠唱成功率3％減少\", \"Decreases PER,WIL,LER by 20%,decreases casting chance by 3%\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(13, prm_274) >= 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) = var_82(13, prm_274) * 4 / 5"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(15, prm_274) >= 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(15, prm_274) = var_82(15, prm_274) * 4 / 5"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "57": {
+  "desc": {
+   "jp": "10％の確率で行動ターン放棄/パワーゲージ逓減",
+   "en": "Skip turn with 10% chance,Power gauge diminishing"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 200"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 200"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"10％の確率で行動ターン放棄/パワーゲージ逓減\", \"Skip turn with 10% chance,Power gauge diminishing\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "61": {
+  "desc": {
+   "jp": "飢えと渇きが激しくなる",
+   "en": "Increase hunger and thirst"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 500"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"飢えと渇きが激しくなる\", \"Increase hunger and thirst\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "71": {
+  "desc": {
+   "jp": "毒や侵蝕によって弱体化する",
+   "en": "Weakened by Poison and Erosion"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 100"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"毒や侵蝕によって弱体化する\", \"Weakened by Poison and Erosion\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "8": {
+  "desc": {
+   "jp": "被ダメージ割合増加/与ダメージ割合減少",
+   "en": "Decreased atk and def"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 8 + prm_276 / 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"被ダメージ割合増加/与ダメージ割合減少\", \"Decreased atk and def\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "9": {
+  "desc": {
+   "jp": "火炎冷気電撃耐性減少/自然回復阻害",
+   "en": "RES- fire,cold,lightning,and stop regeneration"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20 + prm_276 / 5"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"火炎冷気電撃耐性減少/自然回復阻害\", \"RES- fire,cold,lightning,and stop regeneration\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(50, prm_274) = limit(var_82(50, prm_274) + limit((-50) - prm_276 / 15, -150, -80), var_82(50, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(51, prm_274) = limit(var_82(51, prm_274) + limit((-50) - prm_276 / 15, -150, -80), var_82(51, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(52, prm_274) = limit(var_82(52, prm_274) + limit((-50) - prm_276 / 15, -150, -80), var_82(52, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "10": {
+  "desc": {
+   "jp": "ﾊﾟﾜｰ",
+   "en": "デバフ抵抗/耐怯み/耐侵蝕"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = 50 + prm_276 / 3 * 2"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 15 + prm_276 / 5"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"ﾊﾟﾜｰ\" + var_80 + \"デバフ抵抗/耐怯み/耐侵蝕\", \"hex protect(power:\" + var_80 + \")/RES+ wince/RES+ erosion\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(445, prm_274) = 0"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "11": {
+  "desc": {
+   "jp": "闇幻毒獄音神混耐性の減少",
+   "en": "RES- mind,nerve,nether,poison,sound,chaos,darkness"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 4 + prm_276 / 15"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"闇幻毒獄音神混耐性の減少\", \"RES- mind,nerve,nether,poison,sound,chaos,darkness\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(58, prm_274) = limit(var_82(58, prm_274) + limit((-50) - prm_276 / 20, -150, -80), var_82(58, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(54, prm_274) = limit(var_82(54, prm_274) + limit((-50) - prm_276 / 20, -150, -80), var_82(54, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(56, prm_274) = limit(var_82(56, prm_274) + limit((-50) - prm_276 / 20, -150, -80), var_82(56, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(55, prm_274) = limit(var_82(55, prm_274) + limit((-50) - prm_276 / 20, -150, -80), var_82(55, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(57, prm_274) = limit(var_82(57, prm_274) + limit((-50) - prm_276 / 20, -150, -80), var_82(57, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(59, prm_274) = limit(var_82(59, prm_274) + limit((-50) - prm_276 / 20, -150, -80), var_82(59, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(53, prm_274) = limit(var_82(53, prm_274) + limit((-50) - prm_276 / 20, -150, -80), var_82(53, prm_274) > 0, 9999)"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "12": {
+  "desc": {
+   "jp": "習得・魔力を10%と",
+   "en": "上昇/読書を10%と"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20 + prm_276 / 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 10 + prm_276 / 40, 3 + prm_276 / 100"
+   },
+   {
+    "op": "if",
+    "c": "var_80 > 1000"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 1000"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"習得・魔力を10%と\" + var_80 + \"上昇/読書を10%と\" + var_80(1) + \"上昇\", \"Increases LER,MAG by 10% and \" + var_80 + \", literacy skill by 10% and \" + var_80(1))"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(14, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(14, prm_274) += var_82(14, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(16, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(16, prm_274) += var_82(16, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(150, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(150, prm_274) += var_82(150, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(14, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(16, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(150, prm_274) += var_80(1)"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "13": {
+  "desc": {
+   "jp": "DV・PV・速度を20%減少",
+   "en": "Decreases speed,PV,DV by 20%"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"DV・PV・速度を20%減少\", \"Decreases speed,PV,DV by 20%\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_58(70, prm_274) > 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(70, prm_274) -= var_58(70, prm_274) / 5"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_58(71, prm_274) > 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(71, prm_274) -= var_58(71, prm_274) / 5"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_82(18, prm_274) > 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) -= var_82(18, prm_274) / 5"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "14": {
+  "desc": {
+   "jp": "現在の速度の20%＋",
+   "en": "の加速"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = 150"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 15"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"現在の速度の20%＋\" + var_80 + \"の加速\", \"Increases speed\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) += var_80 + var_82(18, prm_274) / 5"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "15": {
+  "desc": {
+   "jp": "変装",
+   "en": "Grants new identify"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 4 + prm_276 / 40"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"変装\", \"Grants new identify\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "cbitmod 16, prm_274, 1"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "16": {
+  "desc": {
+   "jp": "呪いが完了したときに9999のダメージを受ける",
+   "en": "Guaranteed death when the hex ends"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"呪いが完了したときに9999のダメージを受ける\", \"Guaranteed death when the hex ends\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "cbitmod 973, prm_274, 1"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "17": {
+  "desc": {
+   "jp": "",
+   "en": "の加速と能力のアップ"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = limit(120 + prm_276 / 20, 120, 150)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = limit(10 + prm_276 / 20, 10, 30)"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"\" + var_80 + \"の加速と能力のアップ\", \"Increases speed by \" + var_80 + \"/Boosts physical attributes\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(10, prm_274) = var_82(10, prm_274) * var_80 / 100 + 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) = var_82(13, prm_274) * var_80 / 100 + 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(16, prm_274) = var_82(16, prm_274) * var_80 / 100 + 10"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "65": {
+  "desc": {
+   "jp": "交渉系技能に分析スキルで連携・中断耐性",
+   "en": "Cooperation, interruption resistance of negotiate abilities"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 50"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 50"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"交渉系技能に分析スキルで連携・中断耐性\", \"Cooperation, interruption resistance of negotiate abilities\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "18": {
+  "desc": {
+   "jp": "致命傷を負ったとき",
+   "en": "%の確率で一度だけダメージを0にする"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 66"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = limit(25 + prm_276 / 17, 25, 80)"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"致命傷を負ったとき\" + var_80 + \"%の確率で一度だけダメージを0にする\", \"\" + var_80 + \"% chances taking a lethal damage heals you instead\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "cbitmod 980, prm_274, 1"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "29": {
+  "desc": {
+   "jp": "能力のアップ",
+   "en": "Increases WIL,PER"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 5"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"能力のアップ\", \"Increases WIL,PER\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(15, prm_274) = var_82(15, prm_274) * 130 / 100 + 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) = var_82(13, prm_274) * 130 / 100 + 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(173, prm_274) = var_82(173, prm_274) * 120 / 100 + 25"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(187, prm_274) = var_82(187, prm_274) * 120 / 100 + 25"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(106, prm_274) = var_82(106, prm_274) * 110 / 100 + 5"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "49": {
+  "desc": {
+   "jp": "魔力上昇/手系攻撃に錬金術ダメージ追加",
+   "en": "Increases MAG,Add alchemy damage to Hand-skills"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 40"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 5"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"魔力上昇/手系攻撃に錬金術ダメージ追加\", \"Increases MAG,Add alchemy damage to Hand-skills\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(16, prm_274) = var_82(16, prm_274) * 120 / 100 + 5"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "50": {
+  "desc": {
+   "jp": "心眼上昇/眼差し系にゲージ、HP、MPの吸収追加",
+   "en": "Enhance Eye of Mind,Add absorption to Eye-skills"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 40"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 5"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"心眼上昇/眼差し系にゲージ、HP、MPの吸収追加\", \"Enhance Eye of Mind,Add absorption to Eye-skills\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(186, prm_274) = var_82(186, prm_274) * 120 / 100 + 10"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "40": {
+  "desc": {
+   "jp": "能力の変動/耐恐怖",
+   "en": "Increases STR,SPD"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 30"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"能力の変動/耐恐怖\", \"Increases STR,SPD\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(14, prm_274) = limit(var_82(14, prm_274) - var_80 / 6, 5, 5000)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(10, prm_274) += var_80 / 6 + 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(12, prm_274) = limit(var_82(12, prm_274) - var_80 / 6, 5, 5000)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(13, prm_274) += var_80 / 6 + 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(15, prm_274) = limit(var_82(15, prm_274) - var_80 / 6, 5, 5000)"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) += var_80 / 6 + 1"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "19": {
+  "desc": {
+   "jp": "",
+   "en": "の幸運の上昇"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 777"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"\" + var_80 + \"の幸運の上昇\", \"Increase luck by \" + var_80 + \".\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(19, prm_274) += var_80"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "39": {
+  "desc": {
+   "jp": "666の幸運の低下",
+   "en": "decrease luck by 666"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = 666"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 6666"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"666の幸運の低下\", \"decrease luck by 666\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(19, prm_274) -= 666"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "31": {
+  "desc": {
+   "jp": "DVを10%と",
+   "en": "上昇/軽装備20%上昇/耐重力/浮遊"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20 + prm_276 / 15"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = limit(25 + prm_276 / 8, 1, 1000)"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"DVを10%と\" + var_80 + \"上昇/軽装備20%上昇/耐重力/浮遊\", \"Increases DV by 10% and \" + var_80 + \"/float,release from Gravity\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "if",
+    "c": "var_58(71, prm_274) >= 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(71, prm_274) += var_58(71, prm_274) / 10"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(71, prm_274) += var_80"
+   },
+   {
+    "op": "stmt",
+    "s": "var_58(262, prm_274) = 0"
+   },
+   {
+    "op": "stmt",
+    "s": "cbitmod 5, prm_274, 1"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(171, prm_274) = var_82(171, prm_274) * 12 / 10"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "32": {
+  "desc": {
+   "jp": "一度だけ通常攻撃/魔法/放射技能での攻撃力上昇",
+   "en": "Once enlarge attack power ten times"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 25"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"一度だけ通常攻撃/魔法/放射技能での攻撃力上昇\", \"Once enlarge attack power ten times\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "33": {
+  "desc": {
+   "jp": "軽装備時、クリティカル発生を無効化/通常ダメージ小軽減",
+   "en": "You evade critical attack during you wear light equipments"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 15"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 25"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"軽装備時、クリティカル発生を無効化/通常ダメージ小軽減\", \"You evade critical attack during you wear light equipments\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "34": {
+  "desc": {
+   "jp": "中装備時、魔法威力上昇/魔法属性ダメージ小軽減",
+   "en": "Increases magic power during you wear medium equipments"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 15"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 25"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"中装備時、魔法威力上昇/魔法属性ダメージ小軽減\", \"Increases magic power during you wear medium equipments\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "35": {
+  "desc": {
+   "jp": "重装備時、通常大ダメージ軽減/重量命中ペナルティ無効/耐朦朧",
+   "en": "Decrease damage during you wear heavy equipments"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 20"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 30"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"重装備時、通常大ダメージ軽減/重量命中ペナルティ無効/耐朦朧\", \"Decrease damage during you wear heavy equipments\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "51": {
+  "desc": {
+   "jp": "手に装備した盾で攻撃を弾き転倒させる",
+   "en": "Parry and overturn the attacker during you equipped shield"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 40"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 40"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"手に装備した盾で攻撃を弾き転倒させる\", \"Parry and overturn the attacker during you equipped shield\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "58": {
+  "desc": {
+   "jp": "回避成功時反撃/戦術見切り依存の回避スキル上昇",
+   "en": "Increases Evasion, and add　counterattack"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 13"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = 13"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"回避成功時反撃/戦術見切り依存の回避スキル上昇\", \"Increases Evasion, and add　counterattack\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(173, prm_274) += (var_82(152, prm_274) + var_82(187, prm_274) + 2) / 2"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "36": {
+  "desc": {
+   "jp": "最も耐性が高い属性を格闘に付加",
+   "en": "Add attribute to martial"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 30"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"最も耐性が高い属性を格闘に付加\", \"Add attribute to martial\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "38": {
+  "desc": {
+   "jp": "特定スキル上昇/一部アイテム使用時ゲージ増加",
+   "en": "Increases MagicDevice,Throw,Alchemy"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 30"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"特定スキル上昇/一部アイテム使用時ゲージ増加\", \"Increases MagicDevice,Throw,Alchemy\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(174, prm_274) = (var_82(174, prm_274) + 1) * 110 / 100 + 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(111, prm_274) = (var_82(111, prm_274) + 1) * 110 / 100 + 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(178, prm_274) = (var_82(178, prm_274) + 1) * 110 / 100 + 10"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(150, prm_274) = (var_82(150, prm_274) + 1) * 110 / 100 + 10"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "37": {
+  "desc": {
+   "jp": "仲間が受けるダメージを肩代わりする",
+   "en": "Take over the damage to ally"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_79 = 50"
+   },
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"仲間が受けるダメージを肩代わりする\", \"Take over the damage to ally\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "41": {
+  "desc": {
+   "jp": "テレポート妨害/速度上昇/狂気半減",
+   "en": "Prevent teleport/Increases speed/Halve insane"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 50"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"テレポート妨害/速度上昇/狂気半減\", \"Prevent teleport/Increases speed/Halve insane\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(18, prm_274) += var_82(18, prm_274) / 8"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ },
+ "42": {
+  "desc": {
+   "jp": "スキル値上昇/耐洗脳",
+   "en": "Increases skill level/RES+ brainwash"
+  },
+  "ops": [
+   {
+    "op": "stmt",
+    "s": "var_80 = prm_276"
+   },
+   {
+    "op": "stmt",
+    "s": "var_79 = 50"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 < 0"
+   },
+   {
+    "op": "if",
+    "c": "prm_274 == (-1)"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "else"
+   },
+   {
+    "op": "stmt",
+    "s": "var_78 = lang(\"スキル値上昇/耐洗脳\", \"Increases skill level/RES+ brainwash\")"
+   },
+   {
+    "op": "return"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "end"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(152, prm_274) = (var_82(152, prm_274) + 1) * 130 / 100 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(189, prm_274) = (var_82(189, prm_274) + 1) * 130 / 100 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(186, prm_274) = (var_82(186, prm_274) + 1) * 130 / 100 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(174, prm_274) = (var_82(174, prm_274) + 1) * 130 / 100 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(172, prm_274) = (var_82(172, prm_274) + 1) * 130 / 100 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(188, prm_274) = (var_82(188, prm_274) + 1) * 130 / 100 + 5"
+   },
+   {
+    "op": "stmt",
+    "s": "var_82(301, prm_274) = (var_82(301, prm_274) + 1) * 130 / 100 + 5"
+   },
+   {
+    "op": "return"
+   }
+  ]
+ }
+}

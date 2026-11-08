@@ -1,0 +1,1568 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2697",
+ "entries": [
+  {
+   "id": "s12183",
+   "kind": "raw",
+   "jp": "◆ 取得できるフィート",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285175
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12184",
+   "kind": "raw",
+   "jp": "◆ 特徴と体質",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285183
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12185",
+   "kind": "raw",
+   "jp": "(条件不足)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285206
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12186",
+   "kind": "raw",
+   "jp": "[フィート]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285220
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12187",
+   "kind": "raw",
+   "jp": "[変異]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285228
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12188",
+   "kind": "raw",
+   "jp": "[先天]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285236
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12189",
+   "kind": "raw",
+   "jp": "[ｴｰﾃﾙ病]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285244
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12190",
+   "kind": "lang",
+   "jp": "あなたは変装している",
+   "en": "You are disguising yourself.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285260
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12191",
+   "kind": "lang",
+   "jp": "あなたは腹に寄生されている",
+   "en": "You are parasitic in the belly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285265
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12192",
+   "kind": "lang",
+   "jp": "あなたは脳髄に寄生されている",
+   "en": "You are parasitic in the brain.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285270
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12193",
+   "kind": "lang",
+   "jp": "あなたは拒食症だ",
+   "en": "You have anorexia.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285275
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12194",
+   "kind": "lang",
+   "jp": "あなたは浮遊できる",
+   "en": "You can float.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285280
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12195",
+   "kind": "lang",
+   "jp": "あなたは透明になれる",
+   "en": "You can be invisible.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285285
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12196",
+   "kind": "lang",
+   "jp": "あなたは透明な存在が見える",
+   "en": "You see invisible creatures.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285290
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12197",
+   "kind": "lang",
+   "jp": "あなたには混乱が効かない",
+   "en": "You negates the effect of confusion.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285295
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12198",
+   "kind": "lang",
+   "jp": "あなたには盲目が効かない",
+   "en": "You negates the effect of blindness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285300
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12199",
+   "kind": "lang",
+   "jp": "あなたには恐怖が効かない",
+   "en": "You negates the effect of fear.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285305
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12200",
+   "kind": "lang",
+   "jp": "あなたには睡眠が効かない",
+   "en": "You negates the effect of sleep.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285310
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12201",
+   "kind": "lang",
+   "jp": "あなたには麻痺が効かない",
+   "en": "You negates the effect of paralysis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285315
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12202",
+   "kind": "lang",
+   "jp": "あなたには毒が効かない",
+   "en": "You negates the effect of poison.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285320
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12203",
+   "kind": "lang",
+   "jp": "あなたは腐ったものを難なく消化する",
+   "en": "You can digest rotten foods.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285325
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12204",
+   "kind": "lang",
+   "jp": "あなたはアイテムを盗まれない",
+   "en": "You will not have item stolen.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285330
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12205",
+   "kind": "lang",
+   "jp": "あなたは自爆する",
+   "en": "You self-destruct.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285335
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12206",
+   "kind": "lang",
+   "jp": "あなたは死を司る",
+   "en": "You govern death word.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285340
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12207",
+   "kind": "lang",
+   "jp": "あなたは連続矢魔法を使える",
+   "en": "You can cast triple arrow spells.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285345
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12208",
+   "kind": "lang",
+   "jp": "あなたはレイハンドを使える",
+   "en": "You can use Layhand.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285350
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12209",
+   "kind": "lang",
+   "jp": "あなたは乗馬に適している",
+   "en": "You are suitable for riding.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285355
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12210",
+   "kind": "lang",
+   "jp": "あなたは分裂できる",
+   "en": "You can split when attacked easily.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285360
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12211",
+   "kind": "lang",
+   "jp": "あなたは呪いに強い",
+   "en": "You are strong against curses.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285365
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12212",
+   "kind": "lang",
+   "jp": "あなたは乗馬に適さない",
+   "en": "You are too weak to carry you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285370
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12213",
+   "kind": "lang",
+   "jp": "あなたはお互いの属性攻撃を中和する",
+   "en": "You neutralize each other's attribute attacks.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285375
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12214",
+   "kind": "lang",
+   "jp": "あなたは元気な場合分裂する",
+   "en": "You can split when attacked.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285380
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12215",
+   "kind": "lang",
+   "jp": "あなたは特殊金属で構成されている",
+   "en": "You are made of special metal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285385
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12216",
+   "kind": "lang",
+   "jp": "あなたは出血しにくい",
+   "en": "You don't bleed easily.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285390
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12217",
+   "kind": "lang",
+   "jp": "あなたは地雷に反応されない",
+   "en": "You are not sensed by land mines.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285395
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12218",
+   "kind": "lang",
+   "jp": "あなたは攻撃されると怒る",
+   "en": "You get angry when attacked.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285400
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12219",
+   "kind": "lang",
+   "jp": "あなたは特殊装甲に覆われている",
+   "en": "You are covered in special armor.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285405
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12220",
+   "kind": "lang",
+   "jp": "あなたは早撃ちが得意だ",
+   "en": "You are good at shooting fast.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285410
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12221",
+   "kind": "lang",
+   "jp": "あなたは柔術の構えをしている",
+   "en": "You are ready for Jiujitsu.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285415
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12222",
+   "kind": "lang",
+   "jp": "あなたは詠唱中に気分が高揚する",
+   "en": "You feel uplifted while casting.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285420
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12223",
+   "kind": "lang",
+   "jp": "[その他]",
+   "en": "[ETC]",
+   "zh": "",
+   "count": 7,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285425
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285431
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285436
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285442
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285447
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285597
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285602
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12224",
+   "kind": "lang",
+   "jp": "あなたのエーテル病の進行は早い。",
+   "en": "Your Ether disease grows fast.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285431
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12225",
+   "kind": "lang",
+   "jp": "あなたのエーテル病の進行は遅い。",
+   "en": "Your Ether disease grows slow.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285436
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12226",
+   "kind": "lang",
+   "jp": "あなたは生もの製のアイテムを食べる",
+   "en": "You eat raw items.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285442
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12227",
+   "kind": "lang",
+   "jp": "あなたには出産経験がある[耐久属性被ﾀﾞﾒｰｼﾞ半減]",
+   "en": "You have given birth. [RES+ ENDattack]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285447
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12228",
+   "kind": "lang",
+   "jp": "[覚醒]",
+   "en": "[AWAKE]",
+   "zh": "",
+   "count": 22,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285452
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285457
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285462
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285467
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285472
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285477
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285482
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285487
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12229",
+   "kind": "lang",
+   "jp": "あなたの魅力は敵さえも朦朧とさせる[直接攻撃してきた敵が朦朧]",
+   "en": "You got Attraction.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285452
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12230",
+   "kind": "lang",
+   "jp": "あなたの意地は窮地すらも乗り越える[HP減るほど回避軽減クリティカル上昇]",
+   "en": "You got Guts.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285457
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12231",
+   "kind": "lang",
+   "jp": "あなたの底力は窮地すらも乗り越える[HP減るほど最終与ダメージ上昇]",
+   "en": "You got Boundless power.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285462
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12232",
+   "kind": "lang",
+   "jp": "あなたの障壁は如何なる攻撃でも防ぐ[ダメージ分MP消費し攻撃無効化]",
+   "en": "You got Barrier.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285467
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12233",
+   "kind": "lang",
+   "jp": "あなたは罵倒を会得している",
+   "en": "You got Insult.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285472
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12234",
+   "kind": "lang",
+   "jp": "あなたは魔力の集積を会得している",
+   "en": "You got Crystal Spear.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285477
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12235",
+   "kind": "lang",
+   "jp": "あなたは空間歪曲を会得している",
+   "en": "You got Dimensional Move.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285482
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12236",
+   "kind": "lang",
+   "jp": "あなたはタクティカルヒールを会得している",
+   "en": "You got Tactical Heal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285487
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12237",
+   "kind": "lang",
+   "jp": "あなたはタクティカルアタックを会得している",
+   "en": "You got Tactical Attack.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285492
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12238",
+   "kind": "lang",
+   "jp": "あなたはタクティカルアーツを会得している",
+   "en": "You got Tactical Martial Arts.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285497
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12239",
+   "kind": "lang",
+   "jp": "あなたはタクティカルカースを会得している",
+   "en": "You got Tactical Curse.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285502
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12240",
+   "kind": "lang",
+   "jp": "あなたはチャージを会得している",
+   "en": "You got Charge Attack.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285507
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12241",
+   "kind": "lang",
+   "jp": "あなたは挑発を会得している",
+   "en": "You got Provoke.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285512
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12242",
+   "kind": "lang",
+   "jp": "あなたは零の間撃を会得している",
+   "en": "You got Zero shoot.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285517
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12243",
+   "kind": "lang",
+   "jp": "あなたはタクティカルスローを会得している",
+   "en": "You got Tactical Throw.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285522
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12244",
+   "kind": "lang",
+   "jp": "あなたは可変放射を会得している",
+   "en": "You got Variable Breath.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285527
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12245",
+   "kind": "lang",
+   "jp": "あなたは範囲魔法可変術式を会得している",
+   "en": "You got Variable Storm.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285532
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12246",
+   "kind": "lang",
+   "jp": "あなたは近接攻撃を好む",
+   "en": "You prefer the proximity attack.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285537
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12247",
+   "kind": "lang",
+   "jp": "あなたは遠隔攻撃を好む",
+   "en": "You prefer the shot.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285542
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12248",
+   "kind": "lang",
+   "jp": "あなたは矢系魔法を好む",
+   "en": "You prefer the magic arrows.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285547
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12249",
+   "kind": "lang",
+   "jp": "あなたは魔法を封印している",
+   "en": "You forbid using spells.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285552
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12250",
+   "kind": "lang",
+   "jp": "あなたは技能を封印している",
+   "en": "You forbid using special actions.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285557
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12251",
+   "kind": "lang",
+   "jp": "[営業]",
+   "en": "[SHOP]",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285562
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285567
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285572
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285577
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285582
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12252",
+   "kind": "lang",
+   "jp": "あなたには気品がある[店の客質上昇]",
+   "en": "You got elegance.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285562
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12253",
+   "kind": "lang",
+   "jp": "あなたは審美眼を持っている[交換レート上昇]",
+   "en": "You got aesthetic sense.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285567
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12254",
+   "kind": "lang",
+   "jp": "あなたは独自の商品調達ルートを持つ[独自の稼ぎ増加]",
+   "en": "You got proprietary procurement route.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285572
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12255",
+   "kind": "lang",
+   "jp": "あなたは強い提携力を持つ[同行時に売買強化]",
+   "en": "You got tie-up force.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285577
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12256",
+   "kind": "lang",
+   "jp": "あなたの営業スマイルは完璧だ[悩殺攻撃を会得]",
+   "en": "You got business smile.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285582
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12257",
+   "kind": "lang",
+   "jp": "[性格]",
+   "en": "[CHARA]",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285587
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285592
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12258",
+   "kind": "lang",
+   "jp": "あなたは悩みに囚われていない[パワーゲージ下限+1]",
+   "en": "You are not in serious trouble. [Power gauge lower limit +1]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285597
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  },
+  {
+   "id": "s12259",
+   "kind": "lang",
+   "jp": "あなたはやばい趣味に目覚めている[狂気度下限+10とパワーゲージ下限+5]",
+   "en": "You are waking up to a dangerous hobby. [SAN lower limit +10/Power gauge lower limit +5]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2697",
+     "line": 285602
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2697",
+   "owner": "label_2697"
+  }
+ ]
+}

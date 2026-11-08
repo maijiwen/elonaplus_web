@@ -1,0 +1,3897 @@
+{
+    "feats": {
+        "24": {
+            "name": "短距離走者",
+            "ops": [],
+            "raw": [],
+            "cat": 0,
+            "maxLevel": 3,
+            "levels": [
+                {
+                    "jp": "短距離走者",
+                    "en": "Short Distance Runner",
+                    "ch": "短跑者"
+                },
+                {
+                    "jp": "中距離走者",
+                    "en": "Middle Distance Runner",
+                    "ch": "中跑者"
+                },
+                {
+                    "jp": "長距離走者",
+                    "en": "Long Distance Runner",
+                    "ch": "长跑者"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "長年の特訓の成果がスタミナを高める",
+                    "en": "Years of training strengthens your stamina.",
+                    "ch": "多年特训的成果提升了耐力。"
+                },
+                {
+                    "jp": "あなたは持久力がある[スタミナ+]",
+                    "en": "You have good stamina. [Stamina+]",
+                    "ch": "你拥有持久力。[耐力+]"
+                },
+                {
+                    "jp": "あなたはかなり持久力がある[スタミナ++]",
+                    "en": "You have very good stamina. [Stamina++]",
+                    "ch": "你拥有相当好的持久力。[耐力++]"
+                },
+                {
+                    "jp": "あなたの持久力は恐ろしい[スタミナ上昇]",
+                    "en": "You have outstanding stamina. [Stamina+++]",
+                    "ch": "你的持久力惊人。[耐力提升]"
+                }
+            ],
+            "nameCh": "短跑者"
+        },
+        "3": {
+            "name": "吸血鬼",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(601 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(601 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(601 - 600) == 0 ) {",
+                "var_98(601 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "吸血鬼",
+                    "en": "Vampiric Ability",
+                    "ch": "吸血鬼能力"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "吸血鬼の友人から血の吸い方を学ぶ",
+                    "en": "Your vampire friend teaches you how to suck blood.",
+                    "ch": "从吸血鬼朋友那里学会了吸血方法。"
+                },
+                {
+                    "jp": "あなたは血を吸うことができる",
+                    "en": "You can suck blood now.",
+                    "ch": "你现在可以吸血。"
+                }
+            ],
+            "nameCh": "吸血鬼"
+        },
+        "40": {
+            "name": "指導者",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(656 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(656 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(656 - 600) == 0 ) {",
+                "var_98(656 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "指導者",
+                    "en": "Natural Leader",
+                    "ch": "天生领袖"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "指導を続けるうちに、仲間を一時的に強くする方法を見つける",
+                    "en": "You find how to strengthen your allies for a short time.",
+                    "ch": "在持续指导中，找到暂时强化同伴的方法。"
+                },
+                {
+                    "jp": "あなたは仲間を一時的に強くできる",
+                    "en": "You can temporally strengthen your allies.",
+                    "ch": "你可以暂时强化同伴。"
+                }
+            ],
+            "nameCh": "领导者"
+        },
+        "45": {
+            "name": "手加減",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(745 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(745 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(745 - 600) == 0 ) {",
+                "var_98(745 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "手加減",
+                    "en": "Knockout",
+                    "ch": "手下留情"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "修行の中で、相手を殺さずに気絶させる攻撃を編み出す",
+                    "en": "You find how to stun enemy without killing.",
+                    "ch": "在修行中发明不杀而击晕敌人的攻击。"
+                },
+                {
+                    "jp": "あなたは敵に手加減して攻撃ができる",
+                    "en": "You can attack it easy on the enemy.",
+                    "ch": "你可以对敌人手下留情地攻击。"
+                }
+            ],
+            "nameCh": "手下留情"
+        },
+        "47": {
+            "name": "魔眼",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(652 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(652 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(652 - 600) == 0 ) {",
+                "var_98(652 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "魔眼",
+                    "en": "Magic Eye",
+                    "ch": "魔眼"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "謎の儀式に巻き込まれ、眼に呪術を施される",
+                    "en": "You are subjected to the magic in the eyes by the ritual.",
+                    "ch": "被卷入神秘仪式，眼睛被施以咒术。"
+                },
+                {
+                    "jp": "あなたの眼には得体のしれない魔力が宿っている",
+                    "en": "Your eye is harboring the magic of mystery.",
+                    "ch": "你的眼中寄宿着不明魔力。"
+                }
+            ],
+            "nameCh": "魔眼"
+        },
+        "49": {
+            "name": "魔導植物の知識",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(787 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(787 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(787 - 600) == 0 ) {",
+                "var_98(787 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "魔導植物の知識",
+                    "en": "Knowledge of magical plants",
+                    "ch": "魔导植物知识"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "拾った手記の断片から特殊な植物の召喚法を知る",
+                    "en": "You learned how to summon magical plants from the piece of the note.",
+                    "ch": "从捡到的手记碎片得知特殊植物的召唤法。"
+                },
+                {
+                    "jp": "あなたは魔力を帯びた植物を呼び出し操れる",
+                    "en": "You can summon and manipulate magical plants.",
+                    "ch": "你可以召唤并操纵带有魔力的植物。"
+                }
+            ],
+            "nameCh": "魔导植物知识"
+        },
+        "13": {
+            "name": "空間歪曲",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(627 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(627 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(627 - 600) == 0 ) {",
+                "var_98(627 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "空間歪曲",
+                    "en": "Dimensional Move",
+                    "ch": "空间扭曲"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "夢の中で近くへの瞬間移動を思いつく",
+                    "en": "You hit upon an idea of insta-teleport from a dream.",
+                    "ch": "在梦中想到近距离瞬间移动的方法。"
+                },
+                {
+                    "jp": "あなたは空間を曲げられる",
+                    "en": "You can insta-teleport to nearby tiles.",
+                    "ch": "你可以弯曲空间，瞬间传送到附近格子。"
+                }
+            ],
+            "nameCh": "空间扭曲"
+        },
+        "14": {
+            "name": "火炎芸",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(602 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(602 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(602 - 600) == 0 ) {",
+                "var_98(602 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "火炎芸",
+                    "en": "Fire Breath",
+                    "ch": "火焰吐息"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "酒を飲んでいるうちに火を噴けるようになる",
+                    "en": "Too much drinking makes you want to breath fire.",
+                    "ch": "喝酒时变得能喷火。"
+                },
+                {
+                    "jp": "あなたは口から火を噴ける",
+                    "en": "You can breath fire.",
+                    "ch": "你可以从口中喷火。"
+                }
+            ],
+            "nameCh": "喷火技艺"
+        },
+        "22": {
+            "name": "催眠術師",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(618 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(618 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(618 - 600) == 0 ) {",
+                "var_98(618 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "催眠術師",
+                    "en": "Hypnotism",
+                    "ch": "催眠术"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "突如として眠りの手を覚える",
+                    "en": "Suddenly, you know how to make everyone sleep.",
+                    "ch": "突然学会使人入睡的手法。"
+                },
+                {
+                    "jp": "あなたは催眠をかけることができる",
+                    "en": "You can hypnotize single target.",
+                    "ch": "你可以施加催眠。"
+                }
+            ],
+            "nameCh": "催眠师"
+        },
+        "23": {
+            "name": "毒の知恵",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(615 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(615 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(615 - 600) == 0 ) {",
+                "var_98(615 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "毒の知恵",
+                    "en": "Poison Nail",
+                    "ch": "毒之智慧"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "毒の研究の結果、毒の手を覚える",
+                    "en": "Researching poisons leads you to a method to poison others.",
+                    "ch": "研究毒的结果，学会毒手。"
+                },
+                {
+                    "jp": "あなたは毒を盛ることができる",
+                    "en": "You can poison a creature.",
+                    "ch": "你可以下毒。"
+                }
+            ],
+            "nameCh": "毒之智慧"
+        },
+        "21": {
+            "name": "舞踏",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(767 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(767 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(767 - 600) == 0 ) {",
+                "var_98(767 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "舞踏",
+                    "en": "Sexy Dance",
+                    "ch": "舞蹈"
+                },
+                {
+                    "jp": "舞踏",
+                    "en": "Sexy Dance",
+                    "ch": "舞蹈"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "見惚れるような踊りを身に着ける",
+                    "en": "You learn sexy dance.",
+                    "ch": "学会令人着迷的舞蹈。"
+                },
+                {
+                    "jp": "あなたの踊りはとても魅力的だ",
+                    "en": "Your dance has been refined.",
+                    "ch": "你的舞蹈非常迷人。"
+                },
+                {
+                    "jp": "あなたの踊りはとても魅力的だ",
+                    "en": "Your dance has been refined.",
+                    "ch": "你的舞蹈非常迷人。"
+                }
+            ],
+            "nameCh": "舞蹈"
+        },
+        "5": {
+            "name": "力の暴走",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(714 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(714 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(714 - 600) == 0 ) {",
+                "var_98(714 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "力の暴走",
+                    "en": "Uncontrollable power",
+                    "ch": "力量暴走"
+                },
+                {
+                    "jp": "力の暴走",
+                    "en": "Uncontrollable power",
+                    "ch": "力量暴走"
+                },
+                {
+                    "jp": "力の暴走",
+                    "en": "Uncontrollable power",
+                    "ch": "力量暴走"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "内に潜む謎の力に振り回される",
+                    "en": "Swayed by the mystery power that lurks within.",
+                    "ch": "被潜藏于内的神秘力量摆布。"
+                },
+                {
+                    "jp": "あなたは制御しきれない何かを秘めている",
+                    "en": "You have hidden something that can not be controlled.",
+                    "ch": "你隐藏着无法控制的东西。"
+                },
+                {
+                    "jp": "あなたは制御しきれない何かを秘めている",
+                    "en": "You have hidden something that can not be controlled.",
+                    "ch": "你隐藏着无法控制的东西。"
+                },
+                {
+                    "jp": "あなたは制御しきれない何かを秘めている",
+                    "en": "You have hidden something that can not be controlled.",
+                    "ch": "你隐藏着无法控制的东西。"
+                }
+            ],
+            "nameCh": "力量暴走"
+        },
+        "38": {
+            "name": "見習い会計士",
+            "ops": [],
+            "raw": [],
+            "cat": 0,
+            "maxLevel": 2,
+            "levels": [
+                {
+                    "jp": "見習い会計士",
+                    "en": "Apprentice Accountant",
+                    "ch": "见习会计"
+                },
+                {
+                    "jp": "熟練会計士",
+                    "en": "Expert Accountant",
+                    "ch": "熟练会计"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "会計の技能を磨き税金を減らす",
+                    "en": "Working as an accountant reduces your tax payment.",
+                    "ch": "磨练会计技能以减少税金。"
+                },
+                {
+                    "jp": "あなたは税金の計算に強い[税金7%減]",
+                    "en": "You can set expenses off against tax. [TAX-7%]",
+                    "ch": "你擅长税金计算[税金7%减]"
+                },
+                {
+                    "jp": "あなたは税金の計算にとても強い[税金15%減]",
+                    "en": "You are good at setting expenses off against tax. [TAX-15%]",
+                    "ch": "你非常擅长税金计算[税金15%减]"
+                }
+            ],
+            "nameCh": "见习会计"
+        },
+        "39": {
+            "name": "見習い補給係",
+            "ops": [],
+            "raw": [],
+            "cat": 0,
+            "maxLevel": 2,
+            "levels": [
+                {
+                    "jp": "見習い補給係",
+                    "en": "Apprentice Quartermaster",
+                    "ch": "见习补给官"
+                },
+                {
+                    "jp": "熟練補給係",
+                    "en": "Expert Quartermaster",
+                    "ch": "熟练补给官"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "補給係としての経験が、給料物資の品質を上げる",
+                    "en": "Working as a quartermaster gives you better payoff.",
+                    "ch": "作为补给官的经验提高薪饷物资品质。"
+                },
+                {
+                    "jp": "あなたはたまに質の高い補給品を受け取る",
+                    "en": "You sometimes receive quality supplies.",
+                    "ch": "你偶尔收到高品质补给品。"
+                },
+                {
+                    "jp": "あなたは頻繁に質の高い補給品を受け取る",
+                    "en": "You frequently receive quality supplies.",
+                    "ch": "你频繁收到高品质补给品。"
+                }
+            ],
+            "nameCh": "见习补给官"
+        },
+        "42": {
+            "name": "祈祷師",
+            "ops": [],
+            "raw": [],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "祈祷師",
+                    "en": "Exorcist",
+                    "ch": "祈祷师"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "祈祷を捧げることで、呪いの言葉の効力を弱める",
+                    "en": "Your prayer weakens the power of cursed whisperings.",
+                    "ch": "通过祈祷削弱诅咒言语的效力。"
+                },
+                {
+                    "jp": "あなたの祈りは呪いの言葉を掻き消す",
+                    "en": "Your prayer nullifies cursed whisperings.",
+                    "ch": "你的祈祷能消除诅咒言语。"
+                }
+            ],
+            "nameCh": "祈祷师"
+        },
+        "46": {
+            "name": "孤高",
+            "ops": [],
+            "raw": [],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "孤高",
+                    "en": "Kokou",
+                    "ch": "孤高"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "最後に信じられるのは、自分の力だけという考えに至る",
+                    "en": "Finally, you can believe only your power.",
+                    "ch": "最终认为能相信的只有自己的力量。"
+                },
+                {
+                    "jp": "あなたは独りの方が行動しやすい[単独時に速度+20%]",
+                    "en": "You prefer alone. [SPD+20% at the time alone]",
+                    "ch": "你更喜欢独自行动[单独时速度+20%]"
+                }
+            ],
+            "nameCh": "孤高"
+        },
+        "48": {
+            "name": "迅馬一体",
+            "ops": [],
+            "raw": [],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "迅馬一体",
+                    "en": "Zin-ba",
+                    "ch": "迅马一体"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "戦場を馬と共に駆け回り、乗馬相手との呼吸の合わせ方を知る",
+                    "en": "You learned how to synchronize with your horse on the battlefield.",
+                    "ch": "与马一起驰骋战场，知道如何与坐骑配合呼吸。"
+                },
+                {
+                    "jp": "あなたは馬上での武器の扱いが得意だ[乗馬時命中ペナルティ緩和]",
+                    "en": "You are skilled with weapons on horseback. [Reduced hit penalty while riding]",
+                    "ch": "你擅长马上使用武器[骑马时命中惩罚缓和]"
+                }
+            ],
+            "nameCh": "迅马一体"
+        },
+        "50": {
+            "name": "爆魔",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(871 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(871 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(871 - 600) == 0 ) {",
+                "var_98(871 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "爆魔",
+                    "en": "Bomber",
+                    "ch": "爆魔"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "魔力爆弾を解析し、自分の魔力を爆発に変換する方法を編み出す",
+                    "en": "You have analyzed the magic bomb and devised a way to detonate your own magic.",
+                    "ch": "解析魔力炸弹，发明将自己的魔力转换为爆炸的方法。"
+                },
+                {
+                    "jp": "あなたは自分の魔力を爆発に変換できる",
+                    "en": "You can transform your magical energy into explosions.",
+                    "ch": "你可以将自己的魔力转换为爆炸。"
+                }
+            ],
+            "nameCh": "爆魔"
+        },
+        "9": {
+            "name": "重力制御",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(783 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(783 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(783 - 600) == 0 ) {",
+                "var_98(783 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "重力制御",
+                    "en": "Gravity Control",
+                    "ch": "重力控制"
+                },
+                {
+                    "jp": "重力制御",
+                    "en": "Gravity Control",
+                    "ch": "重力控制"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "改造を施され重力へ干渉できる体質になる",
+                    "en": "You have remodeled to gravity interference diathesis.",
+                    "ch": "被改造后成为能干涉重力的体质。"
+                },
+                {
+                    "jp": "あなたは重力を操る",
+                    "en": "You manipulate the gravity.",
+                    "ch": "你操纵重力。"
+                },
+                {
+                    "jp": "あなたは重力を操る",
+                    "en": "You manipulate the gravity.",
+                    "ch": "你操纵重力。"
+                },
+                {
+                    "jp": "あなたは重力を操る",
+                    "en": "You manipulate the gravity.",
+                    "ch": "你操纵重力。"
+                }
+            ],
+            "nameCh": "重力控制"
+        },
+        "20": {
+            "name": "柔術",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(768 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(768 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(768 - 600) == 0 ) {",
+                "var_98(768 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "柔術",
+                    "en": "Jiu-jitsu",
+                    "ch": "柔术"
+                },
+                {
+                    "jp": "柔術",
+                    "en": "Jiu-jitsu",
+                    "ch": "柔术"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "山で会った謎の老人から古の武術を伝授される",
+                    "en": "You have been taught the martial arts from the mysterious old man.",
+                    "ch": "从山中遇到的神秘老人那里传授古代武术。"
+                },
+                {
+                    "jp": "あなたは柔術を会得している",
+                    "en": "You mastered Jiu-jitsu.",
+                    "ch": "你已掌握柔术。"
+                },
+                {
+                    "jp": "あなたは柔術を会得している",
+                    "en": "You mastered Jiu-jitsu. ",
+                    "ch": "你已掌握柔术。"
+                }
+            ],
+            "nameCh": "柔术"
+        },
+        "12": {
+            "name": "磁力操作",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(832 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(832 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(832 - 600) == 0 ) {",
+                "var_98(832 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "磁力操作",
+                    "en": "Magnetic Manipulate",
+                    "ch": "磁力操作"
+                },
+                {
+                    "jp": "磁力操作",
+                    "en": "Magnetic Manipulate",
+                    "ch": "磁力操作"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "改造されて磁力を操れるようになる",
+                    "en": "As a result of body modification, you can manipulate magnetic force.",
+                    "ch": "被改造后能操纵磁力。"
+                },
+                {
+                    "jp": "あなたは磁力を自在に操る",
+                    "en": "You manipulate magnetic force.",
+                    "ch": "你自如操纵磁力。"
+                },
+                {
+                    "jp": "あなたは磁力を自在に操る",
+                    "en": "You manipulate magnetic force.",
+                    "ch": "你自如操纵磁力。"
+                }
+            ],
+            "nameCh": "磁力操作"
+        },
+        "43": {
+            "name": "盾殴り",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "cbitmod 30, 0, 1"
+                }
+            ],
+            "raw": [
+                "cbitmod 30, 0, 1"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "盾殴り",
+                    "en": "Shield Bash",
+                    "ch": "盾击"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "盾の扱いを身につけ、盾での攻撃の効果を上げる",
+                    "en": "Mastering shield increases your power of shield bash.",
+                    "ch": "掌握盾的用法，提高盾攻击效果。"
+                },
+                {
+                    "jp": "あなたは盾での攻撃に追加効果を得る",
+                    "en": "You can bash with your shield more effect.",
+                    "ch": "你的盾攻击获得追加效果。"
+                }
+            ],
+            "req": [
+                "sorg(168, 0) == 0"
+            ],
+            "nameCh": "盾击"
+        },
+        "44": {
+            "name": "優しい笑顔",
+            "ops": [],
+            "raw": [],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "優しい笑顔",
+                    "en": "Gentle Face",
+                    "ch": "温柔笑容"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "笑顔の作り方を勉強し、友好度や従順度を高めやすくする",
+                    "en": "Your smile makes it easier to gain friendship and obedience.",
+                    "ch": "学习笑容的塑造方法，更容易提高友好度和顺从度。"
+                },
+                {
+                    "jp": "あなたの笑顔は相手を安心させる",
+                    "en": "Your smile puts people at ease.",
+                    "ch": "你的笑容让人安心。"
+                }
+            ],
+            "nameCh": "温柔笑容"
+        },
+        "19": {
+            "name": "二刀流の習熟",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(166, 0) = limit(var_82(166, 0) + var_97(var_95) * 4, var_82(166, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(166, 0) = limit(var_82(166, 0) + var_97(var_95) * 4, var_82(166, 0) > 0, 9999)"
+            ],
+            "cat": 0,
+            "maxLevel": 2,
+            "levels": [
+                {
+                    "jp": "二刀流の習熟",
+                    "en": "Ambidextrous",
+                    "ch": "双刀流熟练"
+                },
+                {
+                    "jp": "二刀流の達人",
+                    "en": "Improved Ambidextrous",
+                    "ch": "双刀流达人"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "長年の修行により二刀流の技術を磨く",
+                    "en": "Years of training increases your two weapon fighting skill.",
+                    "ch": "多年修行磨练双刀流技术。"
+                },
+                {
+                    "jp": "あなたは複数の武器を巧みに操る[二刀流+4]",
+                    "en": "You can handle multiple weapons. [Dual Wield+4]",
+                    "ch": "你巧妙操纵多把武器[双刀流+4]"
+                },
+                {
+                    "jp": "あなたは二刀流を極めている[二刀流+8]",
+                    "en": "You mastered multiple weapon style. [Two Wield+8]",
+                    "ch": "你精通双刀流[双刀流+8]"
+                }
+            ],
+            "req": [
+                "sorg(166, 0) == 0"
+            ],
+            "nameCh": "双刀流熟练"
+        },
+        "15": {
+            "name": "暗闇への適正",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(53, 0) = limit(var_82(53, 0) + var_97(var_95) * 50 / 2, var_82(53, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(53, 0) = limit(var_82(53, 0) + var_97(var_95) * 50 / 2, var_82(53, 0) > 0, 9999)"
+            ],
+            "cat": 0,
+            "maxLevel": 2,
+            "levels": [
+                {
+                    "jp": "暗闇への適正",
+                    "en": "Conquer Darkness",
+                    "ch": "暗黑适应性"
+                },
+                {
+                    "jp": "暗闇への強い適正",
+                    "en": "Conquer Deep Darkness",
+                    "ch": "强暗黑适应性"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "地底での生活が暗黒への耐性を高める",
+                    "en": "Living in darkness makes you resistant to darkness.",
+                    "ch": "地底生活提高对暗黑的耐性。"
+                },
+                {
+                    "jp": "あなたは暗闇に慣れている[暗黒耐性強化]",
+                    "en": "You don't fear darkness. [RES Darkness+]",
+                    "ch": "你习惯黑暗[暗黑耐性强化]"
+                },
+                {
+                    "jp": "あなたは闇の中で生活できる[暗黒耐性強化]",
+                    "en": "You can dance in darkness. [RES Darkness++]",
+                    "ch": "你可以在黑暗中生活[暗黑耐性强化]"
+                }
+            ],
+            "nameCh": "暗黑适应性"
+        },
+        "18": {
+            "name": "免疫",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(55, 0) = limit(var_82(55, 0) + var_97(var_95) * 50 / 2, var_82(55, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(55, 0) = limit(var_82(55, 0) + var_97(var_95) * 50 / 2, var_82(55, 0) > 0, 9999)"
+            ],
+            "cat": 0,
+            "maxLevel": 2,
+            "levels": [
+                {
+                    "jp": "免疫",
+                    "en": "Poison Tolerance",
+                    "ch": "免疫"
+                },
+                {
+                    "jp": "強い免疫",
+                    "en": "More Poison Tolerance",
+                    "ch": "强免疫"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "貴族の毒見係のおかげで毒への耐性を得る",
+                    "en": "Being a taster for a noble grants you resistance to poison.",
+                    "ch": "因贵族试毒员而获得对毒的耐性。"
+                },
+                {
+                    "jp": "あなたは毒に免疫がある[毒耐性強化]",
+                    "en": "You have a torerance to poison. [RES Poison+]",
+                    "ch": "你对毒有免疫[毒耐性强化]"
+                },
+                {
+                    "jp": "あなたには毒に強い免疫がある[毒耐性強化]",
+                    "en": "You have a strong tolerance to poison. [RES Poison++]",
+                    "ch": "你对毒有强免疫[毒耐性强化]"
+                }
+            ],
+            "nameCh": "免疫"
+        },
+        "16": {
+            "name": "共感上手",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(816 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(816 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_98(817 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(817 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(816 - 600) == 0 ) {",
+                "var_98(816 - 600) = 1",
+                "}",
+                "if ( var_98(817 - 600) == 0 ) {",
+                "var_98(817 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "共感上手",
+                    "en": "Empathy",
+                    "ch": "共感"
+                },
+                {
+                    "jp": "共感上手",
+                    "en": "Empathy",
+                    "ch": "共感"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "相手の考えを理解し対応する技術を学ぶ",
+                    "en": "You learn the skill to understand and respond to enemy thoughts.",
+                    "ch": "学习理解并应对对方想法的技术。"
+                },
+                {
+                    "jp": "あなたの言葉は心に響く",
+                    "en": "Your talk resonate in the mind.",
+                    "ch": "你的话语能打动人心。"
+                },
+                {
+                    "jp": "あなたの言葉は心に響く",
+                    "en": "Your talk resonate in the mind.",
+                    "ch": "你的话语能打动人心。"
+                }
+            ],
+            "nameCh": "善于共感"
+        },
+        "17": {
+            "name": "聖者",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(858 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(858 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(858 - 600) == 0 ) {",
+                "var_98(858 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "聖者",
+                    "en": "Saint",
+                    "ch": "圣者"
+                },
+                {
+                    "jp": "聖者",
+                    "en": "Saint",
+                    "ch": "圣者"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "神官の下で修行し神聖な力を行使できるようになる",
+                    "en": "Training under a priest has taught you sacred skills.",
+                    "ch": "在神官门下修行，能行使神圣力量。"
+                },
+                {
+                    "jp": "あなたは神聖な力を行使する",
+                    "en": "You wield divine power.",
+                    "ch": "你行使神圣力量。"
+                },
+                {
+                    "jp": "あなたは神聖な力を行使する",
+                    "en": "You wield divine power.",
+                    "ch": "你行使神圣力量。"
+                }
+            ],
+            "nameCh": "圣者"
+        },
+        "1": {
+            "name": "幸運の持ち主",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(19, 0) = limit(var_82(19, 0) + var_97(var_95) * 5, var_82(19, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(19, 0) = limit(var_82(19, 0) + var_97(var_95) * 5, var_82(19, 0) > 0, 9999)"
+            ],
+            "cat": 0,
+            "maxLevel": 3,
+            "levels": [
+                {
+                    "jp": "幸運の持ち主",
+                    "en": "Lucky",
+                    "ch": "幸运者"
+                },
+                {
+                    "jp": "類稀な幸運",
+                    "en": "Incredibly Lucky",
+                    "ch": "罕见幸运"
+                },
+                {
+                    "jp": "幸運の女神の寵愛",
+                    "en": "Goddess of Luck",
+                    "ch": "幸运女神的宠爱"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "流れ星を見て幸運を手にする",
+                    "en": "Sighting a falling star brings you luck.",
+                    "ch": "看到流星而获得幸运。"
+                },
+                {
+                    "jp": "あなたは幸運の持ち主だ",
+                    "en": "You are lucky",
+                    "ch": "你是幸运者。"
+                },
+                {
+                    "jp": "あなたは類稀な幸運の持ち主だ",
+                    "en": "You can rely on a good dose of luck.",
+                    "ch": "你是罕见幸运者。"
+                },
+                {
+                    "jp": "あなたは幸運の女神の寵愛を受けている",
+                    "en": "The goddess of luck smiles on you.",
+                    "ch": "你受到幸运女神的宠爱。"
+                }
+            ],
+            "nameCh": "幸运者"
+        },
+        "2": {
+            "name": "苦行者見習い",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(2, 0) = limit(var_82(2, 0) + var_97(var_95) * 5, var_82(2, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(2, 0) = limit(var_82(2, 0) + var_97(var_95) * 5, var_82(2, 0) > 0, 9999)"
+            ],
+            "cat": 0,
+            "maxLevel": 5,
+            "levels": [
+                {
+                    "jp": "苦行者見習い",
+                    "en": "Apprentice Ascetic",
+                    "ch": "苦行者见习"
+                },
+                {
+                    "jp": "苦行者",
+                    "en": "Journeyman Ascetic",
+                    "ch": "苦行者"
+                },
+                {
+                    "jp": "熟練の苦行者",
+                    "en": "Expert Ascetic",
+                    "ch": "熟练苦行者"
+                },
+                {
+                    "jp": "苦行の達人",
+                    "en": "Master Ascetic",
+                    "ch": "苦行达人"
+                },
+                {
+                    "jp": "伝説的苦行者",
+                    "en": "Legendary Ascetic",
+                    "ch": "传说苦行者"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "苦行を通じてHPを増やす",
+                    "en": "Being an ascetic increases your HP.",
+                    "ch": "通过苦行增加HP。"
+                },
+                {
+                    "jp": "あなたは苦行者の見習いだ[HP+5%]",
+                    "en": "You are an apprentice of an ascetic. [HP+5%]",
+                    "ch": "你是苦行者见习[HP+5%]"
+                },
+                {
+                    "jp": "あなたは立派な苦行者だ[HP+10%]",
+                    "en": "You are a journeyman of an ascetic. [HP+10%]",
+                    "ch": "你是出色的苦行者[HP+10%]"
+                },
+                {
+                    "jp": "あなたは熟練した苦行者だ[HP+15%]",
+                    "en": "You are an expert of an ascetic. [HP+15%]",
+                    "ch": "你是熟练苦行者[HP+15%]"
+                },
+                {
+                    "jp": "あなたは苦行の達人だ[HP+20%]",
+                    "en": "You are a master of an ascetic. [HP+20%]",
+                    "ch": "你是苦行达人[HP+20%]"
+                },
+                {
+                    "jp": "あなたは伝説的名苦行者だ[HP+25%]",
+                    "en": "You are an legendary ascetic. [HP+25%]",
+                    "ch": "你是传说苦行者[HP+25%]"
+                }
+            ],
+            "nameCh": "苦行者见习"
+        },
+        "11": {
+            "name": "魔力の遺伝子",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(3, 0) = limit(var_82(3, 0) + var_97(var_95) * 5, var_82(3, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(3, 0) = limit(var_82(3, 0) + var_97(var_95) * 5, var_82(3, 0) > 0, 9999)"
+            ],
+            "cat": 0,
+            "maxLevel": 5,
+            "levels": [
+                {
+                    "jp": "魔力の遺伝子",
+                    "en": "Magical Gene",
+                    "ch": "魔力基因"
+                },
+                {
+                    "jp": "魔力の細胞",
+                    "en": "Magical Cell",
+                    "ch": "魔力细胞"
+                },
+                {
+                    "jp": "魔力の血液",
+                    "en": "Magical Blood",
+                    "ch": "魔力血液"
+                },
+                {
+                    "jp": "魔力の肉体",
+                    "en": "Magic Body",
+                    "ch": "魔力肉体"
+                },
+                {
+                    "jp": "魔力の支配",
+                    "en": "Magic Being",
+                    "ch": "魔力支配"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "遺伝子組み換えを行いMPを増やす",
+                    "en": "You gain MP by using gene manipulation.",
+                    "ch": "进行基因重组以增加MP。"
+                },
+                {
+                    "jp": "あなたは魔力の遺伝子を持っている[MP+5%]",
+                    "en": "Your genes contain magic. [MP+5%]",
+                    "ch": "你拥有魔力基因[MP+5%]"
+                },
+                {
+                    "jp": "あなたは魔力の細胞を持っている[MP+10%]",
+                    "en": "Your cells contain magica [MP+10%]",
+                    "ch": "你拥有魔力细胞[MP+10%]"
+                },
+                {
+                    "jp": "あなたには魔力の血液が流れている[MP+15%]",
+                    "en": "Your blood contain magic [MP+15%]",
+                    "ch": "你体内流淌魔力血液[MP+15%]"
+                },
+                {
+                    "jp": "あなたの肉体は魔力を帯びている[MP+20%]",
+                    "en": "Your body is made of magic. [MP+20%]",
+                    "ch": "你的肉体带有魔力[MP+20%]"
+                },
+                {
+                    "jp": "あなたは魔力を支配している[MP+25%]",
+                    "en": "Magic dominats your entire body. [MP+25%",
+                    "ch": "你支配魔力[MP+25%]"
+                }
+            ],
+            "nameCh": "魔力基因"
+        },
+        "6": {
+            "name": "糸使い",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(769 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(769 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(769 - 600) == 0 ) {",
+                "var_98(769 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "糸使い",
+                    "en": "Strings Assassin",
+                    "ch": "操线者"
+                },
+                {
+                    "jp": "糸使い",
+                    "en": "Strings Assassin",
+                    "ch": "操线者"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "鋭く丈夫な糸を隠し持つ",
+                    "en": "You concealed a sharp durable strings.",
+                    "ch": "隐藏着锐利结实的线。"
+                },
+                {
+                    "jp": "あなたは糸を自在に操る",
+                    "en": "You manipulate strings freely.",
+                    "ch": "你自如操纵线。"
+                },
+                {
+                    "jp": "あなたは糸を自在に操る",
+                    "en": "You manipulate strings freely.",
+                    "ch": "你自如操纵线。"
+                }
+            ],
+            "nameCh": "操线者"
+        },
+        "4": {
+            "name": "超加速",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_58(192, 0) = 1"
+                }
+            ],
+            "raw": [
+                "var_58(192, 0) = 1"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "超加速",
+                    "en": "Super Accel",
+                    "ch": "超加速"
+                },
+                {
+                    "jp": "超加速",
+                    "en": "Super Accel",
+                    "ch": "超加速"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "誰よりも速さを追求する",
+                    "en": "You pursue speed more than anyone.",
+                    "ch": "比任何人都追求速度。"
+                },
+                {
+                    "jp": "あなたは規格外の加速力を持つ[加速効果上昇]",
+                    "en": "Your acceleration is amazing. [Speedspell+]",
+                    "ch": "你拥有规格外的加速力[加速效果提升]"
+                },
+                {
+                    "jp": "あなたは規格外の加速力を持つ[加速効果上昇]",
+                    "en": "Your acceleration is amazing. [Speedspell+]",
+                    "ch": "你拥有规格外的加速力[加速效果提升]"
+                }
+            ],
+            "nameCh": "超加速"
+        },
+        "7": {
+            "name": "地気利用",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(837 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(837 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(837 - 600) == 0 ) {",
+                "var_98(837 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "地気利用",
+                    "en": "Ground Manipulater",
+                    "ch": "地气利用"
+                },
+                {
+                    "jp": "地気利用",
+                    "en": "Ground Manipulater",
+                    "ch": "地气利用"
+                },
+                {
+                    "jp": "地気利用",
+                    "en": "Ground Manipulater",
+                    "ch": "地气利用"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "土地が持つエネルギーに目をつけ操作法を探す",
+                    "en": "You discover the energy of the land.",
+                    "ch": "注意到土地拥有的能量并寻找操纵法。"
+                },
+                {
+                    "jp": "あなたは土地のエネルギーを操る",
+                    "en": "You manipulate the ground.",
+                    "ch": "你操纵土地能量。"
+                },
+                {
+                    "jp": "あなたは土地のエネルギーを操る",
+                    "en": "You manipulate the ground.",
+                    "ch": "你操纵土地能量。"
+                },
+                {
+                    "jp": "あなたは土地のエネルギーを操る",
+                    "en": "You manipulate the ground.",
+                    "ch": "你操纵土地能量。"
+                }
+            ],
+            "nameCh": "地气利用"
+        },
+        "8": {
+            "name": "見極め",
+            "ops": [],
+            "raw": [],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "見極め",
+                    "en": "Discernment",
+                    "ch": "看穿"
+                },
+                {
+                    "jp": "見極め",
+                    "en": "Discernment",
+                    "ch": "看穿"
+                },
+                {
+                    "jp": "見極め",
+                    "en": "Discernment",
+                    "ch": "看穿"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "客商売の中で相手を見極める眼力を磨く",
+                    "en": "In your business life, you honed your ability to judge your opponents.",
+                    "ch": "在经商中磨练看穿对手的眼力。"
+                },
+                {
+                    "jp": "あなたは相手の性別年齢信仰を見抜く",
+                    "en": "You can see the other's gender, age, and religion.",
+                    "ch": "你能看穿对方的性别、年龄、信仰。"
+                },
+                {
+                    "jp": "あなたは相手の性別年齢信仰を見抜く",
+                    "en": "You can see the other's gender, age, and religion.",
+                    "ch": "你能看穿对方的性别、年龄、信仰。"
+                },
+                {
+                    "jp": "あなたは相手の性別年齢信仰を見抜く",
+                    "en": "You can see the other's gender, age, and religion.",
+                    "ch": "你能看穿对方的性别、年龄、信仰。"
+                }
+            ],
+            "nameCh": "看穿"
+        },
+        "10": {
+            "name": "式折神",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_98(863 - 600) == 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_98(863 - 600) = 1"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_98(863 - 600) == 0 ) {",
+                "var_98(863 - 600) = 1",
+                "}"
+            ],
+            "cat": 0,
+            "maxLevel": 1,
+            "levels": [
+                {
+                    "jp": "式折神",
+                    "en": "ShikiOrigami",
+                    "ch": "式折神"
+                },
+                {
+                    "jp": "式折神",
+                    "en": "ShikiOrigami",
+                    "ch": "式折神"
+                },
+                {
+                    "jp": "式折神",
+                    "en": "ShikiOrigami",
+                    "ch": "式折神"
+                }
+            ],
+            "ranks": [
+                {
+                    "jp": "謎の書物を読み解き、紙を操る古の魔術を習得する",
+                    "en": "You have deciphered mysterious books and mastered the ancient magic of manipulating paper.",
+                    "ch": "解读神秘书籍，掌握操纵纸的古代魔术。"
+                },
+                {
+                    "jp": "あなたは魔法紙を操る",
+                    "en": "You manipulate magic paper.",
+                    "ch": "你操纵魔法纸。"
+                },
+                {
+                    "jp": "あなたは魔法紙を操る",
+                    "en": "You manipulate magic paper.",
+                    "ch": "你操纵魔法纸。"
+                },
+                {
+                    "jp": "あなたは魔法紙を操る",
+                    "en": "You manipulate magic paper.",
+                    "ch": "你操纵魔法纸。"
+                }
+            ],
+            "nameCh": "式折神"
+        },
+        "41": {
+            "name": "カンニバリズム",
+            "ops": [],
+            "raw": [],
+            "cat": 1,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "カンニバリズム",
+                    "en": "Cannibalism",
+                    "ch": "食人"
+                },
+                {
+                    "jp": "あなたは人肉を食べることに抵抗がない",
+                    "en": "You have no trouble eating human flesh.",
+                    "ch": "你对吃人肉没有抵触。"
+                }
+            ],
+            "nameCh": "食人"
+        },
+        "25": {
+            "name": "鉄の皮膚",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_58(70, 0) += var_97(var_95) * 3"
+                }
+            ],
+            "raw": [
+                "var_58(70, 0) += var_97(var_95) * 3"
+            ],
+            "cat": 1,
+            "maxLevel": 3,
+            "ranks": [
+                {
+                    "jp": "鉄の皮膚",
+                    "en": "Iron Skin",
+                    "ch": "铁皮肤"
+                },
+                {
+                    "jp": "あなたの皮膚は硬い[PV+3]",
+                    "en": "Your skin is hard. [PV+3]",
+                    "ch": "你的皮肤坚硬[PV+3]"
+                },
+                {
+                    "jp": "あなたの皮膚はとても硬い[PV+6]",
+                    "en": "Your skin is very hard. [PV+6]",
+                    "ch": "你的皮肤非常坚硬[PV+6]"
+                },
+                {
+                    "jp": "あなたは鉄のような皮膚を持っている[PV+9]",
+                    "en": "Your skin is as hard as iron. [PV+9]",
+                    "ch": "你拥有如铁般的皮肤[PV+9]"
+                }
+            ],
+            "nameCh": "铁皮肤"
+        },
+        "26": {
+            "name": "しなやかな関節",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(12, 0) = limit(var_82(12, 0) + var_97(var_95) * 3, var_82(12, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(12, 0) = limit(var_82(12, 0) + var_97(var_95) * 3, var_82(12, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 3,
+            "ranks": [
+                {
+                    "jp": "しなやかな関節",
+                    "en": "Flexible Joint",
+                    "ch": "柔韧关节"
+                },
+                {
+                    "jp": "あなたの関節はしなやかだ[器用+3]",
+                    "en": "Your joints are flexible. [DEX+3]",
+                    "ch": "你的关节柔韧[灵巧+3]"
+                },
+                {
+                    "jp": "あなたの関節はとてもしなやかだ[器用+6]",
+                    "en": "Your joints are very flexible. [DEX+6]",
+                    "ch": "你的关节非常柔韧[灵巧+6]"
+                },
+                {
+                    "jp": "あなたの関節は驚くほどしなやかだ[器用+9]",
+                    "en": "Your joints are incredibly flexible. [DEX+9]",
+                    "ch": "你的关节惊人柔韧[灵巧+9]"
+                }
+            ],
+            "nameCh": "柔韧关节"
+        },
+        "27": {
+            "name": "トロールの血",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(154, 0) = limit(var_82(154, 0) + var_97(var_95) * 4, var_82(154, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(154, 0) = limit(var_82(154, 0) + var_97(var_95) * 4, var_82(154, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "トロールの血",
+                    "en": "Troll Blood",
+                    "ch": "巨魔之血"
+                },
+                {
+                    "jp": "あなたの傷跡は再生する[自然治癒強化]",
+                    "en": "Your wounds regenerate rapidly. [Regeneration+]",
+                    "ch": "你的伤口会再生[自然治愈强化]"
+                },
+                {
+                    "jp": "あなたの傷は瞬く間にふさがる[自然治癒強化]",
+                    "en": "Your wounds regenerate instantly. [Regeneration++]",
+                    "ch": "你的伤口瞬间愈合[自然治愈强化]"
+                }
+            ],
+            "nameCh": "巨魔之血"
+        },
+        "28": {
+            "name": "しなやかな脚",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(18, 0) = limit(var_82(18, 0) + var_97(var_95) * 5, var_82(18, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(18, 0) = limit(var_82(18, 0) + var_97(var_95) * 5, var_82(18, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 3,
+            "ranks": [
+                {
+                    "jp": "しなやかな脚",
+                    "en": "Lithe Leg",
+                    "ch": "柔韧双腿"
+                },
+                {
+                    "jp": "あなたの脚はしなやかだ[速度上昇]",
+                    "en": "You have lithe legs. [SPD+5]",
+                    "ch": "你的腿柔韧[速度+5]"
+                },
+                {
+                    "jp": "あなたの脚はとてもしなやかだ[速度上昇]",
+                    "en": "You have very lithe legs. [SPD+10]",
+                    "ch": "你的腿非常柔韧[速度+10]"
+                },
+                {
+                    "jp": "あなたの脚は理想的な形をしている[速度上昇]",
+                    "en": "You have ideal legs. [SPD+15]",
+                    "ch": "你拥有理想腿型[速度+15]"
+                }
+            ],
+            "nameCh": "柔韧双腿"
+        },
+        "29": {
+            "name": "強い腕",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(10, 0) = limit(var_82(10, 0) + var_97(var_95) * 3, var_82(10, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(10, 0) = limit(var_82(10, 0) + var_97(var_95) * 3, var_82(10, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 3,
+            "ranks": [
+                {
+                    "jp": "強い腕",
+                    "en": "Strong Arm",
+                    "ch": "强壮手臂"
+                },
+                {
+                    "jp": "あなたの腕はひきしまっている[筋力+3]",
+                    "en": "You have well-knit arms. [STR+3]",
+                    "ch": "你的手臂紧实[力量+3]"
+                },
+                {
+                    "jp": "あなたの腕は強力だ[筋力+6]",
+                    "en": "You have well-muscled arms. [STR+6]",
+                    "ch": "你的手臂强壮[力量+6]"
+                },
+                {
+                    "jp": "あなたの腕は筋肉の塊だ[筋力+9]",
+                    "en": "You have ideal arms. [STR+9]",
+                    "ch": "你的手臂是肌肉块[力量+9]"
+                }
+            ],
+            "nameCh": "强壮手臂"
+        },
+        "30": {
+            "name": "美声",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(17, 0) = limit(var_82(17, 0) + var_97(var_95) * 5, var_82(17, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(17, 0) = limit(var_82(17, 0) + var_97(var_95) * 5, var_82(17, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "美声",
+                    "en": "Sweet Voice",
+                    "ch": "美声"
+                },
+                {
+                    "jp": "あなたは美声を持っている[魅力+5]",
+                    "en": "Your voice is sweet.[CHR+5]",
+                    "ch": "你拥有美声[魅力+5]"
+                },
+                {
+                    "jp": "あなたの声は全てを魅了する[魅力+10]",
+                    "en": "Your voice charms everyone.[CHR+10]",
+                    "ch": "你的声音魅惑一切[魅力+10]"
+                }
+            ],
+            "nameCh": "美声"
+        },
+        "31": {
+            "name": "脳内コンピュータ",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(165, 0) = limit(var_82(165, 0) + var_97(var_95) * 4, var_82(165, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(165, 0) = limit(var_82(165, 0) + var_97(var_95) * 4, var_82(165, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "脳内コンピュータ",
+                    "en": "Brain Computer",
+                    "ch": "脑内计算机"
+                },
+                {
+                    "jp": "あなたの脳は機械化している[暗記+4]",
+                    "en": "Your brain is mechanized.[Memorization+4]",
+                    "ch": "你的大脑机械化[记忆+4]"
+                },
+                {
+                    "jp": "あなたの脳は完璧な機械だ[暗記+8]",
+                    "en": "Your brain is fully mechanized.[Memorization+8]",
+                    "ch": "你的大脑是完美机械[记忆+8]"
+                }
+            ],
+            "nameCh": "脑内计算机"
+        },
+        "32": {
+            "name": "魔法への耐性",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(60, 0) = limit(var_82(60, 0) + var_97(var_95) * 50, var_82(60, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(60, 0) = limit(var_82(60, 0) + var_97(var_95) * 50, var_82(60, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "魔法への耐性",
+                    "en": "Magic Res+",
+                    "ch": "魔法耐性"
+                },
+                {
+                    "jp": "あなたは魔法に耐性がある[魔法耐性強化]",
+                    "en": "You have resistance to magic.[RES Magic+]",
+                    "ch": "你对魔法有耐性[魔法耐性强化]"
+                }
+            ],
+            "nameCh": "魔法耐性"
+        },
+        "33": {
+            "name": "強い鼓膜",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(57, 0) = limit(var_82(57, 0) + var_97(var_95) * 50, var_82(57, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(57, 0) = limit(var_82(57, 0) + var_97(var_95) * 50, var_82(57, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "強い鼓膜",
+                    "en": "Sound Res+",
+                    "ch": "强韧鼓膜"
+                },
+                {
+                    "jp": "あなたの鼓膜は厚い[音耐性強化]",
+                    "en": "Your eardrums are thick.[RES Sound+]",
+                    "ch": "你的鼓膜很厚[音耐性强化]"
+                }
+            ],
+            "nameCh": "强韧鼓膜"
+        },
+        "34": {
+            "name": "火炎耐性",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(50, 0) = limit(var_82(50, 0) + var_97(var_95) * 50, var_82(50, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(50, 0) = limit(var_82(50, 0) + var_97(var_95) * 50, var_82(50, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "火炎耐性",
+                    "en": "Fire Res+",
+                    "ch": "火焰耐性"
+                },
+                {
+                    "jp": "あなたの血は滾っている[火炎耐性強化]",
+                    "en": "Your blood is boiling. [RES Fire+]",
+                    "ch": "你的血液沸腾[火焰耐性强化]"
+                }
+            ],
+            "nameCh": "火焰耐性"
+        },
+        "35": {
+            "name": "冷気耐性",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(51, 0) = limit(var_82(51, 0) + var_97(var_95) * 50, var_82(51, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(51, 0) = limit(var_82(51, 0) + var_97(var_95) * 50, var_82(51, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "冷気耐性",
+                    "en": "Cold Res+",
+                    "ch": "冷气耐性"
+                },
+                {
+                    "jp": "あなたの皮膚には霜が付いている[冷気耐性強化]",
+                    "en": "Your skin is covered by frost.[RES Cold+]",
+                    "ch": "你的皮肤结霜[冷气耐性强化]"
+                }
+            ],
+            "nameCh": "冷气耐性"
+        },
+        "36": {
+            "name": "電撃耐性",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(52, 0) = limit(var_82(52, 0) + var_97(var_95) * 50, var_82(52, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(52, 0) = limit(var_82(52, 0) + var_97(var_95) * 50, var_82(52, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "電撃耐性",
+                    "en": "Lightning Res+",
+                    "ch": "电击耐性"
+                },
+                {
+                    "jp": "あなたは非電導体だ[電撃耐性強化]",
+                    "en": "You have resistance to lightning.[RES Lightning+]",
+                    "ch": "你是非导体[电击耐性强化]"
+                }
+            ],
+            "nameCh": "电击耐性"
+        },
+        "37": {
+            "name": "鷹の目",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(13, 0) = limit(var_82(13, 0) + var_97(var_95) * 5, var_82(13, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(13, 0) = limit(var_82(13, 0) + var_97(var_95) * 5, var_82(13, 0) > 0, 9999)"
+            ],
+            "cat": 1,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "鷹の目",
+                    "en": "Hawk Eye",
+                    "ch": "鹰眼"
+                },
+                {
+                    "jp": "あなたは猫の目をしている[感覚+5]",
+                    "en": "You have the eyes of a cat. [PER+5]",
+                    "ch": "你拥有猫眼[感知+5]"
+                },
+                {
+                    "jp": "あなたは鷹の目をしている[感覚+10]",
+                    "en": "You have the eyes of a hawk. [PER+10]",
+                    "ch": "你拥有鹰眼[感知+10]"
+                }
+            ],
+            "nameCh": "鹰眼"
+        },
+        "150": {
+            "name": "あなたは火炎に耐性がある",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(50, 0) = limit(var_82(50, 0) + var_97(var_95) * 50, var_82(50, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(50, 0) = limit(var_82(50, 0) + var_97(var_95) * 50, var_82(50, 0) > 0, 9999)"
+            ],
+            "cat": 2,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "あなたは火炎に耐性がある",
+                    "en": "You have resistance to fire.",
+                    "ch": "你对火焰有耐性"
+                },
+                {
+                    "jp": "あなたは火炎にかなりの耐性がある",
+                    "en": "You have strong resistance to fire.",
+                    "ch": "你对火焰有相当强的耐性"
+                }
+            ],
+            "nameCh": "你对火焰有耐性"
+        },
+        "151": {
+            "name": "あなたは冷気に耐性がある",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(51, 0) = limit(var_82(51, 0) + var_97(var_95) * 50, var_82(51, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(51, 0) = limit(var_82(51, 0) + var_97(var_95) * 50, var_82(51, 0) > 0, 9999)"
+            ],
+            "cat": 2,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "あなたは冷気に耐性がある",
+                    "en": "You have resistance to cold.",
+                    "ch": "你对冷气有耐性"
+                },
+                {
+                    "jp": "あなたは冷気にかなりの耐性がある",
+                    "en": "You have strong resistance to cold.",
+                    "ch": "你对冷气有相当强的耐性"
+                }
+            ],
+            "nameCh": "你对冷气有耐性"
+        },
+        "152": {
+            "name": "あなたは毒に耐性がある",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(55, 0) = limit(var_82(55, 0) + var_97(var_95) * 50, var_82(55, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(55, 0) = limit(var_82(55, 0) + var_97(var_95) * 50, var_82(55, 0) > 0, 9999)"
+            ],
+            "cat": 2,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "あなたは毒に耐性がある",
+                    "en": "You have resistance to poison.",
+                    "ch": "你对毒有耐性"
+                },
+                {
+                    "jp": "あなたは毒にかなりの耐性がある",
+                    "en": "You have strong resistance to poison.",
+                    "ch": "你对毒有相当强的耐性"
+                }
+            ],
+            "nameCh": "你对毒有耐性"
+        },
+        "155": {
+            "name": "あなたは暗黒に耐性がある",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(53, 0) = limit(var_82(53, 0) + var_97(var_95) * 50, var_82(53, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(53, 0) = limit(var_82(53, 0) + var_97(var_95) * 50, var_82(53, 0) > 0, 9999)"
+            ],
+            "cat": 2,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "あなたは暗黒に耐性がある",
+                    "en": "You have resistance to darkness.",
+                    "ch": "你对暗黑有耐性"
+                },
+                {
+                    "jp": "あなたは暗黒にかなりの耐性がある",
+                    "en": "You have strong resistance to darkness.",
+                    "ch": "你对暗黑有相当强的耐性"
+                }
+            ],
+            "nameCh": "你对暗黑有耐性"
+        },
+        "156": {
+            "name": "あなたはマナの反動を軽減できる",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたはマナの反動を軽減できる",
+                    "en": "You take less damages from the mana reaction.",
+                    "ch": "你可以减轻玛娜反作用。"
+                }
+            ],
+            "nameCh": "你可以减轻玛娜反作用"
+        },
+        "160": {
+            "name": "あなたは高い耐性をもっている",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(60, 0) = limit(var_82(60, 0) + 3 * 50, var_82(60, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(52, 0) = limit(var_82(52, 0) + 2 * 50, var_82(52, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(53, 0) = limit(var_82(53, 0) + 4 * 50, var_82(53, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(57, 0) = limit(var_82(57, 0) + 1 * 50, var_82(57, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(59, 0) = limit(var_82(59, 0) + 2 * 50, var_82(59, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(54, 0) = limit(var_82(54, 0) + 4 * 50, var_82(54, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(58, 0) = limit(var_82(58, 0) + 2 * 50, var_82(58, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(51, 0) = limit(var_82(51, 0) + 2 * 50, var_82(51, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(60, 0) = limit(var_82(60, 0) + 3 * 50, var_82(60, 0) > 0, 9999)",
+                "var_82(52, 0) = limit(var_82(52, 0) + 2 * 50, var_82(52, 0) > 0, 9999)",
+                "var_82(53, 0) = limit(var_82(53, 0) + 4 * 50, var_82(53, 0) > 0, 9999)",
+                "var_82(57, 0) = limit(var_82(57, 0) + 1 * 50, var_82(57, 0) > 0, 9999)",
+                "var_82(59, 0) = limit(var_82(59, 0) + 2 * 50, var_82(59, 0) > 0, 9999)",
+                "var_82(54, 0) = limit(var_82(54, 0) + 4 * 50, var_82(54, 0) > 0, 9999)",
+                "var_82(58, 0) = limit(var_82(58, 0) + 2 * 50, var_82(58, 0) > 0, 9999)",
+                "var_82(51, 0) = limit(var_82(51, 0) + 2 * 50, var_82(51, 0) > 0, 9999)"
+            ],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたは高い耐性をもっている",
+                    "en": "You have outstanding resistances.",
+                    "ch": "你拥有出色的耐性。"
+                }
+            ],
+            "nameCh": "你拥有高耐性"
+        },
+        "161": {
+            "name": "あなたは2sを超える物を装備できない[DV上昇]",
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_58(71, 0) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_58(71, 0) = var_58(71, 0) * 125 / 100 + 50"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_58(71, 0) > 0 ) {",
+                "var_58(71, 0) = var_58(71, 0) * 125 / 100 + 50",
+                "}"
+            ],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたは2sを超える物を装備できない[DV上昇]",
+                    "en": "You can't wear equipment weight over 2s. [DV++]",
+                    "ch": "你不能装备重量超过2s的装备。[DV++]"
+                }
+            ],
+            "nameCh": "你不能装备超过2s的物品[DV上升]"
+        },
+        "162": {
+            "name": "あなたは罪悪感を感じない[カルマ上限-20]",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたは罪悪感を感じない[カルマ上限-20]",
+                    "en": "You don't feel guilty. [Karma limit -20]",
+                    "ch": "你感觉不到罪恶感。[卡尔玛上限-20]"
+                }
+            ],
+            "nameCh": "你感觉不到罪恶感[卡尔玛上限-20]"
+        },
+        "169": {
+            "name": "あなたは良い心を持っている[カルマ上限+20]",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたは良い心を持っている[カルマ上限+20]",
+                    "en": "You are a good man. [Karma limit +20]",
+                    "ch": "你是善良的人。[卡尔玛上限+20]"
+                }
+            ],
+            "nameCh": "你拥有善良之心[卡尔玛上限+20]"
+        },
+        "163": {
+            "name": "あなたの周りでは質の高いエンチャントが生成されやすい",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたの周りでは質の高いエンチャントが生成されやすい",
+                    "en": "Quality stuff are generated around you.",
+                    "ch": "你周围容易生成高品质物品。"
+                }
+            ],
+            "nameCh": "你周围容易生成高品质附魔"
+        },
+        "164": {
+            "name": "あなたが受ける物理ダメージは軽減される",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたが受ける物理ダメージは軽減される",
+                    "en": "You are given physical damage reduction.",
+                    "ch": "你获得物理伤害减免。"
+                }
+            ],
+            "nameCh": "你受到的物理伤害会减轻"
+        },
+        "165": {
+            "name": "あなたの元素魔法は強化されている",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたの元素魔法は強化されている",
+                    "en": "Elemental spells you cast are empowered.",
+                    "ch": "你施放的元素魔法被强化。"
+                }
+            ],
+            "nameCh": "你的元素魔法被强化"
+        },
+        "166": {
+            "name": "あなたは周囲の狂気を緩和する",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたは周囲の狂気を緩和する",
+                    "en": "You are surrounded by an aura that cures sanity.",
+                    "ch": "你被能治愈理智的光环包围。"
+                }
+            ],
+            "nameCh": "你缓和周围的疯狂"
+        },
+        "167": {
+            "name": "あなたは萌える",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたは萌える",
+                    "en": "You moe.",
+                    "ch": "你很萌。"
+                }
+            ],
+            "nameCh": "你很萌"
+        },
+        "157": {
+            "name": "あなたは朦朧状態にならない",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたは朦朧状態にならない",
+                    "en": "You won't be dim.",
+                    "ch": "你不会变得朦胧。"
+                }
+            ],
+            "nameCh": "你不会进入朦胧状态"
+        },
+        "158": {
+            "name": "あなたは飢えている際に満腹度減少を緩和する",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたは飢えている際に満腹度減少を緩和する",
+                    "en": "You reduce the hunger drop when you are hungry.",
+                    "ch": "你饥饿时减少饱腹度下降。"
+                }
+            ],
+            "nameCh": "你饥饿时缓和饱腹度减少"
+        },
+        "159": {
+            "name": "あなたはより多くマテリアル採取できる",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたはより多くマテリアル採取できる",
+                    "en": "You can gather more materials.",
+                    "ch": "你可以采集更多材料。"
+                }
+            ],
+            "nameCh": "你可以采集更多材料"
+        },
+        "154": {
+            "name": "あなたには追加の成長ボーナスが与えられる",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたには追加の成長ボーナスが与えられる",
+                    "en": "You receive extra bonus points.",
+                    "ch": "你获得额外奖励点数。"
+                }
+            ],
+            "nameCh": "你获得额外成长奖励"
+        },
+        "153": {
+            "name": "あなたは魔法に耐性がある",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(60, 0) = limit(var_82(60, 0) + var_97(var_95) * 50, var_82(60, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(60, 0) = limit(var_82(60, 0) + var_97(var_95) * 50, var_82(60, 0) > 0, 9999)"
+            ],
+            "cat": 2,
+            "maxLevel": 2,
+            "ranks": [
+                {
+                    "jp": "あなたは魔法に耐性がある",
+                    "en": "You have resistance to magic.",
+                    "ch": "你对魔法有耐性"
+                },
+                {
+                    "jp": "あなたは魔法にかなりの耐性がある",
+                    "en": "You have strong resistance to magic.",
+                    "ch": "你对魔法有相当强的耐性"
+                }
+            ],
+            "nameCh": "你对魔法有耐性"
+        },
+        "0": {
+            "name": "あなたの肉体は刻々と変化する",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたの肉体は刻々と変化する",
+                    "en": "Your body is changing every moment.",
+                    "ch": "你的肉体时刻都在变化。"
+                }
+            ],
+            "nameCh": "你的肉体时刻变化"
+        },
+        "168": {
+            "name": "あなたのエーテル病の進行は遅い",
+            "ops": [],
+            "raw": [],
+            "cat": 2,
+            "maxLevel": 1,
+            "ranks": [
+                {
+                    "jp": "あなたのエーテル病の進行は遅い",
+                    "en": "Your body slows the Ether Disease progress.",
+                    "ch": "你的身体减缓以太病进展。"
+                }
+            ],
+            "nameCh": "你的以太病进展缓慢"
+        },
+        "201": {
+            "name": "あなたは重力を生み出している[重量+10%]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたは重力を生み出している[重量+10%]",
+                    "en": "You generate gravity. [Weight+10%]",
+                    "ch": "你正在产生重力[重量+10%]"
+                },
+                {
+                    "jp": "あなたは大きな重力を生み出している[重量+20%]",
+                    "en": "You generate heavy gravity. [Weight+20%]",
+                    "ch": "你正在产生强大重力[重量+20%]"
+                },
+                {
+                    "jp": "あなたはとてつもない重力を生み出している[重量+30%]",
+                    "en": "You generate massive gravity. [Weight+30%]",
+                    "ch": "你正在产生巨大重力[重量+30%]"
+                }
+            ],
+            "nameCh": "你正在产生重力[重量+10%]"
+        },
+        "202": {
+            "name": "あなたの顔はただれている[魅力",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(17, 0) = limit(var_82(17, 0) + limit(var_97(var_95) * (4 + var_58(38, 0) / 5), -999, 0), var_82(17, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(17, 0) = limit(var_82(17, 0) + limit(var_97(var_95) * (4 + var_58(38, 0) / 5), -999, 0), var_82(17, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你的脸溃烂[魅力"
+        },
+        "203": {
+            "name": "あなたの足の裏は蹄になっている[足装備不可 速度+",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(18, 0) = limit(var_82(18, 0) + limit(20 + var_58(38, 0) / 2, 0, 255), var_82(18, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(18, 0) = limit(var_82(18, 0) + limit(20 + var_58(38, 0) / 2, 0, 255), var_82(18, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你的脚底变成蹄[足部装备不可 速度+]"
+        },
+        "204": {
+            "name": "あなたの目は4つある[感覚+",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(17, 0) = limit(var_82(17, 0) + limit((5 + var_58(38, 0) / 3) * (-1), -255, 0), var_82(17, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(13, 0) = limit(var_82(13, 0) + limit(5 + var_58(38, 0) / 3, 0, 255), var_82(13, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(17, 0) = limit(var_82(17, 0) + limit((5 + var_58(38, 0) / 3) * (-1), -255, 0), var_82(17, 0) > 0, 9999)",
+                "var_82(13, 0) = limit(var_82(13, 0) + limit(5 + var_58(38, 0) / 3, 0, 255), var_82(13, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你有四只眼睛[感知+]"
+        },
+        "205": {
+            "name": "あなたの背中には羽がある[背中装備不可 重量-20% 速度+",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "cbitmod 5, 0, 1"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(18, 0) = limit(var_82(18, 0) + limit(12 + var_58(38, 0) / 4, 0, 255), var_82(18, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "cbitmod 5, 0, 1",
+                "var_82(18, 0) = limit(var_82(18, 0) + limit(12 + var_58(38, 0) / 4, 0, 255), var_82(18, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你背上有翅膀[背部装备不可 重量-20% 速度+]"
+        },
+        "206": {
+            "name": "あなたの首はもの凄く太い[首装備不可 魅力",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(17, 0) = limit(var_82(17, 0) + limit((5 + var_58(38, 0) / 5) * (-1), -255, 0), var_82(17, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_58(70, 0) += limit(12 + var_58(38, 0), 0, 255)"
+                }
+            ],
+            "raw": [
+                "var_82(17, 0) = limit(var_82(17, 0) + limit((5 + var_58(38, 0) / 5) * (-1), -255, 0), var_82(17, 0) > 0, 9999)",
+                "var_58(70, 0) += limit(12 + var_58(38, 0), 0, 255)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你的脖子非常粗[颈部装备不可 魅力]"
+        },
+        "207": {
+            "name": "あなたは殺戮に飢えている[被ダメージ修正+",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你渴求杀戮[受伤修正+]"
+        },
+        "208": {
+            "name": "あなたの頭は巨大化している[耐久",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(11, 0) = limit(var_82(11, 0) + limit((5 + var_58(38, 0) / 3) * (-1), -255, 0), var_82(11, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(12, 0) = limit(var_82(12, 0) + limit((4 + var_58(38, 0) / 4) * (-1), -255, 0), var_82(12, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(14, 0) = limit(var_82(14, 0) + limit(6 + var_58(38, 0) / 2, 0, 255), var_82(14, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(15, 0) = limit(var_82(15, 0) + limit(2 + var_58(38, 0) / 6, 0, 255), var_82(15, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(11, 0) = limit(var_82(11, 0) + limit((5 + var_58(38, 0) / 3) * (-1), -255, 0), var_82(11, 0) > 0, 9999)",
+                "var_82(12, 0) = limit(var_82(12, 0) + limit((4 + var_58(38, 0) / 4) * (-1), -255, 0), var_82(12, 0) > 0, 9999)",
+                "var_82(14, 0) = limit(var_82(14, 0) + limit(6 + var_58(38, 0) / 2, 0, 255), var_82(14, 0) > 0, 9999)",
+                "var_82(15, 0) = limit(var_82(15, 0) + limit(2 + var_58(38, 0) / 6, 0, 255), var_82(15, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你的头巨大化[耐久]"
+        },
+        "209": {
+            "name": "あなたは雨を呼ぶ[雨天確率上昇]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたは雨を呼ぶ[雨天確率上昇]",
+                    "en": "Clouds of rain follow you. [Chance of rain+]",
+                    "ch": "你会招雨[雨天概率上升]"
+                }
+            ],
+            "nameCh": "你会招雨[雨天概率上升]"
+        },
+        "210": {
+            "name": "あなたはポーション中毒だ[定期的ポーション消費]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたはポーション中毒だ[定期的ポーション消費]",
+                    "en": "You are addicted to potion. [Consume potions]",
+                    "ch": "你药物成瘾。[消耗药水]"
+                }
+            ],
+            "nameCh": "你药物成瘾[定期消耗药水]"
+        },
+        "228": {
+            "name": "あなたは夜よりも昼に眠くなる[眠気時間帯変化]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたは夜よりも昼に眠くなる[眠気時間帯変化]",
+                    "en": "You are more sleepy during the day than at night. [Change in sleepiness]",
+                    "ch": "你白天比夜晚更困。[困倦时段变化]"
+                }
+            ],
+            "nameCh": "你白天比夜晚更困[困倦时段变化]"
+        },
+        "211": {
+            "name": "あなたは衰弱している[HP-15% 筋力",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(10, 0) = limit(var_82(10, 0) + limit((4 + var_58(38, 0) / 2) * (-1), -255, 0), var_82(10, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(2, 0) = limit(var_82(2, 0) + (-15), var_82(2, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(10, 0) = limit(var_82(10, 0) + limit((4 + var_58(38, 0) / 2) * (-1), -255, 0), var_82(10, 0) > 0, 9999)",
+                "var_82(2, 0) = limit(var_82(2, 0) + (-15), var_82(2, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你衰弱[HP-15% 力量]"
+        },
+        "212": {
+            "name": "あなたは痴呆になっている[MP-15% 魔力",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(16, 0) = limit(var_82(16, 0) + limit((4 + var_58(38, 0) / 2) * (-1), -255, 0), var_82(16, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(3, 0) = limit(var_82(3, 0) + (-15), var_82(3, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(16, 0) = limit(var_82(16, 0) + limit((4 + var_58(38, 0) / 2) * (-1), -255, 0), var_82(16, 0) > 0, 9999)",
+                "var_82(3, 0) = limit(var_82(3, 0) + (-15), var_82(3, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你痴呆[MP-15% 魔力]"
+        },
+        "213": {
+            "name": "あなたは重い甲殻で覆われている[PV+",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(18, 0) = limit(var_82(18, 0) + limit((20 + var_58(38, 0) / 2) * (-1), -255, 0), var_82(18, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_58(70, 0) += limit(15 + var_58(38, 0) / 2, 0, 255)"
+                }
+            ],
+            "raw": [
+                "var_82(18, 0) = limit(var_82(18, 0) + limit((20 + var_58(38, 0) / 2) * (-1), -255, 0), var_82(18, 0) > 0, 9999)",
+                "var_58(70, 0) += limit(15 + var_58(38, 0) / 2, 0, 255)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你被厚重甲壳覆盖[PV+]"
+        },
+        "214": {
+            "name": "あなたの周囲の空間は捩れている[ランダムテレポート]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたの周囲の空間は捩れている[ランダムテレポート]",
+                    "en": "You are unstablizing space around you. [Random teleporation]",
+                    "ch": "你周围空间不稳定。[随机传送]"
+                }
+            ],
+            "nameCh": "你周围空间扭曲[随机传送]"
+        },
+        "215": {
+            "name": "あなたは生きたマナバッテリーだ[杖から魔力抽出]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたは生きたマナバッテリーだ[杖から魔力抽出]",
+                    "en": "You are a living mana battery. [Absorb mana from rods]",
+                    "ch": "你是活体玛娜电池。[从法杖吸收魔力]"
+                }
+            ],
+            "nameCh": "你是活体玛娜电池[从法杖抽取魔力]"
+        },
+        "216": {
+            "name": "あなたの手から毒が滴っている[ポーション毒化 毒耐性強化]",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(55, 0) = limit(var_82(55, 0) + 100, var_82(55, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(55, 0) = limit(var_82(55, 0) + 100, var_82(55, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたの手から毒が滴っている[ポーション毒化 毒耐性強化]",
+                    "en": "Poison drips from your hands. [Poison potions RES Poison+]",
+                    "ch": "你手中滴毒。[药水毒化 毒耐性+]"
+                }
+            ],
+            "nameCh": "你手中滴毒[药水毒化 毒耐性强化]"
+        },
+        "217": {
+            "name": "あなたの頭には獣の耳が生えている[頭装備不可 感覚+",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(13, 0) = limit(var_82(13, 0) + limit(10 + var_58(38, 0) / 4, 0, 255), var_82(13, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(13, 0) = limit(var_82(13, 0) + limit(10 + var_58(38, 0) / 4, 0, 255), var_82(13, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你头上长着兽耳[头部装备不可 感知+]"
+        },
+        "218": {
+            "name": "あなたの骨は飛び出している[体装備不可 切り傷反撃]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたの骨は飛び出している[体装備不可 切り傷反撃]",
+                    "en": "Your bones are popping out. [Deals cut damage to the attacker, Can't wear armors]",
+                    "ch": "你的骨头突出。[对攻击者造成切割伤害，不能穿护甲]"
+                }
+            ],
+            "nameCh": "你的骨头突出[身体装备不可 切割反击]"
+        },
+        "219": {
+            "name": "あなたには発達した尻尾がある[腰装備不可 器用+",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(12, 0) = limit(var_82(12, 0) + limit(10 + var_58(38, 0) / 4, 0, 255), var_82(12, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(12, 0) = limit(var_82(12, 0) + limit(10 + var_58(38, 0) / 4, 0, 255), var_82(12, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你有发达的尾巴[腰部装备不可 灵巧+]"
+        },
+        "220": {
+            "name": "あなたには美しい花が咲いている[寄生無効 [治癒",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(154, 0) = limit(var_82(154, 0) + limit((4 + var_58(38, 0) / 2) * (-1), -255, 0), var_82(154, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(17, 0) = limit(var_82(17, 0) + limit(1 + var_58(38, 0) / 8, 0, 255), var_82(17, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(154, 0) = limit(var_82(154, 0) + limit((4 + var_58(38, 0) / 2) * (-1), -255, 0), var_82(154, 0) > 0, 9999)",
+                "var_82(17, 0) = limit(var_82(17, 0) + limit(1 + var_58(38, 0) / 8, 0, 255), var_82(17, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你身上开着美丽花朵[寄生无效 治愈]"
+        },
+        "221": {
+            "name": "あなたには大きな水かきがついている[指装備不可 着衣水泳+",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(190, 0) = limit(var_82(190, 0) + limit(2 + var_58(38, 0) / 6, 0, 255), var_82(190, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(190, 0) = limit(var_82(190, 0) + limit(2 + var_58(38, 0) / 6, 0, 255), var_82(190, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你长着大蹼[手指装备不可 穿着泳装游泳+]"
+        },
+        "222": {
+            "name": "あなたの腕は胴より太い[腕装備不可 筋力+",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(10, 0) = limit(var_82(10, 0) + limit(5 + var_58(38, 0) / 6, 0, 255), var_82(10, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(10, 0) = limit(var_82(10, 0) + limit(5 + var_58(38, 0) / 6, 0, 255), var_82(10, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你的手臂比躯干粗[手臂装备不可 力量+]"
+        },
+        "223": {
+            "name": "あなたの手は刃物になっている[手装備不可 首狩り攻撃会得]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたの手は刃物になっている[手装備不可 首狩り攻撃会得]",
+                    "en": "Your hands are blades. [Can't wear weapons, Available Decapitation]",
+                    "ch": "你的手是刀刃。[不能装备武器，可用斩首攻击]"
+                }
+            ],
+            "nameCh": "你的手变成刀刃[手部装备不可 习得斩首攻击]"
+        },
+        "224": {
+            "name": "あなたの口は裂けている[魅力",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(17, 0) = limit(var_82(17, 0) + limit((4 + var_58(38, 0) / 8) * (-1), -255, 0), var_82(17, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(17, 0) = limit(var_82(17, 0) + limit((4 + var_58(38, 0) / 8) * (-1), -255, 0), var_82(17, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你的嘴裂开[魅力]"
+        },
+        "225": {
+            "name": "あなたには口が複数ある[耐久",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(11, 0) = limit(var_82(11, 0) + limit((4 + var_58(38, 0) / 6) * (-1), -255, 0), var_82(11, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(11, 0) = limit(var_82(11, 0) + limit((4 + var_58(38, 0) / 6) * (-1), -255, 0), var_82(11, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你有多个嘴[耐久]"
+        },
+        "226": {
+            "name": "あなたの精力は異常だ[SP+20% 意志",
+            "ops": [
+                {
+                    "op": "stmt",
+                    "s": "var_82(15, 0) = limit(var_82(15, 0) + limit((4 + var_58(38, 0) / 4) * (-1), -255, 0), var_82(15, 0) > 0, 9999)"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(14, 0) = limit(var_82(14, 0) + limit((4 + var_58(38, 0) / 4) * (-1), -255, 0), var_82(14, 0) > 0, 9999)"
+                }
+            ],
+            "raw": [
+                "var_82(15, 0) = limit(var_82(15, 0) + limit((4 + var_58(38, 0) / 4) * (-1), -255, 0), var_82(15, 0) > 0, 9999)",
+                "var_82(14, 0) = limit(var_82(14, 0) + limit((4 + var_58(38, 0) / 4) * (-1), -255, 0), var_82(14, 0) > 0, 9999)"
+            ],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [],
+            "nameCh": "你的精力异常[SP+20% 意志]"
+        },
+        "227": {
+            "name": "あなたには細い触手が生えている[戦闘・干渉時に触手暴走]",
+            "ops": [],
+            "raw": [],
+            "cat": 3,
+            "maxLevel": 0,
+            "ranks": [
+                {
+                    "jp": "あなたには細い触手が生えている[戦闘・干渉時に触手暴走]",
+                    "en": "Thin tentacles are growing from you. [Tentacles runaway during battle and interference]",
+                    "ch": "你长着细触手。[战斗/干涉时触手暴走]"
+                },
+                {
+                    "jp": "あなたには太い触手が生えている[戦闘・干渉時に強触手暴走]",
+                    "en": "Thick tentacles are growing from you. [Strong tentacles runaway during battle and interference]",
+                    "ch": "你长着粗触手。[战斗/干涉时强触手暴走]"
+                }
+            ],
+            "nameCh": "你长着细触手[战斗/干涉时触手暴走]"
+        }
+    },
+    "raceFeats": {
+        "dwarf": {
+            "152": 2,
+            "155": 1
+        },
+        "elea": {
+            "168": 1,
+            "156": 1
+        },
+        "eulderna": {
+            "153": 1
+        },
+        "lich": {
+            "151": 1,
+            "155": 2,
+            "152": 1
+        },
+        "golem": {
+            "157": 1,
+            "152": 2
+        },
+        "yerles": {
+            "154": 1
+        },
+        "juere": {
+            "158": 1,
+            "159": 1
+        },
+        "goblin": {
+            "155": 1,
+            "159": 1
+        },
+        "mutant": {
+            "0": 1
+        },
+        "fairy": {
+            "160": 1,
+            "161": 1
+        }
+    },
+    "godBonus": {
+        "1": {
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_82(12, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(12, var_691) += limit(var_58(62, var_691) / 400, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(13, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(13, var_691) += limit(var_58(62, var_691) / 300, 1, 21 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(154, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(154, var_691) += limit(var_58(62, var_691) / 500, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(110, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(110, var_691) += limit(var_58(62, var_691) / 250, 1, 27 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(159, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(159, var_691) += limit(var_58(62, var_691) / 350, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(158, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(158, var_691) += limit(var_58(62, var_691) / 250, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(176, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(176, var_691) += limit(var_58(62, var_691) / 300, 1, 15 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(179, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(179, var_691) += limit(var_58(62, var_691) / 350, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_82(12, var_691) > 0 ) {",
+                "var_82(12, var_691) += limit(var_58(62, var_691) / 400, 1, 12 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(13, var_691) > 0 ) {",
+                "var_82(13, var_691) += limit(var_58(62, var_691) / 300, 1, 21 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(154, var_691) > 0 ) {",
+                "var_82(154, var_691) += limit(var_58(62, var_691) / 500, 1, 12 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(110, var_691) > 0 ) {",
+                "var_82(110, var_691) += limit(var_58(62, var_691) / 250, 1, 27 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(159, var_691) > 0 ) {",
+                "var_82(159, var_691) += limit(var_58(62, var_691) / 350, 1, 12 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(158, var_691) > 0 ) {",
+                "var_82(158, var_691) += limit(var_58(62, var_691) / 250, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(176, var_691) > 0 ) {",
+                "var_82(176, var_691) += limit(var_58(62, var_691) / 300, 1, 15 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(179, var_691) > 0 ) {",
+                "var_82(179, var_691) += limit(var_58(62, var_691) / 350, 1, 18 + var_82(181, 0) / 10)",
+                "}"
+            ]
+        },
+        "2": {
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_82(13, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(13, var_691) += limit(var_58(62, var_691) / 450, 1, 15 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(18, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(18, var_691) += limit(var_58(62, var_691) / 200, 1, 200 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(108, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(108, var_691) += limit(var_58(62, var_691) / 350, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(109, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(109, var_691) += limit(var_58(62, var_691) / 450, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(157, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(157, var_691) += limit(var_58(62, var_691) / 450, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(174, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(174, var_691) += limit(var_58(62, var_691) / 550, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_82(13, var_691) > 0 ) {",
+                "var_82(13, var_691) += limit(var_58(62, var_691) / 450, 1, 15 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(18, var_691) > 0 ) {",
+                "var_82(18, var_691) += limit(var_58(62, var_691) / 200, 1, 200 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(108, var_691) > 0 ) {",
+                "var_82(108, var_691) += limit(var_58(62, var_691) / 350, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(109, var_691) > 0 ) {",
+                "var_82(109, var_691) += limit(var_58(62, var_691) / 450, 1, 18 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(157, var_691) > 0 ) {",
+                "var_82(157, var_691) += limit(var_58(62, var_691) / 450, 1, 18 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(174, var_691) > 0 ) {",
+                "var_82(174, var_691) += limit(var_58(62, var_691) / 550, 1, 12 + var_82(181, 0) / 10)",
+                "}"
+            ]
+        },
+        "3": {
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_82(16, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(16, var_691) += limit(var_58(62, var_691) / 300, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(155, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(155, var_691) += limit(var_58(62, var_691) / 350, 1, 21 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(50, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(50, var_691) += limit(var_58(62, var_691) / 50, 1, 300 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(51, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(51, var_691) += limit(var_58(62, var_691) / 50, 1, 300 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(52, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(52, var_691) += limit(var_58(62, var_691) / 50, 1, 300 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_82(16, var_691) > 0 ) {",
+                "var_82(16, var_691) += limit(var_58(62, var_691) / 300, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(155, var_691) > 0 ) {",
+                "var_82(155, var_691) += limit(var_58(62, var_691) / 350, 1, 21 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(50, var_691) > 0 ) {",
+                "var_82(50, var_691) += limit(var_58(62, var_691) / 50, 1, 300 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(51, var_691) > 0 ) {",
+                "var_82(51, var_691) += limit(var_58(62, var_691) / 50, 1, 300 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(52, var_691) > 0 ) {",
+                "var_82(52, var_691) += limit(var_58(62, var_691) / 50, 1, 300 + var_82(181, 0) / 10)",
+                "}"
+            ]
+        },
+        "4": {
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_82(17, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(17, var_691) += limit(var_58(62, var_691) / 250, 1, 30 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(19, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(19, var_691) += limit(var_58(62, var_691) / 100, 1, 75 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(173, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(173, var_691) += limit(var_58(62, var_691) / 300, 1, 21 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(164, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(164, var_691) += limit(var_58(62, var_691) / 350, 1, 27 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(185, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(185, var_691) += limit(var_58(62, var_691) / 300, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(158, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(158, var_691) += limit(var_58(62, var_691) / 450, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_82(17, var_691) > 0 ) {",
+                "var_82(17, var_691) += limit(var_58(62, var_691) / 250, 1, 30 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(19, var_691) > 0 ) {",
+                "var_82(19, var_691) += limit(var_58(62, var_691) / 100, 1, 75 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(173, var_691) > 0 ) {",
+                "var_82(173, var_691) += limit(var_58(62, var_691) / 300, 1, 21 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(164, var_691) > 0 ) {",
+                "var_82(164, var_691) += limit(var_58(62, var_691) / 350, 1, 27 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(185, var_691) > 0 ) {",
+                "var_82(185, var_691) += limit(var_58(62, var_691) / 300, 1, 18 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(158, var_691) > 0 ) {",
+                "var_82(158, var_691) += limit(var_58(62, var_691) / 450, 1, 12 + var_82(181, 0) / 10)",
+                "}"
+            ]
+        },
+        "5": {
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_82(10, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(10, var_691) += limit(var_58(62, var_691) / 450, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(11, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(11, var_691) += limit(var_58(62, var_691) / 350, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(168, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(168, var_691) += limit(var_58(62, var_691) / 350, 1, 21 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(153, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(153, var_691) += limit(var_58(62, var_691) / 300, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(163, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(163, var_691) += limit(var_58(62, var_691) / 350, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(174, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(174, var_691) += limit(var_58(62, var_691) / 450, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_82(10, var_691) > 0 ) {",
+                "var_82(10, var_691) += limit(var_58(62, var_691) / 450, 1, 18 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(11, var_691) > 0 ) {",
+                "var_82(11, var_691) += limit(var_58(62, var_691) / 350, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(168, var_691) > 0 ) {",
+                "var_82(168, var_691) += limit(var_58(62, var_691) / 350, 1, 21 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(153, var_691) > 0 ) {",
+                "var_82(153, var_691) += limit(var_58(62, var_691) / 300, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(163, var_691) > 0 ) {",
+                "var_82(163, var_691) += limit(var_58(62, var_691) / 350, 1, 18 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(174, var_691) > 0 ) {",
+                "var_82(174, var_691) += limit(var_58(62, var_691) / 450, 1, 12 + var_82(181, 0) / 10)",
+                "}"
+            ]
+        },
+        "6": {
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_82(15, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(15, var_691) += limit(var_58(62, var_691) / 300, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(154, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(154, var_691) += limit(var_58(62, var_691) / 250, 1, 27 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(155, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(155, var_691) += limit(var_58(62, var_691) / 400, 1, 15 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(161, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(161, var_691) += limit(var_58(62, var_691) / 400, 1, 13 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(184, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(184, var_691) += limit(var_58(62, var_691) / 450, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(174, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(174, var_691) += limit(var_58(62, var_691) / 400, 1, 15 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(164, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(164, var_691) += limit(var_58(62, var_691) / 400, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_82(15, var_691) > 0 ) {",
+                "var_82(15, var_691) += limit(var_58(62, var_691) / 300, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(154, var_691) > 0 ) {",
+                "var_82(154, var_691) += limit(var_58(62, var_691) / 250, 1, 27 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(155, var_691) > 0 ) {",
+                "var_82(155, var_691) += limit(var_58(62, var_691) / 400, 1, 15 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(161, var_691) > 0 ) {",
+                "var_82(161, var_691) += limit(var_58(62, var_691) / 400, 1, 13 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(184, var_691) > 0 ) {",
+                "var_82(184, var_691) += limit(var_58(62, var_691) / 450, 1, 12 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(174, var_691) > 0 ) {",
+                "var_82(174, var_691) += limit(var_58(62, var_691) / 400, 1, 15 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(164, var_691) > 0 ) {",
+                "var_82(164, var_691) += limit(var_58(62, var_691) / 400, 1, 18 + var_82(181, 0) / 10)",
+                "}"
+            ]
+        },
+        "7": {
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_82(13, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(13, var_691) += limit(var_58(62, var_691) / 400, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(12, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(12, var_691) += limit(var_58(62, var_691) / 350, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(14, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(14, var_691) += limit(var_58(62, var_691) / 250, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(180, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(180, var_691) += limit(var_58(62, var_691) / 300, 1, 18 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(178, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(178, var_691) += limit(var_58(62, var_691) / 350, 1, 15 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(177, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(177, var_691) += limit(var_58(62, var_691) / 350, 1, 14 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(150, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(150, var_691) += limit(var_58(62, var_691) / 350, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_82(13, var_691) > 0 ) {",
+                "var_82(13, var_691) += limit(var_58(62, var_691) / 400, 1, 12 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(12, var_691) > 0 ) {",
+                "var_82(12, var_691) += limit(var_58(62, var_691) / 350, 1, 18 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(14, var_691) > 0 ) {",
+                "var_82(14, var_691) += limit(var_58(62, var_691) / 250, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(180, var_691) > 0 ) {",
+                "var_82(180, var_691) += limit(var_58(62, var_691) / 300, 1, 18 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(178, var_691) > 0 ) {",
+                "var_82(178, var_691) += limit(var_58(62, var_691) / 350, 1, 15 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(177, var_691) > 0 ) {",
+                "var_82(177, var_691) += limit(var_58(62, var_691) / 350, 1, 14 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(150, var_691) > 0 ) {",
+                "var_82(150, var_691) += limit(var_58(62, var_691) / 350, 1, 12 + var_82(181, 0) / 10)",
+                "}"
+            ]
+        },
+        "8": {
+            "ops": [
+                {
+                    "op": "if",
+                    "c": "var_82(13, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(13, var_691) += limit(var_58(62, var_691) / 400, 1, 12 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(11, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(11, var_691) += limit(var_58(62, var_691) / 250, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(156, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(156, var_691) += limit(var_58(62, var_691) / 300, 1, 21 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(162, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(162, var_691) += limit(var_58(62, var_691) / 350, 1, 15 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(182, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(182, var_691) += limit(var_58(62, var_691) / 350, 1, 15 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(160, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(160, var_691) += limit(var_58(62, var_691) / 350, 1, 24 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                },
+                {
+                    "op": "if",
+                    "c": "var_82(178, var_691) > 0"
+                },
+                {
+                    "op": "stmt",
+                    "s": "var_82(178, var_691) += limit(var_58(62, var_691) / 300, 1, 15 + var_82(181, 0) / 10)"
+                },
+                {
+                    "op": "end"
+                }
+            ],
+            "raw": [
+                "if ( var_82(13, var_691) > 0 ) {",
+                "var_82(13, var_691) += limit(var_58(62, var_691) / 400, 1, 12 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(11, var_691) > 0 ) {",
+                "var_82(11, var_691) += limit(var_58(62, var_691) / 250, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(156, var_691) > 0 ) {",
+                "var_82(156, var_691) += limit(var_58(62, var_691) / 300, 1, 21 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(162, var_691) > 0 ) {",
+                "var_82(162, var_691) += limit(var_58(62, var_691) / 350, 1, 15 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(182, var_691) > 0 ) {",
+                "var_82(182, var_691) += limit(var_58(62, var_691) / 350, 1, 15 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(160, var_691) > 0 ) {",
+                "var_82(160, var_691) += limit(var_58(62, var_691) / 350, 1, 24 + var_82(181, 0) / 10)",
+                "}",
+                "if ( var_82(178, var_691) > 0 ) {",
+                "var_82(178, var_691) += limit(var_58(62, var_691) / 300, 1, 15 + var_82(181, 0) / 10)",
+                "}"
+            ]
+        }
+    }
+}

@@ -1,0 +1,2596 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "mapname",
+ "entries": [
+  {
+   "id": "s02369",
+   "kind": "lang",
+   "jp": "ノースティリス",
+   "en": "North Tyris",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12114
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 237978
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02370",
+   "kind": "lang",
+   "jp": "ヴェルニース",
+   "en": "Vernis",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12117
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02371",
+   "kind": "lang",
+   "jp": "ヴェルニースの街が見える。辺りは活気に満ちている。",
+   "en": "You see Vernis. The mining town is full of liveliness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12117
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02372",
+   "kind": "lang",
+   "jp": "ポート・カプール",
+   "en": "Port Kapul",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12120
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02373",
+   "kind": "lang",
+   "jp": "ポート・カプールが見える。港は船で賑わっている。",
+   "en": "You see Port Kapul. The port is crowded with merchants.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12120
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02374",
+   "kind": "lang",
+   "jp": "ヨウィンの村が見える。懐かしい土の匂いがする。",
+   "en": "You see a small town, Yowyn. You remember fondly the smell of the soil.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12123
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02375",
+   "kind": "lang",
+   "jp": "ダルフィの街がある。何やら危険な香りがする。",
+   "en": "You see the infamous rogue's den Derphy.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12126
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02376",
+   "kind": "lang",
+   "jp": "パルミア",
+   "en": "Palmia",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12129
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02377",
+   "kind": "lang",
+   "jp": "パルミアの都がある。都は高い壁に囲われている。",
+   "en": "You see the great city of Palmia. Entire city is surrounded by tall wall.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12129
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02378",
+   "kind": "lang",
+   "jp": "灼熱の塔",
+   "en": "the Tower of Fire",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12132
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02379",
+   "kind": "lang",
+   "jp": "死者の洞窟",
+   "en": " the crypt of the damned ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12135
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02380",
+   "kind": "lang",
+   "jp": "古城",
+   "en": "the Ancient Castle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12138
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02381",
+   "kind": "lang",
+   "jp": "わが家",
+   "en": "Your Home",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12141
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 237979
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02382",
+   "kind": "lang",
+   "jp": "あなたの家だ。",
+   "en": "It's your sweet home.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12141
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02383",
+   "kind": "lang",
+   "jp": "ダンジョン",
+   "en": "Your Dungeon",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12144
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02384",
+   "kind": "lang",
+   "jp": "あなたのダンジョンだ。",
+   "en": "It's your dungeon.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12144
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02385",
+   "kind": "lang",
+   "jp": "レシマス",
+   "en": "Lesimas",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12147
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02386",
+   "kind": "lang",
+   "jp": "レシマスの洞窟がある。運命の鼓動を感じる。",
+   "en": "You see the dungeon of Lesimas. The wheel of fortune starts to turn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12147
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02387",
+   "kind": "lang",
+   "jp": "すくつ",
+   "en": "the Void",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12150
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02388",
+   "kind": "lang",
+   "jp": "なんだこの場所は…？",
+   "en": "What is this place?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12150
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02389",
+   "kind": "lang",
+   "jp": "野外",
+   "en": "Wilderness",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12153
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02390",
+   "kind": "lang",
+   "jp": "ルミエスト墓所",
+   "en": "the graveyard",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12156
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02391",
+   "kind": "lang",
+   "jp": "墓所が見える。辺りは静寂に包まれている…",
+   "en": "You see the graveyard of Lumiest. It's slient. Very silent.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12156
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02392",
+   "kind": "lang",
+   "jp": "闘技場",
+   "en": "Arena",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12159
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02393",
+   "kind": "lang",
+   "jp": "竜窟",
+   "en": "the Dragon's Nest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12162
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02394",
+   "kind": "lang",
+   "jp": "神々の休戦地",
+   "en": "the Truce Ground",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12165
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02395",
+   "kind": "lang",
+   "jp": "寺院がある。神聖な雰囲気がする。",
+   "en": "You see old shrines. Sacred air surrounds the ground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12165
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02396",
+   "kind": "lang",
+   "jp": "アクリ・テオラ",
+   "en": "Cyber Dome",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12168
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02397",
+   "kind": "lang",
+   "jp": "何やら奇妙な建物がある。",
+   "en": "You see a very strange building.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12168
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02398",
+   "kind": "lang",
+   "jp": "混沌の城《獣》",
+   "en": "Fort of Chaos <Beast>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12171
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02399",
+   "kind": "lang",
+   "jp": "不気味な城がある。絶対に入ってはいけない予感がする。(危険度は80階相当)",
+   "en": "You see an unearthly fort. Your inner voice wanrs you to not go there. (Approximate danger level: 80) ",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12171
+    },
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12174
+    },
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12177
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02400",
+   "kind": "lang",
+   "jp": "混沌の城《機甲》",
+   "en": "Fort of Chaos <Machine>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12174
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02401",
+   "kind": "lang",
+   "jp": "混沌の城《奇形》",
+   "en": "Fort of Chaos <Collapsed>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12177
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02402",
+   "kind": "lang",
+   "jp": "コロシアム",
+   "en": "Pet Arena",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12180
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02403",
+   "kind": "lang",
+   "jp": "博物館",
+   "en": "My Museum",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12183
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02404",
+   "kind": "lang",
+   "jp": "収容所",
+   "en": "Camp",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12186
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02405",
+   "kind": "lang",
+   "jp": "店",
+   "en": "Shop",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12189
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02406",
+   "kind": "lang",
+   "jp": "倉庫",
+   "en": "Storage House",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12195
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02407",
+   "kind": "lang",
+   "jp": "牧場",
+   "en": "Ranch",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12198
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02408",
+   "kind": "lang",
+   "jp": "廃モンスター牧場",
+   "en": "Discarded Ranch",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12201
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02409",
+   "kind": "lang",
+   "jp": "シェルター",
+   "en": "Shelter",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12204
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02410",
+   "kind": "lang",
+   "jp": "パルミア大使館",
+   "en": "the Embassy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12207
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02411",
+   "kind": "lang",
+   "jp": "実験場",
+   "en": "Test Ground",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12210
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02412",
+   "kind": "lang",
+   "jp": "ノイエルの村がある。子供たちの笑い声が聞こえる。",
+   "en": "You see Noyel. The laughters of children travel from the playground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12213
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02413",
+   "kind": "lang",
+   "jp": "工房ミラル・ガロク",
+   "en": "Miral and Garok's Workshop",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12216
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02414",
+   "kind": "lang",
+   "jp": "魔女の住処",
+   "en": "Abode of witch",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12219
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02415",
+   "kind": "lang",
+   "jp": "悪魔岬",
+   "en": "Devil Cape",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12222
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02416",
+   "kind": "lang",
+   "jp": "ハウスドーム",
+   "en": "Show House",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12225
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02417",
+   "kind": "lang",
+   "jp": "山道",
+   "en": "the Mountain Pass",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12231
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02418",
+   "kind": "lang",
+   "jp": "子犬の洞窟",
+   "en": "the Puppy Cave",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12234
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02419",
+   "kind": "lang",
+   "jp": "イークの洞窟",
+   "en": "the Yeek's Nest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12237
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02420",
+   "kind": "lang",
+   "jp": "妹の館",
+   "en": "the Mansion of Younger Sister",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12240
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02421",
+   "kind": "lang",
+   "jp": "冒険ゼミ",
+   "en": "the Adventure Seminar",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12243
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02422",
+   "kind": "lang",
+   "jp": "ルミエストの都が見える。水のせせらぎが聴こえる。",
+   "en": "You see Lumiest. Murmuring of water pleasantly echos.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12246
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02423",
+   "kind": "lang",
+   "jp": "ピラミッド",
+   "en": "the Pyramid",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12249
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02424",
+   "kind": "lang",
+   "jp": "ﾐﾉﾀｳﾛｽの巣",
+   "en": "the Minotaur's Nest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12252
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02425",
+   "kind": "lang",
+   "jp": "牢獄",
+   "en": "Prison",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12255
+    },
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12258
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02426",
+   "kind": "lang",
+   "jp": "牢獄がある。入り口は固く閉ざされている。",
+   "en": "You see a prison. The entrance is strictly closed.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12255
+    },
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12258
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02427",
+   "kind": "lang",
+   "jp": "ティリス関所北側",
+   "en": "North Tyris south border",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12261
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02428",
+   "kind": "lang",
+   "jp": "サウスティリス",
+   "en": "South Tyris",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12264
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02429",
+   "kind": "lang",
+   "jp": "ティリス関所南側",
+   "en": "South Tyris north border",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12267
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02430",
+   "kind": "lang",
+   "jp": "煙とパイプ亭",
+   "en": "The smoke and pipe",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12270
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02431",
+   "kind": "lang",
+   "jp": "喪失狂宮",
+   "en": "the Oblivion Palace",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12273
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02432",
+   "kind": "lang",
+   "jp": "イムウエル",
+   "en": "Aimwell",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12276
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02433",
+   "kind": "lang",
+   "jp": "ザイール",
+   "en": "Zaile",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12279
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02434",
+   "kind": "lang",
+   "jp": "ザイールの街が見える。辺りは閑散としている。",
+   "en": "You see Zaile. The mining town is quiet.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12279
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02435",
+   "kind": "lang",
+   "jp": "街らしきものがある。辺りからは異様な雰囲気を感じる。",
+   "en": "There is something that looks like a city. You feel a strange atmosphere from around.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12282
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02436",
+   "kind": "lang",
+   "jp": "ラスキリスの谷間・南",
+   "en": "South Raskilis valley",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12285
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02437",
+   "kind": "lang",
+   "jp": "谷の奥に街道が見える。",
+   "en": "You see the way to the back of the valley.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12285
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02438",
+   "kind": "lang",
+   "jp": "ラスキリスの谷間・西",
+   "en": "West Raskilis valley",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12288
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02439",
+   "kind": "lang",
+   "jp": "谷の奥に街道が見える。なぜか懐かしさと禍々しさを感じる。",
+   "en": "You see the way to the back of the valley. You somehow feel nostalgic and strangeness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12288
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02440",
+   "kind": "lang",
+   "jp": "海",
+   "en": "Sea",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12291
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02441",
+   "kind": "lang",
+   "jp": "ロストイルヴァ",
+   "en": "Lost Irva",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12294
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02442",
+   "kind": "lang",
+   "jp": "ウールム・レゾン",
+   "en": "Ulm-Leson",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12297
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02443",
+   "kind": "lang",
+   "jp": "森の奥に謎の遺跡が見える。",
+   "en": "You see a ruin in the depths of the forest.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12297
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02444",
+   "kind": "lang",
+   "jp": "イルヴァ神立図書館",
+   "en": "Sacred Library of Irva",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12300
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02445",
+   "kind": "lang",
+   "jp": "山間に図書館がある。表にはイルヴァ神立図書館と書かれている。",
+   "en": "You see the library of gods.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12300
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02446",
+   "kind": "lang",
+   "jp": "エウダーナ魔導船",
+   "en": "Eulderna blimp",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12303
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02447",
+   "kind": "lang",
+   "jp": "巨大な飛行船の周りに大勢の魔法使いの姿が見える。",
+   "en": "You see eulderna magicians around blimp.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12303
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02448",
+   "kind": "lang",
+   "jp": "アムルの闇檻",
+   "en": "Amur-Cage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12306
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02449",
+   "kind": "lang",
+   "jp": "湖の中心にぽっかりと空いた闇の中に、かすかな光が見える。",
+   "en": "In the darkness the empty at the center of the lake, you can see the faint light.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12306
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02450",
+   "kind": "lang",
+   "jp": "陽牢の塔",
+   "en": "Mirage Tower",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12309
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02451",
+   "kind": "lang",
+   "jp": "砂漠に塔がそびえたっている。塔の上部が揺らめいて見える。",
+   "en": "In the desert, you can see the tower.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12309
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02452",
+   "kind": "lang",
+   "jp": "眠れる神艦・船渠",
+   "en": "Dock",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12312
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02453",
+   "kind": "lang",
+   "jp": "巨大なハッチの隅の方に入り口が見える。",
+   "en": "Entrance can be seen in a corner of the huge hatch.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12312
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02454",
+   "kind": "lang",
+   "jp": "ルストール仙窟",
+   "en": "Rust Plaza",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12315
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02455",
+   "kind": "lang",
+   "jp": "丘のふもとに入口の小さい洞窟がある。",
+   "en": "In the desert, you can see the cave.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12315
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02456",
+   "kind": "lang",
+   "jp": "中央神殿",
+   "en": "Shrine of Guardian",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12318
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02457",
+   "kind": "lang",
+   "jp": "巨城への登り坂のふもとに神殿がある。",
+   "en": "There is a shrine at the foot of the uphill to Cradle of Chaos.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12318
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02458",
+   "kind": "lang",
+   "jp": "オルドラン",
+   "en": "Ol-dran",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12321
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02459",
+   "kind": "lang",
+   "jp": "活気溢れる街が見える。天使たちが街の上空を飛んでいる。",
+   "en": "You can see vibrant city. Angels are flying over the city.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12321
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02460",
+   "kind": "lang",
+   "jp": "神々の旧戦地",
+   "en": "Old War Ground",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12324
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02461",
+   "kind": "lang",
+   "jp": "古い寺院がある。神聖な雰囲気の中に何か暗いものを感じる。",
+   "en": "You see old shrines. Sacred air surrounds the ground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12324
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02462",
+   "kind": "lang",
+   "jp": "セルタ火山",
+   "en": "Dragon's Volcano",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12327
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02463",
+   "kind": "lang",
+   "jp": "星渡の収穫船",
+   "en": "Harvest Ship",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12330
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02464",
+   "kind": "lang",
+   "jp": "廃棄処理区画",
+   "en": "Waste compartment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12334
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02465",
+   "kind": "lang",
+   "jp": "生物管理区画",
+   "en": "Biological Area",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12339
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02466",
+   "kind": "lang",
+   "jp": "隠れ工房イルマ・サリム",
+   "en": "Irma and Thalia's Workshop",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12343
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02467",
+   "kind": "lang",
+   "jp": "テストワールド",
+   "en": "Test World",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12346
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02468",
+   "kind": "lang",
+   "jp": "テストワールド北関所",
+   "en": "Test World north border",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12349
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02469",
+   "kind": "lang",
+   "jp": "混沌の巨城",
+   "en": "Cradle of Chaos",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12352
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02470",
+   "kind": "lang",
+   "jp": "謎のネフィアだ。とてつもない力を感じる…。",
+   "en": "You see the huge castle. Wheel of fortune starts to turn again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12352
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02471",
+   "kind": "lang",
+   "jp": "レミード遺跡",
+   "en": "Rehmido",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12355
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02472",
+   "kind": "lang",
+   "jp": "ネフィアと融合した遺跡だ。新たな運命の鼓動を感じる。",
+   "en": "You see the ruin of  Rehmido. The new wheel of fortune starts to turn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12355
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02473",
+   "kind": "lang",
+   "jp": "エイレルの街が見える。空気が澄んでいて心が落ち着く。",
+   "en": "You see Eirel. It's atomosphere is restful.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12358
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02474",
+   "kind": "lang",
+   "jp": "ルオザ",
+   "en": "Ruoza",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12361
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02475",
+   "kind": "lang",
+   "jp": "ルオザの地にある難民キャンプが見える。荒んだ雰囲気が伝わってくる。",
+   "en": "You see Ruoza. Refugee camp is located.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12361
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02476",
+   "kind": "lang",
+   "jp": "メルカーンの都が見える。各地から商人たちが続々と集まってきている。",
+   "en": "You see Melkawn. The city is alive with merchants.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12364
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02477",
+   "kind": "lang",
+   "jp": "クルアルムの港が見える。いくつもの貨物船が停泊している。",
+   "en": "You see Port Kapul. The port is crowded with merchants.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12367
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02478",
+   "kind": "lang",
+   "jp": "ヴァルムの村が見える。海面が光を反射してきらきらと輝いている。",
+   "en": "You see a fishing village,Valm. A beautiful sea stertches.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12370
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02479",
+   "kind": "lang",
+   "jp": "メルガスのイェルス軍前線基地が見える。兵士たちが慌ただしく走りまわっている。",
+   "en": "You see yerles base,Melugas. Soldiers run about hurriedly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12373
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02480",
+   "kind": "lang",
+   "jp": "アーク・ベルクの街が見える。街には観光客が闊歩している。",
+   "en": "You see Arcbelc. Visitors tour downtown.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12376
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02481",
+   "kind": "lang",
+   "jp": "ルードゥスの農村が見える。荒れ果てており寂しい感じがする。",
+   "en": "You see a small village,Ludus. Outskirts are in a sad state.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12379
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02482",
+   "kind": "lang",
+   "jp": "黄泉の谷",
+   "en": "Valley of hereafter",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12382
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02483",
+   "kind": "lang",
+   "jp": "機械要塞",
+   "en": "Machinery fort",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12385
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02484",
+   "kind": "lang",
+   "jp": "異形の神殿",
+   "en": "Chaos shrine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12388
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02485",
+   "kind": "lang",
+   "jp": "メルカ湿林",
+   "en": "the Melka forest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12391
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02486",
+   "kind": "lang",
+   "jp": "重力谷",
+   "en": "the Gravity valley",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12394
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02487",
+   "kind": "lang",
+   "jp": "山麓遺跡",
+   "en": "the Mountain foot Ruin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12397
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02488",
+   "kind": "lang",
+   "jp": "風の山道",
+   "en": "the Mountain Pass",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12400
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02489",
+   "kind": "lang",
+   "jp": "古の庭園",
+   "en": "the Ancient Garden",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12403
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02490",
+   "kind": "lang",
+   "jp": "犬神の森",
+   "en": "the Forest of DogGod",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12406
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02491",
+   "kind": "lang",
+   "jp": "メイド屋敷",
+   "en": "Maid house",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12409
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02492",
+   "kind": "lang",
+   "jp": "立派な屋敷が見える。",
+   "en": "You see a fine mansion.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12409
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02493",
+   "kind": "lang",
+   "jp": "道場",
+   "en": "Doujyou",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12412
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02494",
+   "kind": "lang",
+   "jp": "混沌の城《破壊》",
+   "en": "Fort of Chaos <Destruction>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12415
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02495",
+   "kind": "lang",
+   "jp": "不気味な城がある。絶対に入ってはいけない予感がする。(危険度は200階相当)",
+   "en": "You see an unearthly fort. Your inner voice wanrs you to not go there. (Approximate danger level: 200) ",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12415
+    },
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12418
+    },
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12421
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02496",
+   "kind": "lang",
+   "jp": "混沌の城《機皇》",
+   "en": "Fort of Chaos <Weapons>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12418
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02497",
+   "kind": "lang",
+   "jp": "混沌の城《地獄》",
+   "en": "Fort of Chaos <Hell>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12421
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02498",
+   "kind": "lang",
+   "jp": "街近辺",
+   "en": "The outskirts",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12425
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02499",
+   "kind": "lang",
+   "jp": "市街地",
+   "en": "Urban area",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12428
+    }
+   ],
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02500",
+   "kind": "lang",
+   "jp": "洞窟",
+   "en": "Cave",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12434
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02501",
+   "kind": "lang",
+   "jp": "塔",
+   "en": "Tower",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12437
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02502",
+   "kind": "lang",
+   "jp": "森",
+   "en": "Forest",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12440
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240095
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02503",
+   "kind": "lang",
+   "jp": "砦",
+   "en": "Fort",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12443
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02504",
+   "kind": "lang",
+   "jp": "巣穴",
+   "en": "Nest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12446
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02505",
+   "kind": "lang",
+   "jp": "霊園",
+   "en": "Cemetery",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12449
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02506",
+   "kind": "lang",
+   "jp": "鉱山",
+   "en": "Mine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12452
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02507",
+   "kind": "lang",
+   "jp": "湖",
+   "en": "Lake",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12455
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  },
+  {
+   "id": "s02508",
+   "kind": "lang",
+   "jp": "《覚醒》",
+   "en": "Awaken",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "mapname",
+     "label": null,
+     "line": 12458
+    }
+   ],
+   "concat": true,
+   "fn": "mapname",
+   "label": null,
+   "owner": "mapname"
+  }
+ ]
+}

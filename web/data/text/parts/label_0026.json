@@ -1,0 +1,1641 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0026",
+ "entries": [
+  {
+   "id": "s00002",
+   "kind": "raw",
+   "jp": "アリーナのチャンピオン",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00003",
+   "kind": "raw",
+   "jp": "アリーナの超エリート闘士",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00004",
+   "kind": "raw",
+   "jp": "アリーナのスター闘士",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00005",
+   "kind": "raw",
+   "jp": "アリーナのエリート闘士",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00006",
+   "kind": "raw",
+   "jp": "アリーナの熟練闘士",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00007",
+   "kind": "raw",
+   "jp": "アリーナの中堅闘士",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00008",
+   "kind": "raw",
+   "jp": "アリーナの期待の星",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00009",
+   "kind": "raw",
+   "jp": "アリーナのダークホース",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00010",
+   "kind": "raw",
+   "jp": "アリーナの下級闘士",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00011",
+   "kind": "raw",
+   "jp": "アリーナの無名の闘士",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00012",
+   "kind": "raw",
+   "jp": "アリーナ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 338
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00013",
+   "kind": "raw",
+   "jp": "全てのペットの王",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00014",
+   "kind": "raw",
+   "jp": "超エリートペット使い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00015",
+   "kind": "raw",
+   "jp": "ペットの王子",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00016",
+   "kind": "raw",
+   "jp": "ペットの憧れの的",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00017",
+   "kind": "raw",
+   "jp": "ペット使いのエリート",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00018",
+   "kind": "raw",
+   "jp": "名の知れたペット使い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00019",
+   "kind": "raw",
+   "jp": "ペットの母",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00020",
+   "kind": "raw",
+   "jp": "なかなかのペット使い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00021",
+   "kind": "raw",
+   "jp": "駆け出しのペット使い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00022",
+   "kind": "raw",
+   "jp": "無名のペット使い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00023",
+   "kind": "raw",
+   "jp": "ペットアリーナ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 339
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00024",
+   "kind": "raw",
+   "jp": "ネフィアを統べる者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00025",
+   "kind": "raw",
+   "jp": "迷宮の覇者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00026",
+   "kind": "raw",
+   "jp": "ダンジョンの主",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00027",
+   "kind": "raw",
+   "jp": "高名な探検者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00028",
+   "kind": "raw",
+   "jp": "子供達の憧れの的",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00029",
+   "kind": "raw",
+   "jp": "ダンジョン案内人",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00030",
+   "kind": "raw",
+   "jp": "名の知れた遺跡荒らし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00031",
+   "kind": "raw",
+   "jp": "探検者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00032",
+   "kind": "raw",
+   "jp": "ちんけな遺跡荒らし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00033",
+   "kind": "raw",
+   "jp": "観光客",
+   "en": "",
+   "zh": "",
+   "count": 7,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2729",
+     "line": 287995
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 358321
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435056
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 435059
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 579533
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 579575
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00034",
+   "kind": "raw",
+   "jp": "クローラー",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 340
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00035",
+   "kind": "raw",
+   "jp": "ティリス最大の博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00036",
+   "kind": "raw",
+   "jp": "超有名な博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00037",
+   "kind": "raw",
+   "jp": "大人気の博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00038",
+   "kind": "raw",
+   "jp": "有名な博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00039",
+   "kind": "raw",
+   "jp": "来客の絶えない博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00040",
+   "kind": "raw",
+   "jp": "ちょっと人気のある博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00041",
+   "kind": "raw",
+   "jp": "名の知れた博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00042",
+   "kind": "raw",
+   "jp": "まあまあの博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00043",
+   "kind": "raw",
+   "jp": "来客の少ない博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00044",
+   "kind": "raw",
+   "jp": "無名の博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00045",
+   "kind": "raw",
+   "jp": "博物館",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 341
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00046",
+   "kind": "raw",
+   "jp": "イルヴァの楽園",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00047",
+   "kind": "raw",
+   "jp": "超セレブな家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00048",
+   "kind": "raw",
+   "jp": "世界有数の家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00049",
+   "kind": "raw",
+   "jp": "とても住みたくなる家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00050",
+   "kind": "raw",
+   "jp": "主婦の憧れの家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00051",
+   "kind": "raw",
+   "jp": "ちょっと人目をひく家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00052",
+   "kind": "raw",
+   "jp": "まあまあの家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00053",
+   "kind": "raw",
+   "jp": "少しみすぼらしい家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00054",
+   "kind": "raw",
+   "jp": "貧困にあえぐ家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00055",
+   "kind": "raw",
+   "jp": "乞食の家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00056",
+   "kind": "raw",
+   "jp": "ホーム",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 342
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00057",
+   "kind": "raw",
+   "jp": "イルヴァ最大の店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00058",
+   "kind": "raw",
+   "jp": "王様が来る店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00059",
+   "kind": "raw",
+   "jp": "大繁盛している店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00060",
+   "kind": "raw",
+   "jp": "セレブが来る店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00061",
+   "kind": "raw",
+   "jp": "来客の絶えない店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00062",
+   "kind": "raw",
+   "jp": "マダムの来る店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00063",
+   "kind": "raw",
+   "jp": "リピーターのいる店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00064",
+   "kind": "raw",
+   "jp": "人が増えてきた売店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00065",
+   "kind": "raw",
+   "jp": "ほとんど売れない売店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00066",
+   "kind": "raw",
+   "jp": "無名の売店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00067",
+   "kind": "raw",
+   "jp": "店",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 343
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00068",
+   "kind": "raw",
+   "jp": "ボス",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00069",
+   "kind": "raw",
+   "jp": "王様のアドバイザー",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00070",
+   "kind": "raw",
+   "jp": "エリートコンサルター",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00071",
+   "kind": "raw",
+   "jp": "ご意見番",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00072",
+   "kind": "raw",
+   "jp": "有権者の鑑",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00073",
+   "kind": "raw",
+   "jp": "マダム好みの有権者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00074",
+   "kind": "raw",
+   "jp": "名の知れた有権者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00075",
+   "kind": "raw",
+   "jp": "普通の有権者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00076",
+   "kind": "raw",
+   "jp": "無関心な有権者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00077",
+   "kind": "raw",
+   "jp": "ぎりぎり有権者",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00078",
+   "kind": "raw",
+   "jp": "コミュニティ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 344
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00079",
+   "kind": "raw",
+   "jp": "次代ギルドマスター",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00080",
+   "kind": "raw",
+   "jp": "ギルドマスターの右腕",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00081",
+   "kind": "raw",
+   "jp": "ギルドの重役",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00082",
+   "kind": "raw",
+   "jp": "ギルドの重役候補",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00083",
+   "kind": "raw",
+   "jp": "アダプト",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00084",
+   "kind": "raw",
+   "jp": "エキスパート",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00085",
+   "kind": "raw",
+   "jp": "ジャーニーマン",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00086",
+   "kind": "raw",
+   "jp": "ギルドの正式メンバー",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00087",
+   "kind": "raw",
+   "jp": "ギルドのメンバー候補",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00088",
+   "kind": "raw",
+   "jp": "見習い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  },
+  {
+   "id": "s00089",
+   "kind": "raw",
+   "jp": "ギルド",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "ranktitle",
+     "label": "label_0026",
+     "line": 345
+    }
+   ],
+   "fn": "ranktitle",
+   "label": "label_0026",
+   "owner": "label_0026"
+  }
+ ]
+}

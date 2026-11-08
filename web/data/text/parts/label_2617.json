@@ -1,0 +1,8905 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2617",
+ "entries": [
+  {
+   "id": "s11370",
+   "kind": "lang",
+   "jp": "処刑の時間",
+   "en": "Time of execution",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273655
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11371",
+   "kind": "lang",
+   "jp": "街のどこかから、処刑対象の微かな悲鳴が聞こえてきた。",
+   "en": "From somewhere in the town, a faint scream could be heard from the person being executed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273657
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11372",
+   "kind": "lang",
+   "jp": "南無",
+   "en": "Sorry for you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273659
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11373",
+   "kind": "lang",
+   "jp": "狼たちの儀式の失敗が確認されました。市民陣営の勝利です。",
+   "en": "The wolves' ritual failure was confirmed. It's a victory for the citizens.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273694
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11374",
+   "kind": "lang",
+   "jp": "[人狼による被害が出ました。有権者の皆さんは怪しい人物に処刑投票してください] ",
+   "en": "[It came out the damage by werewolf. Voters should be executed vote for suspicious person] ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273769
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11375",
+   "kind": "lang",
+   "jp": "狼の襲撃",
+   "en": "Werewolf",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273785
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11376",
+   "kind": "lang",
+   "jp": "街のどこかから、狼の遠吠えと微かな悲鳴が聞こえてきた。",
+   "en": "From somewhere in the town came the howling of a wolf and faint screams. You see several guards hastily run by.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273787
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11377",
+   "kind": "lang",
+   "jp": "狼が出たぞー！",
+   "en": "It's the work of a werewolf!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273789
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11378",
+   "kind": "lang",
+   "jp": "合計レベルが200以上になるように生贄が捧げられたことにより、神狼が降臨しました。狼陣営の勝利です。",
+   "en": "The sacrifice was made so that the total level was 200 or more, so a wolfgod descended. It's a victory for the wolves.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273824
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11379",
+   "kind": "lang",
+   "jp": "潜伏していた妖狐が人狼遊儀を乗っ取ったことにより、九尾が降臨しました。狐陣営の勝利です。",
+   "en": "A fox that had been hiding out takes over Werewolf-RitualGame, so a foxgod descended. It's a victory for the fox.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273875
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11380",
+   "kind": "lang",
+   "jp": "殺人鬼",
+   "en": "Murderer",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273936
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11381",
+   "kind": "lang",
+   "jp": "街のどこかで悲鳴があがった。あなたはガードが慌しく走っていくのを目撃した。「人殺し、人殺しだ！！」",
+   "en": "Suddenly, a painful shriek rises from somewhere in the town. You see several guards hastily run by.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273938
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11382",
+   "kind": "lang",
+   "jp": "なむ…",
+   "en": "Sorry for you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273940
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11383",
+   "kind": "lang",
+   "jp": "謎のご馳走",
+   "en": "Strange Feast",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273948
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11384",
+   "kind": "lang",
+   "jp": "あなたは目の前にご馳走をみつけた。",
+   "en": "You come across a strange feast.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273950
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11385",
+   "kind": "lang",
+   "jp": "食べる",
+   "en": "(Eat)",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273952
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274038
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11386",
+   "kind": "lang",
+   "jp": "立ち去る",
+   "en": "(Leave)",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273955
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275908
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278219
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278343
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11387",
+   "kind": "lang",
+   "jp": "悪くない。",
+   "en": "Not bad at all.",
+   "zh": "",
+   "count": 6,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273961
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273963
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415856
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415858
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415959
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415961
+    }
+   ],
+   "concat": true,
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11388",
+   "kind": "lang",
+   "jp": "あなたは舌鼓をうった。",
+   "en": "You smack your lips.",
+   "zh": "",
+   "count": 6,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273961
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273963
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415856
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415858
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415959
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415961
+    }
+   ],
+   "concat": true,
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11389",
+   "kind": "lang",
+   "jp": "なかなか美味しかった。",
+   "en": "It was tasty.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 273963
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415858
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415961
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11390",
+   "kind": "raw",
+   "jp": "はなんだかそわそわしている。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274012
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274014
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11391",
+   "kind": "raw",
+   "jp": "「早く来ないとなくなる",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274012
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274014
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11392",
+   "kind": "raw",
+   "jp": "「一日の元気は朝食から",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274012
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274014
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11393",
+   "kind": "raw",
+   "jp": "は一仕事やりとげた顔をしている。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274014
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274250
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11394",
+   "kind": "lang",
+   "jp": "朝のひととき",
+   "en": "Breakfast",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274029
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11395",
+   "kind": "lang",
+   "jp": "食べない",
+   "en": "(Leave)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274041
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11396",
+   "kind": "lang",
+   "jp": "倒れて夢の中へ逆戻りしそうな味だ。",
+   "en": "Awful taste!!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274075
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274077
+    }
+   ],
+   "concat": true,
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11397",
+   "kind": "lang",
+   "jp": "目が覚めるようなまずさだ。",
+   "en": "Ugh! Yuk!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274077
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11398",
+   "kind": "lang",
+   "jp": "…なんというか、発展途上の味だ。",
+   "en": "The taste is not bad.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274083
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274085
+    }
+   ],
+   "concat": true,
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11399",
+   "kind": "lang",
+   "jp": "少し物足りない味だ。",
+   "en": "Uh-uh, the taste is so so.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274085
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11400",
+   "kind": "lang",
+   "jp": "そつのない味だ。",
+   "en": "Uh-uh, the taste is so so.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274093
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11401",
+   "kind": "lang",
+   "jp": "普通に美味しかった。",
+   "en": "Decent meal.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274099
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274101
+    }
+   ],
+   "concat": true,
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11402",
+   "kind": "lang",
+   "jp": "これは美味しい！",
+   "en": "Delicious!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274109
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11403",
+   "kind": "lang",
+   "jp": "朝から幸せな気分だ！",
+   "en": "Yummy! Absolutely yummy!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274115
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274117
+    }
+   ],
+   "concat": true,
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11404",
+   "kind": "lang",
+   "jp": "身体に活力が湧いてくる！",
+   "en": "It tasted like seventh heaven!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274115
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274117
+    }
+   ],
+   "concat": true,
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11405",
+   "kind": "raw",
+   "jp": "は超ショックを受けている！",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274145
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274147
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11406",
+   "kind": "raw",
+   "jp": "は無言で食器を片づけ始めた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274145
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274147
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11407",
+   "kind": "raw",
+   "jp": "はしょんぼりしている…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274147
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11408",
+   "kind": "lang",
+   "jp": "ささやかな支援",
+   "en": "Small relief supplies",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274165
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11409",
+   "kind": "lang",
+   "jp": "ガイドが支援物資を調達してきたようだ。",
+   "en": "It seems the guide has brought in some relief supplies.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274167
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11410",
+   "kind": "lang",
+   "jp": "サンキュー",
+   "en": "(Receive)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274169
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11411",
+   "kind": "raw",
+   "jp": "は誇らしげにお手製の品を取り出した。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274248
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274250
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11412",
+   "kind": "raw",
+   "jp": "「割と自信作",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274248
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274250
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11413",
+   "kind": "raw",
+   "jp": "「どやぁ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274248
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274250
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11414",
+   "kind": "lang",
+   "jp": "手作りのプレゼント",
+   "en": "Handmade gifts",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274284
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11415",
+   "kind": "lang",
+   "jp": "助かる",
+   "en": "(Receive)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274293
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11416",
+   "kind": "lang",
+   "jp": "いらない",
+   "en": "(Not receive)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274296
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11417",
+   "kind": "raw",
+   "jp": "は嬉しそうだ。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274386
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11418",
+   "kind": "raw",
+   "jp": "は半泣きで防具をゴミに出した。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274398
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11419",
+   "kind": "raw",
+   "jp": "「頑張って作った",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274449
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274451
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11420",
+   "kind": "raw",
+   "jp": "「家計の足しにでも…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274449
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274451
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11421",
+   "kind": "raw",
+   "jp": "「ちょっと不恰好だけど…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274449
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274451
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11422",
+   "kind": "raw",
+   "jp": "は怪我を隠している。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274451
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11423",
+   "kind": "lang",
+   "jp": "手編みのプレゼント",
+   "en": "Hand-knitted gifts",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274485
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11424",
+   "kind": "lang",
+   "jp": "ありがとう",
+   "en": "(Receive)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274494
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11425",
+   "kind": "lang",
+   "jp": "いらん",
+   "en": "(Not receive)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274497
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11426",
+   "kind": "raw",
+   "jp": "は上機嫌だ。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274587
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11427",
+   "kind": "raw",
+   "jp": "は無言で防具を引き裂いた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274599
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11428",
+   "kind": "lang",
+   "jp": "ご馳走の匂い",
+   "en": "Smell of Food",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274623
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11429",
+   "kind": "lang",
+   "jp": "どこからともなく漂うご馳走の匂いで、あなたの胃は不満を叫び始めた。",
+   "en": "A sweet smell of food floats from nowhere. Your stomach growls but you can't find out where it comes from.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274625
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11430",
+   "kind": "lang",
+   "jp": "腹減った…",
+   "en": "I'm hungry now!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274628
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11431",
+   "kind": "lang",
+   "jp": "不運の回避",
+   "en": "Avoiding Misfortune",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274650
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11432",
+   "kind": "lang",
+   "jp": "あなたは一瞬嫌な予感がしたが、それはやがて消えた。",
+   "en": "You sense a bad feeling for a moment but it fades away quickly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274652
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11433",
+   "kind": "lang",
+   "jp": "よし",
+   "en": "Good.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274654
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277371
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277391
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11434",
+   "kind": "lang",
+   "jp": "才能の開花",
+   "en": "Your Potential",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274672
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11435",
+   "kind": "lang",
+   "jp": "突然あなたの才能は開花した！",
+   "en": "Suddenly you develop your gift!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274674
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11436",
+   "kind": "lang",
+   "jp": "ワァオー",
+   "en": "Woohoo!",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274676
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277090
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277110
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277129
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11437",
+   "kind": "lang",
+   "jp": "信仰の深まり",
+   "en": "Gaining Faith",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274692
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11438",
+   "kind": "lang",
+   "jp": "夢の中で、あなたは偉大なる者の威光に触れた。",
+   "en": "In your dream, you felt the majesty of the great God.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274719
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11439",
+   "kind": "lang",
+   "jp": "神よ",
+   "en": "Oh God...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274721
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11440",
+   "kind": "lang",
+   "jp": "マテリアルの発見",
+   "en": "Small Luck",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274743
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11441",
+   "kind": "lang",
+   "jp": "石ころにつまずいて転んだ拍子に、あなたは幾つかのマテリアルを見つけた。",
+   "en": "You stumble over a stone and find some materials on the ground. ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274745
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11442",
+   "kind": "lang",
+   "jp": "よし",
+   "en": "Nice.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274751
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11443",
+   "kind": "lang",
+   "jp": "夢の中の収穫",
+   "en": "Dream Harvest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274770
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11444",
+   "kind": "lang",
+   "jp": "夢の中で、あなたはのんきにマテリアルを採取していた",
+   "en": "In your dream, you harvest materials peacefully.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274772
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11445",
+   "kind": "lang",
+   "jp": "るん♪",
+   "en": "Sweet.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274774
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11446",
+   "kind": "lang",
+   "jp": "原因は何だ？",
+   "en": "Cause Unknown",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274800
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11447",
+   "kind": "lang",
+   "jp": "そっとしておく",
+   "en": "(Leave alone)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274804
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11448",
+   "kind": "lang",
+   "jp": "あやす",
+   "en": "(Soothe)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274807
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11449",
+   "kind": "lang",
+   "jp": "一緒に泣く",
+   "en": "(Cry together)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274810
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11450",
+   "kind": "lang",
+   "jp": "自前でなんとかしようとしたが、そんなに都合よく乳は出なかった。",
+   "en": "You tried to get your milk out, but it didn't work.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274904
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11451",
+   "kind": "lang",
+   "jp": "子供の自己表現",
+   "en": "Child Self-Expression",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274950
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11452",
+   "kind": "lang",
+   "jp": "放置する",
+   "en": "(Leave alone)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274954
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11453",
+   "kind": "lang",
+   "jp": "話を聞く",
+   "en": "(Listen to feelings)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274957
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11454",
+   "kind": "lang",
+   "jp": "そのまま引きずっていく",
+   "en": "(Forcibly dragging)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274960
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11455",
+   "kind": "lang",
+   "jp": "お小遣い500goldを与える",
+   "en": "(Give 500 gold pieces)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 274963
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11456",
+   "kind": "lang",
+   "jp": "世界最強",
+   "en": "a world's strongest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275061
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11457",
+   "kind": "lang",
+   "jp": "機関車",
+   "en": "a locomotive",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275064
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11458",
+   "kind": "lang",
+   "jp": "サブパイロット",
+   "en": "a co-pilot",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275067
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11459",
+   "kind": "lang",
+   "jp": "サンタさん",
+   "en": "Santa Claus",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275070
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11460",
+   "kind": "lang",
+   "jp": "発明家",
+   "en": "an inventor",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275073
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11461",
+   "kind": "lang",
+   "jp": "ヒーロー",
+   "en": "a hero",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275076
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11462",
+   "kind": "lang",
+   "jp": "お花屋さん",
+   "en": "a florist",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275079
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11463",
+   "kind": "lang",
+   "jp": "カッパ巻き",
+   "en": "a california roll",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275082
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11464",
+   "kind": "lang",
+   "jp": "将来の夢",
+   "en": "Dream for the Future",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275091
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11465",
+   "kind": "lang",
+   "jp": "素敵な夢だね",
+   "en": "Nice dream...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275095
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11466",
+   "kind": "lang",
+   "jp": "真面目に考えようね",
+   "en": "Please reconsider.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275098
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11467",
+   "kind": "lang",
+   "jp": "なれるように勉強しようね",
+   "en": "Let's study so that you can!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275101
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11468",
+   "kind": "raw",
+   "jp": "の夢を真似してもいいよ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275107
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275109
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11469",
+   "kind": "raw",
+   "jp": "「へへへ…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275109
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11470",
+   "kind": "raw",
+   "jp": "「ダメ",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275127
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275129
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11471",
+   "kind": "raw",
+   "jp": "「真面目に考えてる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275129
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11472",
+   "kind": "raw",
+   "jp": "「ええ～？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275146
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275148
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11473",
+   "kind": "raw",
+   "jp": "「じゃあやめとく」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275148
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11474",
+   "kind": "lang",
+   "jp": "ツルツルな石ころ",
+   "en": "a smooth stone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275199
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11475",
+   "kind": "lang",
+   "jp": "何かのネジ",
+   "en": "a screw of something",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275202
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11476",
+   "kind": "lang",
+   "jp": "セミの抜け殻",
+   "en": "a cicada shell",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275205
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11477",
+   "kind": "lang",
+   "jp": "鮮やかな落ち葉",
+   "en": "a vivid leave",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275208
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11478",
+   "kind": "lang",
+   "jp": "謎の綿毛",
+   "en": "a mystery fluff",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275211
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11479",
+   "kind": "lang",
+   "jp": "抜け羽根",
+   "en": "a fallen feather",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275214
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11480",
+   "kind": "lang",
+   "jp": "むしった花びら",
+   "en": "a small petal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275217
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11481",
+   "kind": "lang",
+   "jp": "ダンゴムシ",
+   "en": "a wood lousel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275220
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11482",
+   "kind": "lang",
+   "jp": "お宝発見",
+   "en": "Treasure Discovery",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275229
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11483",
+   "kind": "lang",
+   "jp": "コレクションに加える",
+   "en": "I'll add it to my collection!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275233
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11484",
+   "kind": "lang",
+   "jp": "受け取ってこっそり捨てる",
+   "en": "(Receive and secretly throw away)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275236
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11485",
+   "kind": "lang",
+   "jp": "ゴミ拾ってないで勉強しろ",
+   "en": "Study without picking up junk!!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275239
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11486",
+   "kind": "raw",
+   "jp": "「見せるだけ！見せるだけだから！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275245
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275247
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11487",
+   "kind": "raw",
+   "jp": "「あげないよ！？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275247
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11488",
+   "kind": "raw",
+   "jp": "「見つけるの大変だった",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275264
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275266
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11489",
+   "kind": "raw",
+   "jp": "「大事にしてね♪」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275266
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11490",
+   "kind": "raw",
+   "jp": "「ゴミじゃないのに…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275283
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275285
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11491",
+   "kind": "raw",
+   "jp": "「ごめんなさい…」",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275285
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 543313
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 555264
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11492",
+   "kind": "lang",
+   "jp": "自分のルーツ",
+   "en": "Roots",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275313
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11493",
+   "kind": "lang",
+   "jp": "遺伝子を組み合わせて産まれたんだよ",
+   "en": "It is produced by a combination of genes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275317
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11494",
+   "kind": "lang",
+   "jp": "コウノトリさんが運んできた",
+   "en": "The white stork brings it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275320
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11495",
+   "kind": "lang",
+   "jp": "橋の下から拾ってきた",
+   "en": "It can be picked up in a cabbage patch.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275323
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11496",
+   "kind": "raw",
+   "jp": "「意味わからない！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275329
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275331
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11497",
+   "kind": "raw",
+   "jp": "「遺伝子…？？？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275331
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11498",
+   "kind": "raw",
+   "jp": "「絶対ウソだ～」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275347
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275349
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11499",
+   "kind": "raw",
+   "jp": "「コウノトリさんは",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275349
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11500",
+   "kind": "raw",
+   "jp": "をどこから運んで来たの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275349
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11501",
+   "kind": "raw",
+   "jp": "、この家の子じゃない",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275366
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275368
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11502",
+   "kind": "raw",
+   "jp": "「ショック！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275368
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11503",
+   "kind": "lang",
+   "jp": "脳内バトル",
+   "en": "Battle in the brain",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275396
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11504",
+   "kind": "lang",
+   "jp": "まぁイメトレの一種か…",
+   "en": "Image training?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275400
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11505",
+   "kind": "lang",
+   "jp": "もっと現実世界でがんばらなくちゃ",
+   "en": "Try harder in the real world.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275403
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11506",
+   "kind": "lang",
+   "jp": "するなら戦いの勉強をするべき",
+   "en": "If you do, you should study fighting.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275406
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11507",
+   "kind": "raw",
+   "jp": "「なかなかやるな！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275412
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275414
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11508",
+   "kind": "raw",
+   "jp": "「とうっ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275414
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11509",
+   "kind": "raw",
+   "jp": "「し、しかし…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275430
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275432
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11510",
+   "kind": "raw",
+   "jp": "「いいところだったのに…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275432
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11511",
+   "kind": "raw",
+   "jp": "「そういうのは戦術スキルの勉強だけで十分！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275449
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275451
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11512",
+   "kind": "raw",
+   "jp": "「つまらないからイヤ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275451
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11513",
+   "kind": "lang",
+   "jp": "この世はキャンバス",
+   "en": "This world is canvas",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275479
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11514",
+   "kind": "lang",
+   "jp": "いいセンスだ",
+   "en": "You're pretty good.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275483
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11515",
+   "kind": "lang",
+   "jp": "最後はちゃんと消しておくように",
+   "en": "Erase it properly at the end.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275486
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11516",
+   "kind": "lang",
+   "jp": "本格的な絵の勉強してみる？",
+   "en": "Do you want to study painting?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275489
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11517",
+   "kind": "raw",
+   "jp": "「勝手に見ないでー」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275495
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275497
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11518",
+   "kind": "raw",
+   "jp": "「恥ずかしい",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275497
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11519",
+   "kind": "raw",
+   "jp": "「じゃあもう今消す！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275514
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275516
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11520",
+   "kind": "raw",
+   "jp": "「そんなのわかってる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275516
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11521",
+   "kind": "raw",
+   "jp": "は上手な絵が描きたいわけじゃない",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275533
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275535
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11522",
+   "kind": "raw",
+   "jp": "「勉強？やめとく」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275535
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11523",
+   "kind": "lang",
+   "jp": "勉強の意味",
+   "en": "Meaning of Study",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275563
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11524",
+   "kind": "lang",
+   "jp": "将来の選択肢を増やすため",
+   "en": "Studying increases future options.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275567
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11525",
+   "kind": "lang",
+   "jp": "大人になっても仕事の勉強が続く",
+   "en": "Even when you grow up, you need to study for a job.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275570
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11526",
+   "kind": "lang",
+   "jp": "子供が馬鹿だと親が恥ずかしいから",
+   "en": "Parents are embarrassed that their children are stupid.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275573
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11527",
+   "kind": "raw",
+   "jp": "はどうせ冒険者になるから関係ない",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275579
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275581
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11528",
+   "kind": "raw",
+   "jp": "「意味がよくわからない…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275581
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11529",
+   "kind": "raw",
+   "jp": "「今のうちしか学べないことがあるの",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275597
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275599
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11530",
+   "kind": "raw",
+   "jp": "、大人になったら勉強しなくていいと思ってい",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275599
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11531",
+   "kind": "raw",
+   "jp": "「そんな答えしか出せないことは恥ずかしくない",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275616
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275618
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11532",
+   "kind": "raw",
+   "jp": "「大人っていつもそう",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275618
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11533",
+   "kind": "raw",
+   "jp": "…！子供たちのことなんだと思ってる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275618
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11534",
+   "kind": "lang",
+   "jp": "自己顕示",
+   "en": "Self Revelation",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275646
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11535",
+   "kind": "lang",
+   "jp": "呼ばれ方より先に自分を変えよう",
+   "en": "Change yourself before your aka.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275650
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11536",
+   "kind": "lang",
+   "jp": "一緒に考えてあげる",
+   "en": "I'll think about it with you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275653
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11537",
+   "kind": "lang",
+   "jp": "勉強して語彙力つけなさい",
+   "en": "Study hard and improve your vocabulary.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275656
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11538",
+   "kind": "raw",
+   "jp": "「決めポーズの練習するからあっち行ってて",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275662
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275664
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11539",
+   "kind": "raw",
+   "jp": "「意味不明」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275664
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11540",
+   "kind": "raw",
+   "jp": "「鬱陶しいからあっち行って！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275680
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275682
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11541",
+   "kind": "raw",
+   "jp": "「センス古臭いから遠慮しておく",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275682
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11542",
+   "kind": "raw",
+   "jp": "「お説教できるほどの語彙力がある",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275699
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275701
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11543",
+   "kind": "raw",
+   "jp": "「勉強、勉強ってうるさい",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275701
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11544",
+   "kind": "lang",
+   "jp": "自意識",
+   "en": "Self Awareness",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275729
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11545",
+   "kind": "lang",
+   "jp": "そんなに変？",
+   "en": "Is it so weird?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275733
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11546",
+   "kind": "lang",
+   "jp": "個性的でいいと思う",
+   "en": "I think it's good to be individual.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275736
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11547",
+   "kind": "lang",
+   "jp": "オシャレの勉強する？",
+   "en": "Do you want to study fashion?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275739
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11548",
+   "kind": "raw",
+   "jp": "「相談する相手を間違えた",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275745
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275747
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11549",
+   "kind": "raw",
+   "jp": "「もういい…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275747
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11550",
+   "kind": "raw",
+   "jp": "「みんなと違いすぎるのは嫌",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275764
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275766
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11551",
+   "kind": "raw",
+   "jp": "「個性的じゃ馬鹿にされる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275766
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11552",
+   "kind": "raw",
+   "jp": "「そこまで言うならちょっとやってみてもいいかも」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275783
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275785
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11553",
+   "kind": "raw",
+   "jp": "にできる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275785
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11554",
+   "kind": "lang",
+   "jp": "マージナルマン",
+   "en": "Marginal Man",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275813
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11555",
+   "kind": "lang",
+   "jp": "大人には相応の責任と義務が発生する",
+   "en": "Adults have responsibilities and obligations.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275817
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11556",
+   "kind": "lang",
+   "jp": "そんなこと言ってる間はまだまだ子供",
+   "en": "As long as you care about such things, you are still a child.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275820
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11557",
+   "kind": "lang",
+   "jp": "どうやら勉強が足りないようだな",
+   "en": "It seems that you haven't studied enough.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275823
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11558",
+   "kind": "raw",
+   "jp": "「…大人もつらい",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275829
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275831
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11559",
+   "kind": "raw",
+   "jp": "「難しい言葉で誤魔化さないで…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275831
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11560",
+   "kind": "raw",
+   "jp": "「真の大人は子供扱いされても涼しい顔していられるってこと？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275847
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275849
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11561",
+   "kind": "raw",
+   "jp": "を馬鹿にしないで",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275849
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11562",
+   "kind": "raw",
+   "jp": "「どこまで勉強したら",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275866
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275868
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11563",
+   "kind": "raw",
+   "jp": "を大人と認めてくれるの？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275866
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275868
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11564",
+   "kind": "raw",
+   "jp": "「マージナルマンとは複数の集団の境界上に存在する者のこと。特に心理学では子供と大人の狭間、すなわち青年のことを指す」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275868
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11565",
+   "kind": "lang",
+   "jp": "野営跡の発見",
+   "en": "Camping Site",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275901
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11566",
+   "kind": "lang",
+   "jp": "あなたは何者かが野営した跡を見つけた。辺りには食べ残しやがらくたが散らばっている。もしかしたら、何か役に立つものがあるかもしれない。",
+   "en": "You discover a camping site someone left behind. Chunks of leftovers and junks remain here. You may possibly find some usefull items.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275903
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11567",
+   "kind": "lang",
+   "jp": "調べる",
+   "en": "(Search)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275905
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11568",
+   "kind": "lang",
+   "jp": "不気味な夢",
+   "en": "Creepy Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275973
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11569",
+   "kind": "lang",
+   "jp": "あなたは不気味な夢をみた。陰気な幾つもの瞳があなたを凝視し、どこからともなく笑い声がこだました。「ケラケラケラ…ミツケタヨ…ケラケラ」あなたが二度寝返りをうった後、その夢は終わった。",
+   "en": "In your dreams, several pairs of gloomy eyes stare at you and laughter seemingly from nowhere echos around you.  \"Keh-la keh-la keh-la I found you...I found you.. keh-la keh-la keh-la\" After tossing around a couple times, the dream is gone.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275975
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11570",
+   "kind": "lang",
+   "jp": "おかしな夢だ",
+   "en": "Strange...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275977
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11571",
+   "kind": "lang",
+   "jp": "何も起こらなかったようだ。",
+   "en": "Nothing happenes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 275984
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11572",
+   "kind": "lang",
+   "jp": "怪物の夢",
+   "en": "Monster Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276010
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11573",
+   "kind": "lang",
+   "jp": "あなたは怪物と戦っていた。醜い化け物に斬りかかろうとした時、怪物は悲鳴をあげた。「オレハオマエダ！オマエハオレダ！」あなたは自分の呻き声に起こされた。",
+   "en": "You are fighting an ugly monster. You are about to thrust a dagger into the neck of the monster. And the monster screams. \"You are me! I am you!\" You are awakened by your own low moan.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276012
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11574",
+   "kind": "lang",
+   "jp": "ううぅん…",
+   "en": "Urrgh..hh..",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276014
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11575",
+   "kind": "lang",
+   "jp": "奇妙な階段の夢",
+   "en": "Strange Stairs Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276030
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11576",
+   "kind": "lang",
+   "jp": "あなたは布一枚身に着けていない状態で、薄暗い階段の途中に一人立っていた。階段の上には闇が広がっておりその先は見えない…。階段のずっと下には、焔のような灯りが小さくゆらめいているのが見える。",
+   "en": "You were standing alone on the dim stairs without a piece of cloth. The darkness spreads on the top of the stairs and you cannot see beyond it. At the bottom of the stairs, you can see small flickering lights.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276032
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11577",
+   "kind": "lang",
+   "jp": "階段を下りてみよう",
+   "en": "I go down the stairs",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276034
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11578",
+   "kind": "lang",
+   "jp": "近づかない方がいい気がする",
+   "en": "I feel that is better not to approach the light.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276037
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11579",
+   "kind": "lang",
+   "jp": "全裸最高！",
+   "en": "Naked is wonderful!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276040
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11580",
+   "kind": "lang",
+   "jp": "階段を下りきったところで洞窟を見つけた。そこであなたの意識は途切れた。",
+   "en": "You find a cave where you have gone down the stairs. At that time your consciousness was interrupted.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276048
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11581",
+   "kind": "lang",
+   "jp": "あなたは警戒してその場から動けなかった…。",
+   "en": "You did not move from the spot on alert ....",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276056
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11582",
+   "kind": "lang",
+   "jp": "あなたは解放感に任せて踊り狂った！",
+   "en": "You danced madly with a feeling of liberation!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276063
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11583",
+   "kind": "lang",
+   "jp": "奇妙な洞窟の夢",
+   "en": "Strange Cave Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276070
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11584",
+   "kind": "lang",
+   "jp": "あなたは布一枚身に着けていない状態で、奇妙な洞窟の前に立っていた。背後には薄暗い階段がある。洞窟の両脇には、焔が怪しくゆらめている。",
+   "en": "You were standing in front of a strange cave, without a piece of cloth. There is a dim stairs behind. Flames are shaking on both sides of the cave.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276072
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11585",
+   "kind": "lang",
+   "jp": "入ってみよう",
+   "en": "I enter the cave.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276074
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11586",
+   "kind": "lang",
+   "jp": "他の所も探してみよう",
+   "en": "I will look elsewhere.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276077
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11587",
+   "kind": "lang",
+   "jp": "全裸万歳！",
+   "en": "Naked is great!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276080
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11588",
+   "kind": "lang",
+   "jp": "おそるおそる洞窟を進んでいく。その途中であなたの意識は途切れた。",
+   "en": "You go through the cave. On the way, your consciousness was interrupted.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276088
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11589",
+   "kind": "lang",
+   "jp": "あなたは階段を戻りながら、他に何かないか探した。…特に何も見つけられなかった。",
+   "en": "While return the stairs, you looked for something else...You couldn't find anything.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276096
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11590",
+   "kind": "lang",
+   "jp": "あなたは解放感に任せて飛び跳ね、転げまわった！",
+   "en": "You jumped around  with a feeling of liberation!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276104
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11591",
+   "kind": "lang",
+   "jp": "奇妙な二人組の夢",
+   "en": "Strange Twosome Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276111
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11592",
+   "kind": "lang",
+   "jp": "あなたは布一枚身に着けていない状態で、洞窟を進んでいる。しかし見慣れない格好の二人組が現れ、あなたの前に立ちはだかった。二人組はあなたを品定めするように見ている。",
+   "en": "You are traveling in a cave without a piece of cloth. But an unfamiliar looking duo appeared and stood in front of you. The duo are staring at you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276113
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11593",
+   "kind": "lang",
+   "jp": "服が欲しい",
+   "en": "I want clothes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276115
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11594",
+   "kind": "lang",
+   "jp": "は、恥ずかしすぎる",
+   "en": "I'm embarrassed!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276118
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11595",
+   "kind": "lang",
+   "jp": "お前らも裸になれ！",
+   "en": "You guys also Take off your clothes!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276121
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11596",
+   "kind": "lang",
+   "jp": "慣れた手つきで服や道具を渡され、先に進むように促された。そのまま進み、洞窟の出口に辿り着いたところであなたの意識は途切れた。",
+   "en": "You have been given clothes and utensils from them and have been prompted to proceed. Proceed as it is and when you reach the exit of the cave, your consciousness is interrupted.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276129
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11597",
+   "kind": "lang",
+   "jp": "あなたは顔を隠し、背を向けて逃げ出した。洞窟の入口まで戻ったが、特に二人組が追ってくる気配はなかった。",
+   "en": "You hid your face, turned away and ran away. You returned to the cave entrance, but there was no sign of the duo pursuing.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276137
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11598",
+   "kind": "lang",
+   "jp": "あなたは二人組の服をつかみ、強引に脱がせようとした！「なんだこいつ…」「帰れ変態」",
+   "en": "You grabbed the duo's clothes and tried to forcibly undress them. The duo thought you were a pervert.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276145
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11599",
+   "kind": "lang",
+   "jp": "奇妙な長い階段の夢",
+   "en": "Strange Long Stairs Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276152
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11600",
+   "kind": "lang",
+   "jp": "洞窟の出口にあなたは立っていた。洞窟の先には見るからに長い階段があり、下にずっと続いている…。",
+   "en": "You stood at the exit of the cave. There is a long stairs to see from the cave...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276154
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11601",
+   "kind": "lang",
+   "jp": "階段を下りてみよう",
+   "en": "I go down the stairs.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276156
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11602",
+   "kind": "lang",
+   "jp": "二人組に聞きたいことがある",
+   "en": "There are several things I want to ask the duo.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276159
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11603",
+   "kind": "lang",
+   "jp": "服などいらぬ！",
+   "en": "I don't need clothes!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276162
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11604",
+   "kind": "lang",
+   "jp": "階段は何百段も続いた。下りきったところであなたの意識は途切れた。",
+   "en": "The stairs continued for hundreds of steps. At the end of the stairs your consciousness was interrupted.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276170
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11605",
+   "kind": "lang",
+   "jp": "あなたは洞窟に戻り二人組を探した。しかし見つからず、入口にたどり着くこともなく、洞窟内を彷徨い続けた…。",
+   "en": "You return to the cave and seek for the duo. However, the duo were not found, without ever reaching the entrance, you continued wandering inside the cave...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276178
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11606",
+   "kind": "lang",
+   "jp": "あなたは二人組から渡された服を捨て、全身で解放感にひたった！",
+   "en": "You throw away the clothes passed by the duo, you felt a feeling of liberation in your whole body!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276186
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11607",
+   "kind": "lang",
+   "jp": "奇妙な門の夢",
+   "en": "Strange Gate Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276193
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11608",
+   "kind": "lang",
+   "jp": "あなたは閉ざされた門の前に立っていた。背後には長い階段がある。あなたはぼんやりとする意識の中、この門が何か大きな境界であることを感じとった。",
+   "en": "You were standing in front of the closed gate. There are long stairs behind. You felt in a hazy consciousness that this gate is some big boundary.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276195
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11609",
+   "kind": "lang",
+   "jp": "門の先へ進もう",
+   "en": "I will open this gate.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276197
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11610",
+   "kind": "lang",
+   "jp": "これ以上は危険な気がする",
+   "en": "It is dangerous to proceed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276200
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11611",
+   "kind": "lang",
+   "jp": "門を破壊する！",
+   "en": "I will destroy this gate!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276203
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11612",
+   "kind": "lang",
+   "jp": "あなたは意を決し、門に手をかけた。開いた先の光景は…。",
+   "en": "You are ready and pushed the gate with your hand.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276211
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11613",
+   "kind": "lang",
+   "jp": "警戒したあなたは階段に戻った。上がりきったところであなたの意識は途切れた。",
+   "en": "You are alert and return to the stairs. When you have gone up the stairs, your consciousness has ceased.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276219
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11614",
+   "kind": "lang",
+   "jp": "事態に気づいたのか、門の先から武装した人々が駆けつけてきた。取り押さえようとする人々に抵抗し、取っ組み合いを始めたところであなたの意識は途切れた。",
+   "en": "Armed people rushed from behind the gate, noticing the situation. Your consciousness was cut off when you started resistance.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276227
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11615",
+   "kind": "lang",
+   "jp": "羊の悪夢",
+   "en": "Sheep Nightmare",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276245
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11616",
+   "kind": "lang",
+   "jp": "あなたは羊の群れに取り囲まれていた。辺りは見渡す限り、妙にカラフルな羊で埋め尽くされている。あちこちでメェメェと鳴き声が響き、死ぬほどうるさい…。",
+   "en": "You were surrounded by a flock of sheep.As far as the eye can see, filled with strangely colorful sheeps. Here and there in the noisy echoing the sheep cry...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276247
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11617",
+   "kind": "lang",
+   "jp": "羊を数える",
+   "en": "(Counting sheeps)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276249
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11618",
+   "kind": "lang",
+   "jp": "羊に襲いかかる",
+   "en": "(Attacking sheeps)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276252
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11619",
+   "kind": "lang",
+   "jp": "羊が一匹…羊が二匹…",
+   "en": "One sheep...two sheep...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276260
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11620",
+   "kind": "lang",
+   "jp": "数えている内に、あなたは紫色の羊と目が合った。",
+   "en": "Within that are counting, you saw the eyes of purple sheep.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276266
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11621",
+   "kind": "lang",
+   "jp": "目が合ってしまった。",
+   "en": "You saw the eyes of purple sheep.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276272
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11622",
+   "kind": "lang",
+   "jp": "数えている内に、あなたは深い眠りへ落ちていった…。",
+   "en": "Within that are counting, you went down to the deep sleep...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276281
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11623",
+   "kind": "lang",
+   "jp": "襲われた羊たちは…突然風に乗って舞い上がり、タンポポの綿毛のように飛んでいってしまった。",
+   "en": "Sheeps suddenly soar in the wind, flew like a dandelion fluff.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276291
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11624",
+   "kind": "lang",
+   "jp": "襲いかかろうとした瞬間、横から巨大な獏が現れた。獏は逃げる羊たちをバクバク食べて、食べ終わると消えてしまった。…辺りにはもう何もない。",
+   "en": "At the moment of the attack, a huge baku appeared from the side. Baku eats the fleeing sheeps, disappeared after eating...there is nothing around here.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276299
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11625",
+   "kind": "lang",
+   "jp": "繋がる夢廻廊",
+   "en": "Dream Connect",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276337
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11626",
+   "kind": "lang",
+   "jp": "楽しい！",
+   "en": "Fun!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276341
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11627",
+   "kind": "lang",
+   "jp": "胡蝶の夢",
+   "en": "Dream?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276356
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11628",
+   "kind": "lang",
+   "jp": "夢の中のあなたは違う姿をしていた。あなたがあなたの生活を眺めていた。夢の中のあなたは、今いる場所が現実だと思い込んでいた。あなたはコンピュータの画面を見て文章を読んでいる…。それを見ている、もう一人のあなたには気づかずに。",
+   "en": "In the dream you had a different appearance. You were watching your life. In a dream you convinced that it is reality. You are reading the text on the computer screen. You are unaware that you are being seen by another you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276358
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11629",
+   "kind": "lang",
+   "jp": "これは現実だ",
+   "en": "This is reality.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276360
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11630",
+   "kind": "lang",
+   "jp": "これは夢だ",
+   "en": "This is dream.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276363
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11631",
+   "kind": "lang",
+   "jp": "あなたは誰？",
+   "en": "Who are you?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276366
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11632",
+   "kind": "raw",
+   "jp": "「怖い夢、見ちゃった…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276432
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276434
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11633",
+   "kind": "raw",
+   "jp": "「お邪魔してます」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276432
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276434
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11634",
+   "kind": "raw",
+   "jp": "はすやすやと寝息をたてている。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276432
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276434
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11635",
+   "kind": "raw",
+   "jp": "「むにゃ…もう食べられない…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276434
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11636",
+   "kind": "lang",
+   "jp": "色々する",
+   "en": "(Various things)",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276440
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415067
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11637",
+   "kind": "lang",
+   "jp": "添い寝",
+   "en": "Sleep Sharing",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276464
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11638",
+   "kind": "lang",
+   "jp": "気にせず寝る",
+   "en": "(Sleep without minding)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276468
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11639",
+   "kind": "lang",
+   "jp": "追い出す",
+   "en": "(Kick out)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276471
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11640",
+   "kind": "lang",
+   "jp": "優しく撫でる",
+   "en": "(gently stroke)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276474
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11641",
+   "kind": "lang",
+   "jp": "そっと抱きしめる",
+   "en": "(gently hug)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276477
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11642",
+   "kind": "lang",
+   "jp": "耳元でささやく",
+   "en": "(whisper)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276480
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11643",
+   "kind": "lang",
+   "jp": "甘えてみる",
+   "en": "(Behave like a spoiled child)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276483
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11644",
+   "kind": "raw",
+   "jp": "は自分から身体をこすりつけてきた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276517
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11645",
+   "kind": "raw",
+   "jp": "はくすぐったそうにモゾモゾしている。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276527
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11646",
+   "kind": "raw",
+   "jp": "は嬉しがっているようだ。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276537
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11647",
+   "kind": "raw",
+   "jp": "の身体がとても熱い…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276550
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11648",
+   "kind": "raw",
+   "jp": "は逆にあなたに抱きついて離れない！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276560
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11649",
+   "kind": "raw",
+   "jp": "はちょっと慌てている！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276570
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11650",
+   "kind": "raw",
+   "jp": "は蕩けた表情であなたの言葉を聞いている。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276583
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11651",
+   "kind": "raw",
+   "jp": "は黙ってあなたの言葉に耳を傾けている…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276593
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11652",
+   "kind": "raw",
+   "jp": "は冗談ぽく笑った。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276603
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11653",
+   "kind": "raw",
+   "jp": "はあなたを抱きしめ、耳元で何かささやいた…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276616
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11654",
+   "kind": "raw",
+   "jp": "はあなたをきつく抱きしめた…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276627
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11655",
+   "kind": "raw",
+   "jp": "はあなたを挑発している…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276637
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11656",
+   "kind": "raw",
+   "jp": "「なっ…！？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276651
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276653
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11657",
+   "kind": "raw",
+   "jp": "はすごく恥ずかしそうだ。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276651
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276653
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11658",
+   "kind": "raw",
+   "jp": "「なんて大胆な」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276653
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11659",
+   "kind": "lang",
+   "jp": "あなたは限界に達した！…そこであなたの意識は途切れた。",
+   "en": "You have reached the limit! So ... your consciousness is interrupted.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276673
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11660",
+   "kind": "raw",
+   "jp": "はあなたに抱きついて目を閉じた…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276724
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11661",
+   "kind": "raw",
+   "jp": "はあなたをがっちり押さえつけ、満面の笑みを浮かべた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276731
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11662",
+   "kind": "lang",
+   "jp": "強制添い寝",
+   "en": "Force Sleep Sharing",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276775
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11663",
+   "kind": "lang",
+   "jp": "どうしてやろうか。",
+   "en": "What do you try...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276777
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11664",
+   "kind": "lang",
+   "jp": "身体",
+   "en": "body",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276787
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11665",
+   "kind": "lang",
+   "jp": "背中",
+   "en": "back",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276802
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11666",
+   "kind": "lang",
+   "jp": "腰",
+   "en": "chest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276806
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11667",
+   "kind": "lang",
+   "jp": "腕",
+   "en": "arm",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276810
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11668",
+   "kind": "lang",
+   "jp": "足",
+   "en": "leg",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276814
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11669",
+   "kind": "lang",
+   "jp": "指",
+   "en": "finger",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276818
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11670",
+   "kind": "lang",
+   "jp": "放置して寝る",
+   "en": "(Sleep on standing)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276823
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11671",
+   "kind": "lang",
+   "jp": "土下座させる",
+   "en": "(To Dogeza)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276826
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11672",
+   "kind": "lang",
+   "jp": "ひっぱたく",
+   "en": "(Slap)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276832
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11673",
+   "kind": "lang",
+   "jp": "撫でまわす",
+   "en": "(Rub)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276835
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11674",
+   "kind": "raw",
+   "jp": "は悲しそうな目でどこか遠くを見ている…。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276844
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276846
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11675",
+   "kind": "raw",
+   "jp": "はあなたのやり方を非難している。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276844
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276846
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11676",
+   "kind": "raw",
+   "jp": "はあなたを鋭く睨みつけている。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276844
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276846
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11677",
+   "kind": "raw",
+   "jp": "は静かに泣いている…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276846
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11678",
+   "kind": "raw",
+   "jp": "はあなたの顔色をうかがっている…。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276851
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276853
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11679",
+   "kind": "raw",
+   "jp": "はびくりと震えた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276851
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276853
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11680",
+   "kind": "raw",
+   "jp": "は大人しくしている。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 276853
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11681",
+   "kind": "lang",
+   "jp": "あなたはこれ以上我慢できない！",
+   "en": "You can not stand any more!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277054
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11682",
+   "kind": "lang",
+   "jp": "宝を埋める夢",
+   "en": "Treasure of Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277086
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11683",
+   "kind": "lang",
+   "jp": "あなたは夢の中で宝を埋めた。あなたはすぐに飛び起き、その場所を紙に書き留めた",
+   "en": "You buried treasure in your dream. You quickly get up and write down the location.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277088
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11684",
+   "kind": "lang",
+   "jp": "幸運の日",
+   "en": "Lucky Day",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277106
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11685",
+   "kind": "lang",
+   "jp": "運命の気まぐれ",
+   "en": "Quirk of Fate",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277125
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11686",
+   "kind": "lang",
+   "jp": "うみみゃっ、見つけたね！",
+   "en": "Mewmew? You've found me!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277127
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11687",
+   "kind": "lang",
+   "jp": "呪いのつぶやき",
+   "en": "Cursed Whispering",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277151
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11688",
+   "kind": "lang",
+   "jp": "どこからともなく聞こえる呪いのつぶやきが、あなたの眠りを妨げた。",
+   "en": "Your sleep is disturbed by a harshly whispering that comes from nowhere.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277153
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11689",
+   "kind": "lang",
+   "jp": "眠れない…",
+   "en": "Can't...sleep...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277155
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11690",
+   "kind": "lang",
+   "jp": "あなたは祈祷を捧げ呪いのつぶやきを無効にした。",
+   "en": "Your prayer nullifies the curse.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277162
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2967",
+     "line": 325303
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11691",
+   "kind": "lang",
+   "jp": "悪意ある手",
+   "en": "Malicious Hand",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277206
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11692",
+   "kind": "lang",
+   "jp": "悪意のある手が忍び寄り、あなたが気付かない間に金貨を奪って逃げた。",
+   "en": "A malicious hand slips and steals your money.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277208
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11693",
+   "kind": "lang",
+   "jp": "盗人め…",
+   "en": "Bloody thieves...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277210
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11694",
+   "kind": "lang",
+   "jp": "損害はなかった。",
+   "en": "The thief fails to steal money from you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277229
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11695",
+   "kind": "lang",
+   "jp": "冒険者の遺骸",
+   "en": "Corpse",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277251
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11696",
+   "kind": "lang",
+   "jp": "この場所で力尽きた冒険者の遺骸を見つけた。既に朽ちかけている骨と、身に着けていたと思われる幾つかの装備が散らばっている。",
+   "en": "You find a corpse of an adventurer. There're bones and equipment scatters on the ground waiting to decay.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277253
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11697",
+   "kind": "lang",
+   "jp": "あさる",
+   "en": "(Loot)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277255
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11698",
+   "kind": "lang",
+   "jp": "埋葬する",
+   "en": "(Bury)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277258
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11699",
+   "kind": "lang",
+   "jp": "あなたは遺留品をあさった。",
+   "en": "You loot the remains.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277265
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11700",
+   "kind": "lang",
+   "jp": "あなたは骨と遺留品を埋葬した。",
+   "en": "You bury the corpse with respect.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277288
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11701",
+   "kind": "lang",
+   "jp": "魔法使いの夢",
+   "en": "Wizard's Dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277304
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11702",
+   "kind": "lang",
+   "jp": "夢の中であなたは赤い髪の魔法使いに出会った。「誰じゃ、お主は？ふむ、間違った者の夢に現れてしまったようじゃ。すまぬな。お詫びといってはなんじゃが…」魔法使いは指をくるりと回した。あなたは軽い頭痛を覚えた。",
+   "en": "In your dream, you meet a wizard with a red mustache. \"Who are you? Hmm, I guess I picked up the wrong man's dream. My apology for disturbing your sleep. To make up for this...\" The wizard draws a circle in the air and vanishs. You feel the effects of a faint headache.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277306
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11703",
+   "kind": "lang",
+   "jp": "おかしな夢だ",
+   "en": "A weird dream.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277308
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11704",
+   "kind": "lang",
+   "jp": "成長のきざし",
+   "en": "Development",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277336
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11705",
+   "kind": "lang",
+   "jp": "長年の鍛錬の成果が実ったようだ。なかなか眠りにつけず考えごとをしていたあなたは、ふと、自らの技術に関する新しいアイデアを思いついた。",
+   "en": "You lie awake, sunk deep into thought. As memories of your journey flow from one into another, you chance upon a new theory to improve one of your skills.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277338
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11706",
+   "kind": "lang",
+   "jp": "よし！",
+   "en": "Good!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277340
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11707",
+   "kind": "lang",
+   "jp": "自然治癒力の向上",
+   "en": "Regeneration",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277367
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11708",
+   "kind": "lang",
+   "jp": "身体が妙に火照ってあなたは目を覚ました。気がつくと、腕にあった傷跡が完全に消えていた。",
+   "en": "Your entire body flushs. When you wake up, a scar in your arm is gone.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277369
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11709",
+   "kind": "lang",
+   "jp": "瞑想力の向上",
+   "en": "Meditation",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277387
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11710",
+   "kind": "lang",
+   "jp": "あなたは、夢の中でも驚くほど理性を保っていた。まるで瞑想を行っている時のように、あなたは心の平和を感じた。",
+   "en": "In your dream, you meditate and feel inner peace.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277389
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11711",
+   "kind": "lang",
+   "jp": "路上に転がる幸運",
+   "en": "Great Luck",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277414
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11712",
+   "kind": "lang",
+   "jp": "下を向いて歩いていると、幸運にもプラチナ硬貨を見つけた。",
+   "en": "You stumble over a stone and find a platinum coin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277416
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11713",
+   "kind": "lang",
+   "jp": "ラッキー！",
+   "en": "What a luck!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277418
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277444
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11714",
+   "kind": "lang",
+   "jp": "発狂した金持ち",
+   "en": "Mad Millionaire",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277440
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11715",
+   "kind": "lang",
+   "jp": "発狂した金持ちが、何か叫びながら金貨をばらまいている…",
+   "en": "A rich mad man is scattering his money all over the ground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277442
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11716",
+   "kind": "lang",
+   "jp": "辻プリースト",
+   "en": "Wandering Priest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277477
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11717",
+   "kind": "lang",
+   "jp": "突然、向かいからやって来た一人の神官が、すれ違いざまにあなたに魔法をかけた。「ノープロブレム」",
+   "en": "A priest comes up to you and casts a spell on you. \"No problem.\"",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277479
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11718",
+   "kind": "lang",
+   "jp": "ありがとう",
+   "en": "Thanks.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277481
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11719",
+   "kind": "lang",
+   "jp": "ガタガタ震えながら",
+   "en": "shaking with fear",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277771
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11720",
+   "kind": "lang",
+   "jp": "号泣しながら",
+   "en": "with crying",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277774
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11721",
+   "kind": "lang",
+   "jp": "頭から血を噴き出しながら",
+   "en": "with blood gushing from the head",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277777
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11722",
+   "kind": "lang",
+   "jp": "絶叫しながら",
+   "en": "with screaming",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277780
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11723",
+   "kind": "lang",
+   "jp": "必死に",
+   "en": "desperately",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277783
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11724",
+   "kind": "lang",
+   "jp": "絶望した顔で",
+   "en": "with despair on the face",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277786
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11725",
+   "kind": "lang",
+   "jp": "踊りながら",
+   "en": "with dancing",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277789
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11726",
+   "kind": "lang",
+   "jp": "鼻をほじりながら",
+   "en": "while picking nose",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277792
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11727",
+   "kind": "lang",
+   "jp": "尻をかきながら",
+   "en": "while scratching buttocks",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277795
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11728",
+   "kind": "lang",
+   "jp": "鼻血を流しながら",
+   "en": "while having nosebleed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277798
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11729",
+   "kind": "lang",
+   "jp": "七色に光りながら",
+   "en": "with glowing in seven colors",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277801
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11730",
+   "kind": "lang",
+   "jp": "クラムベリー",
+   "en": "crimberry",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277805
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11731",
+   "kind": "lang",
+   "jp": "栗",
+   "en": "chestnut",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277808
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11732",
+   "kind": "lang",
+   "jp": "動物の骨",
+   "en": "animal bone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277811
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11733",
+   "kind": "lang",
+   "jp": "魚の死骸",
+   "en": "dead fish",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277814
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11734",
+   "kind": "lang",
+   "jp": "頑丈なロープ",
+   "en": "tight rope",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277817
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11735",
+   "kind": "lang",
+   "jp": "鉱石の欠片",
+   "en": "ore piece",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277820
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11736",
+   "kind": "lang",
+   "jp": "薬草",
+   "en": "healthy leaf",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277823
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11737",
+   "kind": "lang",
+   "jp": "アピの実",
+   "en": "api nut",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277826
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11738",
+   "kind": "lang",
+   "jp": "山菜",
+   "en": "edible wild plant",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277829
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11739",
+   "kind": "lang",
+   "jp": "花で飾られた墓",
+   "en": "ornamented with flowers",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277832
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11740",
+   "kind": "lang",
+   "jp": "崩れた墓",
+   "en": "crumbled grave",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277835
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11741",
+   "kind": "lang",
+   "jp": "風化した墓",
+   "en": "collapsed grave",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277838
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11742",
+   "kind": "lang",
+   "jp": "空のバスケット",
+   "en": "empty basket",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277841
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11743",
+   "kind": "lang",
+   "jp": "骨",
+   "en": "bone fragment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277844
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11744",
+   "kind": "lang",
+   "jp": "割れたつぼ",
+   "en": "broken vase",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277850
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11745",
+   "kind": "lang",
+   "jp": "クズ",
+   "en": "garbage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277853
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11746",
+   "kind": "lang",
+   "jp": "クズ石",
+   "en": "junk stone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277856
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11747",
+   "kind": "lang",
+   "jp": "木片",
+   "en": "wood piece",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277859
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11748",
+   "kind": "lang",
+   "jp": "モミの木",
+   "en": "fir tree",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277863
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11749",
+   "kind": "lang",
+   "jp": "トネリコの木",
+   "en": "ash tree",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277866
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11750",
+   "kind": "lang",
+   "jp": "ヤシの木",
+   "en": "palm tree",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277869
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11751",
+   "kind": "lang",
+   "jp": "ケヤキの木",
+   "en": "zelkova tree",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277872
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11752",
+   "kind": "lang",
+   "jp": "枯れ木",
+   "en": "dead tree",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277875
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11753",
+   "kind": "lang",
+   "jp": "果実の木",
+   "en": "fruits tree",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277878
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11754",
+   "kind": "lang",
+   "jp": "スギの木",
+   "en": "cedar tree",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277881
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11755",
+   "kind": "lang",
+   "jp": "ブナの木",
+   "en": "beech tree",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277884
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11756",
+   "kind": "lang",
+   "jp": "コーラ",
+   "en": "cola",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277888
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11757",
+   "kind": "lang",
+   "jp": "麦茶",
+   "en": "mugi tea",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277891
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11758",
+   "kind": "lang",
+   "jp": "緑茶",
+   "en": "green tea",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277894
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11759",
+   "kind": "lang",
+   "jp": "揮発油",
+   "en": "gasoline",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277897
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11760",
+   "kind": "lang",
+   "jp": "食塩水",
+   "en": "salt solution",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277900
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11761",
+   "kind": "lang",
+   "jp": "媚薬",
+   "en": "love potion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277903
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11762",
+   "kind": "lang",
+   "jp": "乳",
+   "en": "milk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277906
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11763",
+   "kind": "lang",
+   "jp": "ビア",
+   "en": "beer",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277909
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11764",
+   "kind": "lang",
+   "jp": "ウィスキー",
+   "en": "whisky",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277912
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11765",
+   "kind": "lang",
+   "jp": "クリムエール",
+   "en": "crim ale",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277915
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11766",
+   "kind": "lang",
+   "jp": "汚水",
+   "en": "dirty water",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277918
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11767",
+   "kind": "lang",
+   "jp": "変な髪形の",
+   "en": "strange hairstyle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277965
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11768",
+   "kind": "lang",
+   "jp": "様子のおかしい",
+   "en": "suspicious",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277968
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11769",
+   "kind": "lang",
+   "jp": "瀕死の",
+   "en": "dying",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277971
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11770",
+   "kind": "lang",
+   "jp": "傷だらけの",
+   "en": "wounded",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277974
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11771",
+   "kind": "lang",
+   "jp": "血まみれの",
+   "en": "bloody",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277977
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11772",
+   "kind": "lang",
+   "jp": "美しい",
+   "en": "beautiful",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277980
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11773",
+   "kind": "lang",
+   "jp": "顔面蒼白の",
+   "en": "pale-faced",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277983
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11774",
+   "kind": "lang",
+   "jp": "矢の刺さった",
+   "en": "arrows stuck",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277986
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11775",
+   "kind": "lang",
+   "jp": "鼻水を垂らした",
+   "en": "runny nose",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277989
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11776",
+   "kind": "lang",
+   "jp": "痩せこけた",
+   "en": "skinny",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277992
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11777",
+   "kind": "lang",
+   "jp": "疲れきった",
+   "en": "tired",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277995
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11778",
+   "kind": "lang",
+   "jp": "もう死んでいる",
+   "en": "dead",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 277998
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11779",
+   "kind": "lang",
+   "jp": "海の波間に",
+   "en": "Between the waves",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278001
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11780",
+   "kind": "lang",
+   "jp": "旅の途中で",
+   "en": "Adventure Days",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278005
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11781",
+   "kind": "lang",
+   "jp": "海は広いな",
+   "en": "The sea is so wide.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278123
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11782",
+   "kind": "lang",
+   "jp": "関わらないでおこう",
+   "en": "I don't want to get involved.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278128
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11783",
+   "kind": "lang",
+   "jp": "荒れ狂う海",
+   "en": "Raging Sea",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278151
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11784",
+   "kind": "lang",
+   "jp": "悲鳴のような轟音、身体をゆさぶる波の振動…まるで悪魔がもたらしたような突風の中であなたは呟いた。",
+   "en": "The sound of sky-shattering thunder and violent waves slam you... You mutter a faint curse under your breath.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278153
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11785",
+   "kind": "lang",
+   "jp": "ひどい雷雨だ",
+   "en": "The hard rain descends upon us...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278156
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11786",
+   "kind": "lang",
+   "jp": "エーテルの風だ",
+   "en": "The ether wind descends upon us...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278161
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11787",
+   "kind": "lang",
+   "jp": "波の重壁が何もかもを押しつぶし、あなたが祈る間もなく船は海にのまれていった。",
+   "en": "Then... without so much as a moment's warning, the hull and you are swept into the oceans.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278173
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11788",
+   "kind": "lang",
+   "jp": "大漁の予感",
+   "en": "Premonition of big catch",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278212
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11789",
+   "kind": "lang",
+   "jp": "魚群が見える…今なら魚が大量に獲れそうだ！",
+   "en": "You saw a school of fish...now you can catch a lot of fish!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278214
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11790",
+   "kind": "lang",
+   "jp": "漁を始める",
+   "en": "(Start fishing)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278216
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11791",
+   "kind": "lang",
+   "jp": "あなたは漁船の網を使った。",
+   "en": "You used the net of fishing ship.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278241
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11792",
+   "kind": "lang",
+   "jp": "謎の船影",
+   "en": "Shadow of a Ship",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278331
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11793",
+   "kind": "lang",
+   "jp": "前方に船影を発見した。ここからでは何の船かよく分からない。",
+   "en": "You spot a ship's shadow ahead. You don't quite know what ship it is from here.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278333
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11794",
+   "kind": "lang",
+   "jp": "近づいてみる",
+   "en": "(Get closer)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278335
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11795",
+   "kind": "lang",
+   "jp": "とりあえず先制攻撃",
+   "en": "(Strike first)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278339
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11796",
+   "kind": "lang",
+   "jp": "攻撃に驚き、船は慌てて逃げていった。",
+   "en": "Surprised by the attack, the ship hurriedly fled.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278382
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11797",
+   "kind": "lang",
+   "jp": "砲撃が命中！相手の船耐久が減少した。",
+   "en": "Artillery hit! Opponent's ship durability decreased.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278391
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11798",
+   "kind": "lang",
+   "jp": "魚雷が命中！相手の船耐久が減少した。",
+   "en": "Torpedoes hit! Opponent's ship durability decreased.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278399
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11799",
+   "kind": "lang",
+   "jp": "流される者",
+   "en": "Swept Away",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278444
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11800",
+   "kind": "lang",
+   "jp": "波間にもがいている漂流者を発見した。「高波にさらわれてこんなところまで流されてしまったよ！」",
+   "en": "You found a drifter drowning in the waves.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278446
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11801",
+   "kind": "lang",
+   "jp": "見捨てる",
+   "en": "(Abandon)",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278448
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278535
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11802",
+   "kind": "lang",
+   "jp": "乗せてあげる",
+   "en": "(Put on your ship)",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278452
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278539
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11803",
+   "kind": "lang",
+   "jp": "浮き輪を１つ投げて去る",
+   "en": "(Throw 1 inner tube and leave)",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278457
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278631
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11804",
+   "kind": "raw",
+   "jp": "「ごぼぼぼぼ…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278466
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278468
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11805",
+   "kind": "raw",
+   "jp": "「乗せてよー！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278466
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278468
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11806",
+   "kind": "raw",
+   "jp": "「そんなぁ…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278468
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11807",
+   "kind": "lang",
+   "jp": "無事に陸まで連れて行ってあげよう。",
+   "en": "You should get the drifter to shore safely.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278492
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278579
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11808",
+   "kind": "lang",
+   "jp": "脱出、その後",
+   "en": "After Escape",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278531
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11809",
+   "kind": "lang",
+   "jp": "小さなイカダに乗った漂流者を発見した。「無人島から自力で脱出してきたけれど、もう限界…」",
+   "en": "You found a drifter on a small raft that escaped from an uninhabited island.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278533
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11810",
+   "kind": "lang",
+   "jp": "旅糧を１つ投げて去る",
+   "en": "(Throw 1 traveler's food and leave)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278544
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11811",
+   "kind": "raw",
+   "jp": "「おーい！？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278553
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278555
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11812",
+   "kind": "raw",
+   "jp": "「乗せてぇえ…！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278553
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278555
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11813",
+   "kind": "raw",
+   "jp": "「ひ、ひどい」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278555
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11814",
+   "kind": "lang",
+   "jp": "漂流者たち",
+   "en": "Drifters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278618
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11815",
+   "kind": "lang",
+   "jp": "漂流者複数名を発見した。「船が沈んでこのザマです…」",
+   "en": "You found drifters thrown out of the wrecked ship.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278620
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11816",
+   "kind": "lang",
+   "jp": "まとめて見捨てる",
+   "en": "(Abandon collectively)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278622
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11817",
+   "kind": "lang",
+   "jp": "乗せられるだけ乗せる",
+   "en": "(Put on your ship as much as you can)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278626
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11818",
+   "kind": "raw",
+   "jp": "「ウソだろ！？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278641
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278643
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11819",
+   "kind": "raw",
+   "jp": "「子供だけでも乗せてやってくれー！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278641
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278643
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11820",
+   "kind": "raw",
+   "jp": "「鬼だ…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278643
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11821",
+   "kind": "lang",
+   "jp": "無事に陸まで連れて行ってあげよう。",
+   "en": "You should get drifters to shore safely.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278674
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11822",
+   "kind": "lang",
+   "jp": "上空の脅威",
+   "en": "Aerial Threat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278705
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11823",
+   "kind": "lang",
+   "jp": "急に空が薄暗くなり、船が何度も衝撃を受ける…。外を見たあなたの視界に飛び込んできたのは…海鳥だ。巨大な海鳥達が、群れをなして船を襲ってきたのだ！",
+   "en": "The sky suddenly darkens, and your ship receives repeated shocks... When you look outside, what jumps into your sight is...seabirds. A flock of giant seabirds is attacking your ship!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278707
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11824",
+   "kind": "lang",
+   "jp": "うむっ、緊急離脱だ",
+   "en": "(Emergency withdrawal)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278709
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11825",
+   "kind": "lang",
+   "jp": "やさしく迎えてくれ",
+   "en": "(Drive away)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278712
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11826",
+   "kind": "lang",
+   "jp": "大きな損傷を受ける前に逃げ切ることができた。",
+   "en": "Your ship was able to escape before it was severely damaged.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278722
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278804
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11827",
+   "kind": "lang",
+   "jp": "どうにか逃げきれたが、船がそれなりに損傷を受けた。",
+   "en": "Your ship managed to escape, but suffered some damage...",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278730
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278812
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11828",
+   "kind": "lang",
+   "jp": "大きな損傷を受ける前に大砲で追い払うことができた。",
+   "en": "Your ship was able to drive off the seabirds with its cannon before it was severely damaged.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278741
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11829",
+   "kind": "lang",
+   "jp": "どうにか追い払えたが、船がそれなりに損傷を受けた。",
+   "en": "Your ship managed to drive off the seabirds, but suffered some damage...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278749
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11830",
+   "kind": "lang",
+   "jp": "度重なる損傷により、あなたの船は大破した。",
+   "en": "Your ship is wrecked due to repeated damage...",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278760
+    },
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278842
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11831",
+   "kind": "lang",
+   "jp": "海中の脅威",
+   "en": "Undersea Threat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278787
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11832",
+   "kind": "lang",
+   "jp": "突如、海中から突き上げられるように船が大きく揺れた…。何事かと海中に目を凝らしたあなたは、サメが船底に体当たりしているのを目撃した！",
+   "en": "Suddenly, your ship shook violently as if it was pushed up from the sea... As you peek into the sea, you see a shark ramming the bottom of the ship!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278789
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11833",
+   "kind": "lang",
+   "jp": "シャクだが逃げよう",
+   "en": "(Emergency withdrawal)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278791
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11834",
+   "kind": "lang",
+   "jp": "フカヒレにしてやりたい",
+   "en": "(Kill the shark)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278794
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11835",
+   "kind": "lang",
+   "jp": "大きな損傷を受ける前に魚雷でサメを爆殺した。",
+   "en": "Your ship was able to kill the shark with torpedoes before it was severely damaged.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278823
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  },
+  {
+   "id": "s11836",
+   "kind": "lang",
+   "jp": "どうにかサメを仕留めたが、船がそれなりに損傷を受けた。",
+   "en": "Your ship managed to kill the shark, but suffered some damage...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "modpiety",
+     "label": "label_2617",
+     "line": 278831
+    }
+   ],
+   "fn": "modpiety",
+   "label": "label_2617",
+   "owner": "label_2617"
+  }
+ ]
+}

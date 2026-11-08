@@ -1,0 +1,1068 @@
+{
+  "_meta": {
+    "source": "start.hsp 415180-416700（NPC 对话菜单 var_484/var_485）",
+    "note": "id = 原版对话动作 id（对话时按 var_400 分派）；ja/en = 菜单文案原文。role = var_58(150) 的角色值；null 表示通用项（条件分支内但非 role 等值分支）。"
+  },
+  "byRole": {
+    "17": [
+      {
+        "line": 415188,
+        "id": 36,
+        "ja": "购买奴隶",
+        "en": "I want to buy a slave.",
+        "role": 17,
+        "roleCond": "var_58(150) == 17"
+      },
+      {
+        "line": 415192,
+        "id": 37,
+        "ja": "出售奴隶",
+        "en": "I want to sell a slave.",
+        "role": 17,
+        "roleCond": "var_58(150) == 17"
+      }
+    ],
+    "22": [
+      {
+        "line": 415198,
+        "id": 57,
+        "ja": "买马",
+        "en": "I want to buy a horse.",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      },
+      {
+        "line": 415207,
+        "id": 152,
+        "ja": "来做点舒服的事吧",
+        "en": "Interested in a little tail t'night?",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      },
+      {
+        "line": 415210,
+        "id": 153,
+        "ja": "来做点激烈又舒服的事吧",
+        "en": "Interested in a hard little tail t'night?",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      },
+      {
+        "line": 415225,
+        "id": 114,
+        "ja": "【承认孩子已经成长】",
+        "en": "<Acknowledge child's growth>",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      },
+      {
+        "line": 415232,
+        "id": 113,
+        "ja": "【投资教育】",
+        "en": "<Invest in education>",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      },
+      {
+        "line": 415239,
+        "id": 77,
+        "ja": "【evochat】",
+        "en": "<evochat>",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      },
+      {
+        "line": 415246,
+        "id": 109,
+        "ja": "【与搭档一起evochat】",
+        "en": "<tag evochat>",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      },
+      {
+        "line": 415256,
+        "id": 110,
+        "ja": "查看搭档之间的交流",
+        "en": "Talk to your tag team partner.",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      },
+      {
+        "line": 415262,
+        "id": 35,
+        "ja": "断绝关系",
+        "en": "I'm going to abandon you.",
+        "role": 22,
+        "roleCond": "var_58(150) == 22"
+      }
+    ],
+    "26": [
+      {
+        "line": 415291,
+        "id": 157,
+        "ja": "工作指示（未实装）",
+        "en": "Work instructions (under development) ",
+        "role": 26,
+        "roleCond": "var_58(150) == 26"
+      },
+      {
+        "line": 415306,
+        "id": 132,
+        "ja": "【暗黑evochat】",
+        "en": "<Darkness evochat>",
+        "role": 26,
+        "roleCond": "var_58(150) == 26"
+      },
+      {
+        "line": 415310,
+        "id": 133,
+        "ja": "释放收容者",
+        "en": "I have decided to release you.",
+        "role": 26,
+        "roleCond": "var_58(150) == 26"
+      },
+      {
+        "line": 415313,
+        "id": 134,
+        "ja": "处决以儆效尤",
+        "en": "I have decided to execute you as a demonstration.",
+        "role": 26,
+        "roleCond": "var_58(150) == 26"
+      },
+      {
+        "line": 415319,
+        "id": 96,
+        "ja": "训练技艺（消耗道具）",
+        "en": "I will teach you performance. (item consume) ",
+        "role": 26,
+        "roleCond": "var_58(150) == 26"
+      },
+      {
+        "line": 415324,
+        "id": 97,
+        "ja": "将家畜献给神",
+        "en": "I offer you to my god.",
+        "role": 26,
+        "roleCond": "var_58(150) == 26"
+      }
+    ],
+    "1000": [
+      {
+        "line": 415330,
+        "id": 54,
+        "ja": "补充弹药",
+        "en": "I need ammos for my weapon.",
+        "role": 1000,
+        "roleCond": "var_58(150) == 1000"
+      },
+      {
+        "line": 415333,
+        "id": 63,
+        "ja": "强化装备",
+        "en": "I want to harden my equipment.",
+        "role": 1000,
+        "roleCond": "var_58(150) == 1000"
+      },
+      {
+        "line": 415336,
+        "id": 64,
+        "ja": "装备轻量化",
+        "en": "I want to make light my equipment.",
+        "role": 1000,
+        "roleCond": "var_58(150) == 1000"
+      },
+      {
+        "line": 415339,
+        "id": 95,
+        "ja": "装备重量化",
+        "en": "I want to make heavy my equipment.",
+        "role": 1000,
+        "roleCond": "var_58(150) == 1000"
+      }
+    ],
+    "1005": [
+      {
+        "line": 415345,
+        "id": 13,
+        "ja": "用餐",
+        "en": "Bring me something to eat.",
+        "role": 1005,
+        "roleCond": "var_58(150) == 1005"
+      },
+      {
+        "line": 415348,
+        "id": 83,
+        "ja": "点特别菜单（1枚铜币）",
+        "en": "Bring me special dish. (1 bronze) ",
+        "role": 1005,
+        "roleCond": "var_58(150) == 1005"
+      },
+      {
+        "line": 415352,
+        "id": 43,
+        "ja": "进入避难所",
+        "en": "Take me to the shelter.",
+        "role": 1005,
+        "roleCond": "var_58(150) == 1005"
+      }
+    ],
+    "5": [
+      {
+        "line": 415359,
+        "id": 14,
+        "ja": "想鉴定",
+        "en": "I need you to identify an item.",
+        "role": 5,
+        "roleCond": "var_58(150) == 5"
+      },
+      {
+        "line": 415362,
+        "id": 15,
+        "ja": "希望鉴定全部",
+        "en": "Identify all of my stuff.",
+        "role": 5,
+        "roleCond": "var_58(150) == 5"
+      },
+      {
+        "line": 415365,
+        "id": 16,
+        "ja": "想调查",
+        "en": "Investigate an item.",
+        "role": 5,
+        "roleCond": "var_58(150) == 5"
+      },
+      {
+        "line": 415368,
+        "id": 75,
+        "ja": "想接受魔法实习",
+        "en": "Attend a magic practice.",
+        "role": 5,
+        "roleCond": "var_58(150) == 5"
+      },
+      {
+        "line": 415371,
+        "id": 158,
+        "ja": "交换不需要的魔法库存",
+        "en": "Exchange unnecessary magic stocks.",
+        "role": 5,
+        "roleCond": "var_58(150) == 5"
+      },
+      {
+        "line": 415374,
+        "id": 159,
+        "ja": "批量交换不需要的魔法库存",
+        "en": "Exchange unnecessary all magic stocks.",
+        "role": 5,
+        "roleCond": "var_58(150) == 5"
+      }
+    ],
+    "7": [
+      {
+        "line": 415379,
+        "id": 17,
+        "ja": "想训练",
+        "en": "Train me.",
+        "role": 7,
+        "roleCond": "var_58(150) == 7"
+      },
+      {
+        "line": 415382,
+        "id": 30,
+        "ja": "想学习新技能",
+        "en": "What skills can you teach me?",
+        "role": 7,
+        "roleCond": "var_58(150) == 7"
+      }
+    ],
+    "6": [
+      {
+        "line": 415393,
+        "id": 74,
+        "ja": "城镇管理命令",
+        "en": "I want to run the town management.",
+        "role": 6,
+        "roleCond": "var_58(150) == 6"
+      },
+      {
+        "line": 415398,
+        "id": 141,
+        "ja": "管理代理人的声望如何？",
+        "en": "How popular is my management?",
+        "role": 6,
+        "roleCond": "var_58(150) == 6"
+      }
+    ],
+    "8": [
+      {
+        "line": 415406,
+        "id": 18,
+        "ja": "冒险者信息（100金币）",
+        "en": "Show me the list of adventurers.(100Gold)",
+        "role": 8,
+        "roleCond": "var_58(150) == 8"
+      },
+      {
+        "line": 415409,
+        "id": 105,
+        "ja": "给冒险者的留言（2000金币）",
+        "en": "Convey my message to other adventurers.(2000Gold)",
+        "role": 8,
+        "roleCond": "var_58(150) == 8"
+      },
+      {
+        "line": 415412,
+        "id": 98,
+        "ja": "任务攻略信息（300金币）",
+        "en": "Tell me the quest strategy information.(300Gold)",
+        "role": 8,
+        "roleCond": "var_58(150) == 8"
+      },
+      {
+        "line": 415415,
+        "id": 82,
+        "ja": "【告知生日】",
+        "en": "[ I will inform my birthday.]",
+        "role": 8,
+        "roleCond": "var_58(150) == 8"
+      }
+    ],
+    "12": [
+      {
+        "line": 415428,
+        "id": 19,
+        "ja": "能力恢复",
+        "en": "Restore my attributes.",
+        "role": 12,
+        "roleCond": "var_58(150) == 12"
+      },
+      {
+        "line": 415431,
+        "id": 62,
+        "ja": "解除装备中道具的诅咒",
+        "en": "I want to uncurse equipped items.",
+        "role": 12,
+        "roleCond": "var_58(150) == 12"
+      }
+    ],
+    "13": [
+      {
+        "line": 415436,
+        "id": 20,
+        "ja": "交换道具",
+        "en": "Are you interested in trade?",
+        "role": 13,
+        "roleCond": "var_58(150) == 13"
+      },
+      {
+        "line": 415440,
+        "id": 50,
+        "ja": "委托护卫",
+        "en": "I want to hire you.",
+        "role": 13,
+        "roleCond": "var_58(150) == 13"
+      },
+      {
+        "line": 415443,
+        "id": 51,
+        "ja": "邀请入伙",
+        "en": "Join me!",
+        "role": 13,
+        "roleCond": "var_58(150) == 13"
+      }
+    ],
+    "10": [
+      {
+        "line": 415450,
+        "id": 21,
+        "ja": "参加比赛[决斗]",
+        "en": "I'm entering the arena. [Duel]",
+        "role": 10,
+        "roleCond": "var_58(150) == 10"
+      },
+      {
+        "line": 415453,
+        "id": 22,
+        "ja": "参加比赛[混战]",
+        "en": "I'm entering the arena. [Rumble]",
+        "role": 10,
+        "roleCond": "var_58(150) == 10"
+      },
+      {
+        "line": 415456,
+        "id": 23,
+        "ja": "询问成绩",
+        "en": "Tell me my scores.",
+        "role": 10,
+        "roleCond": "var_58(150) == 10"
+      }
+    ],
+    "11": [
+      {
+        "line": 415461,
+        "id": 40,
+        "ja": "宠物决斗",
+        "en": "I want to register my pet. [Duel]",
+        "role": 11,
+        "roleCond": "var_58(150) == 11"
+      },
+      {
+        "line": 415464,
+        "id": 41,
+        "ja": "团队战",
+        "en": "I want to register my team. [Team]",
+        "role": 11,
+        "roleCond": "var_58(150) == 11"
+      },
+      {
+        "line": 415467,
+        "id": 49,
+        "ja": "EX战斗",
+        "en": "I want to see extra teams. [Ex Battle]",
+        "role": 11,
+        "roleCond": "var_58(150) == 11"
+      },
+      {
+        "line": 415470,
+        "id": 42,
+        "ja": "询问成绩",
+        "en": "Tell me my scores.",
+        "role": 11,
+        "roleCond": "var_58(150) == 11"
+      }
+    ],
+    "18": [
+      {
+        "line": 415475,
+        "id": 45,
+        "ja": "帮我想个房子的名字",
+        "en": "Think of a nice name for my house.",
+        "role": 18,
+        "roleCond": "var_58(150) == 18"
+      }
+    ],
+    "19": [
+      {
+        "line": 415481,
+        "id": 46,
+        "ja": "想买免罪符",
+        "en": "I want to buy an indulgence.",
+        "role": 19,
+        "roleCond": "var_58(150) == 19"
+      },
+      {
+        "line": 415486,
+        "id": 108,
+        "ja": "想谈工作",
+        "en": "Let's talk about work.",
+        "role": 19,
+        "roleCond": "var_58(150) == 19"
+      },
+      {
+        "line": 415493,
+        "id": 20,
+        "ja": "交换道具",
+        "en": "Are you interested in trade?",
+        "role": 19,
+        "roleCond": "var_58(150) == 19"
+      }
+    ],
+    "14": [
+      {
+        "line": 415499,
+        "id": 85,
+        "ja": "想赶走碍事者",
+        "en": "I want to drive out guest.",
+        "role": 14,
+        "roleCond": "var_58(150) == 14"
+      },
+      {
+        "line": 415514,
+        "id": 32,
+        "ja": "送还遗失的钱包",
+        "en": "Here is a lost wallet I found.",
+        "role": 14,
+        "roleCond": "var_58(150) == 14"
+      },
+      {
+        "line": 415520,
+        "id": 32,
+        "ja": "送还遗失的包。",
+        "en": "Here is a lost suitcase I found.",
+        "role": 14,
+        "roleCond": "var_58(150) == 14"
+      }
+    ],
+    "21": [
+      {
+        "line": 415527,
+        "id": 53,
+        "ja": "想返回",
+        "en": "I want to return.",
+        "role": 21,
+        "roleCond": "var_58(150) == 21"
+      }
+    ],
+    "1020": [
+      {
+        "line": 415533,
+        "id": 55,
+        "ja": "预约魔法书（需要：解读经验）",
+        "en": "I want to reserve book that I have deciphered.",
+        "role": 1020,
+        "roleCond": "var_58(150) == 1020"
+      }
+    ],
+    "1004": [
+      {
+        "line": 415539,
+        "id": 115,
+        "ja": "想要分一些药水塞",
+        "en": "I want potion plugs.",
+        "role": 1004,
+        "roleCond": "var_58(150) == 1004"
+      },
+      {
+        "line": 415547,
+        "id": 56,
+        "ja": "要不要做点舒服的事？",
+        "en": "Interested in a little tail t'night?",
+        "role": 1004,
+        "roleCond": "var_58(150) == 1004"
+      },
+      {
+        "line": 415559,
+        "id": 106,
+        "ja": "让开那里",
+        "en": "Exchange for my place.",
+        "role": 1004,
+        "roleCond": "var_58(150) == 1004"
+      },
+      {
+        "line": 415569,
+        "id": 60,
+        "ja": "换个暗处吧",
+        "en": "I'll buy you.",
+        "role": 1004,
+        "roleCond": "var_58(150) == 1004"
+      }
+    ],
+    "23": [
+      {
+        "line": 415576,
+        "id": 61,
+        "ja": "观察",
+        "en": "Observe caravan.",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415581,
+        "id": 107,
+        "ja": "想谈工作",
+        "en": "Let's talk about work.",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415590,
+        "id": 65,
+        "ja": "出示介绍信",
+        "en": "Show a letter of introduction.",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415598,
+        "id": 149,
+        "ja": "投喂",
+        "en": "I'll give you something delicious.",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415601,
+        "id": 150,
+        "ja": "快速屈伸挑衅",
+        "en": "You are such a wimp!",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415604,
+        "id": 151,
+        "ja": "与同胞互相残杀吧",
+        "en": "Kill your fellow countrymen!",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415607,
+        "id": 144,
+        "ja": "勒索",
+        "en": "Leave your money behind!",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415610,
+        "id": 145,
+        "ja": "让我感受激烈的快感",
+        "en": "Make me feel good...",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415613,
+        "id": 146,
+        "ja": "给予致命一击",
+        "en": "I'll let you die without pain!",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415616,
+        "id": 147,
+        "ja": "放你一马",
+        "en": "I forgive you...",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415619,
+        "id": 148,
+        "ja": "假装放你一马再给予致命一击",
+        "en": "I forgive you...It's a lie!",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415625,
+        "id": 70,
+        "ja": "背景调查",
+        "en": "Background checks",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      },
+      {
+        "line": 415630,
+        "id": 143,
+        "ja": "关于人狼的目的",
+        "en": "About the purpose of werewolves",
+        "role": 23,
+        "roleCond": "var_58(150) == 23"
+      }
+    ],
+    "1015": [
+      {
+        "line": 415772,
+        "id": 52,
+        "ja": "卖掉帕埃尔的母亲",
+        "en": "I want to sell Pael's mom.",
+        "role": 1015,
+        "roleCond": "var_58(150) == 1015"
+      }
+    ]
+  },
+  "common": [
+    {
+      "line": 415182,
+      "id": 33,
+      "ja": "召回同伴",
+      "en": "call back my allies.",
+      "role": null,
+      "roleCond": null
+    },
+    {
+      "line": 415641,
+      "id": 69,
+      "ja": "你是人狼吗？",
+      "en": "Are You a Werewolf?",
+      "role": null,
+      "roleCond": "var_58(150) != 3"
+    },
+    {
+      "line": 415727,
+      "id": 24,
+      "ja": "关于委托",
+      "en": "About the work.",
+      "role": null,
+      "roleCond": "var_58(150) != 3"
+    },
+    {
+      "line": 415734,
+      "id": 24,
+      "ja": "关于委托",
+      "en": "About the work.",
+      "role": null,
+      "roleCond": "var_58(150) != 3"
+    },
+    {
+      "line": 415742,
+      "id": 25,
+      "ja": "交付配送物",
+      "en": "Here's your delivery.",
+      "role": null,
+      "roleCond": "var_58(150) != 3"
+    },
+    {
+      "line": 415759,
+      "id": 44,
+      "ja": "解雇",
+      "en": "You are fired.",
+      "role": null,
+      "roleCond": "var_58(150) >= 2000"
+    },
+    {
+      "line": 416003,
+      "id": 0,
+      "ja": "一饮而尽",
+      "en": "Drink all at once",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416006,
+      "id": 1,
+      "ja": "慢慢品味",
+      "en": "Taste slowly",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416457,
+      "id": 0,
+      "ja": "单独行动时（远距离）散步",
+      "en": "Roam while breaking apart.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416460,
+      "id": 1,
+      "ja": "单独行动时（近距离）散步",
+      "en": "Dull while breaking apart.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416463,
+      "id": 2,
+      "ja": "单独行动时直立不动待命",
+      "en": "Stand while breaking apart.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416466,
+      "id": 3,
+      "ja": "单独行动时也随行",
+      "en": "Follow while breaking apart.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416469,
+      "id": 4,
+      "ja": "优先本职工作",
+      "en": "Do main job while accompany.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416472,
+      "id": 5,
+      "ja": "有兴趣时街头演奏",
+      "en": "Perform.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416475,
+      "id": 6,
+      "ja": "偶尔传教",
+      "en": "Propagate greatness of god.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416478,
+      "id": 7,
+      "ja": "偶尔跳舞",
+      "en": "Dance.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416481,
+      "id": 8,
+      "ja": "有空时驱除蜗牛",
+      "en": "Exterminate snail.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416484,
+      "id": 9,
+      "ja": "挑选客人卖春",
+      "en": "Do prostitution.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416487,
+      "id": 10,
+      "ja": "禁止在城镇训练",
+      "en": "Do not train in town",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416490,
+      "id": 11,
+      "ja": "在附近乞讨",
+      "en": "Begging",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416511,
+      "id": 0,
+      "ja": "果然还是没什么",
+      "en": "After all nothing.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416514,
+      "id": 1,
+      "ja": "我爱你",
+      "en": "I love you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416517,
+      "id": 2,
+      "ja": "真想把你吃掉",
+      "en": "You are so cute I could eat you up.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416520,
+      "id": 3,
+      "ja": "最喜欢你",
+      "en": "I like you very much.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416523,
+      "id": 4,
+      "ja": "我很依赖你",
+      "en": "I rely on you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416526,
+      "id": 5,
+      "ja": "期待你今后的表现",
+      "en": "I look forward to your future.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416529,
+      "id": 6,
+      "ja": "不讨厌你",
+      "en": "I do not hate you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416532,
+      "id": 7,
+      "ja": "没用",
+      "en": "You are useless.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416535,
+      "id": 8,
+      "ja": "恶心",
+      "en": "I am you uncomfortable.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416538,
+      "id": 9,
+      "ja": "最讨厌你",
+      "en": "I hate you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416543,
+      "id": 0,
+      "ja": "没、没什么！",
+      "en": "No, nothing!",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416546,
+      "id": 1,
+      "ja": "超级可爱",
+      "en": "You are so cute.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416549,
+      "id": 2,
+      "ja": "我为你心醉",
+      "en": "I am devoured by you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416552,
+      "id": 3,
+      "ja": "非常帅气",
+      "en": "You are so cool.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416555,
+      "id": 4,
+      "ja": "有你在很安心",
+      "en": "I am reassured that you are there.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416558,
+      "id": 5,
+      "ja": "我期待着",
+      "en": "I am counting on you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416561,
+      "id": 6,
+      "ja": "挺喜欢的",
+      "en": "I like you a little.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416564,
+      "id": 7,
+      "ja": "没兴趣",
+      "en": "I am not interested in you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416567,
+      "id": 8,
+      "ja": "碍事",
+      "en": "You are disturbing.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416570,
+      "id": 9,
+      "ja": "说实话很恨你",
+      "en": "I have hatred in you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416575,
+      "id": 0,
+      "ja": "…无法好好用言语表达",
+      "en": "... I can't speak well.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416578,
+      "id": 1,
+      "ja": "一直陪在我身边",
+      "en": "I want you to be with me forever.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416581,
+      "id": 2,
+      "ja": "真的很感谢你",
+      "en": "I am really grateful to you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416584,
+      "id": 3,
+      "ja": "由衷尊敬你",
+      "en": "I sincerely respect you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416587,
+      "id": 4,
+      "ja": "羡慕",
+      "en": "I'm envious of you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416590,
+      "id": 5,
+      "ja": "被治愈了",
+      "en": "I am always healed by you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416593,
+      "id": 6,
+      "ja": "想和你搞好关系",
+      "en": "I want to get along with you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416596,
+      "id": 7,
+      "ja": "不抱期待",
+      "en": "I do not expect from you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416599,
+      "id": 8,
+      "ja": "烦人",
+      "en": "I'm fed up with you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    },
+    {
+      "line": 416602,
+      "id": 9,
+      "ja": "怨恨你",
+      "en": "I have a resentment against you.",
+      "role": null,
+      "roleCond": "var_58(150) >= 1000"
+    }
+  ]
+}

@@ -1,0 +1,560 @@
+/* ==========================================================================
+   角色创建（新規作成）—— 8 步向导的「羊皮纸 + 大理石」外观
+   对照 ElonaPlus 2.16 角色创建截图；数据与流程以 start.hsp 220783-221500 为准。
+   ========================================================================== */
+
+#create.cc-active {
+  background: #c8c6c1;
+  overflow: hidden;
+}
+
+/* 全屏大理石底：多层柔和灰纹 + SVG 噪声（feTurbulence） */
+#create.cc-active::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 45% at 18% 12%, rgba(255,255,255,.55), transparent 70%),
+    radial-gradient(ellipse 45% 60% at 85% 78%, rgba(120,124,130,.22), transparent 70%),
+    linear-gradient(122deg, rgba(160,158,155,.13) 0 1%, transparent 1% 12%,
+      rgba(120,118,116,.07) 12% 12.5%, transparent 12.5% 38%,
+      rgba(255,255,255,.12) 38% 39%, transparent 39% 63%,
+      rgba(130,128,125,.08) 63% 63.5%, transparent 63.5% 100%),
+    linear-gradient(28deg, rgba(140,140,138,.08) 0 1%, transparent 1% 30%,
+      rgba(255,255,255,.11) 30% 31%, transparent 31% 100%),
+    linear-gradient(160deg, #d7d6d2 0%, #c6c5c2 42%, #d2d0cc 70%, #bdbcb9 100%);
+}
+#create.cc-active::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: .16;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/></filter><rect width='260' height='260' filter='url(%23n)' opacity='0.5'/></svg>");
+}
+
+/* 固定比例舞台，按视口整体缩放，保证与截图的排版一致 */
+.cc-stage {
+  position: absolute; left: 50%; top: 50%;
+  width: 1000px; height: 720px;
+  transform: translate(-50%, -50%) scale(var(--cc-scale, 1));
+  transform-origin: center center;
+  font-family: "MS Gothic", "Yu Gothic", "Hiragino Maru Gothic ProN", "Microsoft YaHei", sans-serif;
+  color: #2a2113;
+  z-index: 1;
+}
+
+/* 顶部深蓝提示条 */
+.cc-hint-bar {
+  position: absolute; left: 26px; top: 60px;
+  max-width: 940px;
+  padding: 6px 14px 7px;
+  background: linear-gradient(180deg, #172338, #0e1728);
+  border: 1px solid #2e3d55;
+  box-shadow: 0 2px 5px rgba(0,0,0,.25);
+  color: #f0f2f5;
+  font-size: 17px; line-height: 1.35;
+  letter-spacing: .5px;
+  white-space: nowrap;
+}
+.cc-f1 {
+  position: absolute; left: 24px; bottom: 12px;
+  font-size: 15px; font-weight: bold; color: #171717;
+  font-family: Arial, sans-serif;
+}
+
+/* ---------------------------------------------------------------- 羊皮纸窗口 */
+.cc-window {
+  position: absolute;
+  background:
+    radial-gradient(ellipse 45% 40% at 22% 24%, rgba(255,255,255,.42), transparent 72%),
+    radial-gradient(ellipse 35% 45% at 82% 76%, rgba(158,126,72,.20), transparent 72%),
+    radial-gradient(ellipse 55% 40% at 60% 100%, rgba(146,116,64,.16), transparent 70%),
+    linear-gradient(128deg, #f1e6c6 0%, #e9dbb5 38%, #f2e7c8 62%, #e3d0a4 100%);
+  border: 1px solid #a9956b;
+  border-radius: 4px 9px 5px 7px / 7px 4px 8px 5px;
+  box-shadow:
+    0 0 0 1px rgba(88,68,38,.30),
+    3px 4px 0 rgba(90,98,105,.30),
+    8px 12px 24px rgba(40,36,30,.38),
+    inset 0 0 70px rgba(146,112,58,.20),
+    inset 0 0 8px rgba(255,255,255,.35);
+  overflow: visible;
+}
+/* 纸纹（噪声叠加） */
+.cc-window::before {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: .13;
+  mix-blend-mode: multiply;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23p)' opacity='0.65'/></svg>");
+}
+/* 撕边阴影：底边与右边的一圈不规则浅灰 */
+.cc-window::after {
+  content: '';
+  position: absolute; inset: auto -3px -4px 6px;
+  height: 6px;
+  pointer-events: none;
+  background: repeating-linear-gradient(90deg,
+    rgba(90,96,102,.35) 0 7px, rgba(90,96,102,.18) 7px 11px,
+    rgba(90,96,102,.32) 11px 19px, rgba(90,96,102,.12) 19px 24px);
+  filter: blur(1px);
+  border-radius: 0 0 6px 6px;
+}
+.cc-win-wide { left: 84px; top: 110px; width: 832px; height: 560px; }
+.cc-win-mid  { left: 278px; top: 148px; width: 444px; height: 424px; }
+.cc-win-small{ left: 292px; top: 208px; width: 416px; height: 306px; }
+.cc-win-roll { left: 286px; top: 140px; width: 428px; height: 438px; }
+.cc-win-look { left: 276px; top: 140px; width: 448px; height: 420px; }
+
+/* 深褐色标题条 */
+.cc-title {
+  position: absolute; left: 34px; top: -17px;
+  min-width: 370px; padding: 7px 26px 8px;
+  background: linear-gradient(180deg, #4a2312 0%, #2f1409 55%, #3d1c0e 100%);
+  border: 1px solid #8d7550;
+  outline: 1px solid rgba(30,18,8,.8);
+  box-shadow: 0 2px 0 rgba(255,255,255,.28), 2px 3px 6px rgba(0,0,0,.35);
+  color: #f6efdc;
+  text-align: center; font-size: 17px; letter-spacing: 3px;
+  text-shadow: 0 1px 2px #000;
+}
+.cc-title.cc-title-small { min-width: 196px; left: 42px; padding: 7px 18px 8px; font-size: 16px; }
+.cc-title.cc-title-center { left: 50%; transform: translateX(-50%); }
+
+/* 小标题（圆徽章 + 下划线） */
+.cc-topic {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #8a7752;
+  font-size: 15px; font-weight: bold; color: #241a0c;
+  white-space: nowrap;
+}
+.cc-topic::before {
+  content: ''; flex: 0 0 15px; width: 15px; height: 15px; border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #f0f4f6 0%, #b9c4cb 35%, #7c8a94 72%, #4e5b65 100%);
+  border: 1px solid #6b7882;
+  box-shadow: inset 0 1px 2px rgba(255,255,255,.8), 0 1px 1px rgba(0,0,0,.25);
+}
+.cc-topic.cc-topic-light { font-weight: normal; }
+.cc-topic.cc-flow-topic { display: flex; width: max-content; margin-top: 12px; margin-bottom: 2px; }
+
+/* ---------------------------------------------------------------- 列表 */
+.cc-list { position: absolute; }
+.cc-row {
+  display: flex; align-items: center; gap: 8px;
+  height: 26px; padding: 0 8px 0 4px;
+  font-size: 16px; line-height: 1;
+  cursor: pointer; position: relative;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.cc-row:hover { background: rgba(255,255,255,.30); }
+.cc-row.on {
+  background: linear-gradient(180deg, #f6faff 0%, #dce9fb 100%);
+  box-shadow: inset 0 0 0 1px #9fb9d8, 0 1px 2px rgba(0,0,0,.12);
+  color: #1c2430;
+}
+.cc-row.on::after {
+  content: '➜'; margin-left: auto; padding-left: 8px;
+  color: #2f74c8; font-size: 15px; font-weight: bold;
+}
+.cc-row.dim { color: #8a806a; }
+.cc-key {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex: 0 0 19px; width: 19px; height: 19px;
+  background: linear-gradient(160deg, #f3f1e9, #c8c4b7);
+  border: 1px solid #99958a;
+  box-shadow: inset 1px 1px 0 #fff, 1px 1px 0 rgba(0,0,0,.20);
+  font: 12px/1 Georgia, serif; color: #4c4b46;
+  font-style: italic;
+}
+.cc-arrow {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 20px;
+  color: #6b6046; font-size: 15px; cursor: pointer;
+  user-select: none;
+}
+.cc-arrow:hover { color: #1c3c78; text-shadow: 0 0 4px rgba(40,90,180,.35); }
+
+/* ---------------------------------------------------------------- 说明区 */
+.cc-detail {
+  font-size: 14px; line-height: 1.65; color: #241d10;
+  text-align: justify;
+}
+.cc-detail .cc-desc-jp {
+  min-height: 104px; max-height: 126px; overflow: hidden;
+  text-indent: 1em; font-size: 13.5px; line-height: 1.55;
+}
+.cc-detail .cc-race-tag { min-height: 0; }
+.cc-detail + .cc-topic, .cc-detail-flow { margin-top: 8px; }
+.cc-sec { margin-top: 14px; }
+.cc-detail .cc-race-tag {
+  text-align: right; font-size: 15px; margin-bottom: 2px; min-height: 20px;
+}
+.cc-bonus-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 3px 8px; font-size: 13.5px; margin-top: 4px;
+}
+.cc-bonus {
+  display: flex; align-items: center; gap: 4px; white-space: nowrap;
+}
+.cc-attr-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 17px; height: 17px; flex: 0 0 17px;
+  font-size: 14px; font-weight: bold; line-height: 1;
+  text-shadow: 0 1px 0 rgba(255,255,255,.6);
+}
+.cc-skill-list {
+  margin-top: 4px; font-size: 13px; line-height: 1.5;
+  max-height: 176px; overflow: hidden;
+}
+.cc-skill-line { display: flex; align-items: baseline; gap: 4px; }
+.cc-skill-line .nm { flex: 0 0 106px; font-weight: normal; }
+.cc-skill-line .ds { color: #332a18; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------------------------------------------------------------- 页码 / 底部条 */
+.cc-page {
+  position: absolute; right: 30px; bottom: 48px;
+  font: bold 15px Georgia, serif; color: #1b1710;
+}
+.cc-foot {
+  position: absolute; left: 22px; right: 22px; bottom: 9px;
+  height: 31px;
+  border-top: 1px solid rgba(120,100,64,.55);
+  display: flex; align-items: center; gap: 9px;
+  font-size: 13px; color: #2a2113;
+}
+.cc-back-icon {
+  width: 19px; height: 19px; border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #ffe27a, #e2451f 58%, #b21c0c 100%);
+  border: 1px solid #8e2b17;
+  box-shadow: inset 1px 1px 2px rgba(255,255,255,.7), 0 1px 2px rgba(0,0,0,.3);
+  flex: 0 0 19px;
+}
+.cc-foot-spacer { flex: 1; }
+.cc-foot b { font-weight: bold; }
+.cc-foot .cc-foot-hint { color: #4b3f28; }
+.cc-foot button {
+  font: inherit; font-size: 13px; cursor: pointer;
+  padding: 2px 12px;
+  background: linear-gradient(#f6efd8, #ddceaa);
+  border: 1px solid #8d7a52; border-radius: 2px; color: #2a2113;
+}
+.cc-foot button:hover { background: linear-gradient(#fffaf0, #e8d9b5); }
+
+/* ---------------------------------------------------------------- step 4 技能 */
+.cc-skill-table { position: absolute; top: 124px; left: 100px; right: 70px; bottom: 62px; }
+.cc-skill-head {
+  display: grid; grid-template-columns: 36px 232px 1fr;
+  align-items: center; font-size: 15px; font-weight: bold;
+  margin-bottom: 8px;
+}
+.cc-cat-select {
+  grid-column: 2 / 3;
+  display: inline-flex; align-items: center; justify-content: space-between;
+  width: 210px; padding: 2px 8px;
+  background: linear-gradient(#f7fbff, #dbe9fa);
+  border: 1px solid #8ba9cf;
+  font-size: 14px; font-weight: bold; cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.7);
+}
+.cc-cat-select .tri { color: #2f74c8; }
+.cc-skill-line2 {
+  display: grid; grid-template-columns: 36px 24px 232px 40px 1fr;
+  align-items: center; height: 25px; font-size: 14.5px;
+  cursor: pointer; border-radius: 2px;
+}
+.cc-skill-line2:nth-child(even) { background: rgba(150,120,64,.075); }
+.cc-skill-line2:hover { background: rgba(255,255,255,.32); }
+.cc-skill-line2.on {
+  background: linear-gradient(180deg, #f6faff, #dce9fb);
+  box-shadow: inset 0 0 0 1px #9fb9d8;
+}
+.cc-skill-line2 .st { color: #333; text-align: center; }
+.cc-skill-line2 .ef { color: #2b2314; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* ---------------------------------------------------------------- step 5 属性 */
+.cc-roll-note {
+  position: absolute; left: 212px; top: 58px;
+  font-size: 13px; line-height: 1.4; color: #2a2113;
+}
+.cc-roll-lock {
+  position: absolute; left: 212px; top: 104px;
+  font-size: 15px; font-weight: bold;
+}
+.cc-roll-vals {
+  position: absolute; left: 212px; top: 134px;
+  font-size: 15px; line-height: 26px;
+}
+.cc-roll-vals .r { display: flex; align-items: center; gap: 7px; height: 26px; font-weight: bold; }
+.cc-roll-vals .r .lk { color: #1b2a9a; font-size: 11px; font-weight: normal; margin-left: 6px; }
+
+/* ---------------------------------------------------------------- step 6 天赋 */
+.cc-feat-picked {
+  position: absolute; left: 128px; right: 40px; bottom: 74px;
+  font-size: 14px; line-height: 1.55;
+}
+.cc-feat-picked .lab { font-weight: bold; margin-bottom: 2px; }
+.cc-feat-picked .pick {
+  color: #2438b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  cursor: pointer; display: inline-flex; align-items: center; gap: 4px;
+  padding: 0 8px 0 0;
+}
+.cc-feat-picked .pick:hover { background: rgba(255,255,255,.4); text-decoration: underline; }
+.cc-feat-picked .pick .ico { color: #2d7a2d; margin-right: 5px; }
+/* 0-FH：多级天赋的 Lv.n/max 徽标与「已满级」灰显 */
+.cc-feat-lv {
+  flex: 0 0 auto; margin-left: 6px; padding: 0 5px;
+  font-size: 11px; font-weight: bold; color: #1b3f8f;
+  background: rgba(255,255,255,.55); border: 1px solid #9fb0c4; border-radius: 8px;
+}
+.cc-feat-lv.on { color: #fff; background: #3a5da8; border-color: #2a4780; }
+.cc-feat-lv.max { color: #fff; background: #9a4a3a; border-color: #7c382a; }
+.cc-row.cc-feat-full { opacity: .55; }
+.cc-feat-notice { pointer-events: none; }
+
+/* ---------------------------------------------------------------- step 7 外观 */
+.cc-look-row {
+  display: grid; grid-template-columns: 26px 112px 34px 26px;
+  align-items: center; height: 27px; font-size: 15px; cursor: pointer;
+  border-radius: 2px;
+}
+.cc-look-row.on { background: linear-gradient(180deg, #f6faff, #dce9fb); box-shadow: inset 0 0 0 1px #9fb9d8; }
+.cc-look-row .val { text-align: right; padding-right: 6px; }
+.cc-look-preview {
+  position: absolute; right: 42px; top: 96px;
+  width: 96px; height: 144px;
+  background: #2a1409;
+  border: 4px ridge #7b633f;
+  box-shadow: 0 3px 8px rgba(0,0,0,.45);
+  overflow: hidden;
+}
+.cc-look-preview canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.cc-look-preview .cc-face-tile {
+  position: absolute; inset: 0;
+  background-repeat: no-repeat;
+  background-size: 1600px 1488px;   /* face1.bmp 原图 800×744 ×2 */
+  image-rendering: auto;
+}
+.cc-look-sprite {
+  position: absolute; right: 44px; top: 252px;
+  width: 92px; height: 108px;
+  border: 1px solid #8a7752;
+  background: rgba(255,255,255,.18);
+  display: flex; align-items: center; justify-content: center;
+}
+.cc-look-sprite canvas { position: absolute; inset: 0; width: 100%; height: 100%; image-rendering: pixelated; }
+.cc-deco-corner {
+  position: absolute; width: 92px; height: 56px; pointer-events: none;
+  opacity: .8;
+}
+.cc-deco-tl { left: -6px; top: -18px; }
+.cc-deco-tr { right: -8px; top: -22px; }
+.cc-deco-bl { left: -10px; bottom: -8px; }
+.cc-deco-br { right: -14px; bottom: -10px; }
+
+/* ---------------------------------------------------------------- step 8 总览
+   0-FH：按原版截图的三行三列——顶部三组基本信息 + 右上角立绘，下方
+   左「能力 / 其它信息」、中「Essential / 经历」、右「祝福与诅咒 / 各种修正」。 */
+.cc-summary { position: absolute; left: 88px; right: 56px; top: 56px; bottom: 56px; font-size: 12.5px; overflow: hidden; }
+.cc-sum-head {
+  position: absolute; left: 0; top: 0;
+  width: calc(100% - 116px);
+  display: grid; grid-template-columns: 190px 158px 168px; gap: 14px;
+  align-items: start;
+}
+.cc-sum-kv { display: grid; grid-template-columns: 60px 1fr; line-height: 1.45; align-items: baseline; }
+.cc-sum-kv .k { color: #514a3a; }
+.cc-sum-kv .v { color: #17120a; font-weight: bold; white-space: nowrap; }
+.cc-sum-c1 { grid-template-columns: 46px 1fr; }
+.cc-sum-c2 { grid-template-columns: 42px 1fr; }
+.cc-sum-c3 { grid-template-columns: 62px 1fr; }
+.cc-sum-lower {
+  position: absolute; left: 0; right: 0; top: 118px; bottom: 0;
+  display: grid; grid-template-columns: 214px 178px 1fr; gap: 12px; align-items: start;
+}
+.cc-sum-lower > div { min-width: 0; }
+.cc-sum-lower > div > .cc-sum-topic:first-child { margin-top: 0; }
+.cc-sum-topic { margin: 9px 0 3px; }
+.cc-sum-attrs { font-size: 11.5px; line-height: 1.3; }
+.cc-sum-attrs .r { display: grid; grid-template-columns: 17px 36px 58px 1fr; align-items: center; height: 18px; white-space: nowrap; }
+.cc-sum-attrs .pot { color: #2a3f8f; }
+.cc-sum-misc, .cc-sum-profile { font-size: 11px; line-height: 1.35; color: #241a0c; }
+.cc-sum-profile { max-height: 112px; overflow: hidden; }
+.cc-sum-portrait {
+  position: absolute; right: 4px; top: -8px;
+  width: 96px; height: 144px;
+  border: 4px ridge #7b633f;
+  background: #2a1409;
+  box-shadow: 0 3px 9px rgba(0,0,0,.45);
+  overflow: hidden;
+}
+.cc-sum-portrait .cc-face-tile { position: absolute; inset: 0; background-repeat: no-repeat; background-size: 1600px 1488px; }
+.cc-bless-grid {
+  display: grid; grid-template-columns: repeat(3, 46px); gap: 6px 9px;
+  margin-top: 6px;
+}
+.cc-bless-grid i {
+  display: block; width: 46px; height: 38px;
+  background: linear-gradient(#d8d2c2, #bfb8a5);
+  border: 1px solid #8f8875;
+  box-shadow: inset 2px 0 0 rgba(255,255,255,.45), inset -2px 0 0 rgba(90,84,66,.18);
+}
+.cc-sum-fix {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px;
+  font-size: 11px; line-height: 1.5; white-space: nowrap;
+}
+.cc-name-input {
+  width: 118px; font: inherit; font-size: 13px;
+  background: rgba(255,255,255,.55); border: 1px solid #a08c60; padding: 1px 4px;
+  color: #17120a;
+}
+
+/* ---------------------------------------------------------------- 其它 */
+.cc-legacy { display: none !important; }
+.cc-help {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 520px; padding: 18px 22px; z-index: 20;
+  background: linear-gradient(#f4ead0, #e2d2ac);
+  border: 2px solid #6b5637; box-shadow: 0 10px 34px rgba(0,0,0,.5);
+  font-size: 14px; line-height: 1.7;
+}
+.cc-help h3 { margin: 0 0 10px; font-size: 16px; }
+.cc-help .cc-help-close { margin-top: 12px; text-align: right; }
+.cc-hidden { display: none !important; }
+
+/* ==================================================================
+   0-FH：游戏内按 c 打开的人物信息第 1 页（与创建页总览同一张羊皮纸）
+   panels.js renderCharaInfo() 给 pui-box 挂 `cls: 'ci-sheet'`；
+   列表页（技能 / 耐性 / 魔法）仍用原来的 pui-box 样式，不受影响。
+   ================================================================== */
+.pui-box.ci-sheet {
+  width: 880px; max-height: 92%;
+  background-color: #e9dbb5;
+  border-radius: 5px 9px 6px 8px;
+}
+.pui-box.ci-sheet .pui-head {
+  background: linear-gradient(#f2e8cc, #d9c9a5);
+  border-bottom: 1px solid #9a855d;
+}
+.pui-box.ci-sheet .pui-body { padding: 0; overflow-y: auto; }
+.ci-sheet {
+  position: relative; min-height: 468px; padding: 18px 24px 16px;
+  background:
+    radial-gradient(ellipse 45% 40% at 22% 24%, rgba(255,255,255,.42), transparent 72%),
+    radial-gradient(ellipse 35% 45% at 82% 76%, rgba(158,126,72,.20), transparent 72%),
+    linear-gradient(128deg, #f1e6c6 0%, #e9dbb5 38%, #f2e7c8 62%, #e3d0a4 100%);
+  color: #241a0c; font-size: 12.5px;
+}
+.ci-sheet::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  opacity: .12; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='q'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23q)' opacity='0.65'/></svg>");
+}
+.ci-sheet > * { position: relative; }
+.ci-sheet-head {
+  display: grid; grid-template-columns: 190px 158px 168px; gap: 14px;
+  width: calc(100% - 130px); align-items: start;
+}
+.ci-sk { display: grid; align-items: baseline; line-height: 1.45; }
+.ci-sk .k { color: #514a3a; }
+.ci-sk b { font-weight: bold; color: #17120a; white-space: nowrap; }
+.ci-c1 { grid-template-columns: 46px 1fr; }
+.ci-c2 { grid-template-columns: 42px 1fr; }
+.ci-c3 { grid-template-columns: 62px 1fr; }
+.ci-sheet-portrait {
+  position: absolute !important; right: 20px; top: 12px;
+  width: 96px; height: 144px;
+  border: 4px ridge #7b633f; background: #2a1409;
+  box-shadow: 0 3px 9px rgba(0,0,0,.45); overflow: hidden;
+}
+.ci-face-tile {
+  position: absolute; inset: 0;
+  background-repeat: no-repeat; background-size: 1600px 1488px;
+}
+.ci-sheet-lower {
+  display: grid; grid-template-columns: 214px 190px 1fr; gap: 14px;
+  margin-top: 14px; align-items: start;
+}
+.ci-sheet-lower > .ci-col { min-width: 0; flex: none; }
+.ci-sheet .ci-sec {
+  display: flex; width: max-content; max-width: 100%;
+  margin: 9px 0 4px; padding: 0 0 2px;
+  background: transparent; border-bottom: 1px solid #8a7752;
+  font-size: 13px; font-weight: normal; color: #241a0c;
+}
+.ci-sheet-lower > .ci-col > .ci-sec:first-child { margin-top: 0; }
+.ci-attrs .ci-ar {
+  display: grid; grid-template-columns: 16px 36px 30px 40px 1fr;
+  align-items: center; height: 18px; font-size: 11.5px; white-space: nowrap;
+}
+.ci-attrs .ci-ar i { font-style: normal; text-align: center; }
+.ci-attrs .ci-ar b { font-weight: bold; font-family: monospace; }
+.ci-attrs .ci-ar em { font-style: normal; color: #514a3a; font-family: monospace; }
+.ci-attrs .ci-rank { color: #2a3f8f; }
+.ci-misc { font-size: 11.5px; line-height: 1.42; white-space: normal; }
+.ci-sheet .ci-bless { display: grid; grid-template-columns: repeat(3, 46px); gap: 6px 9px; margin-top: 6px; }
+.ci-sheet .ci-bless-cell {
+  width: 46px; height: 38px; font-size: 10px;
+  background: linear-gradient(#d8d2c2, #bfb8a5);
+  border: 1px solid #8f8875; border-radius: 0;
+  box-shadow: inset 2px 0 0 rgba(255,255,255,.45), inset -2px 0 0 rgba(90,84,66,.18);
+}
+.ci-fix2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; font-size: 11.5px; line-height: 1.5; }
+.ci-sheet-extra {
+  margin-top: 14px; padding-top: 6px; border-top: 1px dashed rgba(138,119,82,.8);
+  font-size: 10.5px; line-height: 1.5; color: #4a3820;
+}
+.ci-sheet-extra b { color: #3a2712; }
+.ci-sheet-page { position: absolute !important; right: 26px; bottom: 8px; font-size: 13px; font-weight: bold; }
+
+/* ==================================================================
+   0-FI：新增三步（别名 / 经历 / 模式）与 3×5 祝福格
+   ================================================================== */
+.cc-win-alias { left: 300px; top: 118px; width: 400px; height: 484px; }
+.cc-win-profile { left: 320px; top: 176px; width: 360px; height: 376px; }
+.cc-alias-list .cc-row { height: 19px; font-size: 14px; }
+.cc-alias-list .cc-key { width: 22px; height: 17px; font-size: 12px; }
+.cc-profile-lines {
+  position: absolute; left: 30px; right: 26px; top: 212px;
+  font-size: 12.5px; line-height: 1.42; color: #241a0c;
+}
+.cc-mode-desc {
+  position: absolute; left: 250px; top: 82px; right: 34px;
+  font-size: 13.5px; line-height: 1.65; color: #241a0c;
+}
+.cc-mode-desc b { color: #1b3f8f; }
+.cc-cat-static { font-size: 14px; font-weight: bold; color: #1b3f8f; }
+
+/* 祝福与诅咒：5 列 × 3 行 = 15 格（用户要求 3×5） */
+.cc-bless-grid {
+  grid-template-columns: repeat(5, 34px); gap: 6px 8px;
+}
+.cc-bless-grid i { width: 34px; height: 30px; }
+
+/* 0-FI：c 键人物信息第 1 页复用创建总览的同一段 HTML */
+.pui-box.ci-sheet {
+  width: 880px; max-height: 94%;
+  background: transparent; border: 0; outline: 0; box-shadow: none;
+}
+.pui-box.ci-sheet .pui-head { display: none; }   /* DOM 保留，供回归脚本读标题 */
+.pui-box.ci-sheet .pui-body { padding: 0; overflow: hidden; }
+.ci-sheet-wrap {
+  position: relative; width: 832px; height: 560px; margin: 0 auto;
+  background:
+    radial-gradient(ellipse 45% 40% at 22% 24%, rgba(255,255,255,.42), transparent 72%),
+    radial-gradient(ellipse 35% 45% at 82% 76%, rgba(158,126,72,.20), transparent 72%),
+    linear-gradient(128deg, #f1e6c6 0%, #e9dbb5 38%, #f2e7c8 62%, #e3d0a4 100%);
+  border-radius: 4px 9px 5px 7px / 7px 4px 8px 5px;
+  box-shadow: inset 0 0 70px rgba(146,112,58,.20);
+  color: #241a0c; font-size: 12.5px;
+}
+.ci-sheet-wrap::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  opacity: .12; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/></filter><rect width='180' height='180' filter='url(%23r)' opacity='0.65'/></svg>");
+}
+.ci-sheet-wrap .cc-sum-portrait { right: 24px; }
+.ci-sheet-wrap .cc-summary { left: 84px; right: 52px; }

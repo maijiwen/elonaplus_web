@@ -1,0 +1,2709 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0270",
+ "entries": [
+  {
+   "id": "s03081",
+   "kind": "lang",
+   "jp": "@QS[サブクエスト]",
+   "en": "@QS[Sub Quest]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20315
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03082",
+   "kind": "lang",
+   "jp": "ぬいぐるみを守れ！ 6階相当",
+   "en": "Putit attacks Lv6",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20319
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03083",
+   "kind": "lang",
+   "jp": "ヴェルニースのミシェスに、スライムの退治を頼まれた。スライムの巣窟は、ミシェスの家のすぐ南の家のようだ。",
+   "en": "Miches of Vernis asked me to investigate the house just south of her home.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20329
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03084",
+   "kind": "lang",
+   "jp": "ヴェルニースのミシェスに頼まれたスライムの退治を完了した。あとは報告するだけだ。",
+   "en": "I've wiped out the putit's nest. I have to visit Miches of Vernis to report it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20337
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03085",
+   "kind": "lang",
+   "jp": "お酒泥棒 2階相当",
+   "en": "Thieves' hideout Lv2",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20345
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03086",
+   "kind": "lang",
+   "jp": "ヴェルニースのシーナが勤める酒場に、酒泥棒が頻出しているらしい。盗賊団を壊滅させてシーナに報告しよう。",
+   "en": "Bandits have been stealing things in Vernis. I need to find and destroy their hideout.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20355
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03087",
+   "kind": "lang",
+   "jp": "酒樽を盗んでいたごろつき団を殲滅した。あとはヴェルニースのシーナに報告するだけだ。",
+   "en": "Those bandits are no more. All I have to do now is bring the news to Shena of Vernis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20363
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03088",
+   "kind": "lang",
+   "jp": "迷子の子犬 4階相当",
+   "en": "Puppy's cave Lv4",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20371
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03089",
+   "kind": "lang",
+   "jp": "ヴェルニースのリリアンに、迷子の子犬ポピーを捜すよう頼まれた。どうやら子犬はヴェルニースのすぐ東にある洞窟にいるらしい。",
+   "en": "Rilian of Vernis asked me to find her puppy named poppy in the puppy's cave located east of Vernis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20381
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03090",
+   "kind": "lang",
+   "jp": "実験場のナイトメア 50階相当",
+   "en": "Nightmare Lv50",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20389
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03091",
+   "kind": "lang",
+   "jp": "ヴェルニースのロイターに金になる仕事を持ちかけられた。何やら危険な仕事のようだ。万全の準備を整えてからロイターに話し掛けよう。",
+   "en": "Loyter of Vernis has a dangerous, yet highly profitable job for me. I need to prepare well before talking to him again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20399
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03092",
+   "kind": "lang",
+   "jp": "実験場の全ての敵を殲滅しなければならない。",
+   "en": "I need to eliminate all of the monsters in the test ground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20407
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03093",
+   "kind": "lang",
+   "jp": "実験を生き延びて完了させた。ヴェルニースのロイターに報告しよう。",
+   "en": "I've survived the nightmare. Now to meet Loyer of Vernis to receive the reward.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20415
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03094",
+   "kind": "lang",
+   "jp": "エーテル病を治せ 20階相当",
+   "en": "Pael and her mom Lv20",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20423
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03095",
+   "kind": "lang",
+   "jp": "ノイエルのパエルにエーテル抗体を渡した。母親の容態に変化があらわれるのを待とう。",
+   "en": "Pael's mother is suffering from Ether Disease and I gave Pael a potion of cure corruption in Noyel. Let's wait until the condition of her mother changes.",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20433
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20449
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20465
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20481
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20497
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03096",
+   "kind": "lang",
+   "jp": "ノイエルのパエルの母親の容態が変わったようだ。今度見舞いにいったほうがいいかもしれない。",
+   "en": "There's a change in the condition of Pael's mother. I should go check her when I have time.",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20441
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20457
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20473
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20489
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20505
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03097",
+   "kind": "lang",
+   "jp": "嫁泥棒 3階相当",
+   "en": "Wife collector LV3",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20513
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03098",
+   "kind": "lang",
+   "jp": "カプールのラファエロに嫁を持ってくるよう頼まれた。なんという下劣な男だ。",
+   "en": "I was asked by Raphael of Port Kapul to bring my wife. What a moron.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20523
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03099",
+   "kind": "lang",
+   "jp": "猫退治 25階相当",
+   "en": "Cat house Lv25",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20531
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03100",
+   "kind": "lang",
+   "jp": "ヨウィンのタムに、家の猫退治を依頼された。家は南の畑のあたりにあるそうだ。",
+   "en": "Tam of Yowyn asked me to eliminate the cats in his house. The house is located southern part of Yowyn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20541
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03101",
+   "kind": "lang",
+   "jp": "タムの家の中の猫を退治した。あとはヨウィンでタムに報告するだけだ。",
+   "en": "I've freed Tam's house from the cats. To get the reward, I need to speak Tam again in Yowyn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20549
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03102",
+   "kind": "lang",
+   "jp": "防衛戦線の死闘 17階相当",
+   "en": "Defense line Lv17",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20557
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03103",
+   "kind": "lang",
+   "jp": "ヨウィンのギルバート大佐に、ジューア解放軍の援護を求められた。準備が整い次第、大佐に話し掛けよう。",
+   "en": "Carnel Gilbert of Yowyn asked me to help the Juere freedom force fight the Yerles Army. I should speak to him again when I'm ready.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20567
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03104",
+   "kind": "lang",
+   "jp": "イェルスの防衛軍を殲滅しなければならない。",
+   "en": "I need to destroy the Yerles Army.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20575
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03105",
+   "kind": "lang",
+   "jp": "防衛線を見事に突破した。ヨウィンのギルバート大佐に報告しよう。",
+   "en": "I've won the war. Now to bring the good news to carnel Gilbert.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20583
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03106",
+   "kind": "lang",
+   "jp": "騎士昇格試験の手伝い 8階相当",
+   "en": "Novice knightLv8",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20591
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03107",
+   "kind": "lang",
+   "jp": "ヨウィンのアインクに騎士昇格試験の手伝いを頼まれた。ヨウィンの西にあるイークの洞窟に住むイークの首領を倒せばいいそうだ。",
+   "en": "Ainc of Yowyn asked me to help his promotion task. I need to enter the Yeek's dungeon which is located west of Yowyn and kill the head.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20601
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03108",
+   "kind": "lang",
+   "jp": "イークの首領を無事討伐した。ヨウィンのアインクに報告しよう。",
+   "en": "I've defeated the head of Yeek. I should head back to Yowyn and report to Ainc.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20609
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03109",
+   "kind": "lang",
+   "jp": "カミカゼ特攻隊 14階相当",
+   "en": "Kamikaze attack Lv14",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20617
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03110",
+   "kind": "lang",
+   "jp": "カプールのアーノルドに、カミカゼ特攻隊に耐えるパルミア軍への援軍を頼まれた。準備が整い次第、アーノルドに話し掛けよう。",
+   "en": "Arnord of Port Kapul asked me to help the isolated Palmian 10th regiment from massive Kamikaze attacks. I should prepare and speak to Arnord when ready.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20627
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03111",
+   "kind": "lang",
+   "jp": "パルミア軍が撤退を完了するまでの間、カミカゼ特攻隊の猛攻に耐えなければならない。パルミア軍が撤退したら、知らせが入るはずだ。",
+   "en": "I have to hold the battle line to gain time while the Palmian army retreats. A messenger will inform me when it's done.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20635
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03112",
+   "kind": "lang",
+   "jp": "カミカゼ特攻隊の猛攻に耐えきった。カプールのアーノルドに報告しよう。",
+   "en": "I survived the kamikaze attack. I have to bring the good news to Arnord of Port Kapul.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20643
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03113",
+   "kind": "lang",
+   "jp": "ミーアの夢 1階相当",
+   "en": "Mia's dream Lv1",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20651
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03114",
+   "kind": "lang",
+   "jp": "パルミアのミーアは、稀少猫シルバーキャットが欲しいらしい。なんとか捕まえて、ミーアに渡そう。",
+   "en": "Mia of Palmia wants a silver cat, a very rare cat. If I happen to capture one, I should bring it to Mia.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20661
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03115",
+   "kind": "lang",
+   "jp": "幻の絵本 12階相当",
+   "en": "Rare books Lv12",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20669
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03116",
+   "kind": "lang",
+   "jp": "ルミエストのレントンが、レイチェルという童話作家によって描かれた絵本を探している。絵本は全部で4巻あるらしい。全て見つけたら、レントンに報告しよう。",
+   "en": "Renton of Lumiest is looking for the fairy tale books written by Rachael. I should bring it to him if I happen to find one. There're total of 4 books in the series.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20679
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03117",
+   "kind": "lang",
+   "jp": "ピラミッドからの挑戦状 16階相当",
+   "en": "Pyramid trial Lv16",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20687
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03118",
+   "kind": "lang",
+   "jp": "ピラミッドに出入りする資格を得た。ピラミッドはカプールの北にあり、中には古代の秘宝が眠っているといわれている。",
+   "en": "I've got a invitation to the pyramid. The pyramid is located north of Port Kapul and it is rumored that it holds great treasure.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20697
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03119",
+   "kind": "lang",
+   "jp": "パルミアに赤い花を 14階相当",
+   "en": "Red blossom in Palmia Lv14",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20705
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03120",
+   "kind": "lang",
+   "jp": "ダルフィのノエルにパルミアの街に爆弾をしかけるように依頼された。爆弾をパルミアの宿屋の部屋にあるぬいぐるみにしかけよう。",
+   "en": "Noel of Derphy asked me to set up a bomb in Palmia. I need to place it right on the teddy bear in the inn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20715
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03121",
+   "kind": "lang",
+   "jp": "見事にパルミアを壊滅させた。あとはダルフィのノエルの元に戻り、報告するだけだ。",
+   "en": "I have successfully destroyed Palmia. Now all I need to report back to Noel in Derphy.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20723
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03122",
+   "kind": "lang",
+   "jp": "生化学者の野望 5階相当",
+   "en": "Ambitious scientist Lv5",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20731
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03123",
+   "kind": "lang",
+   "jp": "下水道大作戦 23階相当",
+   "en": "Sewer sweeping Lv23",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20749
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03124",
+   "kind": "lang",
+   "jp": "ルミエストのバルザックに、下水道の清掃を頼まれた。下水道の入り口は宿屋の近くにあるみたいだ。",
+   "en": "Balzak of Lumiest wants me to sweep the entire sewer. I can find the entrance to the sewer around the inn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20759
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03125",
+   "kind": "lang",
+   "jp": "下水道の大掃除を完了した。あとはルミエストのバルザックに報告するだけだ。",
+   "en": "I've finished sweeping the sewer. I need to report it to Balzak of Lumiest.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20767
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03126",
+   "kind": "lang",
+   "jp": "魔術士ギルド審査",
+   "en": "Joining the Mages Guild",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20775
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03127",
+   "kind": "lang",
+   "jp": "盗賊ギルド審査",
+   "en": "Joining the Thieves Guild",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20793
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03128",
+   "kind": "lang",
+   "jp": "盗賊ギルドに加入するには、カルマを-100にした状態で、ダルフィのギルドの番人に話しかける必要がある。",
+   "en": "To join the Thieves Guild, I need to drop karma at -100, that means I'll be a criminal for sure.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20803
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03129",
+   "kind": "lang",
+   "jp": "戦士ギルド審査",
+   "en": "Joining the Fighters Guild",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20811
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03130",
+   "kind": "lang",
+   "jp": "魔術士ギルドノルマ",
+   "en": "The Mages Guild quota",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20829
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03131",
+   "kind": "lang",
+   "jp": "戦士ギルドノルマ",
+   "en": "The Fighters Guild quota",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20847
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03132",
+   "kind": "lang",
+   "jp": "盗賊ギルドノルマ",
+   "en": "The Thieves Guild quota",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20865
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03133",
+   "kind": "lang",
+   "jp": "ミノタウロスの王 24階相当",
+   "en": "Minotaur king Lv24",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20883
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03134",
+   "kind": "lang",
+   "jp": "パルミアのコネリー少将に、ミノタウロスの首領の退治を頼まれた。ミノタウロスの巣窟は、ヨウィンの南にあるみたいだ。",
+   "en": "General Conery wants me to hunt the chief of minotaur. The nest is located south of Yowyn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20893
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03135",
+   "kind": "lang",
+   "jp": "ミノタウロスの首領を無事討伐した。パルミアのコネリー少将に報告しよう。",
+   "en": "I've killed the chief of minotaur. I should head back to Palmia and speak to General Conery.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20901
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03136",
+   "kind": "lang",
+   "jp": "リトルシスター 30階相当",
+   "en": "Little sister Lv30",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20909
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03137",
+   "kind": "lang",
+   "jp": "堕ちた皇女 80階相当",
+   "en": "Fallen princess Lv80",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20927
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03138",
+   "kind": "lang",
+   "jp": "煙とパイプ亭でシルヴィア皇女に魅力的な男を連れてくるよう依頼された。魅力100くらいあれば大丈夫だろうか。",
+   "en": "I received the request of the princess Silvia in the smoke and pipe.I have to take an attractive man to the smoke and pipe.It will be enough if charm is over 100.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20937
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03139",
+   "kind": "lang",
+   "jp": "煙とパイプ亭のシルヴィア皇女の様子がおかしいが…とりあえずまた魅力的な男を連れていってみようか。魅力150くらいあれば大丈夫だろう。",
+   "en": "Preincess Silvia behavior is something strange. For the time being, I decided to take another attractive man once again.It will be enough if charm is over 150.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20945
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03140",
+   "kind": "lang",
+   "jp": "煙とパイプ亭のシルヴィア皇女は誰が誰なのか区別もつかない様子だ。下手に話しかけると誰かと見間違われかねない。",
+   "en": "Princess Silvia is mentally deranged and it seems she cannot distinguish between people.If I speak to her now, may be mistaken for someone. ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20953
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03141",
+   "kind": "lang",
+   "jp": "迷子の子猫ちゃん 5階相当",
+   "en": "Lost kitty Lv5",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20961
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03142",
+   "kind": "lang",
+   "jp": "エイレルの犬のおまわりさんに、迷子の子猫を保護して連れてくるよう頼まれた。",
+   "en": "Dog cop of Eirel asked me to take care of stray cat.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20971
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03143",
+   "kind": "lang",
+   "jp": "陽動作戦 60階相当",
+   "en": "Demonstration Lv60",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20979
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03144",
+   "kind": "lang",
+   "jp": "エイレルでミーリスにエウダーナ部隊の注意を惹くよう依頼された。万全の準備を整えてからミーリスに話し掛けよう。",
+   "en": "At the Eirel, Milis requests for me to draw the attentions of Eulderna troops.I should talk to Milis with perfect preparation. ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20989
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03145",
+   "kind": "lang",
+   "jp": "注意を惹くのはいいが、別に全て倒してしまってもかまわんのだろう。",
+   "en": "It is easy to draw their attention. But it seems no problem if I kill all of them.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 20997
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03146",
+   "kind": "lang",
+   "jp": "全滅させたので陽動する必要もなくなった。エイレルのミーリスに報告しよう。",
+   "en": "Since I annihilated the enemy, there is no need to draw attention any more. I'll report to Milis in Eirel.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21005
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03147",
+   "kind": "lang",
+   "jp": "ジューアのくせに生意気だ 50階相当",
+   "en": "Control of underground passage Lv50",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21013
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03148",
+   "kind": "lang",
+   "jp": "メルガスのオービルに、地下通路を占拠しているジューア軍の殲滅を依頼された。階段から地下へ降りよう。",
+   "en": "I received the Orville's request in Melugas. I have to delete the Juere army occupying the underground passage of this base.I will get down from stairs to underground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21023
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03149",
+   "kind": "lang",
+   "jp": "ジューア軍を殲滅した。あとはメルガスでオービルに報告するだけだ。",
+   "en": "I annihilated the Juere army.Remaining work is only the report to Orville in Melugas.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21031
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03150",
+   "kind": "lang",
+   "jp": "海賊狩り 100階相当",
+   "en": "Pirate huntting Lv100",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21039
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03151",
+   "kind": "lang",
+   "jp": "クルアルムのザナードと海賊狩りをすることになった。海賊を倒して宝を頂こう。",
+   "en": "I decided to hunt the pirates together with Zernard waiting at the harbor of Kurualm.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21049
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21057
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03152",
+   "kind": "lang",
+   "jp": "海賊団長を討ち取った。クルアルムのザナードに報告しよう。",
+   "en": "I hunt pirate chief.I report to Zernard in Kurualm.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21065
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03153",
+   "kind": "lang",
+   "jp": "払われなかった報酬 2階相当",
+   "en": "Resentment of remuneration Lv2",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21073
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03154",
+   "kind": "lang",
+   "jp": "アーク・ベルクのメファンに街の子供をさらってくるよう依頼された。こんな依頼、無理に達成する必要はない。",
+   "en": "Mefan of Arcbelc asked me to kidnap town children. Maybe or maybe not do it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21083
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03155",
+   "kind": "lang",
+   "jp": "復讐の果てに 40階相当",
+   "en": "Revenge mountain Lv40",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21091
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03156",
+   "kind": "lang",
+   "jp": "ルオザのたけのこに、山にいるきのこの殲滅を依頼された。魔法の階段から山へ乗り込もう。",
+   "en": "Bamboo Sprout of Ruoza asked me to anihilate the Mushrooms in the mountain. Magic stairs lead there.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21101
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03157",
+   "kind": "lang",
+   "jp": "きのこたちを滅ぼした。あとはルオザでたけのこに報告するだけだ。",
+   "en": "Mushrooms anihilated. I need to talk Bamboo Sprout in Ruoza again. ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21109
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03158",
+   "kind": "lang",
+   "jp": "屋敷売り出し中！ 70階相当",
+   "en": "Maid and house Lv70",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21117
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03159",
+   "kind": "lang",
+   "jp": "メルカーンのルーネに金貨200万枚を見せてみよう。",
+   "en": "I will show 2,000,000 gp Lune of Melkawn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21127
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03160",
+   "kind": "lang",
+   "jp": "屋敷を持ち主から買い取ろう。持ち主はルードゥスにいる。",
+   "en": "If you purchase the maid house, I need to meet the owner who resides in Ludus.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21135
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03161",
+   "kind": "lang",
+   "jp": "姫の話し相手 1階相当",
+   "en": "Companion of Princess Lv1",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21143
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03162",
+   "kind": "lang",
+   "jp": "ヴァルムの浜辺から亀に連れられて城へ行ってみよう。",
+   "en": "The turtle will lead me to a castle from Valm beach.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21153
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03163",
+   "kind": "lang",
+   "jp": "えっちないもうと 80階相当",
+   "en": "Removal of sister Lv80",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21161
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03164",
+   "kind": "lang",
+   "jp": "ルードゥスの姉から地下室に住み着いた妹の退治を頼まれた。",
+   "en": "Older Sister in Ludus asked me to eliminate the sister who squatting in the Basement.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21171
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03165",
+   "kind": "lang",
+   "jp": "妹ヒットマンを退治した。あとはルードゥスの姉に報告するだけだ。",
+   "en": "I eliminated the target. I need to refer to Old Sister.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21179
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03166",
+   "kind": "lang",
+   "jp": "狂気との戦い 30階相当",
+   "en": "Struggle against insanity Lv30",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21187
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03167",
+   "kind": "lang",
+   "jp": "モノクロ定期便 10階相当",
+   "en": "Outrageous revenge Lv2",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21205
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21223
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21241
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03168",
+   "kind": "lang",
+   "jp": "ちゃんと手紙を届けてあげよう。",
+   "en": "I'll send a letter properly.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21215
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21233
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21251
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03169",
+   "kind": "lang",
+   "jp": "忍者の掟 120階相当",
+   "en": "Rule of Ninja Lv120",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21259
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03170",
+   "kind": "lang",
+   "jp": "クルアルムの影羅に忍者軍団の殲滅を依頼された。影羅に連れられて忍者屋敷まで行こう。",
+   "en": "Eila in Kurualm asked me to anihilate the ninja corps. Eila will lead me there.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21269
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21277
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03171",
+   "kind": "lang",
+   "jp": "殲滅はしたが、なんだか嫌な予感がする。クルアルムの影羅に報告しよう。",
+   "en": "Ninja corps successfully anihilated but I have some strange feeling. I need to refer to Eila.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21285
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03172",
+   "kind": "lang",
+   "jp": "ギルドウォーズ 40階相当",
+   "en": "Guild quest Lv40",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21293
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21319
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21345
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03173",
+   "kind": "lang",
+   "jp": "魔術士ギルドのマスターから、他のギルドのマスターをどちらか片方倒すように頼まれた。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21303
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03174",
+   "kind": "lang",
+   "jp": "あとは魔術士ギルドのマスターに報告するだけだ。",
+   "en": "I have to visit the master of the guild that I belong to report.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21311
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03175",
+   "kind": "lang",
+   "jp": "戦士ギルドのマスターから、他のギルドのマスターをどちらか片方倒すように頼まれた。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21329
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03176",
+   "kind": "lang",
+   "jp": "あとは戦士ギルドのマスターに報告するだけだ。",
+   "en": "I have to visit the master of the guild that I belong to report.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21337
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03177",
+   "kind": "lang",
+   "jp": "盗賊ギルドのマスターから、他のギルドのマスターをどちらか片方倒すように頼まれた。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21355
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03178",
+   "kind": "lang",
+   "jp": "あとは盗賊ギルドのマスターに報告するだけだ。",
+   "en": "I have to visit the master of the guild that I belong to report.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21363
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03179",
+   "kind": "lang",
+   "jp": "犬の尻尾 150階相当",
+   "en": "Dog tail Lv150",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21371
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03180",
+   "kind": "lang",
+   "jp": "エイレルのナプラスから、犬神の森にいるエストークの尻尾を持ってくるように頼まれた。犬神の森はサウスティリス南西にある。",
+   "en": "Naplus of Eirel asked me to bring the tail of Estork living in the Forest of DogGod which lies in South West of South Tyris",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21381
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03181",
+   "kind": "lang",
+   "jp": "あとはエイレルのナプラスに報告するだけだ。",
+   "en": "I have to visit Naplus of Eirel to report.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21389
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03182",
+   "kind": "lang",
+   "jp": "この世界に生きる者 50階相当",
+   "en": "Live in this world Lv50",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21397
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03183",
+   "kind": "lang",
+   "jp": "ありのままの姿を 40階相当",
+   "en": "Insect curse Lv40",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21415
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03184",
+   "kind": "lang",
+   "jp": "神立図書館のマリアからアイテム集めを頼まれている。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21425
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03185",
+   "kind": "lang",
+   "jp": "神立図書館のアリスに薬をあげよう。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21433
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03186",
+   "kind": "lang",
+   "jp": "あとはマリアから報酬をもらうだけだが…これでよかったのだろうか。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21441
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03187",
+   "kind": "lang",
+   "jp": "魔術の深淵 130階相当",
+   "en": " Lv130",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21449
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03188",
+   "kind": "lang",
+   "jp": "気が向いたら魔導船でネインに話しかけてみようか。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21459
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03189",
+   "kind": "lang",
+   "jp": "魔導船でネインからあるモンスターを連れてくるように頼まれた。魔法回路が刻まれた擬似生命体らしいが、名称不明だ。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21467
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03190",
+   "kind": "lang",
+   "jp": "遥かなる星の海から 140階相当",
+   "en": "From the sea of stars Lv140",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21475
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03191",
+   "kind": "lang",
+   "jp": "陽牢の塔にいるガージンドに依頼の詳細を聞こう。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21485
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03192",
+   "kind": "lang",
+   "jp": "陽牢の塔にいるガージンドから基地の宇宙生物の排除を頼まれている。基地は塔から南東にあるらしい。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21493
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03193",
+   "kind": "lang",
+   "jp": "宇宙生物の排除が完了した。陽牢の塔にいるガージンドに報告しよう。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21501
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03194",
+   "kind": "lang",
+   "jp": "剛石のウリカグアル 150階相当",
+   "en": "Mission from Urcaguary Lv150",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21509
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03195",
+   "kind": "lang",
+   "jp": "オルドランにいるウリカグアルから靴下30枚の調達と泥棒の成敗を頼まれている。泥棒の正体を突き止めるには靴下が必要だろう。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21519
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03196",
+   "kind": "lang",
+   "jp": "不幸のシナア 150階相当",
+   "en": "Mission from Sinaha Lv150",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21535
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03197",
+   "kind": "lang",
+   "jp": "叡智のソピアー 150階相当",
+   "en": "Mission from Sophia Lv150",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21554
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03198",
+   "kind": "lang",
+   "jp": "神立図書館にいるソピアーに手伝えることはないか尋ねよう。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21575
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03199",
+   "kind": "lang",
+   "jp": "永遠のネヘルタード 150階相当",
+   "en": "Mission from Amurdad Lv150",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21586
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03200",
+   "kind": "lang",
+   "jp": "闇檻にいるネヘルタードから依頼されている。",
+   "en": "I have been asked by Amurdad in Amur-Cage.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21597
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03201",
+   "kind": "lang",
+   "jp": "闇檻にいるネヘルタードに依頼の達成を報告しよう。",
+   "en": "I will report the achievement to Amurdad in Amur-Cage.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21607
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03202",
+   "kind": "lang",
+   "jp": "ネヘルタードから依頼があれば連絡が入ることになっている。",
+   "en": "Amurdad will contact me if anything happens.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21617
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03203",
+   "kind": "lang",
+   "jp": "鉄騎のガルジエム 150階相当",
+   "en": "Mission from Garziem Lv150",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21628
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03204",
+   "kind": "lang",
+   "jp": "ガルジエムから何かあれば連絡が入ることになっている。",
+   "en": "Garziem will contact me if anything happens.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21639
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03205",
+   "kind": "lang",
+   "jp": "神艦にいるガルジエムから作業機械の暴走を解決するよう要請された。",
+   "en": "I was asked to solve the runaway of workers from Garziem.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21649
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03206",
+   "kind": "lang",
+   "jp": "神艦の作業区画に潜入して仕事をしつつ、作業機械の暴走を止める方法を探そう。",
+   "en": "I have to find a way to stop the runaway of workers while infiltrating the work area of dock and working.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21659
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03207",
+   "kind": "lang",
+   "jp": "歌踊のカラヴィカ 150階相当",
+   "en": "Mission from Karavika Lv150",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21670
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03208",
+   "kind": "lang",
+   "jp": "なんとかコンサートを守り抜いた。オルドランのカラヴィカに報酬を貰おう。",
+   "en": "I could protect the concert.I will get reward from Karavika.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21681
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03209",
+   "kind": "lang",
+   "jp": "オルドランのカラヴィカは、月末にコンサートを開催している。だが警備員が不足しがちのようだ。",
+   "en": "Karavika holds a concert at the end of the month. But security guards tend to be short.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21691
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03210",
+   "kind": "lang",
+   "jp": "砂嵐のラシエル 150階相当",
+   "en": "Mission from Arasiel Lv150",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21702
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03211",
+   "kind": "lang",
+   "jp": "陽牢の塔にいるラシエルからの指令を待とう。",
+   "en": "I need to wait the mission from Arasiel.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21723
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03212",
+   "kind": "lang",
+   "jp": "幾百もの世を越えて 20階相当",
+   "en": "Beyond the generations Lv20",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21733
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03213",
+   "kind": "lang",
+   "jp": "ルストール仙窟のイルマが武具作成の技法についての情報を知りたがっている。",
+   "en": "The guild master told me to assassinate the master of either of the other two guilds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21743
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03214",
+   "kind": "lang",
+   "jp": "武具作成の技法についてはサリムが知っているようだ。だが親友くらいに仲良くならないと教えてもらえないだろう。",
+   "en": "I have to visit the master of the guild that I belong to report.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21751
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03215",
+   "kind": "lang",
+   "jp": "イルマと話し短剣を丘長のダインに見せよう。",
+   "en": "I have to visit the master of the guild that I belong to report.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21759
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21767
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03216",
+   "kind": "lang",
+   "jp": "イルマとサリムに結果を報告しよう。",
+   "en": "I have to visit the master of the guild that I belong to report.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21775
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21783
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03217",
+   "kind": "lang",
+   "jp": "日を改めてまたルストール仙窟を訪れよう。",
+   "en": "I have to visit the master of the guild that I belong to report.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21791
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03218",
+   "kind": "lang",
+   "jp": "ルストール仙窟真北の山のふもとにある廃屋でイルマ・サリムと合流しよう。",
+   "en": "I have to visit the master of the guild that I belong to report.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21799
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21807
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03219",
+   "kind": "lang",
+   "jp": "炎、燃え尽きる時 160階相当",
+   "en": "Ancient fire dragon Lv160",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21815
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03220",
+   "kind": "lang",
+   "jp": "ウールム・レゾンのスピファルにドラゴン討伐を頼まれた。対象のドラゴンはウールム・レゾン南の火山に住んでいるらしい。",
+   "en": "The dragon hunter Spipha wants me to hunt the ancient fire dragon. The nest is located south of Ulm-Leson.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21825
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03221",
+   "kind": "lang",
+   "jp": "討伐対象と思われるドラゴンを無事討伐した。ウールム・レゾンのスピファルに報告しよう。",
+   "en": "I've killed the ancient fire dragon. I should head back to Ulm-Leson and speak to the dragon hunter Spipha.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21833
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03222",
+   "kind": "lang",
+   "jp": "目標レベル以上の敵モンスターを倒した。レオルドに報告しよう。",
+   "en": "I defeated enemy monsters above the target level. Let's report to Leold.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21859
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03223",
+   "kind": "lang",
+   "jp": "調査隊壊滅の危機 180階相当",
+   "en": "Researcher crisis Lv180",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21867
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  },
+  {
+   "id": "s03224",
+   "kind": "lang",
+   "jp": "ザイールのアレンに、ラスキリスから仲間を連れ戻してくるよう依頼された。",
+   "en": "Allen of Zaile asked me to take back researcher from Raskilis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0270",
+     "line": 21877
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0270",
+   "owner": "label_0270"
+  }
+ ]
+}

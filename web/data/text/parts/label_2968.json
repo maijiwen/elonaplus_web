@@ -1,0 +1,5715 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2968",
+ "entries": [
+  {
+   "id": "s13556",
+   "kind": "lang",
+   "jp": "床が盛り上がってきた。",
+   "en": "A wall appears.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 326872
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13557",
+   "kind": "lang",
+   "jp": "この壁は魔法を受け付けないようだ。",
+   "en": "These walls seem to resist your magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 326891
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13558",
+   "kind": "lang",
+   "jp": "扉が出現した。",
+   "en": "A door appears.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 326898
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13559",
+   "kind": "lang",
+   "jp": "地面から無数の気が迸る！",
+   "en": "Haaaaaaaaaa!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 326926
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13560",
+   "kind": "lang",
+   "jp": "むぅ 最大の奥義がかき消されるとは！",
+   "en": "These walls seem to resist your magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 326933
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13561",
+   "kind": "lang",
+   "jp": "「こぉぉんのっ！アホーーーーッ！！！」",
+   "en": "*Ooban-Burumai*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 327000
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13562",
+   "kind": "lang",
+   "jp": "スウォーム！",
+   "en": "Swarm!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 327092
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13563",
+   "kind": "lang",
+   "jp": "ストラックアウト！",
+   "en": "Struck Out!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 327145
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13564",
+   "kind": "lang",
+   "jp": "隕石は大気圏で燃え尽きてしまったようだ…。",
+   "en": "These walls seem to resist your magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 327798
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13565",
+   "kind": "lang",
+   "jp": "読む対象は？",
+   "en": "Which Book?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328121
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13566",
+   "kind": "lang",
+   "jp": "あなたはひとりぼっちだ…。",
+   "en": "You're all alone.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328163
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 330922
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 333923
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13567",
+   "kind": "lang",
+   "jp": "あなたと仲間たちは読書会を始めた。",
+   "en": "You started the reading party with Friends.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328170
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13568",
+   "kind": "lang",
+   "jp": "開ける対象は？",
+   "en": "Which Box?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328185
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13569",
+   "kind": "lang",
+   "jp": "…力任せでも無理だということがわかった。",
+   "en": "...You realized that it was impossible even if you left it to brute strength.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328250
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13570",
+   "kind": "lang",
+   "jp": "…なかなか頑丈だ。",
+   "en": "You fail to break it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328260
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13571",
+   "kind": "lang",
+   "jp": "錠の破壊に成功した！",
+   "en": "You've successfully destroyed the lock!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328269
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13572",
+   "kind": "lang",
+   "jp": "使用するポーションは？",
+   "en": "Which potion?",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328356
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328520
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13573",
+   "kind": "lang",
+   "jp": "消費＆射出するアイテムは？",
+   "en": "Which item consume?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328451
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13574",
+   "kind": "lang",
+   "jp": "雨が辺りに降り注いだ。",
+   "en": "The rain poured down in around.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328615
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13575",
+   "kind": "lang",
+   "jp": "対象にする食品は？",
+   "en": "Which food?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328640
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13576",
+   "kind": "lang",
+   "jp": "あなたは気の向くまま、気持ちいいことをすることにした。",
+   "en": "You decided to do whatever felt good to you, following your heart.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328685
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13577",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、荒々しく攻めることにした。",
+   "en": "You decided to attack roughly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328692
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13578",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、焦らしながら攻めることにした。",
+   "en": "You decided to attack slowly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328699
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13579",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、テクニカルに攻めることにした。",
+   "en": "You decided to attack technically.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328706
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13580",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、囁きながら攻めることにした。",
+   "en": "You decided to attack in whispering.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328713
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13581",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、マニアックに攻めることにした。",
+   "en": "You decided to attack in a niche way.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328720
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13582",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、ねちっこく攻めることにした。",
+   "en": "You decided to attack persistently.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328727
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13583",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、魔力を使って攻めることにした。",
+   "en": "You decided to attack using magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328734
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13584",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、甘えるように攻めることにした。",
+   "en": "You decided to attack while pleading.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328741
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13585",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、荒々しく攻められることにした。",
+   "en": "You decided to attacked roughly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328748
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13586",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、焦らしながら攻められることにした。",
+   "en": "You decided to attacked slowly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328755
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13587",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、テクニカルに攻められることにした。",
+   "en": "You decided to attacked technically.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328762
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13588",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、囁きながら攻められる　ことにした。",
+   "en": "You decided to attacked in whispering.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328769
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13589",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、マニアックに攻められることにした。",
+   "en": "You decided to attacked in a niche way.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328776
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13590",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、ねちっこく攻められる　ことにした。",
+   "en": "You decided to attacked persistently.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328783
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13591",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、魔力を使って攻められることにした。",
+   "en": "You decided to attacked using magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328790
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13592",
+   "kind": "lang",
+   "jp": "あなたは気持ちいいことの際に、甘えるように攻められることにした。",
+   "en": "You decided to attacked while pleading.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328797
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13593",
+   "kind": "lang",
+   "jp": "対象にするアイテムは？",
+   "en": "Which item?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328808
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13594",
+   "kind": "lang",
+   "jp": "それは機能が被っている…。",
+   "en": "It has the same performance...",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328834
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 357359
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13595",
+   "kind": "lang",
+   "jp": "Ｘフレームチェンジ！",
+   "en": "X-Frame Change!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328844
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 357369
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13596",
+   "kind": "lang",
+   "jp": "スピニングフット！",
+   "en": "Spinning Foot!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328851
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 357376
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13597",
+   "kind": "lang",
+   "jp": "マイティアーム！",
+   "en": "Mighty Arm!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328859
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 357384
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13598",
+   "kind": "lang",
+   "jp": "デュアルコア！",
+   "en": "Dual Core!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328867
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 357392
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13599",
+   "kind": "lang",
+   "jp": "ラピッドサーバー！",
+   "en": "Rapid Server!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328875
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 357400
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13600",
+   "kind": "lang",
+   "jp": "スナイプヘッド！",
+   "en": "Snipe Head!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328883
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 357408
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13601",
+   "kind": "lang",
+   "jp": "デシーヴバレル！",
+   "en": "Deceive Barrel!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328891
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 357416
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13602",
+   "kind": "lang",
+   "jp": "「超忍法・影の舞！」",
+   "en": "*Shadow Dance*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 328936
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13603",
+   "kind": "lang",
+   "jp": "沈黙の霧が魔力の発生を阻止した。",
+   "en": "The mist of silence interrupts a spell.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329136
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13604",
+   "kind": "raw",
+   "jp": "に重ねて詠唱した。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329201
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13605",
+   "kind": "lang",
+   "jp": "窮地でなければ発動しない。",
+   "en": "Did not meet the conditions of use.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329345
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13606",
+   "kind": "lang",
+   "jp": "集いし絆が、更なる力を紡ぎだす！",
+   "en": "Ties with peers further spinning force.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329353
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13607",
+   "kind": "raw",
+   "jp": "「勝負はこれから！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329387
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329389
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13608",
+   "kind": "raw",
+   "jp": "「心を一つに…！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329387
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329389
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13609",
+   "kind": "raw",
+   "jp": "「絆パワー！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329387
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329389
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13610",
+   "kind": "raw",
+   "jp": "「まだ戦える！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 329389
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13611",
+   "kind": "lang",
+   "jp": "仲間の最大数に達しているため、呼び出せない。",
+   "en": "Your party is already full. You can't invite someone anymore.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 330778
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13612",
+   "kind": "lang",
+   "jp": "このモードでは使えない… ",
+   "en": "You can not use it in No future mode...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 330786
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13613",
+   "kind": "lang",
+   "jp": "まずは輸血元を選ぶ必要がある。",
+   "en": "Choose a blood transfusion source.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 330817
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13614",
+   "kind": "lang",
+   "jp": "輸血先を選ぶ必要がある。",
+   "en": "Choose a blood transfusion destination.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 330833
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13615",
+   "kind": "lang",
+   "jp": "アンサンブル！",
+   "en": "Ensemble!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 330885
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13616",
+   "kind": "lang",
+   "jp": "あなたと仲間たちはアンサンブルを始めた。",
+   "en": "You started the ensemble with Friends.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 330929
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13617",
+   "kind": "lang",
+   "jp": "これ以上やると死んでしまう…。",
+   "en": "If you attack any more, opponent will die ....",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331017
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13618",
+   "kind": "lang",
+   "jp": "釣れる獲物がいないようだ…。",
+   "en": "A waste of a time...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331069
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13619",
+   "kind": "lang",
+   "jp": "亜空釣りを始めた。",
+   "en": "You start fishing.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331077
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13620",
+   "kind": "lang",
+   "jp": "霧とともに周囲に海が広がった。",
+   "en": "An expanse of ocean and fog spreads out.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331234
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13621",
+   "kind": "raw",
+   "jp": "「お前の全てを否定してやる」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331453
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331455
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13622",
+   "kind": "raw",
+   "jp": "「捕まえてみな」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331453
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331455
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13623",
+   "kind": "raw",
+   "jp": "「遊ぼうか」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331453
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331455
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13624",
+   "kind": "raw",
+   "jp": "「覚悟はいいか？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331453
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331455
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13625",
+   "kind": "raw",
+   "jp": "「無理をするな。結果はどうせ一緒だ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331453
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331455
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13626",
+   "kind": "raw",
+   "jp": "「そう粋がるなよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331453
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331455
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13627",
+   "kind": "raw",
+   "jp": "「命をかけてかかってこい」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331455
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13628",
+   "kind": "raw",
+   "jp": "「かかってきなさい」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331460
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331462
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13629",
+   "kind": "raw",
+   "jp": "「こっちですよぉ？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331460
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331462
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13630",
+   "kind": "raw",
+   "jp": "「ほら、いらっしゃい」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331460
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331462
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13631",
+   "kind": "raw",
+   "jp": "「手短に死んでもらえる？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331460
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331462
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13632",
+   "kind": "raw",
+   "jp": "「相手をしてあげようか？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331460
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331462
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13633",
+   "kind": "raw",
+   "jp": "「拍子抜けしちゃうなぁ～」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331460
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331462
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13634",
+   "kind": "raw",
+   "jp": "「本気を出しているの？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331460
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331462
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13635",
+   "kind": "raw",
+   "jp": "「私と遊びたいの？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331462
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13636",
+   "kind": "lang",
+   "jp": "これ以上は同時に使役できない。",
+   "en": "You can not control origami more than.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331625
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13637",
+   "kind": "lang",
+   "jp": "消費する魔法書は？",
+   "en": "Which spellbook?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331632
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13638",
+   "kind": "lang",
+   "jp": "カード精霊が5体必要だ。",
+   "en": "Requires 5 card spirits.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331761
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13639",
+   "kind": "lang",
+   "jp": "パワーゲージが足りない。",
+   "en": "Your power gauge is insufficient.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331822
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331922
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13640",
+   "kind": "lang",
+   "jp": "1体しかジョーカーになれない。",
+   "en": "Only one can be the Joker.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331944
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13641",
+   "kind": "lang",
+   "jp": "《ヴァリアブルジョーカー》",
+   "en": "{Variable Joker}",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 331966
+    }
+   ],
+   "concat": true,
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13642",
+   "kind": "lang",
+   "jp": "役が成立していない。",
+   "en": "Your hand ranking is not established.",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332017
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332060
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332153
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332205
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13643",
+   "kind": "lang",
+   "jp": "こんな所持金ではさすがに無理だ。",
+   "en": "It's simply not possible with this amount of money.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332410
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13644",
+   "kind": "raw",
+   "jp": "「か、カネが欲しいん",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332422
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332424
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592900
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592902
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13645",
+   "kind": "raw",
+   "jp": "「カネなら渡すから、許して",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332424
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592902
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13646",
+   "kind": "raw",
+   "jp": "「絶対もっと持ってる",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332482
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332484
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13647",
+   "kind": "raw",
+   "jp": "「ちょっとジャンプしてみろよ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332484
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13648",
+   "kind": "raw",
+   "jp": "、もう行っていい",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332507
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332509
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13649",
+   "kind": "raw",
+   "jp": "「こりゃ儲けた",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332509
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13650",
+   "kind": "raw",
+   "jp": "の身体は好きにしていいから、見逃して",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332531
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332533
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592916
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592918
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13651",
+   "kind": "raw",
+   "jp": "「な、なんでもするから殺さないで",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332533
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592918
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13652",
+   "kind": "raw",
+   "jp": "「キモッ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332588
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332590
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13653",
+   "kind": "raw",
+   "jp": "「興味ない",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332590
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13654",
+   "kind": "raw",
+   "jp": "「ぐへへ…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332615
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332617
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13655",
+   "kind": "raw",
+   "jp": "「滅茶苦茶にしてやる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332617
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13656",
+   "kind": "raw",
+   "jp": "「謝る",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332638
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332640
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592932
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592934
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13657",
+   "kind": "raw",
+   "jp": "「許してクレメンティア」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332640
+    },
+    {
+     "fn": "ai_check",
+     "label": "label_4302",
+     "line": 592934
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13658",
+   "kind": "raw",
+   "jp": "「焼けた鉄板の上でやれ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332695
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332697
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13659",
+   "kind": "raw",
+   "jp": "「駄目",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332697
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13660",
+   "kind": "raw",
+   "jp": "「二度と逆らうなよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332720
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332722
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13661",
+   "kind": "raw",
+   "jp": "「見事な土下座",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332722
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13662",
+   "kind": "lang",
+   "jp": "*魔力増強*　",
+   "en": "*MP Charge* ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332821
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13663",
+   "kind": "lang",
+   "jp": "*生命の転換*　",
+   "en": "*HP Convert* ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332829
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13664",
+   "kind": "lang",
+   "jp": "*外道式炸裂弾*　",
+   "en": "*Brutal Burst* ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332837
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13665",
+   "kind": "lang",
+   "jp": "*コールアンデッド*　",
+   "en": "*Convocation* ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 332845
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13666",
+   "kind": "lang",
+   "jp": "*死者狂乱*　",
+   "en": "*Necro Charge* ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 333050
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13667",
+   "kind": "lang",
+   "jp": "*奴隷搾取*　",
+   "en": "*HP Drain* ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 333063
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13668",
+   "kind": "lang",
+   "jp": "さすがに卑怯な気がする…。",
+   "en": "It feels sneaky...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 333375
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13669",
+   "kind": "lang",
+   "jp": "力が足りない…。",
+   "en": "Force is not enough...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 333448
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13670",
+   "kind": "lang",
+   "jp": "伐採できる樹木が無い。",
+   "en": "You can not find tree.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 333754
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13671",
+   "kind": "lang",
+   "jp": "伐採するための道具を持っていない。",
+   "en": "You have no item to cut tree.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 333782
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13672",
+   "kind": "lang",
+   "jp": "特に必要はなさそうだ。",
+   "en": "It seems not to be necessary especially.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 333843
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13673",
+   "kind": "lang",
+   "jp": "また、",
+   "en": "Further,",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334000
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13674",
+   "kind": "raw",
+   "jp": "はちょっと得意げだ。「綺麗になった？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334032
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13675",
+   "kind": "raw",
+   "jp": "は小奇麗な感じがする。「え、もう終わり？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334040
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13676",
+   "kind": "raw",
+   "jp": "はかなり立派に見える。「ありがと！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334048
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13677",
+   "kind": "raw",
+   "jp": "はとても健康そうだ！「いつもありがとう」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334056
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13678",
+   "kind": "raw",
+   "jp": "がキラキラ輝いて見える！「大好き！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334064
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13679",
+   "kind": "raw",
+   "jp": "「コワイコワイ…アッ、ア゛ア゛ア゛ーーー！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334098
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13680",
+   "kind": "raw",
+   "jp": "は嫌そうに",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334104
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334106
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334193
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334195
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13681",
+   "kind": "raw",
+   "jp": "を払いのけた。",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334104
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334106
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334193
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334195
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13682",
+   "kind": "raw",
+   "jp": "「セクハラ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334104
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334106
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13683",
+   "kind": "raw",
+   "jp": "「触らないで」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334104
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334106
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13684",
+   "kind": "raw",
+   "jp": "の神経を逆撫でしてしまったようだ。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334106
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334195
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13685",
+   "kind": "raw",
+   "jp": "「アハヒャヒャ！モット！モットオネガ…アヒャヒャ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334122
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13686",
+   "kind": "raw",
+   "jp": "は微妙にイヤそうだ！",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334128
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334130
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13687",
+   "kind": "raw",
+   "jp": "は無言で",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334128
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334130
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334177
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334179
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13688",
+   "kind": "raw",
+   "jp": "から離れた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334128
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334130
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13689",
+   "kind": "raw",
+   "jp": "は困惑している…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334130
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13690",
+   "kind": "raw",
+   "jp": "「モットナデナデシテー！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334144
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13691",
+   "kind": "raw",
+   "jp": "は恥ずかしがっている…。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334150
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334152
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13692",
+   "kind": "raw",
+   "jp": "はちょっと嬉しそうだ。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334152
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13693",
+   "kind": "raw",
+   "jp": "「ファー…ブルスコ…ファー…ブルスコ…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334170
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13694",
+   "kind": "raw",
+   "jp": "に寄り添ってきた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334177
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334179
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13695",
+   "kind": "raw",
+   "jp": "はとっても嬉しそうだ！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334179
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13696",
+   "kind": "raw",
+   "jp": "を上目遣いで見た！",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334215
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334217
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13697",
+   "kind": "raw",
+   "jp": "にすり寄った！",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334215
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334217
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13698",
+   "kind": "raw",
+   "jp": "*ふぁのーん*",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334215
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334217
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13699",
+   "kind": "raw",
+   "jp": "に全力で甘えた！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334217
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13700",
+   "kind": "raw",
+   "jp": "「そ、そんな目で見ないで",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334252
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334254
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13701",
+   "kind": "raw",
+   "jp": "*キュン♪1*",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334252
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334254
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13702",
+   "kind": "raw",
+   "jp": "は静かに悶えている！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334254
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13703",
+   "kind": "raw",
+   "jp": "「と、溶かされる！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334353
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334355
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13704",
+   "kind": "raw",
+   "jp": "「あぁぁあっ！？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334353
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334355
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13705",
+   "kind": "raw",
+   "jp": "「ぎゃあああ…！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334353
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334355
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13706",
+   "kind": "raw",
+   "jp": "「ひっ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334355
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 577251
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13707",
+   "kind": "lang",
+   "jp": "糸",
+   "en": "web",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334401
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13708",
+   "kind": "lang",
+   "jp": "闇",
+   "en": "darkness",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334404
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13709",
+   "kind": "lang",
+   "jp": "酸",
+   "en": "acid",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334407
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13710",
+   "kind": "lang",
+   "jp": "エーテル",
+   "en": "ether",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334410
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 372047
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13711",
+   "kind": "lang",
+   "jp": "炎",
+   "en": "fire",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334413
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13712",
+   "kind": "lang",
+   "jp": "液体",
+   "en": "potion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334416
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13713",
+   "kind": "lang",
+   "jp": "光",
+   "en": "light",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334419
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13714",
+   "kind": "lang",
+   "jp": "煙",
+   "en": "smoke",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334422
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13715",
+   "kind": "lang",
+   "jp": "属性残滓",
+   "en": "remnants of the attribute",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334425
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13716",
+   "kind": "raw",
+   "jp": "は目と口を必死に閉じようとしている！",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334910
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334912
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13717",
+   "kind": "raw",
+   "jp": "は激しく身をよじっている！",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334910
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334912
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13718",
+   "kind": "raw",
+   "jp": "は涙や汗を流して笑っている！",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334910
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334912
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13719",
+   "kind": "raw",
+   "jp": "は笑いながら悶えている！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334912
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13720",
+   "kind": "raw",
+   "jp": "「あはははっ！！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334925
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334927
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13721",
+   "kind": "raw",
+   "jp": "「はははっはは！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334925
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334927
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13722",
+   "kind": "raw",
+   "jp": "「んぎいいい！？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334925
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334927
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13723",
+   "kind": "raw",
+   "jp": "「ぐっああ…！はぁーっ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334925
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334927
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13724",
+   "kind": "raw",
+   "jp": "「イッ…ひっひひいい…！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334925
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334927
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13725",
+   "kind": "raw",
+   "jp": "「くうっ…んん！！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334925
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334927
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13726",
+   "kind": "raw",
+   "jp": "「やめっ！やめ…！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334925
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334927
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13727",
+   "kind": "raw",
+   "jp": "「ひっ！ひィィ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334927
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13728",
+   "kind": "raw",
+   "jp": "「ひゃはははは！！！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334941
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334943
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13729",
+   "kind": "raw",
+   "jp": "「…げほっ！げほっ！！ううう…ぐえっ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334941
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334943
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13730",
+   "kind": "raw",
+   "jp": "「いっ…ひいいい！！！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334941
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334943
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13731",
+   "kind": "raw",
+   "jp": "「あ、あはははっ…！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334941
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334943
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13732",
+   "kind": "raw",
+   "jp": "「あ、ひゃあああアアアアアッ！！？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334941
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334943
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13733",
+   "kind": "raw",
+   "jp": "「んひいいいッ…！！！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334941
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334943
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13734",
+   "kind": "raw",
+   "jp": "「ぎいいいああああっ！！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334941
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334943
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13735",
+   "kind": "raw",
+   "jp": "「やめっ…でぇぇっ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 334943
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13736",
+   "kind": "raw",
+   "jp": "「こんなのってない",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335124
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335126
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13737",
+   "kind": "raw",
+   "jp": "「どうしてこうなった…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335124
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335126
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13738",
+   "kind": "raw",
+   "jp": "「こんなことするなんて、見損なった",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335124
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335126
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13739",
+   "kind": "raw",
+   "jp": "「この犯罪者！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335124
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335126
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13740",
+   "kind": "raw",
+   "jp": "はあきらめが悪く、まだジタバタしている…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335126
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13741",
+   "kind": "raw",
+   "jp": "「あーれー」",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335146
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335148
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 539352
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 539354
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13742",
+   "kind": "raw",
+   "jp": "「まったく、甘えん坊さん",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335146
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335148
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13743",
+   "kind": "raw",
+   "jp": "はふっと力を抜くと、身体をあなたに預けた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335148
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13744",
+   "kind": "raw",
+   "jp": "「おっと、こんなところに抱き枕が」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335166
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335168
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13745",
+   "kind": "raw",
+   "jp": "「覚悟はできている",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335166
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335168
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13746",
+   "kind": "raw",
+   "jp": "はあなたを見下ろして冷笑を浮かべた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335168
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13747",
+   "kind": "raw",
+   "jp": "は諦めの表情を浮かべている…。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335178
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335180
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13748",
+   "kind": "raw",
+   "jp": "は無言で流れに身を任せている。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335178
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335180
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13749",
+   "kind": "raw",
+   "jp": "は全てを察して抵抗しなかった。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335180
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13750",
+   "kind": "lang",
+   "jp": "痛い！",
+   "en": "what?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335209
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13751",
+   "kind": "raw",
+   "jp": "「くるし…い…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335227
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335229
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13752",
+   "kind": "raw",
+   "jp": "「ぐぇぇ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335227
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335229
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13753",
+   "kind": "raw",
+   "jp": "「死ぬぅ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335227
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335229
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13754",
+   "kind": "raw",
+   "jp": "の身体が軋む…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335229
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13755",
+   "kind": "raw",
+   "jp": "「あたたかい…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335261
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335263
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13756",
+   "kind": "raw",
+   "jp": "「幸せな気分",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335261
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335263
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13757",
+   "kind": "raw",
+   "jp": "は無言で抱きしめ返してきた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335263
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13758",
+   "kind": "lang",
+   "jp": "えっ。",
+   "en": "what?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335303
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13759",
+   "kind": "raw",
+   "jp": "「殺してやる」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335316
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335318
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13760",
+   "kind": "raw",
+   "jp": "「うげぇ…ぺっぺっ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335316
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335318
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13761",
+   "kind": "raw",
+   "jp": "「ひどい…」",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335316
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335318
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 555766
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13762",
+   "kind": "raw",
+   "jp": "「ヘンタイ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335318
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_4269",
+     "line": 583057
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13763",
+   "kind": "raw",
+   "jp": "「んっ…♪」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335345
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335347
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13764",
+   "kind": "raw",
+   "jp": "「もっと…して」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335345
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335347
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13765",
+   "kind": "raw",
+   "jp": "「キスだけじゃいや…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335345
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335347
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13766",
+   "kind": "raw",
+   "jp": "「大好き♪1」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335347
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13767",
+   "kind": "raw",
+   "jp": "「冗談はやめてよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335357
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335359
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13768",
+   "kind": "raw",
+   "jp": "「そういう関係になりたいの？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335357
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335359
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13769",
+   "kind": "raw",
+   "jp": "「責任とってよ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335357
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335359
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13770",
+   "kind": "raw",
+   "jp": "「いきなり何を！？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335359
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13771",
+   "kind": "lang",
+   "jp": "現在のフィールド変化は解除できない…。",
+   "en": "The current field state cannot be reset...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335431
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13772",
+   "kind": "lang",
+   "jp": "フィールド変化が解除された。",
+   "en": "The field state was reset.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335440
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13773",
+   "kind": "lang",
+   "jp": "*紙隠し*　",
+   "en": "*Kamikakushi* ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335859
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13774",
+   "kind": "lang",
+   "jp": "地面から毒を帯びた蔓が飛び出した！",
+   "en": "Poisonous vines popped out from the ground!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 335989
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13775",
+   "kind": "raw",
+   "jp": "「許して…ください」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336299
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336301
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13776",
+   "kind": "raw",
+   "jp": "「うう…こんなの、耐えられるわけ…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336299
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336301
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13777",
+   "kind": "raw",
+   "jp": "「む…り…！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336299
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336301
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13778",
+   "kind": "raw",
+   "jp": "「ひと思いに殺して…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336299
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336301
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13779",
+   "kind": "raw",
+   "jp": "「ひっ、ひィィィ…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336299
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336301
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13780",
+   "kind": "raw",
+   "jp": "「すみません…でした…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336301
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13781",
+   "kind": "lang",
+   "jp": "*創神の息吹*",
+   "en": "<Respiration of Creative Gods>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336472
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13782",
+   "kind": "lang",
+   "jp": "*闘神の咆哮*",
+   "en": "<Roar of Fighting Gods>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336485
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13783",
+   "kind": "lang",
+   "jp": "*獣神の烈爪*",
+   "en": "<Assault of Beast Gods>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336497
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13784",
+   "kind": "lang",
+   "jp": "*司神の審判*",
+   "en": "<Referee of Judicial Gods>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336505
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13785",
+   "kind": "lang",
+   "jp": "*忌神の怨嗟*",
+   "en": "<Grudge of Abominable Gods>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336513
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13786",
+   "kind": "lang",
+   "jp": "*獄神の呪縛*",
+   "en": "<Commandment of Hell Gods>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336521
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13787",
+   "kind": "lang",
+   "jp": "*森羅万象殺*",
+   "en": "<Elements Killing>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336576
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13788",
+   "kind": "lang",
+   "jp": "*滅火の神槍*",
+   "en": "<HOROBINOYARI>",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336600
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408186
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13789",
+   "kind": "lang",
+   "jp": "魔力を帯びた芳香が周囲にたちこめた。",
+   "en": "Magical aroma was floating around.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 336825
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13790",
+   "kind": "lang",
+   "jp": "何も起きない…カルマが低すぎるようだ。",
+   "en": "Nothing happens....It seems like your karma is too low.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338070
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338139
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13791",
+   "kind": "lang",
+   "jp": "味方に爆薬を仕掛けようとしたが、やっぱりやめた…。",
+   "en": "You tried to plant explosives on ally but decided against it...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338281
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13792",
+   "kind": "raw",
+   "jp": "「観念しろ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338587
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338589
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13793",
+   "kind": "raw",
+   "jp": "「確保ー！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338587
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338589
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13794",
+   "kind": "raw",
+   "jp": "「これまでだな」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338587
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338589
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13795",
+   "kind": "raw",
+   "jp": "「ブタ箱行きだ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338589
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13796",
+   "kind": "lang",
+   "jp": "あなたは取り押さえられてしまった…。",
+   "en": "You have been overpowered.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338596
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13797",
+   "kind": "lang",
+   "jp": "他人の指導をしている余裕はない。",
+   "en": "You can't afford to lead others.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338881
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13798",
+   "kind": "lang",
+   "jp": "エーテルの抗体があなたの体内に行き渡った。",
+   "en": "Your Ether Disease is cured greatly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338905
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13799",
+   "kind": "lang",
+   "jp": "あなたはエーテルに侵食された。",
+   "en": " The Ether spreads around your body.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 338919
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13800",
+   "kind": "raw",
+   "jp": "「オマエ程度が戦うだと？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339297
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13801",
+   "kind": "raw",
+   "jp": "「すぐに殺してやるよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339297
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13802",
+   "kind": "raw",
+   "jp": "「消えろザコめ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339297
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13803",
+   "kind": "raw",
+   "jp": "「このかたつむり野郎」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339297
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13804",
+   "kind": "raw",
+   "jp": "「こんなヤツに本気を出してやる価値はあるのか…？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339297
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13805",
+   "kind": "raw",
+   "jp": "「マッハでミンチにしてやるよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339297
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13806",
+   "kind": "raw",
+   "jp": "「まったく…度し難いな」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339297
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13807",
+   "kind": "raw",
+   "jp": "「ブタはブタ小屋に帰れ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339297
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13808",
+   "kind": "raw",
+   "jp": "「すっこんでろ雑魚め」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339299
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13809",
+   "kind": "raw",
+   "jp": "「地べたを這いずりなさい」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339305
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339307
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13810",
+   "kind": "raw",
+   "jp": "「目障りよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339305
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339307
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13811",
+   "kind": "raw",
+   "jp": "「もがけ。苦しめ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339305
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339307
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13812",
+   "kind": "raw",
+   "jp": "「常識知らずの戦闘馬鹿！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339305
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339307
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13813",
+   "kind": "raw",
+   "jp": "「どうしようもない子ね、お仕置きよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339305
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339307
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13814",
+   "kind": "raw",
+   "jp": "「その下品な眼をくりぬくの」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339305
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339307
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13815",
+   "kind": "raw",
+   "jp": "「グシャグシャにしてやるわ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339307
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13816",
+   "kind": "raw",
+   "jp": "「どうしたの？もう終わりなの？」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339312
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13817",
+   "kind": "raw",
+   "jp": "「潔く、くたばりなさい」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339312
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13818",
+   "kind": "raw",
+   "jp": "「生まれてきたことを後悔するのね」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339312
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13819",
+   "kind": "raw",
+   "jp": "「このブタめ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339312
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13820",
+   "kind": "raw",
+   "jp": "「すぐにミンチにしてあげる」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339312
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13821",
+   "kind": "raw",
+   "jp": "「貴方って本当に最低のクズだわ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339312
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13822",
+   "kind": "raw",
+   "jp": "「このエロオニギリ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339312
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13823",
+   "kind": "raw",
+   "jp": "「あら？悦んでるの？気持ち悪いわ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339312
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13824",
+   "kind": "raw",
+   "jp": "「このカタツムリが」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339314
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13825",
+   "kind": "lang",
+   "jp": "「くっ…やはり合意がないと充分な力が出ませんね」",
+   "en": "Maile seems not to have enough power.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339846
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13826",
+   "kind": "lang",
+   "jp": "[システム]原因不明のエラーによりglobaltcda…",
+   "en": "[System]By unknown error, globalda...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 339855
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13827",
+   "kind": "lang",
+   "jp": "バリバリ…ゴクリ。なんと！状態異常が回復した！",
+   "en": "Special candy was crunched down.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 340236
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13828",
+   "kind": "lang",
+   "jp": "あなたは四次元のポケットを召喚した。",
+   "en": "You summon 4 dimensional pocket.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 340382
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  },
+  {
+   "id": "s13829",
+   "kind": "lang",
+   "jp": "鏡が四次元につながった。",
+   "en": "The mirror led to 4 dimensional.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 340389
+    }
+   ],
+   "fn": "calcmagiccontrol",
+   "label": "label_2968",
+   "owner": "label_2968"
+  }
+ ]
+}

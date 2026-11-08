@@ -1,0 +1,6376 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0043",
+ "entries": [
+  {
+   "id": "s01078",
+   "kind": "lang",
+   "jp": "短距離走者",
+   "en": "Short Distance Runner",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5040
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01079",
+   "kind": "lang",
+   "jp": "中距離走者",
+   "en": "Middle Distance Runner",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5040
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01080",
+   "kind": "lang",
+   "jp": "長距離走者",
+   "en": "Long Distance Runner",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5040
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01081",
+   "kind": "lang",
+   "jp": "長年の特訓の成果がスタミナを高める",
+   "en": "Years of training strengthens your stamina.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5042
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01082",
+   "kind": "lang",
+   "jp": "あなたは持久力がある[スタミナ+]",
+   "en": "You have good stamina. [Stamina+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5042
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01083",
+   "kind": "lang",
+   "jp": "あなたはかなり持久力がある[スタミナ++]",
+   "en": "You have very good stamina. [Stamina++]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5042
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01084",
+   "kind": "lang",
+   "jp": "あなたの持久力は恐ろしい[スタミナ上昇]",
+   "en": "You have outstanding stamina. [Stamina+++]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5042
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01085",
+   "kind": "lang",
+   "jp": "吸血鬼",
+   "en": "Vampiric Ability",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5051
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01086",
+   "kind": "lang",
+   "jp": "吸血鬼の友人から血の吸い方を学ぶ",
+   "en": "Your vampire friend teaches you how to suck blood.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5053
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01087",
+   "kind": "lang",
+   "jp": "あなたは血を吸うことができる",
+   "en": "You can suck blood now.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5053
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01088",
+   "kind": "lang",
+   "jp": "指導者",
+   "en": "Natural Leader",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5065
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01089",
+   "kind": "lang",
+   "jp": "指導を続けるうちに、仲間を一時的に強くする方法を見つける",
+   "en": "You find how to strengthen your allies for a short time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5067
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01090",
+   "kind": "lang",
+   "jp": "あなたは仲間を一時的に強くできる",
+   "en": "You can temporally strengthen your allies.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5067
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01091",
+   "kind": "lang",
+   "jp": "手加減",
+   "en": "Knockout",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5079
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01092",
+   "kind": "lang",
+   "jp": "修行の中で、相手を殺さずに気絶させる攻撃を編み出す",
+   "en": "You find how to stun enemy without killing.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5081
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01093",
+   "kind": "lang",
+   "jp": "あなたは敵に手加減して攻撃ができる",
+   "en": "You can attack it easy on the enemy.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5081
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01094",
+   "kind": "lang",
+   "jp": "魔眼",
+   "en": "Magic Eye",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5093
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01095",
+   "kind": "lang",
+   "jp": "謎の儀式に巻き込まれ、眼に呪術を施される",
+   "en": "You are subjected to the magic in the eyes by the ritual.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5095
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01096",
+   "kind": "lang",
+   "jp": "あなたの眼には得体のしれない魔力が宿っている",
+   "en": "Your eye is harboring the magic of mystery.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5095
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01097",
+   "kind": "lang",
+   "jp": "魔導植物の知識",
+   "en": "Knowledge of magical plants",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5107
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01098",
+   "kind": "lang",
+   "jp": "拾った手記の断片から特殊な植物の召喚法を知る",
+   "en": "You learned how to summon magical plants from the piece of the note.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5109
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01099",
+   "kind": "lang",
+   "jp": "あなたは魔力を帯びた植物を呼び出し操れる",
+   "en": "You can summon and manipulate magical plants.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5109
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01100",
+   "kind": "lang",
+   "jp": "夢の中で近くへの瞬間移動を思いつく",
+   "en": "You hit upon an idea of insta-teleport from a dream.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5123
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01101",
+   "kind": "lang",
+   "jp": "あなたは空間を曲げられる",
+   "en": "You can insta-teleport to nearby tiles.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5123
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01102",
+   "kind": "lang",
+   "jp": "火炎芸",
+   "en": "Fire Breath",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5135
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01103",
+   "kind": "lang",
+   "jp": "酒を飲んでいるうちに火を噴けるようになる",
+   "en": "Too much drinking makes you want to breath fire.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5137
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01104",
+   "kind": "lang",
+   "jp": "あなたは口から火を噴ける",
+   "en": "You can breath fire.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5137
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01105",
+   "kind": "lang",
+   "jp": "催眠術師",
+   "en": "Hypnotism",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5149
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01106",
+   "kind": "lang",
+   "jp": "突如として眠りの手を覚える",
+   "en": "Suddenly, you know how to make everyone sleep.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5151
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01107",
+   "kind": "lang",
+   "jp": "あなたは催眠をかけることができる",
+   "en": "You can hypnotize single target.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5151
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01108",
+   "kind": "lang",
+   "jp": "毒の知恵",
+   "en": "Poison Nail",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5163
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01109",
+   "kind": "lang",
+   "jp": "毒の研究の結果、毒の手を覚える",
+   "en": "Researching poisons leads you to a method to poison others.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5165
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01110",
+   "kind": "lang",
+   "jp": "あなたは毒を盛ることができる",
+   "en": "You can poison a creature.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5165
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01111",
+   "kind": "lang",
+   "jp": "舞踏",
+   "en": "Sexy Dance",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5177
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01112",
+   "kind": "lang",
+   "jp": "見惚れるような踊りを身に着ける",
+   "en": "You learn sexy dance.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5179
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01113",
+   "kind": "lang",
+   "jp": "あなたの踊りはとても魅力的だ",
+   "en": "Your dance has been refined.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5179
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01114",
+   "kind": "lang",
+   "jp": "力の暴走",
+   "en": "Uncontrollable power",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5191
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01115",
+   "kind": "lang",
+   "jp": "内に潜む謎の力に振り回される",
+   "en": "Swayed by the mystery power that lurks within.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5193
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01116",
+   "kind": "lang",
+   "jp": "あなたは制御しきれない何かを秘めている",
+   "en": "You have hidden something that can not be controlled.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5193
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01117",
+   "kind": "lang",
+   "jp": "見習い会計士",
+   "en": "Apprentice Accountant",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5205
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01118",
+   "kind": "lang",
+   "jp": "熟練会計士",
+   "en": "Expert Accountant",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5205
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01119",
+   "kind": "lang",
+   "jp": "会計の技能を磨き税金を減らす",
+   "en": "Working as an accountant reduces your tax payment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5207
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01120",
+   "kind": "lang",
+   "jp": "あなたは税金の計算に強い[税金7%減]",
+   "en": "You can set expenses off against tax. [TAX-7%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5207
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01121",
+   "kind": "lang",
+   "jp": "あなたは税金の計算にとても強い[税金15%減]",
+   "en": "You are good at setting expenses off against tax. [TAX-15%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5207
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01122",
+   "kind": "lang",
+   "jp": "見習い補給係",
+   "en": "Apprentice Quartermaster",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5216
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01123",
+   "kind": "lang",
+   "jp": "熟練補給係",
+   "en": "Expert Quartermaster",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5216
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01124",
+   "kind": "lang",
+   "jp": "補給係としての経験が、給料物資の品質を上げる",
+   "en": "Working as a quartermaster gives you better payoff.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5218
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01125",
+   "kind": "lang",
+   "jp": "あなたはたまに質の高い補給品を受け取る",
+   "en": "You sometimes receive quality supplies.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5218
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01126",
+   "kind": "lang",
+   "jp": "あなたは頻繁に質の高い補給品を受け取る",
+   "en": "You frequently receive quality supplies.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5218
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01127",
+   "kind": "lang",
+   "jp": "祈祷師",
+   "en": "Exorcist",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5227
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01128",
+   "kind": "lang",
+   "jp": "祈祷を捧げることで、呪いの言葉の効力を弱める",
+   "en": "Your prayer weakens the power of cursed whisperings.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5229
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01129",
+   "kind": "lang",
+   "jp": "あなたの祈りは呪いの言葉を掻き消す",
+   "en": "Your prayer nullifies cursed whisperings.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5229
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01130",
+   "kind": "lang",
+   "jp": "孤高",
+   "en": "Kokou",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5238
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01131",
+   "kind": "lang",
+   "jp": "最後に信じられるのは、自分の力だけという考えに至る",
+   "en": "Finally, you can believe only your power.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5240
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01132",
+   "kind": "lang",
+   "jp": "あなたは独りの方が行動しやすい[単独時に速度+20%]",
+   "en": "You prefer alone. [SPD+20% at the time alone]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5240
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01133",
+   "kind": "lang",
+   "jp": "迅馬一体",
+   "en": "Zin-ba",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5249
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01134",
+   "kind": "lang",
+   "jp": "戦場を馬と共に駆け回り、乗馬相手との呼吸の合わせ方を知る",
+   "en": "You learned how to synchronize with your horse on the battlefield.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5251
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01135",
+   "kind": "lang",
+   "jp": "あなたは馬上での武器の扱いが得意だ[乗馬時命中ペナルティ緩和]",
+   "en": "You are skilled with weapons on horseback. [Reduced hit penalty while riding]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5251
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01136",
+   "kind": "lang",
+   "jp": "爆魔",
+   "en": "Bomber",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5260
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01137",
+   "kind": "lang",
+   "jp": "魔力爆弾を解析し、自分の魔力を爆発に変換する方法を編み出す",
+   "en": "You have analyzed the magic bomb and devised a way to detonate your own magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5262
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01138",
+   "kind": "lang",
+   "jp": "あなたは自分の魔力を爆発に変換できる",
+   "en": "You can transform your magical energy into explosions.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5262
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01139",
+   "kind": "lang",
+   "jp": "重力制御",
+   "en": "Gravity Control",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5274
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01140",
+   "kind": "lang",
+   "jp": "改造を施され重力へ干渉できる体質になる",
+   "en": "You have remodeled to gravity interference diathesis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5276
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01141",
+   "kind": "lang",
+   "jp": "あなたは重力を操る",
+   "en": "You manipulate the gravity.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5276
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01142",
+   "kind": "lang",
+   "jp": "柔術",
+   "en": "Jiu-jitsu",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5288
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01143",
+   "kind": "lang",
+   "jp": "山で会った謎の老人から古の武術を伝授される",
+   "en": "You have been taught the martial arts from the mysterious old man.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5290
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01144",
+   "kind": "lang",
+   "jp": "あなたは柔術を会得している",
+   "en": "You mastered Jiu-jitsu.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5290
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01145",
+   "kind": "lang",
+   "jp": "あなたは柔術を会得している",
+   "en": "You mastered Jiu-jitsu. ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5290
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01146",
+   "kind": "lang",
+   "jp": "磁力操作",
+   "en": "Magnetic Manipulate",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5302
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01147",
+   "kind": "lang",
+   "jp": "改造されて磁力を操れるようになる",
+   "en": "As a result of body modification, you can manipulate magnetic force.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5304
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01148",
+   "kind": "lang",
+   "jp": "あなたは磁力を自在に操る",
+   "en": "You manipulate magnetic force.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5304
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01149",
+   "kind": "lang",
+   "jp": "盾殴り",
+   "en": "Shield Bash",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5316
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01150",
+   "kind": "lang",
+   "jp": "盾の扱いを身につけ、盾での攻撃の効果を上げる",
+   "en": "Mastering shield increases your power of shield bash.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5318
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01151",
+   "kind": "lang",
+   "jp": "あなたは盾での攻撃に追加効果を得る",
+   "en": "You can bash with your shield more effect.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5318
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01152",
+   "kind": "lang",
+   "jp": "優しい笑顔",
+   "en": "Gentle Face",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5331
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01153",
+   "kind": "lang",
+   "jp": "笑顔の作り方を勉強し、友好度や従順度を高めやすくする",
+   "en": "Your smile makes it easier to gain friendship and obedience.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5333
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01154",
+   "kind": "lang",
+   "jp": "あなたの笑顔は相手を安心させる",
+   "en": "Your smile puts people at ease.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5333
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01155",
+   "kind": "lang",
+   "jp": "二刀流の習熟",
+   "en": "Ambidextrous",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5342
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01156",
+   "kind": "lang",
+   "jp": "二刀流の達人",
+   "en": "Improved Ambidextrous",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5342
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01157",
+   "kind": "lang",
+   "jp": "長年の修行により二刀流の技術を磨く",
+   "en": "Years of training increases your two weapon fighting skill.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5344
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01158",
+   "kind": "lang",
+   "jp": "あなたは複数の武器を巧みに操る[二刀流+4]",
+   "en": "You can handle multiple weapons. [Dual Wield+4]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5344
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01159",
+   "kind": "lang",
+   "jp": "あなたは二刀流を極めている[二刀流+8]",
+   "en": "You mastered multiple weapon style. [Two Wield+8]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5344
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01160",
+   "kind": "lang",
+   "jp": "暗闇への適正",
+   "en": "Conquer Darkness",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5357
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01161",
+   "kind": "lang",
+   "jp": "暗闇への強い適正",
+   "en": "Conquer Deep Darkness",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5357
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01162",
+   "kind": "lang",
+   "jp": "地底での生活が暗黒への耐性を高める",
+   "en": "Living in darkness makes you resistant to darkness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5359
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01163",
+   "kind": "lang",
+   "jp": "あなたは暗闇に慣れている[暗黒耐性強化]",
+   "en": "You don't fear darkness. [RES Darkness+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5359
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01164",
+   "kind": "lang",
+   "jp": "あなたは闇の中で生活できる[暗黒耐性強化]",
+   "en": "You can dance in darkness. [RES Darkness++]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5359
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01165",
+   "kind": "lang",
+   "jp": "免疫",
+   "en": "Poison Tolerance",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5369
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01166",
+   "kind": "lang",
+   "jp": "強い免疫",
+   "en": "More Poison Tolerance",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5369
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01167",
+   "kind": "lang",
+   "jp": "貴族の毒見係のおかげで毒への耐性を得る",
+   "en": "Being a taster for a noble grants you resistance to poison.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5371
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01168",
+   "kind": "lang",
+   "jp": "あなたは毒に免疫がある[毒耐性強化]",
+   "en": "You have a torerance to poison. [RES Poison+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5371
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01169",
+   "kind": "lang",
+   "jp": "あなたには毒に強い免疫がある[毒耐性強化]",
+   "en": "You have a strong tolerance to poison. [RES Poison++]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5371
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01170",
+   "kind": "lang",
+   "jp": "共感上手",
+   "en": "Empathy",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5381
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01171",
+   "kind": "lang",
+   "jp": "相手の考えを理解し対応する技術を学ぶ",
+   "en": "You learn the skill to understand and respond to enemy thoughts.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5383
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01172",
+   "kind": "lang",
+   "jp": "あなたの言葉は心に響く",
+   "en": "Your talk resonate in the mind.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5383
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01173",
+   "kind": "lang",
+   "jp": "聖者",
+   "en": "Saint",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5398
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01174",
+   "kind": "lang",
+   "jp": "神官の下で修行し神聖な力を行使できるようになる",
+   "en": "Training under a priest has taught you sacred skills.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5400
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01175",
+   "kind": "lang",
+   "jp": "あなたは神聖な力を行使する",
+   "en": "You wield divine power.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5400
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01176",
+   "kind": "lang",
+   "jp": "幸運の持ち主",
+   "en": "Lucky",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5412
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01177",
+   "kind": "lang",
+   "jp": "類稀な幸運",
+   "en": "Incredibly Lucky",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5412
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01178",
+   "kind": "lang",
+   "jp": "幸運の女神の寵愛",
+   "en": "Goddess of Luck",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5412
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01179",
+   "kind": "lang",
+   "jp": "流れ星を見て幸運を手にする",
+   "en": "Sighting a falling star brings you luck.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5414
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01180",
+   "kind": "lang",
+   "jp": "あなたは幸運の持ち主だ",
+   "en": "You are lucky",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5414
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01181",
+   "kind": "lang",
+   "jp": "あなたは類稀な幸運の持ち主だ",
+   "en": "You can rely on a good dose of luck.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5414
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01182",
+   "kind": "lang",
+   "jp": "あなたは幸運の女神の寵愛を受けている",
+   "en": "The goddess of luck smiles on you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5414
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01183",
+   "kind": "lang",
+   "jp": "苦行者見習い",
+   "en": "Apprentice Ascetic",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5424
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01184",
+   "kind": "lang",
+   "jp": "苦行者",
+   "en": "Journeyman Ascetic",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5424
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01185",
+   "kind": "lang",
+   "jp": "熟練の苦行者",
+   "en": "Expert Ascetic",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5424
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01186",
+   "kind": "lang",
+   "jp": "苦行の達人",
+   "en": "Master Ascetic",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5424
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01187",
+   "kind": "lang",
+   "jp": "伝説的苦行者",
+   "en": "Legendary Ascetic",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5424
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01188",
+   "kind": "lang",
+   "jp": "苦行を通じてHPを増やす",
+   "en": "Being an ascetic increases your HP.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5426
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01189",
+   "kind": "lang",
+   "jp": "あなたは苦行者の見習いだ[HP+5%]",
+   "en": "You are an apprentice of an ascetic. [HP+5%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5426
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01190",
+   "kind": "lang",
+   "jp": "あなたは立派な苦行者だ[HP+10%]",
+   "en": "You are a journeyman of an ascetic. [HP+10%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5426
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01191",
+   "kind": "lang",
+   "jp": "あなたは熟練した苦行者だ[HP+15%]",
+   "en": "You are an expert of an ascetic. [HP+15%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5426
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01192",
+   "kind": "lang",
+   "jp": "あなたは苦行の達人だ[HP+20%]",
+   "en": "You are a master of an ascetic. [HP+20%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5426
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01193",
+   "kind": "lang",
+   "jp": "あなたは伝説的名苦行者だ[HP+25%]",
+   "en": "You are an legendary ascetic. [HP+25%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5426
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01194",
+   "kind": "lang",
+   "jp": "魔力の遺伝子",
+   "en": "Magical Gene",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5436
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01195",
+   "kind": "lang",
+   "jp": "魔力の細胞",
+   "en": "Magical Cell",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5436
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01196",
+   "kind": "lang",
+   "jp": "魔力の血液",
+   "en": "Magical Blood",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5436
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01197",
+   "kind": "lang",
+   "jp": "魔力の肉体",
+   "en": "Magic Body",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5436
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01198",
+   "kind": "lang",
+   "jp": "魔力の支配",
+   "en": "Magic Being",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5436
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01199",
+   "kind": "lang",
+   "jp": "遺伝子組み換えを行いMPを増やす",
+   "en": "You gain MP by using gene manipulation.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5438
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01200",
+   "kind": "lang",
+   "jp": "あなたは魔力の遺伝子を持っている[MP+5%]",
+   "en": "Your genes contain magic. [MP+5%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5438
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01201",
+   "kind": "lang",
+   "jp": "あなたは魔力の細胞を持っている[MP+10%]",
+   "en": "Your cells contain magica [MP+10%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5438
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01202",
+   "kind": "lang",
+   "jp": "あなたには魔力の血液が流れている[MP+15%]",
+   "en": "Your blood contain magic [MP+15%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5438
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01203",
+   "kind": "lang",
+   "jp": "あなたの肉体は魔力を帯びている[MP+20%]",
+   "en": "Your body is made of magic. [MP+20%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5438
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01204",
+   "kind": "lang",
+   "jp": "あなたは魔力を支配している[MP+25%]",
+   "en": "Magic dominats your entire body. [MP+25%",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5438
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01205",
+   "kind": "lang",
+   "jp": "糸使い",
+   "en": "Strings Assassin",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5448
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01206",
+   "kind": "lang",
+   "jp": "鋭く丈夫な糸を隠し持つ",
+   "en": "You concealed a sharp durable strings.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5450
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01207",
+   "kind": "lang",
+   "jp": "あなたは糸を自在に操る",
+   "en": "You manipulate strings freely.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5450
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01208",
+   "kind": "lang",
+   "jp": "超加速",
+   "en": "Super Accel",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5462
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01209",
+   "kind": "lang",
+   "jp": "誰よりも速さを追求する",
+   "en": "You pursue speed more than anyone.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5464
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01210",
+   "kind": "lang",
+   "jp": "あなたは規格外の加速力を持つ[加速効果上昇]",
+   "en": "Your acceleration is amazing. [Speedspell+]",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5464
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01211",
+   "kind": "lang",
+   "jp": "地気利用",
+   "en": "Ground Manipulater",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5474
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01212",
+   "kind": "lang",
+   "jp": "土地が持つエネルギーに目をつけ操作法を探す",
+   "en": "You discover the energy of the land.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5476
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01213",
+   "kind": "lang",
+   "jp": "あなたは土地のエネルギーを操る",
+   "en": "You manipulate the ground.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5476
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01214",
+   "kind": "lang",
+   "jp": "見極め",
+   "en": "Discernment",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5488
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01215",
+   "kind": "lang",
+   "jp": "客商売の中で相手を見極める眼力を磨く",
+   "en": "In your business life, you honed your ability to judge your opponents.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5490
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01216",
+   "kind": "lang",
+   "jp": "あなたは相手の性別年齢信仰を見抜く",
+   "en": "You can see the other's gender, age, and religion.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5490
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01217",
+   "kind": "lang",
+   "jp": "式折神",
+   "en": "ShikiOrigami",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5499
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01218",
+   "kind": "lang",
+   "jp": "謎の書物を読み解き、紙を操る古の魔術を習得する",
+   "en": "You have deciphered mysterious books and mastered the ancient magic of manipulating paper.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5501
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01219",
+   "kind": "lang",
+   "jp": "あなたは魔法紙を操る",
+   "en": "You manipulate magic paper.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5501
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01220",
+   "kind": "lang",
+   "jp": "カンニバリズム",
+   "en": "Cannibalism",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5514
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01221",
+   "kind": "lang",
+   "jp": "あなたは人肉を食べることに抵抗がない",
+   "en": "You have no trouble eating human flesh.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5514
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01222",
+   "kind": "lang",
+   "jp": "あなたは人肉の味の虜になった。",
+   "en": "You are charmed by the flavor of human flesh.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5516
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01223",
+   "kind": "lang",
+   "jp": "あなたは人肉の味に飽きた。",
+   "en": "You can no longer accept human flesh.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5516
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01224",
+   "kind": "lang",
+   "jp": "鉄の皮膚",
+   "en": "Iron Skin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5525
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01225",
+   "kind": "lang",
+   "jp": "あなたの皮膚は硬い[PV+3]",
+   "en": "Your skin is hard. [PV+3]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5525
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01226",
+   "kind": "lang",
+   "jp": "あなたの皮膚はとても硬い[PV+6]",
+   "en": "Your skin is very hard. [PV+6]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5525
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01227",
+   "kind": "lang",
+   "jp": "あなたは鉄のような皮膚を持っている[PV+9]",
+   "en": "Your skin is as hard as iron. [PV+9]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5525
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01228",
+   "kind": "lang",
+   "jp": "アルビノ",
+   "en": "Albino",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5528
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01229",
+   "kind": "lang",
+   "jp": "あなたの皮膚は白い[PV-3]",
+   "en": "Your skin is white. [PV-3]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5528
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01230",
+   "kind": "lang",
+   "jp": "あなたの皮膚は脆い[PV-6]",
+   "en": "Your skin is fragile. [PV-6]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5528
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01231",
+   "kind": "lang",
+   "jp": "あなたの皮膚は崩れている[PV-9]",
+   "en": "Your skin is collapsing. [PV-9]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5528
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01232",
+   "kind": "lang",
+   "jp": "あなたの皮膚は硬くなった。",
+   "en": "Your skin becomes harder.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5530
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01233",
+   "kind": "lang",
+   "jp": "あなたの皮膚は薄くなった。",
+   "en": "Your skin becomes pale.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5530
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01234",
+   "kind": "lang",
+   "jp": "しなやかな関節",
+   "en": "Flexible Joint",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5540
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01235",
+   "kind": "lang",
+   "jp": "あなたの関節はしなやかだ[器用+3]",
+   "en": "Your joints are flexible. [DEX+3]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5540
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01236",
+   "kind": "lang",
+   "jp": "あなたの関節はとてもしなやかだ[器用+6]",
+   "en": "Your joints are very flexible. [DEX+6]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5540
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01237",
+   "kind": "lang",
+   "jp": "あなたの関節は驚くほどしなやかだ[器用+9]",
+   "en": "Your joints are incredibly flexible. [DEX+9]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5540
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01238",
+   "kind": "lang",
+   "jp": "きしむ関節",
+   "en": "Creaking Joint",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5543
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01239",
+   "kind": "lang",
+   "jp": "あなたの関節はきしむ[器用-3]",
+   "en": "Your joints creak. [DEX-3]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5543
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01240",
+   "kind": "lang",
+   "jp": "あなたは関節痛に悩んでいる[器用-6]",
+   "en": "You are worrying about your joint creakings. [DEX-6]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5543
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01241",
+   "kind": "lang",
+   "jp": "あなたはひどい関節痛を抱えている[器用-9]",
+   "en": "You have terrible joint creakings. [DEX-9]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5543
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01242",
+   "kind": "lang",
+   "jp": "あなたの関節はしなやかになった。",
+   "en": "Your joints become flexible.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5545
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01243",
+   "kind": "lang",
+   "jp": "あなたの関節は痛み出した。",
+   "en": "Your joints creak.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5545
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01244",
+   "kind": "lang",
+   "jp": "トロールの血",
+   "en": "Troll Blood",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5555
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01245",
+   "kind": "lang",
+   "jp": "あなたの傷跡は再生する[自然治癒強化]",
+   "en": "Your wounds regenerate rapidly. [Regeneration+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5555
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01246",
+   "kind": "lang",
+   "jp": "あなたの傷は瞬く間にふさがる[自然治癒強化]",
+   "en": "Your wounds regenerate instantly. [Regeneration++]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5555
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01247",
+   "kind": "lang",
+   "jp": "貧血",
+   "en": "Anemia",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5558
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01248",
+   "kind": "lang",
+   "jp": "あなたは血の気が少ない[自然治癒弱化]",
+   "en": "You suffer from anemia. [Regeneration-]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5558
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01249",
+   "kind": "lang",
+   "jp": "あなたの顔には血の気が全くない[自然治癒弱化]",
+   "en": "You constantly have an attack of anemia. [Regeneration--]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5558
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01250",
+   "kind": "lang",
+   "jp": "あなたの血液は緑っぽくなった。",
+   "en": "Suddenly your blood become greenish!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5560
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01251",
+   "kind": "lang",
+   "jp": "あなたの血液は薄れた。",
+   "en": "Your metabolism slows down.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5560
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01252",
+   "kind": "lang",
+   "jp": "しなやかな脚",
+   "en": "Lithe Leg",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5570
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01253",
+   "kind": "lang",
+   "jp": "あなたの脚はしなやかだ[速度上昇]",
+   "en": "You have lithe legs. [SPD+5]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5570
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01254",
+   "kind": "lang",
+   "jp": "あなたの脚はとてもしなやかだ[速度上昇]",
+   "en": "You have very lithe legs. [SPD+10]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5570
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01255",
+   "kind": "lang",
+   "jp": "あなたの脚は理想的な形をしている[速度上昇]",
+   "en": "You have ideal legs. [SPD+15]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5570
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01256",
+   "kind": "lang",
+   "jp": "ねじれた脚",
+   "en": "Twisted Leg",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5573
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01257",
+   "kind": "lang",
+   "jp": "あなたの脚はねじれている[速度下降]",
+   "en": "Your legs are twisted. [SPD-5]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5573
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01258",
+   "kind": "lang",
+   "jp": "あなたの脚はとてもねじれている[速度下降]",
+   "en": "Your legs are very twisted. [SPD-10]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5573
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01259",
+   "kind": "lang",
+   "jp": "あなたの脚は折れている[速度下降]",
+   "en": "Your legs are broken. [SPD-15]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5573
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01260",
+   "kind": "lang",
+   "jp": "あなたの脚はしなやかになった。",
+   "en": "Your legs become lithe.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5575
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01261",
+   "kind": "lang",
+   "jp": "あなたの脚はねじれた。",
+   "en": "Your legs are twisted!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5575
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01262",
+   "kind": "lang",
+   "jp": "強い腕",
+   "en": "Strong Arm",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5585
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01263",
+   "kind": "lang",
+   "jp": "あなたの腕はひきしまっている[筋力+3]",
+   "en": "You have well-knit arms. [STR+3]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5585
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01264",
+   "kind": "lang",
+   "jp": "あなたの腕は強力だ[筋力+6]",
+   "en": "You have well-muscled arms. [STR+6]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5585
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01265",
+   "kind": "lang",
+   "jp": "あなたの腕は筋肉の塊だ[筋力+9]",
+   "en": "You have ideal arms. [STR+9]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5585
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01266",
+   "kind": "lang",
+   "jp": "弱い腕",
+   "en": "Weak Arm",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5588
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01267",
+   "kind": "lang",
+   "jp": "あなたの腕はたるんでいる[筋力-3]",
+   "en": "Your arms are thin. [STR-3]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5588
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01268",
+   "kind": "lang",
+   "jp": "あなたの腕はとてもたるんでいる[筋力-6]",
+   "en": "Your arms are very thin. [STR-6]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5588
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01269",
+   "kind": "lang",
+   "jp": "あなたの腕には筋肉がない[筋力-9]",
+   "en": "Your arms are just decorative. [STR-9]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5588
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01270",
+   "kind": "lang",
+   "jp": "あなたの腕の筋肉が増えた。",
+   "en": "Your arms grow stronger.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5590
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01271",
+   "kind": "lang",
+   "jp": "あなたの腕の贅肉が増えた。",
+   "en": "Your arms become thin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5590
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01272",
+   "kind": "lang",
+   "jp": "美声",
+   "en": "Sweet Voice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5600
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01273",
+   "kind": "lang",
+   "jp": "あなたは美声を持っている[魅力+5]",
+   "en": "Your voice is sweet.[CHR+5]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5600
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01274",
+   "kind": "lang",
+   "jp": "あなたの声は全てを魅了する[魅力+10]",
+   "en": "Your voice charms everyone.[CHR+10]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5600
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01275",
+   "kind": "lang",
+   "jp": "かれた声",
+   "en": "Husky Voice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5603
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01276",
+   "kind": "lang",
+   "jp": "あなたの声はかれている[魅力-5]",
+   "en": "Your voice is hasky.[CHR-5]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5603
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01277",
+   "kind": "lang",
+   "jp": "あなたが喋ると皆逃げる[魅力-10]",
+   "en": "Everyone is frightened when you talk.[CHR-10]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5603
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01278",
+   "kind": "lang",
+   "jp": "あなたの声はよく通る。",
+   "en": "Your voice becomes lovely.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5605
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01279",
+   "kind": "lang",
+   "jp": "あなたの声はかれた。",
+   "en": "Your voice becomes scary.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5605
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01280",
+   "kind": "lang",
+   "jp": "脳内コンピュータ",
+   "en": "Brain Computer",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5615
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01281",
+   "kind": "lang",
+   "jp": "あなたの脳は機械化している[暗記+4]",
+   "en": "Your brain is mechanized.[Memorization+4]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5615
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01282",
+   "kind": "lang",
+   "jp": "あなたの脳は完璧な機械だ[暗記+8]",
+   "en": "Your brain is fully mechanized.[Memorization+8]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5615
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01283",
+   "kind": "lang",
+   "jp": "痴呆",
+   "en": "Stupid",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5618
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01284",
+   "kind": "lang",
+   "jp": "あなたは少しぼけている[暗記-4]",
+   "en": "You are stupid.[Memorization-4]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5618
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01285",
+   "kind": "lang",
+   "jp": "あなたは痴呆だ[暗記-8]",
+   "en": "You are really stupid.[Memorization-8]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5618
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01286",
+   "kind": "lang",
+   "jp": "あなたの脳は機械化した。",
+   "en": "Your brain is mechanized!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5620
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01287",
+   "kind": "lang",
+   "jp": "あなたの脳は原始化した。",
+   "en": "Your brain degenerates.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5620
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01288",
+   "kind": "lang",
+   "jp": "魔法への耐性",
+   "en": "Magic Res+",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5630
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01289",
+   "kind": "lang",
+   "jp": "あなたは魔法に耐性がある[魔法耐性強化]",
+   "en": "You have resistance to magic.[RES Magic+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5630
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01290",
+   "kind": "lang",
+   "jp": "魔法の弱点",
+   "en": "Magic Res-",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5633
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01291",
+   "kind": "lang",
+   "jp": "あなたは魔法に弱い[魔法耐性弱化]",
+   "en": "You have weakness to magic.[RES Magic-]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5633
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01292",
+   "kind": "lang",
+   "jp": "あなたは魔法の耐性を得た。",
+   "en": "You gain resistance to magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5635
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01293",
+   "kind": "lang",
+   "jp": "あなたは魔法の耐性を失った。",
+   "en": "You lose resistance to magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5635
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01294",
+   "kind": "lang",
+   "jp": "強い鼓膜",
+   "en": "Sound Res+",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5645
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01295",
+   "kind": "lang",
+   "jp": "あなたの鼓膜は厚い[音耐性強化]",
+   "en": "Your eardrums are thick.[RES Sound+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5645
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01296",
+   "kind": "lang",
+   "jp": "弱い鼓膜",
+   "en": "Sound Res-",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5648
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01297",
+   "kind": "lang",
+   "jp": "あなたの鼓膜は薄い[音耐性弱化]",
+   "en": "Your eardrums are thin.[RES Sound-]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5648
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01298",
+   "kind": "lang",
+   "jp": "あなたの鼓膜は厚くなった。",
+   "en": "Your eardrums become thick.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5650
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01299",
+   "kind": "lang",
+   "jp": "あなたの鼓膜は薄くなった。",
+   "en": "Your eardrums become thin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5650
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01300",
+   "kind": "lang",
+   "jp": "火炎耐性",
+   "en": "Fire Res+",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5660
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01301",
+   "kind": "lang",
+   "jp": "あなたの血は滾っている[火炎耐性強化]",
+   "en": "Your blood is boiling. [RES Fire+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5660
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01302",
+   "kind": "lang",
+   "jp": "火炎弱点",
+   "en": "Fire Res-",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5663
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01303",
+   "kind": "lang",
+   "jp": "あなたの腕には鳥肌がたっている[火炎耐性弱化]",
+   "en": "Your skin gets gooseflesh.[RES Fire-]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5663
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01304",
+   "kind": "lang",
+   "jp": "あなたの血は滾りだした。",
+   "en": "Your blood starts to boil.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5665
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01305",
+   "kind": "lang",
+   "jp": "あなたの腕に鳥肌がたった。",
+   "en": "Your skin gets gooseflesh.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5665
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01306",
+   "kind": "lang",
+   "jp": "冷気耐性",
+   "en": "Cold Res+",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5675
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01307",
+   "kind": "lang",
+   "jp": "あなたの皮膚には霜が付いている[冷気耐性強化]",
+   "en": "Your skin is covered by frost.[RES Cold+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5675
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01308",
+   "kind": "lang",
+   "jp": "冷気弱点",
+   "en": "Cold Res-",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5678
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01309",
+   "kind": "lang",
+   "jp": "あなたの皮膚は寒さに弱い[冷気耐性弱化]",
+   "en": "Your skin is sheer.[RES Cold-]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5678
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01310",
+   "kind": "lang",
+   "jp": "あなたの皮膚は冷たくなった。",
+   "en": "You feel hot-headed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5680
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01311",
+   "kind": "lang",
+   "jp": "あなたは汗をかきはじめた。",
+   "en": "You shiver.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5680
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01312",
+   "kind": "lang",
+   "jp": "電撃耐性",
+   "en": "Lightning Res+",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5690
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01313",
+   "kind": "lang",
+   "jp": "あなたは非電導体だ[電撃耐性強化]",
+   "en": "You have resistance to lightning.[RES Lightning+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5690
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01314",
+   "kind": "lang",
+   "jp": "電撃弱点",
+   "en": "Lightning Res-",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5693
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01315",
+   "kind": "lang",
+   "jp": "あなたの身体は電気を良く通す[電撃耐性弱化]",
+   "en": "You have weakness to lightning.[RES Lightning-]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5693
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01316",
+   "kind": "lang",
+   "jp": "あなたは非電導体になった。",
+   "en": "You gain resistance to lightning.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5695
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01317",
+   "kind": "lang",
+   "jp": "あなたの身体は電気を良く通す。",
+   "en": "You lose resistance to lightning.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5695
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01318",
+   "kind": "lang",
+   "jp": "鷹の目",
+   "en": "Hawk Eye",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5705
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01319",
+   "kind": "lang",
+   "jp": "あなたは猫の目をしている[感覚+5]",
+   "en": "You have the eyes of a cat. [PER+5]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5705
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01320",
+   "kind": "lang",
+   "jp": "あなたは鷹の目をしている[感覚+10]",
+   "en": "You have the eyes of a hawk. [PER+10]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5705
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01321",
+   "kind": "lang",
+   "jp": "色弱",
+   "en": "Color Blind",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5708
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01322",
+   "kind": "lang",
+   "jp": "あなたは色弱だ[感覚-5]",
+   "en": "You are partially color-blind. [PER-5]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5708
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01323",
+   "kind": "lang",
+   "jp": "あなたは片目がない[感覚-10]",
+   "en": "You are blind in one eye. [PER-10]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5708
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01324",
+   "kind": "lang",
+   "jp": "あなたの目は細くなった。",
+   "en": "Your eyes glow.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5710
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01325",
+   "kind": "lang",
+   "jp": "あなたの視力は低下した。",
+   "en": "Your sight is weakened.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5710
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01326",
+   "kind": "lang",
+   "jp": "あなたは火炎に耐性がある",
+   "en": "You have resistance to fire.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5720
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01327",
+   "kind": "lang",
+   "jp": "あなたは火炎にかなりの耐性がある",
+   "en": "You have strong resistance to fire.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5720
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01328",
+   "kind": "lang",
+   "jp": "あなたは火炎に弱い",
+   "en": "You have weakness to fire.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5723
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01329",
+   "kind": "lang",
+   "jp": "あなたはかなり火炎に弱い",
+   "en": "You have strong weakness to fire.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5723
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01330",
+   "kind": "lang",
+   "jp": "あなたは冷気に耐性がある",
+   "en": "You have resistance to cold.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5734
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01331",
+   "kind": "lang",
+   "jp": "あなたは冷気にかなりの耐性がある",
+   "en": "You have strong resistance to cold.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5734
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01332",
+   "kind": "lang",
+   "jp": "あなたは冷気に弱い",
+   "en": "You have weakness to cold.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5737
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01333",
+   "kind": "lang",
+   "jp": "あなたはかなり冷気に弱い",
+   "en": "You have strong weakness to cold.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5737
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01334",
+   "kind": "lang",
+   "jp": "あなたは毒に耐性がある",
+   "en": "You have resistance to poison.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5748
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01335",
+   "kind": "lang",
+   "jp": "あなたは毒にかなりの耐性がある",
+   "en": "You have strong resistance to poison.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5748
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01336",
+   "kind": "lang",
+   "jp": "あなたは毒に弱い",
+   "en": "You have weakness to poison.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5751
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01337",
+   "kind": "lang",
+   "jp": "あなたはかなり毒に弱い",
+   "en": "You have strong weakness to poison.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5751
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01338",
+   "kind": "lang",
+   "jp": "あなたは暗黒に耐性がある",
+   "en": "You have resistance to darkness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5762
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01339",
+   "kind": "lang",
+   "jp": "あなたは暗黒にかなりの耐性がある",
+   "en": "You have strong resistance to darkness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5762
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01340",
+   "kind": "lang",
+   "jp": "あなたは暗黒に弱い",
+   "en": "You have weakness to darkness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5765
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01341",
+   "kind": "lang",
+   "jp": "あなたはかなり暗黒に弱い",
+   "en": "You have strong weakness to darkness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5765
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01342",
+   "kind": "lang",
+   "jp": "あなたはマナの反動を軽減できる",
+   "en": "You take less damages from the mana reaction.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5776
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01343",
+   "kind": "lang",
+   "jp": "あなたは高い耐性をもっている",
+   "en": "You have outstanding resistances.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5786
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01344",
+   "kind": "lang",
+   "jp": "あなたは2sを超える物を装備できない[DV上昇]",
+   "en": "You can't wear equipment weight over 2s. [DV++]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5804
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01345",
+   "kind": "lang",
+   "jp": "あなたは罪悪感を感じない[カルマ上限-20]",
+   "en": "You don't feel guilty. [Karma limit -20]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5817
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01346",
+   "kind": "lang",
+   "jp": "あなたは良い心を持っている[カルマ上限+20]",
+   "en": "You are a good man. [Karma limit +20]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5827
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01347",
+   "kind": "lang",
+   "jp": "あなたの周りでは質の高いエンチャントが生成されやすい",
+   "en": "Quality stuff are generated around you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5837
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01348",
+   "kind": "lang",
+   "jp": "あなたが受ける物理ダメージは軽減される",
+   "en": "You are given physical damage reduction.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5847
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01349",
+   "kind": "lang",
+   "jp": "あなたの元素魔法は強化されている",
+   "en": "Elemental spells you cast are empowered.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5857
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01350",
+   "kind": "lang",
+   "jp": "あなたは周囲の狂気を緩和する",
+   "en": "You are surrounded by an aura that cures sanity.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5867
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01351",
+   "kind": "lang",
+   "jp": "あなたは萌える",
+   "en": "You moe.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5877
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01352",
+   "kind": "lang",
+   "jp": "あなたは朦朧状態にならない",
+   "en": "You won't be dim.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5887
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01353",
+   "kind": "lang",
+   "jp": "あなたは飢えている際に満腹度減少を緩和する",
+   "en": "You reduce the hunger drop when you are hungry.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5897
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01354",
+   "kind": "lang",
+   "jp": "あなたはより多くマテリアル採取できる",
+   "en": "You can gather more materials.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5907
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01355",
+   "kind": "lang",
+   "jp": "あなたには追加の成長ボーナスが与えられる",
+   "en": "You receive extra bonus points.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5917
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01356",
+   "kind": "lang",
+   "jp": "あなたは魔法に耐性がある",
+   "en": "You have resistance to magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5927
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01357",
+   "kind": "lang",
+   "jp": "あなたは魔法にかなりの耐性がある",
+   "en": "You have strong resistance to magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5927
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01358",
+   "kind": "lang",
+   "jp": "あなたは魔法に弱い",
+   "en": "You have weakness to magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5930
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01359",
+   "kind": "lang",
+   "jp": "あなたはかなり魔法に弱い",
+   "en": "You have strong weakness to magic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5930
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01360",
+   "kind": "lang",
+   "jp": "あなたの肉体は刻々と変化する",
+   "en": "Your body is changing every moment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5941
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01361",
+   "kind": "lang",
+   "jp": "あなたのエーテル病の進行は遅い",
+   "en": "Your body slows the Ether Disease progress.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5951
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01362",
+   "kind": "lang",
+   "jp": "あなたは重力を生み出している[重量+10%]",
+   "en": "You generate gravity. [Weight+10%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5961
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01363",
+   "kind": "lang",
+   "jp": "あなたは大きな重力を生み出している[重量+20%]",
+   "en": "You generate heavy gravity. [Weight+20%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5961
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01364",
+   "kind": "lang",
+   "jp": "あなたはとてつもない重力を生み出している[重量+30%]",
+   "en": "You generate massive gravity. [Weight+30%]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5961
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01365",
+   "kind": "lang",
+   "jp": "あなたの周りの重力は軽減した。",
+   "en": "You wieght less.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5963
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01366",
+   "kind": "lang",
+   "jp": "あなたは重力を発するようになった。",
+   "en": "You start to generate gravity.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5963
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01367",
+   "kind": "lang",
+   "jp": "あなたの顔のただれは軽くなった。",
+   "en": "The swelling in your face decreases.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5974
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01368",
+   "kind": "lang",
+   "jp": "あなたの顔はただれた。",
+   "en": "Your face is festered.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5974
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01369",
+   "kind": "lang",
+   "jp": "あなたの足は元に戻った。",
+   "en": "Your feet become normal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5986
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01370",
+   "kind": "lang",
+   "jp": "あなたの足の裏は蹄に変形した。",
+   "en": "Your feet change into hooves.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5986
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01371",
+   "kind": "lang",
+   "jp": "あなたの目は減った。",
+   "en": "Your eyes become normal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5998
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01372",
+   "kind": "lang",
+   "jp": "あなたの目は増殖した。",
+   "en": "Your eyes are multipling.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 5998
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01373",
+   "kind": "lang",
+   "jp": "あなたの背中から羽が消えた。",
+   "en": "Your feathers wilt.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6011
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01374",
+   "kind": "lang",
+   "jp": "あなたの背中に羽が生えた。",
+   "en": "Feathers come out from your back.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6011
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01375",
+   "kind": "lang",
+   "jp": "あなたの首は細くなった。",
+   "en": "Your neck becomes thin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6024
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01376",
+   "kind": "lang",
+   "jp": "あなたの首は太くなった。",
+   "en": "Your neck becomes extremely thick.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6024
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01377",
+   "kind": "lang",
+   "jp": "あなたの心は落ち着いた。",
+   "en": " A deep sense of peace fills your heart.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6037
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01378",
+   "kind": "lang",
+   "jp": "あなたは憎しみに支配された。",
+   "en": "Hatred dominates your soul.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6037
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01379",
+   "kind": "lang",
+   "jp": "あなたの頭は元に戻った。",
+   "en": "Your head is normal size now.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6048
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01380",
+   "kind": "lang",
+   "jp": "あなたの頭は巨大化した。",
+   "en": "Suddenly your head become giant size.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6048
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01381",
+   "kind": "lang",
+   "jp": "あなたは雨を呼ぶ[雨天確率上昇]",
+   "en": "Clouds of rain follow you. [Chance of rain+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6061
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01382",
+   "kind": "lang",
+   "jp": "あなたの頭上から雨雲が消えた。",
+   "en": "Clouds of rain stop following you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6063
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01383",
+   "kind": "lang",
+   "jp": "あなたの頭上に雨雲が現れた。",
+   "en": "Clouds of rain start to follow you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6063
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01384",
+   "kind": "lang",
+   "jp": "あなたはポーション中毒だ[定期的ポーション消費]",
+   "en": "You are addicted to potion. [Consume potions]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6072
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01385",
+   "kind": "lang",
+   "jp": "あなたのポーション中毒は消えた。",
+   "en": "You are no longer addicted to potion.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6074
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01386",
+   "kind": "lang",
+   "jp": "あなたはポーション中毒になった。",
+   "en": "Potions! More potions!! Suddenly, You become addicted to potion.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6074
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01387",
+   "kind": "lang",
+   "jp": "あなたは夜よりも昼に眠くなる[眠気時間帯変化]",
+   "en": "You are more sleepy during the day than at night. [Change in sleepiness]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6083
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01388",
+   "kind": "lang",
+   "jp": "あなたは再び夜に眠気を感じるようになった。",
+   "en": "You started feeling sleepy at night again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6085
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01389",
+   "kind": "lang",
+   "jp": "あなたは昼に眠気を感じるようになった。",
+   "en": "You start to feel sleepy during the day.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6085
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01390",
+   "kind": "lang",
+   "jp": "あなたは健康になった。",
+   "en": "You become healthy again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6096
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01391",
+   "kind": "lang",
+   "jp": "あなたは衰弱した。",
+   "en": "You become weak, very weak.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6096
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01392",
+   "kind": "lang",
+   "jp": "あなたは明晰になった。",
+   "en": "You become confident again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6109
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01393",
+   "kind": "lang",
+   "jp": "あなたはぼけた。",
+   "en": "You become feebleminded.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6109
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01394",
+   "kind": "lang",
+   "jp": "あなたの皮膚から甲殻が消えた。",
+   "en": "Your carapace starts to break.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6122
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01395",
+   "kind": "lang",
+   "jp": "あなたの皮膚は甲殻で覆われた。",
+   "en": "Heavy carapace starts to cover up your skin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6122
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01396",
+   "kind": "lang",
+   "jp": "あなたの周囲の空間は捩れている[ランダムテレポート]",
+   "en": "You are unstablizing space around you. [Random teleporation]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6133
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01397",
+   "kind": "lang",
+   "jp": "あなたの周囲の空間は元通りになった。",
+   "en": "You feel steady.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6135
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01398",
+   "kind": "lang",
+   "jp": "あなたの周囲の空間は捩れた。",
+   "en": "You feel unstable.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6135
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01399",
+   "kind": "lang",
+   "jp": "あなたは生きたマナバッテリーだ[杖から魔力抽出]",
+   "en": "You are a living mana battery. [Absorb mana from rods]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6144
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01400",
+   "kind": "lang",
+   "jp": "あなたのマナは元通りになった。",
+   "en": "You are no longer a living mana battery.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6146
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01401",
+   "kind": "lang",
+   "jp": "あなたのマナは杖から魔力を抽出する。",
+   "en": "You are a living mana battery.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6146
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01402",
+   "kind": "lang",
+   "jp": "あなたの手から毒が滴っている[ポーション毒化 毒耐性強化]",
+   "en": "Poison drips from your hands. [Poison potions RES Poison+]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6155
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01403",
+   "kind": "lang",
+   "jp": "あなたの手は元通りになった。",
+   "en": "Your hands are clean now.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6157
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01404",
+   "kind": "lang",
+   "jp": "あなたの手から毒が滴り出した。",
+   "en": "Poison starts to drip from your hands.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6157
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01405",
+   "kind": "lang",
+   "jp": "あなたの耳は元通りになった。",
+   "en": "Your ears have been restored.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6169
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01406",
+   "kind": "lang",
+   "jp": "あなたに獣の耳が生えた。",
+   "en": "Ears of the beast grew on your head.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6169
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01407",
+   "kind": "lang",
+   "jp": "あなたの骨は飛び出している[体装備不可 切り傷反撃]",
+   "en": "Your bones are popping out. [Deals cut damage to the attacker, Can't wear armors]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6179
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01408",
+   "kind": "lang",
+   "jp": "あなたの骨は元通りになった。",
+   "en": "Your bones have retracted.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6181
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01409",
+   "kind": "lang",
+   "jp": "あなたの体から鋭い骨が皮膚を突き破って飛び出した。",
+   "en": "Sharp bones from your body pierced through your skin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6181
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01410",
+   "kind": "lang",
+   "jp": "あなたの尻尾は元通りになった。",
+   "en": "Your tail has shrunk.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6192
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01411",
+   "kind": "lang",
+   "jp": "あなたは尻尾が発達した。",
+   "en": "Your tail has grown.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6192
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01412",
+   "kind": "lang",
+   "jp": "あなたに咲いていた花が散った。",
+   "en": "The flower that was blooming on you scattered.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6204
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01413",
+   "kind": "lang",
+   "jp": "あなたの皮膚が破れて花が咲いた。",
+   "en": "Your skin has torn and flowers have bloomed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6204
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01414",
+   "kind": "lang",
+   "jp": "あなたの水かきは元通りになった。",
+   "en": "Your webbed has become smaller.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6217
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01415",
+   "kind": "lang",
+   "jp": "あなたの指の間に大きな水かきができた。",
+   "en": "Large webbeds were generated between your fingers.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6217
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01416",
+   "kind": "lang",
+   "jp": "あなたの腕は元通りになった。",
+   "en": "Your arms became restored.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6229
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01417",
+   "kind": "lang",
+   "jp": "あなたの腕が胴より太くなった。",
+   "en": "Your arms become thicker than your torso.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6229
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01418",
+   "kind": "lang",
+   "jp": "あなたの手は刃物になっている[手装備不可 首狩り攻撃会得]",
+   "en": "Your hands are blades. [Can't wear weapons, Available Decapitation]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6239
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01419",
+   "kind": "lang",
+   "jp": "あなたの手は元通りになった。",
+   "en": "Your hands became restored.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6241
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01420",
+   "kind": "lang",
+   "jp": "あなたの手が鋭い刃物に変化した。",
+   "en": "Your hands has turned into sharp blades.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6241
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01421",
+   "kind": "lang",
+   "jp": "あなたの口は元通りになった。",
+   "en": "Your mouth became restored.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6252
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01422",
+   "kind": "lang",
+   "jp": "あなたの口が大きく裂けた。",
+   "en": "Your mouth began to torn greatly.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6252
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01423",
+   "kind": "lang",
+   "jp": "あなたの口は元通りの数になった。",
+   "en": "Your mouth has returned to its original number.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6264
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01424",
+   "kind": "lang",
+   "jp": "あなたの皮膚が割れて新たな口が形成された。",
+   "en": "Your skin cracked and a new mouth was formed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6264
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01425",
+   "kind": "lang",
+   "jp": "あなたの精力は元通りになった。",
+   "en": "Your libido has subsided.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6276
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01426",
+   "kind": "lang",
+   "jp": "あなたは精力が病的なまでにみなぎってきた。",
+   "en": "You have full of libido pathologically.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6276
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01427",
+   "kind": "lang",
+   "jp": "あなたには細い触手が生えている[戦闘・干渉時に触手暴走]",
+   "en": "Thin tentacles are growing from you. [Tentacles runaway during battle and interference]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6287
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01428",
+   "kind": "lang",
+   "jp": "あなたには太い触手が生えている[戦闘・干渉時に強触手暴走]",
+   "en": "Thick tentacles are growing from you. [Strong tentacles runaway during battle and interference]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6287
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01429",
+   "kind": "lang",
+   "jp": "あなたの触手はしなびた。",
+   "en": "Your tentacles have shrunk.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6289
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  },
+  {
+   "id": "s01430",
+   "kind": "lang",
+   "jp": "あなたの体から触手が生えてきた。",
+   "en": "Tentacles have grown from your body.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "randwskill",
+     "label": "label_0043",
+     "line": 6289
+    }
+   ],
+   "fn": "randwskill",
+   "label": "label_0043",
+   "owner": "label_0043"
+  }
+ ]
+}

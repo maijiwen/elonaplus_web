@@ -1,0 +1,1312 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0405",
+ "entries": [
+  {
+   "id": "s03607",
+   "kind": "lang",
+   "jp": "ＣＦポーショマン",
+   "en": " cf potioman",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29935
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03608",
+   "kind": "lang",
+   "jp": "クラッシュポーショマン",
+   "en": " crush potioman",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29938
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03609",
+   "kind": "lang",
+   "jp": "バトルポーショマン",
+   "en": " battle potioman",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29941
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03610",
+   "kind": "lang",
+   "jp": "スーパーポーショマン",
+   "en": " super potioman",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29944
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03611",
+   "kind": "lang",
+   "jp": "スピニング",
+   "en": " Spinning",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29948
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03612",
+   "kind": "lang",
+   "jp": "マイティ",
+   "en": " Mighty",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29951
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03613",
+   "kind": "lang",
+   "jp": "デュアル",
+   "en": " Dual",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29954
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03614",
+   "kind": "lang",
+   "jp": "ラピッド",
+   "en": " Rapid",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29957
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03615",
+   "kind": "lang",
+   "jp": "スナイプ",
+   "en": " Snipe",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29960
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03616",
+   "kind": "lang",
+   "jp": "デシーヴ",
+   "en": " Deceive",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29963
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03617",
+   "kind": "lang",
+   "jp": "フレイクス",
+   "en": "-Flaenix",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29966
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03618",
+   "kind": "lang",
+   "jp": "グリフビーク",
+   "en": "-Grifeak",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29969
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03619",
+   "kind": "lang",
+   "jp": "ペガフェザー",
+   "en": "-Pegather",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29972
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03620",
+   "kind": "lang",
+   "jp": "ドラゴウル",
+   "en": "-Dragoul",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29975
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03621",
+   "kind": "lang",
+   "jp": "レイヴレイン",
+   "en": "-Ravrain",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29978
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03622",
+   "kind": "lang",
+   "jp": "バルキスピア",
+   "en": "-Valkspear",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29981
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03623",
+   "kind": "lang",
+   "jp": "オルフィン",
+   "en": "-Orfin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29984
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03624",
+   "kind": "lang",
+   "jp": "ウルファング",
+   "en": "-Wolfang",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29987
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03625",
+   "kind": "lang",
+   "jp": "レオハート",
+   "en": "-Leoheart",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29990
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03626",
+   "kind": "lang",
+   "jp": "タイガロウ",
+   "en": "-Tigelaw",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29993
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03627",
+   "kind": "lang",
+   "jp": "フォクテイル",
+   "en": "-Foxail",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29996
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03628",
+   "kind": "lang",
+   "jp": "ベアーム",
+   "en": "-Bearm",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 29999
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03629",
+   "kind": "lang",
+   "jp": "イフヒート",
+   "en": "-Ifheat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30002
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03630",
+   "kind": "lang",
+   "jp": "ダイガッツ",
+   "en": "-Dinoguts",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30005
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03631",
+   "kind": "lang",
+   "jp": "ケルヘッズ",
+   "en": "-Cerbeads",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30008
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03632",
+   "kind": "lang",
+   "jp": "バイホーン",
+   "en": "-Bihorn",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30011
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03633",
+   "kind": "lang",
+   "jp": "ワイバング",
+   "en": "-Wyverng",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30014
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03634",
+   "kind": "lang",
+   "jp": "リヴァスケイル",
+   "en": "-Leviascale",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30017
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03635",
+   "kind": "lang",
+   "jp": "ブシレード",
+   "en": "-Bushilade",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30020
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03636",
+   "kind": "lang",
+   "jp": "オーガンド",
+   "en": "-Ogreand",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30023
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03637",
+   "kind": "lang",
+   "jp": "スタアギト",
+   "en": "-Stagito",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30026
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03638",
+   "kind": "lang",
+   "jp": "ゴレディ",
+   "en": "-Goledy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30029
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03639",
+   "kind": "lang",
+   "jp": "ナイメイル",
+   "en": "-Knimail",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30032
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03640",
+   "kind": "lang",
+   "jp": "ソルジガン",
+   "en": "-Soldigun",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30035
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03641",
+   "kind": "lang",
+   "jp": "デスレニアム",
+   "en": "-Deatranium",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30038
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03642",
+   "kind": "lang",
+   "jp": "ギガンテット",
+   "en": "-Giganoot",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30041
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03643",
+   "kind": "lang",
+   "jp": "コボルード",
+   "en": "-Kobolord",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30044
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03644",
+   "kind": "lang",
+   "jp": "ヘラクレスト",
+   "en": "-Hercurest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30047
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03645",
+   "kind": "raw",
+   "jp": "解読済みの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30086
+    }
+   ],
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03646",
+   "kind": "lang",
+   "jp": "もう使えない",
+   "en": " which cannot be used anymore",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30095
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03647",
+   "kind": "lang",
+   "jp": "カスタム",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30099
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03648",
+   "kind": "lang",
+   "jp": "第",
+   "en": " of Rachel No.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30112
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03649",
+   "kind": "lang",
+   "jp": "巻目の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30112
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03650",
+   "kind": "lang",
+   "jp": "ミックス",
+   "en": " mix",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30139
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03651",
+   "kind": "lang",
+   "jp": "オーレ",
+   "en": " milk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30142
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03652",
+   "kind": "lang",
+   "jp": "ジュース",
+   "en": " juice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30145
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03653",
+   "kind": "lang",
+   "jp": "カフェオーレ",
+   "en": "milk coffee",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30150
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03654",
+   "kind": "lang",
+   "jp": "コーヒー",
+   "en": "coffee",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30153
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03655",
+   "kind": "lang",
+   "jp": "ミルクティー",
+   "en": "milk tea",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30158
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03656",
+   "kind": "lang",
+   "jp": "紅茶",
+   "en": "black tea",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30161
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03657",
+   "kind": "lang",
+   "jp": "育った",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30178
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03658",
+   "kind": "raw",
+   "jp": "との",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30207
+    }
+   ],
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03659",
+   "kind": "lang",
+   "jp": "あたま",
+   "en": "head",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30227
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03660",
+   "kind": "lang",
+   "jp": "くび",
+   "en": "neck",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30230
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03661",
+   "kind": "lang",
+   "jp": "せなか",
+   "en": "back",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30233
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03662",
+   "kind": "lang",
+   "jp": "どうたい",
+   "en": "chest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30236
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03663",
+   "kind": "lang",
+   "jp": "て",
+   "en": "hand",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30239
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03664",
+   "kind": "lang",
+   "jp": "ゆび",
+   "en": "finger",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30242
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03665",
+   "kind": "lang",
+   "jp": "うで",
+   "en": "arm",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30245
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03666",
+   "kind": "lang",
+   "jp": "こし",
+   "en": "waist",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30248
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03667",
+   "kind": "lang",
+   "jp": "あし",
+   "en": "leg",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30251
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03668",
+   "kind": "lang",
+   "jp": "善人の",
+   "en": " of saint",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30293
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03669",
+   "kind": "lang",
+   "jp": "悪人の",
+   "en": " of wicked",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30296
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03670",
+   "kind": "lang",
+   "jp": "エヘカトルの",
+   "en": " of Ehekatl",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30299
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03671",
+   "kind": "lang",
+   "jp": "オパートスの",
+   "en": " of Opatos",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30302
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03672",
+   "kind": "lang",
+   "jp": "イツパロトルの",
+   "en": " of Itzpalt",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30305
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03673",
+   "kind": "lang",
+   "jp": "ジュアの",
+   "en": " of Jure",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30308
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  },
+  {
+   "id": "s03674",
+   "kind": "lang",
+   "jp": "マニの",
+   "en": " of Mani",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "itemowner",
+     "label": "label_0405",
+     "line": 30311
+    }
+   ],
+   "concat": true,
+   "fn": "itemowner",
+   "label": "label_0405",
+   "owner": "label_0405"
+  }
+ ]
+}

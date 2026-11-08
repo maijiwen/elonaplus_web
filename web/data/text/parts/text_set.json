@@ -1,0 +1,9411 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "text_set",
+ "entries": [
+  {
+   "id": "s01458",
+   "kind": "raw",
+   "jp": "頭",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    },
+    {
+     "fn": "eqrandweaponmage",
+     "label": "label_2235",
+     "line": 219140
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01459",
+   "kind": "raw",
+   "jp": "首",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    },
+    {
+     "fn": "eqrandweaponmage",
+     "label": "label_2235",
+     "line": 219145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01460",
+   "kind": "raw",
+   "jp": "背中",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01461",
+   "kind": "raw",
+   "jp": "胴体",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01462",
+   "kind": "raw",
+   "jp": "手",
+   "en": "",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9188
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9218
+    },
+    {
+     "fn": "eqrandweaponmage",
+     "label": "label_2235",
+     "line": 219160
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01463",
+   "kind": "raw",
+   "jp": "指",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    },
+    {
+     "fn": "eqrandweaponmage",
+     "label": "label_2235",
+     "line": 219165
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01464",
+   "kind": "raw",
+   "jp": "腕",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    },
+    {
+     "fn": "eqrandweaponmage",
+     "label": "label_2235",
+     "line": 219170
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01465",
+   "kind": "raw",
+   "jp": "腰",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    },
+    {
+     "fn": "eqrandweaponmage",
+     "label": "label_2235",
+     "line": 219175
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01466",
+   "kind": "raw",
+   "jp": "足",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    },
+    {
+     "fn": "eqrandweaponmage",
+     "label": "label_2235",
+     "line": 219180
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01467",
+   "kind": "raw",
+   "jp": "遠隔",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01468",
+   "kind": "raw",
+   "jp": "矢弾",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8728
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9144
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01469",
+   "kind": "lang",
+   "jp": "大嫌い",
+   "en": "Foe",
+   "zh": "",
+   "count": 8,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8733
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01470",
+   "kind": "lang",
+   "jp": "嫌い",
+   "en": "Hate",
+   "zh": "",
+   "count": 8,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8733
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01471",
+   "kind": "lang",
+   "jp": "うざい",
+   "en": "Annoying",
+   "zh": "",
+   "count": 8,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8733
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01472",
+   "kind": "lang",
+   "jp": "普通",
+   "en": "Normal",
+   "zh": "",
+   "count": 8,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8733
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01473",
+   "kind": "lang",
+   "jp": "好意的",
+   "en": "Amiable",
+   "zh": "",
+   "count": 8,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8733
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01474",
+   "kind": "lang",
+   "jp": "信用",
+   "en": "Accredit",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01475",
+   "kind": "lang",
+   "jp": "信頼",
+   "en": "Trust",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01476",
+   "kind": "lang",
+   "jp": "仲間",
+   "en": "Ally",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2698",
+     "line": 285682
+    }
+   ],
+   "concat": true,
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01477",
+   "kind": "lang",
+   "jp": "*仲間*",
+   "en": "*Ally*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8729
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01478",
+   "kind": "lang",
+   "jp": "戦友",
+   "en": "Comrade",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01479",
+   "kind": "lang",
+   "jp": "戦士の絆",
+   "en": "BattleBond",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8730
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01480",
+   "kind": "lang",
+   "jp": "友達",
+   "en": "Friend",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01481",
+   "kind": "lang",
+   "jp": "親友",
+   "en": "Fellow",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01482",
+   "kind": "lang",
+   "jp": "盟友",
+   "en": "Sworn Mate",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01483",
+   "kind": "lang",
+   "jp": "魂の友",
+   "en": "Soul Mate",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8731
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01484",
+   "kind": "lang",
+   "jp": "競争相手",
+   "en": "Competitor",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01485",
+   "kind": "lang",
+   "jp": "切磋琢磨",
+   "en": "Rival",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01486",
+   "kind": "lang",
+   "jp": "ライバル",
+   "en": "*Rival*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01487",
+   "kind": "lang",
+   "jp": "宿命",
+   "en": "Fateful",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8732
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01488",
+   "kind": "lang",
+   "jp": "恋心",
+   "en": "Affection",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8733
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01489",
+   "kind": "lang",
+   "jp": "相思相愛",
+   "en": "Mutual",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8733
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01490",
+   "kind": "lang",
+   "jp": "熱愛",
+   "en": "Passionate",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8733
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01491",
+   "kind": "lang",
+   "jp": "教え子",
+   "en": "Student",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01492",
+   "kind": "lang",
+   "jp": "後継",
+   "en": "Successor",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01493",
+   "kind": "lang",
+   "jp": "比肩者",
+   "en": "Comparable",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01494",
+   "kind": "lang",
+   "jp": "愛弟子",
+   "en": "*Disciple*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8734
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01495",
+   "kind": "lang",
+   "jp": "先生",
+   "en": "Teacher",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01496",
+   "kind": "lang",
+   "jp": "師匠",
+   "en": "Master",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01497",
+   "kind": "lang",
+   "jp": "敬愛",
+   "en": "Respect",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01498",
+   "kind": "lang",
+   "jp": "生涯の師",
+   "en": "LifeMaster",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8735
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01499",
+   "kind": "lang",
+   "jp": "家族",
+   "en": "Family",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01500",
+   "kind": "lang",
+   "jp": "親愛",
+   "en": "Dear",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01501",
+   "kind": "lang",
+   "jp": "溺愛",
+   "en": "Doting",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01502",
+   "kind": "lang",
+   "jp": "熟愛",
+   "en": "MatureLove",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8736
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01503",
+   "kind": "lang",
+   "jp": "奔放",
+   "en": "Uninhibited",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8737
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8738
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8739
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8740
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01504",
+   "kind": "lang",
+   "jp": "対等",
+   "en": "Peer",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8737
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8738
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8739
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8740
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01505",
+   "kind": "lang",
+   "jp": "素直",
+   "en": "Docile",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8737
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8738
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8739
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8740
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01506",
+   "kind": "lang",
+   "jp": "*素直*",
+   "en": "*Docile*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8737
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01507",
+   "kind": "lang",
+   "jp": "従順",
+   "en": "Amenable",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8737
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8739
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01508",
+   "kind": "lang",
+   "jp": "*従順*",
+   "en": "*Amenable*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8737
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01509",
+   "kind": "lang",
+   "jp": "遵守",
+   "en": "Adherence",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8737
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01510",
+   "kind": "lang",
+   "jp": "契約者",
+   "en": "Contract",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8738
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01511",
+   "kind": "lang",
+   "jp": "専属契約",
+   "en": "*Contract*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8738
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01512",
+   "kind": "lang",
+   "jp": "相棒",
+   "en": "Partner",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8738
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01513",
+   "kind": "lang",
+   "jp": "運命共同",
+   "en": "Co-Fate",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8738
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01514",
+   "kind": "lang",
+   "jp": "飼い主",
+   "en": "Owner",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8739
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01515",
+   "kind": "lang",
+   "jp": "服従",
+   "en": "Subjection",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8739
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01516",
+   "kind": "lang",
+   "jp": "依存",
+   "en": "Reliance",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8739
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01517",
+   "kind": "lang",
+   "jp": "忠誠",
+   "en": "Allegiance",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8740
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01518",
+   "kind": "lang",
+   "jp": "恭順",
+   "en": "Obedience",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8740
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01519",
+   "kind": "lang",
+   "jp": "心酔",
+   "en": "Adoration",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8740
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01520",
+   "kind": "lang",
+   "jp": "忠義",
+   "en": "Loyalty",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8740
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01521",
+   "kind": "lang",
+   "jp": "普通",
+   "en": "normal",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01522",
+   "kind": "lang",
+   "jp": "質のいい肉がとれそうだ",
+   "en": "Looks plump with decent meat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01523",
+   "kind": "lang",
+   "jp": "かなり質のいい肉がとれそうだ",
+   "en": "Looks plump with quality meat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01524",
+   "kind": "lang",
+   "jp": "最高級の肉がとれそうだ",
+   "en": "Looks plump with succulent meat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01525",
+   "kind": "lang",
+   "jp": "質のいい皮がとれそうだ",
+   "en": "The skin is decent grade",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01526",
+   "kind": "lang",
+   "jp": "かなり質のいい皮がとれそうだ",
+   "en": "The skin is of high quality",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01527",
+   "kind": "lang",
+   "jp": "最高級の皮がとれそうだ",
+   "en": "The skin looks absolutely luxurious",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01528",
+   "kind": "lang",
+   "jp": "もしかすると肉が多くとれるかもしれない",
+   "en": "You just might be able to get more meat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01529",
+   "kind": "lang",
+   "jp": "肉が多くとれるかもしれない",
+   "en": "You're likely to get more meat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01530",
+   "kind": "lang",
+   "jp": "きっと肉が多くとれる",
+   "en": "You're certain that you'll get more meat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01531",
+   "kind": "lang",
+   "jp": "もしかすると皮が多くとれるかもしれない",
+   "en": "You just might be able to get more skin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01532",
+   "kind": "lang",
+   "jp": "皮が多くとれるかもしれない",
+   "en": "You're likely to get more skin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01533",
+   "kind": "lang",
+   "jp": "きっと皮が多くとれる",
+   "en": "You're certain that you'll get more skin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8741
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01534",
+   "kind": "lang",
+   "jp": "乳の出があまり良くなさそうだ",
+   "en": "Doesn't look too good at producing milk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01535",
+   "kind": "lang",
+   "jp": "乳の出が悪そうだ",
+   "en": "Doesn't look any good at producing milk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01536",
+   "kind": "lang",
+   "jp": "乳の出が非常に悪そうだ",
+   "en": "Looks extremely inept at producing milk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01537",
+   "kind": "lang",
+   "jp": "あまり産卵しなさそうだ",
+   "en": "Doesn't look too good at laying eggs",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01538",
+   "kind": "lang",
+   "jp": "なかなか産卵しなさそうだ",
+   "en": "Doesn't look any good at laying eggs",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01539",
+   "kind": "lang",
+   "jp": "ほとんど産卵しなさそうだ",
+   "en": "Looks extremely inept at laying eggs",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01540",
+   "kind": "lang",
+   "jp": "よく卵を産みそうだ",
+   "en": "Looks adept at laying eggs",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01541",
+   "kind": "lang",
+   "jp": "卵を多く産みそうだ",
+   "en": "Looks adept at laying many eggs",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01542",
+   "kind": "lang",
+   "jp": "卵をかなり多く産みそうだ",
+   "en": "Eggs are coming out of the wazoo",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01543",
+   "kind": "lang",
+   "jp": "乳の出が良さそうだ",
+   "en": "Looks good at producing milk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01544",
+   "kind": "lang",
+   "jp": "乳の出がかなり良さそうだ",
+   "en": "Looks good at producing lots of milk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01545",
+   "kind": "lang",
+   "jp": "乳を大量に出しそうだ",
+   "en": "Simply oozing with milk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8742
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01546",
+   "kind": "raw",
+   "jp": "*エーテル*",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8744
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01547",
+   "kind": "raw",
+   "jp": "雪",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8744
+    },
+    {
+     "fn": "prodcheck",
+     "label": "label_1936",
+     "line": 183324
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01548",
+   "kind": "raw",
+   "jp": "雨",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8744
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01549",
+   "kind": "raw",
+   "jp": "雷雨",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8744
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01550",
+   "kind": "raw",
+   "jp": "修行日和",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8751
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01551",
+   "kind": "raw",
+   "jp": "戦闘日和",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8751
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01552",
+   "kind": "raw",
+   "jp": "仕事日和",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8751
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01553",
+   "kind": "raw",
+   "jp": "探索日和",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8751
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01554",
+   "kind": "raw",
+   "jp": "勉強日和",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8751
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01555",
+   "kind": "raw",
+   "jp": "なし",
+   "en": "",
+   "zh": "",
+   "count": 18,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8757
+    },
+    {
+     "fn": "trimdesc",
+     "label": "label_2851",
+     "line": 301399
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434662
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434720
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434775
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434829
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434882
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3104",
+     "line": 434934
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01556",
+   "kind": "raw",
+   "jp": "協調",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8757
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01557",
+   "kind": "raw",
+   "jp": "招待",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8757
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01558",
+   "kind": "raw",
+   "jp": "告白",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8757
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01559",
+   "kind": "raw",
+   "jp": "応援",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8757
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01560",
+   "kind": "raw",
+   "jp": "侮辱",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8757
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01561",
+   "kind": "raw",
+   "jp": "洞窟",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8763
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8781
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01562",
+   "kind": "raw",
+   "jp": "塔",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8763
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01563",
+   "kind": "raw",
+   "jp": "森",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8763
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01564",
+   "kind": "raw",
+   "jp": "砦",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8763
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01565",
+   "kind": "raw",
+   "jp": "巣穴",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8763
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01566",
+   "kind": "raw",
+   "jp": "霊園",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8763
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01567",
+   "kind": "raw",
+   "jp": "鉱山",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8763
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01568",
+   "kind": "raw",
+   "jp": "湖",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8763
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01569",
+   "kind": "raw",
+   "jp": "航行不能",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8769
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01570",
+   "kind": "raw",
+   "jp": "大破寸前",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8769
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01571",
+   "kind": "raw",
+   "jp": "ヤバい",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8769
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01572",
+   "kind": "raw",
+   "jp": "トラブル多発",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8769
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01573",
+   "kind": "raw",
+   "jp": "損傷は軽微",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8769
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01574",
+   "kind": "raw",
+   "jp": "順風満帆",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8769
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01575",
+   "kind": "raw",
+   "jp": "未設定",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01576",
+   "kind": "raw",
+   "jp": "陽気",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01577",
+   "kind": "raw",
+   "jp": "慎重",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01578",
+   "kind": "raw",
+   "jp": "献身的",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01579",
+   "kind": "raw",
+   "jp": "豪快",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01580",
+   "kind": "raw",
+   "jp": "自信家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01581",
+   "kind": "raw",
+   "jp": "謙虚",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01582",
+   "kind": "raw",
+   "jp": "寡黙",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01583",
+   "kind": "raw",
+   "jp": "勤勉",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01584",
+   "kind": "raw",
+   "jp": "純真",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01585",
+   "kind": "raw",
+   "jp": "繊細",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01586",
+   "kind": "raw",
+   "jp": "温厚",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01587",
+   "kind": "raw",
+   "jp": "情熱的",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01588",
+   "kind": "raw",
+   "jp": "意地悪",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01589",
+   "kind": "raw",
+   "jp": "スケベ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01590",
+   "kind": "raw",
+   "jp": "皮肉屋",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01591",
+   "kind": "raw",
+   "jp": "冷徹",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01592",
+   "kind": "raw",
+   "jp": "好戦的",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01593",
+   "kind": "raw",
+   "jp": "腹黒",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01594",
+   "kind": "raw",
+   "jp": "偏執的",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01595",
+   "kind": "raw",
+   "jp": "頑固",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01596",
+   "kind": "raw",
+   "jp": "守銭奴",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01597",
+   "kind": "raw",
+   "jp": "怠惰",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01598",
+   "kind": "raw",
+   "jp": "アホ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01599",
+   "kind": "raw",
+   "jp": "能天気",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01600",
+   "kind": "raw",
+   "jp": "気分屋",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01601",
+   "kind": "raw",
+   "jp": "卑怯",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01602",
+   "kind": "raw",
+   "jp": "高慢",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01603",
+   "kind": "raw",
+   "jp": "臆病",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01604",
+   "kind": "raw",
+   "jp": "陰鬱",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01605",
+   "kind": "raw",
+   "jp": "猟奇的",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01606",
+   "kind": "raw",
+   "jp": "お茶目",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01607",
+   "kind": "raw",
+   "jp": "内気",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01608",
+   "kind": "raw",
+   "jp": "神経質",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01609",
+   "kind": "raw",
+   "jp": "下品",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01610",
+   "kind": "raw",
+   "jp": "天邪鬼",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01611",
+   "kind": "raw",
+   "jp": "気丈",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8775
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01612",
+   "kind": "raw",
+   "jp": "森のほったて小屋",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8781
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01613",
+   "kind": "raw",
+   "jp": "住み心地のいい家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8781
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01614",
+   "kind": "raw",
+   "jp": "セレブ邸",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8781
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01615",
+   "kind": "raw",
+   "jp": "サイバーハウス",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8781
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01616",
+   "kind": "raw",
+   "jp": "小城",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8781
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01617",
+   "kind": "raw",
+   "jp": "宮殿",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8781
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01618",
+   "kind": "raw",
+   "jp": "紙屑同然の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8782
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01619",
+   "kind": "raw",
+   "jp": "素人丸出しの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8782
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01620",
+   "kind": "raw",
+   "jp": "ありきたりな",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8782
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01621",
+   "kind": "raw",
+   "jp": "光るものがある",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8782
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01622",
+   "kind": "raw",
+   "jp": "いい感じの",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8782
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01623",
+   "kind": "raw",
+   "jp": "納得いく",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8782
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01624",
+   "kind": "raw",
+   "jp": "至高の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8782
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01625",
+   "kind": "raw",
+   "jp": "紙屑同然の本",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8783
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01626",
+   "kind": "raw",
+   "jp": "素人丸出しの本",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8783
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01627",
+   "kind": "raw",
+   "jp": "ありきたりな本",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8783
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01628",
+   "kind": "raw",
+   "jp": "光るものがある本",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8783
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01629",
+   "kind": "raw",
+   "jp": "いい感じの本",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8783
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01630",
+   "kind": "raw",
+   "jp": "納得いく本",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8783
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01631",
+   "kind": "raw",
+   "jp": "至高の本",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8783
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01632",
+   "kind": "raw",
+   "jp": "みすぼらしい",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01633",
+   "kind": "raw",
+   "jp": "気になる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01634",
+   "kind": "raw",
+   "jp": "マダム殺しの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01635",
+   "kind": "raw",
+   "jp": "思わず見入りそうな",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01636",
+   "kind": "raw",
+   "jp": "マニア向けの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01637",
+   "kind": "raw",
+   "jp": "凄く華麗な",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01638",
+   "kind": "raw",
+   "jp": "王家御用達の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01639",
+   "kind": "raw",
+   "jp": "芸術的な",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01640",
+   "kind": "raw",
+   "jp": "神々しい",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01641",
+   "kind": "raw",
+   "jp": "世界最高の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01642",
+   "kind": "raw",
+   "jp": "宇宙的な",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8784
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01643",
+   "kind": "raw",
+   "jp": "超ミニに",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01644",
+   "kind": "raw",
+   "jp": "小振りに",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01645",
+   "kind": "raw",
+   "jp": "手ごろに",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01646",
+   "kind": "raw",
+   "jp": "やや大きく",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01647",
+   "kind": "raw",
+   "jp": "どでかく",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01648",
+   "kind": "raw",
+   "jp": "かなり巨大に",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01649",
+   "kind": "raw",
+   "jp": "化け物サイズに",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01650",
+   "kind": "raw",
+   "jp": "人より大きく",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01651",
+   "kind": "raw",
+   "jp": "伝説的サイズに",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01652",
+   "kind": "raw",
+   "jp": "象より重く",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8785
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01653",
+   "kind": "raw",
+   "jp": "装備品",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8796
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01654",
+   "kind": "raw",
+   "jp": "魔道具",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8796
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01655",
+   "kind": "raw",
+   "jp": "防具",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8796
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01656",
+   "kind": "raw",
+   "jp": "武器",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8796
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01657",
+   "kind": "raw",
+   "jp": "補給品",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8796
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01658",
+   "kind": "raw",
+   "jp": "深夜",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8802
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01659",
+   "kind": "raw",
+   "jp": "夜明け",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8802
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01660",
+   "kind": "raw",
+   "jp": "朝",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8802
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01661",
+   "kind": "raw",
+   "jp": "昼",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8802
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01662",
+   "kind": "raw",
+   "jp": "宵",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8802
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01663",
+   "kind": "raw",
+   "jp": "夜",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8802
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01664",
+   "kind": "raw",
+   "jp": " 力",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8808
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01665",
+   "kind": "raw",
+   "jp": " 耐",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8808
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01666",
+   "kind": "raw",
+   "jp": " 器",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8808
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01667",
+   "kind": "raw",
+   "jp": " 感",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8808
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01668",
+   "kind": "raw",
+   "jp": " 習",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8808
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01669",
+   "kind": "raw",
+   "jp": " 意",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8808
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01670",
+   "kind": "raw",
+   "jp": " 魔",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8808
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01671",
+   "kind": "raw",
+   "jp": " 魅",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8808
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01672",
+   "kind": "raw",
+   "jp": "筋力",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8814
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01673",
+   "kind": "raw",
+   "jp": "耐久",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8814
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01674",
+   "kind": "raw",
+   "jp": "器用",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8814
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01675",
+   "kind": "raw",
+   "jp": "感覚",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8814
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01676",
+   "kind": "raw",
+   "jp": "習得",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8814
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01677",
+   "kind": "raw",
+   "jp": "意志",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8814
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01678",
+   "kind": "raw",
+   "jp": "魔力",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8814
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01679",
+   "kind": "raw",
+   "jp": "魅力",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8814
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01680",
+   "kind": "raw",
+   "jp": "餓死中",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8820
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01681",
+   "kind": "raw",
+   "jp": "飢　餓",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8820
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01682",
+   "kind": "raw",
+   "jp": "空　腹",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8820
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01683",
+   "kind": "raw",
+   "jp": "満　腹",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8820
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01684",
+   "kind": "raw",
+   "jp": "食過ぎ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8820
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01685",
+   "kind": "raw",
+   "jp": "脱水症",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8826
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01686",
+   "kind": "raw",
+   "jp": "渇　き",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8826
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01687",
+   "kind": "raw",
+   "jp": "乾　燥",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8826
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01688",
+   "kind": "raw",
+   "jp": "湿　潤",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8826
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01689",
+   "kind": "raw",
+   "jp": "飲過ぎ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8826
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01690",
+   "kind": "raw",
+   "jp": "拒食Lv0",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01691",
+   "kind": "raw",
+   "jp": "拒食Lv1",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01692",
+   "kind": "raw",
+   "jp": "拒食Lv2",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01693",
+   "kind": "raw",
+   "jp": "拒食Lv3",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01694",
+   "kind": "raw",
+   "jp": "拒食Lv4",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01695",
+   "kind": "raw",
+   "jp": "拒食Lv5",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01696",
+   "kind": "raw",
+   "jp": "拒食Lv6",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01697",
+   "kind": "raw",
+   "jp": "拒食Lv7",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01698",
+   "kind": "raw",
+   "jp": "拒食Lv8",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01699",
+   "kind": "raw",
+   "jp": "拒食Lv9",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01700",
+   "kind": "raw",
+   "jp": "拒食Lv??",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8832
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01701",
+   "kind": "raw",
+   "jp": "重　荷",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8838
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01702",
+   "kind": "raw",
+   "jp": "圧　迫",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8838
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01703",
+   "kind": "raw",
+   "jp": "超　過",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8838
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01704",
+   "kind": "raw",
+   "jp": "潰れ中",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8838
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01705",
+   "kind": "raw",
+   "jp": "睡眠可",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8844
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01706",
+   "kind": "raw",
+   "jp": "要睡眠",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8844
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01707",
+   "kind": "raw",
+   "jp": "病気Lv0",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01708",
+   "kind": "raw",
+   "jp": "病気Lv1",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01709",
+   "kind": "raw",
+   "jp": "病気Lv2",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01710",
+   "kind": "raw",
+   "jp": "病気Lv3",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01711",
+   "kind": "raw",
+   "jp": "病気Lv4",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01712",
+   "kind": "raw",
+   "jp": "病気Lv5",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01713",
+   "kind": "raw",
+   "jp": "病気Lv6",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01714",
+   "kind": "raw",
+   "jp": "病気Lv7",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01715",
+   "kind": "raw",
+   "jp": "病気Lv8",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01716",
+   "kind": "raw",
+   "jp": "病気Lv9",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01717",
+   "kind": "raw",
+   "jp": "病気Lv??",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8850
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01718",
+   "kind": "raw",
+   "jp": "　毒",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8856
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01719",
+   "kind": "raw",
+   "jp": "猛　毒",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8856
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01720",
+   "kind": "raw",
+   "jp": "侵　蝕",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8862
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01721",
+   "kind": "raw",
+   "jp": "朦　朧",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8868
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01722",
+   "kind": "raw",
+   "jp": "混　濁",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8868
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01723",
+   "kind": "raw",
+   "jp": "気　絶",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8868
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01724",
+   "kind": "raw",
+   "jp": "激　怒",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8874
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01725",
+   "kind": "raw",
+   "jp": "狂　乱",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8874
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01726",
+   "kind": "raw",
+   "jp": "労　働",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8880
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01727",
+   "kind": "raw",
+   "jp": "寄　生",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8886
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01728",
+   "kind": "raw",
+   "jp": "脳髄寄生",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8892
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01729",
+   "kind": "raw",
+   "jp": "メタル",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8898
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01730",
+   "kind": "raw",
+   "jp": "杖複製",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8904
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01731",
+   "kind": "raw",
+   "jp": "無　敵",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8910
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01732",
+   "kind": "raw",
+   "jp": "柔　術",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8916
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01733",
+   "kind": "raw",
+   "jp": "高度詠唱",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8922
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01734",
+   "kind": "raw",
+   "jp": "刻死紋",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8928
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01735",
+   "kind": "raw",
+   "jp": "Ｓ極状態",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8934
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01736",
+   "kind": "raw",
+   "jp": "Ｎ極状態",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8940
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01737",
+   "kind": "raw",
+   "jp": "洗　脳",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8946
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01738",
+   "kind": "raw",
+   "jp": "怯　み",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8952
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01739",
+   "kind": "raw",
+   "jp": "震　え",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8958
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01740",
+   "kind": "raw",
+   "jp": "出　血",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8964
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01741",
+   "kind": "raw",
+   "jp": "大出血",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8964
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01742",
+   "kind": "raw",
+   "jp": "不安定",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8970
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01743",
+   "kind": "raw",
+   "jp": "狂　気",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8970
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01744",
+   "kind": "raw",
+   "jp": "崩　壊",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8970
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01745",
+   "kind": "raw",
+   "jp": "酔払い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8976
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01746",
+   "kind": "raw",
+   "jp": "行動不能",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8982
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01747",
+   "kind": "raw",
+   "jp": "濡　れ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8988
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01748",
+   "kind": "raw",
+   "jp": "オイル",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 8994
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01749",
+   "kind": "raw",
+   "jp": "転　倒",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9000
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01750",
+   "kind": "raw",
+   "jp": "重　力",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9006
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01751",
+   "kind": "raw",
+   "jp": "睡　眠",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9012
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01752",
+   "kind": "raw",
+   "jp": "爆　睡",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9012
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01753",
+   "kind": "raw",
+   "jp": "盲　目",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9018
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01754",
+   "kind": "raw",
+   "jp": "麻　痺",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9024
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01755",
+   "kind": "raw",
+   "jp": "呼吸困難",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9030
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01756",
+   "kind": "raw",
+   "jp": "窒　息",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9030
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01757",
+   "kind": "raw",
+   "jp": "混　乱",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9036
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01758",
+   "kind": "raw",
+   "jp": "恐　怖",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9042
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01759",
+   "kind": "raw",
+   "jp": "畏　縮",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9048
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01760",
+   "kind": "raw",
+   "jp": "束　縛",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9054
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01761",
+   "kind": "raw",
+   "jp": "不　動",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9054
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01762",
+   "kind": "raw",
+   "jp": "灰　化",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9060
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01763",
+   "kind": "raw",
+   "jp": "神智超越",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9066
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01764",
+   "kind": "raw",
+   "jp": "軽疲労",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9072
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01765",
+   "kind": "raw",
+   "jp": "疲　労",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9072
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01766",
+   "kind": "raw",
+   "jp": "過　労",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9072
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01767",
+   "kind": "raw",
+   "jp": "粗悪",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9078
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01768",
+   "kind": "raw",
+   "jp": "平凡",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9078
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01769",
+   "kind": "raw",
+   "jp": "高品質",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9078
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01770",
+   "kind": "raw",
+   "jp": "奇跡",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9078
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01771",
+   "kind": "raw",
+   "jp": "神器",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9078
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01772",
+   "kind": "raw",
+   "jp": "特別",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9078
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01773",
+   "kind": "raw",
+   "jp": "致命的な弱点",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01774",
+   "kind": "raw",
+   "jp": "弱点",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01775",
+   "kind": "raw",
+   "jp": "耐性なし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01776",
+   "kind": "raw",
+   "jp": "弱い耐性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01777",
+   "kind": "raw",
+   "jp": "普通の耐性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01778",
+   "kind": "raw",
+   "jp": "強い耐性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01779",
+   "kind": "raw",
+   "jp": "素晴らしい耐性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01780",
+   "kind": "raw",
+   "jp": "凄まじい耐性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01781",
+   "kind": "raw",
+   "jp": "至上の耐性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9084
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01782",
+   "kind": "raw",
+   "jp": "男",
+   "en": "",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9096
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9102
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0258",
+     "line": 16388
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0259",
+     "line": 18058
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0274",
+     "line": 22344
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01783",
+   "kind": "raw",
+   "jp": "女",
+   "en": "",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9096
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9102
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0258",
+     "line": 16391
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0259",
+     "line": 18061
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0274",
+     "line": 22347
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01784",
+   "kind": "raw",
+   "jp": "お兄",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9108
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0258",
+     "line": 16353
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0259",
+     "line": 18023
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0274",
+     "line": 22309
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01785",
+   "kind": "raw",
+   "jp": "お姉",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9108
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0258",
+     "line": 16356
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0259",
+     "line": 18026
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0274",
+     "line": 22312
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01786",
+   "kind": "raw",
+   "jp": "ご主人様",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9114
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0258",
+     "line": 16373
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0259",
+     "line": 18043
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0274",
+     "line": 22329
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01787",
+   "kind": "raw",
+   "jp": "お嬢様",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9114
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0258",
+     "line": 16376
+    },
+    {
+     "fn": "_trick",
+     "label": "label_0259",
+     "line": 18046
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0274",
+     "line": 22332
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01788",
+   "kind": "raw",
+   "jp": "ｶｰｿﾙ [選択]  ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9120
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01789",
+   "kind": "raw",
+   "jp": " [ページ切替]  ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9121
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01790",
+   "kind": "raw",
+   "jp": "Shift,Esc [閉じる]  ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9122
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01791",
+   "kind": "raw",
+   "jp": "Shift,Esc [戻る]  ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9123
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01792",
+   "kind": "raw",
+   "jp": "決定、",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9124
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01793",
+   "kind": "raw",
+   "jp": " [既知の情報]  ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9125
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01794",
+   "kind": "raw",
+   "jp": " [情報切替]  ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9126
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01795",
+   "kind": "raw",
+   "jp": "p [ポートレイト変更]  ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9127
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01796",
+   "kind": "raw",
+   "jp": "0～9 [ショートカット]  ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9128
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01797",
+   "kind": "raw",
+   "jp": "男性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9130
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01798",
+   "kind": "raw",
+   "jp": "女性",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9131
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01799",
+   "kind": "raw",
+   "jp": "ありがとうございます！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9132
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01800",
+   "kind": "raw",
+   "jp": "あんたも好きねぇ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9133
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01801",
+   "kind": "raw",
+   "jp": "さようなら",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9134
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01802",
+   "kind": "raw",
+   "jp": "さよならだ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9135
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01803",
+   "kind": "raw",
+   "jp": "まだお礼もできていないのに！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9136
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01804",
+   "kind": "raw",
+   "jp": "～～ッ！？",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9138
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01805",
+   "kind": "raw",
+   "jp": "ベイベー！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9139
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01806",
+   "kind": "raw",
+   "jp": "(続く)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9140
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01807",
+   "kind": "raw",
+   "jp": "(所持金が足りない！)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9141
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01808",
+   "kind": "raw",
+   "jp": "その方向には、操作できる対象はない。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9142
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01809",
+   "kind": "raw",
+   "jp": "調べる",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    },
+    {
+     "fn": "exittempinv",
+     "label": "label_2599",
+     "line": 271365
+    },
+    {
+     "fn": "exittempinv",
+     "label": "label_2599",
+     "line": 271376
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01810",
+   "kind": "raw",
+   "jp": "置く",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01811",
+   "kind": "raw",
+   "jp": "拾う",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01812",
+   "kind": "raw",
+   "jp": "食べる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01813",
+   "kind": "raw",
+   "jp": "装備する",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01814",
+   "kind": "raw",
+   "jp": "読む",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01815",
+   "kind": "raw",
+   "jp": "飲む",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    },
+    {
+     "fn": "exittempinv",
+     "label": "label_2599",
+     "line": 271387
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01816",
+   "kind": "raw",
+   "jp": "振る",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01817",
+   "kind": "raw",
+   "jp": "渡す",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01818",
+   "kind": "raw",
+   "jp": "購入する",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01819",
+   "kind": "raw",
+   "jp": "売却する",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01820",
+   "kind": "raw",
+   "jp": "鑑定する",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01821",
+   "kind": "raw",
+   "jp": "使う",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01822",
+   "kind": "raw",
+   "jp": "開く",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01823",
+   "kind": "raw",
+   "jp": "料理する",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01824",
+   "kind": "raw",
+   "jp": "調合",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01825",
+   "kind": "raw",
+   "jp": "混ぜる対象",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01826",
+   "kind": "raw",
+   "jp": "捧げる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01827",
+   "kind": "raw",
+   "jp": "交換する",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01828",
+   "kind": "raw",
+   "jp": "提示する",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01829",
+   "kind": "raw",
+   "jp": "取る",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01830",
+   "kind": "raw",
+   "jp": "対象の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01831",
+   "kind": "raw",
+   "jp": "入れる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01832",
+   "kind": "raw",
+   "jp": "もらう",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01833",
+   "kind": "raw",
+   "jp": "投げる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01834",
+   "kind": "raw",
+   "jp": "盗む",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01835",
+   "kind": "raw",
+   "jp": "予約する",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01836",
+   "kind": "raw",
+   "jp": "画像付与",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9143
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01837",
+   "kind": "raw",
+   "jp": "行動",
+   "en": "",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01838",
+   "kind": "raw",
+   "jp": "食事",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01839",
+   "kind": "raw",
+   "jp": "読書",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01840",
+   "kind": "raw",
+   "jp": "移動",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01841",
+   "kind": "raw",
+   "jp": "休息",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01842",
+   "kind": "raw",
+   "jp": "採掘",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01843",
+   "kind": "raw",
+   "jp": "演奏",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01844",
+   "kind": "raw",
+   "jp": "釣り",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01845",
+   "kind": "raw",
+   "jp": "採取",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01846",
+   "kind": "raw",
+   "jp": "穴掘り",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01847",
+   "kind": "raw",
+   "jp": "合成",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01848",
+   "kind": "raw",
+   "jp": "チャージ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01849",
+   "kind": "raw",
+   "jp": "伐採",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01850",
+   "kind": "raw",
+   "jp": "説法",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01851",
+   "kind": "raw",
+   "jp": "舞",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01852",
+   "kind": "raw",
+   "jp": "説得",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01853",
+   "kind": "raw",
+   "jp": "ギャグ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01854",
+   "kind": "raw",
+   "jp": "嘘",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01855",
+   "kind": "raw",
+   "jp": "脅迫",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01856",
+   "kind": "raw",
+   "jp": "歌",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01857",
+   "kind": "raw",
+   "jp": "行為",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01858",
+   "kind": "raw",
+   "jp": "執筆",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01859",
+   "kind": "raw",
+   "jp": "仕事",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01860",
+   "kind": "raw",
+   "jp": "物乞い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01861",
+   "kind": "raw",
+   "jp": "飛跳殺法",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01862",
+   "kind": "raw",
+   "jp": "奇襲穿孔",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9145
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01863",
+   "kind": "lang",
+   "jp": "魔法を詠唱した。",
+   "en": " casts a spell.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9176
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01864",
+   "kind": "lang",
+   "jp": "糸を飛ばした。",
+   "en": " splits cobweb.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9177
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01865",
+   "kind": "lang",
+   "jp": "体液を飛ばした。",
+   "en": " spreads body fluid.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9178
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01866",
+   "kind": "lang",
+   "jp": "触手を伸ばした。",
+   "en": " puts out a tentacle.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9179
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01867",
+   "kind": "lang",
+   "jp": "視線を飛ばした。",
+   "en": " gazes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9180
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01868",
+   "kind": "lang",
+   "jp": "胞子を飛ばした。",
+   "en": " scatters spores.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9181
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01869",
+   "kind": "lang",
+   "jp": "振動を起こした。",
+   "en": " vibrates.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9182
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01870",
+   "kind": "lang",
+   "jp": "魔法陣を展開した。",
+   "en": " expands a magical circle.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9183
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01871",
+   "kind": "lang",
+   "jp": "粉を散布した。",
+   "en": " sprays the powder.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9184
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01872",
+   "kind": "lang",
+   "jp": "思念を放った。",
+   "en": " shoots the vicious mind.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9185
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01873",
+   "kind": "raw",
+   "jp": "殴って",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9188
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01874",
+   "kind": "raw",
+   "jp": "殴られた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9188
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01875",
+   "kind": "raw",
+   "jp": "噛んで",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9194
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01876",
+   "kind": "raw",
+   "jp": "噛みつかれた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9194
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01877",
+   "kind": "raw",
+   "jp": "牙",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9194
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01878",
+   "kind": "raw",
+   "jp": "睨んで",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9200
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01879",
+   "kind": "raw",
+   "jp": "睨まれた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9200
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01880",
+   "kind": "raw",
+   "jp": "眼",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9200
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01881",
+   "kind": "raw",
+   "jp": "引っ掻き",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9206
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01882",
+   "kind": "raw",
+   "jp": "引っ掻かれた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9206
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01883",
+   "kind": "raw",
+   "jp": "爪",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9206
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01884",
+   "kind": "raw",
+   "jp": "刺し",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9212
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01885",
+   "kind": "raw",
+   "jp": "刺された。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9212
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01886",
+   "kind": "raw",
+   "jp": "針",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9212
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01887",
+   "kind": "raw",
+   "jp": "触って",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9218
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01888",
+   "kind": "raw",
+   "jp": "触られた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9218
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01889",
+   "kind": "raw",
+   "jp": "胞子まみれにし",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9224
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01890",
+   "kind": "raw",
+   "jp": "胞子まみれにされた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9224
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01891",
+   "kind": "raw",
+   "jp": "胞子",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9224
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01892",
+   "kind": "raw",
+   "jp": "打って",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9230
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01893",
+   "kind": "raw",
+   "jp": "打たれた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9230
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01894",
+   "kind": "raw",
+   "jp": "枝",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9230
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01895",
+   "kind": "raw",
+   "jp": "地面に叩きつけ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9236
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01896",
+   "kind": "raw",
+   "jp": "地面へ叩きつけられた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9236
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01897",
+   "kind": "raw",
+   "jp": "剛腕",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9236
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01898",
+   "kind": "raw",
+   "jp": "体当たりして",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9242
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01899",
+   "kind": "raw",
+   "jp": "体当たりされた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9242
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01900",
+   "kind": "raw",
+   "jp": "体",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9242
+    },
+    {
+     "fn": "eqrandweaponmage",
+     "label": "label_2235",
+     "line": 219155
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01901",
+   "kind": "raw",
+   "jp": "鋏んで",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9248
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01902",
+   "kind": "raw",
+   "jp": "鋏まれた。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9248
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01903",
+   "kind": "raw",
+   "jp": "鋏",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9248
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01904",
+   "kind": "raw",
+   "jp": "蹴り抜いて",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9254
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9260
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01905",
+   "kind": "raw",
+   "jp": "蹴り飛ばされた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9254
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9260
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01906",
+   "kind": "raw",
+   "jp": "脚",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9254
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9260
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01907",
+   "kind": "raw",
+   "jp": "透明な",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9268
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01908",
+   "kind": "raw",
+   "jp": "緑色の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9268
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01909",
+   "kind": "raw",
+   "jp": "青い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9268
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01910",
+   "kind": "raw",
+   "jp": "金色の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9268
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01911",
+   "kind": "raw",
+   "jp": "茶色い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9268
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01912",
+   "kind": "raw",
+   "jp": "赤い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9268
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01913",
+   "kind": "raw",
+   "jp": "分厚い",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9274
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01914",
+   "kind": "raw",
+   "jp": "苔むした",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9274
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9280
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01915",
+   "kind": "raw",
+   "jp": "真新しい",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9274
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01916",
+   "kind": "raw",
+   "jp": "豪華な",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9274
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01917",
+   "kind": "raw",
+   "jp": "古びた",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9274
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9280
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01918",
+   "kind": "raw",
+   "jp": "血の滴る",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9274
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01919",
+   "kind": "raw",
+   "jp": "かすれた",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9280
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01920",
+   "kind": "raw",
+   "jp": "ぼろぼろの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9280
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01921",
+   "kind": "raw",
+   "jp": "難しそうな",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9280
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01922",
+   "kind": "raw",
+   "jp": "血文字の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9280
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01923",
+   "kind": "raw",
+   "jp": "鉄の",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9286
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9292
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01924",
+   "kind": "raw",
+   "jp": "つたの",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9286
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01925",
+   "kind": "raw",
+   "jp": "サファイアの",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9286
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9292
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01926",
+   "kind": "raw",
+   "jp": "金の",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9286
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9292
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01927",
+   "kind": "raw",
+   "jp": "木の",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9286
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9292
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01928",
+   "kind": "raw",
+   "jp": "錆の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9286
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01929",
+   "kind": "raw",
+   "jp": "緑の",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9292
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01930",
+   "kind": "raw",
+   "jp": "錆びた",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9292
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01931",
+   "kind": "raw",
+   "jp": "呪われた",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9304
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9308
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01932",
+   "kind": "raw",
+   "jp": "祝福された",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9315
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9319
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01933",
+   "kind": "raw",
+   "jp": "首飾り",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9326
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9330
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01934",
+   "kind": "raw",
+   "jp": "指輪",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9337
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9341
+    },
+    {
+     "fn": "prodcheck",
+     "label": "label_1936",
+     "line": 184855
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01935",
+   "kind": "raw",
+   "jp": "ポーション",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9348
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9352
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01936",
+   "kind": "raw",
+   "jp": "魔法書",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9359
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9363
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01937",
+   "kind": "raw",
+   "jp": "巻物",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9370
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9374
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01938",
+   "kind": "raw",
+   "jp": "魔杖",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9381
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9385
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01939",
+   "kind": "raw",
+   "jp": "修正",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9414
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9418
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01940",
+   "kind": "raw",
+   "jp": "性別",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9425
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9429
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01941",
+   "kind": "raw",
+   "jp": "堕落した",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9436
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9440
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01942",
+   "kind": "raw",
+   "jp": "ああ",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9480
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9484
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  },
+  {
+   "id": "s01943",
+   "kind": "raw",
+   "jp": "いや…",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9491
+    },
+    {
+     "fn": "text_set",
+     "label": null,
+     "line": 9495
+    }
+   ],
+   "fn": "text_set",
+   "label": null,
+   "owner": "text_set"
+  }
+ ]
+}

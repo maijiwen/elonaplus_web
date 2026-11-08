@@ -1,0 +1,1827 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2106",
+ "entries": [
+  {
+   "id": "s08158",
+   "kind": "raw",
+   "jp": "赤い雨",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 203962
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08159",
+   "kind": "raw",
+   "jp": "<混沌の秩序>",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 203994
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08160",
+   "kind": "raw",
+   "jp": "<終末の空>",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204004
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08161",
+   "kind": "raw",
+   "jp": "[電磁獄]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204014
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08162",
+   "kind": "raw",
+   "jp": "[弦葬世界]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204024
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08163",
+   "kind": "raw",
+   "jp": "[暴虐の庭園]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204034
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08164",
+   "kind": "raw",
+   "jp": "[ロックラッシュ]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204044
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08165",
+   "kind": "raw",
+   "jp": "[狂気満ちる劇場]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204054
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08166",
+   "kind": "raw",
+   "jp": "[懲罰結界]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204064
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08167",
+   "kind": "raw",
+   "jp": "[破滅同好会]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204074
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08168",
+   "kind": "raw",
+   "jp": "ESCキーで棄権できる",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204088
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08169",
+   "kind": "raw",
+   "jp": "確認",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204103
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08170",
+   "kind": "raw",
+   "jp": "船の状態：",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204130
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08171",
+   "kind": "raw",
+   "jp": "相手の船の状態：",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204139
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08172",
+   "kind": "raw",
+   "jp": "回収人数：",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204170
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08173",
+   "kind": "raw",
+   "jp": "人",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204170
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08174",
+   "kind": "raw",
+   "jp": "クエスト[残り",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204181
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08175",
+   "kind": "raw",
+   "jp": "ターン]",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204181
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08176",
+   "kind": "raw",
+   "jp": "進行度[ ",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204196
+    },
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204212
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08177",
+   "kind": "lang",
+   "jp": "ネヘルタード「間に合わなかった…。救済するべき魂はもう助からない…。君だけでも逃げて…」",
+   "en": "You were forced to escape.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204234
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08178",
+   "kind": "raw",
+   "jp": "ゼーム「さぁ、神との戦いを見せてもらおう！私の知的探求心を満たしてくれ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204250
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08179",
+   "kind": "raw",
+   "jp": "エリステア「どうか、イルヴァの歴史を守って…！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204264
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08180",
+   "kind": "raw",
+   "jp": "ガベラ「死ぬなよ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204276
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08181",
+   "kind": "raw",
+   "jp": "…もう俺にあんな思いをさせないでくれ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204276
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08182",
+   "kind": "raw",
+   "jp": "ソピアー「アカシックネットワークに光が流れ込んでいる…？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204288
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08183",
+   "kind": "raw",
+   "jp": "ノルン「君の旅は…こんなところで終わっちゃいけない」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204303
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08184",
+   "kind": "raw",
+   "jp": "ヴェセル「希望はまだあるはずだ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204315
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08185",
+   "kind": "raw",
+   "jp": "オルフェ「私が決戦因子として至らなかったばかりに、後任がこのような…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204327
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08186",
+   "kind": "raw",
+   "jp": "エヘカトル「死なにゃいで！死なにゃいって約束して！して！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204341
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08187",
+   "kind": "raw",
+   "jp": "イツパロトル「願いの力が、回廊と来光の牙を通じて集いつつあるのか…？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204355
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08188",
+   "kind": "raw",
+   "jp": "ヤカテクト「よっしゃ！ウチらの残りの神力もまとめて投資したるっ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204367
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08189",
+   "kind": "raw",
+   "jp": "オパートス「フハハハハッフハー！！！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204379
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08190",
+   "kind": "raw",
+   "jp": "ルルウィ「戦いなさい、子猫ちゃん。今こそ私の役に立つ時よ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204391
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08191",
+   "kind": "raw",
+   "jp": "クミロミ「…大丈夫…だよね？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204403
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08192",
+   "kind": "raw",
+   "jp": "マニ「長引かせるな。お前の身体は既に限界を超えている」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204415
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08193",
+   "kind": "raw",
+   "jp": "ジュア「バカ！これで死んだりしたら許さないんだから…！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204427
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08194",
+   "kind": "raw",
+   "jp": "ミクラネシス「「「アカシックネットワークがこのように動作するとは想定外だね…」」」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204439
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08195",
+   "kind": "raw",
+   "jp": "テスカトリポカ「我の魂もここにある。共に戦うぞ、",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204451
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08196",
+   "kind": "raw",
+   "jp": "ラーネイレ「いけない。このままでは…手遅れになってしまうわ…！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204466
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08197",
+   "kind": "raw",
+   "jp": "ロミアス「まだまだ、これからだろう！？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204478
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08198",
+   "kind": "raw",
+   "jp": "シナア「この猫蛇野郎が生み出す不幸を、アタシは認めないのニャ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204492
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08199",
+   "kind": "raw",
+   "jp": "ラシエル「失敗したらお仕置きよ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204505
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08200",
+   "kind": "raw",
+   "jp": "ネヘルタード「今こそ、星の光の祝福を…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204518
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08201",
+   "kind": "raw",
+   "jp": "ウリカグアル「フハハ！根性見せな！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204531
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08202",
+   "kind": "raw",
+   "jp": "カラヴィカ「イェーイ！愛してるぜベイベー！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204544
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08203",
+   "kind": "raw",
+   "jp": "ガルジエム「貴君の戦いは勲章ものだ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204557
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08204",
+   "kind": "raw",
+   "jp": "ロヴィト「君は大勢の想いに守られているのですね…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204570
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08205",
+   "kind": "raw",
+   "jp": "ミシェス「冒険者さん、お願いだから、負けないで」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204583
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08206",
+   "kind": "raw",
+   "jp": "シーナ「お客さま、大丈夫ですか？！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204596
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08207",
+   "kind": "raw",
+   "jp": "ロイター「おい。この脳裏に流れてくる悪夢を早く終わらせろ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204609
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08208",
+   "kind": "raw",
+   "jp": "パエル「悪い神様なんていらない！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204622
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08209",
+   "kind": "raw",
+   "jp": "ラファエロ「負けるんじゃないぞ。お前さんから貰った嫁が悲しむからな」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204635
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08210",
+   "kind": "raw",
+   "jp": "リリアン「今、ポピーといっしょに冒険者さんを応援しているの！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204648
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08211",
+   "kind": "raw",
+   "jp": "タム「こんな猫顔の怪物と戦ってくれていたんですね…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204661
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08212",
+   "kind": "raw",
+   "jp": "ギルバート「おお、勇者よ！諦めないでくれ！フハハハア！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204674
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08213",
+   "kind": "raw",
+   "jp": "アインク「私にはできないことも、あなたならきっとできるはずです！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204687
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08214",
+   "kind": "raw",
+   "jp": "アーノルド「どうか、この死地を切り抜けて生還してください！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204700
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08215",
+   "kind": "raw",
+   "jp": "ミーア「にゃんこ溢れるこの世界を～守ってほしいでありますぅ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204713
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08216",
+   "kind": "raw",
+   "jp": "レントン「君には生きる価値がある…私と違って」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204726
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08217",
+   "kind": "raw",
+   "jp": "マークス「フッ。泥棒に応援される気分はどうです？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204739
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08218",
+   "kind": "raw",
+   "jp": "ノエル「そいつに勝ったらカミゴロシくんって呼んであげるわ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204752
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08219",
+   "kind": "raw",
+   "jp": "イコール「おうおう、諦めたらそこで実験終了じゃぞ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204765
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08220",
+   "kind": "raw",
+   "jp": "バルザック「世界規模のゴミ野郎を片づけちまいな！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204778
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08221",
+   "kind": "raw",
+   "jp": "レヴラス「あなたなら勝ってくれると信じていますよ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204791
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08222",
+   "kind": "raw",
+   "jp": "フレイ「神だろうと鍛えれば打倒できる。そうだろう？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204804
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08223",
+   "kind": "raw",
+   "jp": "シン「生きろ。命を奪われるくらいなら先に奪え」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204817
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08224",
+   "kind": "raw",
+   "jp": "コネリー「おぬしはわしらの誇りだ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204830
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08225",
+   "kind": "raw",
+   "jp": "謎の科学者「お願い。あの子達には希望が必要なの」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204843
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08226",
+   "kind": "raw",
+   "jp": "犬のおまわりさん「この世界のためにも、どうかよろしくお願いなのです！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204856
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08227",
+   "kind": "raw",
+   "jp": "ミーリス「もはや軍では対処できない…！貴方に託します」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204869
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08228",
+   "kind": "raw",
+   "jp": "オービル「ちょっ、あんたならなんとかできるだろ？そう言ってくれ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204882
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08229",
+   "kind": "raw",
+   "jp": "ザナード「よう。俺様はお前を信じてるぜ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204895
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08230",
+   "kind": "raw",
+   "jp": "豹頭の戦士「俺などの力が何かになるものならば、いくらでも力になってやりたいと思う」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204908
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08231",
+   "kind": "raw",
+   "jp": "メファン「すまない！報酬は出せないが頑張ってほしい！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204921
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08232",
+   "kind": "raw",
+   "jp": "ルーネ「ご主人様、メイドの皆で勝利を願っています！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204934
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08233",
+   "kind": "raw",
+   "jp": "たけのこ「世界全土が焼き払われちゃかなわないからな！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204947
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08234",
+   "kind": "raw",
+   "jp": "カイル「父さま、冒険者さんの無事を一緒に祈ろう」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204960
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08235",
+   "kind": "raw",
+   "jp": "姉「お姉ちゃんを泣かせないでね？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204973
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08236",
+   "kind": "raw",
+   "jp": "ライエ「君が、平穏な生活を取り戻せますように…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204986
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08237",
+   "kind": "raw",
+   "jp": "シラハ「",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204999
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08238",
+   "kind": "raw",
+   "jp": "さん、負けないで！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 204999
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08239",
+   "kind": "raw",
+   "jp": "ナプラス「私、あなたの持つ可能性を信じてるよ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205012
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08240",
+   "kind": "raw",
+   "jp": "ナズナ「もっと鍛えておくべきだったな」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205025
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08241",
+   "kind": "raw",
+   "jp": "アリス「死中ニ活アリッス」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205038
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08242",
+   "kind": "raw",
+   "jp": "ネイン「よく分からないけど…負けるんじゃないわよ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205051
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08243",
+   "kind": "raw",
+   "jp": "ガージンド「この星にこんな怪物が潜んでいたとは…」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205064
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08244",
+   "kind": "raw",
+   "jp": "イルマ「どんな力も、どんな技術も、全ては使う者次第なんじゃ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205077
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08245",
+   "kind": "raw",
+   "jp": "スピファル「なんだ、半竜じゃなくて半蛇か…あなたに任せるね」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205090
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08246",
+   "kind": "raw",
+   "jp": "ミヅキ「わしは…おぬしに勝ってほしいっ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205103
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08247",
+   "kind": "raw",
+   "jp": "エユル「横でレナイも応援しているよ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205116
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08248",
+   "kind": "raw",
+   "jp": "ライゼル「…！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205129
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08249",
+   "kind": "raw",
+   "jp": "シュライダ「忘れるな、生きて帰るまでが仕事だ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205142
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08250",
+   "kind": "raw",
+   "jp": "マルカ「そいつが何を企んでるのか知らないけど、やっちゃえ！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205155
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08251",
+   "kind": "raw",
+   "jp": "シズル「いひひ…少しばかり介入させてもらいますのじゃ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205168
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08252",
+   "kind": "raw",
+   "jp": "ベルファート「君はクロやんと再会させてくれた恩人だ！無事を祈っている！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205181
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08253",
+   "kind": "raw",
+   "jp": "ランカータ「母上…あの人をお守りください…！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205194
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08254",
+   "kind": "raw",
+   "jp": "カラ太「ゼミでやったところを思い出して！」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205207
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08255",
+   "kind": "raw",
+   "jp": "カルラ「Etherwindの因果が、あなたの力になるわ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205220
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08256",
+   "kind": "raw",
+   "jp": "早くこの場を離れたほうがいい気がする…",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205232
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  },
+  {
+   "id": "s08257",
+   "kind": "raw",
+   "jp": "*カーテンコール*",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "net_dl",
+     "label": "label_2106",
+     "line": 205244
+    }
+   ],
+   "fn": "net_dl",
+   "label": "label_2106",
+   "owner": "label_2106"
+  }
+ ]
+}

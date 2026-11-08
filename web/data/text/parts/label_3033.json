@@ -1,0 +1,2043 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_3033",
+ "entries": [
+  {
+   "id": "s14690",
+   "kind": "raw",
+   "jp": "友達100人できるかな♪",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366144
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14691",
+   "kind": "lang",
+   "jp": "習得する",
+   "en": "Teach me the skill.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366165
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3065",
+     "line": 425196
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14692",
+   "kind": "lang",
+   "jp": "訓練する",
+   "en": "Train me.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366173
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3065",
+     "line": 425179
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14693",
+   "kind": "lang",
+   "jp": "遠慮しとく",
+   "en": "I think I'll pass.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366178
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14694",
+   "kind": "lang",
+   "jp": "部屋が一杯で置けなかった…",
+   "en": "Your home has no empty spot...",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366256
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366864
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14695",
+   "kind": "lang",
+   "jp": "所持品が一杯で受け取れなかった…",
+   "en": "Your inventory is full...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366297
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14696",
+   "kind": "lang",
+   "jp": "訓練しない",
+   "en": "Not today.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366512
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14697",
+   "kind": "lang",
+   "jp": "いい",
+   "en": "Yes.",
+   "zh": "",
+   "count": 6,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366578
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366937
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366980
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 368344
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 371929
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 372325
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14698",
+   "kind": "lang",
+   "jp": "だめ",
+   "en": "No.",
+   "zh": "",
+   "count": 6,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366582
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366940
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366983
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 368347
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 371932
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 372328
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14699",
+   "kind": "lang",
+   "jp": "ケチ！",
+   "en": "You're so cheap!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366613
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14700",
+   "kind": "lang",
+   "jp": "伝書鳩も大変ね",
+   "en": "Being a carrier pigeon must be tough work.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366631
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14701",
+   "kind": "lang",
+   "jp": "いらないから捨てておいて",
+   "en": "I don't need it, so please throw it away.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366634
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14702",
+   "kind": "lang",
+   "jp": "大事に運んできたのにひどいや。",
+   "en": "I carried it so carefully, and now this happens.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366640
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14703",
+   "kind": "lang",
+   "jp": "鳩はこの仕事に向いているのかなあ…。",
+   "en": "Am I really suitable for this job...?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366657
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14704",
+   "kind": "lang",
+   "jp": "イタズラされる",
+   "en": "Trick.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366801
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14705",
+   "kind": "lang",
+   "jp": "イタズラする",
+   "en": "Treat.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366804
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14706",
+   "kind": "lang",
+   "jp": "わーい！",
+   "en": "Yeah!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366835
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14707",
+   "kind": "lang",
+   "jp": "ハッピーハロウィン！",
+   "en": "Happy Halloween!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366838
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14708",
+   "kind": "lang",
+   "jp": "ひっ…ガード！ガード！",
+   "en": "Guard! Guard! Guard!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366915
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14709",
+   "kind": "lang",
+   "jp": "おやおや",
+   "en": "Come on!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366918
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14710",
+   "kind": "lang",
+   "jp": "うふふ",
+   "en": "Come on!",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366949
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366992
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421558
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421618
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14711",
+   "kind": "lang",
+   "jp": "ふん！",
+   "en": "Hump!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 366962
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367005
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14712",
+   "kind": "lang",
+   "jp": "いいよ",
+   "en": "Welcome!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367024
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14713",
+   "kind": "lang",
+   "jp": "駄目だよ",
+   "en": "Get out!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367027
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14714",
+   "kind": "lang",
+   "jp": "家賃は払ってよ",
+   "en": "You have to pay the rent.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367030
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14715",
+   "kind": "lang",
+   "jp": "妻が猫パンチで殺され住んでいた家も人間パンチで壊され、現在は路頭に迷っています。どうか、軒先に住まわせていただけないでしょうか？",
+   "en": "Let we live here! My wife was killed by the cat punch and our house was destroyed by the human punch...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367032
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14716",
+   "kind": "lang",
+   "jp": "ありがとうございます。あああ、私はなんて幸福なんだ。これで仕事と育児に専念できます。私の子供たちもきっと絶対必ず幸福になるでしょう。",
+   "en": "Thanks! I and my children are happy.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367036
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14717",
+   "kind": "lang",
+   "jp": "ああ、これも天の与えた試練なのですね！ならば、その先にある本当の幸福を求め彷徨い続けましょう…。",
+   "en": "Oh...Where is happiness?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367055
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14718",
+   "kind": "lang",
+   "jp": "いいね",
+   "en": "Welcome!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367073
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14719",
+   "kind": "lang",
+   "jp": "駄目だね",
+   "en": "Get out!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367076
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14720",
+   "kind": "lang",
+   "jp": "謝礼、待っていますね",
+   "en": "I expect it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367079
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14721",
+   "kind": "lang",
+   "jp": "主人が腹上死して何年かが過ぎました。いきなりの相談失礼します。お互いのニーズに合致しそうだと思い、訪問してみました。謝礼は幾らかは出きますので、私と娘たちを住まわせて欲しいのです。",
+   "en": "Let we live here! It's been a few years since my husband died of sex. I will give you a monthly reward, so please let me and my daughters live here...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367081
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14722",
+   "kind": "lang",
+   "jp": "助かります。これで娘たちが外敵と戦うことも減るでしょう…。",
+   "en": "Thanks to you, my daughters will be less likely to fight enemies...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367085
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14723",
+   "kind": "lang",
+   "jp": "甘い蜜はお嫌いでしたか…？",
+   "en": "Oh...Do you hate sweet honey?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367105
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14724",
+   "kind": "lang",
+   "jp": "そんなぁ",
+   "en": "Welcome!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367123
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14725",
+   "kind": "lang",
+   "jp": "出ていけクソガキ",
+   "en": "Get out!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367126
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14726",
+   "kind": "lang",
+   "jp": "わからせてやる…",
+   "en": "You will regret it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367129
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14727",
+   "kind": "lang",
+   "jp": "くすくすっ！うっわぁ～なんですかこのセンスのない座敷ｗｗｗダッサダサじゃないですか～。本当に笑えるのでぇ、しばらくはこの家に住んであげますねｗｗｗ",
+   "en": "Hehehe! This house is too nonsense and nonsense and interestiiiiing! I decided to live here！",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367131
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14728",
+   "kind": "lang",
+   "jp": "ちゃんと家具の配置とか考えてくださいよ～？あっｗｗｗｗ家具って何か分かってます？？？",
+   "en": "Hehehe! Think about the arrangement of furniture properly...Oooooh, do you know what the furniture is???",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367135
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14729",
+   "kind": "lang",
+   "jp": "はぁい、いいですよ～。また来ますけどねｗｗｗｗｗあはははは！",
+   "en": "I will come agaaaaain! Hehehe!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367151
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14730",
+   "kind": "lang",
+   "jp": "これからよろしく",
+   "en": "Welcome!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367169
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14731",
+   "kind": "lang",
+   "jp": "キモい",
+   "en": "Get out!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367172
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14732",
+   "kind": "lang",
+   "jp": "こんな家でよければ…",
+   "en": "If you like this kind of house...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367175
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14733",
+   "kind": "lang",
+   "jp": "はっ…初めて見た時から、こ、この家のことがずっと好きでした！私にこの家を守らせてくださいぃぃっ…！",
+   "en": "I...I've always liked t...this house since I first saw it! Let me protect this house...Please!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367177
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14734",
+   "kind": "lang",
+   "jp": "やったぁ…夢みたい！この家に近づく悪い虫はぁ、私がぜぇぇぇんぶ排除してあげますねぇ…ぐへっ、ぐへへへ♪",
+   "en": "I'm happy...like a dream! Pests approaching this house, I'll get rid of them...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367181
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14735",
+   "kind": "lang",
+   "jp": "私…まだあきらめませんからっ！ずっと見守っていきます！",
+   "en": "I...I haven't given up yet!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367196
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14736",
+   "kind": "lang",
+   "jp": "【ちょっとだけよ】",
+   "en": "<Welcome!>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367215
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14737",
+   "kind": "lang",
+   "jp": "帰れバケモノ！",
+   "en": "Get out, monster!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367219
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14738",
+   "kind": "lang",
+   "jp": "吸いつくされそうだからイヤ",
+   "en": "I don't want to because I feel like you'll suck all my blood out.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367222
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14739",
+   "kind": "lang",
+   "jp": "オナカの赤チャンのタメ…献血をお願イしまス…。",
+   "en": "Please...donate blood...for the sake of my unborn babies...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367224
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14740",
+   "kind": "lang",
+   "jp": "ギひゃアアアア！ぜんぶイタダキまぁぁァス！！",
+   "en": "Yaaaaaay! I'll take all the bloooooooood!!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367229
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14741",
+   "kind": "lang",
+   "jp": "ホントウにバケモノなのハ…ドッチでシょう、ネ？",
+   "en": "The real monster...might be you...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367247
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14742",
+   "kind": "lang",
+   "jp": "マって！10リットル！いヤ、8リットルでイイからぁあ！",
+   "en": "Wait a moment...10 liters...no, even 8 liters would be fine...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367264
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14743",
+   "kind": "lang",
+   "jp": "『オレオレ鷺』",
+   "en": "<Heraudsteron> the saying it's me",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367283
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14744",
+   "kind": "lang",
+   "jp": "誰だよ",
+   "en": "Who are you?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367285
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14745",
+   "kind": "lang",
+   "jp": "ロミアス！？ロミアスなのかい？",
+   "en": "Lomias!? Is that you, Lomias?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367288
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14746",
+   "kind": "lang",
+   "jp": "その声は我が友ではないか？",
+   "en": "That voice... could it be my friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367291
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14747",
+   "kind": "lang",
+   "jp": "オレだよオレ！助けてくれ！どこかの馬鹿が井戸におかしな液体を混ぜやがったせいでこんな姿になっちまった！",
+   "en": "It's me, it's me! Help me out! Some idiot mixed a weird liquid into the well, and now I've ended up looking like this!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367293
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14748",
+   "kind": "lang",
+   "jp": "サギじゃん",
+   "en": "It's a fraud, isn't it?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367297
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14749",
+   "kind": "lang",
+   "jp": "一生のお願いなら仕方ない",
+   "en": "If it's a once-in-a-lifetime favor, I guess I have no choice.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367301
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14750",
+   "kind": "lang",
+   "jp": "空飛ぶのが夢ってずっと言ってたじゃん",
+   "en": "You've always said your dream was to fly, remember?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367305
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14751",
+   "kind": "lang",
+   "jp": "今なら、5000goldあれば治療を受けて元に戻れるんだ！もうお前しか頼れないんだよ！一生のお願いだ、5000gold用意してくれ…！",
+   "en": "Right now, with 5000 gold, I can get treatment and return to normal! You're the only one I can rely on now! I'm begging you?this is a once-in-a-lifetime favor...please prepare 5000 gold for me...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367307
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14752",
+   "kind": "lang",
+   "jp": "はは…そうだよな、信じるわけないよな。お前を頼ったオレが馬鹿だったよ…。",
+   "en": "Haha... yeah, you're right. There's no way you'd believe it. I was a fool to count on you...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367312
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14753",
+   "kind": "lang",
+   "jp": "助かった、恩に着る！元に戻れたら酒でも奢るよ！",
+   "en": "You're a lifesaver! I owe you one! If I manage to get back to normal, I'll treat you to a drink!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367327
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14754",
+   "kind": "lang",
+   "jp": "！？…そ、そうだったなぁ。ちょっと飛行テストしてくるわ。",
+   "en": "!?...Y-yeah, that's true. I'm gonna go run a quick flight test.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367344
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14755",
+   "kind": "lang",
+   "jp": "『寸借鷺』",
+   "en": "<Heraudsteron> the saying I can't go home",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367361
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14756",
+   "kind": "lang",
+   "jp": "サギだろ",
+   "en": "It's a fraud, isn't it?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367363
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14757",
+   "kind": "lang",
+   "jp": "まぁそのくらいなら…",
+   "en": "Well, if it's just that much...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367367
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14758",
+   "kind": "lang",
+   "jp": "わけを話してガードに借りてください",
+   "en": "Please explain the situation to the guard and ask them to lend you some money.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367371
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14759",
+   "kind": "lang",
+   "jp": "うう…家に帰るためのお金が足りなくってねぇ…後日、必ず返しに来るから、800goldだけ貸してもらえないかい？",
+   "en": "Oh dear... I don't have enough money to get home...I promise to come back and pay you back later...could you lend me just 800 gold?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367373
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14760",
+   "kind": "lang",
+   "jp": "困っている相手になんて酷い態度なんだい！近頃の冒険者ときたら！",
+   "en": "How awful your attitude is towards someone in distress! Adventurers these days...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367378
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14761",
+   "kind": "lang",
+   "jp": "ありがとうねぇ！本当に親切な方！必ず返しに来ますねぇ！",
+   "en": "Thank you so much! You’re so kind! I’ll definitely come back to return it!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367393
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14762",
+   "kind": "lang",
+   "jp": "…。そうねぇ！ガードさんに借りればしっかり記録も残るし、安心よねぇ！邪魔してしまってごめんなさいねぇ。",
+   "en": "...That's a great idea! Borrowing one from the guard ensures a proper record is kept, so that gives me peace of mind. Sorry for the interruption!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367410
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14763",
+   "kind": "lang",
+   "jp": "『請求鷺』",
+   "en": "<Heraudsteron> the demanding payment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367427
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14764",
+   "kind": "lang",
+   "jp": "サギだよね",
+   "en": "It's a fraud, isn't it?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367429
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14765",
+   "kind": "lang",
+   "jp": "知らなかった！今払います",
+   "en": "I didn't know that! I'll pay right now.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367433
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14766",
+   "kind": "lang",
+   "jp": "ギルドで直接払うから一緒に来て",
+   "en": "I'll pay directly at the Guild, so come along with me.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367437
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14767",
+   "kind": "lang",
+   "jp": "冒険者ギルドのほうから来ました。現在、あなたは冒険者ギルドの会費を12000gold滞納しています。もしも今回支払っていただけない場合、冒険者の資格が剥奪され今まで受けてきた各種サービスも受けられなくなります。",
+   "en": "I’m here from the Adventurers' Guild. You are currently 12000 gold behind on your Adventurer's Guild membership fees. If you do not pay this time, your adventurer status will be revoked, and you will no longer be able to receive any of the services you have been receiving up until now.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367439
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14768",
+   "kind": "lang",
+   "jp": "お支払いの意志がないようで。では後日、正式な通知を出させていただきます。さようなら。",
+   "en": "It seems you have no intention of paying. We will send out a formal notification at a later date. Goodbye.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367444
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14769",
+   "kind": "lang",
+   "jp": "はい、確かに。また滞納があった場合は請求に来ますからね。",
+   "en": "If there are any further overdue payments, I'll be coming to collect.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367459
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14770",
+   "kind": "lang",
+   "jp": "…おおっと！別の冒険者の家と間違えていたようです。失礼～。",
+   "en": "...Whoops! It looks like I mistook this for another adventurer's home. My apologies!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367476
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14771",
+   "kind": "lang",
+   "jp": "『ロマンス鷺』",
+   "en": "<Heraudsteron> the grateful to you",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367493
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14772",
+   "kind": "lang",
+   "jp": "サギでは？",
+   "en": "It's a fraud, isn't it?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367495
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14773",
+   "kind": "lang",
+   "jp": "ツルなんて助けたっけ？",
+   "en": "Did I really save a crane?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367498
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14774",
+   "kind": "lang",
+   "jp": "なんかツルっぽくないような？",
+   "en": "You doesn't quite seem like a crane, somehow...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367501
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14775",
+   "kind": "lang",
+   "jp": "先日あなたに助けていただいたツルです。",
+   "en": "I'm the crane you helped the other day.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367503
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14776",
+   "kind": "lang",
+   "jp": "サギじゃん帰れよ",
+   "en": "It's a fraud! just go home.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367507
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14777",
+   "kind": "lang",
+   "jp": "まぁいいか、よろしくな",
+   "en": "Oh well. I'm counting on you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367510
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14778",
+   "kind": "lang",
+   "jp": "せめて女の子に化けて来いよ",
+   "en": "The least you could do is transform into a girl.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367513
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14779",
+   "kind": "lang",
+   "jp": "これから、一生をかけてあなたへの恩を返していきます！ですが、決して給料箱のお金は数えないでくださいね。",
+   "en": "From now on, I will spend my entire life repaying your kindness! But never count the money in your salary chest.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367515
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14780",
+   "kind": "lang",
+   "jp": "今日のところは帰ります。ですが、誰かを信じる心をいつか思い出してくださいね。",
+   "en": "I'm going home for today. But please remember to trust someone.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367520
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14781",
+   "kind": "lang",
+   "jp": "はいっ！必ずあなたのお役に立ってみせます！",
+   "en": "Yes! I’ll definitely make myself useful to you!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367538
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14782",
+   "kind": "lang",
+   "jp": "ツルです。よろしくお願いします♪",
+   "en": "OK! Thank you in advance!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367566
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14783",
+   "kind": "lang",
+   "jp": "買いたい",
+   "en": "I want to buy something.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367590
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415135
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14784",
+   "kind": "lang",
+   "jp": "売りたい",
+   "en": "I want to sell something.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367593
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415138
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14785",
+   "kind": "lang",
+   "jp": "今はいい",
+   "en": "Not now.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367596
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14786",
+   "kind": "lang",
+   "jp": "やっぱりやめる",
+   "en": "Some other time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367660
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14787",
+   "kind": "lang",
+   "jp": "用事がありまして…",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367710
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14788",
+   "kind": "lang",
+   "jp": "一度帰ったほうが能率が上がると判断しました",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367713
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14789",
+   "kind": "lang",
+   "jp": "お前さぁ！みんなが必死こいて頑張ってるのに何帰ってんの？？自分さえよければいいとか考えてんだろ？…おい、聞いてんのかコラァァァ！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367715
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14790",
+   "kind": "lang",
+   "jp": "お前新入りだからって甘えてるだろ。そういうのここじゃ通用しねえからな、言っとくけどよぉ！！ああ？常識ってもんがねえのか？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367720
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14791",
+   "kind": "lang",
+   "jp": "何一人で判断してんだ！！もういい、勝手にしろよ！そっちのほうが能率上がるんだろ、ええ？やってみろよオイ。お前の仕事が終わらなくても俺は知らねえからな！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367736
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14792",
+   "kind": "lang",
+   "jp": "おっと。お前が艦長の推薦でやってきた新入りか。わからないことがあったらリーダーの俺にちゃんと聞くんだぞ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367757
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14793",
+   "kind": "lang",
+   "jp": "ＡＢＣの内容を教えてください",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367770
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14794",
+   "kind": "lang",
+   "jp": "暴走機械がいるって聞いたんですけど",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367773
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14795",
+   "kind": "lang",
+   "jp": "あ？お前そんなこともわかんねえのか？せめて自分で調べてから聞いてくれる？？？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367780
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  },
+  {
+   "id": "s14796",
+   "kind": "lang",
+   "jp": "何言ってんだお前。無駄口叩いてないで仕事しろ。お前は後から来たんだからスピーディーにやらないと終わんねえからな！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3033",
+     "line": 367797
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3033",
+   "owner": "label_3033"
+  }
+ ]
+}

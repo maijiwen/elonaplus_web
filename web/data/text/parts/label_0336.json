@@ -1,0 +1,1270 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0336",
+ "entries": [
+  {
+   "id": "s03308",
+   "kind": "lang",
+   "jp": " [最大",
+   "en": " [Max ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26481
+    }
+   ],
+   "concat": true,
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03309",
+   "kind": "lang",
+   "jp": "発]",
+   "en": "]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26481
+    }
+   ],
+   "concat": true,
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03310",
+   "kind": "lang",
+   "jp": "攻撃対象からMPを吸収する",
+   "en": "absorbs MP from an enemy.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26487
+    }
+   ],
+   "concat": true,
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03311",
+   "kind": "lang",
+   "jp": "MPを回復する成分を含む",
+   "en": "can heal your MP.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26491
+    }
+   ],
+   "concat": true,
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03312",
+   "kind": "lang",
+   "jp": "攻撃対象からスタミナを吸収する",
+   "en": "absorbs stamina from an enemy.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26498
+    }
+   ],
+   "concat": true,
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03313",
+   "kind": "lang",
+   "jp": "スタミナを回復する成分を含む",
+   "en": "can heal your SP.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26502
+    }
+   ],
+   "concat": true,
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03314",
+   "kind": "lang",
+   "jp": "ランダムなテレポートを引き起こす",
+   "en": "causes random teleport.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26512
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03315",
+   "kind": "lang",
+   "jp": "使用者の生き血を吸う",
+   "en": "sucks blood of the wielder.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26531
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03316",
+   "kind": "lang",
+   "jp": "使用者のＭＰを吸う",
+   "en": "sucks MP of the wielder.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26550
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03317",
+   "kind": "lang",
+   "jp": "あなたの成長を妨げる",
+   "en": "disturbs your growth.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26569
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03318",
+   "kind": "lang",
+   "jp": "魔物を呼び寄せる",
+   "en": "attracts monsters.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26588
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03319",
+   "kind": "lang",
+   "jp": "テレポートを妨害する",
+   "en": "prevents you from teleporting.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26607
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03320",
+   "kind": "lang",
+   "jp": "盲目を無効にする",
+   "en": "negates the effect of blindness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26626
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03321",
+   "kind": "lang",
+   "jp": "麻痺を無効にする",
+   "en": "negates the effect of paralysis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26645
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03322",
+   "kind": "lang",
+   "jp": "混乱を無効にする",
+   "en": "negates the effect of confusion.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26664
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03323",
+   "kind": "lang",
+   "jp": "恐怖を無効にする",
+   "en": "negates the effect of fear.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26683
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03324",
+   "kind": "lang",
+   "jp": "睡眠を無効にする",
+   "en": "negates the effect of sleep.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26702
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03325",
+   "kind": "lang",
+   "jp": "毒を無効にする",
+   "en": "negates the effect of poison.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26721
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03326",
+   "kind": "lang",
+   "jp": "アイテムを盗まれなくする",
+   "en": "protects you from thieves.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26740
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03327",
+   "kind": "lang",
+   "jp": "腐ったものを難なく消化させる",
+   "en": "allows you to digest rotten food.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26759
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03328",
+   "kind": "lang",
+   "jp": "速度を上げ、ワールドマップでの移動時間を短くする",
+   "en": "speeds up your travel progress.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26778
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03329",
+   "kind": "lang",
+   "jp": "エーテルの風からあなたを保護する",
+   "en": "protects you from Etherwind.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26797
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03330",
+   "kind": "lang",
+   "jp": "雷雨と雪による足止めを無効にする",
+   "en": "negates the effect of being stranded by bad weather.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26816
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03331",
+   "kind": "lang",
+   "jp": "異物の体内への侵入を防ぐ",
+   "en": "prevents aliens from entering your body.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26835
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03332",
+   "kind": "lang",
+   "jp": "あなたを浮遊させる",
+   "en": "floats you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26854
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03333",
+   "kind": "lang",
+   "jp": "あなたを変異から保護する",
+   "en": "protects you from mutation.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26873
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03334",
+   "kind": "lang",
+   "jp": "魔法の威力を高める",
+   "en": "enchances your spells.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26892
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03335",
+   "kind": "lang",
+   "jp": "放射の威力を高める",
+   "en": "enchances your breath.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26911
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03336",
+   "kind": "lang",
+   "jp": "投石の性能を高める",
+   "en": "enchances your throwingRock.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26930
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03337",
+   "kind": "lang",
+   "jp": "火炎と冷気の複合詠唱を可能にする",
+   "en": "combine fire and cold spells.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26949
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03338",
+   "kind": "lang",
+   "jp": "幻惑と音の複合詠唱を可能にする",
+   "en": "combine mind and sound spells.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26968
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03339",
+   "kind": "lang",
+   "jp": "毒と神経の複合詠唱を可能にする",
+   "en": "combine poison and nerve spells.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 26987
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03340",
+   "kind": "lang",
+   "jp": "暗黒と地獄の複合詠唱を可能にする",
+   "en": "combine darkness and nether spells.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27006
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03341",
+   "kind": "lang",
+   "jp": "チャージ時に性能を高める",
+   "en": "enchances when charging.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27025
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03342",
+   "kind": "lang",
+   "jp": "早撃ちを可能にする",
+   "en": "allows quick shooting.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27044
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03343",
+   "kind": "lang",
+   "jp": "透明な存在を見ることを可能にする",
+   "en": "allows you to see invisible creatures.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27063
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03344",
+   "kind": "lang",
+   "jp": "全てを終結させる",
+   "en": "brings an end.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27082
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03345",
+   "kind": "lang",
+   "jp": "完全貫通攻撃発動の機会を増やす",
+   "en": "gives you a chance to throw an absolute piercing attak.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27101
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03346",
+   "kind": "lang",
+   "jp": "クリティカルヒットの機会を増やす",
+   "en": "increases your chance to deliver critical hits.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27120
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03347",
+   "kind": "lang",
+   "jp": "追加打撃の機会を増やす",
+   "en": "increases the chance of extra melee attack.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27139
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03348",
+   "kind": "lang",
+   "jp": "追加射撃の機会を増やす",
+   "en": "increases the chance of extra ranged attack.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27158
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03349",
+   "kind": "lang",
+   "jp": "稀に時を止める",
+   "en": "occasionally stops time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27177
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03350",
+   "kind": "lang",
+   "jp": "時を纏っている",
+   "en": "is covered with time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27196
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03351",
+   "kind": "lang",
+   "jp": "クリティカルを受ける機会を減らす",
+   "en": "decreases enemy chance to deliver critical hits.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27215
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03352",
+   "kind": "lang",
+   "jp": "連動射撃機構を備える",
+   "en": "provides an interlocking shooting mechanism.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27234
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03353",
+   "kind": "lang",
+   "jp": "近接補助武器を備える",
+   "en": "provides a proximity assist weapon.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27253
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03354",
+   "kind": "lang",
+   "jp": "使用者のマナを攻撃力に変える",
+   "en": "change mana to attack power.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27272
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03355",
+   "kind": "lang",
+   "jp": "呪いの言葉から保護する",
+   "en": "protects you from cursing words.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27291
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03356",
+   "kind": "lang",
+   "jp": "演奏報酬の品質を上げる",
+   "en": "increases the qualitiy of reward.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27310
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03357",
+   "kind": "lang",
+   "jp": "被る物理ダメージを軽減する",
+   "en": "decreases physical damage you take.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27329
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03358",
+   "kind": "lang",
+   "jp": "被るダメージを稀に無効にする",
+   "en": "sometimes nullifies damage you take.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27348
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03359",
+   "kind": "lang",
+   "jp": "攻撃された時、相手に切り傷のダメージを与える",
+   "en": "deals cut damage to the attacker.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27367
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03360",
+   "kind": "lang",
+   "jp": "出血を抑える",
+   "en": "diminishs bleeding.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27386
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03361",
+   "kind": "lang",
+   "jp": "神が発する電波をキャッチする",
+   "en": "catches signals from God.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27405
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03362",
+   "kind": "lang",
+   "jp": "竜族に対して強力な威力を発揮する",
+   "en": "inflicts massive damage to dragons.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27424
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03363",
+   "kind": "lang",
+   "jp": "不死者に対して強力な威力を発揮する",
+   "en": "inflicts massive damage to undeads.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27443
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03364",
+   "kind": "lang",
+   "jp": "空中の敵に対して威力を発揮する",
+   "en": "inflicts massive damage to enemy in flight.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27462
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03365",
+   "kind": "lang",
+   "jp": "特殊金属にも絶大な威力を発揮する",
+   "en": "inflicts massive damage to metals.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27481
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03366",
+   "kind": "lang",
+   "jp": "信仰の深さの自然減少を防ぐ",
+   "en": "prevents the natural decline in Piety.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27500
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03367",
+   "kind": "lang",
+   "jp": "深い音色で聴衆を酔わす",
+   "en": "makes audience drunk with haunting tones.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27519
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03368",
+   "kind": "lang",
+   "jp": "神に対して強力な威力を発揮する",
+   "en": "inflicts massive damage to Gods.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27538
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03369",
+   "kind": "lang",
+   "jp": "魔法攻撃された時、相手にその属性のダメージを与える",
+   "en": "deals magic damage to the magic attacker.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27557
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03370",
+   "kind": "lang",
+   "jp": "遠隔打撃を可能とする",
+   "en": "make possible to remote blow.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27576
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03371",
+   "kind": "lang",
+   "jp": "弾に凄まじい回転をかける",
+   "en": "gives a tremendous rotation to plug.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27595
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03372",
+   "kind": "lang",
+   "jp": "基本威力が高い",
+   "en": "has high basic power.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27614
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03373",
+   "kind": "lang",
+   "jp": "二発同時発射できる",
+   "en": "fires two shots at the same time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27633
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03374",
+   "kind": "lang",
+   "jp": "絶え間なく射撃できる",
+   "en": "can shoot continuously.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27652
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03375",
+   "kind": "lang",
+   "jp": "精密な射撃を可能にする",
+   "en": "allows precise shooting.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27671
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  },
+  {
+   "id": "s03376",
+   "kind": "lang",
+   "jp": "変幻自在の弾道で翻弄する",
+   "en": "confuses with a changing trajectory.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "encflt",
+     "label": "label_0336",
+     "line": 27690
+    }
+   ],
+   "fn": "encflt",
+   "label": "label_0336",
+   "owner": "label_0336"
+  }
+ ]
+}

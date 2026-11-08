@@ -1,0 +1,1176 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0268",
+ "entries": [
+  {
+   "id": "s02999",
+   "kind": "lang",
+   "jp": "@QM[第一部 エーテルの風]",
+   "en": "@QM[Act1. Etherwind]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20001
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03000",
+   "kind": "lang",
+   "jp": "@QM[第二部 災厄の影]",
+   "en": "@QM[Act2.Shade of disaster]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20004
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03001",
+   "kind": "lang",
+   "jp": "@QM[第三部 永遠の盟約]",
+   "en": "@QM[Act3.Eternal League]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20007
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03002",
+   "kind": "lang",
+   "jp": "@QM[後日談　旅路の最果て]",
+   "en": "@QM[After story.Farthest of journey]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20010
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03003",
+   "kind": "lang",
+   "jp": "ヴェルニースの南にあるネフィアの迷宮群のひとつ《レシマス》で、何かが見つかるかもしれない。 3階相当",
+   "en": "I should check the dungeon called Lesimas. It's located south of Vernis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20014
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03004",
+   "kind": "lang",
+   "jp": "致命傷を負った斥候に、パルミアのジャビ王へ書簡を渡すよう頼まれた。パルミアには、ヴェルニースから東の街道を進めば辿り着ける。 3階相当",
+   "en": "The injured scout asked me to devliver a letter to the king of Palmia. Palmia is located east of Vernis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20017
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03005",
+   "kind": "lang",
+   "jp": "ジャビ王によると、仕事が欲しい時は城の図書館にいるエリステアを訪ねればいいようだ。 3階相当",
+   "en": "Eristia will have some tasks for me if I want to work for Palmia. She's in the library of the castle.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20020
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03006",
+   "kind": "lang",
+   "jp": "レシマスに赴き、冒険者カラムという人物を探すよう依頼された。彼は最低でもレシマスの16階より先の階層にいるらしい。 16階相当",
+   "en": "Eristia asked to look for an adventurer called Karam in the dungeon of Lesimas. He was on the 16th level of the dungeon the last time he sent a report. I may have to go deeper if I am to find him.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20023
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03007",
+   "kind": "lang",
+   "jp": "瀕死のカラムから得た情報を、パルミアのエリステアに伝えなければならない。 16階相当",
+   "en": "I need to bring information Karam gave me to Eristia at once.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20026
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03008",
+   "kind": "lang",
+   "jp": "レシマス最下層の封印を解く為に必要な三つの魔石の入手を依頼された。賢者の魔石は《灼熱の塔》に、愚者の魔石は《死者の洞窟》に、覇者の魔石は《古城》にある。 17～28階相当",
+   "en": "I need to find 3 magic stones to break the seal of Lesimas. They can be found at the Tower of Fire, the crypt of the damned and the Ancient Castle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20029
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03009",
+   "kind": "lang",
+   "jp": "三つの魔石の力で最下層の封印を解き、レシマスの秘宝を持ち帰るようエリステアに依頼された。17～55階相当",
+   "en": "With 3 magic stones I have, I need to get to the deepest level of Lesimas and break the seal. Then bring back an item called Hidden Artifact of Lesimas, whatever it is.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20032
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03010",
+   "kind": "lang",
+   "jp": "サウスティリスがあなたを呼んでいる。 55階相当",
+   "en": "South Tyris calls me.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20035
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03011",
+   "kind": "lang",
+   "jp": "サウスティリス中央部にある古代ネフィア《レミード遺跡》で、何かが見つかるかもしれない。 55階相当",
+   "en": "I should check the dungeon called Rehmido. It's located center of Southteiris.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20038
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03012",
+   "kind": "lang",
+   "jp": "メルガスのラボにいるガベラという男に接触しよう。 55階相当",
+   "en": "I should contact Gavela in the lab of Melugas .",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20041
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03013",
+   "kind": "lang",
+   "jp": "カードキーを発行してもらう代わりに依頼品を持ってくるようにガベラに言われている。 60～80階相当",
+   "en": "I was told to bring out Gavela request instead take out a card key.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20044
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03014",
+   "kind": "lang",
+   "jp": "サウスティリス中央部にある古代ネフィア《レミード遺跡》に潜り調査部隊と合流しよう。 100階相当",
+   "en": "I have to join forces of investigation in the  Rehmido.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20047
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03015",
+   "kind": "lang",
+   "jp": "ガベラに呼ばれている。一度メルガスへ行こう。 100階相当",
+   "en": "I have been called to Gavela. I have to go to Melugas once.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20050
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03016",
+   "kind": "lang",
+   "jp": "サウスティリス中央部にある古代ネフィア《レミード遺跡》に潜り調査部隊と合流しよう。 100～130階相当",
+   "en": "I have to join forces of investigation in the  Rehmido.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20053
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20056
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03017",
+   "kind": "lang",
+   "jp": "レミード最下層の怪物を倒せないかガベラに相談してみよう。 100～130階相当",
+   "en": "I will have to talk Gavela to kill the monster in the bottom layer of Rehmido .",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20059
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03018",
+   "kind": "lang",
+   "jp": "エイレル南東の山岳地帯に行き、超高純度のエーテルを回収しガベラに渡そう。 100～130階相当",
+   "en": "I went to the mountains of southeast Eirel to recover very high concentrations ether, and pass to Gavela.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20062
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03019",
+   "kind": "lang",
+   "jp": "レミード遺跡最下層の怪物を倒そう。 130階相当",
+   "en": "I will beat the monster in the bottom layer of Rehmido.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20065
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03020",
+   "kind": "lang",
+   "jp": "制圧した遺跡内を調査しよう。 130階相当",
+   "en": "I need more search in Rehmido.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20068
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03021",
+   "kind": "lang",
+   "jp": "地上へ帰ろう。 130階相当",
+   "en": "I should return to ground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20071
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03022",
+   "kind": "lang",
+   "jp": "ノースティリスは今どうなっているだろう？関所を通過して様子を見に行こう。 130階相当",
+   "en": "I will go to see the state of North Tyris through the north border.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20074
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03023",
+   "kind": "lang",
+   "jp": "パルミアで情報収集でもしようか。 130階相当",
+   "en": "I am going to collect information at Palmia.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20077
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03024",
+   "kind": "lang",
+   "jp": "パルミアのエリステアと話をしてみよう。 130階相当",
+   "en": "I should return to ground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20080
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03025",
+   "kind": "lang",
+   "jp": "ポート・カプールの船長に紹介状を見せよう。 130階相当",
+   "en": "I should return to ground.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20083
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03026",
+   "kind": "lang",
+   "jp": "浮遊大陸にある西の森の遺跡に人が集まっているらしい。 130階相当",
+   "en": "continue to be....",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20086
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03027",
+   "kind": "lang",
+   "jp": "帰る方法を探そう。 130階相当",
+   "en": "I should return to Tyris.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20089
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03028",
+   "kind": "lang",
+   "jp": "メルガスでガベラに話をきこう。 130階相当",
+   "en": "I should contact Gavela in the lab of Melugas.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20092
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03029",
+   "kind": "lang",
+   "jp": "古の庭園からメルガストでロストイルヴァへ行き、調査してまわろう。 130階相当",
+   "en": "I should research in LostIrva.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20095
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03030",
+   "kind": "lang",
+   "jp": "ロストイルヴァの調査をしつつ神の間を目指そう。 140階相当",
+   "en": "I should research in LostIrva.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20098
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03031",
+   "kind": "lang",
+   "jp": "混沌の巨城の最深層、神の間を目指そう。 140階相当",
+   "en": "I should aim for the bottom of Cradle of Chaos.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20101
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03032",
+   "kind": "lang",
+   "jp": "一度、エリステアに銀熊のことを報告しよう。 140階相当",
+   "en": "I need to bring information of the silver bear to Eristia at once.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20104
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03033",
+   "kind": "lang",
+   "jp": "混沌の巨城の最深層、神の間を目指そう。 145階相当",
+   "en": "I should aim for the bottom of Cradle of Chaos.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20107
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03034",
+   "kind": "lang",
+   "jp": "ノルンの言うとおりにノースティリスと往復が出来るのか確かめよう。 145階相当",
+   "en": "I will ascertain whether I can back and forth with the NorthTyris.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20110
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03035",
+   "kind": "lang",
+   "jp": "サウスティリスの方向から、何かに呼ばれているような感覚がする。 145階相当",
+   "en": "I feel like has been called by something from SouthTyris.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20113
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03036",
+   "kind": "lang",
+   "jp": "海底から城が浮上し、世界が狂気に包まれようとしている。城へはサウスティリス南西のヴァルムから行ける。 160階相当",
+   "en": "Castle has emerged from the sea floor, the world is about to be wrapped in madness. I can go to the castle from Valm of SouthTyris southwest.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20116
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03037",
+   "kind": "lang",
+   "jp": "パルミアのエリステアから依頼を受けよう。 160階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20119
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03038",
+   "kind": "lang",
+   "jp": "関所にいるエユルとともに生体兵器を殲滅しよう。 150階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20122
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03039",
+   "kind": "lang",
+   "jp": "生体兵器の殲滅をエリステアに報告しよう。 150階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20125
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03040",
+   "kind": "lang",
+   "jp": "ノイエルにいるマルカとともにメイルーンへ悪魔討伐に向かおう。 160階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20128
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03041",
+   "kind": "lang",
+   "jp": "メイルーンの悪魔の討伐をエリステアに報告しよう。 160階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20131
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03042",
+   "kind": "lang",
+   "jp": "ロストイルヴァの魔導船にいるライゼルとともにエウダーナへ悪魔討伐に向かおう。 160階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20134
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03043",
+   "kind": "lang",
+   "jp": "エウダーナの悪魔の討伐をエリステアに報告しよう。 160階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20137
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03044",
+   "kind": "lang",
+   "jp": "ロストイルヴァ北端に存在する神艦から傭兵と一緒にキッカスへ悪魔討伐に向かおう。 160階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20140
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03045",
+   "kind": "lang",
+   "jp": "キッカスの悪魔の討伐をエリステアに報告しよう。 160階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20143
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03046",
+   "kind": "lang",
+   "jp": "メルガスへ行き依頼を確認しよう。",
+   "en": "I have to go to Melugas once.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20146
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03047",
+   "kind": "lang",
+   "jp": "混沌の巨城、10階の敵を倒そう。 180階相当",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20149
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03048",
+   "kind": "lang",
+   "jp": "悪魔の討伐をガベラに報告しよう。 180階相当",
+   "en": "I should report to Gavela in the lab of Melugas.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20152
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03049",
+   "kind": "lang",
+   "jp": "混沌の巨城の最深層、神の間を目指そう。 180～200階相当",
+   "en": "I should aim for the bottom of Cradle of Chaos.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20155
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03050",
+   "kind": "lang",
+   "jp": "神立図書館でソピアーと話そう。 180～200階相当",
+   "en": "I have to talk with <Sophia> at Sacred Library of Irva.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20158
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03051",
+   "kind": "lang",
+   "jp": "混沌の巨城の最深層、神の間を目指そう。180～200階相当",
+   "en": "I should aim for the bottom of Cradle of Chaos.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20161
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03052",
+   "kind": "lang",
+   "jp": "混沌の神を倒す時が来た。 200階相当",
+   "en": "It is time to beat the god of chaos.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20164
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03053",
+   "kind": "lang",
+   "jp": "混沌の超児を無力化しよう。 200階相当",
+   "en": "I have to disable Chaos Child.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20167
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03054",
+   "kind": "lang",
+   "jp": "ロストイルヴァは平和になっただろうか？ 200階相当",
+   "en": "If I become a spare time, I will do request of Norne.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20170
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03055",
+   "kind": "lang",
+   "jp": "気が向いたらノルンの頼み通りヴェルニースに向かおう。 200階相当",
+   "en": "If I become a spare time, I will do request of Norne.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20173
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03056",
+   "kind": "lang",
+   "jp": "ロイターと接触して世界を行き来しつつ、探索していこう。 200階相当",
+   "en": "Let's explore while traveling around the world by speaking with <Loyter>.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20176
+    },
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20179
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03057",
+   "kind": "lang",
+   "jp": "混沌の巨城の最深層、神の間を再び目指そう。 200階相当",
+   "en": "I should aim for the bottom of Cradle of Chaos again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20182
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03058",
+   "kind": "lang",
+   "jp": "最後まであきらめずに戦おう。",
+   "en": "I will fight until the end without giving up.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20185
+    },
+    {
+     "fn": "trimdesc",
+     "label": "label_2847",
+     "line": 300803
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2993",
+     "line": 344336
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03059",
+   "kind": "lang",
+   "jp": "帰ろう…。",
+   "en": "I'm going home...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20188
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03060",
+   "kind": "lang",
+   "jp": "（開発中）オルフェは今どこに？ＬＦ計画とは？",
+   "en": "Under development.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20191
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  },
+  {
+   "id": "s03061",
+   "kind": "lang",
+   "jp": "(ミヅキは落ち込んでいないだろうか？時間のある時にでも、九頭竜の城へ様子を見に行こう)",
+   "en": "If I have time, I would like to visit Deep-sea castle to comfort <Abyss Princess>.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "fltname",
+     "label": "label_0268",
+     "line": 20197
+    }
+   ],
+   "fn": "fltname",
+   "label": "label_0268",
+   "owner": "label_0268"
+  }
+ ]
+}

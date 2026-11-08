@@ -1,0 +1,362 @@
+{
+ "src": {
+  "file": "hsp/start.hsp",
+  "range": [
+   28011,
+   28094
+  ]
+ },
+ "count": 19,
+ "egos": [
+  {
+   "id": 0,
+   "nameJp": "烈火の",
+   "nameEn": "of fire",
+   "kind": 1,
+   "encClass": 3,
+   "enchants": [
+    [
+     20050,
+     120
+    ],
+    [
+     70050,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 1,
+   "nameJp": "静寂の",
+   "nameEn": "of silence",
+   "kind": 0,
+   "encClass": 1,
+   "enchants": [
+    [
+     30157,
+     100
+    ],
+    [
+     22,
+     100
+    ]
+   ]
+  },
+  {
+   "id": 2,
+   "nameJp": "氷結の",
+   "nameEn": "of cold",
+   "kind": 1,
+   "encClass": 3,
+   "enchants": [
+    [
+     20051,
+     120
+    ],
+    [
+     70051,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 3,
+   "nameJp": "稲妻の",
+   "nameEn": "of lightning",
+   "kind": 1,
+   "encClass": 3,
+   "enchants": [
+    [
+     20052,
+     120
+    ],
+    [
+     70052,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 4,
+   "nameJp": "防衛者の",
+   "nameEn": "of defender",
+   "kind": 3,
+   "encClass": 10000,
+   "enchants": [
+    [
+     20050,
+     100
+    ],
+    [
+     20051,
+     100
+    ],
+    [
+     20052,
+     100
+    ]
+   ]
+  },
+  {
+   "id": 5,
+   "nameJp": "癒し手の",
+   "nameEn": "of healing",
+   "kind": 1,
+   "encClass": 1,
+   "enchants": [
+    [
+     30154,
+     100
+    ]
+   ]
+  },
+  {
+   "id": 6,
+   "nameJp": "耐盲目の",
+   "nameEn": "of resist blind",
+   "kind": 1,
+   "encClass": 1,
+   "enchants": [
+    [
+     23,
+     100
+    ]
+   ]
+  },
+  {
+   "id": 7,
+   "nameJp": "耐麻痺の",
+   "nameEn": "of resist paralysis",
+   "kind": 1,
+   "encClass": 1,
+   "enchants": [
+    [
+     24,
+     100
+    ]
+   ]
+  },
+  {
+   "id": 8,
+   "nameJp": "耐混乱の",
+   "nameEn": "of resist confusion",
+   "kind": 1,
+   "encClass": 1,
+   "enchants": [
+    [
+     25,
+     100
+    ]
+   ]
+  },
+  {
+   "id": 9,
+   "nameJp": "耐恐怖の",
+   "nameEn": "of resist fear",
+   "kind": 0,
+   "encClass": 1,
+   "enchants": [
+    [
+     26,
+     100
+    ]
+   ]
+  },
+  {
+   "id": 10,
+   "nameJp": "睡眠防止の",
+   "nameEn": "of resist sleep",
+   "kind": 0,
+   "encClass": 1,
+   "enchants": [
+    [
+     27,
+     100
+    ]
+   ]
+  },
+  {
+   "id": 11,
+   "nameJp": "闇夜の",
+   "nameEn": "of night",
+   "kind": 2,
+   "encClass": 3,
+   "enchants": [
+    [
+     20053,
+     120
+    ],
+    [
+     70053,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 12,
+   "nameJp": "幻の",
+   "nameEn": "of illusion",
+   "kind": 2,
+   "encClass": 3,
+   "enchants": [
+    [
+     20054,
+     120
+    ],
+    [
+     70054,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 13,
+   "nameJp": "蠱毒の",
+   "nameEn": "of Poison",
+   "kind": 2,
+   "encClass": 3,
+   "enchants": [
+    [
+     20055,
+     120
+    ],
+    [
+     70055,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 14,
+   "nameJp": "冥府の",
+   "nameEn": "of hell",
+   "kind": 2,
+   "encClass": 3,
+   "enchants": [
+    [
+     20056,
+     120
+    ],
+    [
+     70056,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 15,
+   "nameJp": "旋律の",
+   "nameEn": "of sound",
+   "kind": 2,
+   "encClass": 3,
+   "enchants": [
+    [
+     20057,
+     120
+    ],
+    [
+     70057,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 16,
+   "nameJp": "神経の",
+   "nameEn": "of nerve",
+   "kind": 2,
+   "encClass": 3,
+   "enchants": [
+    [
+     20058,
+     120
+    ],
+    [
+     70058,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 17,
+   "nameJp": "混沌の",
+   "nameEn": "of chaos",
+   "kind": 2,
+   "encClass": 3,
+   "enchants": [
+    [
+     20059,
+     120
+    ],
+    [
+     70059,
+     120
+    ]
+   ]
+  },
+  {
+   "id": 18,
+   "nameJp": "魔の",
+   "nameEn": "of magic",
+   "kind": 3,
+   "encClass": 3,
+   "enchants": [
+    [
+     20060,
+     100
+    ],
+    [
+     70060,
+     100
+    ]
+   ]
+  }
+ ],
+ "quality": [
+  {
+   "jp": "唄う",
+   "en": "singing"
+  },
+  {
+   "jp": "召使の",
+   "en": "servant's"
+  },
+  {
+   "jp": "従者の",
+   "en": "follower's"
+  },
+  {
+   "jp": "呻く",
+   "en": "howling"
+  },
+  {
+   "jp": "輝く",
+   "en": "glowing"
+  },
+  {
+   "jp": "異彩の",
+   "en": "conspicuous"
+  },
+  {
+   "jp": "魔力を帯びた",
+   "en": "magical"
+  },
+  {
+   "jp": "闇を砕く",
+   "en": "enchanted"
+  },
+  {
+   "jp": "強力な",
+   "en": "mighty"
+  },
+  {
+   "jp": "頼れる",
+   "en": "trustworthy"
+  }
+ ],
+ "encoding": {
+  "nameField": 23,
+  "egoBase": 10000,
+  "qualityBase": 20000
+ }
+}

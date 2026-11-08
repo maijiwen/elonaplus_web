@@ -1,0 +1,505 @@
+/* ElonaPlus Web 重制版 —— 基础样式
+   目标: 尽量贴近原版 800x600 黑色窗口 + 底部消息窗的观感 */
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0; height: 100%;
+  background: #000; color: #ddd;
+  font-family: "Courier New", "MS Gothic", monospace;
+  overflow: hidden;
+}
+.screen { display: none; position: absolute; inset: 0; }
+.screen.active { display: block; }
+
+/* ---------- 主菜单 ---------- */
+.menu-box {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 420px; padding: 28px 32px; text-align: center;
+  background: #111; border: 1px solid #444;
+}
+.menu-box h1 { margin: 0 0 4px; letter-spacing: 8px; color: #e8d18a; font-size: 40px; }
+.menu-box h2 { margin: 0 0 18px; color: #e8d18a; }
+.menu-box .sub { color: #888; font-size: 12px; margin: 0 0 24px; }
+.menu-box button {
+  display: block; width: 100%; margin: 8px 0; padding: 10px;
+  background: #1c1c1c; color: #ddd; border: 1px solid #555;
+  font-family: inherit; font-size: 15px; cursor: pointer;
+}
+.menu-box button:hover { background: #2a2a2a; border-color: #e8d18a; color: #e8d18a; }
+.menu-box label { display: block; text-align: left; margin: 12px 0; font-size: 14px; }
+.menu-box input, .menu-box select {
+  width: 100%; padding: 6px; margin-top: 4px;
+  background: #1c1c1c; color: #ddd; border: 1px solid #555; font-family: inherit;
+}
+.menu-box .row { display: flex; gap: 8px; }
+.menu-box .row button { margin: 8px 0; }
+.hint { color: #777; font-size: 12px; min-height: 16px; }
+.pc-info {
+  text-align: left; font-size: 11px; line-height: 1.4; color: #bbb;
+  margin: 6px 0 4px;
+  border-top: 1px solid #333; padding-top: 6px;
+  word-break: break-word;
+}
+.pc-info .dim { color: #888; }
+.pc-info b { color: #e8d18a; }
+
+/* ---------- 角色创建 ---------- */
+.create-box { width: 860px; max-height: 92vh; overflow-y: auto; }
+.create-grid { display: flex; gap: 16px; text-align: left; }
+.create-left { flex: 1; min-width: 0; }
+.create-right { width: 200px; text-align: center; flex: 0 0 200px; }
+#pc-preview {
+  width: 128px; height: 192px; image-rendering: pixelated;
+  background: #0a0a0a; border: 1px solid #444;
+}
+.create-right button {
+  width: 100%; margin: 6px 0; padding: 4px 8px;
+  background: #1c1c1c; color: #ddd; border: 1px solid #555;
+  font-family: inherit; font-size: 12px; cursor: pointer;
+}
+.create-block { border-top: 1px solid #333; margin-top: 8px; padding-top: 6px; }
+.create-head {
+  display: flex; justify-content: space-between; align-items: center;
+  color: #e8d18a; font-size: 12px; margin-bottom: 4px;
+  gap: 8px; white-space: nowrap;
+}
+.create-head > span { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.create-head button {
+  flex: 0 0 auto; width: auto;
+  padding: 2px 8px; background: #222; color: #ddd; border: 1px solid #555;
+  font-family: inherit; font-size: 11px; cursor: pointer;
+}
+.pc-profile { font-size: 11px; color: #bbb; line-height: 1.5; }
+.pc-attrs { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 12px; font-size: 12px; }
+.attr-row {
+  display: flex; justify-content: space-between; padding: 1px 4px;
+  cursor: pointer; border: 1px solid transparent;
+}
+.attr-row:hover { background: #1c1c1c; }
+.attr-row.locked { border-color: #a88; color: #e8d18a; }
+/* 天赋（Feat）选择：条目多，固定高度内部滚动 */
+.pc-feats {
+  max-height: 132px; overflow-y: auto;
+  border: 1px solid #2a2a2a; background: #0d0d0d;
+  font-size: 11px; line-height: 1.45;
+}
+.pc-feat {
+  display: flex; justify-content: space-between; gap: 8px;
+  padding: 2px 6px; cursor: pointer; border-bottom: 1px solid #1a1a1a;
+}
+.pc-feat > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pc-feat:hover { background: #1c1c1c; }
+.pc-feat.on { background: #2a2415; color: #e8d18a; }
+.pc-feat.disabled { opacity: .45; cursor: default; }
+.pc-feat .lv { color: #8a8; flex: 0 0 auto; }
+.pc-feat.on .lv { color: #e8d18a; }
+
+/* ---------- 游戏 ---------- */
+#game { background: #000; }
+.stage {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 800px; height: 600px; overflow: hidden;
+  /* 画布仍是原版 800×600（不改分辨率），只把整个舞台按 1.25 倍显示：
+     文字与面板一起缩放，鼠标命中由浏览器按 transform 反算，坐标换算无需改动。 */
+  transform: translate(-50%, -50%) scale(var(--stage-scale, 1.25));
+}
+#screen, #title-canvas { display: block; image-rendering: pixelated; }
+#loading {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  padding: 12px 22px; background: #111; border: 1px solid #555; color: #e8d18a;
+}
+.hidden { display: none !important; }
+
+/* ---------- 弹出面板（商店 / NPC 互动 / 掲示板 / 世界地图） ----------
+ * 底色统一为原版 `window`（interface.bmp 内部纹理，见 0-DG）。
+ *   --pui-tile 由 panels.js 从 interface.bmp 裁一块 144×96 的纹理设为 data URI；
+ *   取不到图时退回同色系的米色 #cfc3a4，保证不会出现黑底。
+ */
+.panel {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 560px; max-height: 520px; padding: 10px 12px;
+  background-color: #cfc3a4; background-image: var(--pui-tile); background-repeat: repeat;
+  border: 2px solid #6b5a3a; outline: 1px solid #2a2013;
+  box-shadow: 0 0 0 1px #000, 0 8px 26px rgba(0, 0, 0, 0.65);
+  color: #241608; font-size: 12px; display: flex; flex-direction: column;
+  pointer-events: auto;
+}
+.panel-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  border-bottom: 1px solid #6b5a3a; padding-bottom: 6px; margin-bottom: 6px;
+  color: #3a2712;
+}
+.panel-hint { color: #6a573a; font-size: 11px; }
+/* 滚动条也跟随窗口配色（原版没有滚动条，这里只求不刺眼） */
+.panel::-webkit-scrollbar, .panel *::-webkit-scrollbar,
+.pui-body::-webkit-scrollbar { width: 10px; }
+.panel::-webkit-scrollbar-track, .panel *::-webkit-scrollbar-track,
+.pui-body::-webkit-scrollbar-track { background: rgba(90, 70, 40, 0.12); }
+.panel::-webkit-scrollbar-thumb, .panel *::-webkit-scrollbar-thumb,
+.pui-body::-webkit-scrollbar-thumb { background: #a4977a; border: 1px solid #6b5a3a; }
+/* 商店列表沿用的物品行样式 */
+.inv-row {
+  display: flex; align-items: center; gap: 8px;
+  padding: 3px 4px; cursor: pointer; border-bottom: 1px solid rgba(90, 70, 40, 0.28);
+}
+.inv-row:hover { background: rgba(120, 96, 48, 0.16); }
+.inv-row.sel { background: rgba(126, 96, 30, 0.34); }
+.inv-icon {
+  /* 0-EU：图标表改用构建期生成的 item.png（纯黑已转透明，见 tools/gen_item_png.js）。
+   * 原图 1584×2208，这里按 2/3 缩放成 32px 窗口，行高从 54px 降到 40px，
+   * 一页正好放 8 行。background-position 由 ui.js 按同一比例换算。 */
+  width: 32px; height: 32px; flex: 0 0 32px;
+  background-image: url('../assets/graphic/item.png');
+  background-repeat: no-repeat;
+  background-size: 1056px auto;
+  image-rendering: pixelated;
+}
+.inv-name { flex: 1; }
+.inv-meta { color: #5a482c; font-size: 11px; text-align: right; }
+.inv-loc { color: #1c6b3a; }
+
+/* ---------- 商店 ---------- */
+#shop { width: 640px; }
+.shop-tabs { display: flex; gap: 6px; margin-bottom: 6px; }
+.shop-tabs button {
+  padding: 3px 14px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
+}
+.shop-tabs button:hover { background: #e8dec4; }
+.shop-tabs button.on { background: #b9a97f; color: #241608; border-color: #4e3f26; font-weight: bold; }
+#shop-money { color: #3a2712; margin-bottom: 4px; }
+#shop-list { overflow-y: auto; flex: 1; min-height: 160px; }
+#shop-page {
+  display: flex; justify-content: space-between; align-items: center;
+  border-top: 1px solid rgba(90, 70, 40, 0.35); margin-top: 2px; padding-top: 3px;
+  color: #5a482c; font-size: 11px;
+}
+#shop-page .shop-page-nav { color: #8a7b5c; }
+#shop-empty { color: #6a573a; padding: 12px 4px; }
+#shop-list .inv-row { padding: 2px 4px; }
+#shop-list .inv-row.sel { outline: 1px solid #6b5a3a; }
+#shop-detail {
+  border-top: 1px solid #6b5a3a; margin-top: 6px; padding-top: 6px;
+  max-height: 110px; overflow-y: auto; color: #4d3c22;
+}
+#shop-actions { display: flex; gap: 6px; margin-top: 6px; }
+#shop-actions button {
+  padding: 4px 12px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
+}
+#shop-actions button:hover:not(:disabled) { background: #e8dec4; }
+#shop-actions button:disabled { color: #8a7b5c; border-color: #a4977a; cursor: default; }
+
+/* ---------- NPC 交互 ---------- */
+#npc { width: 460px; }
+.npc-text {
+  white-space: pre-wrap; line-height: 1.6; color: #2c1f0e;
+  min-height: 60px; padding: 6px 2px 10px;
+}
+.npc-text:empty { min-height: 0; padding: 0; }
+/* 0-BW：NPC 互动菜单 —— 原版为竖排列表，左侧是快捷键字母方块
+   （原版 display_key / 36940 绘制，字母表 var_446 / 597716） */
+.npc-actions { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }
+.npc-action {
+  display: flex; align-items: center; gap: 8px; cursor: pointer;
+  padding: 1px 4px 1px 0; border-radius: 2px; color: #241608;
+  border: 1px solid transparent;
+}
+.npc-action:hover { background: rgba(120, 96, 48, 0.16); }
+/* 方向键光标（原版 `*label_2896` 的选择行） */
+.npc-action.sel { background: rgba(126, 96, 30, 0.34); border-color: #6b5a3a; }
+.npc-key {
+  display: inline-block; min-width: 18px; padding: 1px 4px; text-align: center;
+  background: #cdbf9d; color: #1c5a70; border: 1px solid #6b5a3a; border-radius: 3px;
+  font-family: monospace; font-size: 12px;
+}
+.npc-label { font-size: 14px; }
+.npc-close .npc-label { color: #5a482c; }
+.npc-train { display: flex; gap: 6px; margin-top: 8px; }
+.npc-train select {
+  flex: 1; background: #e6dcc0; color: #241608; border: 1px solid #6b5a3a; padding: 3px 4px;
+}
+.npc-train button {
+  padding: 4px 12px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
+}
+.npc-train button:hover { background: #e8dec4; }
+.npc-give {
+  max-height: 200px; overflow-y: auto; margin-top: 8px;
+  border-top: 1px solid #6b5a3a; padding-top: 6px;
+}
+.npc-give button {
+  padding: 3px 10px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
+}
+
+/* ---------- 掲示板 / 委托 ---------- */
+#quest { width: 620px; }
+.quest-active {
+  border: 1px solid #6b5a3a; background: rgba(255, 250, 232, 0.35);
+  padding: 8px 10px; margin-bottom: 10px; color: #2c1f0e; line-height: 1.6;
+}
+.quest-active:empty { display: none; }
+.quest-list { display: flex; flex-direction: column; gap: 6px; max-height: 380px; overflow-y: auto; }
+.quest-page { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; color: #3a2712; }
+.quest-page button {
+  padding: 2px 10px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
+}
+.quest-page button:hover:not(:disabled) { background: #e8dec4; }
+.quest-page button:disabled { color: #8a7b5c; border-color: #a4977a; cursor: default; }
+.quest-page .quest-hint { color: #6a573a; font-size: 12px; margin-left: auto; }
+.quest-row {
+  border: 1px solid #6b5a3a; background: rgba(255, 250, 232, 0.3);
+  padding: 6px 10px; display: flex; align-items: center; gap: 10px;
+}
+.quest-row .q-main { flex: 1; }
+.quest-row .q-title { color: #241608; font-weight: bold; }
+.quest-row .q-sub { color: #5a482c; font-size: 12px; margin-top: 2px; }
+.quest-row .q-stars { color: #9a6b0a; margin: 0 6px; }
+.quest-row button {
+  padding: 3px 12px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
+}
+.quest-row button:hover:not(:disabled) { background: #e8dec4; }
+.quest-row button:disabled { color: #8a7b5c; border-color: #a4977a; cursor: default; }
+.quest-row.expired { opacity: 0.45; }
+.quest-row.done { opacity: 0.5; }
+
+/* ---------- 世界地图 ---------- */
+#worldmap { width: 720px; }
+#worldmap img {
+  width: 100%; image-rendering: pixelated; border: 1px solid #6b5a3a; background: #000;
+}
+#worldmap .wm-info { color: #2c1f0e; margin: 6px 0; }
+.wm-dest { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.wm-dest button {
+  padding: 4px 10px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
+}
+.wm-dest button:hover:not(:disabled) { background: #e8dec4; }
+.wm-dest button:disabled { color: #8a7b5c; border-color: #a4977a; cursor: default; }
+.wm-walk {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  display: flex; align-items: center; gap: 8px; padding: 6px 10px;
+  background-color: #cfc3a4; background-image: var(--pui-tile); background-repeat: repeat;
+  border-top: 1px solid #6b5a3a; color: #241608;
+}
+.wm-walk.hidden { display: none; }
+.wm-walk .wm-walk-title { color: #3a2712; font-size: 12px; white-space: nowrap; }
+.wm-walk .wm-dest { margin: 0; flex: 1; }
+.wm-walk .wm-dest button { padding: 2px 6px; font-size: 11px; }
+
+/* ---------- 信息面板（角色信息 / 技能 / 特性 / 日记 / 消息 / 帮助 / 选项） ---------- */
+/*
+ * 0-DG：窗口底色统一为原版 window（interface.bmp 内部纹理）。
+ *   变量 --pui-tile 由 panels.js 在运行时从 interface.bmp 裁一块 144×96 的纹理设为 data URI；
+ *   取不到图时退回相近的米色，保证不会回到原来的黑底。
+ */
+.pui {
+  position: fixed; inset: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  font-family: "MS Gothic", "Courier New", monospace; font-size: 13px; color: #241608;
+  /* 0-FR：这个浮层挂在 body 上（标题画面也要能用），不在 .stage 内，
+     所以单独跟随 --stage-scale 放大，才能和 1.25 倍的画面同尺寸。 */
+  transform: scale(var(--stage-scale, 1.25));
+  transform-origin: 50% 50%;
+}
+:root { --pui-tile: none; }
+.pui.hidden { display: none; }
+.pui-box {
+  width: 560px; max-height: 86%; display: flex; flex-direction: column;
+  background-color: #cfc3a4; background-image: var(--pui-tile); background-repeat: repeat;
+  border: 2px solid #6b5a3a; outline: 1px solid #2a2013;
+  box-shadow: 0 0 0 1px #000, 0 8px 26px rgba(0, 0, 0, 0.65);
+  color: #241608;
+}
+.pui-box.wide { width: 720px; }
+.pui-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 5px 10px; background: linear-gradient(#e6dcc0, #cfc2a0);
+  border-bottom: 1px solid #6b5a3a; color: #3a2712;
+}
+.pui-hint { color: #6a573a; font-size: 11px; }
+.pui-body { padding: 8px 10px; overflow-y: auto; }
+.pui-note { color: #4d3c22; font-size: 12px; margin-bottom: 6px; white-space: pre-line; }
+.pui-sep {
+  margin: 10px 0 4px; color: #3a2712; border-bottom: 1px dashed rgba(90, 70, 40, 0.5); padding-bottom: 2px;
+}
+.pui-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; }
+.pui-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; }
+.pui-kv { display: flex; justify-content: space-between; gap: 10px; padding: 1px 0; }
+.pui-kv > span:first-child { color: #4d3a20; }
+.pui-dim { color: #5a482c; }
+.pui-key { color: #1c5a70; font-family: monospace; }
+.pui-num { color: #5a2c0a; text-align: right; }
+.pui-row {
+  display: flex; align-items: baseline; gap: 10px; padding: 3px 6px; cursor: pointer;
+  border: 1px solid transparent;
+}
+.pui-row:hover { background: rgba(120, 96, 48, 0.16); }
+.pui-row.sel { background: rgba(126, 96, 30, 0.34); border-color: #6b5a3a; }
+.pui-row .pui-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pui-line { padding: 1px 0; border-bottom: 1px solid rgba(90, 70, 40, 0.28); white-space: pre-wrap; }
+/* ---------- 0-FS：装修用的地砖一览（33 个 / 页） ---------- */
+.pui-tiles {
+  display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px;
+  padding: 4px 2px;
+}
+.pui-tile {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  padding: 2px; border: 1px solid rgba(90, 70, 40, 0.35); cursor: pointer;
+  background: rgba(255, 248, 230, 0.55);
+}
+.pui-tile:hover { background: rgba(126, 96, 30, 0.28); border-color: #6b5a3a; }
+.pui-tile canvas { image-rendering: pixelated; width: 24px; height: 24px; background: #201a12; }
+.pui-tile span { font-size: 9px; color: #5a482c; font-family: monospace; line-height: 1; }
+/* ---------- 冒险日记（*label_2700 的 note 缓冲） ---------- */
+.pui-jhead { margin: 6px 0 2px; color: #3a2712; font-weight: bold; }
+.pui-jbody { white-space: pre-wrap; padding: 1px 0; color: #2c1f0e; font-size: 12px; line-height: 1.45; }
+.pui-jblue { color: #1c4f7a; font-size: 12px; white-space: pre-wrap; }
+.pui-jred { color: #8a2020; font-size: 12px; white-space: pre-wrap; }
+.pui-jblank { height: 5px; }
+/* 0-EB：特徴と体質（*label_2697）—— 左列等級名，右列 [标签] 说明 */
+.pui-trait { display: flex; gap: 8px; align-items: baseline; padding: 1px 0; font-size: 12px; line-height: 1.45; }
+.pui-tleft { flex: 0 0 168px; color: #7a6a4a; font-family: monospace; font-size: 11px; }
+.pui-ttext { flex: 1 1 auto; color: #d8c9a8; }
+.pui-ttag { color: #8fa9d0; margin-right: 2px; }
+.pui-trait-avail .pui-ttext { color: #b9c98a; }
+.pui-jdone { color: #1c6b3a; font-weight: bold; font-size: 12px; }
+
+/* ---------- 祭坛画面（*label_2609，272344-272611） ----------
+ * 原版：整屏 bg_altar.bmp + 中央 650×270 窗口 + 右上 godN.bmp 立绘。
+ * 窗口底色沿用全项目的米色纹理（--pui-tile 由 panels.paperTile 从 interface.bmp 裁出），
+ * 神名与台词用源码 bmes 的 RGB，另加深色描边以保证米色底上可读（272437-272495）。
+ */
+.pui-box.altar-box {
+  width: 100vw; height: 100vh; max-height: none;
+  background: none; border: 0; outline: 0; box-shadow: none;
+}
+.pui-box.altar-box .pui-head { display: none; }
+.pui-box.altar-box .pui-body {
+  padding: 0; overflow: hidden; background: transparent; width: 100%; height: 100%;
+}
+.altar-scene {
+  position: relative; width: 100%; height: 100%;
+  /* 272386-272396：picload bg_altar.bmp + gzoom 到整个画面 */
+  background: url('../assets/graphic/bg_altar.bmp') center center / 100% 100% no-repeat;
+}
+.altar-win {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: 650px; height: 270px; box-sizing: border-box;
+  background-color: #cfc3a4; background-image: var(--pui-tile); background-repeat: repeat;
+  border: 2px solid #6b5a3a; outline: 1px solid #2a2013;
+  box-shadow: 0 0 0 1px #000, 0 8px 26px rgba(0, 0, 0, 0.65);
+  color: #241608; font-size: 14px;
+}
+/* 272437-272495 用 bmes 绘制（自带描边），米色底上才看得清 255,255,255 之类的神色 */
+.altar-name {
+  position: absolute; left: 20px; top: 16px; font-size: 18px; font-weight: bold;
+  white-space: nowrap;
+  text-shadow: 1px 0 0 #241608, -1px 0 0 #241608, 0 1px 0 #241608, 0 -1px 0 #241608,
+    1px 1px 0 #241608, -1px 1px 0 #241608, 1px -1px 0 #241608, -1px -1px 0 #241608;
+}
+.altar-quote {
+  position: absolute; left: 20px; top: 46px; font-size: 15px; white-space: nowrap;
+  text-shadow: 1px 0 0 #241608, -1px 0 0 #241608, 0 1px 0 #241608, 0 -1px 0 #241608,
+    1px 1px 0 #241608, -1px 1px 0 #241608, 1px -1px 0 #241608, -1px -1px 0 #241608;
+}
+.altar-desc {
+  position: absolute; left: 23px; top: 72px; width: 590px; height: 150px; overflow: hidden;
+  font-size: 13px; line-height: 1.45; white-space: pre-wrap; color: #241608;
+}
+.altar-rows { position: absolute; left: 50px; right: 20px; bottom: 4px; }
+.altar-rows .pui-row { padding: 1px 6px; }
+.altar-god {
+  position: absolute; left: 240px; top: -160px; width: 240px; height: 160px;
+  image-rendering: pixelated;
+}
+
+/* ---------- 剧情播放（sceneview.js） ---------- */
+.scene-canvas {
+  position: absolute; inset: 0; z-index: 60;
+  width: 800px; height: 600px;
+  image-rendering: pixelated;
+}
+
+/* ---------- 启动预加载提示 ---------- */
+#boot-loading {
+  position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%);
+  padding: 6px 16px; color: #e8d18a; font-size: 13px;
+  background: rgba(0, 0, 0, 0.6); border: 1px solid #6a5a2a;
+  font-family: "MS Gothic", "Microsoft YaHei", monospace;
+  pointer-events: none;
+}
+
+/* ---------- 调试控制台（view/consoleview.js） ---------- */
+#devconsole {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 46vh; z-index: 90;
+  display: flex; flex-direction: column;
+  background: rgba(8, 10, 12, 0.94); border-top: 1px solid #6a5a2a;
+  font-family: Consolas, "Courier New", monospace; font-size: 13px; color: #d8d8d8;
+}
+#devconsole.hidden { display: none; }
+.dc-head {
+  padding: 4px 10px; color: #e8d18a; background: #17130f;
+  border-bottom: 1px solid #3a3226; font-size: 12px;
+}
+.dc-hint { color: #8a8272; }
+.dc-out { flex: 1; overflow-y: auto; padding: 6px 10px; line-height: 1.45; }
+.dc-line { white-space: pre-wrap; word-break: break-all; }
+.dc-cmd { color: #7fd0c0; }
+.dc-err { color: #e07a6a; }
+.dc-input {
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px; border-top: 1px solid #3a3226; background: #10100e;
+}
+.dc-prompt { color: #e8d18a; }
+.dc-input input {
+  flex: 1; background: transparent; border: none; outline: none;
+  color: #f0f0f0; font-family: inherit; font-size: 13px;
+}
+
+/* ============================================================
+   0-CK：人物信息窗（原版 *label_2784 分页样式）
+   ============================================================ */
+.ci-cols { display: flex; flex-wrap: wrap; gap: 14px; }
+.ci-col { flex: 1 1 200px; min-width: 0; }
+.ci-sec {
+  margin: 7px 0 3px; padding: 1px 6px;
+  color: #3a2712; font-weight: bold; font-size: 12px;
+  border-bottom: 1px solid rgba(90, 70, 40, 0.6);
+  background: rgba(255, 250, 235, 0.28);
+}
+.ci-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 14px; }
+.ci-kv { display: flex; gap: 4px; font-size: 12px; color: #241608; line-height: 15px; }
+.ci-kv span { color: #5a4526; min-width: 3.2em; }
+.ci-kv b { font-weight: normal; color: #1a0e04; }
+.ci-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.ci-table td, .ci-table th { padding: 1px 4px; text-align: left; color: #241608; }
+.ci-table th { color: #5a4526; font-weight: normal; border-bottom: 1px solid rgba(90, 70, 40, 0.6); }
+.ci-num { text-align: right; font-family: monospace; }
+.ci-rank { text-align: right; color: #1c4a70; }
+.ci-ico { color: #7a5a24; }
+.ci-bless { display: flex; flex-wrap: wrap; gap: 4px; }
+/* 0-EU：首页的 12 元素耐性一览 */
+.ci-resist { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 12px; font-size: 12px; }
+.ci-resist span { display: flex; justify-content: space-between; color: #241608; }
+.ci-resist i { font-style: normal; color: #5a4526; }
+.ci-resist b { font-weight: normal; font-family: monospace; color: #1a0e04; }
+.ci-bless-cell {
+  width: 48px; height: 24px; border: 1px solid rgba(90, 70, 40, 0.6); border-radius: 3px;
+  font-size: 10px; color: #241608; display: flex; align-items: center;
+  justify-content: center; overflow: hidden; text-align: center;
+}
+.ci-profile { font-size: 11px; color: #33240e; line-height: 1.45; white-space: pre-wrap; }
+.ci-skills .ci-key { color: #6a4d1c; font-family: monospace; width: 1.6em; }
+.ci-skills .ci-skill-name { width: 10em; }
+.ci-nums { text-align: right; font-family: monospace; white-space: nowrap; }
+.ci-skill-desc { color: #4a3820; font-size: 12px; }
+.ci-foot {
+  margin-top: 10px; padding-top: 5px; border-top: 1px solid rgba(90, 70, 40, 0.5);
+  color: #4a3820; font-size: 12px;
+}
+.ci-dim { color: #5a482c; }
+.ci-on { color: #1e6b2e; }
+/* 0-DF：人物信息窗列表页的光标行（↑↓ 移动，「,」锁定） */
+.ci-table tr.ci-item.ci-sel { background: rgba(126, 96, 30, 0.26); outline: 1px solid rgba(90, 70, 40, 0.7); }
+.ci-table tr.ci-item { cursor: default; }
+
+/* 0-DH：evochat 的红心（行動力 / 幸福度）—— 原版用 interface.bmp 的红心图标 */
+.dh-hearts { letter-spacing: 1px; color: #a3202a; font-family: "MS Gothic", monospace; }
+.pui-kv .dh-hearts { color: #a3202a; }

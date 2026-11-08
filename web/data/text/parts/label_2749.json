@@ -1,0 +1,1608 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2749",
+ "entries": [
+  {
+   "id": "s12480",
+   "kind": "lang",
+   "jp": "操作する対象の方向は？",
+   "en": "Choose the direction of the target.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289334
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12481",
+   "kind": "lang",
+   "jp": "【ランクチェンジ】",
+   "en": "<Rank Change>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289554
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12482",
+   "kind": "lang",
+   "jp": "[スペードチェンジ]",
+   "en": "[Spade Change]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289557
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12483",
+   "kind": "lang",
+   "jp": "[クラブチェンジ]",
+   "en": "[Club Change]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289561
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12484",
+   "kind": "lang",
+   "jp": "[ダイヤチェンジ]",
+   "en": "[Diamond Change]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289565
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12485",
+   "kind": "lang",
+   "jp": "[ハートチェンジ]",
+   "en": "[Heart Change]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289569
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12486",
+   "kind": "lang",
+   "jp": "話しかける",
+   "en": "Talk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289575
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12487",
+   "kind": "lang",
+   "jp": "攻撃する",
+   "en": "Attack",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289579
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289620
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12488",
+   "kind": "lang",
+   "jp": "気持ちを伝える",
+   "en": "Tell feelings",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289588
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12489",
+   "kind": "lang",
+   "jp": "何かを渡す/もらう",
+   "en": "Give or Take",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289593
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12490",
+   "kind": "lang",
+   "jp": "何かを渡す",
+   "en": "Give",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289597
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12491",
+   "kind": "lang",
+   "jp": "連れ出す",
+   "en": "Bring Out",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289601
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12492",
+   "kind": "lang",
+   "jp": "骨を引きずり出す",
+   "en": "Take out bone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289606
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12493",
+   "kind": "lang",
+   "jp": "心臓を抜き取る",
+   "en": "Take out heart",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289608
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12494",
+   "kind": "lang",
+   "jp": "目玉を抉り取る",
+   "en": "Take out eye",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289610
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12495",
+   "kind": "lang",
+   "jp": "体液を搾り取る",
+   "en": "Take out blood",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289612
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12496",
+   "kind": "lang",
+   "jp": "皮を剥ぐ",
+   "en": "Take out skin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289614
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12497",
+   "kind": "lang",
+   "jp": "言葉を教える",
+   "en": "Teach Words",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289625
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12498",
+   "kind": "lang",
+   "jp": "口調を変える",
+   "en": "Change Tone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289627
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12499",
+   "kind": "lang",
+   "jp": "黙らせる",
+   "en": "Silence",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289632
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12500",
+   "kind": "lang",
+   "jp": "喋らせる",
+   "en": "Make speak",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289636
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12501",
+   "kind": "lang",
+   "jp": "大事な仲間に指定",
+   "en": "Designated as precious",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289641
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12502",
+   "kind": "lang",
+   "jp": "大事な仲間指定解除",
+   "en": "Cancel precious ally",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289645
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12503",
+   "kind": "lang",
+   "jp": "足元のアイテム我慢",
+   "en": "Endure foot items",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289649
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12504",
+   "kind": "lang",
+   "jp": "アイテム我慢解除",
+   "en": "Endure items release",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289653
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12505",
+   "kind": "lang",
+   "jp": "街で待機させる",
+   "en": "Wait at the town",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289660
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12506",
+   "kind": "lang",
+   "jp": "縄を解く",
+   "en": "Release",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289669
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12507",
+   "kind": "lang",
+   "jp": "檻から解き放つ",
+   "en": "Release",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289676
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12508",
+   "kind": "lang",
+   "jp": "着替えさせる",
+   "en": "Appearence",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289683
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12509",
+   "kind": "lang",
+   "jp": "姿を変える",
+   "en": "Shape change",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289687
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12510",
+   "kind": "lang",
+   "jp": "立ち姿を変える",
+   "en": "Change Tatie",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289690
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12511",
+   "kind": "lang",
+   "jp": "アイテム画像の付与",
+   "en": "Item mark set",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289692
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12512",
+   "kind": "lang",
+   "jp": "アイテム画像の調整",
+   "en": "Item mark adjust",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289695
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12513",
+   "kind": "lang",
+   "jp": "アイテム画像の移動",
+   "en": "Item mark move",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289699
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12514",
+   "kind": "lang",
+   "jp": "アイテム画像の削除",
+   "en": "Item mark delete",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289703
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12515",
+   "kind": "lang",
+   "jp": "タッグ編成",
+   "en": "Tag organization.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289711
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12516",
+   "kind": "lang",
+   "jp": "タッグ解散",
+   "en": "Tag dissolution.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289716
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12517",
+   "kind": "lang",
+   "jp": "名前をつける",
+   "en": "Name",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289724
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12518",
+   "kind": "lang",
+   "jp": "能力の開示",
+   "en": "Info",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289727
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12519",
+   "kind": "lang",
+   "jp": "帰ってもらう",
+   "en": "Remand",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289738
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12520",
+   "kind": "lang",
+   "jp": "チョコをねだる",
+   "en": "chocolate",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289745
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12521",
+   "kind": "lang",
+   "jp": "自分をプレゼント",
+   "en": "chocolate",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289750
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12522",
+   "kind": "lang",
+   "jp": "棺に戻す",
+   "en": "Remand",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289759
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12523",
+   "kind": "lang",
+   "jp": "吊るしたままでは連れ出せない。",
+   "en": "You cannot leave livestock on hanging.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289808
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12524",
+   "kind": "lang",
+   "jp": "仲間の最大数に達しているため連れ出せない。",
+   "en": "Your party is already full. You can't invite someone anymore.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289817
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12525",
+   "kind": "lang",
+   "jp": "降りるスペースがない。",
+   "en": "There's no place to get off.",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 289988
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2965",
+     "line": 319622
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 416949
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417504
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12526",
+   "kind": "lang",
+   "jp": "変化後のランクは？",
+   "en": "Which rank?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290048
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12527",
+   "kind": "lang",
+   "jp": "このゲームモードでは遺伝子を残せない。",
+   "en": "I do not make gene in this game mode.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290254
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419397
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12528",
+   "kind": "lang",
+   "jp": "「いやん、あなたったら…」",
+   "en": "*blush*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290279
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12529",
+   "kind": "raw",
+   "jp": "はもじもじしながら懐から包みを取り出した。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290463
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290465
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12530",
+   "kind": "raw",
+   "jp": "は赤面すると慌ててチョコを取り出し、あなたに突き出した。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290463
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290465
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12531",
+   "kind": "raw",
+   "jp": "はにっこり微笑むと、後ろ手に隠していたチョコを見せた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290463
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290465
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12532",
+   "kind": "raw",
+   "jp": "「…本当に",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290463
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290465
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12533",
+   "kind": "raw",
+   "jp": "なんかのでいい",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290463
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290465
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12534",
+   "kind": "raw",
+   "jp": "「受け取って",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290465
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12535",
+   "kind": "raw",
+   "jp": "これが",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290465
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12536",
+   "kind": "raw",
+   "jp": "の気持ち",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290465
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12537",
+   "kind": "raw",
+   "jp": "「きもちわるい」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290584
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290586
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12538",
+   "kind": "raw",
+   "jp": "「離れろ！このヘンタイ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290584
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290586
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12539",
+   "kind": "raw",
+   "jp": "「うわっ…信じられない…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290584
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290586
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12540",
+   "kind": "raw",
+   "jp": "はあなたを見て露骨に嫌そうな顔をしている！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290586
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12541",
+   "kind": "raw",
+   "jp": "「それ以上近寄るな」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290602
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290604
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12542",
+   "kind": "raw",
+   "jp": "「ガード！ガード！！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290602
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290604
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12543",
+   "kind": "raw",
+   "jp": "はあなたを本気で気持ち悪がっている！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290604
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12544",
+   "kind": "raw",
+   "jp": "「う、うわぁ…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290620
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290622
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12545",
+   "kind": "raw",
+   "jp": "は何も見なかったことにした。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290620
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290622
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12546",
+   "kind": "raw",
+   "jp": "は後ずさりした。かなり引いているようだ。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290622
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12547",
+   "kind": "raw",
+   "jp": "「えっ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290638
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290640
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12548",
+   "kind": "raw",
+   "jp": "は二度見した後に固まってしまった…。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290638
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290640
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12549",
+   "kind": "raw",
+   "jp": "の顔が引きつっている。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290640
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12550",
+   "kind": "raw",
+   "jp": "は困惑しながらも、早く体を洗ってくるよう勧めた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290655
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290657
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12551",
+   "kind": "raw",
+   "jp": "は苦笑いしている…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290657
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12552",
+   "kind": "raw",
+   "jp": "「早くそのチョコを洗い落としにいこう」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290672
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290674
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12553",
+   "kind": "raw",
+   "jp": "は本気であなたの頭を心配している…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290674
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12554",
+   "kind": "lang",
+   "jp": "滞在中の仲間はタッグを組めない。",
+   "en": "The ally currently stays in this area.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290704
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12555",
+   "kind": "lang",
+   "jp": "充分なスペースがない。",
+   "en": "There's no place.",
+   "zh": "",
+   "count": 16,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290749
+    },
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290785
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 373396
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 373410
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 374432
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 374446
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 379090
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3035",
+     "line": 379104
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12556",
+   "kind": "lang",
+   "jp": "対応する画像の番号は？（48*48は2～16、48*96は17～32で入力。1を入力するとデフォルトに。）",
+   "en": "Input the number of Pic_ . (48*48→2-16 48*96→17-32)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290938
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  },
+  {
+   "id": "s12557",
+   "kind": "lang",
+   "jp": "元の姿に戻した。",
+   "en": "You put back the original graphic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2749",
+     "line": 290950
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2749",
+   "owner": "label_2749"
+  }
+ ]
+}

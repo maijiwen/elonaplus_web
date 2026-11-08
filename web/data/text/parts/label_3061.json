@@ -1,0 +1,4687 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_3061",
+ "entries": [
+  {
+   "id": "s17929",
+   "kind": "lang",
+   "jp": "欲しい…",
+   "en": "Alright.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 416776
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17930",
+   "kind": "lang",
+   "jp": "いらない",
+   "en": "I'll pass.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 416780
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17931",
+   "kind": "lang",
+   "jp": "選択した冒険者の詳細を確認できる。",
+   "en": "If you select an adventurer, you can see the details.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 416893
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17932",
+   "kind": "lang",
+   "jp": "タッグを解散するスペースがない。",
+   "en": "There's no place to get off.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 416967
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17933",
+   "kind": "lang",
+   "jp": "挑戦する",
+   "en": "Alright.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417076
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17934",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "I'll pass.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417079
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417194
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17935",
+   "kind": "lang",
+   "jp": "挑戦する",
+   "en": "I'll send my pet.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417191
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17936",
+   "kind": "lang",
+   "jp": "神に祈れ",
+   "en": "Pray to your God.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417294
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17937",
+   "kind": "lang",
+   "jp": "いや、冗談です",
+   "en": "W-Wait! I was just kidding.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417297
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17938",
+   "kind": "lang",
+   "jp": "そんなバカな！？",
+   "en": "How can you be so stupid!?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417332
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17939",
+   "kind": "lang",
+   "jp": "あなたは商船を沈めた。",
+   "en": "You sunk a merchant ship.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417349
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17940",
+   "kind": "lang",
+   "jp": "略奪もせずにいきなり沈めるなんて…狂ってる！",
+   "en": "It's insane to sink it without even looting it!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417353
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17941",
+   "kind": "lang",
+   "jp": "しまった…",
+   "en": "Oops...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417387
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17942",
+   "kind": "lang",
+   "jp": "当然のことだ",
+   "en": "It's nothing.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417396
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17943",
+   "kind": "lang",
+   "jp": "（…あやしい）",
+   "en": "(...suspicious)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417416
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17944",
+   "kind": "lang",
+   "jp": "ぎくっ",
+   "en": "I really found it on the street!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417418
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17945",
+   "kind": "lang",
+   "jp": "呼び戻す",
+   "en": "I'll pay.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417460
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17946",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "Never mind.",
+   "zh": "",
+   "count": 6,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 417464
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421770
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421835
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421908
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3062",
+     "line": 424945
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3065",
+     "line": 425201
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17947",
+   "kind": "lang",
+   "jp": "戦友ルートに突入した！",
+   "en": "You've entered the Comrade route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418171
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17948",
+   "kind": "lang",
+   "jp": "友情ルートに突入した！",
+   "en": "You've entered the Friend route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418192
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17949",
+   "kind": "lang",
+   "jp": "ライバルルートに突入した！",
+   "en": "You've entered the Rival route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418213
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17950",
+   "kind": "lang",
+   "jp": "恋愛ルートに突入した！",
+   "en": "You've entered the Affection route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418234
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17951",
+   "kind": "lang",
+   "jp": "教え子ルートに突入した！",
+   "en": "You've entered the Student route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418255
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17952",
+   "kind": "lang",
+   "jp": "師ルートに突入した！",
+   "en": "You've entered the Master route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418276
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17953",
+   "kind": "lang",
+   "jp": "家族ルートに突入した！",
+   "en": "You've entered the Family route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418297
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17954",
+   "kind": "lang",
+   "jp": "契約者ルートに突入した！",
+   "en": "You've entered the Contract route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418318
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17955",
+   "kind": "lang",
+   "jp": "飼い主ルートに突入した！",
+   "en": "You've entered the Owner route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418339
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17956",
+   "kind": "lang",
+   "jp": "忠義ルートに突入した！",
+   "en": "You've entered the Loyalty route!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418360
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17957",
+   "kind": "lang",
+   "jp": "切る",
+   "en": "Yes.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418807
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419488
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17958",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "No.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418810
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419491
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17959",
+   "kind": "lang",
+   "jp": "ほ、本当に！？",
+   "en": "Really?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418854
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17960",
+   "kind": "lang",
+   "jp": "ウソだよー",
+   "en": "It's a lie.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418856
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17961",
+   "kind": "lang",
+   "jp": "これからは自由の身だ",
+   "en": "You're free from now on.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418859
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17962",
+   "kind": "lang",
+   "jp": "だったら今までの恨みを晴らしてやる！",
+   "en": "Well then, I take my revenge on you!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418889
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17963",
+   "kind": "lang",
+   "jp": "自由だぁああああ！",
+   "en": "I'm freeeeeee!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418917
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17964",
+   "kind": "lang",
+   "jp": "えっ。",
+   "en": "Really?!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418940
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17965",
+   "kind": "lang",
+   "jp": "冗談だよ",
+   "en": "It's a joke.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418942
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17966",
+   "kind": "lang",
+   "jp": "さようなら",
+   "en": "Bye bye.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 418945
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17967",
+   "kind": "lang",
+   "jp": "なるほど…。",
+   "en": "Goodbye!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419003
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17968",
+   "kind": "lang",
+   "jp": "贈る",
+   "en": "Yes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419044
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17969",
+   "kind": "lang",
+   "jp": "やめておく",
+   "en": "No.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419047
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17970",
+   "kind": "lang",
+   "jp": "お先に！",
+   "en": "Goodbye!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419059
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17971",
+   "kind": "lang",
+   "jp": "行ってくる！",
+   "en": "I'm going!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419074
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17972",
+   "kind": "lang",
+   "jp": "また会おう！",
+   "en": "See you again!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419089
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17973",
+   "kind": "lang",
+   "jp": "やめておく",
+   "en": "Cancel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419174
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17974",
+   "kind": "lang",
+   "jp": "興味のあることをやらせる(効果増)",
+   "en": "Invest in entrusting skills(EXP up).",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419178
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17975",
+   "kind": "lang",
+   "jp": "修行スキルの教育に投資する",
+   "en": "Invest in training skills.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419183
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17976",
+   "kind": "lang",
+   "jp": "戦闘スキルの教育に投資する",
+   "en": "Invest in combat skills.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419188
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17977",
+   "kind": "lang",
+   "jp": "仕事スキルの教育に投資する",
+   "en": "Invest in jobs skills.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419193
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17978",
+   "kind": "lang",
+   "jp": "探索スキルの教育に投資する",
+   "en": "Invest in exploration skills.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419198
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17979",
+   "kind": "lang",
+   "jp": "勉強スキルの教育に投資する",
+   "en": "Invest in study skills.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419203
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17980",
+   "kind": "lang",
+   "jp": "売る",
+   "en": "Deal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419314
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17981",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "No way.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419317
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17982",
+   "kind": "lang",
+   "jp": "はい…喜んで。",
+   "en": "With preasure.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419371
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17983",
+   "kind": "lang",
+   "jp": "こんな場所では嫌よ",
+   "en": "Not here!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419403
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17984",
+   "kind": "lang",
+   "jp": "いやん、あなたったら…",
+   "en": "*blush*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419418
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17985",
+   "kind": "raw",
+   "jp": "の家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17986",
+   "kind": "raw",
+   "jp": "邸",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17987",
+   "kind": "raw",
+   "jp": "城",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17988",
+   "kind": "raw",
+   "jp": "ハーレム",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17989",
+   "kind": "raw",
+   "jp": "の巣窟",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17990",
+   "kind": "raw",
+   "jp": "ハウス",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17991",
+   "kind": "raw",
+   "jp": "の住処",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17992",
+   "kind": "raw",
+   "jp": "宅",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17993",
+   "kind": "raw",
+   "jp": "の隠れ家",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17994",
+   "kind": "raw",
+   "jp": "ドーム",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419511
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17995",
+   "kind": "lang",
+   "jp": "その程度の罪なら自分でなんとかしなさい。",
+   "en": "You karma isn't that low. Come back after you have comitted more crimes!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419529
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17996",
+   "kind": "lang",
+   "jp": "買う",
+   "en": "Deal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419536
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17997",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "The price is too high.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419540
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17998",
+   "kind": "lang",
+   "jp": "調査する",
+   "en": "Too expensive, but okay.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419565
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s17999",
+   "kind": "raw",
+   "jp": "「どうぞ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419612
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419614
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18000",
+   "kind": "raw",
+   "jp": "「これでいい",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419614
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18001",
+   "kind": "lang",
+   "jp": "これからじっくりと教育してやる。「ありがとうございます」は？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419673
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18002",
+   "kind": "lang",
+   "jp": "お前、よく見たらなかなかいい体つきしてるよなぁ…。おいおい、ただのスキンシップだろ嫌がるなよぉ～。ぐへへ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419688
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18003",
+   "kind": "lang",
+   "jp": "おい新入り、こっちのメンツ潰したらただじゃおかねえからな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419703
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18004",
+   "kind": "lang",
+   "jp": "適当にやっておけばいいんだよ適当に！お前みたいなグズがよくこの部署に来れたな！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419718
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18005",
+   "kind": "lang",
+   "jp": "お前なんだか調子のってるよな。一発殴られないとわかんねえか？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419733
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18006",
+   "kind": "lang",
+   "jp": "あぁもう本当に使えない。みんなぁ～この新入り本当に使えないわよぉ！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419750
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18007",
+   "kind": "lang",
+   "jp": "別に歯向かってもいいわよ？リーダーに、新入りが仕事サボってたって報告するだけだからぁ！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419765
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18008",
+   "kind": "lang",
+   "jp": "散らかってる床の片づけは新入りの仕事でしょ！！そんなこともわからないの？今までいた部署では、さぞかし甘やかされてきたんでしょうね！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419780
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18009",
+   "kind": "lang",
+   "jp": "リーダーに取り入ろうっていうアンタの魂胆は丸見えなの！ああ意地汚い！顔を見ているだけで不快だわぁ～！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419795
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18010",
+   "kind": "lang",
+   "jp": "アンタの前任者はもう少し使えたわ。あいつじゃなくて、アンタが壊れればよかったのに。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419810
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18011",
+   "kind": "lang",
+   "jp": "頑張ります！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419856
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18012",
+   "kind": "lang",
+   "jp": "実はやり方がよくわからないところがあって…",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419859
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18013",
+   "kind": "lang",
+   "jp": "職場の改善が必要です",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419863
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18014",
+   "kind": "lang",
+   "jp": "あ？そんなの当たり前だろうが。頑張るのは誰にでもできるんだよ！成果を出して一人前だってこと、わかってんのか？わかってないよなぁ？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419871
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18015",
+   "kind": "lang",
+   "jp": "お前は艦長の推薦を受けてここに来てんの。今更何言ってんだ？恥ずかしくないのか？ちょっとはプライド持って仕事しようや、なぁ！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419888
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18016",
+   "kind": "lang",
+   "jp": "上に掛け合ってここの仕事を減らしてもらいます！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419907
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18017",
+   "kind": "lang",
+   "jp": "全員の仕事のノウハウを共有しましょう？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419910
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18018",
+   "kind": "lang",
+   "jp": "みんなの意見も聞いてみるべきです！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419913
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18019",
+   "kind": "lang",
+   "jp": "一度全員メンテナンスを受けませんか？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419916
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18020",
+   "kind": "lang",
+   "jp": "なんかもう色々アウトですよ…",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419919
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18021",
+   "kind": "lang",
+   "jp": "お前を倒してニューリーダーになる！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419922
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18022",
+   "kind": "lang",
+   "jp": "必要かぁ？今でも力を合わせて何とかやっていけてるだろうが！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419924
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18023",
+   "kind": "lang",
+   "jp": "ああ？しょうがねえな、聞けば納得するんだな？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419929
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18024",
+   "kind": "lang",
+   "jp": "改善必要！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419942
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18025",
+   "kind": "lang",
+   "jp": "現状問題なし",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419945
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18026",
+   "kind": "lang",
+   "jp": "業務連絡。これより投票プログラムを起動する。速やかに投票を行うこと。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419947
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18027",
+   "kind": "lang",
+   "jp": "集計開始。改善必要：1票。問題なし：1票。投票率：10％。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419951
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18028",
+   "kind": "lang",
+   "jp": "改善必要：3票。問題なし：2票。投票率：25％。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419964
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18029",
+   "kind": "lang",
+   "jp": "改善必要：7票。問題なし：3票。投票率：50％。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419977
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18030",
+   "kind": "lang",
+   "jp": "改善必要：9票。問題なし：5票。投票率：70％。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 419990
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18031",
+   "kind": "lang",
+   "jp": "集計完了。結果は…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420029
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18032",
+   "kind": "lang",
+   "jp": "不正だー！？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420042
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18033",
+   "kind": "lang",
+   "jp": "投票率100％超えは集計ミスでは？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420045
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18034",
+   "kind": "lang",
+   "jp": "改善必要：15票。問題なし：105票。投票率：600％。よって現状の職場環境には問題がないと判断する。ほら、これで気が済んだろ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420047
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18035",
+   "kind": "lang",
+   "jp": "なんだお前。おい。なら証拠でもあんのか？ないんだったらよ、投票で決まったことに文句垂れてんじゃねえ！！！お前、ホントに往生際が悪いよなぁ。恥ずかしく思えよ？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420052
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18036",
+   "kind": "lang",
+   "jp": "ああ？そりゃな、俺だって完璧じゃねえからもしかするとミスがあって、既にスクラップになった連中の投票権が使われていたり、同じ奴の票が何度も重複して入っていることはあるかもしれない。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420069
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18037",
+   "kind": "lang",
+   "jp": "でもミスがあったとしても結果に影響する程ではねえから、お前の仕事と違って！言っとくけど再集計しても結果は変わんねぇからな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420082
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18038",
+   "kind": "lang",
+   "jp": "やめろ馬鹿！まるで俺らまで仕事ができねえみたいじゃねえか！お前と一緒にしないでくれるか？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420101
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18039",
+   "kind": "lang",
+   "jp": "確かに年々この部署の仕事は増えてきている。でも一機あたりの負担が増えようが、ぶっ壊れる奴が出ようが、それって今までやれてた仕事量から減らす理由にはならねえから。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420114
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18040",
+   "kind": "lang",
+   "jp": "だいたい、来て日の浅いお前にここの仕事のことが説明できるわけねえだろ。自分の仕事もちゃんと理解してないくせによ！上に掛け合うとかやめてくんない？お前みたいなのがいることが恥ずかしいんだけど。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420127
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18041",
+   "kind": "lang",
+   "jp": "おい、ちょっと座れよ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420143
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18042",
+   "kind": "lang",
+   "jp": "床でいいから。よく話聞けよ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420156
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18043",
+   "kind": "lang",
+   "jp": "お前さ、膨大なノウハウを口頭で言いあって覚えきれると思ってんのか？違うだろ。共有するにはそれぞれが資料を用意しなきゃいけないだろ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420169
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18044",
+   "kind": "lang",
+   "jp": "そりゃ何もわかってなくて比較的暇な新入りにはメリットが大きいかもしれないよ？でもそんなことする暇が他のみんなにあるように見えるか？…見えるんだろうなぁ！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420182
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18045",
+   "kind": "lang",
+   "jp": "時間的に余裕がある状況ならまだわかる。でも知ってるか？お前以外がやってる仕事は全部期限があるの。お前だけだよ自分のペースで仕事できるのは。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420195
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18046",
+   "kind": "lang",
+   "jp": "ノウハウを残すのは大事だよ。でも今の状況では超余計な作業だと思うんだけど？全体でどんくらい時間のロスが出ると思ってる？ちょっとお前考えが甘いよね。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420208
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18047",
+   "kind": "lang",
+   "jp": "お前そんなこと言って休みたいだけだろ。メンテナンスって簡単に言うけど結構時間かかるからね？目の前の仕事と将来的な健康、どっちが優先されるべきかわかる？優先順位くらい、考えて話せって言ってんだよ！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420225
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18048",
+   "kind": "lang",
+   "jp": "みんなも調子悪いみたいですよ",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420240
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18049",
+   "kind": "lang",
+   "jp": "やばい病気かもしれないし念のため！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420243
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18050",
+   "kind": "lang",
+   "jp": "…お前にだけ言うけど、俺最近ちょっと調子悪いんだよね。部署全体の仕事の進みが遅くって遅くってまじ頭いてえの。だからこそ、のんびりメンテナンスなんて受けてる暇ないと思ってるから。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420245
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18051",
+   "kind": "lang",
+   "jp": "ハッ、たったこんだけの仕事しかしてない奴らが、調子悪くなるわけねえだろ！昔はもっと仕事量が多かったんだぞ。この程度で壊れるような奴はどっちにしろ使いもんにならねえからな！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420250
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18052",
+   "kind": "lang",
+   "jp": "…。そう言われるとちょっと不安だな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420266
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18053",
+   "kind": "lang",
+   "jp": "一応、みんな10秒で終わる簡易スキャンだけやって、引っかかった奴だけ精密検査受けることにするか。で、さらに引っかかった奴だけメンテナンス送りだ。それなら無駄ねえもんな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420279
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18054",
+   "kind": "lang",
+   "jp": "ま、そこまで引っかかるほど調子悪い奴なんて、いねえだろうけどな！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420292
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18055",
+   "kind": "lang",
+   "jp": "はい…",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420320
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420686
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18056",
+   "kind": "lang",
+   "jp": "アウトなやり方してるならアウトでしょ",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420323
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18057",
+   "kind": "lang",
+   "jp": "確かにここのやり方は一般的に見たらアウトかもしれない。でも現実としてこうでもしなきゃ仕事が回らないってことくらいは、お前でもわかるだろ？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420325
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18058",
+   "kind": "lang",
+   "jp": "おい、嘘つくな。本当にわかってんなら最初から言わねぇよな？チッ…ったくよぉ。お前と話してるとマジいらつくんだけど。なんとかなんねえの？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420330
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18059",
+   "kind": "lang",
+   "jp": "お前…帰れコノヤロウ！！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420346
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18060",
+   "kind": "lang",
+   "jp": "この愚か者めが！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420365
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18061",
+   "kind": "lang",
+   "jp": "俺を倒したとして、自分の仕事も満足にできないやつが、俺のやっていた仕事までこなせるのか！！あ？少しは物を考えろ！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420378
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18062",
+   "kind": "lang",
+   "jp": "お前、割り当てられた仕事が終わったのか。なぁ？ちゃんとやればできる程度の仕事だろ。でもだいぶ無駄が多かったな。今度からはもっと早く終わらせろよ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420402
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18063",
+   "kind": "lang",
+   "jp": "じゃあ次の仕事渡しとくから。まぁこれでも飲んで頑張れよ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420418
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18064",
+   "kind": "lang",
+   "jp": "仕事Ａが増えた…。",
+   "en": "Work-A has increased...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420458
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18065",
+   "kind": "lang",
+   "jp": "間違っているのはどこですか？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420461
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18066",
+   "kind": "lang",
+   "jp": "間違えないように注意する点ってありますか？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420464
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18067",
+   "kind": "lang",
+   "jp": "お前ちょっと間違いが多すぎないか？やり直せ。いくら頑張っても結局間違えたら、その分は働いてないのと一緒だからな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420466
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18068",
+   "kind": "lang",
+   "jp": "自分で見つけろ。俺が教えたら意味がない。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420471
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18069",
+   "kind": "lang",
+   "jp": "理解してやれば間違えないだろ！お前が理解せずになんとなくでやってるから全然合わないんだよ！わかんねえなら聞け！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420488
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18070",
+   "kind": "lang",
+   "jp": "仕事Ｂが増えた…。",
+   "en": "Work-B has increased...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420512
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18071",
+   "kind": "lang",
+   "jp": "前のままでもよくないですか",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420515
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18072",
+   "kind": "lang",
+   "jp": "今後の拡張性も考えた形式に変えましょう",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420518
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18073",
+   "kind": "lang",
+   "jp": "仕事Ｂだけどよ、あれやり方変えろよ。書式も変えて項目追加しとけ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420520
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18074",
+   "kind": "lang",
+   "jp": "今まではあれで通っていたかもしれないけど、そんなの理由にならねえからな！つべこべ言わずにさっさと取り掛かれ！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420525
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18075",
+   "kind": "lang",
+   "jp": "じゃあ任せた。そんなことにあんまり時間かけるなよ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420543
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18076",
+   "kind": "lang",
+   "jp": "仕事Ｃが増えた…。",
+   "en": "Work-C has increased...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420566
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18077",
+   "kind": "lang",
+   "jp": "わかりました…",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420569
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18078",
+   "kind": "lang",
+   "jp": "他の仕事あるんですけど…",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420572
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18079",
+   "kind": "lang",
+   "jp": "おい、急ぎでこっちの仕事もやってくれ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420574
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18080",
+   "kind": "lang",
+   "jp": "ハァ～…大丈夫なんだろうな？ちゃっちゃと成果あげてくれよなホントに。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420579
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18081",
+   "kind": "lang",
+   "jp": "何勘違いしてんだ？俺はお前になるべく仕事が回らないように配慮してんだからな？このくらい合間にやればいいだろうが！ええ？お前マジで自分のことしか考えてないよな！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420596
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18082",
+   "kind": "lang",
+   "jp": "すいません",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420618
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18083",
+   "kind": "lang",
+   "jp": "ちょっと整理整頓していました",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420621
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18084",
+   "kind": "lang",
+   "jp": "やり方を教えてくれないからです",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420624
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18085",
+   "kind": "lang",
+   "jp": "おい、なんでこんなに時間かかってるんだ！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420626
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18086",
+   "kind": "lang",
+   "jp": "俺がここに来たときはお前の3倍以上の仕事持っていたんだぞ！基準は甘々でやり直しとかはなかったけどよ。お前だいぶ恵まれている方だから。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420631
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18087",
+   "kind": "lang",
+   "jp": "そうやってすぐ言い訳する癖を直せ。整理整頓は大事だけどそれに時間かけすぎなんだよお前！時間配分ができてねえよなぁ、時間配分がよ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420648
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18088",
+   "kind": "lang",
+   "jp": "反抗的だよなぁ、お前！子供みたいなこと言ってんじゃねえぞ！この忙しい時にやり方を一から教えなきゃいけないのか？普通に考えてわかるだろうが！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420665
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18089",
+   "kind": "lang",
+   "jp": "この仕事辞めたいです",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420689
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18090",
+   "kind": "lang",
+   "jp": "機械の神もこのような職場をお許しにはならない！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420692
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18091",
+   "kind": "lang",
+   "jp": "ちゃんと自覚してるんだろうな？配属された瞬間からお前は社畜なんだ！お前はこの仕事に尽くさなければならない！これは神の意思だ！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420694
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18092",
+   "kind": "lang",
+   "jp": "おい…なんだその顔は。はいはい言っとけばいいと思ってんだろ！しんどそうにしてるけど俺だってお前と好きでしゃべってるわけじゃねえからな！！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420699
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18093",
+   "kind": "lang",
+   "jp": "あのなぁ…他の仕事だって楽なわけじゃねえから。このくらいで音を上げていたらどこに行っても通用しないからな！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420717
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18094",
+   "kind": "lang",
+   "jp": "社畜に神はいないッ！！ロボットには…労働基準もないッ！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420734
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18095",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "Wait...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420780
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18096",
+   "kind": "lang",
+   "jp": "教える",
+   "en": "OK!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420783
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18097",
+   "kind": "lang",
+   "jp": "それで、何日？",
+   "en": "Wow. Which day?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420816
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18098",
+   "kind": "lang",
+   "jp": "間違えた",
+   "en": "I made a mistake.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420844
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18099",
+   "kind": "lang",
+   "jp": "間違いない",
+   "en": "Yes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420847
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18100",
+   "kind": "lang",
+   "jp": "(もぐもぐ)",
+   "en": "om nom nom...",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 420913
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421173
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18101",
+   "kind": "lang",
+   "jp": "(仲良く料理を分け合った…)",
+   "en": "Let's share the food.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421159
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18102",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "Some other time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421332
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18103",
+   "kind": "lang",
+   "jp": "ほほう、モンスターの顔をした人間か。見世物としてなかなかいけそうだ。金貨50000枚で買い取ろう。",
+   "en": "Look what we have! A woman who got a monster's face. It'll be a good show. Wanna sell me for 50000 gold coins?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421412
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18104",
+   "kind": "lang",
+   "jp": "売る",
+   "en": "Sure, take her.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421414
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18105",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "You cold bastard.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421417
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18106",
+   "kind": "lang",
+   "jp": "パエルの母親を売った…",
+   "en": "You sell Pael's mon...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421425
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18107",
+   "kind": "lang",
+   "jp": "頼む",
+   "en": "Alright.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421473
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18108",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "Another time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421477
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18109",
+   "kind": "lang",
+   "jp": "はじめる",
+   "en": "Let's do it.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421543
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421599
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18110",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": "W-wai.t..",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421546
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421603
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18111",
+   "kind": "lang",
+   "jp": "やめる",
+   "en": ".....",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421644
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18112",
+   "kind": "lang",
+   "jp": "(キャラバンの隊長は忙しそうでこちらに気付いていない。今ならキャラバンの荷物に紛れ込んで関所を突破できるだろう。どこ行きの荷物に紛れ込む？)",
+   "en": "(Captain of the caravan is so busy now and unaware of you.You will be able to break through the barrier with a climb into the caravan luggage.Where are you going?)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421652
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18113",
+   "kind": "lang",
+   "jp": "(暇そうにしていたキャラバンの隊長は、あなたの視線に気が付いた。)",
+   "en": "(Captain of the caravan had been so bored in, the look of your noticed.)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421686
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18114",
+   "kind": "lang",
+   "jp": "おや？君、ひょっとしてこの国から出ていきたいのかな？それは無理だよ。今は国境が封鎖されていて、お偉いさんの一団くらいしか通れないんだ。封鎖が解除されたらすぐに交易商たちを運ばなければならないので、私も毎日ここで待っているんだが…。",
+   "en": "Oh?Do you want to go out from this country? Unfortunately it's impossible. Because it is now the border blockade, and only the group of Important persons is passable.I am waiting in here every day. Because I must carry traders immediately ,if the blockade was lifted.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421699
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18115",
+   "kind": "lang",
+   "jp": "仮に封鎖が解除されても冒険者は通れないんじゃないかな。ただの交易商なら私が乗せて行ってもいいんだが、私も責任ある立場だからね。冒険者なんて危なくて運べないよ。",
+   "en": "Ordinary people can not pass even if it is released temporarily closed. If you are a trader,I will bring you to South Tyris, but you would an adventurer.I do not carry you because I'm afraid you are likely to snatch our luggages.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421712
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18116",
+   "kind": "lang",
+   "jp": "こいつはちょっと無理です。",
+   "en": "It can not be enhanced anymore.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421760
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18117",
+   "kind": "lang",
+   "jp": "強化する",
+   "en": "Enhance the equipment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421766
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18118",
+   "kind": "lang",
+   "jp": "強化完了！",
+   "en": "Done treatment. Take care!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421787
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18119",
+   "kind": "lang",
+   "jp": "0.1s軽くする",
+   "en": "Make light 0.1s the equipment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421826
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18120",
+   "kind": "lang",
+   "jp": "1.0s軽くする",
+   "en": "Make light 1.0s the equipment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421831
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18121",
+   "kind": "lang",
+   "jp": "軽量化完了！",
+   "en": "Done treatment. Take care!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421855
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421873
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18122",
+   "kind": "lang",
+   "jp": "こいつはちょっと無理です。",
+   "en": "It can not be heavy anymore.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421893
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18123",
+   "kind": "lang",
+   "jp": "0.1s重くする",
+   "en": "Make heavy 0.1s the equipment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421899
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18124",
+   "kind": "lang",
+   "jp": "1.0s重くする",
+   "en": "Make heavy 1.0s the equipment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421904
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18125",
+   "kind": "lang",
+   "jp": "重量化完了！",
+   "en": "Done treatment. Take care!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421925
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421940
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18126",
+   "kind": "lang",
+   "jp": "乗船する",
+   "en": ".....",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421954
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18127",
+   "kind": "lang",
+   "jp": "ちょっと待って",
+   "en": ".....",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421957
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18128",
+   "kind": "lang",
+   "jp": "この紹介状は…なるほど、わかった。さっさと船に乗ってくれ。すぐに出航する。",
+   "en": "Oh?Do you want to go out from this country? Unfortunately it's impossible. Because it is now the border blockade, and only the group of Important persons is passable.I am waiting in here every day. Because I must carry traders immediately ,if the blockade was lifted.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 421959
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18129",
+   "kind": "lang",
+   "jp": "さようなら",
+   "en": "Bye.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422013
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18130",
+   "kind": "lang",
+   "jp": "そんなこと言われても。",
+   "en": "Please contribute to more town.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422055
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18131",
+   "kind": "lang",
+   "jp": "貢献度の高い有権者に追加投票権（発言力50消費）",
+   "en": "Revival of the right to vote(Authority:50) ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422107
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18132",
+   "kind": "lang",
+   "jp": "この街では準備中。",
+   "en": "This town is still under preparation.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422174
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18133",
+   "kind": "lang",
+   "jp": "人狼防止法（発言力500消費）",
+   "en": "Revival of the right to vote(Authority:500) ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422325
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18134",
+   "kind": "lang",
+   "jp": "人狼共生法（発言力750消費）",
+   "en": "Revival of the right to vote(Authority:750) ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422330
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18135",
+   "kind": "lang",
+   "jp": "準備中",
+   "en": "Cancel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422334
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18136",
+   "kind": "lang",
+   "jp": "開発中！",
+   "en": "Sorry, this is undeveloped.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422460
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18137",
+   "kind": "lang",
+   "jp": "まとめて交換する",
+   "en": "Exchange them all at once.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422548
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18138",
+   "kind": "lang",
+   "jp": "ソーサラー実習（攻撃魔法）",
+   "en": "Sorcier practice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422577
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18139",
+   "kind": "lang",
+   "jp": "ウォーロック実習（上位攻撃魔法）",
+   "en": "Warlock practice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422580
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18140",
+   "kind": "lang",
+   "jp": "エンチャンター実習（付与魔法）",
+   "en": "Enchanter practice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422583
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18141",
+   "kind": "lang",
+   "jp": "ヒーラー実習（回復魔法）",
+   "en": "Healer practice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422586
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18142",
+   "kind": "lang",
+   "jp": "シャーマン実習（特殊魔法）",
+   "en": "Shaman practice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422589
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18143",
+   "kind": "lang",
+   "jp": "メイジ実習（探索魔法）",
+   "en": "Mage practice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422592
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18144",
+   "kind": "lang",
+   "jp": "だめ",
+   "en": "Cancel.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422643
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18145",
+   "kind": "lang",
+   "jp": "やめておく",
+   "en": "I'll stop it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422724
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18146",
+   "kind": "lang",
+   "jp": "破棄する",
+   "en": "I don't need the vehicle.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422727
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18147",
+   "kind": "lang",
+   "jp": "ワールドマップでの乗り物を破棄して徒歩に戻る？",
+   "en": "Do you return to walk discard your world-vehicle?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422729
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18148",
+   "kind": "lang",
+   "jp": "必要な情報はない",
+   "en": "Cancel",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422789
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18149",
+   "kind": "lang",
+   "jp": "灼熱の塔のボス情報",
+   "en": "Boss information 1-1",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422793
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18150",
+   "kind": "lang",
+   "jp": "古城のボス情報",
+   "en": "Boss information 1-2",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422798
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18151",
+   "kind": "lang",
+   "jp": "死者の洞窟のボス情報",
+   "en": "Boss information 1-3",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422803
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18152",
+   "kind": "lang",
+   "jp": "レシマスに潜む障害の情報①",
+   "en": "Boss information 1-4",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422809
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18153",
+   "kind": "lang",
+   "jp": "レシマスに潜む障害の情報②",
+   "en": "Boss information 1-5",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422816
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18154",
+   "kind": "lang",
+   "jp": "レシマスに潜む障害の情報③",
+   "en": "Boss information 1-6",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422823
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18155",
+   "kind": "lang",
+   "jp": "レシマスのボス情報",
+   "en": "Lesimas boss information",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422829
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18156",
+   "kind": "lang",
+   "jp": "異形の神殿のボス情報",
+   "en": "Boss information 2-1",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422834
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18157",
+   "kind": "lang",
+   "jp": "機械要塞のボス情報",
+   "en": "Boss information 2-2",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422839
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18158",
+   "kind": "lang",
+   "jp": "黄泉の谷のボス情報",
+   "en": "Boss information 2-3",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422844
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18159",
+   "kind": "lang",
+   "jp": "レミードに潜む障害の情報①",
+   "en": "Boss information 2-4",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422849
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18160",
+   "kind": "lang",
+   "jp": "レミードに潜む障害の情報②",
+   "en": "Boss information 2-5",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422854
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18161",
+   "kind": "lang",
+   "jp": "風の山道のボス情報",
+   "en": "Boss information 2-6",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422859
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18162",
+   "kind": "lang",
+   "jp": "レミードのボス情報",
+   "en": "Rehmido boss information",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422864
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18163",
+   "kind": "lang",
+   "jp": "混沌の巨城に潜む障害の情報①",
+   "en": "Boss information 3-1",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422869
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18164",
+   "kind": "lang",
+   "jp": "ヴァルム沖のボス情報",
+   "en": "Boss information 3-2",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422874
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18165",
+   "kind": "lang",
+   "jp": "ザナンの生体兵器の情報",
+   "en": "Boss information 3-3",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422879
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18166",
+   "kind": "lang",
+   "jp": "メイルーンに現れた悪魔の情報",
+   "en": "Boss information 3-4",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422884
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18167",
+   "kind": "lang",
+   "jp": "エウダーナに現れた悪魔の情報",
+   "en": "Boss information 3-5",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422889
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18168",
+   "kind": "lang",
+   "jp": "キッカスに現れた悪魔の情報",
+   "en": "Boss information 3-6",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422894
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18169",
+   "kind": "lang",
+   "jp": "混沌の巨城に潜む障害の情報②",
+   "en": "Boss information 3-7",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422899
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18170",
+   "kind": "lang",
+   "jp": "混沌の巨城に潜む障害の情報③",
+   "en": "Boss information 3-8",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422904
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18171",
+   "kind": "lang",
+   "jp": "混沌の巨城に潜む障害の情報④",
+   "en": "Boss information 3-9",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422909
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18172",
+   "kind": "lang",
+   "jp": "テスカトリポカの情報",
+   "en": "Cradle of Chaos boss information",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422914
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18173",
+   "kind": "lang",
+   "jp": "混沌の巨城のボス情報",
+   "en": "Cradle of Chaos boss information 2",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422919
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18174",
+   "kind": "lang",
+   "jp": "灼熱の塔は1組の夫妻が支配している。前に挑戦した奴の話だと、妻である赤き義眼の『クルイツゥア』はレベル24。夫の鋼鉄竜『コルゴン』はレベル16らしい。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 422930
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18175",
+   "kind": "lang",
+   "jp": "もし戦うことになったら魔法や技能などの回避不能攻撃で攻めるといい。状態異常の「束縛」で通常攻撃を回避できないようにするのも手ではある。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 423134
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18176",
+   "kind": "lang",
+   "jp": "ゼームはパルミアでも高名な魔術士だった。彼の研究のひとつに、心を持った魔力仕掛けのガーディアンがあった。名前は確か…魔鋼の番兵『ギルフェム』。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 423231
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18177",
+   "kind": "lang",
+   "jp": "偽りの預言者『ゼーム』はもはや怪物だと思った方がいい。レシマスに魅入られる前から、モンスターを召喚し混沌の渦を操り、深手も一瞬で治す魔術士だった。それが間違いなくレシマスの魔力で強化されている。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 423299
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18178",
+   "kind": "lang",
+   "jp": "一応、当時のゼームは相手に真っ向から近付いて接近戦を挑む傾向があったらしい。もしそのままなら、うまく誘導したり加速して振り切ったりできるかもしれない。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 423338
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18179",
+   "kind": "lang",
+   "jp": "え？こんな情報どこから入ってきたのかって？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 423892
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18180",
+   "kind": "lang",
+   "jp": "西",
+   "en": "west",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 424840
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18181",
+   "kind": "lang",
+   "jp": "東",
+   "en": "east",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 424844
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18182",
+   "kind": "lang",
+   "jp": "北",
+   "en": "north",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 424848
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  },
+  {
+   "id": "s18183",
+   "kind": "lang",
+   "jp": "南",
+   "en": "south",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3061",
+     "line": 424851
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3061",
+   "owner": "label_3061"
+  }
+ ]
+}

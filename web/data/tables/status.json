@@ -1,0 +1,20 @@
+{
+  "note": "异常状态（状態異常）表。来源：dmgcon 施加逻辑(start.hsp 195725-196265)、healcon 递减逻辑(196316-196628)、每回合结算与视觉设置(label_2224, 215805-216701)。field 为该状态在 var_58(字段,角色) 中保存强度的字段号；anim 为 var_58(79)=anim+100 的动画编号。",
+  "conditions": {
+    "1":  { "jp": "毒",     "en": "Poison",     "field": 250, "anim": 8,  "applyJp": "{name}は毒におかされた。",         "applyEn": "{name} is poisoned." },
+    "2":  { "jp": "睡眠",   "en": "Sleep",      "field": 251, "anim": 2,  "applyJp": "{name}は眠りにおちた。",           "applyEn": "{name} falls asleep." },
+    "3":  { "jp": "麻痺",   "en": "Paralysis",  "field": 252, "anim": 15, "applyJp": "{name}は麻痺した。",               "applyEn": "{name} is paralyzed." },
+    "4":  { "jp": "盲目",   "en": "Blind",      "field": 253, "anim": 10, "applyJp": "{name}は盲目になった。",           "applyEn": "{name} is blinded." },
+    "5":  { "jp": "混乱",   "en": "Confusion",  "field": 254, "anim": 11, "applyJp": "{name}は混乱した。",               "applyEn": "{name} is confused." },
+    "6":  { "jp": "恐怖",   "en": "Fear",       "field": 255, "anim": 13, "applyJp": "{name}は恐怖に侵された。",         "applyEn": "{name} is frightened." },
+    "7":  { "jp": "朦朧",   "en": "Dim",        "field": 256, "anim": 12, "applyJp": "{name}は朦朧とした。",             "applyEn": "{name} is dimmed." },
+    "8":  { "jp": "酔",     "en": "Drunk",      "field": 257, "anim": 6,  "applyJp": "{name}は酔っ払った。",             "applyEn": "{name} gets drunk." },
+    "9":  { "jp": "出血",   "en": "Bleed",      "field": 258, "anim": 9,  "applyJp": "{name}は血を流し始めた。",         "applyEn": "{name} begins to bleed." },
+    "11": { "jp": "狂気",   "en": "Insane",     "field": 260, "anim": null, "applyJp": "{name}は気が狂った。",           "applyEn": "{name} becomes insane." },
+    "12": { "jp": "病気",   "en": "Sick",       "field": 261, "anim": null, "applyJp": "{name}は病気になった。",         "applyEn": "{name} gets sick." },
+    "20": { "jp": "転倒",   "en": "Knockdown",  "field": 434, "anim": null, "applyJp": "{name}は転倒した。",             "applyEn": "{name} is knocked down." },
+    "21": { "jp": "侵蝕",   "en": "Erosion",    "field": 445, "anim": null, "applyJp": "{name}は冥界の冷気に侵蝕された。", "applyEn": "{name} is eroded." },
+    "22": { "jp": "怯",     "en": "Falter",     "field": 175, "anim": 28, "applyJp": "{name}は怯んだ。",                 "applyEn": "{name} falters." },
+    "23": { "jp": "震え",   "en": "Tremble",    "field": 176, "anim": 29, "applyJp": "{name}は震え始めた。",             "applyEn": "{name} begins trembling." }
+  }
+}

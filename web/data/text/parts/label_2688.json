@@ -1,0 +1,1796 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2688",
+ "entries": [
+  {
+   "id": "s12081",
+   "kind": "raw",
+   "jp": "<title1>◆思考状態<def>\n",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284589
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12082",
+   "kind": "lang",
+   "jp": "特に何も考えていない",
+   "en": "Not thinking anything in particular",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284594
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12083",
+   "kind": "lang",
+   "jp": "もっと刺激がほしい",
+   "en": "Want more stimulation",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284597
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12084",
+   "kind": "lang",
+   "jp": "昔のことを思い出している",
+   "en": "Remember old things",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284600
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12085",
+   "kind": "lang",
+   "jp": "自分はこのままでいいのか疑問",
+   "en": "Am I OK?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284603
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12086",
+   "kind": "lang",
+   "jp": "何も考えない！と考えている",
+   "en": "Do not think about anything!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284606
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12087",
+   "kind": "lang",
+   "jp": "心を覗いていることなんてお見通し！と念じている",
+   "en": "I know that you are looking into my heart!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284609
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12088",
+   "kind": "lang",
+   "jp": "もっと自分のことを理解してほしい",
+   "en": "Want you to understand more about myself",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284612
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12089",
+   "kind": "lang",
+   "jp": "天気が気になる",
+   "en": "Concerned about the weather!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284615
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12090",
+   "kind": "lang",
+   "jp": "家族のことが心配",
+   "en": "Worried about my family",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284618
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12091",
+   "kind": "lang",
+   "jp": "退屈でしょうがない",
+   "en": "Very boring",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284621
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12092",
+   "kind": "lang",
+   "jp": "何か忘れている気がする…",
+   "en": "Feel forgot something...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284624
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12093",
+   "kind": "lang",
+   "jp": "目がちょっとかゆい",
+   "en": "Eyes slightly itchy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284627
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12094",
+   "kind": "lang",
+   "jp": "なぜ格差はなくならないのだろう",
+   "en": "Why will not the gaps disappear?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284630
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12095",
+   "kind": "lang",
+   "jp": "生きることの意味を考えている",
+   "en": "Thinking about the meaning of living",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284633
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12096",
+   "kind": "lang",
+   "jp": "どうしてもアレが欲しい…",
+   "en": "Absolutely want it...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284636
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12097",
+   "kind": "lang",
+   "jp": "愛を感じていたい",
+   "en": "Want to feel love",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284639
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12098",
+   "kind": "lang",
+   "jp": "この前見た夢はなんだったのか",
+   "en": "What was the dream last time?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284642
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12099",
+   "kind": "lang",
+   "jp": "お腹が空いて力が出ない",
+   "en": "Hungry and has no strength.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284645
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12100",
+   "kind": "lang",
+   "jp": "なんでもいいから胃に入れたい",
+   "en": "Want to eat anything",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284648
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12101",
+   "kind": "lang",
+   "jp": "何かガッツリと食べたい",
+   "en": "Wants to eat a lot",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284651
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12102",
+   "kind": "lang",
+   "jp": "甘いものがほしい",
+   "en": "Wants a sweet one",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284654
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12103",
+   "kind": "lang",
+   "jp": "美味しい手料理が食べたい",
+   "en": "Want to eat delicious home cooking",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284657
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12104",
+   "kind": "lang",
+   "jp": "干からびそう",
+   "en": "Thirsty and has no strength.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284661
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12105",
+   "kind": "lang",
+   "jp": "喉がカラカラだ",
+   "en": "Want to drink anything",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284664
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12106",
+   "kind": "lang",
+   "jp": "水分不足でふらふらする",
+   "en": "Wants to drink a lot",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284667
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12107",
+   "kind": "lang",
+   "jp": "み、水…",
+   "en": "Drink....",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284670
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12108",
+   "kind": "lang",
+   "jp": "今日も一日頑張れそう",
+   "en": "I can work hard today",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284674
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12109",
+   "kind": "lang",
+   "jp": "嬉しくてしょうがない",
+   "en": "Happy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284677
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12110",
+   "kind": "lang",
+   "jp": "こういう生活も悪くない",
+   "en": "Such a life is not bad either",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284680
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12111",
+   "kind": "lang",
+   "jp": "誰かにのろけたい",
+   "en": "Want to brag about someone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284684
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12112",
+   "kind": "lang",
+   "jp": "とっても幸せ！",
+   "en": "Very happy!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284687
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12113",
+   "kind": "lang",
+   "jp": "今まで生きてきてよかった",
+   "en": "I am glad that I am alive",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284690
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12114",
+   "kind": "lang",
+   "jp": "絶対負けない",
+   "en": "I will never lose",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284695
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12115",
+   "kind": "lang",
+   "jp": "敵は倒すだけ",
+   "en": "Only enemies are beaten",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284698
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12116",
+   "kind": "lang",
+   "jp": "いつも通りやれば大丈夫",
+   "en": "I will fight as usual",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284701
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12117",
+   "kind": "lang",
+   "jp": "勝てるか不安",
+   "en": "Anxious about defeat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284704
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12118",
+   "kind": "lang",
+   "jp": "負けるわけがない",
+   "en": "No possibility of lose",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284707
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12119",
+   "kind": "lang",
+   "jp": "いざ尋常に勝負！",
+   "en": "Let's fight squarely",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284710
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12120",
+   "kind": "lang",
+   "jp": "きっとなんとかなる",
+   "en": "Sure works well",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284713
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12121",
+   "kind": "lang",
+   "jp": "もう休みたい",
+   "en": "Want to rest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284717
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12122",
+   "kind": "lang",
+   "jp": "なんかどうでもよくなってきた",
+   "en": "Anything has become better",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284720
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12123",
+   "kind": "lang",
+   "jp": "これ以上頑張る必要はあるのか？",
+   "en": "Do I need to work harder any more?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284723
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12124",
+   "kind": "lang",
+   "jp": "だからイヤだったんだ",
+   "en": "I was disgusted",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284726
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12125",
+   "kind": "lang",
+   "jp": "自分は死ぬかもしれない",
+   "en": "I may die",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284730
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12126",
+   "kind": "lang",
+   "jp": "まだ倒れるわけにはいかない",
+   "en": "I can not afford to fall down yet",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284733
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12127",
+   "kind": "lang",
+   "jp": "ここを死に場所にする気はない",
+   "en": "I am not going to die here",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284736
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12128",
+   "kind": "lang",
+   "jp": "痛い痛い嫌だ死にたくない",
+   "en": "I do not want to die...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284739
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12129",
+   "kind": "lang",
+   "jp": "なんだかゾクゾクする",
+   "en": "I am excited",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284742
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12130",
+   "kind": "lang",
+   "jp": "何も見えなくて不安",
+   "en": "Anxious that can not see anything",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284746
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12131",
+   "kind": "lang",
+   "jp": "なんだか愉快♪",
+   "en": "Somewhat funny",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284749
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12132",
+   "kind": "lang",
+   "jp": "なんとかして脱出しないと！",
+   "en": "Wants to escape by some means",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284752
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12133",
+   "kind": "lang",
+   "jp": "動けなくて悔しい",
+   "en": "Regret that can not move",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284755
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12134",
+   "kind": "lang",
+   "jp": "怒りが収まらない！",
+   "en": "Can not stop anger",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284758
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12135",
+   "kind": "lang",
+   "jp": "頭の中がぐるぐるする",
+   "en": "Scattered in head",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284761
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12136",
+   "kind": "lang",
+   "jp": "頭にモヤがかかっているみたい",
+   "en": "Misty on head",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284764
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12137",
+   "kind": "lang",
+   "jp": "命令ヲ実行スル",
+   "en": "Trying to execute the order",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284767
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12138",
+   "kind": "lang",
+   "jp": "気分が悪い",
+   "en": "In a bad mood",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284770
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12139",
+   "kind": "lang",
+   "jp": "体調不良でつらい",
+   "en": "Painful a poor physical condition",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284773
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12140",
+   "kind": "lang",
+   "jp": "逃げなきゃ駄目だ逃げなきゃ駄目だ",
+   "en": "Have to run away",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284776
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12141",
+   "kind": "lang",
+   "jp": "息ができない！苦しい…",
+   "en": "Painful that can not breathe",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284779
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12142",
+   "kind": "lang",
+   "jp": "夢の中で羊と遊んでいる",
+   "en": "Playing with the sheep in dream",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284782
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12143",
+   "kind": "lang",
+   "jp": "強迫観念にとりつかれている",
+   "en": "Obsession",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284785
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12144",
+   "kind": "lang",
+   "jp": "恐怖で頭の中がぐちゃぐちゃ",
+   "en": "Scared with fear",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284788
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12145",
+   "kind": "lang",
+   "jp": "昔のトラウマに苦しんでいる",
+   "en": "Suffering from trauma.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284791
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12146",
+   "kind": "lang",
+   "jp": "あなたに殺される幻覚を見ている",
+   "en": "Looking at the hallucination killed by you",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284794
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12147",
+   "kind": "lang",
+   "jp": "自殺衝動にあらがっている",
+   "en": "Suffers from a suicide impulse.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284797
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12148",
+   "kind": "lang",
+   "jp": "自分の心を覗くのは奇妙な感じだ",
+   "en": "It is a strange feeling of looking into my heart.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284801
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12149",
+   "kind": "raw",
+   "jp": "<title1>◆苦手なもの<def>\n",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284807
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12150",
+   "kind": "lang",
+   "jp": "物理攻撃",
+   "en": "Physical damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284813
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12151",
+   "kind": "lang",
+   "jp": "火炎属性の攻撃",
+   "en": "Fire damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284817
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12152",
+   "kind": "lang",
+   "jp": "冷気属性の攻撃",
+   "en": "Cold damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284821
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12153",
+   "kind": "lang",
+   "jp": "電撃属性の攻撃",
+   "en": "Lightning damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284825
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12154",
+   "kind": "lang",
+   "jp": "暗黒属性の攻撃",
+   "en": "Darkness damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284829
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12155",
+   "kind": "lang",
+   "jp": "幻惑属性の攻撃",
+   "en": "Mind damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284833
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12156",
+   "kind": "lang",
+   "jp": "毒属性の攻撃",
+   "en": "Poison damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284837
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12157",
+   "kind": "lang",
+   "jp": "地獄属性の攻撃",
+   "en": "Nether damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284841
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12158",
+   "kind": "lang",
+   "jp": "音属性の攻撃",
+   "en": "Sound damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284845
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12159",
+   "kind": "lang",
+   "jp": "神経属性の攻撃",
+   "en": "Nerve damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284849
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12160",
+   "kind": "lang",
+   "jp": "混沌属性の攻撃",
+   "en": "Chaos damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284853
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12161",
+   "kind": "lang",
+   "jp": "魔法属性の攻撃",
+   "en": "Magic damage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284857
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12162",
+   "kind": "lang",
+   "jp": "混乱状態",
+   "en": "Confuse status",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284861
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12163",
+   "kind": "lang",
+   "jp": "盲目状態",
+   "en": "Blind status",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284865
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12164",
+   "kind": "lang",
+   "jp": "恐怖状態",
+   "en": "Fear status",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284869
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12165",
+   "kind": "lang",
+   "jp": "睡眠状態",
+   "en": "Sleep status",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284873
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12166",
+   "kind": "lang",
+   "jp": "麻痺状態",
+   "en": "Paralyze status",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284877
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12167",
+   "kind": "lang",
+   "jp": "毒状態",
+   "en": "Poison status",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284881
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12168",
+   "kind": "lang",
+   "jp": "酸",
+   "en": "Acid",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284901
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12169",
+   "kind": "lang",
+   "jp": "出血状態",
+   "en": "Bleeding",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284905
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12170",
+   "kind": "lang",
+   "jp": "トラップ",
+   "en": "Trap",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284909
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12171",
+   "kind": "lang",
+   "jp": "透明の敵",
+   "en": "Invisible enemy",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284913
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12172",
+   "kind": "lang",
+   "jp": "寄生生物",
+   "en": "Parasite",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284917
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12173",
+   "kind": "lang",
+   "jp": "ふかふかパン",
+   "en": "Puff puff bread",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284921
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12174",
+   "kind": "lang",
+   "jp": "塩",
+   "en": "Salt",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284925
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12175",
+   "kind": "lang",
+   "jp": "イーク",
+   "en": "Yeek",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284929
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12176",
+   "kind": "lang",
+   "jp": "猫",
+   "en": "Cat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284933
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  },
+  {
+   "id": "s12177",
+   "kind": "lang",
+   "jp": "鮫",
+   "en": "Shark",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2688",
+     "line": 284937
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2688",
+   "owner": "label_2688"
+  }
+ ]
+}

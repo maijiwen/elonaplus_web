@@ -1,0 +1,1081 @@
+{
+  "personalities": [
+    {
+      "jp": "未设定",
+      "en": "none"
+    },
+    {
+      "jp": "开朗",
+      "en": "Cheerful"
+    },
+    {
+      "jp": "慎重",
+      "en": "Carefully"
+    },
+    {
+      "jp": "献身",
+      "en": "Devoted"
+    },
+    {
+      "jp": "豪爽",
+      "en": "Lively"
+    },
+    {
+      "jp": "自信",
+      "en": "Confident"
+    },
+    {
+      "jp": "谦虚",
+      "en": "Humility"
+    },
+    {
+      "jp": "寡言",
+      "en": "Quiet"
+    },
+    {
+      "jp": "勤勉",
+      "en": "Diligence"
+    },
+    {
+      "jp": "纯真",
+      "en": "Innocent"
+    },
+    {
+      "jp": "细腻",
+      "en": "Delicate"
+    },
+    {
+      "jp": "温厚",
+      "en": "Gentle"
+    },
+    {
+      "jp": "热情",
+      "en": "Passionate"
+    },
+    {
+      "jp": "坏心眼",
+      "en": "Evil"
+    },
+    {
+      "jp": "好色",
+      "en": "Lewd"
+    },
+    {
+      "jp": "讽刺",
+      "en": "Cynic"
+    },
+    {
+      "jp": "冷酷",
+      "en": "Ruthless"
+    },
+    {
+      "jp": "好战",
+      "en": "Warlike"
+    },
+    {
+      "jp": "腹黑",
+      "en": "Corrupt"
+    },
+    {
+      "jp": "偏执",
+      "en": "Paranodic"
+    },
+    {
+      "jp": "顽固",
+      "en": "Stubborn"
+    },
+    {
+      "jp": "守财奴",
+      "en": "Miser"
+    },
+    {
+      "jp": "懒惰",
+      "en": "Lazy"
+    },
+    {
+      "jp": "笨蛋",
+      "en": "Stupid"
+    },
+    {
+      "jp": "乐天",
+      "en": "Carefree"
+    },
+    {
+      "jp": "情绪化",
+      "en": "Whimsical"
+    },
+    {
+      "jp": "卑鄙",
+      "en": "Despicable"
+    },
+    {
+      "jp": "傲慢",
+      "en": "Arrogance"
+    },
+    {
+      "jp": "胆小",
+      "en": "Cowardly"
+    },
+    {
+      "jp": "阴郁",
+      "en": "Gloomy"
+    },
+    {
+      "jp": "猎奇",
+      "en": "Bizarre"
+    },
+    {
+      "jp": "调皮",
+      "en": "Playful"
+    },
+    {
+      "jp": "内向",
+      "en": "Shy"
+    },
+    {
+      "jp": "神经质",
+      "en": "Nervous"
+    },
+    {
+      "jp": "下流",
+      "en": "Vulgar"
+    },
+    {
+      "jp": "唱反调",
+      "en": "Perversity"
+    },
+    {
+      "jp": "坚强",
+      "en": "Courageous"
+    }
+  ],
+  "meta": {
+    "source": "hsp/start.hsp",
+    "label": "*label_2697",
+    "range": [
+      285258,
+      285604
+    ],
+    "note": "特徴と体質窗口的 [bit] 条目；feat/变异/先天/エーテル病 部分见 feats.json"
+  },
+  "entries": [
+    {
+      "line": 285258,
+      "when": {
+        "k": "cbit",
+        "bit": 16
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你正在伪装。",
+      "en": "You are disguising yourself."
+    },
+    {
+      "line": 285263,
+      "when": {
+        "k": "cbit",
+        "bit": 978
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你的腹部被寄生了。",
+      "en": "You are parasitic in the belly."
+    },
+    {
+      "line": 285268,
+      "when": {
+        "k": "cbit",
+        "bit": 1045
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你的脑髓被寄生了。",
+      "en": "You are parasitic in the brain."
+    },
+    {
+      "line": 285273,
+      "when": {
+        "k": "cbit",
+        "bit": 986
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你患有厌食症。",
+      "en": "You have anorexia."
+    },
+    {
+      "line": 285278,
+      "when": {
+        "k": "cbit",
+        "bit": 5
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你可以漂浮。",
+      "en": "You can float."
+    },
+    {
+      "line": 285283,
+      "when": {
+        "k": "cbit",
+        "bit": 6
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你可以隐形。",
+      "en": "You can be invisible."
+    },
+    {
+      "line": 285288,
+      "when": {
+        "k": "cbit",
+        "bit": 7
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你能看见隐形存在。",
+      "en": "You see invisible creatures."
+    },
+    {
+      "line": 285293,
+      "when": {
+        "k": "cbit",
+        "bit": 8
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "混乱对你无效。",
+      "en": "You negates the effect of confusion."
+    },
+    {
+      "line": 285298,
+      "when": {
+        "k": "cbit",
+        "bit": 9
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "失明对你无效。",
+      "en": "You negates the effect of blindness."
+    },
+    {
+      "line": 285303,
+      "when": {
+        "k": "cbit",
+        "bit": 10
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "恐惧对你无效。",
+      "en": "You negates the effect of fear."
+    },
+    {
+      "line": 285308,
+      "when": {
+        "k": "cbit",
+        "bit": 11
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "睡眠对你无效。",
+      "en": "You negates the effect of sleep."
+    },
+    {
+      "line": 285313,
+      "when": {
+        "k": "cbit",
+        "bit": 12
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "麻痹对你无效。",
+      "en": "You negates the effect of paralysis."
+    },
+    {
+      "line": 285318,
+      "when": {
+        "k": "cbit",
+        "bit": 13
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "毒对你无效。",
+      "en": "You negates the effect of poison."
+    },
+    {
+      "line": 285323,
+      "when": {
+        "k": "cbit",
+        "bit": 14
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你能轻松消化腐烂食物。",
+      "en": "You can digest rotten foods."
+    },
+    {
+      "line": 285328,
+      "when": {
+        "k": "cbit",
+        "bit": 15
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你的物品不会被偷。",
+      "en": "You will not have item stolen."
+    },
+    {
+      "line": 285333,
+      "when": {
+        "k": "cbit",
+        "bit": 18
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你会自爆。",
+      "en": "You self-destruct."
+    },
+    {
+      "line": 285338,
+      "when": {
+        "k": "cbit",
+        "bit": 19
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你司掌死亡。",
+      "en": "You govern death word."
+    },
+    {
+      "line": 285343,
+      "when": {
+        "k": "cbit",
+        "bit": 20
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你能使用三连箭魔法。",
+      "en": "You can cast triple arrow spells."
+    },
+    {
+      "line": 285348,
+      "when": {
+        "k": "cbit",
+        "bit": 21
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你能使用雷手。",
+      "en": "You can use Layhand."
+    },
+    {
+      "line": 285353,
+      "when": {
+        "k": "cbit",
+        "bit": 22
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你适合骑马。",
+      "en": "You are suitable for riding."
+    },
+    {
+      "line": 285358,
+      "when": {
+        "k": "cbit",
+        "bit": 23
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你可以分裂。",
+      "en": "You can split when attacked easily."
+    },
+    {
+      "line": 285363,
+      "when": {
+        "k": "cbit",
+        "bit": 24
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你对诅咒有抗性。",
+      "en": "You are strong against curses."
+    },
+    {
+      "line": 285368,
+      "when": {
+        "k": "cbit",
+        "bit": 25
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你不适合骑马。",
+      "en": "You are too weak to carry you."
+    },
+    {
+      "line": 285373,
+      "when": {
+        "k": "cbit",
+        "bit": 26
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你能中和双方的属性攻击。",
+      "en": "You neutralize each other's attribute attacks."
+    },
+    {
+      "line": 285378,
+      "when": {
+        "k": "cbit",
+        "bit": 27
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "状态良好时你会分裂。",
+      "en": "You can split when attacked."
+    },
+    {
+      "line": 285383,
+      "when": {
+        "k": "cbit",
+        "bit": 28
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你由特殊金属构成。",
+      "en": "You are made of special metal"
+    },
+    {
+      "line": 285388,
+      "when": {
+        "k": "cbit",
+        "bit": 29
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你不易出血。",
+      "en": "You don't bleed easily."
+    },
+    {
+      "line": 285393,
+      "when": {
+        "k": "cbit",
+        "bit": 31
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你不会被地雷感应到。",
+      "en": "You are not sensed by land mines."
+    },
+    {
+      "line": 285398,
+      "when": {
+        "k": "cbit",
+        "bit": 32
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你受到攻击时会发怒。",
+      "en": "You get angry when attacked."
+    },
+    {
+      "line": 285403,
+      "when": {
+        "k": "cbit",
+        "bit": 33
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你被特殊装甲覆盖。",
+      "en": "You are covered in special armor."
+    },
+    {
+      "line": 285408,
+      "when": {
+        "k": "cbit",
+        "bit": 34
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你擅长快速射击。",
+      "en": "You are good at shooting fast."
+    },
+    {
+      "line": 285413,
+      "when": {
+        "k": "cbit",
+        "bit": 1028
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "你摆出柔术架势。",
+      "en": "You are ready for Jiujitsu."
+    },
+    {
+      "line": 285418,
+      "when": {
+        "k": "cbit",
+        "bit": 1031
+      },
+      "tag": {
+        "jp": "[bit]",
+        "en": "[bit]"
+      },
+      "jp": "咏唱时你会情绪高涨。",
+      "en": "You feel uplifted while casting."
+    },
+    {
+      "line": 285423,
+      "when": {
+        "k": "f58",
+        "f": 68,
+        "op": "!=",
+        "v": 0
+      },
+      "tag": {
+        "jp": "[其他]",
+        "en": "[ETC]"
+      },
+      "jp": "你的身体结构复杂[速度-{0}%]",
+      "en": "Your body is complicated. [SPD-{0}%]",
+      "args": [
+        {
+          "k": "f58",
+          "f": 68
+        }
+      ]
+    },
+    {
+      "line": 285428,
+      "when": {
+        "k": "v65sign",
+        "v": 800
+      },
+      "tag": {
+        "jp": "[其他]",
+        "en": "[ETC]"
+      },
+      "entries": [
+        {
+          "sign": 1,
+          "jp": "你的以太病进展很快。",
+          "en": "Your Ether disease grows fast."
+        },
+        {
+          "sign": -1,
+          "jp": "你的以太病进展很慢。",
+          "en": "Your Ether disease grows slow."
+        }
+      ]
+    },
+    {
+      "line": 285440,
+      "when": {
+        "k": "cbit-or-player",
+        "bit": 1050
+      },
+      "tag": {
+        "jp": "[其他]",
+        "en": "[ETC]"
+      },
+      "jp": "你吃生食。",
+      "en": "You eat raw items."
+    },
+    {
+      "line": 285445,
+      "when": {
+        "k": "cbit",
+        "bit": 1051
+      },
+      "tag": {
+        "jp": "[其他]",
+        "en": "[ETC]"
+      },
+      "jp": "你有分娩经验[耐久属性受到的伤害减半]",
+      "en": "You have given birth. [RES+ ENDattack]"
+    },
+    {
+      "line": 285450,
+      "when": {
+        "k": "cbit",
+        "bit": 1002
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你的魅力甚至能让敌人恍惚[直接攻击你的敌人会恍惚]",
+      "en": "You got Attraction."
+    },
+    {
+      "line": 285455,
+      "when": {
+        "k": "cbit",
+        "bit": 1003
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你的毅力甚至能跨越绝境[HP越少，回避惩罚减轻、暴击提升]",
+      "en": "You got Guts."
+    },
+    {
+      "line": 285460,
+      "when": {
+        "k": "cbit",
+        "bit": 1004
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你的底力甚至能跨越绝境[HP越少，最终造成伤害越高]",
+      "en": "You got Boundless power."
+    },
+    {
+      "line": 285465,
+      "when": {
+        "k": "cbit",
+        "bit": 1005
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你的屏障能防住任何攻击[消耗与伤害相当的MP使攻击无效]",
+      "en": "You got Barrier."
+    },
+    {
+      "line": 285470,
+      "when": {
+        "k": "cbit",
+        "bit": 993
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握辱骂。",
+      "en": "You got Insult."
+    },
+    {
+      "line": 285475,
+      "when": {
+        "k": "cbit",
+        "bit": 994
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握魔力聚集。",
+      "en": "You got Crystal Spear."
+    },
+    {
+      "line": 285480,
+      "when": {
+        "k": "cbit",
+        "bit": 996
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握空间扭曲。",
+      "en": "You got Dimensional Move."
+    },
+    {
+      "line": 285485,
+      "when": {
+        "k": "cbit",
+        "bit": 995
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握战术治疗。",
+      "en": "You got Tactical Heal."
+    },
+    {
+      "line": 285490,
+      "when": {
+        "k": "cbit",
+        "bit": 997
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握战术攻击。",
+      "en": "You got Tactical Attack."
+    },
+    {
+      "line": 285495,
+      "when": {
+        "k": "cbit",
+        "bit": 998
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握战术武艺。",
+      "en": "You got Tactical Martial Arts."
+    },
+    {
+      "line": 285500,
+      "when": {
+        "k": "cbit",
+        "bit": 1007
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握战术诅咒。",
+      "en": "You got Tactical Curse."
+    },
+    {
+      "line": 285505,
+      "when": {
+        "k": "cbit",
+        "bit": 999
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握蓄力。",
+      "en": "You got Charge Attack."
+    },
+    {
+      "line": 285510,
+      "when": {
+        "k": "cbit",
+        "bit": 1006
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握挑衅。",
+      "en": "You got Provoke."
+    },
+    {
+      "line": 285515,
+      "when": {
+        "k": "cbit",
+        "bit": 1013
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握零间射击。",
+      "en": "You got Zero shoot."
+    },
+    {
+      "line": 285520,
+      "when": {
+        "k": "cbit",
+        "bit": 1014
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握战术投掷。",
+      "en": "You got Tactical Throw."
+    },
+    {
+      "line": 285525,
+      "when": {
+        "k": "cbit",
+        "bit": 1008
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握可变放射。",
+      "en": "You got Variable Breath."
+    },
+    {
+      "line": 285530,
+      "when": {
+        "k": "cbit",
+        "bit": 1009
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你已掌握范围魔法可变术式。",
+      "en": "You got Variable Storm."
+    },
+    {
+      "line": 285535,
+      "when": {
+        "k": "cbit",
+        "bit": 1000
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你偏好近战攻击。",
+      "en": "You prefer the proximity attack."
+    },
+    {
+      "line": 285540,
+      "when": {
+        "k": "cbit",
+        "bit": 1001
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你偏好远程攻击。",
+      "en": "You prefer the shot."
+    },
+    {
+      "line": 285545,
+      "when": {
+        "k": "cbit",
+        "bit": 1016
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你偏好箭系魔法。",
+      "en": "You prefer the magic arrows."
+    },
+    {
+      "line": 285550,
+      "when": {
+        "k": "cbit",
+        "bit": 1046
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你封印了魔法。",
+      "en": "You forbid using spells."
+    },
+    {
+      "line": 285555,
+      "when": {
+        "k": "cbit",
+        "bit": 1047
+      },
+      "tag": {
+        "jp": "[觉醒]",
+        "en": "[AWAKE]"
+      },
+      "jp": "你封印了技能。",
+      "en": "You forbid using special actions."
+    },
+    {
+      "line": 285560,
+      "when": {
+        "k": "cbit",
+        "bit": 1020
+      },
+      "tag": {
+        "jp": "[营业]",
+        "en": "[SHOP]"
+      },
+      "jp": "你气质高雅[商店顾客质量上升]",
+      "en": "You got elegance."
+    },
+    {
+      "line": 285565,
+      "when": {
+        "k": "cbit",
+        "bit": 1021
+      },
+      "tag": {
+        "jp": "[营业]",
+        "en": "[SHOP]"
+      },
+      "jp": "你有审美眼光[兑换率上升]",
+      "en": "You got aesthetic sense."
+    },
+    {
+      "line": 285570,
+      "when": {
+        "k": "cbit",
+        "bit": 1022
+      },
+      "tag": {
+        "jp": "[营业]",
+        "en": "[SHOP]"
+      },
+      "jp": "你有独特的商品采购渠道[独有收入增加]",
+      "en": "You got proprietary procurement route."
+    },
+    {
+      "line": 285575,
+      "when": {
+        "k": "cbit",
+        "bit": 1023
+      },
+      "tag": {
+        "jp": "[营业]",
+        "en": "[SHOP]"
+      },
+      "jp": "你有很强的合作能力[同行时买卖强化]",
+      "en": "You got tie-up force."
+    },
+    {
+      "line": 285580,
+      "when": {
+        "k": "cbit",
+        "bit": 1024
+      },
+      "tag": {
+        "jp": "[营业]",
+        "en": "[SHOP]"
+      },
+      "jp": "你的营业微笑完美[掌握魅惑攻击]",
+      "en": "You got business smile."
+    },
+    {
+      "line": 285585,
+      "when": {
+        "k": "f58",
+        "f": 151,
+        "op": ">",
+        "v": 0
+      },
+      "tag": {
+        "jp": "[性格]",
+        "en": "[CHARA]"
+      },
+      "jp": "你是{0}[地图开始时初始能量槽+3]",
+      "en": "You are {0}. [Power gauge +3 at the start of the map]",
+      "args": [
+        {
+          "k": "personality",
+          "f": 151
+        }
+      ]
+    },
+    {
+      "line": 285590,
+      "when": {
+        "k": "f58",
+        "f": 154,
+        "op": ">",
+        "v": 0
+      },
+      "tag": {
+        "jp": "[性格]",
+        "en": "[CHARA]"
+      },
+      "jp": "你也有{0}的一面[受到伤害时能量槽+1]",
+      "en": "You have a {0} aspect. [Power gauge +1 when damaged]",
+      "args": [
+        {
+          "k": "personality",
+          "f": 154
+        }
+      ]
+    },
+    {
+      "line": 285595,
+      "when": {
+        "k": "cbit",
+        "bit": 1038
+      },
+      "tag": {
+        "jp": "[其他]",
+        "en": "[ETC]"
+      },
+      "jp": "你不被烦恼束缚[能量槽下限+1]",
+      "en": "You are not in serious trouble. [Power gauge lower limit +1]"
+    },
+    {
+      "line": 285600,
+      "when": {
+        "k": "cbit",
+        "bit": 1039
+      },
+      "tag": {
+        "jp": "[其他]",
+        "en": "[ETC]"
+      },
+      "jp": "你觉醒了危险的爱好[疯狂度下限+10与能量槽下限+5]",
+      "en": "You are waking up to a dangerous hobby. [SAN lower limit +10/Power gauge lower limit +5]"
+    }
+  ]
+}

@@ -1,0 +1,464 @@
+{
+  "key": "sample",
+  "tags": {
+    "txtCalm": {
+      "jp": [
+        "「是谁？有人在看着我」{Question}",
+        "「虽然很不甘心…」"
+      ],
+      "en": [
+        "\"Weee.\"",
+        "\"Brother!\""
+      ]
+    },
+    "txtAggro": {
+      "jp": [
+        "「这家伙，要动了」",
+        "「你能保证战斗结束后就能睡个好觉吗？」",
+        "「看得见。我能看见动作！」{seEnc}"
+      ],
+      "en": [
+        "\"Scum!\""
+      ]
+    },
+    "txtDead": {
+      "jp": [
+        "「那么，我们这次的相遇到底算什么！」",
+        "「这就是，战、战斗」"
+      ],
+      "en": [
+        "\"I'm dead.\""
+      ]
+    },
+    "txtKilled": {
+      "jp": [
+        "「我、我做了无法挽回的事…做了无法挽回的事…」",
+        "「明明并不是因为有自信才做的」"
+      ],
+      "en": [
+        "\"I killed it.\""
+      ]
+    },
+    "txtWelcome": {
+      "jp": [
+        "「没错。是那家伙，那家伙来了」"
+      ],
+      "en": [
+        "\"Welcome back.\""
+      ]
+    },
+    "txtDialog": {
+      "jp": [
+        "怎么了？{Question}{se0}{se1}",
+        "（啧){Angry}{se1}"
+      ],
+      "en": [
+        "Hi.",
+        "What's up?",
+        "Dude..."
+      ]
+    },
+    "txtMaterial": {
+      "jp": [
+        "「无视他人善意的人会痛苦一辈子」"
+      ],
+      "en": [
+        "\"I'll give this to you!\""
+      ]
+    },
+    "txtBfast": {
+      "jp": [
+        "「{player}，今天也很有精神呢」"
+      ],
+      "en": [
+        "\"Good morning!\""
+      ]
+    },
+    "txtNight": {
+      "jp": [
+        "「靠得这么近，就无法从四方发动攻击了吧！」"
+      ],
+      "en": [
+        "\"ZZZ..\""
+      ]
+    },
+    "txtInsult": {
+      "jp": [
+        "「那是自私！」{Angry}",
+        "「我没有像你那样着急，也没有对人类绝望！」"
+      ],
+      "en": [
+        "\"You suck!\"",
+        "\"You will die alone.\""
+      ]
+    },
+    "txtInsult2": {
+      "jp": [
+        "「真没出息！」"
+      ],
+      "en": [
+        "\"You suck!\"",
+        "\"You will die alone."
+      ]
+    },
+    "txtDiscipline": {
+      "jp": [
+        "「你、你打了我…」{Angry}"
+      ],
+      "en": [
+        "\"Stop!\""
+      ]
+    },
+    "txtDiscipline2": {
+      "jp": [
+        "「明明连我爸都没打过我！」"
+      ],
+      "en": [
+        "\"Stop!\""
+      ]
+    },
+    "txtDisciplineOff": {
+      "jp": [
+        "「你打了我两次！」{Angry}"
+      ],
+      "en": [
+        "\"Please...stop...\""
+      ]
+    },
+    "txtDisciplineEat": {
+      "jp": [
+        "「啊…必须吃…」"
+      ],
+      "en": [
+        "\"Can I eat this food?\""
+      ]
+    },
+    "txtMeal": {
+      "jp": [
+        "吃我一招！"
+      ],
+      "en": [
+        "\"This is delicious!\""
+      ]
+    },
+    "txtCharge": {
+      "jp": [
+        "「我会在这里挡住你！」"
+      ],
+      "en": [
+        "\"I will protect you!\""
+      ]
+    },
+    "txtChargeS": {
+      "jp": [
+        "「快离开…{npcc}的力量是」"
+      ],
+      "en": [
+        "\"I started to charge from now.\""
+      ]
+    },
+    "txtChargeA": {
+      "jp": [
+        "「掉下去吧！」"
+      ],
+      "en": [
+        "\"How about this attack?\""
+      ]
+    },
+    "txtKizuna": {
+      "jp": [
+        "「必须让他们看到人心中的光」",
+        "「{nptc}可不是徒有虚名！」",
+        "「站起来！站起来…！站起来，{player}！」"
+      ],
+      "en": [
+        "\"I will fight with you to the last...!\""
+      ]
+    },
+    "txtSpecial": {
+      "jp": [
+        "「吃这招啊啊啊啊！」",
+        "「休想得逞！就是那里！」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtKiss": {
+      "jp": [
+        "「厉害…难怪老爸会沉迷」"
+      ],
+      "en": [
+        "\"Woohoo!\""
+      ]
+    },
+    "txtChoco": {
+      "jp": [
+        "「没有比这更开心的事了…」"
+      ],
+      "en": [
+        "\"Woohoo!\""
+      ]
+    },
+    "txtNade": {
+      "jp": [
+        "「那里！」",
+        "「好像让你担心了。我没事哦」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtHug": {
+      "jp": [
+        "「我最喜欢的{player}…」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtFawnOn": {
+      "jp": [
+        "「{npcc}太有魅力了…」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtMidNight": {
+      "jp": [
+        "「人类总是重复同样的错误。真是的…！」"
+      ],
+      "en": [
+        "\"ZZZ..\""
+      ]
+    },
+    "txtRideOff": {
+      "jp": [
+        "「太迟了吗…？」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtRideOffPC": {
+      "jp": [
+        "「我最能巧妙地驾驭{player}。最、最能巧妙地驾驭…」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtRideOn": {
+      "jp": [
+        "「要突击了！」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtRideOnPC": {
+      "jp": [
+        "「出发啦——！」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtLimit": {
+      "jp": [
+        "「只是向着明天…永远」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtMultiple": {
+      "jp": [
+        "「仍燃烧着愤怒的斗志　去讨伐巨大的敌人」",
+        "「沉入绝望的悲伤　让翻涌的血潮燃烧吧」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtDrain": {
+      "jp": [
+        "「…」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtCreate": {
+      "jp": [
+        "「这是我做的。就这个啦」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtBtalk": {
+      "jp": [
+        "「够了！大家都住手！！」",
+        "「说话啊，我也有想说的话！！」",
+        "「因为为这种事死掉也太无聊了」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtEXAct": {
+      "jp": [
+        "蒙住眼睛"
+      ],
+      "en": [
+        "To blindfold"
+      ]
+    },
+    "txtEXReact": {
+      "jp": [
+        "「还没完！不过是主摄像头被打坏了而已！！」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtDialogB": {
+      "jp": [
+        "我、我要做，我要做给你看！",
+        "你想做什么？"
+      ],
+      "en": [
+        "I am somewhat pounding."
+      ]
+    },
+    "txtDialogE": {
+      "jp": [
+        "不、不行，不能向前进。",
+        "光与人的漩涡，正在融化。",
+        "{player}，{player}，你不爱我吗？"
+      ],
+      "en": [
+        "Please do not be mean..."
+      ]
+    },
+    "txtDialogF": {
+      "jp": [
+        "已经可以了吗？",
+        "人总有一天连时间都能支配。",
+        "哈哈哈，谢谢。"
+      ],
+      "en": [
+        "I'm fun!"
+      ]
+    },
+    "txtDialogH": {
+      "jp": [
+        "啊，是啊，我想是这样。这也是命运。",
+        "我相信，因为我也能和你这样互相理解。",
+        "看得见哦，{player}…。看得见哦，大家…。"
+      ],
+      "en": [
+        "Very happy!"
+      ]
+    },
+    "txtMizuAsobi": {
+      "jp": [
+        "「啊…」",
+        "「不错」",
+        "「唔…！」{Embarrassment}",
+        "「诶！」",
+        "「哦♪」"
+      ],
+      "en": [
+        "\"Ah...\"",
+        "\"Yes...\"",
+        "\"Wow!!\"",
+        "\"Phew!\"",
+        "\"Oh...!\""
+      ]
+    },
+    "txtMizuAsobiEnd": {
+      "jp": [
+        "「如果被迫过这种生活，就算变得有点没骨气也没办法」"
+      ],
+      "en": [
+        "\"I was very felt good!\""
+      ]
+    },
+    "txtTag": {
+      "jp": [
+        "我，真的开始想揍那个人了。",
+        "我也有想说的话！",
+        "我们不是一起走到今天的伙伴吗。"
+      ],
+      "en": [
+        "I'm fun!"
+      ]
+    },
+    "txtTagEvo": {
+      "jp": [
+        "但是必须承认！睁开眼睛…。",
+        "什么都做不到…啊啊！",
+        "就、就、只有、这个吗？就只有这个，就结束了吗！"
+      ],
+      "en": [
+        "Very happy!"
+      ]
+    },
+    "txtShift": {
+      "jp": [
+        "「改造人变身！！」",
+        "「构筑升级！」"
+      ],
+      "en": [
+        "\"Weee.\""
+      ]
+    },
+    "txtLeading": {
+      "jp": [
+        "「不能说做得到」",
+        "「只能做了！」",
+        "「我知道啦！」"
+      ],
+      "en": [
+        "\"I know!\""
+      ]
+    },
+    "txtClementia": {
+      "jp": [
+        "「这样下去是要被群殴吗」",
+        "「我，不干了！」",
+        "「我已经受够害怕了！」"
+      ],
+      "en": [
+        "\"I surrender!\""
+      ]
+    },
+    "txtPleasure": {
+      "jp": [
+        "「那里！」",
+        "「哇」",
+        "「虽然不喜欢被绕到背后…」"
+      ],
+      "en": [
+        "\"There!\"",
+        "\"Whoa!\"",
+        "\"I hate being taken from behind, but...\""
+      ]
+    },
+    "txtPleasureHard": {
+      "jp": [
+        "「我只是因为不想死才做的」",
+        "「这不是太自私了吗！」",
+        "「没想到这么快…」"
+      ],
+      "en": [
+        "\"I'm just doing it because I don't want to die!\"",
+        "\"Isn't that selfish?\"",
+        "\"I didn't realize it was going that fast...\""
+      ]
+    }
+  }
+}

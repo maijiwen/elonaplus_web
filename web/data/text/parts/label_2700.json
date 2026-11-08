@@ -1,0 +1,1043 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2700",
+ "entries": [
+  {
+   "id": "s12266",
+   "kind": "lang",
+   "jp": "ノルマ: ",
+   "en": "\nDeadline: ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286000
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12267",
+   "kind": "lang",
+   "jp": "日以内",
+   "en": " Days left",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286000
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12268",
+   "kind": "raw",
+   "jp": "◆ 給料(毎月1日と15日に支給)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286014
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12269",
+   "kind": "raw",
+   "jp": "@BL　合計　　 : 約 ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286015
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12270",
+   "kind": "raw",
+   "jp": "◆ 請求書内訳(毎月1日に発行)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286017
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12271",
+   "kind": "raw",
+   "jp": "@RE　人件費  : 約 ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286018
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12272",
+   "kind": "raw",
+   "jp": "@RE　維持費  : 約 ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286019
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12273",
+   "kind": "raw",
+   "jp": "@RE　税金    : 約 ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286020
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12274",
+   "kind": "raw",
+   "jp": "@RE　合計　  : 約 ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286021
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12275",
+   "kind": "raw",
+   "jp": "現在先払いの残額は",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286023
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12276",
+   "kind": "raw",
+   "jp": "現在未払いの請求書は",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286026
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12277",
+   "kind": "raw",
+   "jp": "枚",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286026
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12278",
+   "kind": "raw",
+   "jp": "◆ これまでのあなた",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286050
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12279",
+   "kind": "raw",
+   "jp": "@BL　ネフィア制覇数  : ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286052
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12280",
+   "kind": "raw",
+   "jp": "@BL　殺害数　　　　  : ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286053
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12281",
+   "kind": "raw",
+   "jp": "@BL　決闘の経験　　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286054
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12282",
+   "kind": "raw",
+   "jp": "@BL　依頼達成数　　  : ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286055
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12283",
+   "kind": "lang",
+   "jp": "マイル",
+   "en": " Miles",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286057
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12284",
+   "kind": "raw",
+   "jp": "@BL　生産数(錬金術)　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286058
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12285",
+   "kind": "raw",
+   "jp": "@BL　生産数(大工)　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286059
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12286",
+   "kind": "raw",
+   "jp": "@BL　生産数(宝石細工): ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286060
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12287",
+   "kind": "raw",
+   "jp": "@BL　生産数(裁縫)　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286061
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12288",
+   "kind": "raw",
+   "jp": "@BL　最大通常ダメージ: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286063
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12289",
+   "kind": "raw",
+   "jp": "@BL　掘り壊した壁の数: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286064
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12290",
+   "kind": "lang",
+   "jp": "時間",
+   "en": " Hours",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286065
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12291",
+   "kind": "lang",
+   "jp": "日",
+   "en": " Days",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286066
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12292",
+   "kind": "raw",
+   "jp": "@BL　願い発生回数　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286067
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12293",
+   "kind": "lang",
+   "jp": "人",
+   "en": " Guest",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286071
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12294",
+   "kind": "raw",
+   "jp": "@BL　宝発掘回数　　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286072
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12295",
+   "kind": "raw",
+   "jp": "@BL　潰した盗賊団の数: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286073
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12296",
+   "kind": "raw",
+   "jp": "@BL　アリーナ総勝数　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286074
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12297",
+   "kind": "raw",
+   "jp": "@BL　Ｐアリーナ総勝数: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286075
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12298",
+   "kind": "lang",
+   "jp": "枚",
+   "en": " Plat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286077
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12299",
+   "kind": "raw",
+   "jp": "@BL　PCｽｷﾙﾎﾞｰﾅｽ入手数: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286078
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12300",
+   "kind": "raw",
+   "jp": "@BL　ｽﾍﾟﾙﾎﾞｰﾅｽ入手数 : ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286079
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12301",
+   "kind": "lang",
+   "jp": "点",
+   "en": " points",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286081
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12302",
+   "kind": "raw",
+   "jp": "@RE　食ったパンの数　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286089
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12303",
+   "kind": "raw",
+   "jp": "@RE　食ったパンツの数: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286090
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12304",
+   "kind": "raw",
+   "jp": "@RE　人肉食の回数　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286091
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12305",
+   "kind": "raw",
+   "jp": "@RE　盗み食いの回数　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286092
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12306",
+   "kind": "raw",
+   "jp": "@RE　盗んだ品物数　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286093
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12307",
+   "kind": "raw",
+   "jp": "@RE　依頼失敗数　　  : ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286097
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12308",
+   "kind": "lang",
+   "jp": "人",
+   "en": " Sisters",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286098
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12309",
+   "kind": "raw",
+   "jp": "@RE　改宗した回数　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286099
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12310",
+   "kind": "raw",
+   "jp": "@RE　結婚した回数　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286100
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12311",
+   "kind": "raw",
+   "jp": "@RE　気持ちいい事回数: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286101
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12312",
+   "kind": "raw",
+   "jp": "@RE　核爆発の発生回数: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286103
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12313",
+   "kind": "raw",
+   "jp": "@RE　終末の発生回数　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286104
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12314",
+   "kind": "raw",
+   "jp": "@RE　犬猫殺害数　　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286105
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12315",
+   "kind": "raw",
+   "jp": "@RE　グウェン死亡数　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286106
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12316",
+   "kind": "raw",
+   "jp": "@RE　ロミアス死亡数　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286107
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12317",
+   "kind": "lang",
+   "jp": "本",
+   "en": " trees",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286109
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12318",
+   "kind": "lang",
+   "jp": "人",
+   "en": " Peoples",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286110
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12319",
+   "kind": "lang",
+   "jp": "本",
+   "en": " bottles",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286111
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12320",
+   "kind": "raw",
+   "jp": "@RE　喫煙回数　　　　: ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286112
+    }
+   ],
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  },
+  {
+   "id": "s12321",
+   "kind": "lang",
+   "jp": "ジャーナル",
+   "en": "Journal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "key_direction",
+     "label": "label_2700",
+     "line": 286138
+    }
+   ],
+   "concat": true,
+   "fn": "key_direction",
+   "label": "label_2700",
+   "owner": "label_2700"
+  }
+ ]
+}

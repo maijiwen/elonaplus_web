@@ -1,0 +1,809 @@
+{
+ "meta": {
+  "generatedBy": "tools/extract_map_ids.py",
+  "source": "start.hsp 中所有 map_reload 语句及其外层 var_65(20)/var_65(22) 条件",
+  "note": "sub 为空表示该注册没有 var_65(22) 条件（源码未限定子地图）；subExpr 保留 \">=N\" 这种比较式，用于说明来源。",
+  "siteCount": 55,
+  "nameCount": 54,
+  "mapsWithId": 53,
+  "mapsWithoutId": 128,
+  "triggerIdsMissing": [
+   3,
+   4,
+   44,
+   49,
+   70,
+   76,
+   91
+  ]
+ },
+ "sites": [
+  {
+   "id": 87,
+   "sub": 1,
+   "subExpr": null,
+   "name": "semi1",
+   "line": 245820
+  },
+  {
+   "id": 36,
+   "sub": 1,
+   "subExpr": null,
+   "name": "lumiest",
+   "line": 245823
+  },
+  {
+   "id": 5,
+   "sub": 1,
+   "subExpr": null,
+   "name": "vernis",
+   "line": 245826
+  },
+  {
+   "id": 15,
+   "sub": 1,
+   "subExpr": null,
+   "name": "palmia",
+   "line": 245829
+  },
+  {
+   "id": 11,
+   "sub": 1,
+   "subExpr": null,
+   "name": "kapul",
+   "line": 245832
+  },
+  {
+   "id": 12,
+   "sub": 1,
+   "subExpr": null,
+   "name": "yowyn",
+   "line": 245835
+  },
+  {
+   "id": 14,
+   "sub": 1,
+   "subExpr": null,
+   "name": "rogueden",
+   "line": 245838
+  },
+  {
+   "id": 50,
+   "sub": 1,
+   "subExpr": null,
+   "name": "eirel",
+   "line": 245841
+  },
+  {
+   "id": 25,
+   "sub": 1,
+   "subExpr": null,
+   "name": "highmountain",
+   "line": 245844
+  },
+  {
+   "id": 67,
+   "sub": 1,
+   "subExpr": null,
+   "name": "Doujyou",
+   "line": 245847
+  },
+  {
+   "id": 51,
+   "sub": 1,
+   "subExpr": null,
+   "name": "ruoza",
+   "line": 245850
+  },
+  {
+   "id": 52,
+   "sub": 1,
+   "subExpr": null,
+   "name": "melkawn1",
+   "line": 245853
+  },
+  {
+   "id": 53,
+   "sub": 1,
+   "subExpr": null,
+   "name": "kurualm",
+   "line": 245856
+  },
+  {
+   "id": 54,
+   "sub": 1,
+   "subExpr": null,
+   "name": "valm",
+   "line": 245859
+  },
+  {
+   "id": 55,
+   "sub": 1,
+   "subExpr": null,
+   "name": "melugas",
+   "line": 245862
+  },
+  {
+   "id": 56,
+   "sub": 1,
+   "subExpr": null,
+   "name": "arcbelc",
+   "line": 245865
+  },
+  {
+   "id": 71,
+   "sub": 1,
+   "subExpr": null,
+   "name": "1iseki",
+   "line": 245868
+  },
+  {
+   "id": 72,
+   "sub": 1,
+   "subExpr": null,
+   "name": "3lib",
+   "line": 245871
+  },
+  {
+   "id": 73,
+   "sub": 1,
+   "subExpr": null,
+   "name": "4mado",
+   "line": 245874
+  },
+  {
+   "id": 74,
+   "sub": 1,
+   "subExpr": null,
+   "name": "3haka",
+   "line": 245877
+  },
+  {
+   "id": 75,
+   "sub": 1,
+   "subExpr": null,
+   "name": "3sazin",
+   "line": 245881
+  },
+  {
+   "id": 77,
+   "sub": 1,
+   "subExpr": null,
+   "name": "5cave",
+   "line": 245885
+  },
+  {
+   "id": 79,
+   "sub": 1,
+   "subExpr": null,
+   "name": "6defend",
+   "line": 245888
+  },
+  {
+   "id": 80,
+   "sub": 1,
+   "subExpr": null,
+   "name": "7bship",
+   "line": 245892
+  },
+  {
+   "id": 81,
+   "sub": 1,
+   "subExpr": null,
+   "name": "9dran",
+   "line": 245896
+  },
+  {
+   "id": 82,
+   "sub": 1,
+   "subExpr": null,
+   "name": "10dwa",
+   "line": 245899
+  },
+  {
+   "id": 85,
+   "sub": 1,
+   "subExpr": null,
+   "name": "obli",
+   "line": 245902
+  },
+  {
+   "id": 92,
+   "sub": 1,
+   "subExpr": null,
+   "name": "zaile",
+   "line": 245905
+  },
+  {
+   "id": 94,
+   "sub": 1,
+   "subExpr": null,
+   "name": "sebi",
+   "line": 245908
+  },
+  {
+   "id": 95,
+   "sub": 1,
+   "subExpr": null,
+   "name": "ras_south",
+   "line": 245911
+  },
+  {
+   "id": 96,
+   "sub": 1,
+   "subExpr": null,
+   "name": "ras0",
+   "line": 245914
+  },
+  {
+   "id": 57,
+   "sub": 1,
+   "subExpr": null,
+   "name": "ludus_fest",
+   "line": 245922
+  },
+  {
+   "id": 57,
+   "sub": 1,
+   "subExpr": null,
+   "name": "ludus",
+   "line": 245929
+  },
+  {
+   "id": 33,
+   "sub": 1,
+   "subExpr": null,
+   "name": "noyel_fest",
+   "line": 245938
+  },
+  {
+   "id": 33,
+   "sub": 1,
+   "subExpr": null,
+   "name": "noyel",
+   "line": 245945
+  },
+  {
+   "id": 14,
+   "sub": 3,
+   "subExpr": null,
+   "name": "thiefguild",
+   "line": 245959
+  },
+  {
+   "id": 36,
+   "sub": 3,
+   "subExpr": null,
+   "name": "mageguild",
+   "line": 245964
+  },
+  {
+   "id": 11,
+   "sub": 3,
+   "subExpr": null,
+   "name": "fighterguild",
+   "line": 245969
+  },
+  {
+   "id": 57,
+   "sub": 5,
+   "subExpr": null,
+   "name": "ane",
+   "line": 245974
+  },
+  {
+   "id": 32,
+   "sub": null,
+   "subExpr": null,
+   "name": "office_1",
+   "line": 245978
+  },
+  {
+   "id": 52,
+   "sub": 3,
+   "subExpr": null,
+   "name": "melkawn2",
+   "line": 245982
+  },
+  {
+   "id": 75,
+   "sub": 60,
+   "subExpr": null,
+   "name": "4sazin",
+   "line": 245987
+  },
+  {
+   "id": 80,
+   "sub": 60,
+   "subExpr": null,
+   "name": "8bship",
+   "line": 245992
+  },
+  {
+   "id": 80,
+   "sub": 70,
+   "subExpr": null,
+   "name": "87bship",
+   "line": 245997
+  },
+  {
+   "id": 34,
+   "sub": null,
+   "subExpr": null,
+   "name": "smith0",
+   "line": 246001
+  },
+  {
+   "id": 84,
+   "sub": null,
+   "subExpr": null,
+   "name": "shoten",
+   "line": 246004
+  },
+  {
+   "id": 93,
+   "sub": null,
+   "subExpr": null,
+   "name": "proud",
+   "line": 246007
+  },
+  {
+   "id": 82,
+   "sub": null,
+   "subExpr": null,
+   "name": "10dwa",
+   "line": 246010
+  },
+  {
+   "id": 74,
+   "sub": 2,
+   "subExpr": null,
+   "name": "3haka2",
+   "line": 246014
+  },
+  {
+   "id": 47,
+   "sub": 1,
+   "subExpr": null,
+   "name": "sea1",
+   "line": 246019
+  },
+  {
+   "id": 47,
+   "sub": 11,
+   "subExpr": null,
+   "name": "sea11",
+   "line": 246022
+  },
+  {
+   "id": 47,
+   "sub": 36,
+   "subExpr": null,
+   "name": "sea36",
+   "line": 246025
+  },
+  {
+   "id": 47,
+   "sub": 53,
+   "subExpr": null,
+   "name": "sea53",
+   "line": 246028
+  },
+  {
+   "id": 47,
+   "sub": 54,
+   "subExpr": null,
+   "name": "sea54",
+   "line": 246031
+  },
+  {
+   "id": 47,
+   "sub": 93,
+   "subExpr": null,
+   "name": "sea93",
+   "line": 246034
+  }
+ ],
+ "byName": {
+  "semi1": {
+   "id": 87,
+   "sub": 1,
+   "line": 245820
+  },
+  "lumiest": {
+   "id": 36,
+   "sub": 1,
+   "line": 245823
+  },
+  "vernis": {
+   "id": 5,
+   "sub": 1,
+   "line": 245826
+  },
+  "palmia": {
+   "id": 15,
+   "sub": 1,
+   "line": 245829
+  },
+  "kapul": {
+   "id": 11,
+   "sub": 1,
+   "line": 245832
+  },
+  "yowyn": {
+   "id": 12,
+   "sub": 1,
+   "line": 245835
+  },
+  "rogueden": {
+   "id": 14,
+   "sub": 1,
+   "line": 245838
+  },
+  "eirel": {
+   "id": 50,
+   "sub": 1,
+   "line": 245841
+  },
+  "highmountain": {
+   "id": 25,
+   "sub": 1,
+   "line": 245844
+  },
+  "Doujyou": {
+   "id": 67,
+   "sub": 1,
+   "line": 245847
+  },
+  "ruoza": {
+   "id": 51,
+   "sub": 1,
+   "line": 245850
+  },
+  "melkawn1": {
+   "id": 52,
+   "sub": 1,
+   "line": 245853
+  },
+  "kurualm": {
+   "id": 53,
+   "sub": 1,
+   "line": 245856
+  },
+  "valm": {
+   "id": 54,
+   "sub": 1,
+   "line": 245859
+  },
+  "melugas": {
+   "id": 55,
+   "sub": 1,
+   "line": 245862
+  },
+  "arcbelc": {
+   "id": 56,
+   "sub": 1,
+   "line": 245865
+  },
+  "1iseki": {
+   "id": 71,
+   "sub": 1,
+   "line": 245868
+  },
+  "3lib": {
+   "id": 72,
+   "sub": 1,
+   "line": 245871
+  },
+  "4mado": {
+   "id": 73,
+   "sub": 1,
+   "line": 245874
+  },
+  "3haka": {
+   "id": 74,
+   "sub": 1,
+   "line": 245877
+  },
+  "3sazin": {
+   "id": 75,
+   "sub": 1,
+   "line": 245881
+  },
+  "5cave": {
+   "id": 77,
+   "sub": 1,
+   "line": 245885
+  },
+  "6defend": {
+   "id": 79,
+   "sub": 1,
+   "line": 245888
+  },
+  "7bship": {
+   "id": 80,
+   "sub": 1,
+   "line": 245892
+  },
+  "9dran": {
+   "id": 81,
+   "sub": 1,
+   "line": 245896
+  },
+  "10dwa": {
+   "id": 82,
+   "sub": 1,
+   "line": 245899
+  },
+  "obli": {
+   "id": 85,
+   "sub": 1,
+   "line": 245902
+  },
+  "zaile": {
+   "id": 92,
+   "sub": 1,
+   "line": 245905
+  },
+  "sebi": {
+   "id": 94,
+   "sub": 1,
+   "line": 245908
+  },
+  "ras_south": {
+   "id": 95,
+   "sub": 1,
+   "line": 245911
+  },
+  "ras0": {
+   "id": 96,
+   "sub": 1,
+   "line": 245914
+  },
+  "ludus_fest": {
+   "id": 57,
+   "sub": 1,
+   "line": 245922
+  },
+  "ludus": {
+   "id": 57,
+   "sub": 1,
+   "line": 245929
+  },
+  "noyel_fest": {
+   "id": 33,
+   "sub": 1,
+   "line": 245938
+  },
+  "noyel": {
+   "id": 33,
+   "sub": 1,
+   "line": 245945
+  },
+  "thiefguild": {
+   "id": 14,
+   "sub": 3,
+   "line": 245959
+  },
+  "mageguild": {
+   "id": 36,
+   "sub": 3,
+   "line": 245964
+  },
+  "fighterguild": {
+   "id": 11,
+   "sub": 3,
+   "line": 245969
+  },
+  "ane": {
+   "id": 57,
+   "sub": 5,
+   "line": 245974
+  },
+  "office_1": {
+   "id": 32,
+   "sub": null,
+   "line": 245978
+  },
+  "melkawn2": {
+   "id": 52,
+   "sub": 3,
+   "line": 245982
+  },
+  "4sazin": {
+   "id": 75,
+   "sub": 60,
+   "line": 245987
+  },
+  "8bship": {
+   "id": 80,
+   "sub": 60,
+   "line": 245992
+  },
+  "87bship": {
+   "id": 80,
+   "sub": 70,
+   "line": 245997
+  },
+  "smith0": {
+   "id": 34,
+   "sub": null,
+   "line": 246001
+  },
+  "shoten": {
+   "id": 84,
+   "sub": null,
+   "line": 246004
+  },
+  "proud": {
+   "id": 93,
+   "sub": null,
+   "line": 246007
+  },
+  "3haka2": {
+   "id": 74,
+   "sub": 2,
+   "line": 246014
+  },
+  "sea1": {
+   "id": 47,
+   "sub": 1,
+   "line": 246019
+  },
+  "sea11": {
+   "id": 47,
+   "sub": 11,
+   "line": 246022
+  },
+  "sea36": {
+   "id": 47,
+   "sub": 36,
+   "line": 246025
+  },
+  "sea53": {
+   "id": 47,
+   "sub": 53,
+   "line": 246028
+  },
+  "sea54": {
+   "id": 47,
+   "sub": 54,
+   "line": 246031
+  },
+  "sea93": {
+   "id": 47,
+   "sub": 93,
+   "line": 246034
+  }
+ },
+ "unmapped": [
+  "0clea",
+  "11mesh",
+  "2nouti",
+  "Rehmido_1",
+  "Ssil",
+  "WetF",
+  "Wizardtower",
+  "abyss",
+  "abyss2",
+  "arena_1",
+  "arena_2",
+  "base",
+  "battle",
+  "camp",
+  "chaos",
+  "chaos10",
+  "chaos11",
+  "chaos2",
+  "chaos3",
+  "chaos4",
+  "chaos5",
+  "chaos6",
+  "chaos7",
+  "chaos8",
+  "chaos9",
+  "crop_1",
+  "cyberdome",
+  "d_1",
+  "doujyou",
+  "dungeon1",
+  "ether",
+  "f_castle",
+  "file",
+  "firet1",
+  "god",
+  "goki",
+  "grave_1",
+  "home0",
+  "home1",
+  "home2",
+  "home3",
+  "home4",
+  "home5",
+  "home6",
+  "ice",
+  "inn1",
+  "jail1",
+  "kara",
+  "kazan",
+  "kazan2",
+  "lesimas_1",
+  "lost",
+  "maidhouse",
+  "meiq101",
+  "meiq102",
+  "meiq103",
+  "meiq104",
+  "meiq105",
+  "meiq106",
+  "meiq111",
+  "meiq112",
+  "meiq113",
+  "meiq114",
+  "meiq115",
+  "meiq121",
+  "meiq122",
+  "meiq123",
+  "meiq124",
+  "meiq125",
+  "meiq161",
+  "meiq162",
+  "meiq163",
+  "meiq164",
+  "meiq165",
+  "museum_1",
+  "ninjya",
+  "ntyris",
+  "ntyris2",
+  "puti",
+  "ranch_1",
+  "ras02",
+  "ras03",
+  "ras04",
+  "ras05",
+  "ras06",
+  "ras07",
+  "ras08",
+  "ras09",
+  "roguet1",
+  "sea700",
+  "sea701",
+  "semi2",
+  "shade",
+  "shelter_1",
+  "shelter_2",
+  "shop_1",
+  "shrine_1",
+  "shrine_2",
+  "sister",
+  "sqBlack",
+  "sqEulderna",
+  "sqHitman",
+  "sqJuere",
+  "sqNightmare",
+  "sqPirate",
+  "sqPyramid",
+  "sqPyramid2",
+  "sqRed",
+  "sqRevenge",
+  "sqRevenge2",
+  "sqRogue",
+  "sqSewer",
+  "sqSpace",
+  "sqSpace2",
+  "sqcat",
+  "sqkamikaze",
+  "sqwar",
+  "station-nt1",
+  "storage_1",
+  "styris",
+  "undeadt1",
+  "unfinishedkeep",
+  "valley1",
+  "valley2",
+  "wfoot",
+  "wgrava",
+  "wizardhouse",
+  "yamaniwa"
+ ]
+}

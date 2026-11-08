@@ -1,0 +1,157 @@
+{
+ "src": {
+  "file": "hsp/start.hsp",
+  "func": "check_quest",
+  "range": [
+   193527,
+   193823
+  ],
+  "note": "触发时机：角色被击杀/消灭后（194147 / 201171 / 325627 / 341010 / 416143）"
+ },
+ "count": 15,
+ "rules": [
+  {
+   "mapId": 5,
+   "subId": 3,
+   "varIndex": 200,
+   "varSlot": 450,
+   "stage": 2,
+   "assignMatches": true,
+   "srcLine": 193531
+  },
+  {
+   "mapId": 5,
+   "subId": 4,
+   "varIndex": 201,
+   "varSlot": 451,
+   "stage": 2,
+   "assignMatches": true,
+   "srcLine": 193545
+  },
+  {
+   "mapId": 5,
+   "subId": 5,
+   "varIndex": 202,
+   "varSlot": 452,
+   "stage": 3,
+   "assignMatches": true,
+   "srcLine": 193559
+  },
+  {
+   "mapId": 12,
+   "subId": 3,
+   "varIndex": 206,
+   "varSlot": 456,
+   "stage": 2,
+   "assignMatches": true,
+   "srcLine": 193575
+  },
+  {
+   "mapId": 12,
+   "subId": 4,
+   "varIndex": 207,
+   "varSlot": 457,
+   "stage": 3,
+   "assignMatches": true,
+   "srcLine": 193589
+  },
+  {
+   "mapId": 36,
+   "subId": 20,
+   "varIndex": 215,
+   "varSlot": 465,
+   "stage": 2,
+   "assignMatches": true,
+   "srcLine": 193605
+  },
+  {
+   "mapId": 43,
+   "subId": 100,
+   "varIndex": 291,
+   "varSlot": 541,
+   "stage": 100,
+   "assignMatches": true,
+   "srcLine": 193749
+  },
+  {
+   "mapId": 50,
+   "subId": 3,
+   "varIndex": 226,
+   "varSlot": 476,
+   "stage": 3,
+   "assignMatches": true,
+   "srcLine": 193621
+  },
+  {
+   "mapId": 51,
+   "subId": 3,
+   "varIndex": 232,
+   "varSlot": 482,
+   "stage": 2,
+   "assignMatches": true,
+   "srcLine": 193637
+  },
+  {
+   "mapId": 51,
+   "subId": 10,
+   "varIndex": 232,
+   "varSlot": 482,
+   "stage": 1002,
+   "assignMatches": true,
+   "srcLine": 193651
+  },
+  {
+   "mapId": 53,
+   "subId": 3,
+   "varIndex": 228,
+   "varSlot": 478,
+   "stage": 3,
+   "assignMatches": true,
+   "srcLine": 193682
+  },
+  {
+   "mapId": 53,
+   "subId": 5,
+   "varIndex": 244,
+   "varSlot": 494,
+   "stage": 3,
+   "assignMatches": true,
+   "srcLine": 193696
+  },
+  {
+   "mapId": 55,
+   "subId": 3,
+   "varIndex": 227,
+   "varSlot": 477,
+   "stage": 2,
+   "assignMatches": true,
+   "srcLine": 193717
+  },
+  {
+   "mapId": 57,
+   "subId": 3,
+   "varIndex": 234,
+   "varSlot": 484,
+   "stage": 2,
+   "assignMatches": true,
+   "srcLine": 193733
+  },
+  {
+   "mapId": 83,
+   "subId": 141,
+   "varIndex": 269,
+   "varSlot": 519,
+   "stage": 3,
+   "assignMatches": true,
+   "srcLine": 193666
+  }
+ ],
+ "questMapFields": {
+  "var_65(70)": "当前委托类型（0 = 不在委托地图）",
+  "var_65(71)": "1 = 需要清除全部敌人",
+  "var_65(72)": "var_434 的槽位下标",
+  "var_65(73)": "委托状态（3 = 已完成）",
+  "var_65(801)": "计时/警告值（完成时清零）",
+  "var_65(250+413)": "关联标记（完成时清零）"
+ }
+}

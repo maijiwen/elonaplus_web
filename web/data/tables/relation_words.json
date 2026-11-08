@@ -1,0 +1,498 @@
+{
+ "_meta": {
+  "source": "start.hsp 8727-8740（var_258..var_269）",
+  "note": "好感等级 0..8（implevel 193285）；主从等级 0..7（implevel2 193395）。relType 对应 var_58(441) 的关系类型取值。"
+ },
+ "impression": {
+  "general": {
+   "var": "258",
+   "relType": 0,
+   "words": [
+    {
+     "ja": "大嫌い",
+     "en": "Foe"
+    },
+    {
+     "ja": "嫌い",
+     "en": "Hate"
+    },
+    {
+     "ja": "うざい",
+     "en": "Annoying"
+    },
+    {
+     "ja": "普通",
+     "en": "Normal"
+    },
+    {
+     "ja": "好意的",
+     "en": "Amiable"
+    },
+    {
+     "ja": "信用",
+     "en": "Accredit"
+    },
+    {
+     "ja": "信頼",
+     "en": "Trust"
+    },
+    {
+     "ja": "仲間",
+     "en": "Ally"
+    },
+    {
+     "ja": "*仲間*",
+     "en": "*Ally*"
+    }
+   ]
+  },
+  "warrior": {
+   "var": "259",
+   "relType": -1,
+   "words": [
+    {
+     "ja": "大嫌い",
+     "en": "Foe"
+    },
+    {
+     "ja": "嫌い",
+     "en": "Hate"
+    },
+    {
+     "ja": "うざい",
+     "en": "Annoying"
+    },
+    {
+     "ja": "普通",
+     "en": "Normal"
+    },
+    {
+     "ja": "好意的",
+     "en": "Amiable"
+    },
+    {
+     "ja": "信頼",
+     "en": "Trust"
+    },
+    {
+     "ja": "仲間",
+     "en": "Ally"
+    },
+    {
+     "ja": "戦友",
+     "en": "Comrade"
+    },
+    {
+     "ja": "戦士の絆",
+     "en": "BattleBond"
+    }
+   ]
+  },
+  "friend": {
+   "var": "260",
+   "relType": -2,
+   "words": [
+    {
+     "ja": "大嫌い",
+     "en": "Foe"
+    },
+    {
+     "ja": "嫌い",
+     "en": "Hate"
+    },
+    {
+     "ja": "うざい",
+     "en": "Annoying"
+    },
+    {
+     "ja": "普通",
+     "en": "Normal"
+    },
+    {
+     "ja": "好意的",
+     "en": "Amiable"
+    },
+    {
+     "ja": "友達",
+     "en": "Friend"
+    },
+    {
+     "ja": "親友",
+     "en": "Fellow"
+    },
+    {
+     "ja": "盟友",
+     "en": "Sworn Mate"
+    },
+    {
+     "ja": "魂の友",
+     "en": "Soul Mate"
+    }
+   ]
+  },
+  "rival": {
+   "var": "261",
+   "relType": -3,
+   "words": [
+    {
+     "ja": "大嫌い",
+     "en": "Foe"
+    },
+    {
+     "ja": "嫌い",
+     "en": "Hate"
+    },
+    {
+     "ja": "うざい",
+     "en": "Annoying"
+    },
+    {
+     "ja": "普通",
+     "en": "Normal"
+    },
+    {
+     "ja": "好意的",
+     "en": "Amiable"
+    },
+    {
+     "ja": "競争相手",
+     "en": "Competitor"
+    },
+    {
+     "ja": "切磋琢磨",
+     "en": "Rival"
+    },
+    {
+     "ja": "ライバル",
+     "en": "*Rival*"
+    },
+    {
+     "ja": "宿命",
+     "en": "Fateful"
+    }
+   ]
+  },
+  "lover": {
+   "var": "262",
+   "relType": -4,
+   "words": [
+    {
+     "ja": "大嫌い",
+     "en": "Foe"
+    },
+    {
+     "ja": "嫌い",
+     "en": "Hate"
+    },
+    {
+     "ja": "うざい",
+     "en": "Annoying"
+    },
+    {
+     "ja": "普通",
+     "en": "Normal"
+    },
+    {
+     "ja": "好意的",
+     "en": "Amiable"
+    },
+    {
+     "ja": "恋心",
+     "en": "Affection"
+    },
+    {
+     "ja": "相思相愛",
+     "en": "Mutual"
+    },
+    {
+     "ja": "熱愛",
+     "en": "Passionate"
+    },
+    {
+     "ja": "Love",
+     "en": "Love"
+    }
+   ]
+  },
+  "student": {
+   "var": "263",
+   "relType": -5,
+   "words": [
+    {
+     "ja": "大嫌い",
+     "en": "Foe"
+    },
+    {
+     "ja": "嫌い",
+     "en": "Hate"
+    },
+    {
+     "ja": "うざい",
+     "en": "Annoying"
+    },
+    {
+     "ja": "普通",
+     "en": "Normal"
+    },
+    {
+     "ja": "好意的",
+     "en": "Amiable"
+    },
+    {
+     "ja": "教え子",
+     "en": "Student"
+    },
+    {
+     "ja": "後継",
+     "en": "Successor"
+    },
+    {
+     "ja": "比肩者",
+     "en": "Comparable"
+    },
+    {
+     "ja": "愛弟子",
+     "en": "*Disciple*"
+    }
+   ]
+  },
+  "teacher": {
+   "var": "264",
+   "relType": -6,
+   "words": [
+    {
+     "ja": "大嫌い",
+     "en": "Foe"
+    },
+    {
+     "ja": "嫌い",
+     "en": "Hate"
+    },
+    {
+     "ja": "うざい",
+     "en": "Annoying"
+    },
+    {
+     "ja": "普通",
+     "en": "Normal"
+    },
+    {
+     "ja": "好意的",
+     "en": "Amiable"
+    },
+    {
+     "ja": "先生",
+     "en": "Teacher"
+    },
+    {
+     "ja": "師匠",
+     "en": "Master"
+    },
+    {
+     "ja": "敬愛",
+     "en": "Respect"
+    },
+    {
+     "ja": "生涯の師",
+     "en": "LifeMaster"
+    }
+   ]
+  },
+  "family": {
+   "var": "265",
+   "relType": -7,
+   "words": [
+    {
+     "ja": "大嫌い",
+     "en": "Foe"
+    },
+    {
+     "ja": "嫌い",
+     "en": "Hate"
+    },
+    {
+     "ja": "うざい",
+     "en": "Annoying"
+    },
+    {
+     "ja": "普通",
+     "en": "Normal"
+    },
+    {
+     "ja": "好意的",
+     "en": "Amiable"
+    },
+    {
+     "ja": "家族",
+     "en": "Family"
+    },
+    {
+     "ja": "親愛",
+     "en": "Dear"
+    },
+    {
+     "ja": "溺愛",
+     "en": "Doting"
+    },
+    {
+     "ja": "熟愛",
+     "en": "MatureLove"
+    }
+   ]
+  }
+ },
+ "master": {
+  "general": {
+   "var": "266",
+   "relType": 0,
+   "words": [
+    {
+     "ja": "*Cat*",
+     "en": "*Cat*"
+    },
+    {
+     "ja": "奔放",
+     "en": "Uninhibited"
+    },
+    {
+     "ja": "対等",
+     "en": "Peer"
+    },
+    {
+     "ja": "素直",
+     "en": "Docile"
+    },
+    {
+     "ja": "*素直*",
+     "en": "*Docile*"
+    },
+    {
+     "ja": "従順",
+     "en": "Amenable"
+    },
+    {
+     "ja": "*従順*",
+     "en": "*Amenable*"
+    },
+    {
+     "ja": "遵守",
+     "en": "Adherence"
+    }
+   ]
+  },
+  "contract": {
+   "var": "267",
+   "relType": -11,
+   "words": [
+    {
+     "ja": "*Cat*",
+     "en": "*Cat*"
+    },
+    {
+     "ja": "奔放",
+     "en": "Uninhibited"
+    },
+    {
+     "ja": "対等",
+     "en": "Peer"
+    },
+    {
+     "ja": "素直",
+     "en": "Docile"
+    },
+    {
+     "ja": "契約者",
+     "en": "Contract"
+    },
+    {
+     "ja": "専属契約",
+     "en": "*Contract*"
+    },
+    {
+     "ja": "相棒",
+     "en": "Partner"
+    },
+    {
+     "ja": "運命共同",
+     "en": "Co-Fate"
+    }
+   ]
+  },
+  "owner": {
+   "var": "268",
+   "relType": -12,
+   "words": [
+    {
+     "ja": "*Cat*",
+     "en": "*Cat*"
+    },
+    {
+     "ja": "奔放",
+     "en": "Uninhibited"
+    },
+    {
+     "ja": "対等",
+     "en": "Peer"
+    },
+    {
+     "ja": "素直",
+     "en": "Docile"
+    },
+    {
+     "ja": "従順",
+     "en": "Amenable"
+    },
+    {
+     "ja": "飼い主",
+     "en": "Owner"
+    },
+    {
+     "ja": "服従",
+     "en": "Subjection"
+    },
+    {
+     "ja": "依存",
+     "en": "Reliance"
+    }
+   ]
+  },
+  "loyal": {
+   "var": "269",
+   "relType": -13,
+   "words": [
+    {
+     "ja": "*Cat*",
+     "en": "*Cat*"
+    },
+    {
+     "ja": "奔放",
+     "en": "Uninhibited"
+    },
+    {
+     "ja": "対等",
+     "en": "Peer"
+    },
+    {
+     "ja": "素直",
+     "en": "Docile"
+    },
+    {
+     "ja": "忠誠",
+     "en": "Allegiance"
+    },
+    {
+     "ja": "恭順",
+     "en": "Obedience"
+    },
+    {
+     "ja": "心酔",
+     "en": "Adoration"
+    },
+    {
+     "ja": "忠義",
+     "en": "Loyalty"
+    }
+   ]
+  }
+ }
+}

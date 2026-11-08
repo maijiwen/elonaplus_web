@@ -1,0 +1,1780 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2463",
+ "entries": [
+  {
+   "id": "s08723",
+   "kind": "lang",
+   "jp": "新生体兵器実験場",
+   "en": "New Test Site",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238423
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08724",
+   "kind": "lang",
+   "jp": "メシェーラ・キガツ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238429
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08725",
+   "kind": "lang",
+   "jp": "メシェーラ・クトワ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238432
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08726",
+   "kind": "lang",
+   "jp": "メシェーラ・タシハ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238435
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08727",
+   "kind": "lang",
+   "jp": "メシェーラ・メシエ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238438
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08728",
+   "kind": "lang",
+   "jp": "メシェーラ・ラニサ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238441
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08729",
+   "kind": "lang",
+   "jp": "メシェーラ・レテイ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238444
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08730",
+   "kind": "lang",
+   "jp": "メシェーラ・タダケ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238447
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08731",
+   "kind": "lang",
+   "jp": "メシェーラ・ドトマ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238450
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08732",
+   "kind": "lang",
+   "jp": "メシェーラ・ラナイ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238453
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08733",
+   "kind": "lang",
+   "jp": "メシェーラ・ゲキツ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238456
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08734",
+   "kind": "lang",
+   "jp": "メシェーラ・ウハカ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238459
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08735",
+   "kind": "lang",
+   "jp": "メシェーラ・ナシム",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238462
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08736",
+   "kind": "lang",
+   "jp": "メシェーラ・コトサ",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238465
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08737",
+   "kind": "lang",
+   "jp": "メシェーラ・シテク",
+   "en": "tester",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 238468
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08738",
+   "kind": "lang",
+   "jp": "謎の奴隷商人",
+   "en": "The slave master",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 239003
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244746
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08739",
+   "kind": "lang",
+   "jp": "ルミエスト下水道",
+   "en": "The Sewer",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 239376
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08740",
+   "kind": "lang",
+   "jp": "教室",
+   "en": "Classroom",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 239434
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08741",
+   "kind": "lang",
+   "jp": "タムの猫屋敷",
+   "en": "Cat Mansion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 239586
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08742",
+   "kind": "lang",
+   "jp": "防衛線",
+   "en": "Battle Field",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 239599
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08743",
+   "kind": "lang",
+   "jp": "氷の城",
+   "en": "Castle of Ice",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 239748
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08744",
+   "kind": "lang",
+   "jp": "戦場",
+   "en": "Doom Ground",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 239920
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08745",
+   "kind": "lang",
+   "jp": "スライムの坑道",
+   "en": "The Mine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240044
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08746",
+   "kind": "lang",
+   "jp": "盗賊の隠れ家",
+   "en": "Robber's Hideout",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240056
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08747",
+   "kind": "lang",
+   "jp": "生体兵器実験場",
+   "en": "Test Site",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240068
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08748",
+   "kind": "lang",
+   "jp": "水上",
+   "en": "Sea",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240120
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08749",
+   "kind": "lang",
+   "jp": "草原",
+   "en": "Grassland",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240123
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08750",
+   "kind": "lang",
+   "jp": "荒野",
+   "en": "Wasteland",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240151
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08751",
+   "kind": "lang",
+   "jp": "砂丘",
+   "en": "Sand",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240164
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08752",
+   "kind": "lang",
+   "jp": "メルカ大湿原",
+   "en": "moor",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240186
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08753",
+   "kind": "lang",
+   "jp": "湿原",
+   "en": "moor",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240189
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08754",
+   "kind": "lang",
+   "jp": "海底",
+   "en": "Seabed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240206
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08755",
+   "kind": "lang",
+   "jp": "平地",
+   "en": "Plain Field",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240313
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240396
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08756",
+   "kind": "lang",
+   "jp": "雪原",
+   "en": "Snow Field",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240379
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08757",
+   "kind": "lang",
+   "jp": "行商人に変装していた暗殺者が襲いかかってきた。あなたはクライアントを守らなければならない。",
+   "en": "You are caught by assassins disguised as a wandering vendor. You have to protect your client.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240514
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08758",
+   "kind": "lang",
+   "jp": "暗殺者につかまった。あなたはクライアントを守らなければならない。",
+   "en": "You are caught by assassins. You have to protect your client.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240521
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08759",
+   "kind": "lang",
+   "jp": "カプール近海",
+   "en": "Kapul coastal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240600
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08760",
+   "kind": "lang",
+   "jp": "ルミエスト近海",
+   "en": "Lumiest coastal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240612
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08761",
+   "kind": "lang",
+   "jp": "クルアルム近海",
+   "en": "Kurualm coastal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240624
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08762",
+   "kind": "lang",
+   "jp": "ヴァルム近海",
+   "en": "Valm coastal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240636
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08763",
+   "kind": "lang",
+   "jp": "悪魔岬近海",
+   "en": "Devil coastal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240648
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08764",
+   "kind": "lang",
+   "jp": "商船内部",
+   "en": "Merchant ship",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240660
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2943",
+     "line": 313268
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2943",
+     "line": 313369
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08765",
+   "kind": "lang",
+   "jp": "海賊船内部",
+   "en": "Pirate ship",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240672
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244880
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2943",
+     "line": 313268
+    },
+    {
+     "fn": "efstatusfix",
+     "label": "label_2943",
+     "line": 313369
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08766",
+   "kind": "lang",
+   "jp": "レシマス最深層",
+   "en": "The Depth",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240685
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08767",
+   "kind": "lang",
+   "jp": "15階大広間",
+   "en": "Hall",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240734
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240932
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08768",
+   "kind": "lang",
+   "jp": "古の研究施設",
+   "en": "The Depth",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240750
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08769",
+   "kind": "lang",
+   "jp": "メシェーラ・ギルク",
+   "en": "meshera Gilk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240766
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08770",
+   "kind": "lang",
+   "jp": "メシェーラ・エルマナ",
+   "en": "meshera Hermana",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240772
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08771",
+   "kind": "lang",
+   "jp": "メシェーラ・ライモンド",
+   "en": "meshera Raimond",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240778
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08772",
+   "kind": "lang",
+   "jp": "眷属の間",
+   "en": "Hall of evil",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240845
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08773",
+   "kind": "lang",
+   "jp": "20階大広間",
+   "en": "Hall",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240954
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08774",
+   "kind": "lang",
+   "jp": "25階大広間",
+   "en": "Hall",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240971
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08775",
+   "kind": "lang",
+   "jp": "30階大広間",
+   "en": "Hall",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 240994
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08776",
+   "kind": "lang",
+   "jp": "大広間",
+   "en": "Hall",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241049
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241064
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08777",
+   "kind": "lang",
+   "jp": "神の間<復元>",
+   "en": "God's prison",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241082
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08778",
+   "kind": "lang",
+   "jp": "神の間<崩壊>",
+   "en": "God's prison",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241097
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08779",
+   "kind": "lang",
+   "jp": "神の間",
+   "en": "God's prison",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241128
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08780",
+   "kind": "lang",
+   "jp": "旅糧売り",
+   "en": "the traveler's food vendor",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241521
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08781",
+   "kind": "lang",
+   "jp": "装飾品売り",
+   "en": "the interior goods vendor",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241531
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08782",
+   "kind": "lang",
+   "jp": "交易商人",
+   "en": "the trader",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241540
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08783",
+   "kind": "lang",
+   "jp": "パン屋の店員",
+   "en": "the bakery clerk",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241550
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08784",
+   "kind": "lang",
+   "jp": "白猫",
+   "en": "white cat",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 241621
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08785",
+   "kind": "lang",
+   "jp": "仮",
+   "en": "Underground passage",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 242428
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 242549
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08786",
+   "kind": "lang",
+   "jp": "コンサート会場",
+   "en": "Concert hall",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 242439
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08787",
+   "kind": "lang",
+   "jp": "魔法店の使い魔",
+   "en": "magic shop slave",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 242471
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08788",
+   "kind": "lang",
+   "jp": "雑貨屋の使い魔",
+   "en": "general shop slave",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 242480
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08789",
+   "kind": "lang",
+   "jp": "家具屋の使い魔",
+   "en": "furniture shop slave",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 242489
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08790",
+   "kind": "lang",
+   "jp": "王宮近隣",
+   "en": "Eulderna city",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 242561
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08791",
+   "kind": "lang",
+   "jp": "冥宮入口",
+   "en": "LabyrinDeath 1F",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243113
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243127
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243153
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08792",
+   "kind": "lang",
+   "jp": "悪鬼の掌",
+   "en": "Area of Curse",
+   "zh": "",
+   "count": 5,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243179
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243276
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243375
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243472
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243569
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08793",
+   "kind": "lang",
+   "jp": "冥宮　2層",
+   "en": "LabyrinDeath 2F",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243210
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243224
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243250
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08794",
+   "kind": "lang",
+   "jp": "冥宮　3層",
+   "en": "LabyrinDeath 3F",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243307
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243321
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243348
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08795",
+   "kind": "lang",
+   "jp": "冥宮　4層",
+   "en": "LabyrinDeath 4F",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243406
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243420
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243446
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08796",
+   "kind": "lang",
+   "jp": "冥宮　5層",
+   "en": "LabyrinDeath 5F",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243503
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243517
+    },
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243543
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08797",
+   "kind": "lang",
+   "jp": "冥宮　6層",
+   "en": "LabyrinDeath 6F",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243600
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08798",
+   "kind": "lang",
+   "jp": "オアシスリゾート",
+   "en": "Oasis in tower",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243802
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08799",
+   "kind": "lang",
+   "jp": "眠れる神艦・上層",
+   "en": "Albedrion",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243892
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08800",
+   "kind": "lang",
+   "jp": "作業区画",
+   "en": "Work area",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 243951
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08801",
+   "kind": "lang",
+   "jp": "死の街",
+   "en": "Ruined city",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244079
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08802",
+   "kind": "lang",
+   "jp": "エウダーナ駐屯地",
+   "en": "The Mine",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244490
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08803",
+   "kind": "lang",
+   "jp": "きのこ達の山",
+   "en": "Hill of mushroom",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244593
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08804",
+   "kind": "lang",
+   "jp": "すぎのこ廃村近辺",
+   "en": "Near the ruins",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244606
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08805",
+   "kind": "lang",
+   "jp": "地下賭博場",
+   "en": "Gamling hall",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244722
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08806",
+   "kind": "lang",
+   "jp": "負け犬",
+   "en": "loser",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244731
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08807",
+   "kind": "lang",
+   "jp": "忍者屋敷",
+   "en": "Ninjya House",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244895
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08808",
+   "kind": "lang",
+   "jp": "九頭竜の城",
+   "en": "Deep-sea castle",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 244997
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08809",
+   "kind": "lang",
+   "jp": "狂気列島",
+   "en": "Island in madness",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 245032
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08810",
+   "kind": "lang",
+   "jp": "地下通路",
+   "en": "Underground passage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 245185
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08811",
+   "kind": "lang",
+   "jp": "地下室",
+   "en": "basement",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 245386
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08812",
+   "kind": "lang",
+   "jp": "姉の教会",
+   "en": "the Church of Older Sister",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 245398
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  },
+  {
+   "id": "s08813",
+   "kind": "lang",
+   "jp": "悪魔の巣",
+   "en": "basement",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cbreeder",
+     "label": "label_2463",
+     "line": 245500
+    }
+   ],
+   "fn": "cbreeder",
+   "label": "label_2463",
+   "owner": "label_2463"
+  }
+ ]
+}

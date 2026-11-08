@@ -1,0 +1,5060 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_3038",
+ "entries": [
+  {
+   "id": "s17372",
+   "kind": "lang",
+   "jp": "善処します…",
+   "en": "I will do my best...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407315
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17373",
+   "kind": "lang",
+   "jp": "今に見ていろ！",
+   "en": "I will make you understand my awesomeness!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407318
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17374",
+   "kind": "lang",
+   "jp": "笑われるほど酷くない！",
+   "en": "My house is not badly!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407321
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17375",
+   "kind": "lang",
+   "jp": "センスないですよｗｗｗｗセ・ン・ス！ほらほら考えて～考えればもっとマシにできるはずですからｗｗｗｗくっ、あはははは！",
+   "en": "You have no sense...se-n-se! Look, look, think about it-if you think about it, you should be able to do better! Hehehe!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407323
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17376",
+   "kind": "lang",
+   "jp": "ぷっ！いいんですかぁ～そんな台詞ｗｗｗ吐いちゃってぇｗｗｗちゃーんと評価を改めさせてくれるんですよね？くくくっ…無理だと思いますけどｗｗｗ",
+   "en": "Wow! Are you okay to say that? Can you change my rating? Kukuku...I don't think you can.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407343
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17377",
+   "kind": "lang",
+   "jp": "お疲れ様です",
+   "en": "It's tiring but fun.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407380
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17378",
+   "kind": "lang",
+   "jp": "ぐへへ",
+   "en": "Guhehe...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407383
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17379",
+   "kind": "lang",
+   "jp": "そろそろ謝礼が欲しいな",
+   "en": "Rather than that, you have to pay the rent.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407386
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17380",
+   "kind": "lang",
+   "jp": "ああ、大家さん。お仕事お疲れ様です。",
+   "en": "Oh, landlord. Do not you tired to continue the adventure?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407388
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17381",
+   "kind": "lang",
+   "jp": "そうそう、娘たちもこの家と大家さんが気に入ったみたいで。よく楽しそうに話をしているんですよ。うふふ。",
+   "en": "Oh yeah, my daughters seem to like this house and you. We often talk happily. Ufufu.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407392
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17382",
+   "kind": "lang",
+   "jp": "ほ、本当にお疲れのようですね…大丈夫ですか？もう少し、休憩していきませんか？",
+   "en": "Y...You look strange...are you okay? Would you like to take a break a little longer?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407408
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17383",
+   "kind": "lang",
+   "jp": "まぁ、気づかずにすみません。こちらを受け取ってください。娘たちと一緒に作ったんですよ。",
+   "en": "Well, please receive this. I made it with my daughters.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407433
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17384",
+   "kind": "lang",
+   "jp": "幸福だよ",
+   "en": "Yes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407463
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17385",
+   "kind": "lang",
+   "jp": "不幸だよ",
+   "en": "No.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407466
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17386",
+   "kind": "lang",
+   "jp": "そんなことより家賃払ってよ",
+   "en": "Rather than that, you have to pay the rent.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407469
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17387",
+   "kind": "lang",
+   "jp": "家主さん、あなたは幸福ですか？",
+   "en": "Are you happy?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407471
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17388",
+   "kind": "lang",
+   "jp": "幸福は義務ですよね！！どんなに身体が痛くても、どんなに心が苦しくても、生きていればそれだけで幸福なのは疑う余地もありませんね！！！",
+   "en": "Happiness is a duty! Happiness is a duty!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407475
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17389",
+   "kind": "lang",
+   "jp": "生きている者は、死んだ者のためにも幸福でなければいけないのです。あああああああああ！ほら！！見て！！！私はこんなにも幸福ですよ！！！！",
+   "en": "The living must be happy for the dead. Ah ah ah ah! Look! Loooook!! I'm so happppppppy!!!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407491
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17390",
+   "kind": "lang",
+   "jp": "あっ、はい。",
+   "en": "Oh yes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407516
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17391",
+   "kind": "lang",
+   "jp": "ただの言い伝えでしょ",
+   "en": "It's just a legend, isn't it?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407603
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17392",
+   "kind": "lang",
+   "jp": "そんな面倒なことするわけない",
+   "en": "There's no way I'd do something that troublesome.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407606
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17393",
+   "kind": "lang",
+   "jp": "よいか、この墓所の中心の枯れ木から右3歩のところで8月に鏡台を使った直後にtabキーで「アソボウヨ」と絶対に発言してはならんぞ。言い伝えによると恐ろしいことが起きるとされておる。（未実装）",
+   "en": "Listen carefully, you must absolutely not say <Let's play> by pressing the tab key immediately after using the dressing table three steps to the right of the dead tree in the center of this tomb in August. Legend has it that something terrible will happen if you do.[under development]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407608
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17394",
+   "kind": "lang",
+   "jp": "そういえば…わしはこの話を誰から聞いたんじゃったか？歳のせいなのか、どうしても思い出せんのう。",
+   "en": "Come to think of it... who was it that told me this story? Maybe it's because of my age, but I just can't remember.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407612
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17395",
+   "kind": "lang",
+   "jp": "それならよいが…。いつの時代もふざけて馬鹿なことをする奴はおるからのう。",
+   "en": "Well, that's fine then... But there are always people who mess around and do stupid things, no matter the era.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407628
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17396",
+   "kind": "lang",
+   "jp": "やっぱりサギでは？",
+   "en": "Isn't it a fraud after all?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407649
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17397",
+   "kind": "lang",
+   "jp": "羽で織物とか作ってくれないの？",
+   "en": "Wouldn't it be nice if they could make textiles from the feathers?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407652
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17398",
+   "kind": "lang",
+   "jp": "給料箱のお金が少ないような気がする",
+   "en": "I feel like there's not enough money in the pay box.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407655
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17399",
+   "kind": "lang",
+   "jp": "いやぁ、恩返しも楽じゃないですね。ですが何年かかってでも必ず恩を返しますので！",
+   "en": "Well, repaying a debt of gratitude is no easy task. But I will definitely repay your kindness, no matter how many years it takes!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407657
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17400",
+   "kind": "lang",
+   "jp": "やだなぁ！どこからどう見ても、私はただの義理堅いツルじゃないですか。",
+   "en": "No matter how you look at it, I’m a crane that values ??loyalty and obligation, aren't I?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407661
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17401",
+   "kind": "lang",
+   "jp": "エグくないですか？人間に自分の髪の毛抜いてロープ作れって言ってるようなものですよ、それ。",
+   "en": "Wow! Are you okay to say that? Can you change my rating? Kukuku...I don't think you can.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407677
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17402",
+   "kind": "lang",
+   "jp": "それは問題ですね…収支を把握できるように、私が家計を管理してあげましょうか？",
+   "en": "Well, didn't you realize it? Or did you believe in the rank of the house?...Oh, I'm sorry! Even you don't believe in a sloppy assessment of the presence or absence of expensive furniture, right?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407693
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17403",
+   "kind": "lang",
+   "jp": "信仰の深さについて",
+   "en": "I want to know about the Piety.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407714
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17404",
+   "kind": "lang",
+   "jp": "捧げものについて",
+   "en": "I want to know about the Offering.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407717
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17405",
+   "kind": "lang",
+   "jp": "神の下僕について",
+   "en": "I want to know about Servants.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407720
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17406",
+   "kind": "lang",
+   "jp": "片隅にある黒い本について",
+   "en": "I want to know about the black book in the corner.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407723
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17407",
+   "kind": "lang",
+   "jp": "なんですか、ジロジロと…わたしの顔に何かついてます？",
+   "en": "Why are you staring at me like that... Is there something on my face?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407725
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17408",
+   "kind": "lang",
+   "jp": "各神への「信仰の深さ」の上限は「信仰スキル」によって決まります。スキルを成長させるだけでは信仰が深まらないので、必ず祭壇に捧げものをしましょう。",
+   "en": "The maximum Piety you can have in each god is determined by your faith skill. Simply increasing your skill won't deepen your faith, so be sure to make offerings at the altar.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407729
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17409",
+   "kind": "lang",
+   "jp": "信仰の深さは移動の過程で徐々に減少していくので、定期的に捧げものをしたほうがいいですね。それと、当然ですが信仰の深さは神を乗り換えるとリセットされますよ。",
+   "en": "The Piety gradually diminishes during the process of migration, so it's a good idea to make offerings regularly. And, of course, the Piety will be reset if you switch gods.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407742
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17410",
+   "kind": "lang",
+   "jp": "神ごとに好みの捧げものが違います。捧げものを大量に供給できるかどうか、信仰する前によく確認してください。",
+   "en": "Each deity has different preferences for offerings. Before you start faith, make sure you can provide a large quantity of offerings.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407758
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17411",
+   "kind": "lang",
+   "jp": "重量のある死体は共通して好まれるので、捧げる目的なら調理しないほうがいいですよ。でも死体の場合は腐ると価値がゴミ同然になるので気をつけてくださいね。",
+   "en": "Heavy corpses are generally preferred, so if you're offering one, it's best not to cook it. However, be careful, as corpses become practically worthless once they rot.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407771
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17412",
+   "kind": "lang",
+   "jp": "信仰を深めていくと神ごとに固有の下僕を貰えます。その神の身内などがモデルになっているらしいですね。",
+   "en": "As your faith deepens, you will receive unique servants from each god. It seems that the servant is modeled after relatives, etc.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407787
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17413",
+   "kind": "lang",
+   "jp": "さらに信仰を深めていくことで、下僕以上のものも貰えるそうですよ。…信仰を変えてからわざわざ信仰しなおすことで下僕を貰いなおす信者もいますけど、そこまでする必要はあまりないと思います。",
+   "en": "They say that by deepening your faith even further, you can receive more than just a servant...Some believers even change their faith and then change it again just to receive a servant again, but I don't think it's really necessary to go that far.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407800
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17414",
+   "kind": "lang",
+   "jp": "あの本は…皆に確認したけれど、誰も知らないみたいです。ある日、気づいたら出現していました。",
+   "en": "I checked with everyone about that book, but it seems like nobody knows about it. One day, I noticed it had appeared.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407816
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17415",
+   "kind": "lang",
+   "jp": "得体のしれない魔道具のようですが、一流の冒険者はきっとあんなものでも使いこなせるんでしょうね…。",
+   "en": "It looks like a dangerous magical item, but I'm sure a top-class adventurer could handle something like that...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407829
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17416",
+   "kind": "lang",
+   "jp": "この街が人狼どもの餌場になるくらいなら、狐に支配されたほうが幸せじゃろう？",
+   "en": "Wouldn't it be better for this town to be ruled by foxes than to become a feeding ground for werewolves?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407850
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17417",
+   "kind": "lang",
+   "jp": "油揚げをお供えする",
+   "en": "Here, take these fried tofu.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407867
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17418",
+   "kind": "lang",
+   "jp": "今度持ってきます",
+   "en": "I'll bring it next time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407872
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17419",
+   "kind": "lang",
+   "jp": "この街はわしの支配下にあるぞ。ほれほれ、崇め奉るがよい。そして、わしに油揚げを献上するのじゃ。",
+   "en": "This city is under my control. Come on, worship me. And offer me some fried tofu.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407874
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17420",
+   "kind": "lang",
+   "jp": "やったぁー！…コホン。褒美をくれてやろう、有効活用するがよい。そして、油揚げを手に入れたらまた献上するのじゃ。",
+   "en": "Yay!...Oops. Offer it to me as many times as you like. I'll give you a reward, so make good use of it. Then, when you get some fried tofu, please offer it again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407880
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17421",
+   "kind": "lang",
+   "jp": "用意の悪いやつじゃのう。油揚げを常備しておらんのか？",
+   "en": "That's a pity. Don't you keep some fried tofu on hand?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407905
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17422",
+   "kind": "lang",
+   "jp": "やだなぁ…隙を見て赤ちゃんをさらおうなんて考えてませんよぉ。",
+   "en": "No...I'm not thinking of stealing the baby while looking for a chance...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407928
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17423",
+   "kind": "lang",
+   "jp": "あー…子供ができない夫婦のとこに赤ちゃん届けてチヤホヤされてぇ…。",
+   "en": "Ah...I want to deliver a baby to a couple who can't have children...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407943
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17424",
+   "kind": "lang",
+   "jp": "子育てってノイローゼになるくらい大変ですよ。私が預かりましょうか？",
+   "en": "Parenting is so hard that it makes me have a nervous breakdown. Shall I take care of the baby?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407958
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17425",
+   "kind": "lang",
+   "jp": "気が向いたらね",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407994
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17426",
+   "kind": "lang",
+   "jp": "教えてほしいな",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407997
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17427",
+   "kind": "lang",
+   "jp": "アイメはねぇ、いろんなお話を知ってるんだよ。スターダストを５個くれたらおしえてあげるー。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 407999
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17428",
+   "kind": "lang",
+   "jp": "《アイメの日記》（Lv???）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408007
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17429",
+   "kind": "lang",
+   "jp": "仮面の下の笑顔（Lv200）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408010
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17430",
+   "kind": "lang",
+   "jp": "夢を忘れた少年（Lv250）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408013
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17431",
+   "kind": "lang",
+   "jp": "泥まみれの手（Lv300）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408016
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17432",
+   "kind": "lang",
+   "jp": "銀涙（Lv400）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408019
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17433",
+   "kind": "lang",
+   "jp": "巨神迷宮探検記（Lv500）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408022
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17434",
+   "kind": "lang",
+   "jp": "カオスエンド（Lv600）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408025
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17435",
+   "kind": "lang",
+   "jp": "イルヴァ学園七不思議（Lv700）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408028
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17436",
+   "kind": "lang",
+   "jp": "トンファー怒りの大乱闘（Lv800）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408031
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17437",
+   "kind": "lang",
+   "jp": "禁忌・天屍魔統（Lv900）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408034
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17438",
+   "kind": "lang",
+   "jp": "イェルスード対ゼイレンオー（Lv1000）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408037
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17439",
+   "kind": "lang",
+   "jp": "破壊神話（Lv1100）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408040
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17440",
+   "kind": "lang",
+   "jp": "永遠の英雄（Lv1200）",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408043
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17441",
+   "kind": "lang",
+   "jp": "まだぜんぶ未実装だけどね。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408045
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17442",
+   "kind": "lang",
+   "jp": "ひやかし？スターダストを５個もってきてねぇ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408051
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17443",
+   "kind": "lang",
+   "jp": "馬鹿な…力では完全にこちらが上だったはず…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408072
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17444",
+   "kind": "lang",
+   "jp": "だが…奇跡の代償は大きい…お前はあと数秒もせずに反動で崩壊し、自我も粉々になる…！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408085
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17445",
+   "kind": "lang",
+   "jp": "ぐっ…お前の憎たらしい顔も…もう見飽きた。私は先に虚無へと還る…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408098
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17446",
+   "kind": "lang",
+   "jp": "まったく…こんな結末があるとは…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408111
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17447",
+   "kind": "lang",
+   "jp": "まだ動けるのか…もういいだろう？お前は必要ないくらいに耐えてみせた。その執念だけは認めてやる。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408139
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17448",
+   "kind": "lang",
+   "jp": "だからどうした！",
+   "en": "What do I have to do next?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408152
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17449",
+   "kind": "lang",
+   "jp": "諦めるわけにもいかなくてね",
+   "en": "Where is Orphe?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408155
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17450",
+   "kind": "lang",
+   "jp": "それでもお前を殺す",
+   "en": "Can't you return to Tezcatlipoca?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408158
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17451",
+   "kind": "lang",
+   "jp": "大人しくそのまま散っておけ。無駄に苦しみ、頑張ったところでお前に勝ち目はない。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408160
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17452",
+   "kind": "lang",
+   "jp": "まだ減らず口を叩けるのか。いいだろう。敬意を表して、最期は念入りに焼き散らしてやろう。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408164
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17453",
+   "kind": "lang",
+   "jp": "炎が一点に収束していく…！",
+   "en": "Flame converge to one point...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408180
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17454",
+   "kind": "lang",
+   "jp": "何が起きた…！？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408263
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17455",
+   "kind": "lang",
+   "jp": "主神級でも余裕で消滅するほどの火焔で貫いたはずだ。なぜ一介の定命が、これほどの奇跡に守られている？",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408276
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17456",
+   "kind": "lang",
+   "jp": "ただの冒険者だ",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408289
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17457",
+   "kind": "lang",
+   "jp": "これは願いだ！つながりが生んだ光だ！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408292
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17458",
+   "kind": "lang",
+   "jp": "冒険者の恐ろしさを味わわせてやる…",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408295
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17459",
+   "kind": "lang",
+   "jp": "何だか知らんがお前を倒す！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408298
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17460",
+   "kind": "lang",
+   "jp": "わからん…何だその光は。お前は一体…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408300
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17461",
+   "kind": "lang",
+   "jp": "く…はははははは！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408304
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17462",
+   "kind": "lang",
+   "jp": "お前は本当に番狂わせだよ！だが、そう。所詮は死に損ないが一時の奇跡を掴んだに過ぎない！そんなもの、圧倒的な力で真っ向から打ち砕いてくれる！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408317
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17463",
+   "kind": "lang",
+   "jp": "さぁ来い…イレギュラァァァァッ！！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408330
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17464",
+   "kind": "lang",
+   "jp": "…？おや。灰が舞っているのかと思えば、焼け残りがいたのか。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408349
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17465",
+   "kind": "lang",
+   "jp": "だからどうした",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408362
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17466",
+   "kind": "lang",
+   "jp": "まだ勝負はついていない",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408365
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17467",
+   "kind": "lang",
+   "jp": "仇は討つ",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408368
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17468",
+   "kind": "lang",
+   "jp": "燃えカスになってもまだ抗う気か？戦力の差は歴然だぞ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408370
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17469",
+   "kind": "lang",
+   "jp": "いいや。終わりだ、イレギュラー。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408374
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17470",
+   "kind": "lang",
+   "jp": "*滅火*",
+   "en": "<HOROBI>",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408391
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3054",
+     "line": 412979
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17471",
+   "kind": "lang",
+   "jp": "テスカトリポカの遺した来光の牙が蒸発し、アカシックネットワークに溶けていった…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408467
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17472",
+   "kind": "lang",
+   "jp": "声が聞こえる…。",
+   "en": "You heard someone's voice...",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408502
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3054",
+     "line": 413283
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3055",
+     "line": 413621
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3056",
+     "line": 413759
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17473",
+   "kind": "lang",
+   "jp": "おかしいな…やはり弱すぎるぞ。最初は誤差だと思っていたが、いくらなんでも予測と違いすぎる。",
+   "en": "That was too easy. Way too easy. I thought it would be close to what we expected at the beginning, but this is just... not what we thought it would be.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408519
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17474",
+   "kind": "lang",
+   "jp": "死体に残存する神力量も少な…なんだこれは！？離れろ！",
+   "en": "There's also very little divine power left in the bod- what's going on?! Everyone get away!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408532
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17475",
+   "kind": "lang",
+   "jp": "まさか…エンテュメイシスが吸収していた神の一柱が、分離・復活したのか！？",
+   "en": "Is the a god that Enthumesis absorbed splitting away and reviving itself?!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408548
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17476",
+   "kind": "lang",
+   "jp": "…いや、違う。寄生していたんだ。こいつが、エンテュメイシスのため込んだ神力を吸収していたんだッ！",
+   "en": "No, that's not it. It's a parasite. It's absorbing all the divine power that was stored in Enthumesis!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408561
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17477",
+   "kind": "lang",
+   "jp": "ちっ…俺たちだけでは手に負えないな。",
+   "en": "Damn, this thing is out of our league.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408591
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17478",
+   "kind": "lang",
+   "jp": "なんだ今の攻撃は！？",
+   "en": "What was that attack just now?!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408607
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17479",
+   "kind": "lang",
+   "jp": "駄目だ、決定打が足りない！",
+   "en": "This is no good! Our attacks aren't doing enough!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408623
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17480",
+   "kind": "lang",
+   "jp": "止まったのか…？",
+   "en": "Did... did we stop it?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408639
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17481",
+   "kind": "lang",
+   "jp": "再生能力まで消してくれれば、殺して来光の牙を使えたんだが…もう爺さんが限界のようだな。凶獣とやらも崩壊しかかっている。術者が行動不能になった時に自壊するよう、安全装置が組み込まれていたようだ。とりあえず爺さんについては、仲間のところまで俺の化身が送り届けるぞ。",
+   "en": "We might've been able to use the Origin of Light if we get rid of that regeneration, but it looks like that old man's reached his limit. That beast is also not going to last much longer. It was probably made to self destruct when its user is incapacitated. For now, I'll just send that old man back with a servant of mine.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408655
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17482",
+   "kind": "lang",
+   "jp": "ノルンから連絡がいっているはずだが、俺からも他の神々に報告をしておきたい。もう動かなくなったとはいえ、こいつが何者なのか調べたり、今後どうするのか相談もしなきゃいけないしな。一度、神の間から出るぞ。",
+   "en": "Norne's going to report to the gods, but I'll have to do that too. We need to find out what that was even if it's not moving anymore, and we also need to decide what to do from now on. Come on, let's get out of here.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408668
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17483",
+   "kind": "lang",
+   "jp": "ようやくお目覚めか。本当に…本当に待たせやがって…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408702
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17484",
+   "kind": "lang",
+   "jp": "俺はここで修行しながら番をしていた。お前の復活に邪魔が入ってもいけないからな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408715
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17485",
+   "kind": "lang",
+   "jp": "次は何をすればいい？",
+   "en": "What do I have to do next?",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408729
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409386
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17486",
+   "kind": "lang",
+   "jp": "オルフェはどうしてる？",
+   "en": "Where is Orphe?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408732
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17487",
+   "kind": "lang",
+   "jp": "テスカトリポカに戻らないの？",
+   "en": "Can't you return to Tezcatlipoca?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408735
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17488",
+   "kind": "lang",
+   "jp": "まだ貰っていないご褒美がある",
+   "en": "I have not yet got the reward.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408739
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17489",
+   "kind": "lang",
+   "jp": "想定を超えてお前は強く、たくましくなった。俺も鼻が高いよ…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408742
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17490",
+   "kind": "lang",
+   "jp": "ノルンが言っていたが…お前は役割を全て果たしたらしい。もう運命に縛られることはないんだ…良かったじゃないか。この広い世界を飽きるまで冒険してくれ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408749
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17491",
+   "kind": "lang",
+   "jp": "オルフェのやつは保護されて精密検査に回された。心身に細工されていないことが確認された後、監視付きでノースティリスに降ろされたよ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408765
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17492",
+   "kind": "lang",
+   "jp": "俺はロストイルヴァで共に働くことを提案したんだがな、会わせる顔がないとか言って断られてしまった。そういえば、冒険者になるつもりだとか言っていたな。おそらく、お前に触発されたんだろう。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408778
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17493",
+   "kind": "lang",
+   "jp": "力は取り戻したんだが、今更あの八柱と勢力争いをする気も起きなくてな。元は神の間で活動するためだったとはいえ、この姿にも随分と愛着が湧いた。これからも神であることを隠し、強者を鍛えていこうと思っている。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408794
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17494",
+   "kind": "lang",
+   "jp": "そうそう。力を取り戻した影響で、ＡＰで速度や生命力をさらに上げられるようになったぞ。暇があったらウールム・レゾンに寄ってみてくれ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408807
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17495",
+   "kind": "lang",
+   "jp": "褒美か。そうだな。",
+   "en": "A reward? Sure, I guess.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408823
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409223
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17496",
+   "kind": "lang",
+   "jp": "…宝玉を渡しておこう。近辺のネフィアを活性化させ、内部のモンスターの力を引き出すことができる。役に立つかはわからんが、副次効果としてネフィアの核も手に入れることができるだろう。",
+   "en": "You can have this gem. It awakens nearby Nefia and brings out the potential of the monsters within them. It also enables you to find the core of Nefia - though I don't know if you'll have any use for those.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408845
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409245
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409600
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17497",
+   "kind": "lang",
+   "jp": "いらん",
+   "en": "Don't want it.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408859
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409259
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17498",
+   "kind": "lang",
+   "jp": "爪の♂",
+   "en": "Taloned male.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408862
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409262
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409617
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17499",
+   "kind": "lang",
+   "jp": "爪の♀",
+   "en": "Taloned female.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408865
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409265
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409620
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17500",
+   "kind": "lang",
+   "jp": "牙の♂",
+   "en": "Fanged male.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408868
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409268
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409623
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17501",
+   "kind": "lang",
+   "jp": "牙の♀",
+   "en": "Fanged female.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408871
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409271
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409626
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17502",
+   "kind": "lang",
+   "jp": "合計2体までなら化身をくれてやってもいいがどうする？爪の鋭い奴と牙がすごい奴がいるんだが。",
+   "en": "I can give you up to two servants. How 'bout it? There are ones with sharp talons and some with really impressive teeth.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408873
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409273
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17503",
+   "kind": "lang",
+   "jp": "む。そもそも仲間の最大数に達しているから連れていけないのか。",
+   "en": "Hmm. It looks like your party is already full and you can't invite someone anymore.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408877
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409277
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409635
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17504",
+   "kind": "lang",
+   "jp": "そうか…。",
+   "en": "I see.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408893
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409293
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17505",
+   "kind": "lang",
+   "jp": "この獣爪兵はとても好戦的なうえ、煙の中でも視野を確保できるようだ。",
+   "en": "This soldier is very aggressive and seems to be able to see its targets perfectly clearly through smoke.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408928
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409328
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409701
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17506",
+   "kind": "lang",
+   "jp": "このワニは泳ぎがとても得意なようだ。",
+   "en": "This crocodile seems to be very good at swimming.",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408935
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409335
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409708
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17507",
+   "kind": "lang",
+   "jp": "オルフェめ、やってくれたな。だが今度こそ止めてみせる…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408951
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17508",
+   "kind": "lang",
+   "jp": "[来光の牙]を失った。",
+   "en": "You have lost Origin of Light...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408980
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17509",
+   "kind": "lang",
+   "jp": "一緒に戦わせて",
+   "en": "I think not.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408987
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17510",
+   "kind": "lang",
+   "jp": "締めくくりに相応しい冒険だ",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408990
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17511",
+   "kind": "lang",
+   "jp": "相手の情報がほしい",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408993
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17512",
+   "kind": "lang",
+   "jp": "【神の間へ降りる】",
+   "en": "<Head down to God's prison>",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408996
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409411
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17513",
+   "kind": "lang",
+   "jp": "後は俺が何とかする…いや、俺が何とかしなきゃいけない。神の間へ降りたら、もう何があっても逃げ帰れないからな。これ以上お前を巻き込みたくないんだ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 408999
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17514",
+   "kind": "lang",
+   "jp": "…もしお前が一緒に決戦に挑むつもりでも、だ。今まで世話になった連中に一度声をかけてきたらどうだ？心残りを確かめ、戦う覚悟を…いや、すまん。余計なお節介だったな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409002
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17515",
+   "kind": "lang",
+   "jp": "…なぜだろうな、心強く思えてしまうのは。お前に頼ってはいけないと、分かっているのだが。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409008
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17516",
+   "kind": "lang",
+   "jp": "本当は、こんなところまで来させたくなかった。お前には、広い世界で普通に冒険をしていて欲しかった…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409024
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17517",
+   "kind": "lang",
+   "jp": "俺がこのフロアで交戦した時点では、オルフェはレベル350程度。混沌の渦や衝撃波動を使ってきたから、混沌耐性やPVとDVが低いと致命的だろう。だがこれは最新の情報ではない。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409040
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17518",
+   "kind": "lang",
+   "jp": "もし動けない混沌の超児からオルフェが全神力を吸収し終わった場合…とんでもないことになるはず。そう、レベルは1200をゆうに超え、混沌のみならず他の神々から吸収したあらゆる属性で攻撃を仕掛けてくるだろう。もはや弱点は神に威力を発揮するエンチャントくらいだが、それにしたって物理攻撃は重力や束縛で回避率を落とさないとまず当たるまい。当たったとしても傷になるとは思えんがな…。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409053
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17519",
+   "kind": "lang",
+   "jp": "そうなる前に乗り込んで決着をつける必要があるということだ。今の俺なら単独で前回時点のオルフェに勝てる。だが現在のオルフェがどれだけパワーアップしているかで話は変わってくる。あまり時間は残されていないのかもしれんな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409066
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17520",
+   "kind": "lang",
+   "jp": "お前が万全の状態だとしても、おそらく持久戦になる。スタミナ回復できるアイテムを多く持ってこい。スタミナが切れては攻撃も詠唱もままならんからな。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409079
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17521",
+   "kind": "lang",
+   "jp": "止めても無駄みたいだな。俺も行く。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409095
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17522",
+   "kind": "lang",
+   "jp": "じゃあ…言うぞ。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409121
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17523",
+   "kind": "lang",
+   "jp": "実はな。俺はオルフェを戦友のように思っていた。あいつが混沌に魅入られた後でも、本心ではなんとか救ってやりたかったんだ。…だが、もはやそんな悠長なことを言ってる場合ではなくなってしまった。",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409134
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17524",
+   "kind": "lang",
+   "jp": "もしも俺が戦いの中で迷いを見せたら。その時はお前が俺の頬をひっぱたいてくれ。…それだけだ。行くぞ！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409147
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17525",
+   "kind": "lang",
+   "jp": "ちゃんと警備してよ",
+   "en": "Keep a close eye on that thing, will you?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409184
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17526",
+   "kind": "lang",
+   "jp": "ご褒美は？",
+   "en": "Where's my reward?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409188
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17527",
+   "kind": "lang",
+   "jp": "アクシデントもあったが、エンテュメイシスは倒せた。お前は決戦因子としてよくやってくれたよ。後は俺たちに任せてくれ。",
+   "en": "It didn't go without a hitch, but what matters is that Enthumesis has been defeated. You can leave the rest to me.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409191
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17528",
+   "kind": "lang",
+   "jp": "お前は心配性だな…。大丈夫だ、やつは身体の動かし方すら概念レベルで忘れている。出てこられるわけがない。仮に、外側から出そうとする者が来ても、神の間と物理的につながっているのはこの扉のみ。そしてこの階層は神力が使える。つまりソピアーが常闇の杖で事前に感知してくれるのさ。",
+   "en": "You don't have to worry about that. It can't even move its body properly - there's no chance that it'll get out from here. Even if someone from the outside tried to bring it out, Sophia will know. The door here is the sole entryway into God's Prison, and divine power can be use here perfectly well.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409195
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17529",
+   "kind": "lang",
+   "jp": "警備は完璧だ。お前はいつもの生活に戻ってくれ。",
+   "en": "You can leave the guarding to me. You go back to your stuff now.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409208
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17530",
+   "kind": "lang",
+   "jp": "来たな。イベントの続きをやるぞ。本来はエンテュメイシスを倒した直後にそのまま起きるものだからな。",
+   "en": "You're back. Let's get on with the rest of the event. This was supposed to happen immediately after defeating Enthumesis.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409355
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17531",
+   "kind": "lang",
+   "jp": "神の間に行くか？",
+   "en": "Head down to God's Prison?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409358
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17532",
+   "kind": "lang",
+   "jp": "それ知ってた",
+   "en": "I knew that already.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409391
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17533",
+   "kind": "lang",
+   "jp": "テスカトリポカが混沌の神じゃないの？",
+   "en": "Isn't Tezcatlipoca the God of Chaos?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409396
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17534",
+   "kind": "lang",
+   "jp": "勝ったご褒美は？",
+   "en": "What do I get if we win?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409401
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17535",
+   "kind": "lang",
+   "jp": "もうちょっと待ってて",
+   "en": "Hang on a sec.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409406
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17536",
+   "kind": "lang",
+   "jp": "それにしても我…いや俺がテスカトリポカだとは思わなかっただろう。騙されたな？",
+   "en": "You didn't think I was Tezcatlipoca, did you? Gotcha.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409415
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17537",
+   "kind": "lang",
+   "jp": "神の間で決戦因子と共に戦えるように、受肉して神力を使わず純粋に鍛え上げた…それがこのレオルドとしての姿だ。混沌の神にどこまで通用するかはわからんがな。",
+   "en": "What you see here - the person you call Leold - is a physical form that I had created and trained up without any use of divine power. All so that I could fight alongside the Factors in God's Prison. I don't know how much of that effort will pay off against the God of Chaos though.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409418
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17538",
+   "kind": "lang",
+   "jp": "ソピアーが中心になって決戦準備を進めている。準備ができ次第、神の間に突入してもらうことになるだろう。気になるなら進捗を確認しに行ってくれ。",
+   "en": "Sophia and the others are preparing for the final confrontation. You're probably going to have to fight in God's Prison when the time comes. You can go check to see if how they're doing with the preparations if you want.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409426
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17539",
+   "kind": "lang",
+   "jp": "う、嘘だろ？",
+   "en": "You... you're kidding...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409441
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17540",
+   "kind": "lang",
+   "jp": "ネタバレしたのは誰だ。…シナアか！？",
+   "en": "Who let the cat out of the bag?! Was it Sinaha?!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409454
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17541",
+   "kind": "lang",
+   "jp": "誰がそんなこと言ったんだ。混沌の神は混沌の神、テスカトリポカはテスカトリポカで全くの別神だぞ。誰かの推測でも鵜呑みにしたか？",
+   "en": "Who told you that? The God of Chaos and Tezcatlipoca are completely separate and different. You shouldn't believe every rumour that you hear.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409475
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17542",
+   "kind": "lang",
+   "jp": "俺は滅亡が迫っていることを決戦因子候補たちに警告し、神の間を目指して必要な力を示すように指示したが…俺自身が滅ぼすなんて一言も言っていないだろう。そもそも神の間に囚われていたら神力で外界に呼びかけること自体が不可能だ。",
+   "en": "When danger drew close, I did warn all the people who were candidates as Factors and tell them to head to God's Prison. I did not say anything about destroying anything myself, did I? Besides, it would've been impossible to summon anybody in the outside world if I were trapped in the Prison.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409488
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17543",
+   "kind": "lang",
+   "jp": "確定情報と不確定情報は混同せず、ちゃんと分けて整理したほうがいいぞ。勘違いを招くからな。",
+   "en": "You should always be careful about separating facts from assumptions, or else you'll get things wrong again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409501
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17544",
+   "kind": "lang",
+   "jp": "神の間では記録ができないらしい。回復アイテム、補給用アイテム、装備の見直…いや、前にも言ったからもう分かっているか。",
+   "en": "It looks like you're not going to be able to save while you're inside there. Do you have all your healing and buffing items? What about your equipment? ...No, I think I've told you all that already, haven't I?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409516
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17545",
+   "kind": "lang",
+   "jp": "褒美か。アーティファクトなら戦闘で落としたものを持っていけ。",
+   "en": "A reward? You can have this artifact that it dropped.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409563
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17546",
+   "kind": "lang",
+   "jp": "宝玉も渡しただろう？覚醒の宝玉だ。",
+   "en": "I gave you a gem, right? The gemstone of awakening.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409577
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17547",
+   "kind": "lang",
+   "jp": "保留",
+   "en": "Maybe later.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409614
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17548",
+   "kind": "lang",
+   "jp": "全部だ！",
+   "en": "I want all of them!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409629
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17549",
+   "kind": "lang",
+   "jp": "あとは化身の1体くらいならくれてやってもいいがどうする？爪の鋭い奴と牙がすごい奴がいるんだが。",
+   "en": "You can have one more servant. How 'bout it? There are ones with sharp talons and some with really impressive teeth.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409631
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17550",
+   "kind": "lang",
+   "jp": "そうか…。あと言っておくが、俺は光玉は持ってないからな。",
+   "en": "Okay then. And just so that you know, I don't have any god jewels.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409651
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17551",
+   "kind": "lang",
+   "jp": "欲張りだな。混沌の神を討伐したらもう1体くれてやるから勘弁してくれ。",
+   "en": "Greedy, aren't you? I'll give you just one more after we defeat the God of Chaos, okay?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409666
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17552",
+   "kind": "lang",
+   "jp": "ここで何してるの？",
+   "en": "What are you doing here?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409723
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17553",
+   "kind": "lang",
+   "jp": "二番乗りじゃなくて？",
+   "en": "First? I'm not the second?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409726
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17554",
+   "kind": "lang",
+   "jp": "俺は決戦因子の選定役だ。ずっと伏せてきたが、これが八柱神から与えられた使命でな。そのために強者の育成に力を尽くしてきた。",
+   "en": "I'm been hiding and watching to choose the Factors. It's the job delegated to me by the Eight Gods. That's why I've been training and helping the strong all the time.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409732
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17555",
+   "kind": "lang",
+   "jp": "しかし、まさか初対面の冒険者が来るとはな。俺の立場がないぞ…。",
+   "en": "But to think that an adventurer that I've never met before would be here. Impressive. You put my efforts to shame.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409747
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17556",
+   "kind": "lang",
+   "jp": "すぐ下が神の間に続いている。神の間では記録ができないらしい。回復アイテム、補給用アイテム、装備の見直し、メンバーの入れ替え…入念に準備をするんだ。用意ができたら話しかけてくれ、案内する。",
+   "en": "God's Prison is right ahead. I've heard that you won't be able to save in there. Make sure that you have all your healing and buffing items, and give your equipment and party a lookover. You can't be over-prepared for what's ahead. When you're ready, come talk to me and I'll take you there.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409761
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17557",
+   "kind": "lang",
+   "jp": "用意してくる",
+   "en": "I'm ready.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409781
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17558",
+   "kind": "lang",
+   "jp": "力の覚醒",
+   "en": "Awaken powers.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409784
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410046
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17559",
+   "kind": "lang",
+   "jp": "【テスカトリポカと戦う】",
+   "en": "<Fight Tezcatlipoca>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409787
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17560",
+   "kind": "lang",
+   "jp": "どうした？",
+   "en": "Yeah?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409789
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17561",
+   "kind": "lang",
+   "jp": "ここでやると色々と処理が面倒くさくてな。悪いがウールム・レゾンまで来てくれ。",
+   "en": "That's going to be too much trouble here. If you want that, you'll have to come with me to Ulm-Leson.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409796
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17562",
+   "kind": "lang",
+   "jp": "ん？…まぁ、いいだろう。先にテスカトリポカについて話をしておこう。",
+   "en": "Huh? Well, sure, I guess. But I should tell you about Tezcatlipoca before that.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409811
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17563",
+   "kind": "lang",
+   "jp": "テスカトリポカは争いを好む軍神だ。元々はエヘカトルやイツパロトルと同じ地域で生まれた神だったらしいが。エヘカトルとは長年の好敵手で、代が変わっても殺し合ったり作ったものを壊し合ったり時に怪物討伐で共闘したりを繰り返してきたとされる。",
+   "en": "Tezcatlipoca is the conflict-loving God of War. It's said that he was born in the same domain as Ehekatl and Itzpalt. Forever the rival of Ehekatl, they would fight and kill each other generation after generation, but also fight alongside each other to slay monsters.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409824
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17564",
+   "kind": "lang",
+   "jp": "特に初代は狡猾な奴だったらしい。具体的には、初代の男のエヘカトルを騙して特殊な呪われた酒を飲ませ、エヘカトルが悪酔いして実の妹と気持ちいいこと漬けになったところで暴露して追放に追い込んだりな。",
+   "en": "It's said that the first generation of Tezcatlipoca was extremely cunning. He tricked the first Ehekatl into drinking a special cursed wine and made him have a little tail with his own little sister, then exposed the scandal to exile him.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409837
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17565",
+   "kind": "lang",
+   "jp": "とにかく油断をするなということだ。単純な戦闘力だけではなく、騙されるという危険があるのだから。では、いくぞ。",
+   "en": "Anyway, you just have to be careful of him. Tezcatlipoca isn't just about combat prowess - you also have to be careful not to get tricked. Now, let's go.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409850
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17566",
+   "kind": "lang",
+   "jp": "その宝玉は近辺のネフィアを活性化させ、内部のモンスターの力を引き出すことができる。役に立つかはわからんが、副次効果としてネフィアの核も手に入れることができるだろう。",
+   "en": "This gem awakens nearby Nefia and brings out the potential of the monsters within them. It also enables you to find the core of Nefia - though I don't know if you'll have any use for those.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409891
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17567",
+   "kind": "lang",
+   "jp": "…言っておくが、お前だけにこれを渡しているわけではないからな。勘違いするなよ。",
+   "en": "Don't think you're the only one I've given this to, though. Because you're not.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409904
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17568",
+   "kind": "lang",
+   "jp": "…！なかなかいい面構えをしている。こんな強者と今まで巡り会えなかったとは、俺もついていなかったな。",
+   "en": "You! You've got the look of someone strong. Just my luck that it would take me this long to meet someone as strong as you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409921
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17569",
+   "kind": "lang",
+   "jp": "そうそう。強者といえば、銀熊という異名の冒険者は特に見込みがあったんだが、止めるのも聞かずに大陸中央の巨城に乗り込んでしまった。いくら強くても人の話を聞かないやつは駄目だな。",
+   "en": "Speaking of strong, I saw a particularly promising adventurer called the Silver Bear. But she completely ignored me and headed straight into the Cradle of Chaos at the centre of the continent. Strength isn't going to make up for that lack of attention to others.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409947
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17570",
+   "kind": "lang",
+   "jp": "こっちに来てから、お前にまた会える日を待っていたぞ。他にも見込みのある冒険者が数名いたが…どうもな。",
+   "en": "I've been waiting for you ever since I got here. There are a few other promising adventurers, but well...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409963
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17571",
+   "kind": "lang",
+   "jp": "銀熊という異名の冒険者は特に見込みがあったんだが、俺の話も聞かずに大陸中央の巨城に乗り込んでしまった。いくら強くても人の話を聞かないやつは駄目だな。",
+   "en": "There was one called the Silver Bear, but she completely ignored me and headed straight into the Cradle of Chaos at the centre of the continent. Strength isn't going to make up for that lack of attention to others.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409976
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17572",
+   "kind": "lang",
+   "jp": "…！なかなかいい面構えをしている。俺の見込み違いでなければ、お前は相当強くなれそうだ。",
+   "en": "You! You've got the look of someone strong. And if I'm not wrong about you, you're going to get really strong.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 409994
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17573",
+   "kind": "lang",
+   "jp": "今はいい",
+   "en": "No, I'm good.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410039
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17574",
+   "kind": "lang",
+   "jp": "冒険の知恵",
+   "en": "Wisdom for adventurers.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410042
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17575",
+   "kind": "lang",
+   "jp": "目標が欲しい",
+   "en": "I want a ordeal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410051
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17576",
+   "kind": "lang",
+   "jp": "目標を達成した",
+   "en": "I have achieved the ordeal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410056
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17577",
+   "kind": "lang",
+   "jp": "現状に甘んじることなく、心と体を鍛え更なる高みを目指すのだ。何か俺に手伝えることはあるか？",
+   "en": "Never be complacent. Keep training your body and mind and reach new heights. What can I do for you?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410059
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17578",
+   "kind": "lang",
+   "jp": "食料について",
+   "en": "About food.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410063
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17579",
+   "kind": "lang",
+   "jp": "仲間について",
+   "en": "About allies.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410066
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17580",
+   "kind": "lang",
+   "jp": "アイテムについて",
+   "en": "About items.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410069
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17581",
+   "kind": "lang",
+   "jp": "生活について",
+   "en": "About surviving.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410072
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17582",
+   "kind": "lang",
+   "jp": "その他",
+   "en": "Other advice.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410075
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17583",
+   "kind": "lang",
+   "jp": "聞きたいことはどれだ？",
+   "en": "What do you want to know more about?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410077
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17584",
+   "kind": "lang",
+   "jp": "成長にいいのはハーブや出来のいい料理だ。だがどうしても食料に困ったら、ワールドマップ上の平原でマップに入り野草や実を拾うといいだろう。ちなみに宿屋での食事は安価で腹いっぱい食えるが栄養はないからな。",
+   "en": "You should always eat herbs and high-quality cooked food to strengthen yourself. But if you don't have any food at all, you can just pick up the leaves and nuts in the wilderness on the world map. Having a meal at an inn is cheap and fills you right up, but it has no nutrition.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410081
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17585",
+   "kind": "lang",
+   "jp": "ただしパンや旅糧、アピの実や芋などの一部を除いて食べ物は大体腐る。無理に腐ったものや呪われたものを食べても、吐いて余計に腹が減るし体も弱るぞ。",
+   "en": "Take note that most food will rot, with the exception being bread, rations, nuts, and imo. If you eat rotten or cursed food, you'll just throw up and get even hungrier. You'll get weaker, too.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410094
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17586",
+   "kind": "lang",
+   "jp": "そして何度も吐いていると拒食症になってしまう。拒食症の間は何を食べても吐いてしまい、飲み物しか喉を通らない。こうなると充分な睡眠をとって自然治療するか、死ぬしかないから気を付けろ。",
+   "en": "Throw up too many times and you'll get anorexia. If you get it, you'll throw up everything you eat, so you'll have to sate your hunger with drinks like potions. It'll only go away with enough sleep or when you're dead.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410107
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17587",
+   "kind": "lang",
+   "jp": "最初は弱い仲間も鍛えればかなり戦力になるぞ。お前の魅力が高くなればより多くの仲間を連れ歩けるだろう。",
+   "en": "If you train your allies, they'll become a force to be reckoned with even if they were weak to begin with. And the higher your Charisma, the more pets you can have with you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410123
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17588",
+   "kind": "lang",
+   "jp": "仲間を戦闘に参加させるなら、いい食べ物やいいアイテムを渡して強化することは必須だ。ただし鉱石や結婚指輪など、一部のアイテムは渡すと返してもらえないぞ。",
+   "en": "If you want your allies to be able to fight, then you have to give them good food and good equipment to make them stronger. They're not going to give back some items like ores and engagement rings though, so be careful.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410136
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17589",
+   "kind": "lang",
+   "jp": "あと、浮遊していない仲間は水を飲もうとして井戸に落ちて死んでしまうことがあるから気をつけろ。死んだり待機している仲間は酒場で復帰させることが出来るから覚えておけ。",
+   "en": "One more thing. Allies who don't float will sometimes fall into wells and die when they try to draw water from it. If they're dead, you can get them resurrected at the bar.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410149
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17590",
+   "kind": "lang",
+   "jp": "鑑定は大事だぞ。知らずに呪われたアイテムを使用するとろくなことにならないからな。特に、呪われた装備を着けると突然テレポートしたり、魔物を呼び寄せてしまったりする。他人が呪われた装備をしている場合は解呪の巻物を渡したり解呪の杖を振ったりするといいだろう。",
+   "en": "Identifying items is important. Nothing good ever comes out of using a cursed item. If you wear cursed equipment, you will get teleported around and attract monsters. If someone else has cursed equipment, you can give them a scroll of uncurse or zap a rod of uncurse at them.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410165
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17591",
+   "kind": "lang",
+   "jp": "火炎属性・冷気属性の攻撃を受けると、持っているアイテムの一部が破壊されることがある。それと耐酸処理がされていない装備は酸属性のダメージで劣化することがある。防ぐには対応したアイテムが必要だ。前者は耐性を整えることでも防げるがな。",
+   "en": "There's a chance that some items will get destroyed whenever you take fire or cold damage. Equipment that hasn't been treated with acidproof liquid will get degraded by acid attacks. You'll need to the appropriate items to prevent these - though the former can also be prevented if your resistances are high enough..",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410178
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17592",
+   "kind": "lang",
+   "jp": "祝福された水を調合（Bキー）でアイテムに使用すると、使用されたアイテムが呪われていても祝福されたアイテムに変化するぞ。祝福されたアイテムは大抵強化されるが、効果が変わらないものもある。装備アイテムならば素材変化させるアイテムを使うと基本性能が大きく変わるぞ。冒険するならば、アイテムもいいものを揃えたいところだな。",
+   "en": "When you Mix(B key) blessed water it turns an item into a blessed one even if it's cursed. Most of the time blessed items are stronger, but some things don't change. If you use a change material item on an piece of equipment the base stats change. If you're going to travel, best to find good stuff to use.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410191
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17593",
+   "kind": "lang",
+   "jp": "外に出て＊キーで辺りを見回してみろ。大体の地形は感じ取れるはずだ。大抵の街や施設では定期的に掃除と維持修復が行われている。長くアイテムを置いておくと片づけられてしまうから注意しろ。逆に、破壊するともう元に戻らない施設もあるから慎重にな。",
+   "en": "Press the * key on the outer world map.  You can get a feel for your surroundings. Towns that have government boards are cleaned and repaired at intervals.  You'll lose items you leave laying around for too long. Other places, like this one, on the other hand...they won't be fixed if you destroy them.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410207
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17594",
+   "kind": "lang",
+   "jp": "街や演奏会場にはカジノ系アイテムが置いてあることがある。これを使うとブラックジャックをプレイ出来るぞ。景品に「エーテル抗体のポーション」など貴重なアイテムがあるが、ディーラーは手強い。相当な運かイカサマ技術がなければ苦戦するだろうな。",
+   "en": "There are Casino related items in towns and party halls.  If you use this you can play some blackjack. You can win prizes like potions of cure corruption but the dealer is tough.  It'll be a tough going without a lot of luck or cheating.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410220
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17595",
+   "kind": "lang",
+   "jp": "街では依頼を受けられるが、アイテムが揃うまでは討伐依頼は避け、他の簡単な依頼を受けるのが賢明だろう。ちなみに配達依頼は簡単だが失敗すると大きな罪に問われる。期限に気をつけることだ。罪を負うと負のカルマが蓄積していき、-31になる頃には指名手配されているだろう。",
+   "en": "You can take up quests in towns, but smart to pass on the extermination quests until you have the gear and just do the simple quests. Delivery quests are easy by the way, but failing incurs big penalties.  Be careful of the time limit. The more crimes you commit the lower your Karma goes, you'll be a wanted criminal if it goes below -31.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410233
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17596",
+   "kind": "lang",
+   "jp": "基本的に状態異常は時間経過や回復魔法・アイテムで少しずつ治っていく。しかし寄生の場合は毒薬や染料、硫酸を飲めば治療することが出来る。他人が寄生されている場合でも、それらを渡せば自分から飲んでくれるはずだ。脳髄に寄生された場合は毒物を飲んでも無駄なので、神経に直接ダメージを与えて駆除するしかないだろうな…。",
+   "en": "Basically, status effects can be restored by either waiting for time to pass or using restorative magic and items to recover bit by bit. Except being impregnated you need to drink poison, dyes or acids to cure it. If others are infect as well, if you give it to them they'll drink it. If the brain is parasitic, there is no point in drinking poisonous substances, so the only way to get rid of it is to directly damage the nerves...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410249
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17597",
+   "kind": "lang",
+   "jp": "それと、他の冒険者は俺と違って執念深い。うっかり怒らせると、倒してもマップを変えても出会うたびに襲い掛かってくるだろう。そうなるとアイテムや魔法で変装するしかないぞ。仲が悪いと自宅に放火されたりするらしいな。",
+   "en": "Also, unlike me, other Adventurers are vicious.  If you somehow make them angry, they'll still come after you even after defeating them or changing maps. If that happens the only thing you can do is disguise yourself with magic or objects.  They'll set fire to your house if they aren't your friend.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410262
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17598",
+   "kind": "lang",
+   "jp": "成長には休息も重要だ。冒険が一段落したらなるべく質のいいベッドで寝るといいだろう。ただしベッドは「使わなければ」意味がないぞ！寝てる間に装備が呪われたりしたら、すぐに癒し手のところへ行き解呪してもらうんだな。",
+   "en": "Resting is important to growth.  After you complete an adventure you shoud sleep in the best you can find.  But it's meaningless unless you use it! If your equipment is cursed while you sleep, you should quickly get over to a healer to uncurse it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410275
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17599",
+   "kind": "lang",
+   "jp": "まぁ、冒険者ギルドに所属しているならお前もマニュアルを持っているだろう。他にも色々と参考になることが書いてあるから、Shiftキーを押しながら？で読み返しておけ。",
+   "en": "Well, if you're a member of the Adventurer's guild then you probably already have a manual. There's a bunch of other stuff to check out written there, so hold down the shift key and press ? to read over it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410289
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17600",
+   "kind": "lang",
+   "jp": "よしよし…よくやったじゃないか！祝いにこれをやろう。",
+   "en": "Hmm...you did well! I give items to celebration.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410333
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17601",
+   "kind": "lang",
+   "jp": "もうお前はレベルがどうとかいう域には収まらない。これ以上の目標は、お前が自分で見つけていくんだ。",
+   "en": "You were beyond the area to judge by level. I hope that you will find more ordeals yourself.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410357
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17602",
+   "kind": "lang",
+   "jp": "自分の力を覚醒",
+   "en": "I want to awaken my own powers.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410404
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17603",
+   "kind": "lang",
+   "jp": "仲間の力を覚醒",
+   "en": "I want to awaken an ally's power.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410407
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17604",
+   "kind": "lang",
+   "jp": "強敵との死闘の中でこそ得られる特別な経験もある。しかし大抵そのままでは形にならず、記憶の海に埋もれてしまうものだ。そんな経験を組み合わせて俺が新たな力として覚醒させてやろう。",
+   "en": "There's a special kind of experience that you gain only through life-and-death battles with the strong. Most of it never takes shape and gets lost in the sea of memories. If you want, I can put that together for you to let you awaken to another power.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410409
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17605",
+   "kind": "lang",
+   "jp": "速度上昇",
+   "en": "Increase speed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410417
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17606",
+   "kind": "lang",
+   "jp": "生命力上昇",
+   "en": "Increase life.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410420
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17607",
+   "kind": "lang",
+   "jp": "フィート取得",
+   "en": "Acquire feats.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410423
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3048",
+     "line": 411939
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17608",
+   "kind": "lang",
+   "jp": "魔法や技能の会得",
+   "en": "Learn spells and special abilities.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410426
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17609",
+   "kind": "lang",
+   "jp": "戦闘スタイル変更・品質上昇",
+   "en": "Change battle style/increase character quality.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410429
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17610",
+   "kind": "lang",
+   "jp": "スキルボーナスの獲得",
+   "en": "Convert into bonus points.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410432
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17611",
+   "kind": "lang",
+   "jp": "どういった力に変えるんだ？",
+   "en": "What form do you want your powers to take?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410434
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17612",
+   "kind": "lang",
+   "jp": "よし、初期生命力・マナや資質に応じたAPを消費して、生命力を10上げるぞ。誰の生命力を上昇させるんだ？",
+   "en": "Alright, I can raise an ally's life by 10 by consuming AP depending on initial life and bit. Who's it gonna be?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410438
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17613",
+   "kind": "lang",
+   "jp": "AP500をスキルボーナス100に変換する。誰を対象にするんだ？",
+   "en": "100 bonus points will cost 500AP. Who's it gonna be?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410456
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17614",
+   "kind": "lang",
+   "jp": "よし、初期速度に応じたAPを消費して速度を30上げるぞ。誰の速度を上昇させるんだ？",
+   "en": "Alright, I can raise an ally's speed by 30 by consuming AP depending on initial speed. Who's it gonna be?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410475
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17615",
+   "kind": "lang",
+   "jp": "魅惑(消費AP1500)[直接攻撃してきた敵が朦朧]",
+   "en": "Charm (1500AP) [Dim enemies attacking at close range]",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410493
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3048",
+     "line": 412055
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17616",
+   "kind": "lang",
+   "jp": "底力(消費AP1500)[HP減るほど最終与ダメージ上昇]",
+   "en": "Brave (1500AP) [Increase damage dealt as HP decreases]",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410496
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3048",
+     "line": 412058
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17617",
+   "kind": "lang",
+   "jp": "意地(消費AP1800)[HP減るほど回避・軽減率上昇]",
+   "en": "Obstinate (1800AP) [Increase evasion, damage mitigation as HP decreases]",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410499
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3048",
+     "line": 412061
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17618",
+   "kind": "lang",
+   "jp": "障壁(消費AP2000)[ダメージ分MP消費し攻撃無効化]",
+   "en": "Barrier (2000AP) [Negate attacks with equal amount of MP]",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410502
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3048",
+     "line": 412064
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17619",
+   "kind": "lang",
+   "jp": "どのフィートを取得するんだ？",
+   "en": "Which feat do you want?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410504
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17620",
+   "kind": "lang",
+   "jp": "罵倒(消費AP100)",
+   "en": "Insult(100AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410530
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17621",
+   "kind": "lang",
+   "jp": "魔力の集積(消費AP600)",
+   "en": "Crystal Spear(600AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410533
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17622",
+   "kind": "lang",
+   "jp": "空間歪曲(消費AP100)",
+   "en": "Dimensional Move(100AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410536
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17623",
+   "kind": "lang",
+   "jp": "挑発(消費AP200)",
+   "en": "Provoke(200AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410539
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17624",
+   "kind": "lang",
+   "jp": "チャージ(消費AP1000)",
+   "en": "Charge Attack(1000AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410542
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17625",
+   "kind": "lang",
+   "jp": "タクティカルアーツ(消費AP600)",
+   "en": "Tactical Martial Arts(600AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410545
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17626",
+   "kind": "lang",
+   "jp": "タクティカルアタック(消費AP400)",
+   "en": "Tactical Attack(400AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410548
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17627",
+   "kind": "lang",
+   "jp": "タクティカルヒール(消費AP500)",
+   "en": "Tactical Heal(500AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410551
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17628",
+   "kind": "lang",
+   "jp": "タクティカルカース(消費AP500)",
+   "en": "Tactical Curse(500AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410554
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17629",
+   "kind": "lang",
+   "jp": "タクティカルスロー(消費AP500)",
+   "en": "Tactical Throw(500AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410557
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17630",
+   "kind": "lang",
+   "jp": "零の間撃(消費AP500)",
+   "en": "Zero shoot(500AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410560
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17631",
+   "kind": "lang",
+   "jp": "可変放射(消費AP400)",
+   "en": "Variable Breath(300AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410563
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17632",
+   "kind": "lang",
+   "jp": "範囲魔法可変術式(消費AP800)",
+   "en": "Variable Storm(800AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410566
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17633",
+   "kind": "lang",
+   "jp": "どの魔法や技能を覚えさせるんだ？",
+   "en": "Which spells and abilities do you want your ally to learn?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410568
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17634",
+   "kind": "lang",
+   "jp": "近接攻撃頻度増加(消費AP30)",
+   "en": "Increased frequency of melee attack(30AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410639
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17635",
+   "kind": "lang",
+   "jp": "遠隔攻撃頻度増加(消費AP30)",
+   "en": "Increased frequency of ranged attack(30AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410642
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17636",
+   "kind": "lang",
+   "jp": "物理攻撃矢魔法化(消費AP200)",
+   "en": "Use dart spell instead of regular attack(200AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410645
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17637",
+   "kind": "lang",
+   "jp": "適正距離＋1(消費AP10)",
+   "en": "Preferred distance +1(10AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410648
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17638",
+   "kind": "lang",
+   "jp": "適正距離－1(消費AP10)",
+   "en": "Preferred distance -1(10AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410651
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17639",
+   "kind": "lang",
+   "jp": "移動確率＋10％(消費AP5)",
+   "en": "Movement probability -10%(5AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410654
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17640",
+   "kind": "lang",
+   "jp": "移動確率－10％(消費AP5)",
+   "en": "Movement probability -10%(5AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410657
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17641",
+   "kind": "lang",
+   "jp": "キャラ品質上昇(消費AP1000)",
+   "en": "Increase character quality(1000AP)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410666
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  },
+  {
+   "id": "s17642",
+   "kind": "lang",
+   "jp": "どう変更させるんだ？ちなみにこれらは、後で打ち消しても前に消費したAPは戻ってこない。気をつけろ。",
+   "en": "How do you want them to change? Careful now, AP spent on these will never get refunded even if you pick the same option again.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3038",
+     "line": 410668
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3038",
+   "owner": "label_3038"
+  }
+ ]
+}

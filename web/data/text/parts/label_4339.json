@@ -1,0 +1,1142 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_4339",
+ "entries": [
+  {
+   "id": "s21941",
+   "kind": "raw",
+   "jp": "オプション",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600629
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21942",
+   "kind": "raw",
+   "jp": "ゲームの設定",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600630
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600641
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21943",
+   "kind": "raw",
+   "jp": "画面と音の設定",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600630
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600653
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21944",
+   "kind": "raw",
+   "jp": "ネット機能の設定",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600630
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600665
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21945",
+   "kind": "raw",
+   "jp": "詳細な設定",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600630
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600677
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21946",
+   "kind": "raw",
+   "jp": "ゲームパッド",
+   "en": "",
+   "zh": "",
+   "count": 3,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600630
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600689
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21947",
+   "kind": "raw",
+   "jp": "メッセージとログ",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600630
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600701
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21948",
+   "kind": "raw",
+   "jp": "言語(Language)",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600630
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600713
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21949",
+   "kind": "raw",
+   "jp": "ノルンの冒険ガイド",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21950",
+   "kind": "raw",
+   "jp": "非好戦的NPCを無視",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21951",
+   "kind": "raw",
+   "jp": "zキーの割当て",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21952",
+   "kind": "raw",
+   "jp": "xキーの割当て",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21953",
+   "kind": "raw",
+   "jp": "走り始める歩数",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21954",
+   "kind": "raw",
+   "jp": "歩きの速さ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21955",
+   "kind": "raw",
+   "jp": "攻撃の間隔",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21956",
+   "kind": "raw",
+   "jp": "レコード表示",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21957",
+   "kind": "raw",
+   "jp": "「攻撃する」選択肢",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21958",
+   "kind": "raw",
+   "jp": "汚物生成の阻止",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21959",
+   "kind": "raw",
+   "jp": "ゲージ技演出",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21960",
+   "kind": "raw",
+   "jp": "旅経験の整理確認",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600642
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21961",
+   "kind": "raw",
+   "jp": "サウンドの再生*",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21962",
+   "kind": "raw",
+   "jp": "midiの再生*",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21963",
+   "kind": "raw",
+   "jp": "画面モード*",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21964",
+   "kind": "raw",
+   "jp": "画面の大きさ*",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21965",
+   "kind": "raw",
+   "jp": "スクロール",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21966",
+   "kind": "raw",
+   "jp": "主人公中心に描写",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21967",
+   "kind": "raw",
+   "jp": "心臓の音",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21968",
+   "kind": "raw",
+   "jp": "攻撃時アニメ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21969",
+   "kind": "raw",
+   "jp": "天候エフェクト",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21970",
+   "kind": "raw",
+   "jp": "光源の描写",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21971",
+   "kind": "raw",
+   "jp": "アイテムの影描写",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21972",
+   "kind": "raw",
+   "jp": "PCC表示",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600654
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21973",
+   "kind": "raw",
+   "jp": "ネットの使用",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600666
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21974",
+   "kind": "raw",
+   "jp": "定期的に接続",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600666
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21975",
+   "kind": "raw",
+   "jp": "チャットをフィルタ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600666
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21976",
+   "kind": "raw",
+   "jp": "走りの速さ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21977",
+   "kind": "raw",
+   "jp": "numlockを自動制御",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21978",
+   "kind": "raw",
+   "jp": "タイトルの水の波紋",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21979",
+   "kind": "raw",
+   "jp": "画面の更新頻度",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21980",
+   "kind": "raw",
+   "jp": "走り時スクロール",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21981",
+   "kind": "raw",
+   "jp": "オートターンの挙動",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21982",
+   "kind": "raw",
+   "jp": "イベントの短縮",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21983",
+   "kind": "raw",
+   "jp": "ダメージ表示",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21984",
+   "kind": "raw",
+   "jp": "エフェクトの速さ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600678
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21985",
+   "kind": "raw",
+   "jp": "決定キー",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21986",
+   "kind": "raw",
+   "jp": "キャンセルキー",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21987",
+   "kind": "raw",
+   "jp": "所持品",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21988",
+   "kind": "raw",
+   "jp": "斜め移動(L)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21989",
+   "kind": "raw",
+   "jp": "拾う(R)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21990",
+   "kind": "raw",
+   "jp": "射撃(R)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21991",
+   "kind": "raw",
+   "jp": "目標(L)",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21992",
+   "kind": "raw",
+   "jp": "ポーズメニュー",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21993",
+   "kind": "raw",
+   "jp": "ヘルプ",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21994",
+   "kind": "raw",
+   "jp": "キャラ情報",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21995",
+   "kind": "raw",
+   "jp": "装填",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600690
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21996",
+   "kind": "raw",
+   "jp": "ログに時刻表示追加",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600702
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21997",
+   "kind": "raw",
+   "jp": "過去のﾒｯｾｰｼﾞの透過",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600702
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21998",
+   "kind": "raw",
+   "jp": "起動時の注意書き",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600702
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s21999",
+   "kind": "raw",
+   "jp": "操作説明ウインドウ*",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600702
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  },
+  {
+   "id": "s22000",
+   "kind": "raw",
+   "jp": "言語*",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4339",
+     "line": 600714
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4339",
+   "owner": "label_4339"
+  }
+ ]
+}

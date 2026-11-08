@@ -1,0 +1,401 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "byOwner": {
+  "(misc)": {
+   "file": "parts/_misc.json",
+   "count": 3657,
+   "lines": [
+    190,
+    611884
+   ],
+   "preview": "（其余零散条目）"
+  },
+  "label_4269": {
+   "file": "parts/label_4269.json",
+   "count": 3560,
+   "lines": [
+    472623,
+    604536
+   ],
+   "preview": "パンジャンの精霊",
+   "overlap": {
+    "table": "creature.json",
+    "ratio": 0.32
+   }
+  },
+  "label_1934": {
+   "file": "parts/label_1934.json",
+   "count": 2522,
+   "lines": [
+    81242,
+    169530
+   ],
+   "preview": "パンジャンドラムの残骸から見つけたパンジャン胎児をヨーヨーに改造した、非パン道的"
+  },
+  "label_2479": {
+   "file": "parts/label_2479.json",
+   "count": 2300,
+   "lines": [
+    252636,
+    592281
+   ],
+   "preview": "爆発四散した陸上自走爆雷がイルヴァに転生してきた。転生の際に無限にロケットブース",
+   "overlap": {
+    "table": "creature.json",
+    "ratio": 0.49
+   }
+  },
+  "label_1936": {
+   "file": "parts/label_1936.json",
+   "count": 1648,
+   "lines": [
+    172278,
+    522113
+   ],
+   "preview": "《デビルシュート》"
+  },
+  "label_3036": {
+   "file": "parts/label_3036.json",
+   "count": 1418,
+   "lines": [
+    386765,
+    420016
+   ],
+   "preview": "前半再抽選"
+  },
+  "label_3035": {
+   "file": "parts/label_3035.json",
+   "count": 1156,
+   "lines": [
+    367828,
+    434626
+   ],
+   "preview": "礼を言うぞ…この地と神々については常闇の眼でも知り得なかったことだ。果たしてお前"
+  },
+  "label_0034": {
+   "file": "parts/label_0034.json",
+   "count": 803,
+   "lines": [
+    1713,
+    394858
+   ],
+   "preview": "生命力"
+  },
+  "label_3016": {
+   "file": "parts/label_3016.json",
+   "count": 687,
+   "lines": [
+    348787,
+    609046
+   ],
+   "preview": "そのアイテムが次に使用できるのは睡眠後だ。"
+  },
+  "text_set": {
+   "file": "parts/text_set.json",
+   "count": 486,
+   "lines": [
+    8728,
+    600690
+   ],
+   "preview": "頭"
+  },
+  "label_2617": {
+   "file": "parts/label_2617.json",
+   "count": 467,
+   "lines": [
+    273655,
+    555264
+   ],
+   "preview": "処刑の時間"
+  },
+  "label_0043": {
+   "file": "parts/label_0043.json",
+   "count": 353,
+   "lines": [
+    5040,
+    6289
+   ],
+   "preview": "短距離走者"
+  },
+  "label_2968": {
+   "file": "parts/label_2968.json",
+   "count": 274,
+   "lines": [
+    326872,
+    592934
+   ],
+   "preview": "床が盛り上がってきた。"
+  },
+  "label_3038": {
+   "file": "parts/label_3038.json",
+   "count": 271,
+   "lines": [
+    407315,
+    413759
+   ],
+   "preview": "善処します…"
+  },
+  "label_3061": {
+   "file": "parts/label_3061.json",
+   "count": 255,
+   "lines": [
+    416776,
+    425201
+   ],
+   "preview": "欲しい…"
+  },
+  "label_3059": {
+   "file": "parts/label_3059.json",
+   "count": 167,
+   "lines": [
+    414158,
+    416496
+   ],
+   "preview": "ふたりの特別な日"
+  },
+  "label_0270": {
+   "file": "parts/label_0270.json",
+   "count": 144,
+   "lines": [
+    20315,
+    21877
+   ],
+   "preview": "@QS[サブクエスト]"
+  },
+  "mapname": {
+   "file": "parts/mapname.json",
+   "count": 140,
+   "lines": [
+    12114,
+    240095
+   ],
+   "preview": "ノースティリス"
+  },
+  "label_0031": {
+   "file": "parts/label_0031.json",
+   "count": 133,
+   "lines": [
+    414,
+    4377
+   ],
+   "preview": "聖なる盾"
+  },
+  "label_4376": {
+   "file": "parts/label_4376.json",
+   "count": 131,
+   "lines": [
+    606785,
+    611927
+   ],
+   "preview": "パーティーは大盛況だった！"
+  },
+  "label_0596": {
+   "file": "parts/label_0596.json",
+   "count": 117,
+   "lines": [
+    38163,
+    38459
+   ],
+   "preview": "クズ"
+  },
+  "label_0357": {
+   "file": "parts/label_0357.json",
+   "count": 113,
+   "lines": [
+    28893,
+    263081
+   ],
+   "preview": "バグ"
+  },
+  "label_3033": {
+   "file": "parts/label_3033.json",
+   "count": 107,
+   "lines": [
+    366144,
+    425196
+   ],
+   "preview": "友達100人できるかな♪"
+  },
+  "label_2645": {
+   "file": "parts/label_2645.json",
+   "count": 105,
+   "lines": [
+    280050,
+    280556
+   ],
+   "preview": "がらくた錬成"
+  },
+  "label_2106": {
+   "file": "parts/label_2106.json",
+   "count": 100,
+   "lines": [
+    203962,
+    205244
+   ],
+   "preview": "赤い雨"
+  },
+  "label_2688": {
+   "file": "parts/label_2688.json",
+   "count": 97,
+   "lines": [
+    284589,
+    284937
+   ],
+   "preview": "<title1>◆思考状態<def> "
+  },
+  "label_2463": {
+   "file": "parts/label_2463.json",
+   "count": 91,
+   "lines": [
+    238423,
+    313369
+   ],
+   "preview": "新生体兵器実験場"
+  },
+  "label_0026": {
+   "file": "parts/label_0026.json",
+   "count": 88,
+   "lines": [
+    338,
+    579575
+   ],
+   "preview": "アリーナのチャンピオン"
+  },
+  "label_2729": {
+   "file": "parts/label_2729.json",
+   "count": 84,
+   "lines": [
+    287740,
+    589878
+   ],
+   "preview": "願いの女神の力も、ここには届かないようだ…。"
+  },
+  "label_0351": {
+   "file": "parts/label_0351.json",
+   "count": 83,
+   "lines": [
+    28262,
+    190814
+   ],
+   "preview": "野菜"
+  },
+  "label_2749": {
+   "file": "parts/label_2749.json",
+   "count": 78,
+   "lines": [
+    289334,
+    419397
+   ],
+   "preview": "操作する対象の方向は？"
+  },
+  "label_2697": {
+   "file": "parts/label_2697.json",
+   "count": 77,
+   "lines": [
+    285175,
+    285602
+   ],
+   "preview": "◆ 取得できるフィート"
+  },
+  "label_0336": {
+   "file": "parts/label_0336.json",
+   "count": 69,
+   "lines": [
+    26481,
+    27690
+   ],
+   "preview": " [最大"
+  },
+  "label_0405": {
+   "file": "parts/label_0405.json",
+   "count": 68,
+   "lines": [
+    29935,
+    30311
+   ],
+   "preview": "ＣＦポーショマン"
+  },
+  "label_2435": {
+   "file": "parts/label_2435.json",
+   "count": 68,
+   "lines": [
+    232977,
+    291083
+   ],
+   "preview": "ここはあなたの家ではない。"
+  },
+  "label_0268": {
+   "file": "parts/label_0268.json",
+   "count": 63,
+   "lines": [
+    20001,
+    344336
+   ],
+   "preview": "@QM[第一部 エーテルの風]"
+  },
+  "label_2912": {
+   "file": "parts/label_2912.json",
+   "count": 60,
+   "lines": [
+    306551,
+    307920
+   ],
+   "preview": "ﾌﾟｵｰ♪ "
+  },
+  "label_4339": {
+   "file": "parts/label_4339.json",
+   "count": 60,
+   "lines": [
+    600629,
+    600714
+   ],
+   "preview": "オプション"
+  },
+  "label_2965": {
+   "file": "parts/label_2965.json",
+   "count": 57,
+   "lines": [
+    318389,
+    366425
+   ],
+   "preview": "が屍を貪る幻覚を目撃した。"
+  },
+  "label_2700": {
+   "file": "parts/label_2700.json",
+   "count": 56,
+   "lines": [
+    286000,
+    286138
+   ],
+   "preview": "ノルマ: "
+  },
+  "label_2827": {
+   "file": "parts/label_2827.json",
+   "count": 54,
+   "lines": [
+    297422,
+    350793
+   ],
+   "preview": "それはあなたの大事なものだ。<調べる>メニューから解除できる。"
+  }
+ },
+ "miscOwnerCount": 495,
+ "miscCount": 3657,
+ "note": "overlap.ratio 是该分片中已存在于同名数据表的比例（>=0.2 才标注），这部分可跳过翻译"
+}

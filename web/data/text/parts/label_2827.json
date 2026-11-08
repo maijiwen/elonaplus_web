@@ -1,0 +1,1181 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_2827",
+ "entries": [
+  {
+   "id": "s12975",
+   "kind": "lang",
+   "jp": "それはあなたの大事なものだ。<調べる>メニューから解除できる。",
+   "en": "It's set as no-drop. You can reset it from the <examine> menu.",
+   "zh": "",
+   "count": 13,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297422
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297486
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297742
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297889
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298838
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298859
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2967",
+     "line": 326604
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2968",
+     "line": 326791
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12976",
+   "kind": "lang",
+   "jp": "これ以上は置けない。",
+   "en": "You can't drop items any more.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297430
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297441
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12977",
+   "kind": "lang",
+   "jp": "これ以上入らない。",
+   "en": "The container is full.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297498
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12978",
+   "kind": "lang",
+   "jp": "これ以上送れない。",
+   "en": "The cemetery is full.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297509
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12979",
+   "kind": "lang",
+   "jp": "これ以上置けない。",
+   "en": "The container is full.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297520
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12980",
+   "kind": "lang",
+   "jp": "荷物は入らない。",
+   "en": "The container cannot hold cargos",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297540
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12981",
+   "kind": "lang",
+   "jp": "遺産の相続権を持っていない。",
+   "en": "You don't have a claim.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297573
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12982",
+   "kind": "lang",
+   "jp": "もっと稼がないと買えない！",
+   "en": "You need to earn more money!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297674
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297676
+    }
+   ],
+   "concat": true,
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12983",
+   "kind": "lang",
+   "jp": "あなたは財布を開いてがっかりした…",
+   "en": "You check your wallet and shake your head.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297676
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12984",
+   "kind": "lang",
+   "jp": "腹がさける…",
+   "en": "You are too bloated to eat any more.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297752
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297754
+    }
+   ],
+   "concat": true,
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12985",
+   "kind": "lang",
+   "jp": "まだ腹は減っていない。",
+   "en": "Your stomach can't digest any more.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297752
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297754
+    }
+   ],
+   "concat": true,
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12986",
+   "kind": "lang",
+   "jp": "今はとても食べられない。",
+   "en": "Your are too full to eat.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297754
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12987",
+   "kind": "lang",
+   "jp": "それは重すぎて装備できない。",
+   "en": "It's too heavy to equip.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297769
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12988",
+   "kind": "lang",
+   "jp": "それは反則すぎて装備できない。",
+   "en": "It's too unfair to equip.",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297787
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297796
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298660
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298669
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12989",
+   "kind": "lang",
+   "jp": "膀胱がやぶける…",
+   "en": "You are too bloated to drink any more.",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297855
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297857
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 350791
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 350793
+    }
+   ],
+   "concat": true,
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12990",
+   "kind": "lang",
+   "jp": "まだ喉は渇いていない。",
+   "en": "Your stomach can't digest any more.",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297855
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297857
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 350791
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 350793
+    }
+   ],
+   "concat": true,
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12991",
+   "kind": "lang",
+   "jp": "これ以上飲めない…。",
+   "en": "Your are too full to drink.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 297857
+    },
+    {
+     "fn": "dipcursed",
+     "label": "label_3016",
+     "line": 350793
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12992",
+   "kind": "lang",
+   "jp": "次の２月を待とう。",
+   "en": "You have to wait next February.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298131
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12993",
+   "kind": "raw",
+   "jp": "は感極まってあなたに抱きついてきた！が、我に返って慌てて離れた。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298186
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298188
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12994",
+   "kind": "raw",
+   "jp": "はあなたとチョコを交互に見つめては幸せそうに一人でにやにやしている…。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298188
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12995",
+   "kind": "raw",
+   "jp": "は笑顔を見せた。それも、今までに見たことがないようないい笑顔を。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298205
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298207
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12996",
+   "kind": "raw",
+   "jp": "は平静を装っている。だが顔が真っ赤だ。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298205
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298207
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12997",
+   "kind": "raw",
+   "jp": "は顔がにやけるのを隠そうと必死だ！",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298207
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12998",
+   "kind": "raw",
+   "jp": "は微笑んでいる。まんざらでもなさそうだ。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298224
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298226
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s12999",
+   "kind": "raw",
+   "jp": "は余程嬉しかったのか、チョコを見て目を輝せている。",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298224
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298226
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13000",
+   "kind": "raw",
+   "jp": "は一瞬呆然とした後、驚愕の声を上げた。貰えるとは思っていなかったようだ。",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298226
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13001",
+   "kind": "lang",
+   "jp": "イヤぁぁあ！",
+   "en": "Nooooo!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298311
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299038
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13002",
+   "kind": "lang",
+   "jp": "イヤ～！",
+   "en": "No!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298311
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299038
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13003",
+   "kind": "lang",
+   "jp": "イヤ♪",
+   "en": "No! No!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298311
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299038
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13004",
+   "kind": "lang",
+   "jp": "イヤッ！",
+   "en": "No!!!!!!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298311
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299038
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13005",
+   "kind": "lang",
+   "jp": "重すぎ",
+   "en": "Too heavy!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298516
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298528
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13006",
+   "kind": "lang",
+   "jp": "からっぽ！",
+   "en": "No way.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298516
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13007",
+   "kind": "lang",
+   "jp": "いらん",
+   "en": "I don't want it.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298516
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298528
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13008",
+   "kind": "lang",
+   "jp": "ありがとう！",
+   "en": "Never!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298516
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13009",
+   "kind": "lang",
+   "jp": "無理",
+   "en": "No way.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298528
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13010",
+   "kind": "lang",
+   "jp": "イヤ！",
+   "en": "Never!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298528
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13011",
+   "kind": "lang",
+   "jp": "それは遠隔装備だが手にも装備できる。どちらに装備させる？",
+   "en": "Will you be equipped it at Range?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298700
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13012",
+   "kind": "lang",
+   "jp": "それは手装備だが遠隔にも装備できる。どちらに装備させる？",
+   "en": "Will you be equipped it at Hand?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298707
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13013",
+   "kind": "lang",
+   "jp": "何番目の手？",
+   "en": "Which hand?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298732
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13014",
+   "kind": "lang",
+   "jp": "新しい知識は得られなかった。より上位の鑑定で調べる必要がある。",
+   "en": "You need higher identification to gain new knowledge.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298780
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13015",
+   "kind": "lang",
+   "jp": "ノルマを達成した！",
+   "en": "You fulfill the quota!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298929
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13016",
+   "kind": "lang",
+   "jp": "  納入済み",
+   "en": " Delivered ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298939
+    }
+   ],
+   "concat": true,
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13017",
+   "kind": "lang",
+   "jp": "納入ノルマ",
+   "en": "Quota ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298939
+    }
+   ],
+   "concat": true,
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13018",
+   "kind": "lang",
+   "jp": "金が足りない…",
+   "en": "You don't have enough money.",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298952
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298961
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298970
+    },
+    {
+     "fn": "calcmagiccontrol",
+     "label": "label_2967",
+     "line": 326374
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13019",
+   "kind": "lang",
+   "jp": "まだ納税する必要はない。",
+   "en": "You don't have to pay your tax yet.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 298980
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13020",
+   "kind": "lang",
+   "jp": "やだ",
+   "en": "No!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299053
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13021",
+   "kind": "lang",
+   "jp": "あげないよ",
+   "en": "It's mine.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299053
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13022",
+   "kind": "lang",
+   "jp": "だめ",
+   "en": "Get off!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299053
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13023",
+   "kind": "lang",
+   "jp": "イヤ！",
+   "en": "Never.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299053
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13024",
+   "kind": "lang",
+   "jp": "そこには投げられない。",
+   "en": "The location is blocked.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299161
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13025",
+   "kind": "lang",
+   "jp": "これ以上持てない。",
+   "en": "Your inventory is full.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299181
+    },
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299232
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13026",
+   "kind": "lang",
+   "jp": "メダルの数が足りない…",
+   "en": "You don't have enough coins.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299208
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13027",
+   "kind": "lang",
+   "jp": "チケットの数が足りない…",
+   "en": "You don't have enough tickets.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299259
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  },
+  {
+   "id": "s13028",
+   "kind": "lang",
+   "jp": "続けてアイテムを置くことができる。",
+   "en": "You can continuously drop items.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "savecycle",
+     "label": "label_2827",
+     "line": 299377
+    }
+   ],
+   "fn": "savecycle",
+   "label": "label_2827",
+   "owner": "label_2827"
+  }
+ ]
+}

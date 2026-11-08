@@ -1,0 +1,2143 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_0596",
+ "entries": [
+  {
+   "id": "s03778",
+   "kind": "lang",
+   "jp": "クズ",
+   "en": "Garbage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38163
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03779",
+   "kind": "lang",
+   "jp": "何の価値もないクズ",
+   "en": "Just garbage.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38164
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03780",
+   "kind": "lang",
+   "jp": "カジノチップ",
+   "en": "Casino chip",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38168
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03781",
+   "kind": "lang",
+   "jp": "カジノで使うチップ",
+   "en": "Chips used in casinos.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38169
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03782",
+   "kind": "lang",
+   "jp": "100Yen硬貨",
+   "en": "100 Yen coin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38173
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03783",
+   "kind": "lang",
+   "jp": "異国のお金",
+   "en": "Foreign money.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38174
+    },
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38179
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03784",
+   "kind": "lang",
+   "jp": "500Yen硬貨",
+   "en": "500 Yen coin",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38178
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03785",
+   "kind": "lang",
+   "jp": "紙",
+   "en": "Paper",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38183
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03786",
+   "kind": "lang",
+   "jp": "白紙",
+   "en": "Blank paper.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38184
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03787",
+   "kind": "lang",
+   "jp": "炭",
+   "en": "Charcoal",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38188
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03788",
+   "kind": "lang",
+   "jp": "良質な炭",
+   "en": "This is good quality charcoal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38189
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03789",
+   "kind": "lang",
+   "jp": "流木",
+   "en": "Driftwood",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38193
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03790",
+   "kind": "lang",
+   "jp": "あまり質の良くない木材",
+   "en": "Common driftwood.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38194
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03791",
+   "kind": "lang",
+   "jp": "石ころ",
+   "en": "Pebble",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38198
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03792",
+   "kind": "lang",
+   "jp": "どこにでも落ちている",
+   "en": "These are around everywhere.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38199
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03793",
+   "kind": "lang",
+   "jp": "杖",
+   "en": "Stick",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38203
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03794",
+   "kind": "lang",
+   "jp": "杖",
+   "en": "A specially shaped piece of wood.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38204
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03795",
+   "kind": "lang",
+   "jp": "布きれ",
+   "en": "Cloth",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38208
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03796",
+   "kind": "lang",
+   "jp": "ただの布きれ",
+   "en": "A piece of cloth.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38209
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03797",
+   "kind": "lang",
+   "jp": "丈夫な布",
+   "en": " Durable cloth",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38213
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03798",
+   "kind": "lang",
+   "jp": "裂けない",
+   "en": "Not torn.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38214
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03799",
+   "kind": "lang",
+   "jp": "わめく狂人",
+   "en": "Yelling madman",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38218
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03800",
+   "kind": "lang",
+   "jp": "黙らない",
+   "en": "It never shuts up.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38219
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03801",
+   "kind": "lang",
+   "jp": "マジックマス",
+   "en": "Magic mass",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38223
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03802",
+   "kind": "lang",
+   "jp": "謎の魔力の塊",
+   "en": "Unknown magical mass.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38224
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03803",
+   "kind": "lang",
+   "jp": "電気",
+   "en": "Electricity",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38228
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03804",
+   "kind": "lang",
+   "jp": "放電している",
+   "en": "It is discharging.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38229
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03805",
+   "kind": "lang",
+   "jp": "生成機械",
+   "en": "Generator",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38233
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03806",
+   "kind": "lang",
+   "jp": "何かを生み出す機械",
+   "en": "This machine generates something.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38234
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03807",
+   "kind": "lang",
+   "jp": "魔力の欠片",
+   "en": "Magic fragment",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38238
+    },
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38328
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03808",
+   "kind": "lang",
+   "jp": "魔力が込められている",
+   "en": "This is magical.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38239
+    },
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38329
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03809",
+   "kind": "lang",
+   "jp": "丸太",
+   "en": "Log",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38243
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03810",
+   "kind": "lang",
+   "jp": "手ごろな太さ",
+   "en": "Affordable thickness.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38244
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03811",
+   "kind": "lang",
+   "jp": "枝",
+   "en": "Branch",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38248
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03812",
+   "kind": "lang",
+   "jp": "枝",
+   "en": "Broken off of a tree.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38249
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03813",
+   "kind": "lang",
+   "jp": "革",
+   "en": "Leather",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38253
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03814",
+   "kind": "lang",
+   "jp": "なめした皮",
+   "en": "A tanned hide.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38254
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03815",
+   "kind": "lang",
+   "jp": "ツル",
+   "en": "Vein",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38258
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03816",
+   "kind": "lang",
+   "jp": "ツル",
+   "en": "Vein.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38259
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03817",
+   "kind": "lang",
+   "jp": "頑丈な枝",
+   "en": "Thick wood",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38263
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03818",
+   "kind": "lang",
+   "jp": "なかなか折れない",
+   "en": "This doesn't break down easily.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38264
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03819",
+   "kind": "lang",
+   "jp": "曲がった杖",
+   "en": "Curved stick",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38268
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03820",
+   "kind": "lang",
+   "jp": "杖の役割を果たさない",
+   "en": "Almost unusable.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38269
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03821",
+   "kind": "lang",
+   "jp": "接着剤",
+   "en": "Adhesive",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38273
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03822",
+   "kind": "lang",
+   "jp": "ネトネトしている",
+   "en": "It's sticky.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38274
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03823",
+   "kind": "lang",
+   "jp": "記憶の欠片",
+   "en": "Memory fragment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38278
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03824",
+   "kind": "lang",
+   "jp": "思い出が残っている",
+   "en": " Reminds you of something.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38279
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03825",
+   "kind": "lang",
+   "jp": "上質紙",
+   "en": "Good paper",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38283
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03826",
+   "kind": "lang",
+   "jp": "手触りのよい紙",
+   "en": "Good touch.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38284
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03827",
+   "kind": "lang",
+   "jp": "魔法の紙",
+   "en": "Magic paper",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38288
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03828",
+   "kind": "lang",
+   "jp": "魔力を秘めた紙",
+   "en": "Magical paper.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38289
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03829",
+   "kind": "lang",
+   "jp": "魔法のインク",
+   "en": "Magic ink",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38293
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03830",
+   "kind": "lang",
+   "jp": "魔力を秘めたインク",
+   "en": "Wizards love to use it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38294
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03831",
+   "kind": "lang",
+   "jp": "海水",
+   "en": "Seawater",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38298
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03832",
+   "kind": "lang",
+   "jp": "しょっぱい水",
+   "en": "Very salty.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38299
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03833",
+   "kind": "lang",
+   "jp": "水滴",
+   "en": "Waterdrop",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38303
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03834",
+   "kind": "lang",
+   "jp": "水滴",
+   "en": "A drop of water.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38304
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03835",
+   "kind": "lang",
+   "jp": "天使の涙",
+   "en": "Angel's tear",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38308
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03836",
+   "kind": "lang",
+   "jp": "不思議な輝きを放つ涙",
+   "en": "Hard to gather.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38309
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03837",
+   "kind": "lang",
+   "jp": "お湯",
+   "en": "Hot water",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38313
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03838",
+   "kind": "lang",
+   "jp": "なぜか冷めない",
+   "en": "Somehow it's not cooling down.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38314
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03839",
+   "kind": "lang",
+   "jp": "魔女の涙",
+   "en": "Witch's tear",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38318
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03840",
+   "kind": "lang",
+   "jp": "決して乾かない涙",
+   "en": "Never dries up.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38319
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03841",
+   "kind": "lang",
+   "jp": "雪",
+   "en": "Snow",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38323
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03842",
+   "kind": "lang",
+   "jp": "なぜか溶けない",
+   "en": "It won't melt somehow.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38324
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03843",
+   "kind": "lang",
+   "jp": "ミスリルの欠片",
+   "en": "Mithril fragment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38333
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03844",
+   "kind": "lang",
+   "jp": "ミスリルを含んだ鉱石の欠片",
+   "en": "Contains mithril.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38334
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03845",
+   "kind": "lang",
+   "jp": "鉄の欠片",
+   "en": "Iron fragment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38338
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03846",
+   "kind": "lang",
+   "jp": "鉄分を含んだ鉱石の欠片",
+   "en": "Contains iron.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38339
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03847",
+   "kind": "lang",
+   "jp": "火炎石",
+   "en": "Fire stone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38343
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03848",
+   "kind": "lang",
+   "jp": "熱を帯びた石",
+   "en": "This is hot.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38344
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03849",
+   "kind": "lang",
+   "jp": "冷凍石",
+   "en": "Ice stone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38348
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03850",
+   "kind": "lang",
+   "jp": "冷たい石",
+   "en": "This is cool.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38349
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03851",
+   "kind": "lang",
+   "jp": "帯電石",
+   "en": "Discharging stone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38353
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03852",
+   "kind": "lang",
+   "jp": "電気を帯びた石",
+   "en": "It's electrified.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38354
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03853",
+   "kind": "lang",
+   "jp": "上等な石",
+   "en": "Fine stone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38358
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03854",
+   "kind": "lang",
+   "jp": "状態の良い石",
+   "en": "A good quality stone.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38359
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03855",
+   "kind": "lang",
+   "jp": "エーテルの欠片",
+   "en": "Ether fragment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38363
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03856",
+   "kind": "lang",
+   "jp": "エーテルを含んだ鉱石の欠片",
+   "en": "Contains ether.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38364
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03857",
+   "kind": "lang",
+   "jp": "風切石",
+   "en": "Element fragment",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38368
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03858",
+   "kind": "lang",
+   "jp": "風を裂く不思議な石",
+   "en": "Elemental.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38369
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03859",
+   "kind": "lang",
+   "jp": "混沌の石",
+   "en": "Chaos stone",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38373
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03860",
+   "kind": "lang",
+   "jp": "混沌の力が封じられた石",
+   "en": "Chaotic.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38374
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03861",
+   "kind": "lang",
+   "jp": "唸る草",
+   "en": "Howling weed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38378
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03862",
+   "kind": "lang",
+   "jp": "変な音を出す草",
+   "en": "It's making a whining sound.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38379
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03863",
+   "kind": "lang",
+   "jp": "赤い草",
+   "en": "Red weed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38383
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03864",
+   "kind": "lang",
+   "jp": "ほんのり赤い草",
+   "en": "A faintly reddish weed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38384
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03865",
+   "kind": "lang",
+   "jp": "青い草",
+   "en": "Blue weed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38388
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03866",
+   "kind": "lang",
+   "jp": "ほんのり青い草",
+   "en": "A faintly blueish weed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38389
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03867",
+   "kind": "lang",
+   "jp": "呪いの草",
+   "en": "Curse weed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38393
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03868",
+   "kind": "lang",
+   "jp": "呪われた草",
+   "en": "A cursed weed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38394
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03869",
+   "kind": "lang",
+   "jp": "白い草",
+   "en": "White weed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38398
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03870",
+   "kind": "lang",
+   "jp": "白っぽい草",
+   "en": "A faintly whitish weed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38399
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03871",
+   "kind": "lang",
+   "jp": "薬草",
+   "en": "Medicinal weed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38403
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03872",
+   "kind": "lang",
+   "jp": "少し傷を癒す",
+   "en": "Slightly cures wounds.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38404
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03873",
+   "kind": "lang",
+   "jp": "ヒカリソウ",
+   "en": "Shining weed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38408
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03874",
+   "kind": "lang",
+   "jp": "光輝く草",
+   "en": "A shiny weed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38409
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03875",
+   "kind": "lang",
+   "jp": "聖なる草",
+   "en": "Holy weed",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38413
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03876",
+   "kind": "lang",
+   "jp": "祝福された草",
+   "en": "It's blessed.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38414
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03877",
+   "kind": "lang",
+   "jp": "黒い霧",
+   "en": "Black mist",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38418
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03878",
+   "kind": "lang",
+   "jp": "真っ黒な霧",
+   "en": "It's as black as coal.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38419
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03879",
+   "kind": "lang",
+   "jp": "世界樹の樹液",
+   "en": "Sap of Yaggdrasil",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38423
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03880",
+   "kind": "lang",
+   "jp": "どんな傷も癒す樹液",
+   "en": "It's pretty rare.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38424
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03881",
+   "kind": "lang",
+   "jp": "鳥の羽",
+   "en": "Bird's feather",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38428
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03882",
+   "kind": "lang",
+   "jp": "普通の鳥の羽",
+   "en": "A piece of Feather.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38429
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03883",
+   "kind": "lang",
+   "jp": "ウサギの尻尾",
+   "en": "Rabbit's tail",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38433
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03884",
+   "kind": "lang",
+   "jp": "幸運を呼ぶ尻尾",
+   "en": "Scut.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38434
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03885",
+   "kind": "lang",
+   "jp": "ヒトの遺伝子",
+   "en": "Human gene",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38438
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03886",
+   "kind": "lang",
+   "jp": "普通の遺伝子",
+   "en": "It's common.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38439
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03887",
+   "kind": "lang",
+   "jp": "クマの尻尾",
+   "en": "Bear's tail",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38443
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03888",
+   "kind": "lang",
+   "jp": "とても短い",
+   "en": "Very short.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38444
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03889",
+   "kind": "lang",
+   "jp": "トロールの遺伝子",
+   "en": "Troll gene",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38448
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03890",
+   "kind": "lang",
+   "jp": "再生する遺伝子",
+   "en": "It's regenerating.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38449
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03891",
+   "kind": "lang",
+   "jp": "魔女の瞳",
+   "en": "Witch's eye",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38453
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03892",
+   "kind": "lang",
+   "jp": "まだ動いている",
+   "en": "These eyes are still moving.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38454
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03893",
+   "kind": "lang",
+   "jp": "フェアリーダスト",
+   "en": "Fairy dust",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38458
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  },
+  {
+   "id": "s03894",
+   "kind": "lang",
+   "jp": "妖精の燐粉",
+   "en": "Fairies leave it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "direction",
+     "label": "label_0596",
+     "line": 38459
+    }
+   ],
+   "fn": "direction",
+   "label": "label_0596",
+   "owner": "label_0596"
+  }
+ ]
+}

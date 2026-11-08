@@ -1,0 +1,3107 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_3059",
+ "entries": [
+  {
+   "id": "s17761",
+   "kind": "lang",
+   "jp": "ふたりの特別な日",
+   "en": "Today is our special anniversary!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414158
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17762",
+   "kind": "lang",
+   "jp": "何かあったっけ？",
+   "en": "Was there something today?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414161
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17763",
+   "kind": "lang",
+   "jp": "えーとアレだよアレアレ",
+   "en": "Well, today is...hmmm....",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414164
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17764",
+   "kind": "lang",
+   "jp": "世界最後の日",
+   "en": "Today is the last day in the world.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414170
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17765",
+   "kind": "lang",
+   "jp": "…今日は何の日？",
+   "en": "You know? Guess what we have today.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414172
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17766",
+   "kind": "lang",
+   "jp": "ふふん♪",
+   "en": "That's right!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414182
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17767",
+   "kind": "lang",
+   "jp": "…別に！",
+   "en": "There is...nothing in particular!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414215
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17768",
+   "kind": "lang",
+   "jp": "アレ！",
+   "en": "I do not remember...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414245
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17769",
+   "kind": "lang",
+   "jp": "コレ！",
+   "en": "Please give me a hint.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414248
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17770",
+   "kind": "lang",
+   "jp": "ソレ！",
+   "en": "By the way, it is nice weather today.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414251
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17771",
+   "kind": "lang",
+   "jp": "もしかして記念日…だっけ？",
+   "en": "Was it today something anniversary?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414254
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17772",
+   "kind": "lang",
+   "jp": "何だっけ、ここまで出てるんだけどなー！",
+   "en": "Please wait until I recollect the answer.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414257
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17773",
+   "kind": "lang",
+   "jp": "…どれ？",
+   "en": "So what?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414259
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17774",
+   "kind": "lang",
+   "jp": "もういい。",
+   "en": "Whatever, forget it.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414263
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17775",
+   "kind": "lang",
+   "jp": "どうでもよくない…！",
+   "en": "That's right!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414294
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17776",
+   "kind": "lang",
+   "jp": "ごめん寝ぼけてた",
+   "en": "I'm sorry. I was still half asleep.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414325
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17777",
+   "kind": "lang",
+   "jp": "【もうおしまいだぁ…！】",
+   "en": "This world is over...!!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414328
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17778",
+   "kind": "lang",
+   "jp": "えっ！?",
+   "en": "What!?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414330
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17779",
+   "kind": "lang",
+   "jp": "こら！",
+   "en": "Hey, you!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414335
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17780",
+   "kind": "lang",
+   "jp": "希望はある！明日のために戦おう！",
+   "en": "There is still hope! Let's fight for tomorrow!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414351
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17781",
+   "kind": "lang",
+   "jp": "はいはい。",
+   "en": "It is alone together.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414422
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17782",
+   "kind": "lang",
+   "jp": "はい…あなたには逆らいません…。",
+   "en": "Yes...I won't go against you...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414572
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17783",
+   "kind": "lang",
+   "jp": "ウッ…！",
+   "en": "Ugh...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414583
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17784",
+   "kind": "lang",
+   "jp": "むぐっ…！？もごご！！",
+   "en": "Mugh...!? Mogogo!!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414593
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17785",
+   "kind": "lang",
+   "jp": "お、おいしいかも…？",
+   "en": "Oh, it might be delicious...?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414596
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17786",
+   "kind": "lang",
+   "jp": "あっ、ひあああああっ！あひ、あひゃああああ！！",
+   "en": "Hyahahahaaa!! Ahyaaaaa!?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414616
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17787",
+   "kind": "lang",
+   "jp": "ひいいっ、ひゃ…ひひひっひいいいいっ！！",
+   "en": "Whe! hiii! Haaa...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414619
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17788",
+   "kind": "lang",
+   "jp": "あははは、はっっっ！？はうっ、あー！！あ…あはははは…！！！",
+   "en": "Ahahahaaa! Ooh..! A..Ahyaaaa!!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414622
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17789",
+   "kind": "lang",
+   "jp": "あなたは息を整えた。",
+   "en": "You calmed yourself.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414844
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17790",
+   "kind": "raw",
+   "jp": "「す、すごすぎる",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414874
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414876
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17791",
+   "kind": "raw",
+   "jp": "「こ、心地よかった",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414874
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414876
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17792",
+   "kind": "raw",
+   "jp": "「さ、最高",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414874
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414876
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17793",
+   "kind": "raw",
+   "jp": "「とてもよかった",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414876
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17794",
+   "kind": "raw",
+   "jp": "「びちゃびちゃ…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414901
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414903
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17795",
+   "kind": "raw",
+   "jp": "「うれしい、でも…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414901
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414903
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17796",
+   "kind": "raw",
+   "jp": "「ふぅふぅ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414901
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414903
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17797",
+   "kind": "raw",
+   "jp": "「うふふふ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414901
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414903
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17798",
+   "kind": "raw",
+   "jp": "「ぬれてるぅ」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414903
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17799",
+   "kind": "lang",
+   "jp": "客に会う",
+   "en": "Yes, I'll meet the guest now.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414940
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17800",
+   "kind": "lang",
+   "jp": "追い返す",
+   "en": "I don't want to meet anyone.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414943
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17801",
+   "kind": "lang",
+   "jp": "戻る",
+   "en": "<Return>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 414997
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17802",
+   "kind": "lang",
+   "jp": "優しくする",
+   "en": "<Be kind>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415003
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17803",
+   "kind": "lang",
+   "jp": "困らせる",
+   "en": "<To embarrass>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415006
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17804",
+   "kind": "lang",
+   "jp": "【特別な気持ちいいこと】",
+   "en": "<<Interest in a little tail t'night>>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415014
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17805",
+   "kind": "lang",
+   "jp": "心の開錠",
+   "en": "<Mind unlock>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415018
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17806",
+   "kind": "lang",
+   "jp": "タッグ間でevochatさせる",
+   "en": "<Evochat without you>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415023
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17807",
+   "kind": "lang",
+   "jp": "【暴走する】",
+   "en": "<<Get excited>>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415028
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17808",
+   "kind": "lang",
+   "jp": "おしまい",
+   "en": "<End evochat>",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415033
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415060
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17809",
+   "kind": "lang",
+   "jp": "ムチでひっぱたく",
+   "en": "<Whipping>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415039
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17810",
+   "kind": "lang",
+   "jp": "アメをしゃぶらせる",
+   "en": "<Stick the candy in>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415042
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17811",
+   "kind": "lang",
+   "jp": "たっぷりと可愛がってやる",
+   "en": "<Give lots of love>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415045
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17812",
+   "kind": "lang",
+   "jp": "【乱暴する】（未実装）",
+   "en": "<<Violent>>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415048
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17813",
+   "kind": "lang",
+   "jp": "暗黒くすぐり撮影会",
+   "en": "<Dark tickling recording>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415051
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17814",
+   "kind": "lang",
+   "jp": "【とにかく拷問する】（未実装）",
+   "en": "<<Torture anyway>>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415055
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17815",
+   "kind": "lang",
+   "jp": "抱きつく",
+   "en": "<<Hug>>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415070
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17816",
+   "kind": "lang",
+   "jp": "なでなでする",
+   "en": "<<Pat>>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415073
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17817",
+   "kind": "lang",
+   "jp": "キスしまくる",
+   "en": "<<Kiss>>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415076
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17818",
+   "kind": "lang",
+   "jp": "我に返る",
+   "en": "<Return>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415083
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17819",
+   "kind": "lang",
+   "jp": "優しく",
+   "en": "<Gently>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415088
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17820",
+   "kind": "lang",
+   "jp": "激しく",
+   "en": "<Violently>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415091
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17821",
+   "kind": "lang",
+   "jp": "小休憩",
+   "en": "<Small break>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415094
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17822",
+   "kind": "lang",
+   "jp": "一緒に食事する[総経験値200％・満腹度増加量半減]",
+   "en": "Let's have a meal together.[Total-EXP 200%, Satiety increase halved]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415105
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17823",
+   "kind": "lang",
+   "jp": "タッグで食事させる[総経験値200％・満腹度増加量半減]",
+   "en": "Have a tag team meal.[Total-EXP 200%, Satiety increase halved]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415113
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17824",
+   "kind": "lang",
+   "jp": "マテリアルを受け取る",
+   "en": "Recieve materials.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415120
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17825",
+   "kind": "lang",
+   "jp": "話がしたい",
+   "en": "Let's Talk.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415130
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17826",
+   "kind": "lang",
+   "jp": "襲撃するよ",
+   "en": "Prepare to die!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415142
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17827",
+   "kind": "lang",
+   "jp": "船をぶつけて飛び移る（成功率:100％）",
+   "en": "(Ram your ship and get in) (success rate:100%)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415156
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17828",
+   "kind": "lang",
+   "jp": "「キセル」が欲しい",
+   "en": "I want a kiseru.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415166
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17829",
+   "kind": "lang",
+   "jp": "投資したい",
+   "en": "Need someone to invest in your shop?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415171
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17830",
+   "kind": "lang",
+   "jp": "飲み物を注文する",
+   "en": "Bring me something to drink.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415177
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17831",
+   "kind": "lang",
+   "jp": "スペシャルメニューを頼む (ブロンズ硬貨1枚)",
+   "en": "Bring me special drink. (1 bronze) ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415180
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17832",
+   "kind": "lang",
+   "jp": "仲間を呼び戻す",
+   "en": "call back my allies.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415183
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17833",
+   "kind": "lang",
+   "jp": "奴隷を買う",
+   "en": "I want to buy a slave.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415189
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17834",
+   "kind": "lang",
+   "jp": "奴隷を売る",
+   "en": "I want to sell a slave.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415193
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17835",
+   "kind": "lang",
+   "jp": "馬を買う",
+   "en": "I want to buy a horse.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415199
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17836",
+   "kind": "lang",
+   "jp": "気持ちいいことしよう",
+   "en": "Interested in a little tail t'night?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415208
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17837",
+   "kind": "lang",
+   "jp": "激しく気持ちいいことしよう",
+   "en": "Interested in a hard little tail t'night?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415211
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17838",
+   "kind": "lang",
+   "jp": "【子供が成長したことを認める】",
+   "en": "<Acknowledge child's growth>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415226
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17839",
+   "kind": "lang",
+   "jp": "【教育に投資】",
+   "en": "<Invest in education>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415233
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17840",
+   "kind": "lang",
+   "jp": "【タッグごとevochat】",
+   "en": "<tag evochat>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415247
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17841",
+   "kind": "lang",
+   "jp": "タッグ間のやりとりを見る",
+   "en": "Talk to your tag team partner.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415257
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17842",
+   "kind": "lang",
+   "jp": "縁を切る",
+   "en": "I'm going to abandon you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415263
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17843",
+   "kind": "lang",
+   "jp": "作業の指示(未実装)　",
+   "en": "Work instructions (under development) ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415292
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17844",
+   "kind": "lang",
+   "jp": "【暗黒evochat】",
+   "en": "<Darkness evochat>",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415307
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17845",
+   "kind": "lang",
+   "jp": "収容者を解放する",
+   "en": "I have decided to release you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415311
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17846",
+   "kind": "lang",
+   "jp": "見せしめに処刑する",
+   "en": "I have decided to execute you as a demonstration.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415314
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17847",
+   "kind": "lang",
+   "jp": "芸を仕込む (アイテム消費)",
+   "en": "I will teach you performance. (item consume) ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415320
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17848",
+   "kind": "lang",
+   "jp": "家畜を神に捧げる",
+   "en": "I offer you to my god.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415325
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17849",
+   "kind": "lang",
+   "jp": "矢弾の充填",
+   "en": "I need ammos for my weapon.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415331
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17850",
+   "kind": "lang",
+   "jp": "武具の強化",
+   "en": "I want to harden my equipment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415334
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17851",
+   "kind": "lang",
+   "jp": "武具の軽量化",
+   "en": "I want to make light my equipment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415337
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17852",
+   "kind": "lang",
+   "jp": "武具の重量化",
+   "en": "I want to make heavy my equipment.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415340
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17853",
+   "kind": "lang",
+   "jp": "食事をとる",
+   "en": "Bring me something to eat.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415346
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17854",
+   "kind": "lang",
+   "jp": "スペシャルメニューを頼む (ブロンズ硬貨1枚)",
+   "en": "Bring me special dish. (1 bronze) ",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415349
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17855",
+   "kind": "lang",
+   "jp": "シェルターに入る",
+   "en": "Take me to the shelter.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415353
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17856",
+   "kind": "lang",
+   "jp": "鑑定したい",
+   "en": "I need you to identify an item.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415360
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17857",
+   "kind": "lang",
+   "jp": "全て鑑定してほしい",
+   "en": "Identify all of my stuff.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415363
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17858",
+   "kind": "lang",
+   "jp": "調査したい",
+   "en": "Investigate an item.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415366
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17859",
+   "kind": "lang",
+   "jp": "魔法実習を受けたい",
+   "en": "Attend a magic practice.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415369
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17860",
+   "kind": "lang",
+   "jp": "不要な魔法ストックの交換",
+   "en": "Exchange unnecessary magic stocks.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415372
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17861",
+   "kind": "lang",
+   "jp": "不要な魔法ストックまとめて交換",
+   "en": "Exchange unnecessary all magic stocks.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415375
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17862",
+   "kind": "lang",
+   "jp": "訓練したい",
+   "en": "Train me.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415380
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17863",
+   "kind": "lang",
+   "jp": "新しいスキルを覚えたい",
+   "en": "What skills can you teach me?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415383
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17864",
+   "kind": "lang",
+   "jp": "街の管理コマンド",
+   "en": "I want to run the town management.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415394
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17865",
+   "kind": "lang",
+   "jp": "管理代行者の人気は？",
+   "en": "How popular is my management?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415399
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17866",
+   "kind": "lang",
+   "jp": "冒険者の情報(100Gold)",
+   "en": "Show me the list of adventurers.(100Gold)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415407
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17867",
+   "kind": "lang",
+   "jp": "冒険者への伝言(2000Gold)",
+   "en": "Convey my message to other adventurers.(2000Gold)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415410
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17868",
+   "kind": "lang",
+   "jp": "クエストの攻略情報(300Gold)",
+   "en": "Tell me the quest strategy information.(300Gold)",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415413
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17869",
+   "kind": "lang",
+   "jp": "【誕生日を教える】",
+   "en": "[ I will inform my birthday.]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415416
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17870",
+   "kind": "lang",
+   "jp": "能力の復元",
+   "en": "Restore my attributes.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415429
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17871",
+   "kind": "lang",
+   "jp": "装備中のアイテム解呪",
+   "en": "I want to uncurse equipped items.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415432
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17872",
+   "kind": "lang",
+   "jp": "アイテム交換",
+   "en": "Are you interested in trade?",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415437
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415494
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17873",
+   "kind": "lang",
+   "jp": "護衛を依頼する",
+   "en": "I want to hire you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415441
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17874",
+   "kind": "lang",
+   "jp": "仲間に誘う",
+   "en": "Join me!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415444
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17875",
+   "kind": "lang",
+   "jp": "試合に出る[決闘]",
+   "en": "I'm entering the arena. [Duel]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415451
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17876",
+   "kind": "lang",
+   "jp": "試合に出る[ランブル]",
+   "en": "I'm entering the arena. [Rumble]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415454
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17877",
+   "kind": "lang",
+   "jp": "成績を聞く",
+   "en": "Tell me my scores.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415457
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415471
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17878",
+   "kind": "lang",
+   "jp": "ペットデュエル",
+   "en": "I want to register my pet. [Duel]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415462
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17879",
+   "kind": "lang",
+   "jp": "チームバトル",
+   "en": "I want to register my team. [Team]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415465
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17880",
+   "kind": "lang",
+   "jp": "EXバトル",
+   "en": "I want to see extra teams. [Ex Battle]",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415468
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17881",
+   "kind": "lang",
+   "jp": "家の名前を考えてくれ",
+   "en": "Think of a nice name for my house.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415476
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17882",
+   "kind": "lang",
+   "jp": "免罪符を買いたい",
+   "en": "I want to buy an indulgence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415482
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17883",
+   "kind": "lang",
+   "jp": "仕事の話がしたい",
+   "en": "Let's talk about work.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415487
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415582
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17884",
+   "kind": "lang",
+   "jp": "邪魔者を追い出したい",
+   "en": "I want to drive out guest.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415500
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17885",
+   "kind": "lang",
+   "jp": "落し物の財布を届ける",
+   "en": "Here is a lost wallet I found.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415515
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17886",
+   "kind": "lang",
+   "jp": "落し物のカバンを届ける。",
+   "en": "Here is a lost suitcase I found.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415521
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17887",
+   "kind": "lang",
+   "jp": "帰還したい",
+   "en": "I want to return.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415528
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17888",
+   "kind": "lang",
+   "jp": "魔法書の予約(要：解読経験)",
+   "en": "I want to reserve book that I have deciphered.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415534
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17889",
+   "kind": "lang",
+   "jp": "ポーションの栓を分けて欲しい",
+   "en": "I want potion plugs.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415540
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17890",
+   "kind": "lang",
+   "jp": "気持ちいいことしない？",
+   "en": "Interested in a little tail t'night?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415548
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17891",
+   "kind": "lang",
+   "jp": "そこをどいて",
+   "en": "Exchange for my place.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415560
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17892",
+   "kind": "lang",
+   "jp": "暗い場所に移ろう",
+   "en": "I'll buy you.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415570
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17893",
+   "kind": "lang",
+   "jp": "観察する",
+   "en": "Observe caravan.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415577
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17894",
+   "kind": "lang",
+   "jp": "紹介状を見せる",
+   "en": "Show a letter of introduction.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415591
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17895",
+   "kind": "lang",
+   "jp": "餌付けする",
+   "en": "I'll give you something delicious.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415599
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17896",
+   "kind": "lang",
+   "jp": "高速で屈伸しながら煽る",
+   "en": "You are such a wimp!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415602
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17897",
+   "kind": "lang",
+   "jp": "同胞と殺し合え",
+   "en": "Kill your fellow countrymen!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415605
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17898",
+   "kind": "lang",
+   "jp": "カツアゲする",
+   "en": "Leave your money behind!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415608
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17899",
+   "kind": "lang",
+   "jp": "激しく気持ちいいことさせろ",
+   "en": "Make me feel good...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415611
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17900",
+   "kind": "lang",
+   "jp": "トドメを刺す",
+   "en": "I'll let you die without pain!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415614
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17901",
+   "kind": "lang",
+   "jp": "見逃してやる",
+   "en": "I forgive you...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415617
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17902",
+   "kind": "lang",
+   "jp": "見逃してやるフリをしてトドメを刺す",
+   "en": "I forgive you...It's a lie!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415620
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17903",
+   "kind": "lang",
+   "jp": "身辺調査",
+   "en": "Background checks",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415626
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17904",
+   "kind": "lang",
+   "jp": "人狼の目的について",
+   "en": "About the purpose of werewolves",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415631
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17905",
+   "kind": "lang",
+   "jp": "汝は人狼なりや？",
+   "en": "Are You a Werewolf?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415642
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17906",
+   "kind": "lang",
+   "jp": "依頼について",
+   "en": "About the work.",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415728
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415735
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17907",
+   "kind": "lang",
+   "jp": "配達物を渡す",
+   "en": "Here's your delivery.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415743
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17908",
+   "kind": "lang",
+   "jp": "解雇する",
+   "en": "You are fired.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415760
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17909",
+   "kind": "lang",
+   "jp": "パエルの母を売る",
+   "en": "I want to sell Pael's mom.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415773
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17910",
+   "kind": "lang",
+   "jp": "これは凄くいける！",
+   "en": "Gee what a good taste!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415919
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415921
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17911",
+   "kind": "lang",
+   "jp": "とてもいい味だ！",
+   "en": "It tasted pretty good!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415919
+    },
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415921
+    }
+   ],
+   "concat": true,
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17912",
+   "kind": "lang",
+   "jp": "すごく美味しい！",
+   "en": "Delicious!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 415921
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17913",
+   "kind": "lang",
+   "jp": "ぐっと飲み干す",
+   "en": "Drink all at once",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416004
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17914",
+   "kind": "lang",
+   "jp": "ゆっくり味わう",
+   "en": "Taste slowly",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416007
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17915",
+   "kind": "lang",
+   "jp": "くう～っ！",
+   "en": "Delicious...!!!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416054
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17916",
+   "kind": "lang",
+   "jp": "渇いた心と喉に染み渡るようだ…。",
+   "en": "It feels like my thirsty heart and throat are moisturized...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416061
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17917",
+   "kind": "lang",
+   "jp": "(警戒しながら匂いを嗅いでいる…)",
+   "en": "It smells suspicious...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416083
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17918",
+   "kind": "lang",
+   "jp": "(じっと餌を見つめたまま、ヨダレを垂らしている…)",
+   "en": "It looks a little delicious...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416098
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17919",
+   "kind": "lang",
+   "jp": "(怯えながらも餌を少しだけ口に運んだ…)",
+   "en": "Let's try eating just a little bit...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416113
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17920",
+   "kind": "lang",
+   "jp": "(どうやら、与えられた餌を気に入ったようだ！)",
+   "en": "It's not bad to be fed by you...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416129
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17921",
+   "kind": "lang",
+   "jp": "連れている味方が多すぎて、監視が行き届かないだろう…。",
+   "en": "It's hard to keep an eye on this surrenderer, since you have so many allies...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416246
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17922",
+   "kind": "lang",
+   "jp": "ヒィッ！",
+   "en": "Eeeek!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416310
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17923",
+   "kind": "lang",
+   "jp": "ううっ…！",
+   "en": "Ugh...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416334
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17924",
+   "kind": "lang",
+   "jp": "し、死にたくな――",
+   "en": "I don't want to die! Plea...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416351
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17925",
+   "kind": "lang",
+   "jp": "はは、助かったぁ…。",
+   "en": "I was saved! Hahaha...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416401
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17926",
+   "kind": "lang",
+   "jp": "はは、助かっ――",
+   "en": "I was saved! Hahah...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416427
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  },
+  {
+   "id": "s17927",
+   "kind": "lang",
+   "jp": "…どんな指示を出そうか？",
+   "en": "What kind of instructions should I give...?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "tradecheck",
+     "label": "label_3059",
+     "line": 416496
+    }
+   ],
+   "fn": "tradecheck",
+   "label": "label_3059",
+   "owner": "label_3059"
+  }
+ ]
+}

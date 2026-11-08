@@ -1,0 +1,141 @@
+{
+"count": 15,
+"conditions": {
+"4": {
+"condId": 4,
+"resistSkills": [
+53
+],
+"divisor": 10,
+"statusFields": [
+253
+]
+},
+"22": {
+"condId": 22,
+"resistSkills": [
+50
+],
+"divisor": 6,
+"statusFields": [
+175
+]
+},
+"23": {
+"condId": 23,
+"resistSkills": [
+51
+],
+"divisor": 6,
+"statusFields": [
+176
+]
+},
+"20": {
+"condId": 20,
+"resistSkills": [],
+"divisor": null,
+"statusFields": []
+},
+"5": {
+"condId": 5,
+"resistSkills": [
+59
+],
+"divisor": 7,
+"statusFields": [
+254
+]
+},
+"3": {
+"condId": 3,
+"resistSkills": [
+52
+],
+"divisor": 10,
+"statusFields": [
+252
+]
+},
+"21": {
+"condId": 21,
+"resistSkills": [
+56
+],
+"divisor": 5,
+"statusFields": [
+445
+]
+},
+"1": {
+"condId": 1,
+"resistSkills": [
+55
+],
+"divisor": 5,
+"statusFields": [
+250
+]
+},
+"2": {
+"condId": 2,
+"resistSkills": [
+58
+],
+"divisor": 4,
+"statusFields": [
+251
+]
+},
+"6": {
+"condId": 6,
+"resistSkills": [
+54
+],
+"divisor": 7,
+"statusFields": [
+255
+]
+},
+"7": {
+"condId": 7,
+"resistSkills": [
+57
+],
+"divisor": 16,
+"statusFields": []
+},
+"9": {
+"condId": 9,
+"resistSkills": [],
+"divisor": null,
+"statusFields": [
+258
+]
+},
+"8": {
+"condId": 8,
+"resistSkills": [],
+"divisor": null,
+"statusFields": [
+257
+]
+},
+"11": {
+"condId": 11,
+"resistSkills": [],
+"divisor": null,
+"statusFields": [
+260
+]
+},
+"12": {
+"condId": 12,
+"resistSkills": [],
+"divisor": null,
+"statusFields": [
+261
+]
+}
+}
+}

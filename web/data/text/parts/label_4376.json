@@ -1,0 +1,2655 @@
+{
+ "meta": {
+  "schema": 1,
+  "generated": "2026-10-22 13:33:03",
+  "source": "hsp/start.hsp (cp932)",
+  "purpose": "翻译用文本库：只提取，未做任何翻译",
+  "instructions": [
+   "每条包含 jp(日文原文) / en(原版英文) / zh(空，供翻译)",
+   "翻译时只需填 zh 字段，不要改动 id 与 refs",
+   "en 为空表示原版没有英文对照（kind=raw）",
+   "jp/en 中的换行已从 HSP 的 \\n 转成真实换行"
+  ],
+  "unique": 22267,
+  "langPairs": 14746,
+  "rawOnly": 15600,
+  "skippedTechnical": 879,
+  "concatFlagged": 786
+ },
+ "owner": "label_4376",
+ "entries": [
+  {
+   "id": "s22137",
+   "kind": "lang",
+   "jp": "パーティーは大盛況だった！",
+   "en": "People had a hell of a good time!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606785
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22138",
+   "kind": "lang",
+   "jp": "パーティーはぐだぐだになった…",
+   "en": "The party turned out to be a big flop...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606794
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22139",
+   "kind": "lang",
+   "jp": "無事に納入を終えた！",
+   "en": "You complete the task!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606806
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22140",
+   "kind": "lang",
+   "jp": "納入は間に合わなかった…",
+   "en": "You fail to fulfill your task...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606815
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22141",
+   "kind": "lang",
+   "jp": "無事に撤去を終えた！",
+   "en": "You complete the task!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606827
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22142",
+   "kind": "lang",
+   "jp": "撤去は間に合わなかった…",
+   "en": "You fail to fulfill your task...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606836
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22143",
+   "kind": "lang",
+   "jp": "討伐に失敗した…",
+   "en": "You failed to slay the target...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606845
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22144",
+   "kind": "lang",
+   "jp": "愚かね…死ぬ準備をしなさい！！！",
+   "en": "You are so fool...die!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606908
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22145",
+   "kind": "lang",
+   "jp": "…ぅっぅぅ…っぅぅっぅううううみみゃぁ！！！",
+   "en": "memememw...MEMEMEM...MEWWWWWW!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606943
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22146",
+   "kind": "lang",
+   "jp": "…ッハハハ…フハハハッツッハハハハー！！！",
+   "en": ".Muwahahaha.....wahahahaha!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606960
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22147",
+   "kind": "lang",
+   "jp": "許さない…絶対に…！！！",
+   "en": "I can't...tolerate...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606977
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22148",
+   "kind": "lang",
+   "jp": "さぁ、終幕といこうか！！！",
+   "en": "Ok...the last scene start...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 606994
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22149",
+   "kind": "lang",
+   "jp": "バ、バカは死ななきゃ治らないんだから！！！",
+   "en": "It's my only choice to heal your foolishness...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607011
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22150",
+   "kind": "lang",
+   "jp": "渦巻け炎よ！取巻け冷気よ！そして瞬け電光よ！今こそ、あるべき姿へと還るのだ！",
+   "en": "This is genuine element!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607028
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22151",
+   "kind": "lang",
+   "jp": "許さへん…今のは高くつくで！！！",
+   "en": "Pay in life!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607045
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22152",
+   "kind": "lang",
+   "jp": "鹿の毛皮から何かが這い出してきた！",
+   "en": "Something crawled out of the deer's fur!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607062
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22153",
+   "kind": "lang",
+   "jp": "あなたが肉塊に向けてエーテルブラスターを放つと、肉塊の再生が止まり崩壊を始めた。",
+   "en": "Pay in life!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607080
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22154",
+   "kind": "lang",
+   "jp": "崩壊していく肉塊の中から何かが飛び出してきた！",
+   "en": "Something shot out of the flesh cake!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607086
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22155",
+   "kind": "lang",
+   "jp": "倒したはずの怪物がみるみる再生していく！これではキリがない！一時撤退し、対策を練った方がいいだろう。",
+   "en": "Plant resuscitated instantly! You should withdraw.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607121
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22156",
+   "kind": "lang",
+   "jp": "突然、手持ちの栗をひったくられた！",
+   "en": "Sorry, this is untranslated sentence.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607214
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22157",
+   "kind": "lang",
+   "jp": "来光の牙がアストラル光を放ち始めた…。",
+   "en": "The Origin of Light began to release astral light...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607456
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22158",
+   "kind": "lang",
+   "jp": "放たれた光が神の間を包み込む！",
+   "en": "The light emitted wrapped up God's prison!!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607463
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22159",
+   "kind": "lang",
+   "jp": "何かがエンテュメイシスの腹から飛び出してきた！獣の咆哮が辺りに響く…。",
+   "en": "Something splits <Enthumesis> body and breaks out!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607485
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22160",
+   "kind": "lang",
+   "jp": "足を踏み入れた瞬間、周囲の屍が一斉に起き上がった！",
+   "en": "The Origin of Light began to release astral light...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607623
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22161",
+   "kind": "lang",
+   "jp": "へぇ、今日誕生日なんだ？おめでとう！",
+   "en": "Happy birthday!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607753
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22162",
+   "kind": "lang",
+   "jp": "階段を下りた瞬間、あなたは銀髪の冒険者とぶつかった。",
+   "en": "So you are also of the same genus as the others...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607805
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22163",
+   "kind": "lang",
+   "jp": "あなた達は目的地まで辿り着いた…。",
+   "en": "So you are also of the same genus as the others...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 607912
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22164",
+   "kind": "lang",
+   "jp": "隠れていたもの",
+   "en": "Reunion with your pet",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608098
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22165",
+   "kind": "lang",
+   "jp": "あなたは背後の気配に気付いて、ふと歩みを止めた。振り向いた先にいたのは…",
+   "en": "As you approach the mining town, you notice a familiar call and stop walking. Your old pet who got separated from you during the shipwreck is now running towards you joyfully! Your pet is...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608100
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22166",
+   "kind": "lang",
+   "jp": "妹だ！",
+   "en": "a sister!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608103
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22167",
+   "kind": "lang",
+   "jp": "お嬢様だ！",
+   "en": "a young lady!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608106
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22168",
+   "kind": "lang",
+   "jp": "姉だ！",
+   "en": "an older sister!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608109
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22169",
+   "kind": "lang",
+   "jp": "少女だ！",
+   "en": "a little girl!",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608112
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608178
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22170",
+   "kind": "lang",
+   "jp": "少年だ！",
+   "en": "a little boy!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608115
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22171",
+   "kind": "lang",
+   "jp": "弟だ！",
+   "en": "a brother!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608118
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22172",
+   "kind": "lang",
+   "jp": "執事だ！",
+   "en": "a butler!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608121
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22173",
+   "kind": "lang",
+   "jp": "兄だ！",
+   "en": "an older brother!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608124
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22174",
+   "kind": "lang",
+   "jp": "ペットとの再会",
+   "en": "Reunion with your pet",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608164
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22175",
+   "kind": "lang",
+   "jp": "あなたは懐かしい鳴き声に気付いて、ふと歩みを止めた。なんと、船が難破した時に居なくなったあなたのペットが、嬉しそうに走ってくる！あなたのペットは…",
+   "en": "As you approach the mining town, you notice a familiar call and stop walking. Your old pet who got separated from you during the shipwreck is now running towards you joyfully! Your pet is...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608166
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22176",
+   "kind": "lang",
+   "jp": "犬だ！",
+   "en": "a dog!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608169
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22177",
+   "kind": "lang",
+   "jp": "猫だ！",
+   "en": "a cat!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608172
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22178",
+   "kind": "lang",
+   "jp": "クマだ！",
+   "en": "a bear!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608175
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22179",
+   "kind": "lang",
+   "jp": "倒したオークが起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608220
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22180",
+   "kind": "lang",
+   "jp": "あなたはオークにトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608231
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22181",
+   "kind": "lang",
+   "jp": "倒した科学者が起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608250
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22182",
+   "kind": "lang",
+   "jp": "あなたは科学者にトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608261
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22183",
+   "kind": "lang",
+   "jp": "倒した堕天使が起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608280
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22184",
+   "kind": "lang",
+   "jp": "あなたは堕天使にトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608291
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22185",
+   "kind": "lang",
+   "jp": "倒したダンジョンクリーナーが起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608310
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22186",
+   "kind": "lang",
+   "jp": "あなたはダンジョンクリーナーにトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608321
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22187",
+   "kind": "lang",
+   "jp": "倒した白虎が起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608340
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22188",
+   "kind": "lang",
+   "jp": "あなたは白虎にトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608351
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22189",
+   "kind": "lang",
+   "jp": "倒した騎士が起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608370
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22190",
+   "kind": "lang",
+   "jp": "あなたは騎士にトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608381
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22191",
+   "kind": "lang",
+   "jp": "倒した龍が起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608400
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22192",
+   "kind": "lang",
+   "jp": "あなたは龍にトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608411
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22193",
+   "kind": "lang",
+   "jp": "倒したかたつむりが起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608430
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22194",
+   "kind": "lang",
+   "jp": "あなたはかたつむりにトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608441
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22195",
+   "kind": "lang",
+   "jp": "倒したイヌが起き上がり仲間になりたそうにこちらを見ている。仲間にしますか？",
+   "en": "This monster seems to want to be friends. Do you want to friend?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608460
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22196",
+   "kind": "lang",
+   "jp": "あなたはイヌにトドメを刺した。",
+   "en": "You stabbed the monster in the coffin.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608471
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22197",
+   "kind": "lang",
+   "jp": "こんごともよろしく…。",
+   "en": "Thank you in the future.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608479
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22198",
+   "kind": "lang",
+   "jp": "結婚",
+   "en": "Marriage",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608493
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22199",
+   "kind": "lang",
+   "jp": "生涯をあなたに捧げる",
+   "en": "Without you, life has no meaning.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608498
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22200",
+   "kind": "raw",
+   "jp": "「耳が、耳がぁ～！！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608596
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608598
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22201",
+   "kind": "raw",
+   "jp": "「～～～～～～～～～っ！！！！！？？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608598
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22202",
+   "kind": "raw",
+   "jp": "「もうイヤー！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608619
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608621
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22203",
+   "kind": "raw",
+   "jp": "「ひぎぃ！？」",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608621
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22204",
+   "kind": "lang",
+   "jp": "耳掃除",
+   "en": "Mimikaki",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608636
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22205",
+   "kind": "lang",
+   "jp": "耳の中は見えづらい…。",
+   "en": "It's hard to see in the ear...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608638
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22206",
+   "kind": "lang",
+   "jp": "慎重に入れる",
+   "en": "Put in carefully",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608643
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608854
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22207",
+   "kind": "lang",
+   "jp": "奥まで入れる",
+   "en": "Put in all the way",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608648
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608859
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22208",
+   "kind": "lang",
+   "jp": "丹念に掻き出す",
+   "en": "Carefully scrape",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608653
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608864
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22209",
+   "kind": "lang",
+   "jp": "サイズの調整",
+   "en": "Size adjustment",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608659
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608870
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22210",
+   "kind": "lang",
+   "jp": "サイズ膨張",
+   "en": "Size expansion",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608664
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608875
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22211",
+   "kind": "lang",
+   "jp": "サイズ大膨張",
+   "en": "Size large expansion",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608669
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608880
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22212",
+   "kind": "lang",
+   "jp": "耳穴破裂",
+   "en": "Rupture of ear canal",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608674
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608885
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22213",
+   "kind": "lang",
+   "jp": "突き入れる",
+   "en": "Thrust",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608679
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608890
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22214",
+   "kind": "lang",
+   "jp": "奥まで突き刺す",
+   "en": "Stick in the ear",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608684
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608895
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22215",
+   "kind": "lang",
+   "jp": "鼓膜をぶち破る",
+   "en": "Break through the eardrum",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608689
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608900
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22216",
+   "kind": "raw",
+   "jp": "「少しこわい",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608700
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608702
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608911
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608913
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22217",
+   "kind": "raw",
+   "jp": "「優しくして",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608700
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608702
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608911
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608913
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22218",
+   "kind": "raw",
+   "jp": "「なんだか変な感じ",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608702
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608913
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22219",
+   "kind": "raw",
+   "jp": "「気持ちいい",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608718
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608720
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608929
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608931
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22220",
+   "kind": "raw",
+   "jp": "「くすぐったい",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608718
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608720
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608929
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608931
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22221",
+   "kind": "raw",
+   "jp": "「くっ…♪」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608720
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608931
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22222",
+   "kind": "raw",
+   "jp": "「鼓膜に当たった",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608744
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608746
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608955
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608957
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22223",
+   "kind": "raw",
+   "jp": "「乱暴にしないで",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608744
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608746
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608955
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608957
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22224",
+   "kind": "raw",
+   "jp": "「痛っ！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608746
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608957
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22225",
+   "kind": "raw",
+   "jp": "には大きすぎる",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608766
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608768
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608977
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608979
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22226",
+   "kind": "raw",
+   "jp": "「ちょっと落ち着いて",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608766
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608768
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608977
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608979
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22227",
+   "kind": "raw",
+   "jp": "「なんか膨らんできた",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608768
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608979
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22228",
+   "kind": "lang",
+   "jp": "反対側の耳",
+   "en": "Opposite ear",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608847
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22229",
+   "kind": "lang",
+   "jp": "構造が反転していてやりづらい…。",
+   "en": "The structure is inverted and difficult to do...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 608849
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22230",
+   "kind": "raw",
+   "jp": "「気持ちよかった",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609055
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609057
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22231",
+   "kind": "raw",
+   "jp": "「またして",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609055
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609057
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22232",
+   "kind": "raw",
+   "jp": "「こんなに出た",
+   "en": "",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609057
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22233",
+   "kind": "lang",
+   "jp": "誕生",
+   "en": "Birth",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609078
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22234",
+   "kind": "lang",
+   "jp": "今、この世界で新たな生命活動が開始…産まれたのだ。",
+   "en": "Now, a small first cry echoes in this world...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609080
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22235",
+   "kind": "lang",
+   "jp": "くじ引き",
+   "en": "Lottery",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609210
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22236",
+   "kind": "lang",
+   "jp": "あなたの目の前に富の女神が現れ、くじ引きの箱を置いた。",
+   "en": "The goddess of wealth appears in front of you and places a lottery box.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609212
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22237",
+   "kind": "lang",
+   "jp": "祈りながらくじを選ぶ",
+   "en": "Good luck to me.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609215
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22238",
+   "kind": "lang",
+   "jp": "最初に手に触れたくじを選ぶ",
+   "en": "First lottery that touched my hand would be fate.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609218
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22239",
+   "kind": "lang",
+   "jp": "漁りながら、これだ！と感じたくじを選ぶ",
+   "en": "I leave it to my intuition!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609221
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22240",
+   "kind": "lang",
+   "jp": "星の光",
+   "en": "Result",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609236
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22241",
+   "kind": "lang",
+   "jp": "手にしたくじが光の粒子に変わり、あなたの足元に集まっていく…。",
+   "en": "The lottery you get turns into particles of light and gathers at your feet...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609238
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22242",
+   "kind": "lang",
+   "jp": "何だろう？",
+   "en": "what?",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609241
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22243",
+   "kind": "lang",
+   "jp": "これは…！",
+   "en": "Yeah!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609244
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22244",
+   "kind": "lang",
+   "jp": "来いッ！",
+   "en": "Come on!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609247
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22245",
+   "kind": "lang",
+   "jp": "どうやら最深層まで辿り着いたらしい…",
+   "en": "It seems you have reached the deepest level of this dungeon.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609410
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22246",
+   "kind": "lang",
+   "jp": "この階の封印が解けたようだ！",
+   "en": "The seal of this level is now broken!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609782
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22247",
+   "kind": "lang",
+   "jp": "あなたは無事に護衛の任務を終えた。",
+   "en": "You complete the escort.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609797
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22248",
+   "kind": "lang",
+   "jp": "刻まれた死紋の色が変わっていく…！",
+   "en": "The color of your engraved Death-Crest is changing...!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609835
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22249",
+   "kind": "lang",
+   "jp": "死紋が刻まれていなかったので能力値の減少はないが…。",
+   "en": "There was no Death-Crest engraved on you, so there was no reduction in your status...",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609850
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22250",
+   "kind": "lang",
+   "jp": "あなたの身体に死紋が刻まれた！",
+   "en": "Death-Crest was carved on your body!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609858
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22251",
+   "kind": "lang",
+   "jp": "【 刻死紋状態で死亡すると能力値が永続低下する。睡眠を取るまで消えない。 】",
+   "en": "< If you die with the Death-Crest engraved, your stats will permanently drop. It doesn't go away until you sleep. >",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 609865
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22252",
+   "kind": "lang",
+   "jp": "ゲストは行方不明になった。",
+   "en": "The guest lost his way.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611119
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22253",
+   "kind": "lang",
+   "jp": "ゲストはすでに居なくなっていた。",
+   "en": "It seems the guest has already left your house.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611200
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22254",
+   "kind": "lang",
+   "jp": "おかえり。",
+   "en": "Welcome back.",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611421
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22255",
+   "kind": "raw",
+   "jp": "「おかえりなさい」",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611461
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611463
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22256",
+   "kind": "raw",
+   "jp": "「お疲れさま」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611461
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611463
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22257",
+   "kind": "raw",
+   "jp": "「よかった…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611461
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611463
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22258",
+   "kind": "raw",
+   "jp": "「ずっと待ってたよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611461
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611463
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22259",
+   "kind": "raw",
+   "jp": "「おかえり」",
+   "en": "",
+   "zh": "",
+   "count": 4,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611461
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611463
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611518
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22260",
+   "kind": "raw",
+   "jp": "「泣きそう…」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611461
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611463
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22261",
+   "kind": "raw",
+   "jp": "「よう戻ったか」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611516
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611518
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22262",
+   "kind": "raw",
+   "jp": "「無事で何よりです」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611516
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611518
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22263",
+   "kind": "raw",
+   "jp": "「おかか♪」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611516
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611518
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22264",
+   "kind": "raw",
+   "jp": "「待ってたよ」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611516
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611518
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22265",
+   "kind": "raw",
+   "jp": "「おかえりなさい！」",
+   "en": "",
+   "zh": "",
+   "count": 2,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611516
+    },
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611518
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22266",
+   "kind": "lang",
+   "jp": " *ゴゴゴゴゴゴ* ",
+   "en": "* RRROOM-KABOOOOM*",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611628
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  },
+  {
+   "id": "s22267",
+   "kind": "lang",
+   "jp": "強盗があなたに目をつけた！",
+   "en": "Blaggers pick on you!",
+   "zh": "",
+   "count": 1,
+   "refs": [
+    {
+     "fn": "cnvjkey",
+     "label": "label_4376",
+     "line": 611927
+    }
+   ],
+   "fn": "cnvjkey",
+   "label": "label_4376",
+   "owner": "label_4376"
+  }
+ ]
+}
