@@ -142,11 +142,17 @@
       return false;
     },
 
-    /** 给 NPC 绑定台词文件（等价于 cbitmod 989 + var_63(4) 赋值） */
-    bind(npc, key) {
+    /**
+     * 给 NPC 绑定台词文件（等价于 cbitmod 989 + var_63(4) 赋值）。
+     * @param {string} key 台词文件名（不含 .txt）
+     * @param {object} [data] 台词表（{ tags: {...} }）；给了就挂在 NPC 上，
+     *   不必依赖 data/talk/<key>.json 的网络加载，也能随存档带过去。
+     */
+    bind(npc, key, data) {
       if (!npc) return false;
       const k = String(key || '').replace(/\.txt$/i, '');
       npc.talkFile = k || null;
+      npc.talkData = (k && data) ? data : null;
       if (Elona.Status && Elona.Status.cbitmod) {
         Elona.Status.cbitmod(npc, CBIT_CUSTOM, k ? true : false);
       }
@@ -171,7 +177,7 @@
       let tags = null;
       const key = this.fileKey(npc);
       if (this.hasCustom(npc) && key) {
-        const data = o.data || this.cached(key);
+        const data = o.data || npc.talkData || this.cached(key);
         if (!data) return null;              // 文件没加载 → 交给调用方走默认
         tags = data.tags || data;
       } else if (npc && (npc.get(27) | 0) === 343) {
@@ -229,6 +235,50 @@
         tag,
         quiet: QUIET_TYPES.indexOf(t) >= 0,
       };
+    },
+
+    /**
+     * customtalk 的**显示**入口（192942-193157 的完整语义）。
+     *
+     * 源码流程：
+     *   193943  var_1028 = 0 ; var_65(191) = 100     ← 默认「没有自定义台词」
+     *   193946  cbit(989) 且台词文件存在 → 载入，var_1028 = 1
+     *   193957  否则 var_58(27)==343 → 用内置台词，var_1028 = 1
+     *   ...     找到 %txtXXX 段 → 随机取一行写 var_122，**var_65(191) = 0**
+     *   193150  var_65(191) = 0 ; return 1           ← 成功
+     *   193155  var_1028 为 0（没台词表）→ 不写 191，往下走内置分支
+     *
+     * 调用方（如 2929 的接收方）随后只看 `var_65(191) == 100`：
+     * 为 100 说明「没播自定义台词」，于是用自己的内置文本兜底。
+     * 这个「191 作回执」的约定此前没实现，调用方全部走了兜底文本。
+     *
+     * @param {object} g
+     * @param {object} npc
+     * @param {number} type talkType
+     * @param {object} [opts] { lang, silent }
+     * @returns {{spoken:boolean, text:string, tag:string|null, quiet:boolean}}
+     */
+    speak(g, npc, type, opts) {
+      const o = opts || {};
+      const t = type | 0;
+      const out = { spoken: false, text: '', tag: null, quiet: false };
+      if (!TYPES[t]) return out;
+      // 193944 / 193156：无论成败都先把回执置 100
+      if (g && g.setV65) g.setV65(191, 100);
+      const r = this.say(g, npc, t, { lang: o.lang, data: o.data });
+      if (!r || !r.text) return out;                       // var_1028 == 0 的路径
+      if (g && g.setV65) g.setV65(191, 0);                 // 193150
+      out.spoken = true;
+      out.text = r.text;
+      out.tag = r.tag;
+      out.quiet = r.quiet;
+      // 193141：非对话类会 `txtef 9`（喊叫），这里直接写进日志
+      if (!o.silent && g && g.log) {
+        const who = (npc && npc.name) ? npc.name : '';
+        const body = /^[「"『]/.test(r.text) ? r.text : `「${r.text}」`;
+        g.log(who ? `${who}${body}` : body);
+      }
+      return out;
     },
 
     /** 列表：所有可用标签名（调试/测试用） */

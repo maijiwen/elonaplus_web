@@ -49,16 +49,34 @@
   const limit = (v, a, b) => (v < a ? a : (v > b ? b : v));
 
   // 287809-287907：神名 → 物种 id
+  // 0-FU：键名补中文（2.33R 源码只有日/英；中文键名按 creature 表的汉化名，
+  //   便于中文输入直接召唤。台词保留原文，与源码 lang() 语义一致）
   const GODS = [
-    { keys: ['エヘカトル', 'ehekatl'], species: 331, line: '「うみみゅみゅぁ！」' },
-    { keys: ['ルルウィ', 'lulwy'], species: 306, line: '「アタシを呼びつけるとは生意気ね」' },
-    { keys: ['オパートス', 'opatos'], species: 338, line: '「フゥハハハハハハー！来てやったぞ」' },
-    { keys: ['クミロミ', 'kumiromi'], species: 339, line: '「君が僕を呼んでくれるなんて…嬉しい…」' },
-    { keys: ['マニ', 'mani'], species: 342, line: '「よくぞ呼んだ。私を崇め称える権利をやろう」' },
-    { keys: ['イツパロトル', 'itzpalt'], species: 484, line: '「その魂に刻め、これも元素の紡ぐ運命なり」' },
-    { keys: ['ヤカテクト', 'yacatect'], species: 482, line: '「お呼びとあらば即参上！なんや？商談やろか？」' },
-    { keys: ['ジュア', 'jure'], species: 359, line: '「べ、別に来たくて来たわけじゃないんだからね！」' },
+    { keys: ['エヘカトル', 'ehekatl', '艾赫卡托尔'], species: 331, line: '「うみみゅみゅぁ！」' },
+    { keys: ['ルルウィ', 'lulwy', '璐璐薇'], species: 306, line: '「アタシを呼びつけるとは生意気ね」' },
+    { keys: ['オパートス', 'opatos', '欧巴德斯'], species: 338, line: '「フゥハハハハハハー！来てやったぞ」' },
+    { keys: ['クミロミ', 'kumiromi', '库米罗妮'], species: 339, line: '「君が僕を呼んでくれるなんて…嬉しい…」' },
+    { keys: ['マニ', 'mani', '玛尼'], species: 342, line: '「よくぞ呼んだ。私を崇め称える権利をやろう」' },
+    { keys: ['イツパロトル', 'itzpalt', '伊兹帕鲁特'], species: 484, line: '「その魂に刻め、これも元素の紡ぐ運命なり」' },
+    { keys: ['ヤカテクト', 'yacatect', '雅卡蒂克托'], species: 482, line: '「お呼びとあらば即参上！なんや？商談やろか？」' },
+    { keys: ['ジュア', 'jure', '朱亚'], species: 359, line: '「べ、別に来たくて来たわけじゃないんだからね！」' },
   ];
+
+  /** 0-FU：287956-288018 转职的键名 → 类别 id（与 itemfx_use.js 的 CLASS_KEYS 同表） */
+  const CLASS_MAP = {
+    '戦士': 'warrior', '战士': 'warrior', 'warrior': 'warrior',
+    '遺跡荒らし': 'thief', '盗贼': 'thief', 'thief': 'thief',
+    '魔法使い': 'wizard', '魔法师': 'wizard', 'wizard': 'wizard',
+    '農民': 'farmer', '农民': 'farmer', 'farmer': 'farmer',
+    'プレデター': 'predator', '掠食者': 'predator', 'predator': 'predator',
+    '狩人': 'archer', '猎人': 'archer', 'archer': 'archer',
+    '魔法戦士': 'warmage', '魔法战士': 'warmage', 'warmage': 'warmage',
+    '観光客': 'tourist', '观光客': 'tourist', 'tourist': 'tourist',
+    'ピアニスト': 'pianist', '钢琴家': 'pianist', 'pianist': 'pianist',
+    '機工兵': 'gunner', '机工兵': 'gunner', 'gunner': 'gunner',
+    'プリースト': 'priest', '祭司': 'priest', 'priest': 'priest',
+    'クレイモア': 'claymore', '双刃剑士': 'claymore', 'claymore': 'claymore',
+  };
   const Q_KEYS = ['q', 'Q'];
   const Q_SPECIES = 415;
 
@@ -95,18 +113,25 @@
     generic: '「…！！」',
   };
 
-  /** 287624：文本清洗 */
+  /**
+   * 287624：文本清洗。
+   * 源码删 `,` ` ` `　` 与 lang("アイテム","item") / lang("スキル","skill")；
+   * 0-FU：中文输入按汉化版行为同样删「道具」「技能」——
+   *   （wiki 许愿页记载的行为：技能魔道具 → 剩「魔」）。
+   */
   function sanitize(text) {
     let s = String(text === undefined || text === null ? '' : text);
     s = s.replace(/,/g, '').replace(/ /g, '').replace(/\u3000/g, '');
     s = s.replace(/アイテム|item/gi, '');
     s = s.replace(/スキル|skill/gi, '');
+    s = s.replace(/道具|技能/g, '');
     return s;
   }
   /** label_2734 / fix_wish：卡片/标本许愿时去掉修饰词 */
   function fixWish(s) {
     return String(s || '')
       .replace(/の剥製|剥製|のはく製|はく製/g, '')
+      .replace(/的标本|标本|的卡片|卡片/g, '')
       .replace(/のカード|カード|card |figure |card|figure/gi, '');
   }
 
@@ -281,14 +306,22 @@
       return out;
     }
 
-    // 287781：先去逗号与空白（源码 var_52 分支），关键字判断在完整清洗之前
-    text = text.replace(/,/g, '').replace(/ /g, '').replace(/\u3000/g, '');
+    // 0-FU 修正：源码在分支判断前**不**删逗号/空格（label_2724 只在物品/技能
+    //   匹配内部调用）。此前提前清洗会让「金币,」命中直接分支，丢失
+    //   wiki 记载的「金币+逗号 → 等级²*50+20000」行为。空串判断保留（287780）。
+    // 287786-287791：水下世界（世界 47 的野外）说不出话
+    if ((g.getV65 ? (g.getV65(850) | 0) : 0) === 47 && mapId === 2) {
+      out.messages.push('在水里咕嘟咕嘟说的话，人家听不懂啦……。');
+      return out;
+    }
 
     // --- 彩蛋 ---
-    if (text.indexOf('中の神') !== -1 || text.indexOf('god inside') !== -1) {
+    if (text.indexOf('中の神') !== -1 || text.indexOf('中之神') !== -1
+      || text.indexOf('扮演神') !== -1 || text.indexOf('god inside') !== -1) {
       out.messages.push(MESSAGES.insideGod); return out;
     }
-    if (text.indexOf('中の人') !== -1 || text.indexOf('man inside') !== -1) {
+    if (text.indexOf('中の人') !== -1 || text.indexOf('中之人') !== -1
+      || text.indexOf('扮演者') !== -1 || text.indexOf('man inside') !== -1) {
       out.messages.push(MESSAGES.insideMan); return out;
     }
 
@@ -306,7 +339,8 @@
     }
 
     // --- 年龄 ---
-    if (['若さ', '若返り', '年', '美貌', 'youth', 'age', 'beauty'].indexOf(text) !== -1) {
+    // 287909：中文键名（年轻/返老还童/年龄）按汉化版习惯补齐
+    if (['若さ', '若返り', '年', '美貌', '年轻', '返老还童', '年龄', 'youth', 'age', 'beauty'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.youth);
       const age = (p.get(21) | 0) + 20;
       const year = (g.getV65 ? (g.getV65(10) | 0) : 0);
@@ -315,7 +349,7 @@
     }
 
     // --- 异名 ---
-    if (['通り名', '異名', 'aka', 'title', 'name', 'alias'].indexOf(text) !== -1) {
+    if (['通り名', '異名', '别名', 'aka', 'title', 'name', 'alias'].indexOf(text) !== -1) {
       if (g.getV65 && (g.getV65(828) | 0)) { out.messages.push(MESSAGES.aliasDeny); return out; }
       const alias = opt.askAlias ? opt.askAlias(MESSAGES.aliasAsk) : '';
       if (!alias) { out.messages.push('あら、そのままでいいの？'); return out; }
@@ -326,27 +360,39 @@
     }
 
     // --- 转职 ---
-    if (['転職', '職', 'class', 'job'].indexOf(text) !== -1) {
+    if (['転職', '職', '职业', 'class', 'job'].indexOf(text) !== -1) {
       const cls = opt.askClass ? opt.askClass(MESSAGES.classAsk) : '';
       if (!cls) { out.messages.push('やっぱりやめた。'); return out; }
-      p.className = cls;
-      out.effects.class = cls;
-      out.messages.push(`あなたの新しい職業は「${cls}」だ。`);
+      // 287956-288018：输入按源码表映射到类别 id（戦士→warrior 等），
+      //   未登记的名字视为取消（源码同样只认 12 个键名）
+      const key = CLASS_MAP[cls] || null;
+      if (!key) { out.messages.push('やっぱりやめた。'); return out; }
+      p.className = key;
+      out.effects.class = key;
+      out.messages.push(`你的新职业是「${Elona.RaceName ? Elona.RaceName.classZh(key) : key}」。`);
       return out;
     }
 
     // --- 转生 ---
-    if (['転生', '種族', 'race'].indexOf(text) !== -1) {
+    if (['転生', '種族', '种族', 'race'].indexOf(text) !== -1) {
       const race = opt.askRace ? opt.askRace(MESSAGES.raceAsk) : '';
       if (!race) { out.messages.push('やっぱりやめた。'); return out; }
-      p.raceName = race;
-      out.effects.race = race;
-      out.messages.push(`あなたは「${race}」に生まれ変わった。`);
+      // 0-FU：接受中文/日文/英文种族名 → 归一成种族 id 键（Elona.RaceName.RACES 反查）
+      let raceKey = String(race || '').trim();
+      if (Elona.RaceName && Elona.RaceName.RACES) {
+        for (const k in Elona.RaceName.RACES) {
+          if (Elona.RaceName.RACES[k] === raceKey) { raceKey = k; break; }
+        }
+      }
+      p.raceName = raceKey;
+      out.effects.race = raceKey;
+      const zhName = Elona.RaceName ? Elona.RaceName.zh(raceKey) : raceKey;
+      out.messages.push(`你转生成了「${zhName}」。`);
       return out;
     }
 
     // --- 变性 ---
-    if (['性転換', '性', '異性', 'sex'].indexOf(text) !== -1) {
+    if (['性転換', '性', '異性', '变性', 'sex'].indexOf(text) !== -1) {
       const sex = (p.get(8) | 0) === 0 ? 1 : 0;
       p.set(8, sex);
       out.effects.sex = sex;
@@ -372,7 +418,7 @@
     }
 
     // --- 同伴（evadd 12） ---
-    if (['仲間', 'friend', 'company', 'ally'].indexOf(text) !== -1) {
+    if (['仲間', '同伴', 'friend', 'company', 'ally'].indexOf(text) !== -1) {
       if (g.events && g.events.add) g.events.add(12);
       else if (Elona.Event && Elona.Event.add) Elona.Event.add(g, 12);
       out.effects.evadd = 12;
@@ -381,7 +427,8 @@
     }
 
     // --- 金币 ---
-    if (['金', '金貨', '富', '財産', 'money', 'gold', 'wealth', 'fortune'].indexOf(text) !== -1) {
+    if (['金', '金貨', '富', '財産', '金币', '钱', '财产', '财富',
+      'money', 'gold', 'wealth', 'fortune'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.gold);
       const n = (idiv(playerLevel(g), 3) + 1) * 10000;
       const it = spawnGround(g, 54, n);
@@ -389,7 +436,8 @@
       return out;
     }
     // --- 小奖章 ---
-    if (['メダル', '小さなメダル', 'ちいさなメダル', 'coin', 'medal', 'small coin', 'small medal'].indexOf(text) !== -1) {
+    if (['メダル', '小さなメダル', 'ちいさなメダル', '小奖章', '奖章',
+      'coin', 'medal', 'small coin', 'small medal'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.medal);
       const n = 3 + R(3);
       spawnGround(g, 622, n);
@@ -397,21 +445,22 @@
       return out;
     }
     // --- 白金币 ---
-    if (['プラチナ', 'プラチナ硬貨', 'platina', 'platinum'].indexOf(text) !== -1) {
+    if (['プラチナ', 'プラチナ硬貨', '白金币', 'platina', 'platinum'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.platinum);
       spawnGround(g, 55, 5);
       out.items.push({ id: 55, count: 5 });
       return out;
     }
     // --- 那条狗 ---
-    if (['あの犬', 'Ano犬'].indexOf(text) !== -1) {
+    if (['あの犬', 'Ano犬', '那条狗'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.dog);
       spawnGround(g, 876, 1);
       out.items.push({ id: 876, count: 1 });
       return out;
     }
     // --- 新年 ---
-    if (['あけましておめでとう！', 'あけましておめでとう', 'あけおめ', 'おめでとう', 'Happy New Year'].indexOf(text) !== -1) {
+    if (['あけましておめでとう！', 'あけましておめでとう', 'あけおめ', 'おめでとう',
+      '新年快乐！', '新年快乐', '恭贺新春', '恭喜发财', 'Happy New Year'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.newYear);
       const n = 3 + R(3);
       spawnGround(g, 622, n);
@@ -419,12 +468,15 @@
       return out;
     }
     // --- 圣诞 ---
-    if (['メリークリスマス！', 'メリークリスマス', 'クリスマス中止', 'クリスマスの中止', 'Merry Christmas'].indexOf(text) !== -1) {
+    if (['メリークリスマス！', 'メリークリスマス', 'クリスマス中止', 'クリスマスの中止',
+      '圣诞快乐！', '圣诞快乐', '中止圣诞节', '圣诞节的中止', 'Merry Christmas'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.christmas);
       return out;
     }
     // --- 情人节 ---
-    if (['バレンタインの中止', 'バレンタイン中止', 'チョコ', 'バレンタインチョコ', 'チョコレート', '手作りチョコ', 'chocolate'].indexOf(text) !== -1) {
+    if (['バレンタインの中止', 'バレンタイン中止', 'チョコ', 'バレンタインチョコ', 'チョコレート', '手作りチョコ',
+      '情人节的中止', '中止情人节', '巧克', '情人节巧克力', '巧克力', '手制巧克力',
+      'chocolate'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.valentine);
       const it = spawnGround(g, 889, 1);
       if (it) { it.f[25] = 3; it.f[27] = 6; it.f[17] = 0; }
@@ -433,7 +485,7 @@
     }
 
     // --- 隐藏角色 ---
-    if (['隠しキャラ', 'secretchar', 'secretcharacter'].indexOf(text) !== -1) {
+    if (['隠しキャラ', '隐藏角色', 'secretchar', 'secretcharacter'].indexOf(text) !== -1) {
       // 288169：var_65(250+233) < 1000 → 拒绝
       if ((g.getV65 ? (g.getV65(233) | 0) : 0) < 1000) {
         out.messages.push(MESSAGES.secretDenied); return out;
@@ -446,9 +498,10 @@
     }
 
     // --- 送还（清除里神） ---
-    if (['送還', 'repatriation'].indexOf(text) !== -1) {
+    if (['送還', '送还', 'repatriation'].indexOf(text) !== -1) {
       out.messages.push(MESSAGES.sendBack);
-      const targets = [355, 356, 357, 358, 359, 360, 336, 481, 483];
+      // 288180-288262：源码的里神表是 355/356/357/358/360/336/481/483（无 359）
+      const targets = [355, 356, 357, 358, 360, 336, 481, 483];
       for (const c of (g.charas || [])) {
         if (!c || (c.get(0) | 0) !== 1) continue;
         if ((c.get(58) | 0) === 100) continue;
@@ -461,7 +514,8 @@
     }
 
     // --- 技能券 ---
-    if (text.indexOf('スキルチケット') !== -1 || text.indexOf('skill ticket') !== -1) {
+    if (text.indexOf('スキルチケット') !== -1 || text.indexOf('技能券') !== -1
+      || text.indexOf('skill ticket') !== -1) {
       spawnGround(g, 1093, 1);
       out.items.push({ id: 1093, count: 1 });
       out.messages.push(T.drop(itemName(1093)));
@@ -469,10 +523,18 @@
     }
 
     // --- 技能 / 物品 / 卡片 / 标本（288276-288286，在 label_2724 清洗之前判断）---
-    if (text.indexOf('スキル') !== -1 || /skill/i.test(text)) return wishSkill(g, text, out);
-    if (text.indexOf('アイテム') !== -1 || /item/i.test(text)) return wishItem(g, text, out);
-    if (text.indexOf('カード') !== -1 || /card/i.test(text)) return wishFigure(g, text, out, 504);
-    if (text.indexOf('剥製') !== -1 || text.indexOf('はく製') !== -1 || /figure/i.test(text)) {
+    //   0-FU：中文输入按汉化版用「技能 / 道具 / 卡片 / 标本」前缀
+    if (text.indexOf('スキル') !== -1 || text.indexOf('技能') !== -1 || /skill/i.test(text)) {
+      return wishSkill(g, text, out);
+    }
+    if (text.indexOf('アイテム') !== -1 || text.indexOf('道具') !== -1 || /item/i.test(text)) {
+      return wishItem(g, text, out);
+    }
+    if (text.indexOf('カード') !== -1 || text.indexOf('卡片') !== -1 || /card/i.test(text)) {
+      return wishFigure(g, text, out, 504);
+    }
+    if (text.indexOf('剥製') !== -1 || text.indexOf('はく製') !== -1
+      || text.indexOf('标本') !== -1 || /figure/i.test(text)) {
       return wishFigure(g, text, out, 503);
     }
 
@@ -488,13 +550,21 @@
     let cur = matchItem(g, text);
     let guard = 0;
     while (cur && guard++ < 40) {
+      // 288330-288340：`flt 等级+10, 4`；但 556 七团靴 / 557 温戴尔披风 / 558 极光戒指 /
+      //   664 高速戒指 的 fix 被 noa 写成了 `var_641 = calcobjlv(3)`（本想写 3），
+      //   于是这四件的品质在 1..60 间波动 —— 按源码照抄这个 bug。
+      const broken = (cur.id === 556 || cur.id === 557 || cur.id === 558 || cur.id === 664);
+      const fixQ = broken
+        ? ((Elona.ItemDB.calcObjLv && Elona.ItemDB.calcObjLv(3, g)) | 0) : 4;
       const it = Elona.ItemDB && Elona.ItemDB.create
-        ? Elona.ItemDB.create(g, { itemId: cur.id, level: playerLevel(g) + 10, fix: 4 })
+        ? Elona.ItemDB.create(g, { itemId: cur.id, level: playerLevel(g) + 10, fix: fixQ })
         : null;
       if (!it) { cur = null; break; }
-      // 288351-288359：黑星（ibit 5）或品质 6 → 丢弃重试
+      // 288351-288359：黑星（ibit 5）或品质 6 → 丢弃重试；
+      //   但 var_65(828)（wizard 模式）时保留黑星 —— 源码 `if ( var_65(828) == 0 )`
+      const wizard = (g.getV65 ? (g.getV65(828) | 0) : 0) !== 0;
       const blackStar = Elona.ItemDB.ibit ? (Elona.ItemDB.ibit(5, it) | 0) === 1 : false;
-      if (blackStar || (it.f[4] | 0) === 6) {
+      if (!wizard && (blackStar || (it.f[4] | 0) === 6)) {
         cur = matchItem(g, text);   // 简化：重新匹配（原版取次高分）
         continue;
       }

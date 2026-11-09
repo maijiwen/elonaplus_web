@@ -1150,14 +1150,44 @@
     return { implemented: true, poison: true };
   };
   T[816] = (g, c, t) => {                                   // 全力说服 333791
+    // 0-GC：5 回合 rowact 19（*label_2921），每回合 `rnd(意志+説得)` 对抗。
+    //   玩家与 NPC 都走同一条路（AI 每回合用 Actions.tickChara 推进）。
+    if (Elona.Social) {
+      const r = Elona.Social.begin(g, 19, c);
+      return r.ok ? { implemented: true, rowact: 19 } : { implemented: true, nothing: true };
+    }
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
     subMorale(t, 10);
     return { implemented: true, persuade: true };
   };
-  T[817] = (g, c, t) => T[816](g, c, t);                    // 搞笑绝活
-  T[818] = (g, c, t) => T[816](g, c, t);                    // 信口开河
-  T[819] = (g, c, t) => T[816](g, c, t);                    // 胁迫地狱
-  T[820] = (g, c, t) => T[816](g, c, t);                    // 魔唱
+  T[817] = (g, c, t) => {                                   // 搞笑绝活 308724
+    if (Elona.Social) {
+      const r = Elona.Social.begin(g, 20, c);
+      return r.ok ? { implemented: true, rowact: 20 } : { implemented: true, nothing: true };
+    }
+    return T[816](g, c, t);
+  };
+  T[818] = (g, c, t) => {                                   // 信口开河 308962
+    if (Elona.Social) {
+      const r = Elona.Social.begin(g, 21, c);
+      return r.ok ? { implemented: true, rowact: 21 } : { implemented: true, nothing: true };
+    }
+    return T[816](g, c, t);
+  };
+  T[819] = (g, c, t) => {                                   // 胁迫地狱 309224
+    if (Elona.Social) {
+      const r = Elona.Social.begin(g, 22, c);
+      return r.ok ? { implemented: true, rowact: 22 } : { implemented: true, nothing: true };
+    }
+    return T[816](g, c, t);
+  };
+  T[820] = (g, c, t) => {                                   // 魔唱 309486
+    if (Elona.Social) {
+      const r = Elona.Social.begin(g, 23, c);
+      return r.ok ? { implemented: true, rowact: 23 } : { implemented: true, nothing: true };
+    }
+    return T[816](g, c, t);
+  };
   T[821] = (g, c, t) => {                                   // 快活乐园 336752
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
     addMorale(t, 10);
@@ -1410,11 +1440,23 @@
     return { implemented: true, dmg: true };
   };
   T[856] = (g, c, t) => {                                   // 飞跳杀法 330336
+    // 0-GC：5 回合 rowact 30（*label_2918）：跳起 → 落地时对 5 格内目标重击
+    if (Elona.Social) {
+      const r = Elona.Social.beginLeap(g, 30, c);
+      return r.ok ? { implemented: true, rowact: 30 } : { implemented: true, nothing: true };
+    }
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
     if (Elona.Battle && Elona.Battle.attackSeq) Elona.Battle.attackSeq(g, c, t);
     return { implemented: true, melee: true };
   };
-  T[857] = (g, c, t) => T[856](g, c, t);                    // 奇袭穿孔
+  T[857] = (g, c, t) => {                                   // 奇袭穿孔 330385
+    // 0-GC：10 回合 rowact 31（*label_2919）：潜入地下 → 破土奇袭
+    if (Elona.Social) {
+      const r = Elona.Social.beginLeap(g, 31, c);
+      return r.ok ? { implemented: true, rowact: 31 } : { implemented: true, nothing: true };
+    }
+    return T[856](g, c, t);
+  };
   T[858] = (g, c, t) => {                                   // 圣者光刃 338132
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
     if ((c.index | 0) === 0 && (c.get(49) | 0) < 1) {
@@ -1442,9 +1484,15 @@
     dmg(g, t, (c.skill(16) | 0) * 2, c, 58, 1000);
     return { implemented: true, dmg: true };
   };
-  T[862] = (g, c, t) => T[856](g, c, t);                    // 式折神·幻惑折鹤
-  T[863] = (g, c, t) => T[856](g, c, t);                    // 式折神·荒纸手里剑
-  T[864] = (g, c, t) => T[856](g, c, t);                    // 式折神·纸风飞机
+  // 862/863（式折神·幻惑折鹤 / 荒纸手里剑）在源码 331595-331602 里只是
+  //   `var_1303++` 的空分支 —— 照抄为空操作，不再借用 856 的近接。
+  T[862] = () => ({ implemented: true, nothing: true, emptyBranch: true });
+  T[863] = () => ({ implemented: true, nothing: true, emptyBranch: true });
+  T[864] = (g, c, t) => {                                   // 式折神·纸风飞机 331603
+    if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
+    if (Elona.Battle && Elona.Battle.attackSeq) Elona.Battle.attackSeq(g, c, t);
+    return { implemented: true, melee: true };
+  };
   T[865] = (g, c, t) => {                                   // 脑髓寄生攻击 318725
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
     if (guardJuA(g, t)) return { implemented: true, nothing: true };
@@ -1546,6 +1594,11 @@
   };
   T[874] = () => ({ implemented: true, request: 'rescue' });        // 请求救援 328995
   T[875] = (g, c) => {                                      // 响彻声援 333880
+    // 0-GC：5 回合 rowact 33（*label_2920），每回合给同阵营角色 +2 斗志并回 SP
+    if (Elona.Social) {
+      const r = Elona.Social.beginCheer(g, c);
+      return r.ok ? { implemented: true, rowact: 33 } : { implemented: true, nothing: true };
+    }
     for (const o of (g.charas || [])) {
       if (!o || (o.get(0) | 0) !== 1 || !sameSide(c, o)) continue;
       addMorale(o, 10);

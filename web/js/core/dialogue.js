@@ -677,9 +677,23 @@
       return 0;
     }
 
-    /** 跳到未编译的 label（例如 `*label_2459` / `*label_4363`）→ 如实 blocked */
+    /**
+     * 0-GB：三处「跳到主循环收尾」的 label 按源码语义接成结束事件，不再 blocked。
+     *   · 4363（605329）→ 不消耗回合，直接回主循环（取消 / 收尾）
+     *   · 4358（604861）→ 消耗一个回合后回主循环
+     *   · 2459（236876）→ 剧情说完后的地图退出 / 场景切换（var_65(64)=var_65(850),1）
+     * 其余未编进来的 label 仍如实 blocked。
+     */
     missingJump(d) {
-      const why = 'goto-' + (d.missing !== undefined ? d.missing : '?');
+      const L = String(d.missing !== undefined ? d.missing : '?');
+      if (L === '4363' || L === '4358' || L === '2459') {
+        this.ended = true;
+        const ev = { kind: 'end', via: L, unsupported: this.unsupported || [] };
+        if (L === '4358') ev.endTurn = true;
+        if (L === '2459') { ev.exitScene = true; ev.text = '（剧情结束，场景切换）'; }
+        return ev;
+      }
+      const why = 'goto-' + L;
       this.blocked = why;
       return { kind: 'blocked', why, line: d.l, label: d.missing };
     }
@@ -956,6 +970,16 @@
             const L = d.L;
             if (UI_GOSUB[L]) { this.pc++; break; }
             if (SCENE_GOSUB[L]) { this.noteSkip(L); this.pc++; break; }
+            // 0-GD：脱衣 / 行為（gosub *label_2929/2930/2931）—— 玩家对当前
+            //   对话 NPC 发起成对持续行动；发起方是玩家（源码对话分支的
+            //   var_243=玩家 / var_244=NPC），随后脚本照常继续。
+            if ((L === 2929 || L === 2930 || L === 2931) && Elona.Intimacy) {
+              const type = (L === 2929) ? 11 : (L === 2930) ? 32 : 24;
+              const npc = this.npc || (this.var244 || null);
+              if (npc && this.g) Elona.Intimacy.beginPair(this.g, type, this.g.player, npc);
+              this.pc++;
+              break;
+            }
             if (NATIVE_GOSUB[L]) {
               const ev0 = this.nativeGosub(L, d);
               if (ev0) return ev0;        // 需要玩家在列表里选 → 抛事件，等 answer()

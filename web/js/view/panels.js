@@ -1636,14 +1636,15 @@
       this.rows = [];
       this.onPick = null;
       const html = ''
-        + '<div class="pui-note">愿望女神：「何を望む？」</div>'
-        + '<div class="pui-dim">常用关键字：金貨 / プラチナ / メダル / 若さ / 贖罪 / 性転換 / 死 / 送還 / '
-        + 'スキル+技能名 / アイテム+物品名 / カード+角色名 / 剥製+角色名 / 神名（エヘカトル 等）</div>'
+        + '<div class="pui-note">愿望女神：「想许什么愿？」</div>'
+        + '<div class="pui-dim">常用关键字：金币 / 白金币 / 小奖章 / 年轻 / 赎罪 / 变性 / 死 / 送还 / '
+        + '技能+技能名 / 道具+物品名 / 卡片+角色名 / 标本+角色名 / 神名（艾赫卡托尔 等）/ '
+        + '新年快乐 / 圣诞快乐 / 巧克力 / Q</div>'
         + '<div style="padding:10px 4px"><input id="wish-in" type="text" maxlength="40" '
         + 'style="width:100%;box-sizing:border-box;font-size:15px;padding:6px 8px;'
         + 'background:#e6dcc0;color:inherit;border:1px solid #6b5a3a;" /></div>'
         + '<div class="pui-dim">Enter 确定 · Esc 取消</div>';
-      this.open('wish', '願い / Wish', html, { hint: 'Enter 确定 · Esc 取消' });
+      this.open('wish', '许愿 / Wish', html, { hint: 'Enter 确定 · Esc 取消' });
       const inp = document.getElementById('wish-in');
       if (!inp) return;
       setTimeout(() => inp.focus(), 0);
@@ -2413,8 +2414,15 @@
       this.open('craft', `调合 / 炼金（${rows.length} 个配方）`, html, {
         wide: true, hint: '↑↓ 选择　Enter 调合　Esc 关闭',
         onPick: async (row) => {
-          const res = await Elona.Craft.craft(g, row.id);
-          Elona.UI.pushMessage(res.message);
+          // 0-FY：*label_2659 —— 选中配方只是「开始调合」，要等 rowact 12
+          //   跑完必要回合数才在 Game.completeRowAct 里结算成功/失败。
+          const res = await Elona.Craft.begin(g, row.id);
+          if (res && res.started) {
+            Elona.UI.pushMessage(`开始调合（约 ${res.turns} 回合，移动会中断）。`);
+            this.close();
+            return;
+          }
+          Elona.UI.pushMessage(res ? res.message : '无法调合。');
           await this.openCraft(g, this.sel);
         },
       });

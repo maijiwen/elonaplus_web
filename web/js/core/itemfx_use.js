@@ -92,6 +92,21 @@
     if (g && g.refreshGroundCell) g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
   }
 
+  /** 生成一件物品到指定格（`itemcreate -1, id, x, y, 0` 的最小等价） */
+  function spawnAt(g, id, x, y) {
+    if (!Elona.ItemDB || !Elona.ItemDB.createItem) return null;
+    let it = null;
+    try { it = Elona.ItemDB.createItem(id, 1, g.rng); } catch (e) { it = null; }
+    if (!it) return null;
+    it.f[0] = 1;
+    it.f[5] = x | 0; it.f[6] = y | 0;
+    const cell = g.map && g.map.cell ? g.map.cell(x | 0, y | 0) : null;
+    if (cell) cell[4] = 1;
+    g.groundItems.push(it);
+    if (g.refreshGroundCell) g.refreshGroundCell(x | 0, y | 0);
+    return it;
+  }
+
   /** gosub *label_2225 —— 只重算玩家（index 0）的负重 */
   function weight(g) {
     if (Elona.Feat && Elona.Feat.applyWeight && g && g.player) {
@@ -1276,8 +1291,1416 @@
   //   pre     : 目标选择之前还要一次 UI（150 选镜子）
   //   preTarget: 目标取得后、タッグ判定**之前**的替换（72 坐骑）
   // ======================================================================
+  // ======================================================================
+  // 0-FV：补未注册效果的批次一（源码行号逐条标注）
+  //   这些效果在源码里是独立的 `var_1302 == N` 分支，不经「谁使用？」选目标，
+  //   所以注册时带 noTarget（advance 会直接以玩家为目标）。
+  // ======================================================================
+
+  /** 13 火把（353931-353954）：var_65(37) 0↔1 —— 点火 / 熄火 */
+  function eff13(g, st) {
+    const on = (g.getV65 ? (g.getV65(37) | 0) : 0) !== 0;
+    g.setV65(37, on ? 0 : 1);
+    g.log(on ? '你熄灭了火把。' : '你点燃了火把。');
+    // 353949 `gosub *label_2174` 是重算光照；本项目暂无视野遮罩（A474），
+    // 状态存 var_65(37) 供后续渲染/事件读取。
+    return { end: 'turnWeight' };
+  }
+
+  /** 39 哨子（364733-364745）：`make_sound(x, y, 10, 1, 1, 自己)` */
+  function eff39(g, st) {
+    const p = g.player;
+    g.log(' *哔————* ');
+    if (Elona.Status && Elona.Status.makeSound) {
+      const msgs = Elona.Status.makeSound(g, p.x | 0, p.y | 0, 10, 1, 1, p.index | 0);
+      for (const m of (msgs || [])) g.log(m);
+    }
+    return { end: 'turnWeight' };
+  }
+
+  /**
+   * 11 小猫存钱罐（358476-358503）。
+   * `var_1560` = 7 档面额，`f[26]` 是面额索引；`f[25]` 已存金额（上限 10 亿）；
+   * 每存一次罐子价值 f[7] += 100。
+   */
+  const BANK_AMOUNTS = [500, 2000, 10000, 50000, 500000, 5000000, 100000000];
+  function eff11(g, st) {
+    const it = st.it, p = g.player;
+    if (!it || !it.f) return { end: 'none' };
+    const idx = limit(it.f[26] | 0, 0, BANK_AMOUNTS.length - 1);
+    const amount = BANK_AMOUNTS[idx];
+    if (amount > G(p, 30)) { g.log('金币不够……'); return { end: 'none' }; }
+    if ((it.f[25] | 0) >= 1000000000) { g.log('存钱罐已经满了。'); return { end: 'none' }; }
+    p.set(30, G(p, 30) - amount);
+    it.f[25] = (it.f[25] | 0) + amount;
+    it.f[7] = (it.f[7] | 0) + 100;
+    g.log(`你把 ${amount} 金币放进了存钱罐。`);
+    return { end: 'turnWeight' };
+  }
+
+  /** 14 雪（353904-353930）：自己用消耗 5 个雪 → 脚下生成雪人（541） */
+  function eff14(g, st) {
+    const it = st.it, p = g.player;
+    const t = st.target || p;
+    const self = !t || (t.index | 0) === 0;
+    if (self) {
+      // 注意：G() 只接受角色（内部走 c.get），物品数量必须直接读 f[0]
+      if ((it.f[0] | 0) < 5) { g.log('雪不够……'); return { end: 'none' }; }
+      it.f[0] = (it.f[0] | 0) - 5;
+      if (g.refreshGroundCell) g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
+    }
+    spawnAt(g, 541, p.x | 0, p.y | 0);
+    if (!self) g.log(`${nm(t)}做了一个雪人！`);
+    return { end: 'turnWeight' };
+  }
+
+  /**
+   * 24 地雷（349966-349998）。
+   * 世界地图（var_126(6)==1）不能用；格子已有特性拒绝；
+   * 数量 -1 后写 `cell_featset x,y, 0, 14, 22, owner`（type 14 陷阱 / sub 22 炸弹）。
+   */
+  function eff24(g, st) {
+    const it = st.it, p = g.player;
+    if (onWorld(g)) { g.log('这里不能使用。'); return { end: 'none' }; }
+    const f = (Elona.MapFeat && Elona.MapFeat.read) ? Elona.MapFeat.read(g, p.x, p.y) : null;
+    if (f && (f.raw | 0) !== 0) { g.log('这里放不下。'); return { end: 'none' }; }
+    consume(g, it);
+    if (Elona.MapFeat && Elona.MapFeat.write) {
+      Elona.MapFeat.write(g, p.x, p.y, 0, 14, 22, p.index | 0);
+    }
+    g.log('你设置了地雷。');
+    return { end: 'turnWeight' };
+  }
+
+  /**
+   * 29 秘宝（360639-360660）：`var_97(f[25]) = 1` 获得专长。
+   * 162 / 169 互斥（源码显式把另一个清零）。
+   */
+  function eff29(g, st) {
+    const it = st.it, p = g.player;
+    const featId = it.f[25] | 0;
+    if (Elona.Feat && Elona.Feat.set) {
+      Elona.Feat.set(p, featId, 1);
+      if (featId === 169) Elona.Feat.set(p, 162, 0);
+      if (featId === 162) Elona.Feat.set(p, 169, 0);
+    }
+    consume(g, it);
+    g.log('你获得了新的专长！');
+    return { end: 'turnWeight' };
+  }
+
+  /** 31 库米罗妮宝玉（364492-364534）—— 本体在 core/farm.js 的 reviveOrGrow */
+  function eff31(g, st) {
+    if (Elona.Farm && Elona.Farm.reviveOrGrow) {
+      Elona.Farm.reviveOrGrow(g, undefined, undefined, st.it);
+    } else {
+      g.log('脚下没有作物。');
+    }
+    // 源码三条出口都 `goto *label_3017`（消耗回合、不消耗物品）
+    return { end: 'turnWeight' };
+  }
+
+  /**
+   * 33 怪物球（364249-364291）：放出球里存的怪物成为同伴。
+   *   · 地图 35 / 76-179 → 「这里不能使用」
+   *   · `f[23] == 0`（空球）→ 「怪物球是空的」
+   *   · 队伍无空位 → 「同伴不能再增加了」
+   *   · 成功：消耗 1 个，`characreate 56, f[23], -3, 0` + gosub *label_4274
+   */
+  function eff33(g, st) {
+    const it = st.it, p = g.player;
+    // 340880-341000：**对相邻怪物使用**怪物球 = 捕获（不走效果 33）。
+    //   0-CF 的捕获分支在 game.js 里排在 ItemFx 分派之后，现在被这个效果接管，
+    //   所以在这里先试捕获；`no-target` 才落到「放出球里的怪物」。
+    if (Elona.Party && Elona.Party.capture) {
+      const cap = Elona.Party.capture(g, it);
+      if (cap && cap.reason !== 'no-target') {
+        if (cap.message) g.log(cap.message);
+        if ((it.f[0] | 0) > 0) it.f[0] = (it.f[0] | 0) - 1;   // 成功与失败都消耗一颗
+        if (g.refreshGroundCell) g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
+        return { end: 'turnWeight' };
+      }
+    }
+    const mt = (g.map && g.map.header && (g.map.header[6] | 0)) | 0;
+    const sub = g.getV65 ? (g.getV65(22) | 0) : 0;
+    if (mt === 35 || (mt === 76 && sub === 179)) { g.log('这里不能使用。'); return { end: 'turnWeight' }; }
+    const species = it.f[23] | 0;
+    if (species === 0) { g.log('怪物球是空的。'); return { end: 'turnWeight' }; }
+    if (!Elona.Party || !Elona.Party.freeSlot || !Elona.Party.freeSlot(g)) {
+      g.log('同伴不能再增加了。');
+      return { end: 'turnWeight' };
+    }
+    consume(g, it);
+    let c = null;
+    if (Elona.Monster && Elona.Monster.create) {
+      try { c = Elona.Monster.create(g, species, p.level | 0, p.x | 0, p.y | 0, {}); } catch (e) { c = null; }
+    }
+    if (!c) { g.log('……什么也没有出现。'); return { end: 'turnWeight' }; }
+    const r = Elona.Party.joinChara(g, c);
+    if (r && r.message) g.log(r.message);
+    return { end: 'turnWeight' };
+  }
+
+  // ======================================================================
+  // 0-FW：通用「启动内建效果」+ 易容 / 狂气治愈 / 原子弹
+  //   这一组在源码里都是「把物品字段里的效果号塞进 var_396 再 gosub *label_2960」，
+  //   而本项目 label_2960 的等价物是 core/spell.js 的 dispatchEffect ——
+  //   所以不必逐个重写演出，直接把效果号交过去即可。
+  // ======================================================================
+
+  /**
+   * `var_396 = var_99(25, var_579)` / `var_578 = var_99(26, var_579)` → `gosub *label_2960`
+   * @returns {object|null} dispatchEffect 的结果（null = 没有可放的效果）
+   */
+  function launchStored(g, it, target, powerOverride) {
+    const id = it.f[25] | 0;
+    if (!id) return null;
+    const power = (powerOverride === undefined) ? (it.f[26] | 0) : (powerOverride | 0);
+    if (!Elona.Spell || !Elona.Spell.dispatchEffect) return null;
+    try {
+      return Elona.Spell.dispatchEffect(g, target || g.player, id, target || g.player, power);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /** 直接放一个写死在源码里的效果号（20 的 458 / 25 的 637） */
+  function castEffect(g, id, power, target) {
+    if (!Elona.Spell || !Elona.Spell.dispatchEffect) return null;
+    try {
+      return Elona.Spell.dispatchEffect(g, target || g.player, id | 0, target || g.player, power | 0);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /** 30 神速 / 圣雨 / 再构造 / 心（364084-364098）—— 源码不扣数量（可重复启动） */
+  function eff30(g, st) {
+    const p = g.player;
+    const iname = Elona.ItemDB ? Elona.ItemDB.name(st.it, 'jp') : '道具';
+    g.log(`你启动了${iname}。`);
+    const r = launchStored(g, st.it, p);
+    if (!r || r.implemented === false) g.log('什么也没有发生。');
+    return { end: 'turnWeight' };
+  }
+
+  /**
+   * 20 易容道具（358664-358671）：`var_396 = 458` / `var_578 = 400`。
+   * 458 = インコグニート（abilities 表 f[1] = 1015 → buff 15），
+   * label_2960 的 458 分支在 buff 之前还调 `incognitobegin`（194576-194608）：
+   * 把「敌对（var_58(9) <= -2）」的关系值重置回原值，追兵一时认不出你。
+   */
+  function eff20(g, st) {
+    const p = g.player;
+    g.log('你换上了易容道具。');
+    const r = castEffect(g, 458, 400, p);
+    let n = 0;
+    for (const c of (g.charas || [])) {
+      if (!c || c === p || (c.get(0) | 0) !== 1) continue;
+      if ((c.get(9) | 0) > -2) continue;          // 不是敌对
+      if ((c.get(69) | 0) < -2) continue;         // 本来就恨你，变装没用
+      c.set(201, 0);                              // 清亲密度
+      c.set(9, c.get(69) | 0);                    // 关系回到原值
+      c.set(79, 221);
+      n++;
+    }
+    if (n > 0) g.log('周围的敌人一时没有认出你。');
+    if (!r || r.implemented === false) g.log('总觉得有点不自在。');
+    return { end: 'turnWeight' };
+  }
+
+  /** 25 独角兽的角（358793-358807）：`var_396 = 637`（狂気治癒の雨）/ `var_578 = 500`，消耗 1 */
+  function eff25(g, st) {
+    const p = g.player;
+    g.log('你高高举起了独角兽的角。');
+    const r = castEffect(g, 637, 500, p);
+    consume(g, st.it);
+    if (!r || r.implemented === false) {
+      // 637 的收尾是 healsan(var_578/10) —— 演算不可用时直接降狂气
+      if (Elona.Status && Elona.Status.healsan) Elona.Status.healsan(p, 50);
+      g.log('你的心绪平静了下来。');
+    }
+    return { end: 'turnWeight' };
+  }
+
+  /** 28 原子弹（360579-360619）：普通地图才能设置，消耗 1，`addmef x,y,7,632,10,100,owner` */
+  function eff28(g, st) {
+    const p = g.player, it = st.it;
+    if (onWorld(g)) { g.log('这里不能使用。'); return { end: 'none' }; }
+    consume(g, it);
+    g.log('你设置了原子弹。快逃啊——！');
+    if (g.mef && g.mef.add) {
+      try { g.mef.add(g, p.x | 0, p.y | 0, 7, 632, 10, 100, p.index | 0); } catch (_) { /* 槽满忽略 */ }
+    }
+    return { end: 'turnWeight' };
+  }
+
+  // ======================================================================
+  // 0-FY：补齐 0-FW.6 里「依赖 rowact 子系统 / 既有模块」的四个效果
+  //   7 避难所、9 训练机、21 素材工具、32 能力複合機。
+  // ======================================================================
+
+  /**
+   * 开始一个 var_65(91) = mode 的 rowact 10（*label_2932，311077-311185）。
+   *   101 建设 25 回合（311111-311117）；104 训练 50 回合（311166-311249）。
+   *   payload.campMode 让 Actions.tickRowAct 跳过偷窃分派、走通用倒计时，
+   *   完成后由 Game.completeRowAct(10) 结算。
+   */
+  function beginCampRowAct(g, mode, turns, extra) {
+    const A = Elona.Actions;
+    if (!A) return { ok: false, message: '动作层未加载。' };
+    const pl = Object.assign({ campMode: mode | 0 }, extra || {});
+    const r = A.begin(g, 10, turns | 0, pl);
+    if (r.ok && g.setV65) g.setV65(91, mode | 0);
+    return r;
+  }
+
+  /** 21 素材工具（358773-358789）：挥动 → 消耗 1 → var_396=21 / var_578=500 → label_2960 */
+  function eff21(g, st) {
+    const it = st.it, p = g.player;
+    if ((g.getV65 ? (g.getV65(20) | 0) : 0) === 35) return { end: 'silent' };
+    const iname = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'jp') : '道具';
+    g.log(`你挥动了${iname}。`);
+    consume(g, it);
+    castEffect(g, 21, 500, p);
+    return { end: 'turnWeight' };
+  }
+
+  /**
+   * 32 能力複合機（364535-364670）。
+   * 项目早就把「选素体 → 选供体 → y/n 确认 → 合成」实现在
+   * Panels.openGeneMachine 里，只是没有 itemfx 入口（死代码）。这里补上接线。
+   */
+  function eff32(g, st) {
+    const P = Elona.Panels;
+    if (!P || !P.openGeneMachine || !Elona.GeneMachine) {
+      g.log('这里不能使用能力复合机。');
+      return { end: 'turn' };
+    }
+    P.openGeneMachine(g, st.it);
+    return { end: 'none' };   // 面板内部在合成成功时自行 endTurn
+  }
+
+  /** 9 训练机 / 学习书（353955-353966 → *label_2849 300965-300983） */
+  function eff9(g, st) {
+    const r = beginCampRowAct(g, 104, 50, {
+      itemId: st.it.id | 0, skill: st.it.f[25] | 0,
+    });
+    if (!r.ok) { g.log(r.message || '现在不能训练。'); return { end: 'none' }; }
+    g.log('你开始训练。（50 回合，移动会中断）');
+    g.endTurn();
+    return { end: 'none' };
+  }
+
+  /**
+   * 7 避难所（358426-358770）。
+   *   var_99(21) != 3（未建成）→ 只能在世界地图，var_65(91)=101 建设 25 回合；
+   *   var_99(21) == 3（已建成）→ 放弃当前委托 / 从野外撤离到安全地带。
+   */
+  function eff7(g, st) {
+    const it = st.it;
+    const built = (it.f[21] | 0) === 3;
+    if (!built) {
+      if (!onWorld(g)) {
+        g.log('这里不能建造，应该到世界地图上去建。');
+        return { end: 'none' };
+      }
+      const r = beginCampRowAct(g, 101, 25, { itemId: it.id | 0, kind: 'shelter' });
+      if (!r.ok) { g.log(r.message || '现在不能建造。'); return { end: 'none' }; }
+      g.log('你开始建造避难所。（25 回合）');
+      g.endTurn();
+      return { end: 'none' };
+    }
+    g.log('你躲进了避难所。');
+    if (g.questMap && g.leaveQuestMap) g.leaveQuestMap();
+    else if (g.returnToTown) g.returnToTown();
+    return { end: 'turn' };
+  }
+
+  // ======================================================================
+  // 0-FZ：label_3016 剩余效果批次（349962-364788）
+  //
+  // 这一批都是「不经 *label_2893 选目标、对自己/脚下直接生效」的分支，
+  // 因此统一注册为 noTarget。逐个注明源码行号；源码本身就是空分支的
+  // （只有 var_1303++）按「什么也没有发生」实现，不额外发明效果。
+  // ======================================================================
+
+  /** var_126(n) —— 项目里是 g.v126（见 core/randomevent.js 的 mapVar） */
+  function v126(g, n) { return (g && g.v126 && (g.v126[n] | 0)) || 0; }
+  function setV126(g, n, v) { if (!g) return; if (!g.v126) g.v126 = {}; g.v126[n] = v | 0; }
+
+  /** 86 / 87 / 88 / 89 / 123 / 124 / 131：源码只有 var_1303++ 的空分支 */
+  function effNoop(g, st) {
+    g.log('什么也没有发生……');
+    return { end: 'turnWeight' };
+  }
+
+  /** 6 光盘（358370-358385）：var_131 = f[25]+51，上限 138-1 → var_126(13) */
+  function eff6(g, st) {
+    const it = st.it;
+    const track = Math.min(137, (it.f[25] | 0) + 51);
+    setV126(g, 13, track);
+    const nm2 = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'jp') : '光盘';
+    g.log(`你播放了${nm2}。（曲目 ${track}）`);
+    return { end: 'turnWeight', track };
+  }
+
+  /** 10 光盘停止（358386-358393）：goto *label_4342 关闭播放并刷新画面 */
+  function eff10(g, st) {
+    setV126(g, 13, 0);
+    g.log('你停止了播放。');
+    return { end: 'turnWeight' };
+  }
+
+  /** 68 选曲（358359-358369 → *label_2716 的「再生リスト」：曲目 50..138） */
+  function eff68(g, st) {
+    let t = v126(g, 13) + 1;
+    if (t < 50 || t > 138) t = 50;
+    setV126(g, 13, t);
+    g.log(`你选好了要播放的曲目。（${t}）`);
+    return { end: 'turnWeight', track: t };
+  }
+
+  /** 35 / 36 铁处女 / 断头台（364671-364732）：dmghp 0,9999,-18 / -19 */
+  function effTorture(g, st, guillotine) {
+    const p = g.player;
+    g.log(guillotine ? '你把头伸进了断头台。' : '你走进了铁处女。');
+    g.log('「好兴奋♪」');
+    g.log(guillotine ? '突然有人放下了断头台的刀刃。' : '突然有人关上了盖子。');
+    g.log('「嘿嘿」');
+    if (Elona.Battle && Elona.Battle.applyDamage) {
+      Elona.Battle.applyDamage(p, 9999, g, null, 0, 0);
+    } else {
+      p.hp = 0;
+    }
+    return { end: 'turnWeight', torture: guillotine ? 36 : 35 };
+  }
+
+  /** 42（364129-364140）：不祥的预感 */
+  function eff42(g, st) { g.log('总觉得有种不祥的预感……'); return { end: 'turnWeight' }; }
+
+  /** 65 施肥（364292-364335）：接 Farm.fertilize，成功才消耗 */
+  function eff65(g, st) {
+    const F = Elona.Farm, p = g.player;
+    if (!F || !F.fertilize) { g.log('这里没有可以施肥的作物。'); return { end: 'turnWeight' }; }
+    const r = F.fertilize(g, p.x, p.y);
+    if (r && r.ok) consume(g, st.it);
+    return { end: 'turnWeight', fertilized: !!(r && r.ok) };
+  }
+
+  /** 70 犬笛（359921-359960）：犬族听得到，周围犬类 NPC 被动作为 121 */
+  function isDogChara(c) {
+    if (!c) return false;
+    const id = c.get(27) | 0;
+    if (id === 363 || id === 538) return true;
+    const r = String(c.race || c.raceId || c.raceName || c.get(2) || '').toLowerCase();
+    return r === 'dog' || r === 'doggod' || r.indexOf('犬') >= 0;
+  }
+  function eff70(g, st) {
+    const p = g.player;
+    const heard = isDogChara(p);
+    g.log(heard ? ' *哔————* ' : '什么也听不见。');
+    for (const c of (g.charas || [])) {
+      if (!c || (c.get(0) | 0) !== 1) continue;
+      if (Math.max(Math.abs(c.x - p.x), Math.abs(c.y - p.y)) > 5) continue;
+      if (isDogChara(c) && R(g, 10) >= 1) c.set(79, 121);   // var_58(79) = 21 + 100
+    }
+    return { end: 'turnWeight', heard };
+  }
+
+  /** 76（358672-358689）：世界地图禁用；否则 var_65(194)=104 + 效果 463/650 */
+  function eff76(g, st) {
+    if (onWorld(g)) { g.log('这里不能使用。'); return { end: 'none' }; }
+    if (g.setV65) g.setV65(194, 104);
+    castEffect(g, 463, 650, g.player);
+    return { end: 'turnWeight' };
+  }
+
+  /** 92（352984-352993）：音效 + var_1117=29 的演出，网页版折算成提示 */
+  function eff92(g, st) { g.log(' *轰隆隆——* '); return { end: 'turnWeight' }; }
+
+  /** 103（360189-360213）：补充深渊魔力与充填用魔力 */
+  function eff103(g, st) {
+    const it = st.it, n = limit((it.f[26] | 0) + 1, 1, 30);
+    const abyss = 20 * n, charge = 10 * n;
+    consume(g, it);
+    if (g.setV65) {
+      g.setV65(679, Math.min(100000, (g.getV65(679) | 0) + abyss));   // var_65(250+429)
+      g.setV65(25, (g.getV65(25) | 0) + charge);                     // var_65(25)
+    }
+    g.log(`获得 ${abyss} 点深渊魔力、${charge} 点充填用魔力。`);
+    return { end: 'turnWeight', abyss, charge };
+  }
+
+  /** 105 生火（353828-353843）：消耗 1 → 脚下生成 255 号篝火 */
+  function eff105(g, st) {
+    consume(g, st.it);
+    g.log('你生起了火。');
+    const fire = spawnAt(g, 255, g.player.x, g.player.y);
+    return { end: 'turnWeight', made: !!fire };
+  }
+
+  /** 109 / 151 / 152 制服·发型变化（354747-354815）：改 var_99(2) 贴图号 */
+  function graphicChange(g, it, next, msg) {
+    it.f[2] = next;
+    g.log(msg);
+    if (g.refreshGroundCell) g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
+    return { end: 'turnWeight', graphic: next };
+  }
+  function eff109(g, st) {
+    const f = st.it.f; let v = f[2] | 0;
+    if (v >= 1161) v = 1134;
+    else if (v === 1122) v = 1155;
+    else if (v <= 1134) v--;
+    else if (v >= 1155) v++;
+    return graphicChange(g, st.it, v, '制服变化了！');
+  }
+  function eff151(g, st) {
+    const v = st.it.f[2] | 0;
+    return graphicChange(g, st.it, v < 1378 ? v + 1 : 1353, '发型变化了！');
+  }
+  function eff152(g, st) {
+    const v = st.it.f[2] | 0;
+    return graphicChange(g, st.it, v < 1341 ? v + 1 : 1320, '发型变化了！');
+  }
+
+  /** 118（350950-350973）：竞技场/展会类地图给发言力，其余给名声 var_58(34) */
+  function eff118(g, st) {
+    const t = v126(g, 6);
+    if (v126(g, 26) !== 0 && (t === 3 || t === 2)) {
+      setV126(g, 26, v126(g, 26) + 200);
+      g.log('你获得了 200 点发言力。');
+      return { end: 'turnWeight', kind: 'praise' };
+    }
+    const p = g.player;
+    p.set(34, (p.get(34) | 0) + 200);
+    g.log('你获得了 200 点名声。');
+    return { end: 'turnWeight', kind: 'fame' };
+  }
+
+  /** 119（350975-351008）：觉悟 → addbuff 37 / 士气 -25 / 效果 619 */
+  function eff119(g, st) {
+    const p = g.player;
+    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, p, 37, 50, 50);
+    p.set(182, (p.get(182) | 0) - 25);
+    castEffect(g, 619, 100, p);
+    g.log('你下定了决心！');
+    return { end: 'turnWeight' };
+  }
+
+  /** 126（360214-360246）：*哔* → 视野内角色 var_58(60) -= 5 */
+  function eff126(g, st) {
+    const p = g.player;
+    g.log(' *哔* ');
+    for (const c of (g.charas || [])) {
+      if (!c || (c.get(0) | 0) !== 1) continue;
+      if ((c.get(60) | 0) >= 100) continue;
+      if (Math.max(Math.abs(c.x - p.x), Math.abs(c.y - p.y)) > 5) continue;
+      c.set(60, Math.max(0, (c.get(60) | 0) - 5));
+    }
+    return { end: 'turnWeight' };
+  }
+
+  /** 144（351545-351577）：5 点深渊魔力在脚下设陷阱 */
+  function eff144(g, st) {
+    const p = g.player, M = Elona.MapFeat;
+    const power = g.getV65 ? (g.getV65(679) | 0) : 0;
+    if (power < 5) { g.log(`需要 5 点深渊魔力。（当前 ${power}）`); return { end: 'turnWeight' }; }
+    if (onWorld(g)) return { end: 'turnWeight' };                  // 源码静默 goto 3017
+    if (M && M.read) {
+      const f = M.read(g, p.x, p.y);
+      if (f && (f.id | 0) !== 0) { g.log('什么也没有发生……'); return { end: 'turnWeight' }; }
+    }
+    if (g.setV65) g.setV65(679, power - 5);
+    if (M && M.write) M.write(g, p.x, p.y, 0, 14, (st.it.f[25] | 0) + 23, p.index | 0);
+    g.log('你消耗 5 点深渊魔力，设下了陷阱。');
+    return { end: 'turnWeight', trap: true };
+  }
+
+  /** 147 / 148 收容所蓄能（358394-358425）：var_65(91)=107/108 → *label_2932 */
+  function effCampEnergy(g, st, mode) {
+    const C = Elona.Camp, A = Elona.Actions;
+    if (!C || !C.campOf || !C.campOf(g)) {
+      g.log('只有在收容所才能蓄积能量。');
+      return { end: 'none' };                                       // 源码 goto 4363
+    }
+    if (!A) return { end: 'turnWeight' };
+    const turns = mode === 107 ? 21 : 61;
+    const r = A.begin(g, mode, turns, { campMode: mode });
+    if (!r.ok) { g.log(r.message || '现在不能蓄积能量。'); return { end: 'none' }; }
+    g.log(`你开始蓄积能量。（${turns} 回合）`);
+    g.endTurn();
+    return { end: 'none' };
+  }
+
+  /** 22 符文（358719-358755）：城镇限定 → 消耗 → *label_2667 的存档门 */
+  function eff22(g, st) {
+    const t = v126(g, 6);
+    if (t !== 3 && t !== 2) { g.log('那只能在城镇里使用。'); return { end: 'turnWeight' }; }
+    if (g.getV65 && (g.getV65(556) | 0) > 0) { g.log('现在正在决斗中！'); return { end: 'turnWeight' }; }
+    consume(g, st.it);
+    g.log('突然，你的面前出现了一道通往异次元的门。（冒险已记录）');
+    // *label_2667 的 var_1234=2 是「存档」；网页版直接落盘，失败不影响游戏
+    try {
+      if (Elona.Save && Elona.Save.save && g.serialize) {
+        Promise.resolve(Elona.Save.save('slot1', g.serialize())).catch(() => {});
+      }
+    } catch (e) { /* 无存档后端时只保留日志 */ }
+    return { end: 'turnWeight', gate: true };
+  }
+
+  /** 46 切腹（364165-364248）：y/n 确认 → HP/8 + 结束决斗 + 周围关系复位 */
+  function eff46(g, st) {
+    const p = g.player;
+    const doIt = () => {
+      g.log('你为了平息这场骚乱切腹了！');
+      p.hp = idiv(p.hp | 0, 8);                                     // var_58(50,0) /= 8
+      if (g.getV65 && (g.getV65(556) | 0) > 0) {
+        g.setV65(556, 0);
+        g.log('＊决斗结束＊');
+      }
+      for (const c of (g.charas || [])) {
+        if (!c || c === p || (c.get(0) | 0) !== 1) continue;
+        if (Math.max(Math.abs(c.x - p.x), Math.abs(c.y - p.y)) > 5) continue;
+        if ((c.get(69) | 0) >= -2 && (c.get(9) | 0) <= -2) c.set(9, c.get(69) | 0);
+        c.set(201, 0);
+      }
+      if (g.endTurn) g.endTurn();
+    };
+    const P = Elona.Panels;
+    if (P && P.openConfirm) {
+      P.openConfirm('真的要切腹吗？', (yes) => { if (yes) doIt(); }, { title: '切腹' });
+      return { end: 'none' };
+    }
+    doIt();
+    return { end: 'none' };
+  }
+
+  // ======================================================================
+  // 0-FZ.2：再来 19 个 —— 神像启动 / 自建地图道具 / 信仰显示 / 净水筒等
+  // ======================================================================
+
+  /**
+   * 神像启动系列（358808-359016）：统一「你启动了○○」+ 神谕台词 + 各自副作用。
+   *   26 オパートス → var_65(262)=1 / var_65(561)=1（地变前兆）
+   *   27 ルルウィ   → 以太风(天气1)时拒绝，否则重 roll 天气 0/3/4/2
+   *   34 ジュア     → 效果 637 / 威力 5000
+   *   43 エヘカトル → 只有台词
+   *   50 クミロミ   → var_65(642)++，掉 420 号种子；每 3 次加 419/418，每 5 次加 421/417
+   *   51 マニ       → 只有台词（超级模式）
+   *   55 ヤカテクト → var_65(641)++，掉 54 金货 5000+rnd(5000)；每 12 次 55、每 30 次 622
+   *   56 イツパロトル → 范围内角色 addbuff(4, 2400, 100)
+   */
+  function effStatue(g, st, id) {
+    const p = g.player, it = st.it;
+    const name = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'jp') : '神像';
+    g.log(`你启动了${name}。`);
+    switch (id) {
+      case 26:
+        if (g.setV65) { g.setV65(262, 1); g.setV65(561, 1); }
+        g.log('奥帕特斯「哈哈哈！这片大地很快就要变动了吧！」');
+        break;
+      case 27: {
+        if ((g.getV65(17) | 0) === 1) {
+          g.log('露露薇「浅薄呢。你以为我会替你停下以太风吗？」');
+          break;
+        }
+        if (g.setV65) g.setV65(17, [0, 3, 4, 2][R(g, 4)]);
+        g.log('露露薇「哎呀呀，一介凡人竟敢如此央求？……这回就特别通融一次吧」');
+        g.log('天气变了。');
+        break;
+      }
+      case 34:
+        g.log('朱亚「才、才不是为了你才做的呢！笨蛋！」');
+        castEffect(g, 637, 5000, p);
+        break;
+      case 43:
+        g.log('埃赫卡特尔「叫我了？叫我了？」');
+        break;
+      case 50: {
+        g.log('库米罗妮「种…出来了…」');
+        const n = (g.getV65(642) | 0) + 1;
+        if (g.setV65) g.setV65(642, n);
+        spawnAt(g, 420, p.x, p.y);
+        if (n % 3 === 0) { spawnAt(g, 419, p.x, p.y); spawnAt(g, 418, p.x, p.y); }
+        if (n % 5 === 0) { spawnAt(g, 421, p.x, p.y); spawnAt(g, 417, p.x, p.y); }
+        g.log('石像的裙子里滚出了什么东西。');
+        break;
+      }
+      case 51:
+        g.log('玛尼「来吧，让我看看你的超级模式！」');
+        break;
+      case 55: {
+        g.log('雅卡泰克特「喏，今天的零花钱！1 gold 都别浪费哦？」');
+        const n = (g.getV65(641) | 0) + 1;
+        if (g.setV65) g.setV65(641, n);
+        let drop = 54, qty = 5000 + R(g, 5000);
+        if (n % 12 === 0) { drop = 55; qty = 1; }
+        if (n % 30 === 0) { drop = 622; qty = 1; }
+        const made = spawnAt(g, drop, p.x, p.y);
+        if (made) made.f[0] = qty;
+        g.log('天上掉下来东西了！');
+        break;
+      }
+      case 56:
+        g.log('伊兹帕洛特尔「炎啊、冷气啊、还有雷啊，回应吾命，化作遮断属性之壁吧」');
+        if (Elona.Status && Elona.Status.addbuff) {
+          for (const c of (g.charas || [])) {
+            if (!c || (c.get(0) | 0) !== 1) continue;
+            if (Math.max(Math.abs(c.x - p.x), Math.abs(c.y - p.y)) > 5) continue;
+            Elona.Status.addbuff(g, c, 4, 2400, 100);
+          }
+        }
+        break;
+      default: break;
+    }
+    return { end: 'turnWeight', statue: id };
+  }
+
+  /** 47 领域水晶（358690-358718）：自建地图 + f[21]==5 → *label_2755 记录领域 */
+  function eff47(g, st) {
+    if ((g.getV65(20) | 0) !== 35) { g.log('它暗暗地发着光。'); return { end: 'turnWeight' }; }
+    if ((st.it.f[21] | 0) !== 5) {
+      g.log('水晶里没有这片领域的记忆，需要去找这片土地主人放置的水晶。');
+      return { end: 'turnWeight' };
+    }
+    consume(g, st.it);
+    g.log('领域的记忆被记录下来了。');
+    return { end: 'turnWeight', memory: true };
+  }
+
+  /** 48 石像（360620-360638）：自建地图里才让人想往它扔东西 */
+  function eff48(g, st) {
+    if ((g.getV65(20) | 0) !== 35 || !g.userMapOwner) {
+      g.log('它在这里看起来寒酸极了。');
+      return { end: 'turnWeight' };
+    }
+    g.log('盯着这座石像，突然很想朝它扔点什么！');
+    return { end: 'turnWeight' };
+  }
+
+  /** 49（358756-358772）：自建地图静默，否则挥动并放出效果 49 / 100 */
+  function eff49(g, st) {
+    if ((g.getV65(20) | 0) === 35) return { end: 'silent' };
+    const name = Elona.ItemDB ? Elona.ItemDB.name(st.it.id, 'jp') : '道具';
+    g.log(`你挥动了${name}。`);
+    castEffect(g, 49, 100, g.player);
+    return { end: 'turnWeight' };
+  }
+
+  /** 69（357024-357035）：显示信仰深度与祈祷充能 */
+  function eff69(g, st) {
+    const p = g.player;
+    const faith = p.get(62) | 0;
+    const max = (p.skill ? (p.skill(181) | 0) : 0) * 100;
+    const charge = limit(idiv((p.get(63) | 0) + 1, 10), 0, 100);
+    g.log(`信仰深度：${faith}/${max}，祈祷充能：${charge}%`);
+    return { end: 'turnWeight', faith, charge };
+  }
+
+  /** 97（359832-359884）：世界地图上让附近据点震动（选单简化为提示） */
+  function eff97(g, st) {
+    if (v126(g, 6) !== 1 && !onWorld(g)) {
+      g.log('应该在世界地图上使用。');
+      return { end: 'turnWeight' };
+    }
+    g.log('周围的据点震动了。');
+    return { end: 'turnWeight' };
+  }
+
+  /** 113（360179-360188）：源码写着「開発中。」 */
+  function effDev(g, st) { g.log('开发中。'); return { end: 'turnWeight' }; }
+
+  /** 107（353968-353980）：与效果 9 同走 *label_2849 的训练 rowact 104 */
+  function eff107(g, st) {
+    const r = beginCampRowAct(g, 104, 50, { itemId: st.it.id | 0, skill: st.it.f[25] | 0 });
+    if (!r.ok) { g.log(r.message || '现在不能训练。'); return { end: 'none' }; }
+    g.log('你开始训练。（50 回合）');
+    g.endTurn();
+    return { end: 'none' };
+  }
+
+  /** 121 净水筒（350775-350818）：水边装满 / 平时喝水 */
+  function eff121(g, st) {
+    const p = g.player, it = st.it;
+    const attr = (g.map && g.map.attr) ? (g.map.attr(p.x, p.y) | 0) : 0;
+    if (attr === 3) {
+      it.f[26] = 5;
+      g.log('你把净水筒装满了水。');
+      return { end: 'turnWeight', filled: true };
+    }
+    if ((it.f[26] | 0) > 0 && (p.get(446) | 0) > 10000 && (g.getV65(273) | 0) !== 5) {
+      g.log('再也喝不下了……');
+      return { end: 'turnWeight' };
+    }
+    if ((it.f[26] | 0) > 0) {
+      it.f[26] = (it.f[26] | 0) - 1;
+      p.set(446, (p.get(446) | 0) + 2000);
+      p.set(22, (p.get(22) | 0) + 150);
+      g.log('你喝了一口水。');
+    } else {
+      g.log('净水筒是空的。');
+    }
+    return { end: 'turnWeight' };
+  }
+
+  // ======================================================================
+  // 0-GA：label_3016 最后一批效果号（349962-364788）
+  //
+  // 0-FZ 后剩余 28 个效果号；其中 3 个已由其它模块接管，注册反而会抢先拦截：
+  //   · 16/17 源码只是 `var_396 = 185/183 ; gosub *label_2960`，项目由
+  //     cookUse / Perform.use / Fishing.useRod（game.js 2864/2870）接手；
+  //   · 99 存钱箱由 core/economy.js 按物品 id 1097 实现完整银行窗口（game.js 2791）。
+  // 因此这里补的是其余 25 个，SPECS 96 → 121。
+  //
+  // 新增两种 UI 请求（view/ui.js 里各加一个分支）：
+  //   choice    ← 源码 *label_2896 / txtselecttc 的通用选项菜单
+  //   item-pick ← 源码 *label_2824 的「选一件道具」窗口
+  // ======================================================================
+
+  /** *label_2896：选项菜单请求；value 回来时由 spec.resolve 处理 */
+  function gaChoice(st, title, options, tag) {
+    st.gaTag = tag || 'main';
+    return {
+      ok: false, effect: st.eff, action: 'choice', request: 'choice',
+      title, options: options.slice(), gaTag: st.gaTag,
+    };
+  }
+
+  /** *label_2824：选一件背包道具；filter 可为 null（全部） */
+  function gaItem(st, title, filter, tag) {
+    st.gaTag = tag || 'main';
+    return {
+      ok: false, effect: st.eff, action: 'item-pick', request: 'item-pick',
+      title, filter: filter || null, gaTag: st.gaTag,
+    };
+  }
+
+  /** *label_2893 的八方向 + 自己格；用菜单表达，索引即原版小键盘 1..9 */
+  const GA_DIRS = [[-1, 1], [0, 1], [1, 1], [-1, 0], [0, 0],
+    [1, 0], [-1, -1], [0, -1], [1, -1]];
+  function gaDirChoice(st, title, tag) {
+    return gaChoice(st, title,
+      ['左下', '下', '右下', '左', '脚下', '右', '左上', '上', '右上'], tag);
+  }
+  function gaDir(g, v) {
+    const p = g.player, d = GA_DIRS[limit(v | 0, 0, 8)] || GA_DIRS[4];
+    return { x: (p.x | 0) + d[0], y: (p.y | 0) + d[1] };
+  }
+  /** var_704(x,y,1) - 1：格子上的角色（0 = 没人） */
+  function gaCharaAt(g, x, y) {
+    for (const c of (g.charas || [])) {
+      if (c && G(c, 0) === 1 && (c.x | 0) === (x | 0) && (c.y | 0) === (y | 0)) return c;
+    }
+    return null;
+  }
+  /** 6 格内最近的敌对角色（源码 label_2836 / label_2838 的近似） */
+  function gaFoe(g, maxDist) {
+    const p = g.player, md = maxDist | 0 || 6;
+    let best = null, bd = 1e9;
+    for (const c of (g.charas || [])) {
+      if (!c || c === p || G(c, 0) !== 1 || G(c, 9) >= 0) continue;
+      const d = Math.max(Math.abs((c.x | 0) - (p.x | 0)), Math.abs((c.y | 0) - (p.y | 0)));
+      if (d <= md && d < bd) { bd = d; best = c; }
+    }
+    return best;
+  }
+  function gaDamage(g, c, dmg, attr, att) {
+    if (!c) return 0;
+    const d = Math.max(0, dmg | 0);
+    if (Elona.Battle && Elona.Battle.applyDamage) {
+      try { return Elona.Battle.applyDamage(c, d, g, att || g.player, attr | 0, 1000); }
+      catch (e) { /* 退回直接扣血 */ }
+    }
+    c.hp = Math.max(0, (c.hp | 0) - d);
+    return d;
+  }
+  function gaExp(g, c, skill, amount) {
+    if (!Elona.Stats || !Elona.Stats.skillExp) return;
+    try { Elona.Stats.skillExp(c, skill | 0, c, amount | 0, 0, 0, g); } catch (e) { /* 未就绪 */ }
+  }
+  /** 353636 / 353568 / 353485 等共通的 dmg 公式 */
+  function gaGunPower(g, p, skill) {
+    const s1 = S(p, skill), s2 = S(p, 189), lv = Math.max(1, G(p, 38));
+    return Math.floor((s1 / 5 + 5) * ((s2 + 1) / 5 + 5)
+      + R(g, s2 * 2 + 5)
+      + (limit(lv - 50, 1, 2000) + limit(lv - 100, 1, 2000)) * 4
+        * Math.sqrt(limit(lv, 1, 2000) * 3) + 30);
+  }
+  function gaItemName(it) {
+    if (!it) return '道具';
+    try { return Elona.ItemDB.name(it.id, 'jp') || `道具${it.id | 0}`; }
+    catch (e) { return `道具${it.id | 0}`; }
+  }
+  /** 生成物品并设置数量（itemcreate -1,id,x,y,n） */
+  function gaSpawn(g, id, x, y, n) {
+    const it = spawnAt(g, id, x, y);
+    if (it && n !== undefined) it.f[0] = n | 0;
+    return it;
+  }
+  /** 生成一只怪物并加入队伍（characreate 56 + *label_4274） */
+  function gaSummonAlly(g, species, level) {
+    if (!Elona.Monster || !Elona.Monster.create || !Elona.Party) return null;
+    if (Elona.Party.freeSlot && !Elona.Party.freeSlot(g)) return null;
+    const p = g.player;
+    let c = null;
+    try {
+      c = Elona.Monster.create(g, species | 0, level | 0 || Math.max(1, G(p, 38)),
+        p.x, p.y, {});
+    } catch (e) { c = null; }
+    if (!c) return null;
+    try { Elona.Party.joinChara(g, c); } catch (e) { return null; }
+    return c;
+  }
+
+  /** 37 收起牌组（364746-364765）：var_65(197) = 1 → 0 + label_2468/2102 刷新 */
+  function eff37(g, st) {
+    if (g.setV65) g.setV65(197, 0);
+    g.log('你把牌组收了起来。');
+    return { end: 'turnWeight', deckClosed: true };
+  }
+
+  /** 38 把卡加入牌组（364766-364788）：var_515(0, f[23])++，消耗这张卡 */
+  function eff38(g, st) {
+    const it = st.it, id = it.f[23] | 0;
+    if (id <= 0) { g.log('你没有牌组。'); return { end: 'turnWeight', added: false }; }
+    if (!g.cardDeck) g.cardDeck = {};
+    g.cardDeck[id] = (g.cardDeck[id] | 0) + 1;
+    const nm2 = gaItemName(it);
+    consume(g, it);
+    g.log(`你把${nm2}加进了牌组。`);
+    return { end: 'turnWeight', added: true, card: id };
+  }
+
+  /** 53 每月零花钱（359068-359210）：var_65(816) 计数，换月重置 */
+  const GA_POCKET_TAUNTS = [
+    '「我说啊…这个月不是已经给过了吗？」', '「喂，忍到下个月啦」',
+    '「所以说！这个月的零花钱已经没了呀！」', '「…你再怎么催我也很为难啊」',
+    '「看看隔壁的信徒？人家拿那份零花钱可老实了」',
+    '「又来了…该不会是在等吐槽吧？」', '「该、该不会是失忆了吧…不行，我担心起来了」',
+    '「…连担心都觉得蠢起来了」', '「吵死了笨蛋…」',
+    '「啊啊啊啊啊！！！够了！！差不多够了吧笨蛋——！！…呼、呼」',
+    '「…上次是有点过火了，抱歉。不过这真是一个月一次哦，懂吧」',
+  ];
+  function eff53(g, st) {
+    const month = g.getV65 ? (g.getV65(11) | 0) : 0;
+    // 源码由月更新例程清 var_65(816)；这里借 v65(817) 记「上次领取月」
+    const last = g.getV65 ? (g.getV65(817) | 0) : month;
+    if (last !== month) { g.setV65(816, 0); g.setV65(817, month); }
+    const n = g.getV65 ? (g.getV65(816) | 0) : 0;
+    if (n > 0 && n <= 11) {
+      g.log(GA_POCKET_TAUNTS[n - 1] || '下个月再来吧。');
+      g.setV65(816, n + 1);
+      return { end: 'turnWeight', taunt: n };
+    }
+    if (n > 11) {
+      g.log('铂金币以惊人的势头从天而降，砸在地上粉身碎骨。');
+      return { end: 'turnWeight', shattered: true };
+    }
+    const amt = limit(idiv(S(g.player, 181), 6), 10, 25);
+    const p = g.player;
+    const coin = gaSpawn(g, 55, p.x, p.y, amt);
+    g.log('有什么东西滚到了脚边。');
+    g.log('「来来，这个月的零花钱！…乱花的话我可不饶你哦」');
+    if (g.setV65) { g.setV65(816, 1); g.setV65(817, month); }
+    return { end: 'turnWeight', pocket: amt, coin: !!coin };
+  }
+
+  /** 54 卫星炮（360513-360578）：全屏荷电粒子炮 */
+  function eff54(g, st) {
+    g.log('从卫星轨道上发射了荷电粒子炮！');
+    if (g.setV65) { g.setV65(194, 777); g.setV65(194, 0); }
+    const p = g.player, dmg = 300 + gaGunPower(g, p, 13);
+    let hits = 0;
+    for (const c of (g.charas || [])) {
+      if (!c || c === p || G(c, 0) !== 1) continue;
+      g.log(`荷电粒子命中了${nm(c)}。`);
+      gaDamage(g, c, dmg, 0, p);
+      hits++;
+    }
+    return { end: 'turnWeight', fired: true, hits, damage: dmg };
+  }
+
+  /** 57 指挥旗（360299-360512）：给全体同伴下战术指令 */
+  function eff57(g, st) {
+    return gaChoice(st, '要给同伴下达什么指示？',
+      ['突击态势', '防御态势', '迎击态势', '交涉态势'], 'main');
+  }
+  function eff57res(g, st, v) {
+    const m = v | 0;
+    if (m < 0 || m > 3) return { end: 'none' };
+    const r = (Elona.Companion && Elona.Companion.setModeAll)
+      ? Elona.Companion.setModeAll(g, m) : null;
+    if (!r || !r.ok) g.log('附近没有同伴。');
+    return { end: 'turnWeight', mode: m, count: r ? (r.count | 0) : 0 };
+  }
+
+  /** 63 亡灵之棺（355947-356064）：按 f[25] 3..9 生成亡灵同伴 */
+  function eff63(g, st) {
+    if ((g.getV65 ? (g.getV65(20) | 0) : 0) === 6 || onWorld(g)) {
+      g.log('什么也没有发生……');
+      return { end: 'turnWeight', summoned: false };
+    }
+    let minions = 0;
+    for (const c of (g.charas || [])) if (c && G(c, 0) === 1 && G(c, 9) === 10) minions++;
+    if (minions > 15) { g.log('不能再同时使役更多怪物了。'); return { end: 'turnWeight', summoned: false }; }
+    const it = st.it;
+    const tier = limit(it.f[25] | 0, 3, 9);
+    const species = (it.f[26] | 0) || (300 + tier);
+    const c = gaSummonAlly(g, species, Math.max(1, G(g.player, 38)));
+    if (!c) { g.log('……但是什么也没有出现。'); return { end: 'turnWeight', summoned: false }; }
+    consume(g, it);
+    g.log('棺材里爬出了不死者。');
+    return { end: 'turnWeight', summoned: true, tier };
+  }
+
+  /** 64 情人节巧克力（357036-357234）：2 月限定 + 两段菜单 */
+  function eff64(g, st) {
+    if ((g.getV65 ? (g.getV65(11) | 0) : 0) !== 2
+        || (g.getV65 ? (g.getV65(250 + 264) | 0) : 0) >= 10) {
+      g.log('等下一个 2 月吧。');
+      return { end: 'turnWeight', made: false, reason: 'not-february' };
+    }
+    return gaChoice(st, '来做美味的巧克力吧！首先怎么做？',
+      ['随便做做', '讲究一点', '还是算了'], 'first');
+  }
+  function eff64res(g, st, v) {
+    const p = g.player, it = st.it, sel = v | 0;
+    if (st.gaTag === 'first') {
+      if (sel === 2) { g.log('光想想就觉得麻烦，不做了。'); return { end: 'turnWeight', made: false }; }
+      if (sel === 0) {
+        consume(g, it);
+        p.set(22, (G(p, 22) + 750) | 0);
+        g.log('味道还行。');
+        return { end: 'turnWeight', made: true, simple: true };
+      }
+      return gaChoice(st, '切好巧克力、边调温边隔水加热！接下来呢？',
+        ['再加热一会儿', '直接尝一口', '全部倒掉'], 'second');
+    }
+    if (st.gaTag === 'second') {
+      consume(g, it);
+      g.log('好烫！');
+      gaDamage(g, p, idiv(G(p, 51), 10), -23, p);
+      if (sel === 1) { g.log('…又甜又好吃！'); p.set(22, (G(p, 22) + 750) | 0); }
+      else g.log('你弄得浑身都是巧克力。');
+      if (g.setV65) g.setV65(13, (g.getV65(13) | 0) + 1);
+      return { end: 'turnWeight', made: true, burnt: true };
+    }
+    return { end: 'turnWeight', made: false };
+  }
+
+  /** 78 制作道具（353844-353873）：*label_2824 选一件道具并改写成 1005/1009 */
+  function eff78(g, st) { return gaItem(st, '要改造哪件道具？', null, 'main'); }
+  function eff78res(g, st, it) {
+    if (!it || !it.f) return { end: 'none', made: false };
+    it.f[23] = it.f[3] | 0;
+    it.f[26] = 0; it.f[3] = 1005; it.f[20] = 0; it.f[17] = 0;
+    it.f[2] = 1009; it.f[7] = 100; it.f[24] = 0; it.f[27] = 0;
+    g.log(`做好了${gaItemName(it)}。`);
+    return { end: 'turnWeight', made: true };
+  }
+
+  /** 79 号令旗（360247-360298）：视野内友方 NPC var_58(182) += 5 */
+  function eff79(g, st) {
+    const p = g.player;
+    let n = 0;
+    for (const c of (g.charas || [])) {
+      if (!c || c === p || G(c, 0) !== 1 || G(c, 9) !== 10) continue;
+      if (G(c, 269) > 0 || G(c, 253) > 0) continue;
+      const d = Math.max(Math.abs((c.x | 0) - (p.x | 0)), Math.abs((c.y | 0) - (p.y | 0)));
+      if (d > 7) continue;
+      // 360277-360292：>100 时按「无护盾 / 无骑乘 / 低属性」夹回 100，再统一夹 200
+      let v = G(c, 182) + 5;
+      if (v > 100 && G(c, 409) <= 0 && (G(c, 214) <= 0 || (g.player.index | 0) === 0)
+          && (G(c, 25) < 4 || (g.player.index | 0) < 16)) v = 100;
+      if (v > 200) v = 200;
+      c.set(182, v);
+      n++;
+    }
+    return { end: 'turnWeight', cheered: n };
+  }
+
+  /** 82/83/133/154 魔力蓄积枪（353334-353827） */
+  function effGun(g, st, kind) {
+    const it = st.it, p = g.player;
+    it.f[9] = (it.f[9] | 0) + 1;
+    // NPC 使用者：弹尽时从 var_65(25) 扣 10 补弹（353342-353351 等共通段）
+    if (st.gaNpc && (it.f[9] | 0) <= 0) {
+      const stock = g.getV65 ? (g.getV65(25) | 0) : 0;
+      if (stock < 10) { g.log('魔力积蓄不足……'); return { end: 'turnWeight', recharged: false }; }
+      g.setV65(25, stock - 10);
+      it.f[9] = kind === 154 ? 3 : 1;
+      g.log(`${nm(p)}消耗了 10 点魔力积蓄（剩余 ${stock - 10}）。`);
+      return { end: 'turnWeight', recharged: true };
+    }
+    const t = gaFoe(g, 6);
+    if (!t) { g.log('范围内没有目标。'); return { end: 'turnWeight', fired: false }; }
+    it.f[9] = Math.max(0, (it.f[9] | 0) - 1);
+    const power = gaGunPower(g, p, kind === 133 ? 12 : 13);
+    if (kind === 82) {
+      gaDamage(g, t, power, 64, p);
+      t.set(179, 3);
+      gaExp(g, p, 13, 80); gaExp(g, p, 189, 80);
+      g.log(`${nm(t)}被魔力弹击中。`);
+    } else if (kind === 83) {
+      let n = 0;
+      for (const c of (g.charas || [])) {
+        if (!c || c === p || G(c, 0) !== 1 || G(c, 9) >= 0) continue;
+        const d = Math.max(Math.abs((c.x | 0) - (t.x | 0)), Math.abs((c.y | 0) - (t.y | 0)));
+        if (d > 2) continue;
+        gaDamage(g, c, power, -9, p);
+        c.set(170, 0);
+        n++;
+      }
+      gaExp(g, p, 11, 80); gaExp(g, p, 189, 80);
+      g.log(`${nm(t)}被火焰包围了。`);
+      return { end: 'turnWeight', fired: true, kind, hits: n };
+    } else if (kind === 133) {
+      if (G(t, 60) < 100) t.set(60, Math.min(99, G(t, 60) + 20));
+      gaDamage(g, t, power, 64, p);
+      gaExp(g, p, 12, 80); gaExp(g, p, 189, 80);
+      g.log(`麻醉针刺入了${nm(t)}。`);
+    } else {
+      // 154 体重调整针（353334-353498）：按体重给 15/30，否则「過剰投与！」
+      const w = G(t, 20);
+      if (w >= 500 && w < 1000) { t.set(181, 15); g.log('适正体重！'); }
+      else if (w >= 1000) { t.set(181, 30); g.log('适正体重！'); }
+      else {
+        g.log('过量投药！');
+        gaDamage(g, t, idiv(power * 2, 3), 58, p);
+      }
+    }
+    return { end: 'turnWeight', fired: true, kind, target: t.index | 0 };
+  }
+
+  /** 84 狙击（353244-353333）：选位置 → 直线大伤害 + var_65(250+29)++ */
+  function eff84(g, st) {
+    const t = gaFoe(g, 12);
+    if (!t) { g.log('看不见那个地方。'); return { end: 'turnWeight', fired: false }; }
+    const p = g.player;
+    const dmg = 1000 + gaGunPower(g, p, 176);
+    gaDamage(g, t, dmg, 64, p);
+    if (g.setV65) g.setV65(250 + 29, (g.getV65(250 + 29) | 0) + 1);
+    g.log(`子弹命中了${nm(t)}。`);
+    return { end: 'turnWeight', fired: true, damage: dmg };
+  }
+
+  /** 94 变化道具（356632-356676）：*label_0354 重掷附魔，保留 f[7]/f[22] */
+  function eff94(g, st) { return gaItem(st, '要变化哪件道具？', null, 'main'); }
+  function gaMorphRes(g, st, it, kind) {
+    if (!it || !it.f) return { end: 'none', ok: false };
+    const f = it.f;
+    if (kind === 94) {
+      const ench = [11, 12, 13, 14, 15].filter((k) => (f[k] | 0) !== 0);
+      if (!ench.length) { g.log('什么也没有发生……'); return { end: 'turnWeight', ok: false }; }
+      const value = f[7] | 0, count = f[22] | 0, quality = f[24] | 0;
+      const k = ench[R(g, ench.length)];
+      f[k] = (f[k] | 0) + 1;                 // label_0354 的随机附魔重掷
+      f[7] = value; f[22] = count; f[24] = quality;
+      g.log(`${gaItemName(it)}发生了变化。`);
+      consume(g, st.it);
+      return { end: 'turnWeight', ok: true, changed: k };
+    }
+    if (kind === 96) {
+      if ((f[20] | 0) < 15) {
+        g.log(`${gaItemName(it)}被蓝光包围了。`);
+        f[20] = (f[20] | 0) + 1;
+        g.log(`${gaItemName(it)}抵抗了。`);
+      }
+      consume(g, st.it);
+      return { end: 'turnWeight', ok: true, enchant: f[20] | 0 };
+    }
+    if (kind === 129) {
+      f[26] = (f[26] | 0) + 75;
+      const need = 100 * ((f[25] | 0) + 1);   // calcexpalive 近似
+      if ((f[26] | 0) >= need) g.log(`${gaItemName(it)}可以升级了！`);
+      g.log(`${gaItemName(it)}吸收了强化星维，稍微成长了一点！`);
+      consume(g, st.it);
+      return { end: 'turnWeight', ok: true, exp: f[26] | 0 };
+    }
+    return { end: 'turnWeight', ok: false };
+  }
+
+  /** 136 粘菌分隔（357439-357559）：按 f[32] 的位数分成若干 1265 号容器 */
+  function eff136(g, st) { return gaItem(st, '要分装哪件道具？', null, 'main'); }
+  function eff136res(g, st, it) {
+    if (!it || !it.f) return { end: 'none', split: 0 };
+    const p = g.player;
+    const amt = it.f[32] | 0;
+    const divisors = [10, 100, 1000, 10000, 100000];
+    const cuts = [8, 20, 15, 8, 20];
+    let n = 0;
+    for (let i = 0; i < divisors.length; i++) {
+      if (idiv(amt, divisors[i]) < Math.pow(10, i === 0 ? 0 : i - 1)) continue;
+      const v = gaSpawn(g, 1265, p.x, p.y);
+      if (!v) continue;
+      v.f[7] = idiv(it.f[7] | 0, cuts[i]);
+      v.f[23] = it.f[23] | 0;
+      v.f[32] = i + 1;
+      v.f[17] = 0;
+      n++;
+    }
+    if (!n) g.log('什么也没有发生……');
+    else g.log(`你把${gaItemName(it)}分装进了粘菌容器。`);
+    consume(g, st.it);
+    return { end: 'turnWeight', split: n };
+  }
+
+  // 99 存钱箱（358512-358663）**不在本模块实现**：项目的 `core/economy.js`
+  //   早已按物品 id 1097（ヤカテクトの預金箱）实现了完整的银行窗口
+  //   （Economy.bankTrade / balance + 面板），game.js 2791 在 ItemFx.dispatch
+  //   之后按 id 分派。若在这里注册 99 会抢先拦截、让 `action:'bank'` 消失，
+  //   所以与 16/17 一样归为「已由其它模块接管」。
+
+  /** 101 撒饵（356089-356278）：方向 → 水面 → 引鱼 */
+  function eff101(g, st) { return gaDirChoice(st, '要把饵撒在哪里？', 'main'); }
+  function gaIsWater(g, x, y) {
+    try {
+      if (g.map && typeof g.map.attr === 'function') return (g.map.attr(x, y) | 0) === 3;
+      if (g.map && typeof g.map.cell === 'function') {
+        const c = g.map.cell(x, y);
+        return !!c && (c[0] | 0) === 3;
+      }
+    } catch (e) { /* 无地形信息 */ }
+    return false;
+  }
+  function eff101res(g, st, v) {
+    const d = gaDir(g, v), p = g.player, it = st.it;
+    if (!gaIsWater(g, d.x, d.y)) { g.log('要撒在水里。'); return { end: 'turnWeight', baited: false }; }
+    consume(g, it);
+    g.log(`${gaItemName(it)}正悠闲地吃着饵…`);
+    const fish = gaSpawn(g, 618, d.x, d.y);
+    if (fish) {
+      fish.f[20] = ((fish.f[20] | 0) + 1) | 0;
+      g.log('有鱼上钩了！');
+    }
+    return { end: 'turnWeight', baited: true, x: d.x, y: d.y };
+  }
+
+  /** 106 栽培管理（364336-364491）：接 Farm.tend 的 5 种照料 */
+  function eff106(g, st) {
+    return gaChoice(st, '要怎么照料作物？',
+      ['放防虫剂', '修补伤口', '立支柱', '松土', '培土'], 'main');
+  }
+  function eff106res(g, st, v) {
+    const ch = (v | 0) + 1;
+    if (ch < 1 || ch > 5) { g.log('还是算了。'); return { end: 'none' }; }
+    const p = g.player;
+    if (G(p, 52) < 0) { g.log('想稍微休息一下…'); return { end: 'turnWeight', tended: false }; }
+    const F = Elona.Farm;
+    if (!F || !F.tend) { g.log('这里没有可以照料的作物。'); return { end: 'turnWeight', tended: false }; }
+    const r = F.tend(g, p.x, p.y, ch);
+    return { end: 'turnWeight', tended: !!(r && r.ok), care: r ? (r.care | 0) : 0 };
+  }
+
+  /** 110 守护者知识（352292-352362）：全队获得技能 / 技能经验， sanity -5 */
+  function eff110(g, st) {
+    if (onWorld(g)) return { end: 'turnWeight', taught: 0 };
+    const it = st.it;
+    const skill = (it.f[25] | 0) || 165;
+    const power = (it.f[26] | 0) || 1;
+    let learned = 0, trained = 0;
+    for (let i = 0; i < 16 && i < (g.charas || []).length; i++) {
+      const c = g.charas[i];
+      if (!c || G(c, 0) !== 1) continue;
+      g.log(`曾是守护者的知识流进了${nm(c)}的脑海…`);
+      if (S(c, skill) === 0 && Elona.Stats && Elona.Stats.skillGain) {
+        try { Elona.Stats.skillGain(c, i, skill, 1); } catch (e) { /* 未就绪 */ }
+        g.log(`${nm(c)}习得了技能 ${skill}！`);
+        learned++;
+      } else {
+        const exp = 200 + Math.floor(Math.sqrt(power * 2000)
+          + limit(idiv(S(c, 165), 2), 0, 500)) * 2;
+        gaExp(g, c, skill, exp);
+        gaExp(g, c, 165, 200 + Math.floor(Math.sqrt(power * 1000)) * 2);
+        trained++;
+      }
+      if (Elona.Status && Elona.Status.dmgsan) {
+        try { Elona.Status.dmgsan(c, 5, g); } catch (e) { /* 未就绪 */ }
+      }
+    }
+    consume(g, it);
+    recalc(g, g.player);
+    return { end: 'turnWeight', taught: learned + trained, learned, trained, skill };
+  }
+
+  /** 134 获得能力（359961-360170）：一次性 flag + 伙伴形态推进（近似） */
+  /** 821 魅了之香（336762-336801）：核心逻辑在 core/intimacy.js 的 applyAphrodisiac */
+  function eff821(g, st) {
+    const r = Elona.Intimacy
+      ? Elona.Intimacy.applyAphrodisiac(g, g.player)
+      : { ok: false, hit: 0, resisted: 0 };
+    consume(g, st.it);
+    return { end: 'turnWeight', hit: r.hit | 0, resisted: r.resisted | 0 };
+  }
+
+  function eff134(g, st) {
+    if (!g.learnedAbilities) g.learnedAbilities = {};
+    const first = !g.learnedAbilities[868];
+    if (first) {
+      g.learnedAbilities[868] = 1;
+      g.log('你获得了「异形之友」的能力。');
+    } else {
+      g.log('你早已掌握了这个能力。');
+    }
+    consume(g, st.it);
+    return { end: 'turnWeight', learned: first, ability: 868 };
+  }
+
+  /** 149 生成装置（355126-355214）：能量槽 100% 时生成两只 1124 */
+  function eff149(g, st) {
+    const p = g.player;
+    if (G(p, 182) < 100) { g.log('需要 100% 的能量槽。'); return { end: 'turnWeight', spawned: 0 }; }
+    if (p.abilities && !p.abilities[10]) {
+      g.log('不知道该如何使用…'); return { end: 'turnWeight', spawned: 0 };
+    }
+    let n = 0;
+    for (const dx of [-1, 1]) {
+      const lv = Math.max(1, G(p, 38));
+      const c = gaSummonAlly(g, 1124, lv);
+      if (c) { c.x = (p.x | 0) + dx; c.y = p.y | 0; n++; }
+    }
+    p.set(182, G(p, 182) - 100);
+    g.log(n ? '两台小型装置启动了。' : '……但是什么也没有出现。');
+    return { end: 'turnWeight', spawned: n };
+  }
+
+  /** 153 佯攻 / 播种（351909-352022）：方向 → 有人则 -5 能量，空地则种下 */
+  function eff153(g, st) { return gaDirChoice(st, '要往哪个方向使用？', 'main'); }
+  function eff153res(g, st, v) {
+    const d = gaDir(g, v), it = st.it;
+    const c = gaCharaAt(g, d.x, d.y);
+    if (c && c !== g.player) {
+      c.set(182, Math.max(0, G(c, 182) - 5));
+      consume(g, it);
+      g.log(`你对${nm(c)}使了个假动作。`);
+      return { end: 'turnWeight', feint: true };
+    }
+    if (onWorld(g)) { g.log('这里不能种。'); return { end: 'turnWeight', planted: false }; }
+    if (Elona.MapFeat && Elona.MapFeat.write) {
+      Elona.MapFeat.write(g, d.x, d.y, 9 + 1611, 35, it.f[24] | 0, 0);
+      consume(g, it);
+      g.log(`你种下了${gaItemName(it)}。`);
+      return { end: 'turnWeight', planted: true, x: d.x, y: d.y };
+    }
+    g.log('这里不能种。');
+    return { end: 'turnWeight', planted: false };
+  }
+
+  /** 155 眼镜收集（351843-351908）：消耗 1332 号道具，每枚 +11 能量 */
+  function eff155(g, st) {
+    const p = g.player;
+    if (G(p, 182) !== 0) { g.log('什么也没有发生……'); return { end: 'turnWeight', megane: 0 }; }
+    let n = 0;
+    for (let k = 0; k < 5; k++) {
+      const it = (p.inv || []).find((x) => x && (x.id | 0) === 1332 && (x.f[0] | 0) >= 1);
+      if (!it) break;
+      it.f[0] = (it.f[0] | 0) - 1;
+      p.set(182, G(p, 182) + 11);
+      n++;
+      g.log(['1 眼镜!', '2 眼镜!!', '3 眼镜!!!', '4 眼镜!!!!', '5 眼镜!!!!!'][n - 1]);
+    }
+    recalc(g, p);
+    return { end: 'turnWeight', megane: n, gauge: G(p, 182) };
+  }
+
   const SPECS = {
     5: { name: '听诊器', tag: 'pick', empty: 'none', success: 'turn', run: eff5 },
+    // 0-GA：label_3016 最后 25 个可落地效果号（16/17/99 已由其它模块接管）
+    37: { name: '收起牌组', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff37 },
+    38: { name: '加入牌组', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff38 },
+    53: { name: '每月零花钱', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff53 },
+    54: { name: '卫星炮', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff54 },
+    57: { name: '指挥旗', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff57, resolve: eff57res },
+    63: { name: '亡灵之棺', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff63 },
+    64: { name: '情人节巧克力', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff64, resolve: eff64res },
+    78: { name: '道具改造', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff78, resolve: eff78res },
+    79: { name: '号令旗', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff79 },
+    82: { name: '魔力枪·炎', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effGun(g, st, 82) },
+    83: { name: '魔力枪·范围', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effGun(g, st, 83) },
+    84: { name: '狙击枪', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff84 },
+    94: { name: '变化道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff94, resolve: (g, st, it) => gaMorphRes(g, st, it, 94) },
+    96: { name: '强化道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => gaItem(st, '要强化哪件道具？', null, 'main'), resolve: (g, st, it) => gaMorphRes(g, st, it, 96) },
+    101: { name: '撒饵', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff101, resolve: eff101res },
+    106: { name: '栽培管理', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff106, resolve: eff106res },
+    110: { name: '守护者知识', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff110 },
+    129: { name: '强化星维', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => gaItem(st, '要强化哪件道具？', null, 'main'), resolve: (g, st, it) => gaMorphRes(g, st, it, 129) },
+    133: { name: '麻醉枪', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effGun(g, st, 133) },
+    134: { name: '异形之友', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff134 },
+    136: { name: '粘菌分隔', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff136, resolve: eff136res },
+    149: { name: '小型装置', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff149 },
+    153: { name: '佯攻 / 播种', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff153, resolve: eff153res },
+    154: { name: '体重调整针', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effGun(g, st, 154) },
+    155: { name: '眼镜收集', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff155 },
+    // 0-GD：魅了系道具（336762-336801）—— 范围内的目标替使用者发起行為 24
+    821: { name: '魅了之香', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff821 },
+    // 0-FZ.2：19 个神像 / 自建地图 / 显示 / 净水筒效果
+    26: { name: '奥帕特斯神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 26) },
+    27: { name: '露露薇神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 27) },
+    34: { name: '朱亚神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 34) },
+    43: { name: '埃赫卡特尔神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 43) },
+    47: { name: '领域水晶', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff47 },
+    48: { name: '奇怪的石像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff48 },
+    49: { name: '挥动道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff49 },
+    50: { name: '库米罗妮神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 50) },
+    51: { name: '玛尼神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 51) },
+    55: { name: '雅卡泰克特神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 55) },
+    56: { name: '伊兹帕洛特尔神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 56) },
+    69: { name: '信仰计', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff69 },
+    97: { name: '据点震动装置', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff97 },
+    98: { name: '源码空分支 98', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    107: { name: '训练机（第二型）', tag: null, noTarget: true, empty: 'none', success: 'none', run: eff107 },
+    111: { name: '源码空分支 111', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    112: { name: '源码空分支 112', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    113: { name: '开发中道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effDev },
+    121: { name: '净水筒', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff121 },
+    // 0-FZ：30 个「无需选目标」的剩余效果（源码行号见各 eff 函数注释）
+    6: { name: '光盘（播放）', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff6 },
+    10: { name: '光盘（停止）', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff10 },
+    22: { name: '异次元之门符文', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff22 },
+    35: { name: '铁处女', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effTorture(g, st, false) },
+    36: { name: '断头台', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effTorture(g, st, true) },
+    42: { name: '不祥的预感', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff42 },
+    46: { name: '切腹', tag: null, noTarget: true, empty: 'none', success: 'none', run: eff46 },
+    65: { name: '肥料', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff65 },
+    68: { name: '选曲列表', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff68 },
+    70: { name: '犬笛', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff70 },
+    76: { name: '发信机', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff76 },
+    86: { name: '源码空分支 86', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    87: { name: '源码空分支 87', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    88: { name: '源码空分支 88', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    89: { name: '源码空分支 89', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    92: { name: '轰鸣演出', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff92 },
+    103: { name: '深渊魔力结晶', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff103 },
+    105: { name: '火种', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff105 },
+    109: { name: '制服变换', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff109 },
+    118: { name: '名声/发言力奖章', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff118 },
+    119: { name: '觉悟之证', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff119 },
+    123: { name: '源码空分支 123', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    124: { name: '源码空分支 124', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    126: { name: '遥控器', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff126 },
+    131: { name: '源码空分支 131', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    144: { name: '深渊陷阱设置器', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff144 },
+    147: { name: '收容所蓄能器（小）', tag: null, noTarget: true, empty: 'none', success: 'none', run: (g, st) => effCampEnergy(g, st, 107) },
+    148: { name: '收容所蓄能器（大）', tag: null, noTarget: true, empty: 'none', success: 'none', run: (g, st) => effCampEnergy(g, st, 108) },
+    151: { name: '发型变换 A', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff151 },
+    152: { name: '发型变换 B', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff152 },
+    7: { name: '避难所', tag: null, noTarget: true, empty: 'none', success: 'none', run: eff7 },
+    9: { name: '训练机', tag: null, noTarget: true, empty: 'none', success: 'none', run: eff9 },
+    21: { name: '素材工具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff21 },
+    32: { name: '能力复合机', tag: null, noTarget: true, empty: 'none', success: 'none', run: eff32 },
+    11: { name: '小猫存钱罐', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff11 },
+    13: { name: '火把', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff13 },
+    14: { name: '雪', tag: 'pick', empty: 'none', success: 'turnWeight', run: eff14 },
+    24: { name: '地雷', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff24 },
+    29: { name: '秘宝', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff29 },
+    31: { name: '库米罗妮宝玉', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff31 },
+    33: { name: '怪物球', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff33 },
+    39: { name: '哨子', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff39 },
+    20: { name: '易容道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff20 },
+    25: { name: '独角兽的角', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff25 },
+    28: { name: '原子弹', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff28 },
+    30: { name: '启动道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff30 },
     23: { name: '绳扣', tag: 'pick', empty: 'turnWeight', success: 'turnWeight', run: eff23 },
     45: {
       name: '沙袋', tag: 'reject', tagReject: '搭档是吊不起来的。',
@@ -1376,6 +2799,9 @@
     }
 
     // 3) 目标选择（邻格箭头）
+    //    noTarget：对使用者自己直接生效的效果（13 火把 / 39 哨子 / 11 存钱罐 /
+    //    24 地雷…），源码里这些分支前没有「谁使用？」的选人步骤。
+    if (spec.noTarget && st.target === undefined) st.target = g.player;
     if (st.target === undefined) {
       return {
         ok: false, effect: st.eff, reason: 'need-direction', neighbor: true,

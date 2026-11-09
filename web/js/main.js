@@ -112,6 +112,15 @@
       }
       return true;
     }
+    // 0-GB：事务所打工登记簿（350459-350568 的 txtsetwork 8）
+    if (r.request === 'work-menu' && Elona.Panels && Elona.Work) {
+      Elona.Panels.chooseRow('要选择哪项工作？', r.options || Elona.Work.menu(), (i) => {
+        const rr = Elona.Work.begin(game, i);
+        if (rr && rr.message) UI.pushMessage(rr.message);
+        if (rr && rr.ok && rr.turns) UI.pushMessage(`开始工作（${rr.turns} 回合）。`);
+      });
+      return true;
+    }
     // 0-DG：呼び寄せ／待機（能力 684）—— 打开同伴列表（原版 gosub *label_2683）
     if (r.request === 'ally-select' && Elona.Panels && Elona.Companion) {
       const list = Elona.Companion.allies(game).filter((c) => c.index !== 0 && (c.get(0) | 0) !== 6);
@@ -134,6 +143,16 @@
     if (Elona.Panels && Elona.Panels.openConfirm) {
       Elona.Panels.openConfirm(`MP 不足，仍要尝试咏唱 ${label} 吗？`, done);
     } else done(false);
+  };
+
+  // 0-FY：*label_2844（300691-300700）——「読書を中断したほうがいいだろうか？」。
+  //   核心层 core/actions.js 只发请求，这里接到 y/n 面板；选「否」等于继续当前行动。
+  Elona.rowactInterruptConfirm = (g, name, done) => {
+    if (Elona.Panels && Elona.Panels.openConfirm) {
+      Elona.Panels.openConfirm(`要中断「${name}」吗？`, done, {
+        title: '中断行动', yes: '是，中断', no: '继续行动',
+      });
+    } else done(true);
   };
 
   /** 移动后消费 game.pendingInteraction（撞 NPC / 掲示板） */
@@ -161,6 +180,8 @@
     else if (r.action === 'npc') UI.openNPC(game, r.npc);
     else if (r.action === 'questBoard') UI.openQuestBoard(game);
     else if (r.action === 'offer') UI.openOffer(game);
+    // 0-FU：井水喝出了愿望（*label_2954 → 效果 441）
+    else if (r.action === 'wish' && Elona.Panels) Elona.Panels.openWish(game);
     return r;
   }
 

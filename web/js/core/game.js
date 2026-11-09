@@ -24,6 +24,23 @@
     7: [-1, -1], 8: [0, -1], 9: [1, -1],
   };
 
+  /**
+   * 0-FY：书页消耗 —— 313908-313928。
+   *   源码动的是 `var_99(9, 书)`（可阅读次数），不是堆叠数 `var_99(0)`；
+   *   页数减到 0 才 removeitem（书散成灰）。0-FX 之前本项目误用 f[0]，
+   *   导致一本书读一次就没了。
+   * 放在模块作用域，便于 verify 脚本用 `Game.prototype.settleReading.call(桩对象)`
+   *   这种不携带类方法的方式调用。
+   * @returns {boolean} 书是否彻底消失
+   */
+  function consumeBookPage(it, force) {
+    const uses = it.f[9] | 0;
+    if (!force && uses > 1) { it.f[9] = uses - 1; return false; }
+    it.f[9] = 0;
+    it.f[0] = 0;
+    return true;
+  }
+
   class Game {
     constructor() {
       this.state = STATE.MENU;
@@ -105,6 +122,9 @@
     /** var_65(n) 读取 —— 已确认 var_65(10) = 年份；其余未移植项缺省 0 */
     getV65(n) {
       if (n === 10) return this.year;
+      // 0-FR：var_65(250+347) 的防 S/L 门已整体移除，任何直接读 597 的地方
+      //   （equipgen 之外还有喝水许愿块 315190 等）统一视为 100。
+      if (n === 597) return 100;
       const v = this.v65[n];
       return v === undefined ? 0 : v;
     }
@@ -114,22 +134,40 @@
     // ---------- 时间（var_65(10..15)） ----------
     /**
      * 时间推进 —— 主循环 603094-603157。
-     *   var_65(15) += limit(speed/5 + 1, 7, 21)；满 60 → 分钟 var_65(14)++;
+     *   var_1046 = 速度 × (100 + var_58(37)) / 100（下限 10）
+     *   var_2839 = (var_126(9) - var_58(10,0)) / var_1046 + 1  ← 速度越快越小
+     *   var_65(15) += limit(var_2839/5 + 1, 7, 21)；满 60 → 分钟 var_65(14)++；
      *   满 60 分 → 小时 var_65(13)++；满 24 时 → 日 var_65(12)++；日 > 30 → 月 var_65(11)++。
-     * 【注记】原版的 var_65(15) 累加值依赖行动耗时 var_2839，本实现按普通行动 var_2839=1。
+     * 【注记】var_58(10,0) 是玩家的「行动计」；本引擎一次按键 = 一个回合，按刚行动完（0）算。
      */
     advanceClock() {
       // 603045-603049：var_1046 = 速度 * (100 + var_58(37)) / 100（下限 10）
       //                var_2839 = (var_126(9) - var_58(10,0)) / var_1046 + 1
-      //   本引擎一次按键 = 一个回合，行动计变量 var_58(10,0) 记为 0（刚行动完）
+      //   0-FY：var_58(10,0) 现在是真实的玩家行动计（turngauge.js），不再是恒 0。
+      //   世界地图移动不走 endTurn，此时 turnDelta 可能还留着上一张地图的值，
+      //   所以这里按当前 gauge 重新算，与 TurnGauge.delta() 保持同一个公式。
       // 603099：var_65(15) += limit(var_2839 / 5 + 1, 7, 21)
       const p = this.player;
       const rawSpd = p ? (p.get(11) | 0) : 100;
       const spd = Math.max(10, idiv(rawSpd * (100 + (p ? (p.get(37) | 0) : 0)), 100));
       const cost = (Elona.WorldMap && Elona.WorldMap.turnCost)
         ? Elona.WorldMap.turnCost(this) : 10000;      // var_126(9) = var_132(9, mapId)
-      const turns = idiv(cost, spd) + 1;               // var_2839
-      const units = limit(idiv(turns, 5) + 1, 7, 21);
+      const gauge = p ? (p.get(10) | 0) : 0;          // var_58(10,0)
+      const turns = Math.max(1, idiv(cost - gauge, spd) + 1);   // var_2839
+      const base = idiv(turns, 5) + 1;
+      // 603113-603118：地图 54 的第 3 层每回合走 3000~9000 时间单位
+      const special = (this.getV65(20) | 0) === 54 && (this.getV65(22) | 0) === 3;
+      let units = special ? limit(base, 3000, 9000) : limit(base, 7, 21);
+      // 603119-603122：地图 30 且天气为 1/2/4（雨雪豪雨）→ 每回合额外 3000
+      if ((this.getV65(20) | 0) === 30) {
+        const w = this.getV65(17) | 0;
+        if (w === 1 || w === 2 || w === 4) units += 3000;
+      }
+      // 603123-603128：持续行动的时间加权 —— 钓鱼每回合 +420+rnd(60)（约 7 分钟），
+      //   收容所打工（26/27/28）+30。同样一个回合，做的事不同、耗时也不同。
+      const act = p ? (p.get(140) | 0) : 0;            // var_58(140)
+      if (act === 7) units += 420 + (this.rng ? this.rng.rnd(60) : 0);
+      else if (act === 26 || act === 27 || act === 28) units += 30;
       let acc = (this.getV65(15) | 0) + units;
       if (acc < 60) { this.setV65(15, acc); return; }
       const minutes = (this.getV65(14) | 0) + idiv(acc, 60);
@@ -623,6 +661,23 @@
         for (const [id, role, lv] of generic) spawn(id, -3, 0, role, lv);
       }
 
+      // 0-FU：城镇放一口井（物品 109「井戸」，*label_2954 的喝水事件对象）。
+      //   原版井是地图自带的家具；本项目地图数据没带，运行时补一口。
+      if (Elona.Well && Elona.ItemDB) {
+        const spot = randomSpot();
+        if (spot) {
+          try {
+            const well = Elona.ItemDB.createItem(Elona.Well.WELL, 1, this.rng);
+            if (well) {
+              well.f[5] = spot.x; well.f[6] = spot.y;
+              const wcell = this.map.cell(spot.x, spot.y);
+              if (wcell) wcell[4] = 1;
+              this.groundItems.push(well);
+            }
+          } catch (e) { /* 生成失败不阻塞建城 */ }
+        }
+      }
+
       this.syncCharaCells();
       this.log(`${town.label} 的街道上可以看到店主、市民和服务区 NPC。`);
     }
@@ -734,6 +789,8 @@
     // ---------- 地图 ----------
     async loadMap(name) {
       if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
+      // 0-FY：246213 / 252210 —— 载入地图时把所有角色的行动计 var_58(10) 清零
+      if (Elona.TurnGauge && Elona.TurnGauge.reset) Elona.TurnGauge.reset(this);
       // 0-EA：离开自建建筑前先把地面物品收进 site.stock（原版 235253-235255 写 inv_*.s2）
       if (Elona.Property && Elona.Property.stashStock) Elona.Property.stashStock(this);
       const json = await Elona.Data.map(name);
@@ -959,6 +1016,19 @@
       const d = DIRS[dir];
       if (!d) return false;
       const p = this.player;
+      // 0-FX / 0-FY：持续行动中按方向键 = 中断（*label_2844，604590-604640）。
+      //   按「等待」(dir 5) 不算中断，继续推进当前行动。
+      //   0-FY 起按源码分流：1/2/3/17/25 先弹 y/n 确认，13/16/18 不可中断，
+      //   buff 65 保护下的 19-23/33 也不能中断，其它类型直接中断。
+      if (dir !== 5 && (p.get(140) | 0) !== 0 && Elona.Actions) {
+        const r = Elona.Actions.requestInterrupt(this, 'move', (res) => {
+          if (res && res.ok && res.type) this.log(`你中断了${res.name}。`);
+        });
+        if (r && (r.reason === 'no-interrupt' || r.reason === 'buff')) {
+          this.log(`${r.name}期间无法中断。`);
+        }
+        return false;
+      }
       if (dir === 5) {
         this.log('你等待了一会儿。');
         this.endTurn();
@@ -1145,8 +1215,20 @@
         return { ok: true, action: 'offer', altar };
       }
 
-      // 2) 采集点（type 24..28）—— *label_2909（305786）
+      // 2) 采集点（type 24..28）—— *label_2941（312985）：
+      //    原版是 40 回合的持续行动「採取」，期间玩家留在原地、移动即中断，
+      //    结束后才由 *label_2909（305786）结算材料。0-FX 之前本项目是「按一下立刻产出」。
       if (Elona.Gather && Elona.Gather.spotAt(this, p.x, p.y)) {
+        const A = Elona.Actions;
+        if (A && (p.get(140) | 0) === 0) {
+          const st = A.begin(this, 8, 40, { x: p.x, y: p.y, turns: 40 });
+          if (st.ok) {
+            this.log('你开始在这里采集……（约 40 回合，移动会中断）');
+            this.endTurn();
+            return { ok: true, action: 'gather-rowact', turns: 40 };
+          }
+        }
+        // 没有动作层（或已在别的行动中）时退回即时结算，不卡住交互
         const r = Elona.Gather.gather(this);
         for (const msg of r.messages) this.log(msg);
         if (r.ok) this.endTurn();
@@ -1185,6 +1267,21 @@
       }
       const txt = M.boardText(this, fx, fy);
       if (txt) { this.log(txt); this.endTurn(); return { ok: true, text: txt }; }
+
+      // 4.5) 0-FU：井 / 圣井 / 马桶（地面家具 109 / 602 / 650）→ 喝水
+      //   *label_2954；源码在交互菜单里选「飲む」，这里直接喝（一口 = 一次交互）
+      {
+        const w = Elona.Well
+          && (Elona.Well.wellAt(this, p.x, p.y) || Elona.Well.wellAt(this, fx, fy));
+        if (w) {
+          const wr = Elona.Well.drink(this, w);
+          for (const msg of wr.messages) this.log(msg);
+          if (wr.requestWish) return { ok: true, action: 'wish' };
+          if (wr.dried && (w.f[0] | 0) <= 0) this.refreshGroundCell(w.f[5] | 0, w.f[6] | 0);
+          this.endTurn();
+          return { ok: true, action: 'well-drink', result: wr };
+        }
+      }
 
       // 5) 相邻的 NPC 不在 Enter 的处理范围内：
       //    原版 Enter 只做「自己脚下那一格」的 cell_featread（605557-605638），
@@ -2534,8 +2631,10 @@
       const p = this.player;
       const it = p.inv && p.inv[idx];
       if (!it || (it.f[0] | 0) <= 0) { this.log('没有这件物品。'); return { ok: false, reason: 'no-item' }; }
-      if ((p.get(140) | 0) === 1) {
-        this.log('你正在进食，先吃完再说。');
+      // 0-FX：var_58(140)!=0 期间不能做新动作（原版 label_2844 会先问「要中断吗」）
+      if ((p.get(140) | 0) !== 0) {
+        const nm = Elona.Actions ? Elona.Actions.rowactName(p.get(140) | 0) : '行动';
+        this.log(`你正在${nm}，先做完再说。`);
         return { ok: false, reason: 'busy' };
       }
       if (it.eqSlot >= 0) { this.log('装备中的物品不能使用。'); return { ok: false, reason: 'equipped' }; }
@@ -2628,16 +2727,13 @@
         }
         return pr;
       }
-      // 0-CX：深淵魔術書(1249) → 打开深淵法术菜单；解読用石(687) → 转成深淵魔力
+      // 0-CX：深淵魔術書(1249) → 打开深淵法术菜单。
+      //   0-FY：解読用石/古書物(687) 按源码 *label_2947 改为「分回合解读」，
+      //   读完才由 Elona.Abyss.decode 转成深淵魔力，不再按一下立刻到账。
       if (Elona.Abyss) {
         if ((it.id | 0) === Elona.Abyss.BOOK_ID) {
           return { ok: true, action: 'abyss-book', menu: Elona.Abyss.menu(this),
             power: Elona.Abyss.power(this) };
-        }
-        if ((it.id | 0) === Elona.Abyss.DECODE_ID) {
-          const ab = Elona.Abyss.decode(this, it);
-          this.log(ab.message);
-          return ab;
         }
       }
       // 0-CW：暗之棺（903）→ 召唤死灵（var_1302 == 63，355947-356064）
@@ -2783,9 +2879,11 @@
       if (mode === 14 && edible) {
         return this.eatFood(p, it);
       }
-      // 法术书（54000）：*label_2947 —— 增加魔力库存（var_495）并提升对应技能
-      if (cat === 54000 && it.id !== 687) {
-        return this.readSpellbook(p, it);
+      // 书物（54000）：*label_2947 —— 分回合阅读；魔法书读完加魔力库存，
+      //   783 食谱学配方、687 古书解读成深淵魔力（0-FY 补齐）。
+      if (cat === 54000) {
+        if (opts && opts.instant) return this.readSpellbook(p, it);
+        return this.beginReading(idx, opts);
       }
       const r = Elona.ItemUse.use(this, p, it, mode, p);
       if (!r || !r.implemented) {
@@ -3112,28 +3210,234 @@
     }
 
     /**
-     * 阅读法术书 —— 313864-313931（*label_2947 的结算段）。
-     *   gain = (rnd(50+1)+50) * (90 + 読書165 + (読書>0)*20) / 200 + 100，上限 999
-     *   魔力库存 var_495[spell-400] += gain，并 skillgain(法术对应技能, 1, gain)
-     * 【简化】原版为分回合阅读（var_58(140/141/142)），此处一次读完并消耗 1 本。
+     * 0-FX：开始读书 —— *label_2947（313738-313760）。
+     *   var_400 = 难度：783 教材 50；687 古书 50 + f25*50 + f25²*20；
+     *             法术书 var_83(4, spellId)（本项目 actions.json 的 f[4]）
+     *   var_58(141) = var_400 / (2 + 読書150) + 1   ← 阅读技能越高读得越快
+     *   var_58(142) = 书；之后每回合递减，减到 0 才走 313864 的结算。
      */
-    readSpellbook(p, it) {
+    beginReading(idx, opts) {
+      const p = this.player;
+      const it = p.inv && p.inv[idx];
+      if (!it) return { ok: false, reason: 'no-item' };
+      const A = Elona.Actions;
+      if (!A) return this.readSpellbook(p, it);
       const entry = Elona.ItemUse.entryOf(it.id, 13);
-      const spellId = entry && entry.spell ? entry.spell : 0;
+      const spellId = entry && entry.spell ? (entry.spell | 0) : 0;
+      const eid = it.id | 0;
+      let diff;
+      if (eid === 783) diff = 50;
+      else if (eid === 687) {
+        const n = it.f[25] | 0;
+        diff = 50 + n * 50 + n * n * 20;
+      } else diff = (spellId && Elona.Spell) ? (Elona.Spell.field(spellId, 4) | 0) : 100;
+      if (diff <= 0) diff = 100;
+      const lit = p.skill ? (p.skill(150) | 0) : 0;   // 読書
+      const turns = idiv(diff, 2 + lit) + 1;
+      const started = A.begin(this, 2, turns, { idx, id: eid, spellId, diff });
+      if (!started.ok) { this.log(started.message || '现在不能读书。'); return started; }
+      const verb = eid === 687 ? '解读' : (eid === 783 ? '研究' : '读');
+      this.log(`你开始${verb}${Elona.ItemDB.name(eid, 'en')}。（约 ${turns} 回合）`);
+      this.endTurn();
+      return { ok: true, action: 'reading', spellId, turns, reading: true };
+    }
+
+    /**
+     * 0-FX：持续行动完成结算 —— 只有 var_58(141) 减到 0 且没被中断才会进来。
+     * 由 core/actions.js 的通用倒计时调用。
+     */
+    completeRowAct(type, payload) {
+      const pl = payload || {};
+      const A = Elona.Actions;
+      if (type === 2) {
+        const it = (this.player.inv || [])[pl.idx] || null;
+        if (!it || (it.f[0] | 0) <= 0) return { ok: false, reason: 'book-gone' };
+        return this.settleReading(it, pl.spellId | 0);
+      }
+      if (type === 8 && Elona.Gather) {
+        // 采集点：40 回合后真正产出（*label_2941 → *label_2909）
+        const r = Elona.Gather.gather(this);
+        for (const m of (r.messages || [])) this.log(m);
+        return r;
+      }
+      if (type === 12 && Elona.Craft && Elona.Craft.finish) {
+        // 0-FY：調合（*label_2659 → *label_2658）—— 回合数已在 rowact 里消耗完
+        return Elona.Craft.finish(this, pl);
+      }
+      if (type === 10 && pl.campMode) {
+        // 0-FY：*label_2932 的建设(101) / 训练(104) 分支
+        return this.completeCampRowAct(pl);
+      }
+      if (type >= 26 && type <= 28 && Elona.Work) {
+        // 0-GB：按 *label_2927 结算（配额削减 + 歇了口气），不再凭空发金币
+        return Elona.Work.finish(this, type, pl);
+      }
+      if (type === 29 && Elona.Work) {
+        return Elona.Work.begFinish(this, pl);
+      }
+      // 0-GC：特技型持续行动的完成段（19-23 / 33 / 30 / 31 / 16 / 18）
+      if (Elona.Social && ((type >= 19 && type <= 23) || type === 33
+        || type === 30 || type === 31 || type === 16 || type === 18)) {
+        return Elona.Social.finish(this, type, pl);
+      }
+      if (typeof pl.onDone === 'function') return pl.onDone(this, type, pl);
+      this.log(`你完成了${A ? A.rowactName(type) : '行动'}。`);
+      return { ok: true, type };
+    }
+
+    /** 0-FY：书页消耗（类方法入口，实现见模块级 consumeBookPage） */
+    consumeBookPage(it, force) { return consumeBookPage(it, force); }
+
+    /**
+     * 0-FY：*label_2932 的 101 建设 / 104 训练完成段（311715-311724 / 311770-311785）。
+     *   101 调用 *label_2979 在世界地图落地据点；本项目接到 Property.build，
+     *   若该道具不是产权书则只把 f[21] 标成「已建成」（差异见 0-FY.6）。
+     */
+    completeCampRowAct(pl) {
+      const mode = pl.campMode | 0;
+      const p = this.player;
+      if (this.setV65) this.setV65(91, 0);
+      if (mode === 101) {
+        const it = (p.inv || []).find((x) => x && (x.f[0] | 0) > 0 && (x.id | 0) === (pl.itemId | 0));
+        if (it) {
+          it.f[21] = 3;                       // var_99(21) = 3：已建成
+          if (Elona.Property && Elona.Property.isBuildItem(it) && Elona.Property.build) {
+            const r = Elona.Property.build(this, it, { confirmed: true });
+            this.log(r && r.ok ? `你建好了避难所。${r.message || ''}` : '避难所组装完了，但这里放不下据点。');
+          } else {
+            this.log('你建好了避难所。');
+          }
+        } else {
+          this.log('你建好了避难所。');
+        }
+      } else if (mode === 104) {
+        const sid = pl.skill | 0;
+        if (sid && Elona.Stats && Elona.Stats.skillExp) {
+          Elona.Stats.skillExp(p, sid, p.index, 100, 1, 0, this);
+        }
+        this.log('你完成了训练。');
+      } else {
+        this.log('你完成了工作。');
+      }
+      return { ok: true, mode };
+    }
+
+    /**
+     * 0-FY：读书每回合的 *label_2217（215469-215570）判定。
+     *   var_1442 = 1；按 (読書150 × 属性能力 × 4 + 250) 与书的难度互掷，
+     *   失败时 rowactend + 书页 -1，并附带吸魔 / 混乱 / 召唤等副作用。
+     *   返回 {failed:true} 时由 Actions.tickRowAct 提前结束 rowact（不结算）。
+     */
+    tickReading(pl) {
+      const p = this.player;
+      if (!pl) return null;
+      const it = (p.inv || [])[pl.idx] || null;
+      if (!it || (it.f[0] | 0) <= 0) return { failed: true, reason: 'book-gone' };
+      const diff = Math.max(1, pl.diff | 0);
+      const lit = p.skill ? (p.skill(150) | 0) : 0;                 // 読書
+      const ability = Math.max(1, p.skill ? (p.skill(16) | 0) : 1); // var_82(16)
+      const r = (n) => this.rng.rnd(Math.max(1, n | 0));
+      let bad = false;
+      // var_58(253) 盲目 / var_58(254) 混乱：原版必失败 / 3/4 失败
+      const blind = Elona.Status && Elona.Status.cbit ? (Elona.Status.cbit(p, 978) | 0) : 0;
+      if (blind) bad = true;
+      else if (r((lit + ability) * ability * 4 + 250) < r(diff + 1)) {
+        if (r(7) === 0) bad = true;
+        if (ability * 10 < diff && r(ability * 10 + 1) < r(diff + 1)) bad = true;
+        if (ability * 20 < diff && r(ability * 20 + 1) < r(diff + 1)) bad = true;
+        if (ability * 30 < diff && r(ability * 30 + 1) < r(diff + 1)) bad = true;
+      }
+      if (!bad) return { failed: false };
+      // 失败演出（215525-215570 的三选一；召唤怪物分支本项目不生成怪，折算为提示）
+      if (r(4) === 0) {
+        p.mp = Math.max(0, (p.mp | 0) - Math.max(1, idiv(p.mp | 0, 4)));
+        this.log('你被吸走了魔力！');
+      } else if (r(4) === 0) {
+        this.log('太难懂了！头脑一片混乱。');
+      } else {
+        this.log('魔力之涡发生了异变，阅读被迫中断。');
+      }
+      const gone = consumeBookPage(it, false);
+      if (gone) this.log(`${Elona.ItemDB.name(it.id, 'en')}化作了尘土。`);
+      return { failed: true, reason: 'vortex', consumed: gone };
+    }
+
+    /**
+     * 阅读结算 —— *label_2947（313802-313931）。
+     *   783 レシピ：学配方 var_500(f[23])++，书必定消失；
+     *   687 古書物：深淵魔力 += (f[25]+1)*100（上限 100000），f[26]=1、f[9]=1，不消耗；
+     *   其它魔法书：gain = (rnd(51)+50) * (90 + 暗記165 + (暗記>0)*20) / 200 + 100，
+     *     上限 999；skillgain(法术技能, 1, gain)；已读标记 var_498(2,bookId)=1；
+     *     同伴获得 skillexp 150 / 400 与 165 / (10 + 难度/2)；最后 f[9]--。
+     * 【已核对】313864 增益用的是 var_82(165)（暗記），而回合数 313751 用
+     *   var_82(150)（読書）—— 0-FX 文档曾把 165 记成偏差，实为源码正确行为。
+     * 【注】分回合阅读由 beginReading / completeRowAct 承接；本函数也是
+     *   opts.instant 的立即结算入口。
+     */
+    settleReading(it, spellId) {
+      const p = this.player;
+      const eid = it.id | 0;
+      const bname = Elona.ItemDB.name(eid, 'en');
+
+      // 313802-313827：レシピ（教材）
+      if (eid === 783) {
+        if ((it.f[25] | 0) === 0) {
+          this.log('这张纸片上没有写任何配方。');
+          return { ok: false, reason: 'empty-recipe' };
+        }
+        const rid = it.f[23] | 0;
+        if (!this.knownRecipes) this.knownRecipes = {};
+        this.knownRecipes[rid] = 1;
+        consumeBookPage(it, true);
+        this.log(`你学会了配方 #${rid}！${bname}化作了尘土。`);
+        return { ok: true, recipe: rid, learned: true };
+      }
+
+      // 313828-313863：古書物 / 解読用石
+      if (eid === 687) {
+        if (!Elona.Abyss || !Elona.Abyss.decode) {
+          this.log('你无法解读这本书。');
+          return { ok: false, reason: 'no-abyss' };
+        }
+        const ab = Elona.Abyss.decode(this, it);
+        this.log(`你解读了 ${bname}！${ab.message || ''}`);
+        return Object.assign({ ok: true, decoded: true, book: eid }, ab);
+      }
+
       if (!spellId) { this.log('这本书无法解读。'); return { ok: false, reason: 'no-spell' }; }
-      const readSkill = p.skill(165);
+      const readSkill = p.skill(165) | 0;                 // 暗記（313864）
       let gain = idiv((this.rng.rnd(51) + 50) * (90 + readSkill + (readSkill > 0 ? 20 : 0)), 200) + 100;
       if (gain > 999) gain = 999;
-      // skillGain 内部已处理 var_58(495 + spellId-400) 的魔力库存（stats.js 31832-31836）
       if (Elona.Stats && Elona.Stats.skillGain) {
         Elona.Stats.skillGain(p, p.index, spellId, 1, gain, this);
       }
       const stock = p.spellStock ? p.spellStock[spellId - 400] : 0;
-      it.f[0] = (it.f[0] | 0) - 1;
-      if (it.f[0] <= 0) it.f[0] = 0;
-      this.log(`你读完了 ${Elona.ItemDB.name(it.id, 'en')}，魔力库存 +${gain}（当前 ${stock}）。`);
+      // var_498(2, bookId) = 1（已读过的书，313877-313880）
+      if (!this.readBooks) this.readBooks = {};
+      this.readBooks[eid] = 1;
+      // item_identify（313904）
+      if (Elona.ItemDB && Elona.ItemDB.identify) Elona.ItemDB.identify(it, 1);
+      // 313880-313903：视野内同伴获得読書 / 暗記经验
+      if (Elona.Stats && Elona.Stats.skillExp && this.charas) {
+        for (const c of this.charas) {
+          if (!c || c === p || (c.get(0) | 0) !== 1) continue;
+          if (Math.max(Math.abs(c.x - p.x), Math.abs(c.y - p.y)) > 5) continue;
+          Elona.Stats.skillExp(c, 150, p, 400, 1, 0, this);
+          Elona.Stats.skillExp(c, 165, p, 10 + idiv(Elona.Spell && Elona.Spell.field
+            ? (Elona.Spell.field(spellId, 4) | 0) : 0, 2), 1, 0, this);
+        }
+      }
+      const gone = consumeBookPage(it, false);
+      this.log(`你读完了 ${bname}，魔力库存 +${gain}（当前 ${stock}）。${gone ? '书化作了尘土。' : ''}`);
+      return { ok: true, spellId, gain, stock, bookGone: gone };
+    }
+
+    readSpellbook(p, it) {
+      const entry = Elona.ItemUse.entryOf(it.id, 13);
+      const spellId = entry && entry.spell ? (entry.spell | 0) : 0;
+      const r = this.settleReading(it, spellId);
       this.endTurn();
-      return { ok: true, spellId, gain, stock };
+      return r;
     }
 
     /**
@@ -4014,6 +4318,9 @@
       if (this.state !== STATE.PLAY) return;
       // 时间推进（603094-603157）：每个行动约 7~21 时间单位，60 单位 = 1 分钟
       this.advanceClock();
+      // 0-FY：行动计累加（603075-603092）+ *label_4353 的行动次数结算。
+      //   返回 { 角色 index: 本回合行动次数 }，玩家恒为 0（按键已执行）。
+      const budgets = Elona.TurnGauge ? Elona.TurnGauge.tick(this) : null;
       // 委托期限（*label_4288）：跨日递减剩余天数，归零则失败
       if (Elona.Quest) {
         const qrs = Elona.Quest.tick(this);
@@ -4124,7 +4431,7 @@
       }
       // NPC 回合 —— 对应原版 ai_check（更正后的完整行为见 core/ai.js 顶部说明）
       if (Elona.AI) {
-        Elona.AI.runAll(this);
+        Elona.AI.runAll(this, budgets);
         if (this.player.hp <= 0) {
           this.state = STATE.DEAD;
           // 0-CQ：死亡惩罚（var_1302==6，609826-609905）
@@ -4308,6 +4615,12 @@
         homeFloors: this.homeFloors || {},
         homeNpcs: this.homeNpcs || {},
         homeTiles: this.homeTiles || {},
+        // 0-FY：var_500 已学配方 / var_498(2,id) 已读过的书
+        knownRecipes: this.knownRecipes || {},
+        readBooks: this.readBooks || {},
+        // 0-GA：var_515 牌组张数 / 已获得的一次性能力
+        cardDeck: this.cardDeck || {},
+        learnedAbilities: this.learnedAbilities || {},
         groundItems: this.groundItems.map((it) => it.toJSON()),
         events: this.events ? this.events.toJSON() : null,
         facing: this.facing,
@@ -4367,6 +4680,11 @@
       this.homeFloors = data.homeFloors || {};
       this.homeNpcs = data.homeNpcs || {};
       this.homeTiles = data.homeTiles || {};
+      // 0-FY：旧存档缺字段时按「还没学过配方 / 没读过书」处理
+      this.knownRecipes = data.knownRecipes || {};
+      this.readBooks = data.readBooks || {};
+      this.cardDeck = data.cardDeck || {};
+      this.learnedAbilities = data.learnedAbilities || {};
       // 0-FA：随机地城站点与当前地城上下文（旧存档缺字段时按空表处理）
       if (Elona.RandDungeon) Elona.RandDungeon.restore(this, data.randDungeon);
       if (Elona.Sites && Elona.Sites.bindGame) Elona.Sites.bindGame(this);

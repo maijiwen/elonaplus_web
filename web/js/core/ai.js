@@ -659,7 +659,7 @@
    * 推进所有 NPC 的一个回合：先做异常状态结算（对应每角色回合开始的 label_2224），
    * 再执行行动。
    */
-  function runAll(g) {
+  function runAll(g, budgets) {
     let acted = 0;
     let deaths = 0;
     for (const c of g.charas) {
@@ -675,8 +675,35 @@
         }
         deaths++; continue;
       }
-      const r = npcTurn(g, c);
-      if (r.acted) acted++;
+      // 0-GC：NPC 侧的持续行动 —— 推进点在下面的行动计循环里（604660-604760
+      //   的分派在每个角色的**每次行动**里跑，受行动计影响：快的角色倒计时
+      //   也走得快；攒不够行动计的角色这一回合一次都不推进）。
+      // 0-FY：*label_4353（603943-603955）。攒够行动计的角色一次玩家回合里
+      //   可以连动数次；攒不够的一次也不动。未提供 budgets 时沿用旧的「各一次」。
+      let n = 1;
+      if (budgets && Object.prototype.hasOwnProperty.call(budgets, c.index)) {
+        n = budgets[c.index] | 0;
+      }
+      if (n < 0) n = 0;
+      let didAct = false;
+      for (let k = 0; k < n; k++) {
+        if (c.hp <= 0 || g.player.hp <= 0) break;
+        // 0-FY：验证/调试用的可选观察钩子（生产环境不设置，零开销）；
+        //   返回 false 可跳过本次行动，便于测试只统计行动次数。
+        if (g.__aiTurnSpy && g.__aiTurnSpy(c.index | 0, k) === false) continue;
+        // 0-GC/GD：忙着持续行动的角色这一行动只推进自己的倒计时
+        if ((c.get(140) | 0) !== 0) {
+          if (Elona.Actions && Elona.Actions.tickChara) Elona.Actions.tickChara(g, c);
+          didAct = true;
+          if (c.hp > 0 && g.player.hp <= 0) break;
+          continue;
+        }
+        // 0-GD：脱衣 / 行為 的 NPC 诱惑入口（593443 cbit(1048) / 593795 202==10）
+        if (Elona.Intimacy && Elona.Intimacy.aiTry(g, c)) { didAct = true; continue; }
+        const r = npcTurn(g, c);
+        if (r && r.acted) didAct = true;
+      }
+      if (didAct) acted++;
       // 604850-604858：经验足够则升级（*label_2145）
       if (c.hp > 0 && Elona.Stats && Elona.Stats.checkLevelUp) Elona.Stats.checkLevelUp(c, g);
       if (g.player.hp <= 0) break;

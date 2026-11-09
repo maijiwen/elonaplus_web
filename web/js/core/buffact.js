@@ -140,7 +140,11 @@
       c.set(F_ROWACT, ROWACT_CHARGE);
       c.set(F_ROWLEFT, CHARGE_TURNS);
       if (g && g.log && syncCheck(g, c)) g.log(`${c.name} 开始蓄力。`);
-      // 308027-308050：伙伴喊话（customtalk 116 = 自己，114 = 同伴）
+      // 308023-308025：customtalk var_243, 116（自己喊）
+      if (Elona.Talk && Elona.Talk.speak) {
+        try { Elona.Talk.speak(g, c, 116); } catch (e) { /* 没有台词表就跳过 */ }
+      }
+      // 308026-308055：repeat 16-1,1 逐个同伴，customtalk 114（每个都判 191）
       if ((c.index | 0) < 16) {
         const list = (g && g.charas) || [];
         for (let i = 0; i < list.length; i++) {
@@ -151,8 +155,8 @@
           if ((a.get(256) | 0) >= 60) continue;        // 睡眠中
           if (dist(a, (g.player || c)) > 5) continue;
           if (R(g, 3) === 0) continue;
-          if (Elona.Talk && Elona.Talk.say) {
-            try { Elona.Talk.say(g, a, 114); } catch (e) { /* 没有台词表就跳过 */ }
+          if (Elona.Talk && Elona.Talk.speak) {
+            try { Elona.Talk.speak(g, a, 114); } catch (e) { /* 没有台词表就跳过 */ }
           }
         }
       }

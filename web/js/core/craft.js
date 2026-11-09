@@ -257,11 +257,15 @@
    * 执行调合 —— label_2658（281087-281760）+ 消耗 label_2657（281054-281086）。
    * @returns {{ok:boolean, success?:boolean, rate?:number, product?:object, message:string}}
    */
-  async function craft(g, recipeId) {
-    await load();
+  // 特殊产物分支要 await CraftProduct.load()，所以结算本身是 async；
+  // rowact 完成回调拿到的是 Promise，调用链（Actions.tickRowAct）不依赖返回值。
+  async function settle(g, recipeId, opts) {
+    const o = opts || {};
     const r = DATA.recipes[String(recipeId)];
     if (!r) return { ok: false, message: '没有这个配方。' };
-    if ((g.player.get(140) | 0) !== 0) return { ok: false, message: '你正忙着别的事情。' };
+    // 0-FY：rowact 12 完成时 var_58(140) 已被 Actions.tickRowAct 清零，
+    //   所以只有「立即结算」路径才需要拒绝进行中的其它行动。
+    if (!o.rowact && (g.player.get(140) | 0) !== 0) return { ok: false, message: '你正忙着别的事情。' };
 
     const pick = pickMaterials(g, r);
     if (!pick.ok) {
@@ -346,10 +350,13 @@
       g.log(`调合失败！（${name}）`);                  // 281095
     }
     // 回合部分的耗时：rowact 12 的 var_58(141) = 低位回合数（281758-281766）
-    if (tm.turns > 0) {
-      for (let k = 0; k < tm.turns; k++) g.endTurn();
-    } else {
-      g.endTurn();
+    //   0-FY：走 rowact 时回合已经在持续行动过程中逐回合消耗掉了，这里不能再快进。
+    if (!o.rowact) {
+      if (tm.turns > 0) {
+        for (let k = 0; k < tm.turns; k++) g.endTurn();
+      } else {
+        g.endTurn();
+      }
     }
     return {
       ok: true, success, rate, product, productPid,
@@ -357,8 +364,50 @@
     };
   }
 
+  /**
+   * 立即结算入口（保留兼容 0-CM 的调用与验证脚本）。
+   * @param {object} [opts] {rowact:true} 表示由持续行动完成回调调用
+   */
+  async function craft(g, recipeId, opts) {
+    await load();
+    return settle(g, recipeId, opts);
+  }
+
+  /**
+   * 0-FY：调合改为持续行动 —— *label_2659（281742-281775）。
+   *   源码 `var_58(140)=12 ; var_58(141) = 必要時間 \ 10000`，
+   *   回合里每 1/30 概率显示「*こねこね*」，141 归零才 gosub *label_2658 结算。
+   *   高位（必要时间 / 10000，即小时）在结束时由 advanceHours 补上。
+   */
+  async function begin(g, recipeId) {
+    await load();
+    const r = DATA.recipes[String(recipeId)];
+    if (!r) return { ok: false, message: '没有这个配方。' };
+    if ((g.player.get(140) | 0) !== 0) return { ok: false, message: '你正忙着别的事情。' };
+    const pick = pickMaterials(g, r);
+    if (!pick.ok) {
+      return { ok: false, message: `材料不足：还需要 ${pick.missing.map(matName).join('、')}。` };
+    }
+    const tm = timeOf(r);
+    const turns = Math.max(1, tm.turns | 0);
+    const A = Elona.Actions;
+    if (!A) return settle(g, recipeId, {});        // 没有动作层时退回即时结算
+    const st = A.begin(g, 12, turns, { recipeId, hours: tm.hours, turns: tm.turns });
+    if (!st.ok) return { ok: false, message: st.message || '现在不能调合。' };
+    g.log(`你开始调合 ${r.en || r.jp}。（${tm.text}）`);
+    g.endTurn();
+    return { ok: true, started: true, turns, hours: tm.hours, recipeId };
+  }
+
+  /** 由 Game.completeRowAct(12) 调用；此时数据已在 begin() 时载入。 */
+  function finish(g, payload) {
+    const pl = payload || {};
+    if (!DATA) return { ok: false, message: '配方表尚未载入。' };
+    return settle(g, pl.recipeId | 0, { rowact: true });
+  }
+
   Elona.Craft = {
-    load, list, craft, successRate, rateText, timeOf, matMatches, matName, countMat,
+    load, list, craft, begin, finish, successRate, rateText, timeOf, matMatches, matName, countMat,
     pickMaterials, tagOf,
     get data() { return DATA; },
     get tags() { return TAGS; },

@@ -847,6 +847,22 @@
         ? String(c.var_470).split(',').map((s) => evalExpr(s)).filter((v) => v !== null)
         : [];
       it.f[0] = count || it.f[0] || 1;
+      // 0-FX：224806-224823 —— 食物生成时 items.json 的 v99_27 是「还能放几小时」
+      //   （桑葚 72 / 苹果 16 / 尸体 4 …），而 Status.rotTick（223820-223946）把 f[27]
+      //   当作**绝对到期时刻**与 clockHours(g) 比较。itemcreate 的末尾会把两者对齐：
+      //       if (var_657 == 57000 && var_99(25) != 0 && var_99(24) == 35)
+      //           var_99(27) += 当前绝对小时
+      //   少了这一步，游戏开局 now≈446 万小时，任何新食物在下一次小时推进时立刻烂掉。
+      if ((it.f[24] | 0) === 35 && (it.f[25] | 0) !== 0 && (it.f[27] | 0) > 0
+          && this.ref && (this.ref(id, 5) | 0) === 57000) {
+        const gg = (typeof Elona !== 'undefined' && Elona.game) || null;
+        let now = (Elona.Status && Elona.Status.clockHours)
+          ? (Elona.Status.clockHours(gg) | 0) : 0;
+        // 尚未 boot / 单元测试里没有 game 时，按 602271 的开局时钟
+        //   var_65(10..14) = 517,10,12,16,10（年/月/日/时/分）计算绝对小时
+        if (now <= 0) now = 16 + 12 * 24 + 10 * 24 * 30 + 517 * 24 * 30 * 12;
+        it.f[27] = (it.f[27] | 0) + now;
+      }
       // 神託（413）要列出「已生成的黑星物品」——原版用一个 note 缓冲 var_535 记录，
       // 这里挂在 ItemDB 上：唯一物品（var_99(4) == 6 且 refitem(id,5) < 50000）生成时记一笔。
       if ((it.f[4] | 0) === 6 && (!this.ref || this.ref(id, 5) < 50000)) this.noteArtifact(it);
@@ -1089,6 +1105,33 @@
       if (!it) return;
       if ((it.f[8] || 0) >= 3) it.f[8] = 3;
       if (this.known && this.known[it.id] && (it.f[8] || 0) === 0) this.identify(it, 1);
+    },
+
+    /**
+     * item_exchange（29641-29647）：交换两个物品槽的全部 70 个字段。
+     *
+     * 【源码依据】start.hsp 29641-29647：
+     *   repeat 70
+     *     var_710 = var_99(cnt, prm_600)
+     *     var_99(cnt, prm_600) = var_99(cnt, prm_599)
+     *     var_99(cnt, prm_599) = var_710
+     *   loop
+     * 调用点：298884 的「交換」菜单（把玩家物品与 NPC 手持物品对调，
+     *   `var_580 = var_2262` → `gosub *label_2977`），随后 `convertartifact` 重新判定唯一物品。
+     *
+     * 本项目里槽位就是 `Item` 实例：保留对象身份、交换字段数组与伴随状态，
+     * 等价于「槽内容互换」——外部持有的引用不会失效。
+     * @returns {boolean} 是否实际交换（同一对象 / 空参数时返回 false）
+     */
+    exchange(a, b) {
+      if (!a || !b || a === b) return false;
+      const f = a.f; a.f = b.f; b.f = f;
+      const eq = a.eqSlot; a.eqSlot = b.eqSlot; b.eqSlot = eq;
+      const f657 = a.field657; a.field657 = b.field657; b.field657 = f657;
+      const f677 = a.field677; a.field677 = b.field677; b.field677 = f677;
+      const et = a.enchantTable; a.enchantTable = b.enchantTable; b.enchantTable = et;
+      const inv = a.inv; a.inv = b.inv; b.inv = inv;
+      return true;
     },
 
     /**

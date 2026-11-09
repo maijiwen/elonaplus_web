@@ -664,6 +664,28 @@
         });
         return;
       }
+      // 0-GA：通用选项菜单（*label_2896 / txtselecttc，指挥旗 57 / 存钱箱 99 /
+      //   巧克力 64 / 栽培 106 / 佯攻 153 / 撒饵 101）
+      if (r.action === 'choice' && P) {
+        P.chooseRow(r.title || '选择', r.options || [], (i) => {
+          this._itemFxFollow(game, U.resolve(game, i), ctx);
+        });
+        return;
+      }
+      // 0-GA：选一件背包道具（*label_2824，78 / 94 / 96 / 129 / 136）
+      if (r.action === 'item-pick' && P) {
+        P.openItemPicker(game, {
+          title: r.title || '选择道具',
+          filter: r.filter || null,
+          onPick: (ii, it) => {
+            this._itemFxFollow(game, U.resolve(game, it), ctx);
+          },
+          onCancel: () => {
+            this._itemFxFollow(game, U.resolve(game, null), ctx);
+          },
+        });
+        return;
+      }
       // 镜子选择（150，`var_486 = 23, 33` → 只列 504 号「卡片」）
       if (r.action === 'mirror-pick' && P) {
         P.openItemPicker(game, {
@@ -1149,6 +1171,9 @@
         return;
       }
       // end：本 NPC 的脚本走完了 —— 若还有通用服务，接着显示
+      // 0-GB：*label_4358 的收尾要消耗一个回合；*label_2459 是剧情场景切换
+      if (ev.endTurn && game && game.endTurn) game.endTurn();
+      if (ev.exitScene) this.pushMessage('（剧情推进：场景切换）');
       this.npcDialog = null;
       this.npcSession = null;
       if (!this.npcText || !this.npcText.trim()) {

@@ -282,6 +282,7 @@
       }
       this.drawEffects(game);
       this.drawWeatherOverlay(game);      // 天气滤镜（雨/雪/以太风）
+      this.drawTorchLight(game, startX, startY);   // 0-FY：火把光照遮罩
       this.drawAimCursor(game, startX, startY);
       this.drawDesignCursor(game, startX, startY);
       this.drawDirArrows(game, startX, startY);
@@ -523,6 +524,34 @@
       if (!tint) return;
       ctx.save();
       ctx.fillStyle = tint;
+      ctx.fillRect(0, 0, UI_W, UI_TOP);
+      ctx.restore();
+    }
+
+    /**
+     * 0-FY：火把光照 —— 353931-353954 的 var_65(37) 与 249360-249375 的画面色调。
+     *   原版点火把时把夜间色调改为 (80,65,50) 的暖棕，并把 var_1893 从 15 降到 8；
+     *   33041 在野外地图另给亮度 -50。网页版用「以玩家为中心的径向暖光 + 外围压暗」
+     *   表达同一效果，且**只在火把点亮时**叠加，避免改变默认的白天画面。
+     */
+    drawTorchLight(game, startX, startY) {
+      if (!game || !game.getV65 || (game.getV65(37) | 0) !== 1) return;
+      const ctx = this.ctx;
+      const hour = game.getV65(13) | 0;
+      const night = hour >= 20 || hour < 6;
+      const R = TILE * 8;                       // var_1893 = 8 格
+      const px = (game.player.x - startX + 0.5) * TILE;
+      const py = (game.player.y - startY + 0.5) * TILE;
+      const outer = night ? 'rgba(24,16,8,0.58)' : 'rgba(40,26,8,0.18)';
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(0, 0, UI_W, UI_TOP);
+      ctx.clip();
+      const grad = ctx.createRadialGradient(px, py, R * 0.12, px, py, R);
+      grad.addColorStop(0, 'rgba(255,196,110,0.02)');
+      grad.addColorStop(0.6, night ? 'rgba(120,80,35,0.10)' : 'rgba(255,205,120,0.02)');
+      grad.addColorStop(1, outer);
+      ctx.fillStyle = grad;
       ctx.fillRect(0, 0, UI_W, UI_TOP);
       ctx.restore();
     }

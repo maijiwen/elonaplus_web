@@ -390,11 +390,15 @@
           siteId: regSite.id | 0, message: '收款机。',
         };
       }
-      // 350461：事务所
+      // 350461：事务所 —— 0-GB 起打开 txtsetwork 8 的打工菜单（不再阻塞）
       if (mapId === 80 && sub === 70) {
-        const msg = '这是事务所的打工登记簿。打工（行动 26/27/28）依赖原版的 rowact 行动系统，尚未移植。';
-        g.log(msg);
-        return { ok: false, effect: E.BOARD, reason: 'work-board', message: msg };
+        const W = Elona.Work;
+        if (!W) return { ok: false, effect: E.BOARD, reason: 'no-work-module' };
+        g.log('这是事务所的打工登记簿。');
+        return {
+          ok: true, effect: E.BOARD, action: 'work-menu', request: 'work-menu',
+          options: W.menu(), message: '要选择哪项工作？',
+        };
       }
       // 350553：只能在自宅
       const mt = (g.map && g.map.header && (g.map.header[6] | 0)) || 0;

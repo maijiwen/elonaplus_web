@@ -19,6 +19,69 @@
   const F_ROWLEFT = 141;     // 剩余回合
   const F_ROWARG = 142;      // 附加参数
 
+  /**
+   * 0-FX：原版持续行动（rowact）全表。
+   *
+   * 名称取自 var_366（9145 / 9153 的日/英两份表），起点取自
+   * 「var_58(140, var_243) = N」的赋值处，每回合分派在 604652-604800。
+   * 玩家在 var_58(140) != 0 期间不能操作，只有 var_58(141) 减到 0
+   * （且中途没被 label_2844 中断）才执行完成结算。
+   *
+   * owner 标明由哪个模块接管每回合逻辑；'generic' = 由本文件的通用倒计时处理。
+   */
+  const ROWACT_DEFS = {
+    1: { name: '进食', src: '313508 *label_2944', turns: 8, owner: 'Game.advanceEating' },
+    2: { name: '读书', src: '313738 *label_2947', turns: null, owner: 'generic → Game.completeRowAct' },
+    3: { name: '睡眠', src: '312427 *label_2937', turns: 20, owner: 'Actions.finishSleep' },
+    4: { name: '休息', src: '312365 *label_2936', turns: 50, owner: 'Actions.tickRowAct' },
+    5: { name: '採掘（挖矿/挖墙）', src: '313126 *label_2943', turns: 40, owner: 'generic' },
+    6: { name: '演奏', src: '306514 *label_2912', turns: 121, owner: 'Perform.tick' },
+    7: { name: '钓鱼', src: '312799 *label_2940', turns: null, owner: 'Fishing.tick' },
+    8: { name: '採取（采集点）', src: '312985 *label_2941', turns: 40, owner: 'generic' },
+    9: { name: '探索（挖采集点）', src: '313008 *label_2942', turns: 20, owner: 'Actions.finishDig' },
+    10: { name: '偷窃 / 建设 / 训练', src: '311082 *label_2932', turns: null, owner: 'Game.tickSteal / Camp' },
+    11: { name: '脱衣', src: '309874 *label_2929', turns: 25, owner: 'Intimacy.tick' },
+    12: { name: '調合', src: '281753 *label_2659', turns: null, owner: 'generic' },
+    13: { name: '蓄力', src: '308014 *label_2917', turns: null, owner: 'BuffAct.chargeTick' },
+    14: { name: '伐採', src: '（由 10 号分支转入）', turns: null, owner: 'generic' },
+    15: { name: '説法', src: '307632 *label_2916', turns: null, owner: 'Preach.tick' },
+    16: { name: '分食（料理篮）', src: '309681 *label_2926', turns: 20, owner: 'Social.tick' },
+    17: { name: '舞蹈', src: '307099 *label_2914', turns: null, owner: 'Perform.danceTick' },
+    18: { name: '分食（蛋糕）', src: '309831 *label_2928', turns: 20, owner: 'Social.tick' },
+    19: { name: '説得', src: '308477 *label_2921', turns: 5, owner: 'Social.tick' },
+    20: { name: 'ギャグ', src: '308724 *label_2922', turns: 5, owner: 'Social.tick' },
+    21: { name: '嘘', src: '308962 *label_2923', turns: 5, owner: 'Social.tick' },
+    22: { name: '脅迫', src: '309224 *label_2924', turns: 5, owner: 'Social.tick' },
+    23: { name: '歌', src: '309486 *label_2925', turns: 5, owner: 'Social.tick' },
+    24: { name: '行为', src: '310708 *label_2931', turns: 11, owner: 'Intimacy.tick' },
+    25: { name: '執筆', src: '307072 *label_2913', turns: null, owner: 'Writing.writeTick' },
+    26: { name: '仕事（打工）', src: '350477 *label_2927', turns: 100, owner: 'generic' },
+    27: { name: '仕事（打工）', src: '350481 *label_2927', turns: 100, owner: 'generic' },
+    28: { name: '仕事（打工）', src: '350485 *label_2927', turns: 100, owner: 'generic' },
+    29: { name: '物乞い（乞讨）', src: '307386 *label_2915', turns: null, owner: 'generic' },
+    30: { name: '飛跳殺法', src: '308104 *label_2918', turns: 5, owner: 'Social.finish' },
+    31: { name: '奇襲穿孔', src: '308176 *label_2919', turns: 10, owner: 'Social.finish' },
+    32: { name: '脱衣', src: '310317 *label_2930', turns: 25, owner: 'Intimacy.tick' },
+    33: { name: '応援', src: '308286 *label_2920', turns: 5, owner: 'Social.tick' },
+    107: { name: '收容所劳动', src: '358394 *label_2932', turns: 21, owner: 'Camp.workTick' },
+    108: { name: '收容所劳动', src: '358394 *label_2932', turns: 61, owner: 'Camp.workTick' },
+  };
+
+  /**
+   * 0-FY：中断规则表（604590-604640）。
+   *   源码 `var_58(143,0) == 1`（有按键输入）时：
+   *     · 140 属于 {17 舞, 1 食事, 2 読書, 3 睡眠, 25 執筆} → gosub *label_2844
+   *       弹「○○を中断したほうがいいだろうか？」的 y/n 确认；
+   *     · 其余类型 → var_444 = 0，直接中断，不问；
+   *     · 13 蓄力 / 16·18 特殊进食 → 604609 明确排除，**不允许中断**；
+   *     · 带 buff 65 且 140 属于 {19,20,21,22,23,33} → var_444 = 2，
+   *       「この行動は中断できない」（也不中断）。
+   *   0-FX 之前本项目把所有 rowact 一律直接中断且没有例外，这里按源码补齐。
+   */
+  const CONFIRM_INTERRUPT = [1, 2, 3, 17, 25];
+  const NO_INTERRUPT = [13, 16, 18];
+  const BUFF_PROTECTED = [19, 20, 21, 22, 23, 33];
+
   const DIRS = {
     1: [-1, 1], 2: [0, 1], 3: [1, 1], 4: [-1, 0], 5: [0, 0],
     6: [1, 0], 7: [-1, -1], 8: [0, -1], 9: [1, -1],
@@ -26,6 +89,107 @@
 
   const Actions = {
     DIRS,
+    ROWACT_DEFS,
+    F_ROWACT, F_ROWLEFT, F_ROWARG,
+
+    /** var_366 的行动名（中断提示用） */
+    rowactName(type) {
+      const d = ROWACT_DEFS[type | 0];
+      return d ? d.name : '行动';
+    },
+    defOf(type) { return ROWACT_DEFS[type | 0] || null; },
+
+    /**
+     * 0-FX：通用「开始一个持续行动」。
+     * 写 var_58(140/141/142)，把完成结算需要的上下文挂到 g.rowActPayload。
+     * 原版在 label_2844 里问「要中断吗？」；本项目把「任何新动作」都视为中断，
+     * 由 Game.movePlayer / Game.useItem / Game.attack 等入口调 interrupt()。
+     */
+    begin(g, type, turns, payload) {
+      const p = g && g.player;
+      if (!p) return { ok: false, reason: 'no-player' };
+      if ((p.get(F_ROWACT) | 0) !== 0) {
+        return { ok: false, reason: 'busy', message: '你正忙着别的事情。' };
+      }
+      p.set(F_ROWACT, type | 0);
+      p.set(F_ROWLEFT, Math.max(1, turns | 0));
+      p.set(F_ROWARG, 0);
+      g.rowActPayload = payload || null;
+      return { ok: true, type: type | 0, turns: Math.max(1, turns | 0) };
+    },
+
+    CONFIRM_INTERRUPT, NO_INTERRUPT, BUFF_PROTECTED,
+
+    /** 中断当前持续行动（不执行完成结算） */
+    interrupt(g, why) {
+      const p = g && g.player;
+      if (!p || (p.get(F_ROWACT) | 0) === 0) return { ok: false };
+      const type = p.get(F_ROWACT) | 0;
+      p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0);
+      g.rowActPayload = null;
+      return { ok: true, type, why: why || 'action', name: this.rowactName(type) };
+    },
+
+    /**
+     * 0-FY：按 604590-604609 判断「现在这次输入能不能中断当前行动」。
+     * @returns {{ok:boolean, reason?:string, confirm:boolean, type:number, name:string}}
+     */
+    canInterrupt(g) {
+      const p = g && g.player;
+      const type = p ? (p.get(F_ROWACT) | 0) : 0;
+      const name = this.rowactName(type);
+      if (!type) return { ok: false, reason: 'idle', confirm: false, type, name };
+      if (NO_INTERRUPT.indexOf(type) >= 0) {
+        return { ok: false, reason: 'no-interrupt', confirm: false, type, name };
+      }
+      if (BUFF_PROTECTED.indexOf(type) >= 0 && Elona.Status && Elona.Status.findbuff) {
+        try {
+          if (Elona.Status.findbuff(p, 65) >= 0) {
+            return { ok: false, reason: 'buff', confirm: false, type, name };
+          }
+        } catch (e) { /* 状态模块缺失时按无 buff 处理 */ }
+      }
+      return { ok: true, confirm: CONFIRM_INTERRUPT.indexOf(type) >= 0, type, name };
+    },
+
+    /**
+     * 请求中断 —— 核心层不依赖视图层。
+     * 视图层注入 `Elona.rowactInterruptConfirm(g, name, done)`（main.js → Panels.openConfirm）；
+     * 没有注入时（node 测试 / 无 UI 的自动化）同步按「确认 = 是」处理，保持旧行为。
+     * @param {function} [done] 收到最终中断结果；取消时 {ok:false, reason:'cancel'}
+     */
+    requestInterrupt(g, why, done) {
+      const chk = this.canInterrupt(g);
+      if (!chk.ok) { if (done) done(chk); return chk; }
+      const finish = (yes) => {
+        const r = yes
+          ? this.interrupt(g, why || 'action')
+          : { ok: false, reason: 'cancel', type: chk.type, name: chk.name };
+        if (done) done(r);
+      };
+      if (chk.confirm && typeof Elona.rowactInterruptConfirm === 'function') {
+        Elona.rowactInterruptConfirm(g, chk.name, finish);
+        return { ok: true, pending: true, confirm: true, type: chk.type, name: chk.name };
+      }
+      finish(true);
+      // 同步中断时把结果一起返回，方便调用方判断
+      return Object.assign({ ok: true, pending: false, confirm: chk.confirm,
+        type: chk.type, name: chk.name }, { result: (g.player.get(F_ROWACT) | 0) === 0 });
+    },
+
+    /**
+     * 0-FY：NPC 的 rowact 中断（604606-604640）。
+     * 源码输出「<名字>は<行动>を中断した。」；13/16/18 同样豁免。
+     */
+    interruptChara(g, c, why) {
+      if (!c || (c.get(F_ROWACT) | 0) === 0) return { ok: false };
+      const type = c.get(F_ROWACT) | 0;
+      if (NO_INTERRUPT.indexOf(type) >= 0) return { ok: false, reason: 'no-interrupt' };
+      c.set(F_ROWACT, 0); c.set(F_ROWLEFT, 0); c.set(F_ROWARG, 0);
+      const name = this.rowactName(type);
+      if (g && g.log) g.log(`${c.name || '对方'}中断了${name}。`);
+      return { ok: true, type, why: why || 'action', name, chara: c };
+    },
 
     // ======================================================================
     // 通用小工具
@@ -384,6 +548,41 @@
     },
 
     /** 每回合推进 rowact（由 Game.endTurn 调用） */
+    /**
+     * 0-GC：非玩家角色的持续行动推进。
+     *   源码 604690-604760 的分派是对 `var_243` 逐个跑的，NPC 也有自己的
+     *   `var_58(140/141)`；本项目把 19-23 / 30 / 31 / 33 / 16 / 18 交给
+     *   `core/social.js`，其余类型 NPC 不参与，直接返回 null。
+     * @returns {object|null} 本回合结果
+     */
+    tickChara(g, c) {
+      if (!c || (c.get(0) | 0) !== 1) return null;
+      const type = c.get(140) | 0;
+      if (!type) return null;
+      // 0-GD：脱衣 / 行為 —— NPC 侧同样逐回合推进，完成段双方一起收尾
+      if (Elona.Intimacy && Elona.Intimacy.manages(type)) {
+        const left = c.get(141) | 0;
+        if (left <= 0) {
+          const r = Elona.Intimacy.finishFor(g, c, type);
+          return { type, intimacy: r, finished: true };
+        }
+        const r = Elona.Intimacy.tickFor(g, c, type, left);
+        c.set(141, Math.max(0, left - 1));
+        return { type, left: left - 1, intimacy: r };
+      }
+      if (!Elona.Social || !Elona.Social.manages(type)) return null;
+      const left = c.get(141) | 0;
+      if (left <= 0) {
+        const payload = c.rowActPayload || null;
+        c.set(140, 0); c.set(141, 0); c.set(142, 0);
+        c.rowActPayload = null;
+        return Elona.Social.finishFor(g, c, type, payload);
+      }
+      const r = Elona.Social.tickFor(g, c, type, left);
+      c.set(141, Math.max(0, left - 1));
+      return { type, left: left - 1, social: r };
+    },
+
     tickRowAct(g) {
       const p = g.player;
       if (!p || (p.hp | 0) <= 0) return null;
@@ -401,7 +600,9 @@
         return r;
       }
       // 10 = 偷窃（604751-604776 → *label_2932 var_65(91)==105，0-CP）
-      if (type === 10 && g.tickSteal) {
+      //   0-FY：同一个 10 号也用于 101 建设 / 104 训练（*label_2932 的其它分支）。
+      //   这类 payload 带 campMode，跳过偷窃逻辑、落到下面的通用倒计时。
+      if (type === 10 && !(g.rowActPayload && g.rowActPayload.campMode) && g.tickSteal) {
         const r = g.tickSteal();
         if (r && r.message) g.log(r.message);
         return r;
@@ -445,6 +646,72 @@
         const r = Elona.Camp.workTick(g, type);
         p.set(F_ROWLEFT, left - 1);
         return { type, left: left - 1, toilEnergy: r ? r.toilEnergy : 0 };
+      }
+      // 0-GC：特技型持续行动（19-23 社交 / 33 応援 / 30·31 跳跃系 / 16·18 分食）
+      //   源码 604709-604729 / 604745-604753 的 gosub 分派，逻辑在 core/social.js。
+      if ((type >= 19 && type <= 23) || type === 33 || type === 30 || type === 31
+        || type === 16 || type === 18) {
+        if (Elona.Social) {
+          const sr = Elona.Social.tick(g, type, g.rowActPayload);
+          if (sr) {
+            p.set(F_ROWLEFT, Math.max(0, (p.get(F_ROWLEFT) | 0) - 1));
+            return { type, left: p.get(F_ROWLEFT) | 0, social: sr };
+          }
+        }
+      }
+      // 0-GD：脱衣 / 行為（*label_2929/2930/2931）—— 成对行动，完成段在
+      //   core/intimacy.js 内部收尾（双方同时 rowactend），不走通用倒计时。
+      if ((type === 11 || type === 24 || type === 32) && Elona.Intimacy) {
+        const ir = Elona.Intimacy.tick(g, type, g.rowActPayload);
+        if (ir && ir.done) return { finished: true, type, result: ir };
+        if (ir) {
+          p.set(F_ROWLEFT, Math.max(0, (p.get(F_ROWLEFT) | 0) - 1));
+          return { type, left: p.get(F_ROWLEFT) | 0, intimacy: ir };
+        }
+      }
+      // 0-FX：通用倒计时 —— 上表 owner='generic' 的活动（读书/采集/挖矿/调合/
+      //   打工/乞讨/NPC 特技…）都走这里。left 减到 0 才把控制权交给
+      //   Game.completeRowAct 做完成结算；中途被 interrupt() 清掉就不会到达。
+      if (type !== 1 && type !== 3 && type !== 4 && type !== 9 && ROWACT_DEFS[type]) {
+        const left = p.get(F_ROWLEFT) | 0;
+        if (left <= 0) {
+          const payload = g.rowActPayload || null;
+          p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0);
+          g.rowActPayload = null;
+          const done = g.completeRowAct ? g.completeRowAct(type, payload) : null;
+          return { finished: true, type, result: done };
+        }
+        // 0-GB：打工 26-28 / 乞讨 29 的每回合判定（*label_2927 / *label_2915）。
+        //   只有 left > 0 才会走到这里；Work.tick 返回 interrupted 时直接收尾，
+        //   避免下面的通用倒计时把已经清掉的 var_58(141) 又写回去。
+        if (type >= 26 && type <= 29 && Elona.Work && Elona.Work.tick) {
+          const wr = Elona.Work.tick(g, type, g.rowActPayload);
+          if (wr && wr.interrupted) {
+            return { interrupted: true, type, reason: wr.reason || 'work' };
+          }
+        }
+        // 0-FY：持续行动的每回合演出。
+        //   313032-313045（*label_2942/2943）每 5 回合一次「*ざくっ*」，
+        //   281760-281769（*label_2659）调合每回合 1/30「*こねこね*」。
+        if ((type === 5 || type === 8) && left % 5 === 0 && g.log) {
+          const fx = [' *ざくっ* ', ' *カキン* ', ' *ごつっ* ', ' *じゃり* ', ' *♪* '];
+          g.log(fx[g.rng ? g.rng.rnd(fx.length) : 0]);
+        }
+        if (type === 12 && g.log && g.rng && g.rng.rnd(30) === 0) {
+          g.log(g.rng.rnd(2) === 0 ? ' *こねこね* ' : ' *トントン* ');
+        }
+        // 0-FY：*label_2947 期间每回合都要走一次 *label_2217（313770-313813），
+        //   掷失败则 rowactend + 消耗一页，本次阅读不做完成结算。
+        if (type === 2 && g.tickReading) {
+          const rr = g.tickReading(g.rowActPayload);
+          if (rr && rr.failed) {
+            p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0);
+            g.rowActPayload = null;
+            return { interrupted: true, type, reason: rr.reason || 'reading-failed' };
+          }
+        }
+        p.set(F_ROWLEFT, left - 1);
+        return { type, left: left - 1 };
       }
       if (type !== 3 && type !== 4 && type !== 9) return null;   // 1=进食由 advanceEating 处理
       const left = (p.get(F_ROWLEFT) | 0);

@@ -238,6 +238,16 @@
         return { ok: true, action: 'preach', started: true };
       }
 
+      // 4.45 本気物乞い（830，330871-330875 → *label_2915，307377-307634）
+      //     61 回合的持续行动（var_58(140)=29），每 20 回合向 3 格内 NPC 讨钱
+      if (aid === 830) {
+        if (!Elona.Work) { g.log('乞讨模块未加载。'); return { ok: false, reason: 'no-work' }; }
+        const r = Elona.Work.startBeg(g);
+        if (!r.ok) { g.log(r.message || '现在无法乞讨。'); return r; }
+        if (g.endTurn) g.endTurn();
+        return { ok: true, action: 'beg', started: true };
+      }
+
       // 4.5 合奏（676，330878-330931）
       //     扫描附近可合奏的角色累积 var_1026；为 0 → 「あなたはひとりぼっちだ…。」
       //     否则 var_396 = 183（演奏技能）→ *label_2960 开始 121 回合的合奏演奏

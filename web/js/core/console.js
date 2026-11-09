@@ -188,6 +188,32 @@
     },
   });
 
+  register('work', {
+    usage: 'work [status | 0..7 | beg]',
+    help: '事务所打工登记簿：0..5 = 工作 A/B/C × 100/500 回合，6 = 整理文件，7 = 取消；beg = 认真乞讨',
+    run(g, args) {
+      const W = Elona.Work;
+      if (!W) return ['打工模块未加载。'];
+      const a = String(args[0] || 'status').toLowerCase();
+      if (a === 'beg') {
+        const r = W.startBeg(g);
+        return [r.ok ? '开始乞讨（61 回合）。' : (r.message || r.reason || '现在无法乞讨。')];
+      }
+      if (a === 'status') {
+        const q = W.quotas(g);
+        return [
+          `工作配额 A ${q[686]} / B ${q[687]} / C ${q[688]}`,
+          `当前行动 var_58(140)=${g.player.get(140) | 0}　剩余回合 var_58(141)=${g.player.get(141) | 0}`,
+        ];
+      }
+      const i = parseInt(a, 10);
+      if (Number.isNaN(i)) return ['用法: work [status | 0..7 | beg]'];
+      const r = W.begin(g, i);
+      if (!r.ok) return [r.message || r.reason || '无法开始。'];
+      return [r.turns ? `开始工作（${r.turns} 回合）。` : (r.message || r.action)];
+    },
+  });
+
   register('state', {
     usage: 'state [值]',
     help: '查看/设置主任务状态（var_65(250+2) = 252）',
