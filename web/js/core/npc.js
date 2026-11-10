@@ -177,9 +177,12 @@
       out.push({ id: 'trick-or-treat', label: 'Trick or Treat?' });
     }
     // 0-CQ：力の覚醒（AP 天赋菜单，410000-411925）。
-    // 原版入口是「冒険ゼミ」的講師（var_65(250+254) >= 4 的引导 NPC）；
-    // 本实现放宽到所有城镇 NPC（type >= 5），登记为近似。
-    if (Elona.AP && r >= 5) out.push({ id: 'awaken', label: '力の覚醒（AP 天赋）' });
+    // 原版入口是「冒険ゼミ」的講師，且进度标志 var_65(250+254) >= 4 才追加菜单项（410044-410048）。
+    if (Elona.AP) {
+      const nm = String(npc.name || '');
+      const flag = (g && typeof g.getV65 === 'function') ? (g.getV65(504) | 0) : 0;
+      if (/ゼミ講師|课堂讲师/.test(nm) && flag >= 4) out.push({ id: 'awaken', label: '力の覚醒（AP 天赋）' });
+    }
     // 0-DA：收容所（当前地图是收容所）→ 可把敌对者关押（234101-234160）
     if (Elona.Camp && Elona.Camp.campOf && Elona.Camp.campOf(g)) {
       out.push({ id: 'imprison', label: '収容する' });

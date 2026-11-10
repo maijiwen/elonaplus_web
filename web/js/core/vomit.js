@@ -201,11 +201,15 @@
 
   /**
    * 每回合的「过量」判定 —— 604582-604587。
-   * 注意源码还带 `var_58(257) >= 45`（该字段语义未确认，未纳入）。
+   * 条件是 `var_58(257) >= 45 | var_58(22) > 35000`：
+   *   257 = 吐き気（恶心）计数（216145 置 100、592996 递减），22 = 満腹度。
    * @returns {object|null}
    */
   function tickTurn(g, c) {
-    if ((c.get(F.SATIETY) | 0) <= 35000) return null;
+    if (!c || !c.get) return null;
+    const nausea = c.get(257) | 0;
+    const satiety = c.get(F.SATIETY) | 0;
+    if (nausea < 45 && satiety <= 35000) return null;
     const denom = 60 + (c.get(404) | 0) * 5;
     if (g.rng.rnd(Math.max(1, denom)) !== 0) return null;
     return vomit(g, c);

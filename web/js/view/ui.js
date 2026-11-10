@@ -571,7 +571,7 @@
         // 钓竿 → 先问「钓几小时」（320007-320014）
         if (r && r.action === 'fish-hours' && Elona.Panels) {
           this.closeInventory();
-          Elona.Panels.openFishHours(game, r.rodIdx);
+          Elona.Panels.openFishHours(game, r.rodIdx, r.spPaid);
           return;
         }
         // 0-DH：調教鞭 → 选择同伴 → 管教菜单

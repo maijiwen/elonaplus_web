@@ -179,8 +179,7 @@
     // ------------------------------------------------------------------
     /**
      * 能不能开始钓。返回 { ok, reason, message }
-     * 注意：体力扣除放在 start() 里（原版在输入「几小时」之前扣，若玩家取消输入会白扣，
-     * 这里等真正开始再扣，属有意偏差）。
+     * 体力扣除见 `payStamina`：原版在输入「几小时」之前扣（319986-319998），这里保持同序。
      */
     canUse(g, rodIdx) {
       const p = g.player;
@@ -206,8 +205,28 @@
     },
 
     /**
+     * 319986-319998：体力判定 + 扣除，**在询问「钓几小时」之前**执行（原版取消输入也会扣）。
+     *   失败：sp<50 且 sp<rnd(75) → 提示「疲労し過ぎて失敗した！」后扣 sp/2+1（319987-319995）
+     *   成功：dmgsp 扣 `rnd(sp/2+1) + sp/2+1`（319998）
+     */
+    payStamina(g) {
+      const p = g.player;
+      const sp = p.get(52) | 0;
+      const half = idiv(sp, 2) + 1;
+      if (sp < 50 && sp < g.rng.rnd(75)) {
+        g.log(TEXT.tired);
+        if (Elona.Status && Elona.Status.dmgsp) Elona.Status.dmgsp(p, half);
+        g.endTurn();
+        return { ok: false, reason: 'tired' };
+      }
+      const cost = half + g.rng.rnd(half);
+      if (Elona.Status && Elona.Status.dmgsp) Elona.Status.dmgsp(p, cost);
+      return { ok: true, cost };
+    },
+
+    /**
      * 使用钓竿 —— 由 Game.useItem 调用（物品类别 59000）。
-     * 返回 { ok:true, action:'fish-hours', rodIdx }，由 UI 询问「钓几小时」后调 start()。
+     * 返回 { ok:true, action:'fish-hours', rodIdx, spPaid }，由 UI 询问「钓几小时」后调 start()。
      */
     useRod(g, idx) {
       if (Elona.Actions && Elona.Actions.busy(g)) return { ok: false, reason: 'busy' };
@@ -218,25 +237,26 @@
       }
       // 转身面向水面（319969-319983）
       this.faceTo(g, r.target.dx, r.target.dy);
-      return { ok: true, action: 'fish-hours', rodIdx: r.rodIdx, hours: 1 };
+      // 319986-319998：体力先扣，再问小时数
+      const pay = this.payStamina(g);
+      if (!pay.ok) return { ok: false, reason: pay.reason };
+      return { ok: true, action: 'fish-hours', rodIdx: r.rodIdx, hours: 1, spPaid: true };
     },
 
     /**
      * 开始钓鱼 —— 320009-320018 的「钓几小时」+ 312789-312828 的 rowact 建立。
      * @param {number} idx  钓竿下标
      * @param {number} hours 预约小时数（原版输入框，默认 1）
+     * @param {{spPaid?:boolean}} [opts] useRod 已经扣过体力时传 { spPaid: true }
      */
-    start(g, idx, hours) {
+    start(g, idx, hours, opts) {
       const p = g.player;
       const can = this.canUse(g, idx);
       if (!can.ok) { g.log(can.message); return { ok: false, reason: can.reason }; }
-      // 体力判定（319986-319995）：sp < 50 且 sp < rnd(75) → 失败并扣体力
-      const sp = p.get(52) | 0;
-      if (sp < 50 && sp < g.rng.rnd(75)) {
-        g.log(TEXT.tired);
-        if (Elona.Status && Elona.Status.dmgsp) Elona.Status.dmgsp(p, idiv(sp, 2) + 1);
-        g.endTurn();
-        return { ok: false, reason: 'tired' };
+      // 体力（319986-319998）：独立调用 start() 时仍然自己扣一次
+      if (!(opts && opts.spPaid)) {
+        const pay = this.payStamina(g);
+        if (!pay.ok) return { ok: false, reason: pay.reason };
       }
       this.faceTo(g, can.target.dx, can.target.dy);
       const h = limit(hours === undefined ? 1 : (hours | 0), 1, 24);
@@ -248,9 +268,6 @@
       p.set(141, TURNS);
       p.set(142, idx);
       g.log(h > 1 ? `${TEXT.start}（${h} 小时）` : TEXT.start);   // 312793
-
-      // 体力（319998）：dmgsp 体力/2+1
-      if (Elona.Status && Elona.Status.dmgsp) Elona.Status.dmgsp(p, idiv(p.get(52) | 0, 2) + 1);
 
       // マシンルアー（312803-312827）：有 890 就用上，直接上一条鱼并收竿
       const hasLure = this.findItem(p, SUPER_LURE) >= 0;

@@ -1381,7 +1381,7 @@
      *   下：var_65(26)=1；var_65(22)++（sub==0）或 = sub；记录 var_126(4)
      *   上：var_65(26)=2；var_65(22)--（sub==0）或 = sub；记录 var_126(5)
      * 地图切换：下楼梯 → 随机生成的地下楼层；上楼梯 → 上一层或返回城镇。
-     *   生成规则见 generateDungeon（48×36 房间 + L 形走廊）。
+     *   生成规则见 core/mapmake.js（原版 *label_2413 的 10 种布局）。
      */
     useStairs(up) {
       if (this.transitioning) return { ok: false, reason: 'busy' };
@@ -1454,11 +1454,10 @@
     }
 
     /**
-     * 随机迷宫生成（原版 map_make / *label_2873 的简化版）：
-     * 48×36 房间 + L 形走廊，入口/出口楼梯，怪物与地面物品。
-     * 图块：33 = 地板，468 = 墙（tileset 1）。
+     * 0-HA 之前的近似生成器（48×36 房间 + L 形走廊）。
+     * 现在只作为 MapMake 连续重掷都失败时的兜底，正常流程不再使用。
      */
-    generateDungeon(depth) {
+    legacyDungeon(depth) {
       const W = 48, H = 36, FLOOR = 33, WALL = 468;
       const mk = (id) => [id, 0, id, 0, 0, 0, 0, 0, 0, 0];
       const cells = [];
@@ -1500,15 +1499,43 @@
         while (y !== b.cy) { carve(x, y); y += y < b.cy ? 1 : -1; }
         carve(x, y);
       }
-      // 0-CM：map_makedoor（229145-229174）—— 房间入口放闭门（锁难度 rnd(limit(层数*3/2+1,1,300))）
-      if (Elona.MapDoor) Elona.MapDoor.makeDoors(this, rooms, depth);
       let end = rooms[0], best = -1;
       for (const r of rooms) {
         const d = Math.abs(r.cx - rooms[0].cx) + Math.abs(r.cy - rooms[0].cy);
         if (d > best) { best = d; end = r; }
       }
-      const up = { x: rooms[0].cx, y: rooms[0].cy };
-      const down = { x: end.cx, y: end.cy };
+      return {
+        W, H, cells, rooms,
+        up: { x: rooms[0].cx, y: rooms[0].cy },
+        down: { x: end.cx, y: end.cy },
+      };
+    }
+
+    /**
+     * 随机迷宫生成（0-HA：改走原版 *label_2413 / map_createroom / map_connectroom /
+     * map_makedoor，实现见 core/mapmake.js）。图块：33 = 地板，468 = 墙（tileset 1）。
+     * 后半段（怪物 / 地面物品 / 采集点 / 陷阱 / 地城主）沿用项目既有逻辑。
+     */
+    generateDungeon(depth) {
+      const FLOOR = 33;
+      let W, H, cells, rooms, up, down, mm = null;
+      if (Elona.MapMake) {
+        mm = Elona.MapMake.build(this, {
+          kind: this.dungeonKind | 0,
+          depth,
+          maxDepth: this.dungeonMaxDepth | 0,
+          siteType: this.siteType | 0,       // var_132(16, mapId)，由宿主地图模块注入
+          forced: this.forcedLayout | 0,     // var_3，调试 / 测试可强制布局
+        });
+      }
+      if (mm && mm.ok) {
+        W = mm.width; H = mm.height; cells = mm.cells;
+        rooms = mm.rooms; up = mm.up; down = mm.down;
+      } else {
+        const lg = this.legacyDungeon(depth);
+        W = lg.W; H = lg.H; cells = lg.cells;
+        rooms = lg.rooms; up = lg.up; down = lg.down;
+      }
 
       // 随机怪物：用 *label_3105 的加权轮盘选生物，等级随层数
       // 0-FA：觉醒地城（var_132(32)!=0）按源码 213479 把怪物等级提到地城等级
@@ -1610,6 +1637,8 @@
       header[4] = down.y * 1000 + down.x;
       header[5] = up.y * 1000 + up.x;
       header[12] = 2;
+      // 0-HA：原版 var_126(10)（230577 / 231626 / 232274 / 232350）随布局给出地图等级
+      header[10] = mm ? (mm.mapLevel | 0) : idiv(W * H, 100);
       // 0-FB：地城地图的 var_126(6) 就是 kind（20..27）——种族分布（236719）与
       //   挖墙掉落表（313183-313266）都按它分派，0-FA 之前一直是 0。
       header[6] = this.dungeonKind | 0;
@@ -1625,6 +1654,8 @@
       return {
         json: { name: `dungeon${depth}`, width: W, height: H, tileset: 1, header, cells, objects: [] },
         up, down, monsters, items, spots, boss, bottom: isBottom, hazards,
+        layout: mm ? mm.layout : 0, rooms, doors: mm ? mm.doors : [],
+        mapLevel: header[10], source: mm ? 'map_make' : 'legacy',
       };
     }
 
@@ -4693,15 +4724,35 @@
         }
         Elona.Weather.tickTurn(this);
       }
-      // 过量进食 → 呕吐（604582-604587）。原版对每个角色都判，这里只判玩家（见差异报告 A75）
-      if (this.player && this.player.hp > 0 && Elona.Vomit) {
-        const v = Elona.Vomit.tickTurn(this, this.player);
-        if (v) for (const m of v.messages) this.log(m);
-      }
-      // 水分过量 → 失禁（604590-604594）：水分 > 35000 时 1/60
-      if (this.player && this.player.hp > 0 && Elona.Potion && Elona.Potion.tickTurn) {
-        const w = Elona.Potion.tickTurn(this, this.player);
-        if (w) for (const m of w.messages) this.log(m);
+      // 过量进食 → 呕吐（604582-604587）／水分过量 → 失禁（604588-604592）。
+      // 原版在**角色循环**里对 var_243 逐人判定，这里同样遍历全地图角色。
+      {
+        const list = (this.charas && this.charas.length) ? this.charas : [];
+        const seen = new Set();
+        for (const c of list) {
+          if (!c || seen.has(c) || (c.hp | 0) <= 0) continue;
+          seen.add(c);
+          if (Elona.Vomit && Elona.Vomit.tickTurn) {
+            const v = Elona.Vomit.tickTurn(this, c);
+            if (v) for (const m of v.messages) this.log(m);
+          }
+          if (Elona.Potion && Elona.Potion.tickTurn) {
+            const w = Elona.Potion.tickTurn(this, c);
+            if (w) for (const m of w.messages) this.log(m);
+          }
+        }
+        // 玩家不在 charas 里时补一次
+        const p = this.player;
+        if (p && (p.hp | 0) > 0 && !seen.has(p)) {
+          if (Elona.Vomit && Elona.Vomit.tickTurn) {
+            const v = Elona.Vomit.tickTurn(this, p);
+            if (v) for (const m of v.messages) this.log(m);
+          }
+          if (Elona.Potion && Elona.Potion.tickTurn) {
+            const w = Elona.Potion.tickTurn(this, p);
+            if (w) for (const m of w.messages) this.log(m);
+          }
+        }
       }
       // 地面魔法效果（mef）每回合结算 —— 主循环 604202-604340（类型 3/5/6/13-22）
       if (this.mef && this.player && this.player.hp > 0) {

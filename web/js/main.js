@@ -166,6 +166,15 @@
     } else done(true);
   };
 
+  // 0-GY：*label_2747（289226）—— 整理堆叠前的 y/n 确认。
+  Elona.itemStackConfirm = (g, done) => {
+    if (Elona.Panels && Elona.Panels.openConfirm) {
+      Elona.Panels.openConfirm('把相同物品按鲜度与价值较低的一方合并？', done, {
+        title: '整理堆叠', yes: '整理', no: '取消',
+      });
+    } else done(true);
+  };
+
   /** 移动后消费 game.pendingInteraction（撞 NPC / 掲示板） */
   function consumePending() {
     const pi = game.pendingInteraction;

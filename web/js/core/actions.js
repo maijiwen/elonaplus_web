@@ -341,7 +341,8 @@
       p.set(237, (p.get(237) | 0) + 1);
       g.log('你仔细地搜索了周围。');
 
-      const R = 6;
+      // 348131-348140：`repeat 11` 双层，坐标 `cnt-5` → 以玩家为中心 11×11（±5）
+      const R = 5;
       const found = [];
       for (let y = p.y - R; y <= p.y + R; y++) {
         for (let x = p.x - R; x <= p.x + R; x++) {
@@ -1059,12 +1060,18 @@
     // I —— 整理堆叠（*label_2747，289222-289261）
     // ======================================================================
     /**
-     * 【已确认】原版先问 y/n，然后 `repeat` 遍历背包并调用 item_stack 0, cnt, 1。
-     * 本实现直接执行（不弹确认框），返回合并次数。
+     * 【已确认】原版先问 y/n（289226「同じアイテムを、鮮度や価値の低いほうにあわせてまとめる？」），
+     * 再 `repeat` 遍历背包并调用 `item_stack 0, cnt, 1`（289243-289258）。
+     * 视图层注入 `Elona.itemStackConfirm(g, done)`；无视图环境（测试）直接执行。
+     * @param {{confirmed?:boolean}} [opts]
      */
-    itemStack(g) {
+    itemStack(g, opts) {
       const p = g.player;
       if (!Elona.ItemDB || !Elona.ItemDB.stack) return { ok: false };
+      if (!(opts && opts.confirmed) && typeof Elona.itemStackConfirm === 'function') {
+        Elona.itemStackConfirm(g, (yes) => { if (yes) this.itemStack(g, { confirmed: true }); });
+        return { ok: true, pending: true, request: 'confirm', merged: 0 };
+      }
       let merged = 0;
       for (let i = 0; i < p.inv.length; i++) {
         const it = p.inv[i];

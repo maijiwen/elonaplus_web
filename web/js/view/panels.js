@@ -2440,7 +2440,7 @@
      * 这里改成固定档位列表（1/2/3/6/12 小时），选定后进入 rowact 7。
      * 收竿条件：时间到、鱼饵用完、背包满（见 core/fishing.js）。
      */
-    openFishHours(g, rodIdx) {
+    openFishHours(g, rodIdx, spPaid) {
       const F = Elona.Fishing;
       if (!F) { Elona.UI.pushMessage('钓鱼模块未加载。'); return; }
       const hours = [1, 2, 3, 6, 12];
@@ -2457,7 +2457,7 @@
       this.open('fish', '釣り — 要钓几个小时？', head + body, {
         hint: '↑↓ 选择　Enter 开始　Esc 取消',
         onPick: (row) => {
-          const r = F.start(g, rodIdx, row.hours);
+          const r = F.start(g, rodIdx, row.hours, { spPaid: !!spPaid });
           if (r && r.ok) Elona.UI.pushMessage(r.immediate ? '用机械假饵立刻有鱼上钩。' : `你开始钓鱼（${row.hours} 小时）。`);
           this.close();
         },
