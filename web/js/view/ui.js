@@ -109,8 +109,33 @@
     /** 使用选择（t/r/q → var_486=14/7/8） */
     openUse(game, modeHint) {
       this.useMode = modeHint || 0;
+      // 0-GU：把 useMode 反查成 var_486，供窗口标题 / 命令条使用
+      const cmd = { 14: 5, 13: 7, 15: 8 }[this.useMode | 0] || 14;
+      if (Elona.ItemCmd) Elona.ItemCmd.setCurrent(game, cmd);
       this.openInventory(game, 'use');
     },
+
+    /**
+     * 0-GU / 299322-299344：Tab 切换物品命令。
+     *   原版在整组（var_553(0,var_399)）内环绕；本项目只在窗口内直接支持的
+     *   4 条（吃 / 读 / 喝 / 使用）之间切换，其余命令仍由各自按键进入（A509）。
+     */
+    cycleItemCmd(game, delta) {
+      const IC = Elona.ItemCmd;
+      if (!IC) return null;
+      if (!IC.current(game)) {
+        const cmd = { 14: 5, 13: 7, 15: 8 }[this.useMode | 0] || 14;
+        IC.setCurrent(game, cmd);
+      }
+      const r = IC.cycle(game, delta, IC.IN_WINDOW);
+      if (r.ok) {
+        const f = IC.useFilter(r.id);
+        if (f >= 0) this.useMode = f;
+        this.invalidateInventory();
+      }
+      return r;
+    },
+
     openThrow(game) { this.openInventory(game, 'throw'); },
     openOffer(game) { this.openInventory(game, 'offer'); },
     openIdentify(game, power) {

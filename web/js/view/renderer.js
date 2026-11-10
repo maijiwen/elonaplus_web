@@ -882,6 +882,48 @@
       if (UI.invInfo) this.drawItemKnowledge(game);
     }
 
+    /**
+     * 0-GU / 297059-297084：物品窗顶部的命令条。
+     *   原版每个命令 = 48×48 的分类图标 + 名称 + `var_559(id)` 的按键副标签，
+     *   当前命令再加一层 `gmode 5,,,70` 的高亮；右下角提示 `Tab [メニュー切替]`。
+     *   本项目没有那张 icon 表贴图，用色块 + 名称 + 按键文本代替（见 A509）。
+     */
+    drawItemCmdBar(game, ctx, K) {
+      const IC = Elona.ItemCmd;
+      if (!IC) return;
+      const cmds = IC.list(game);
+      if (!cmds.length) return;
+      const cur = IC.current(game);
+      const w = 58, h = 22, y = INV_Y - 30;
+      ctx.save();
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'middle';
+      for (let i = 0; i < cmds.length; i++) {
+        const id = cmds[i];
+        const x = INV_X + 34 + i * w;
+        const on = id === cur;
+        ctx.fillStyle = on ? 'rgba(240,225,180,0.92)' : 'rgba(40,36,30,0.55)';
+        ctx.fillRect(x, y, w - 4, h);
+        ctx.strokeStyle = on ? '#fff3cf' : '#6b5d49';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(x + 0.5, y + 0.5, w - 5, h - 1);
+        const nm = IC.name(id, 'ch') || IC.name(id, 'jp');
+        const key = IC.keyHint(id);
+        ctx.font = K.FONT(11);
+        K.btext(ctx, nm.slice(0, 3), x + (w - 4) / 2, y + h / 2 - 1,
+          on ? '#2a2010' : '#d9d2c4', K.FONT(11));
+        if (key) {
+          ctx.font = K.FONT(9);
+          K.btext(ctx, key, x + (w - 4) / 2, y + h - 4,
+            on ? '#6a5a30' : '#8d8474', K.FONT(9));
+        }
+      }
+      ctx.font = K.FONT(10);
+      ctx.fillStyle = '#cfc3b2';
+      ctx.fillText('Tab[切换命令]', INV_X + 34 + cmds.length * w + 8, y + h / 2);
+      ctx.restore();
+    }
+
     drawInventory(game) {
       const UI = Elona.UI, K = Elona.UiKit;
       if (!UI || !K || !this.ui) return;
@@ -889,7 +931,12 @@
       if (UI.invMode === 'equip') { this.drawEquipWindow(game); return; }
       const ctx = this.ctx;
       const rows = UI.inventoryRows ? UI.inventoryRows(game) : [];
-      const title = INV_TITLE[UI.invMode] || 'Items';
+      // 0-GU / 296794：使用模式的标题取 var_365(var_486) + 「アイテムの選択」
+      const IC = Elona.ItemCmd;
+      const useCmd = (IC && UI.invMode === 'use') ? IC.current(game) : 0;
+      const title = (IC && UI.invMode === 'use')
+        ? IC.pickTitle(useCmd || 14)
+        : (INV_TITLE[UI.invMode] || 'Items');
       const pages = Math.max(1, Math.ceil(rows.length / INV_ROWS));
       let sel = UI.invSel | 0;
       if (sel >= rows.length) sel = Math.max(0, rows.length - 1);
@@ -914,7 +961,12 @@
         INV_Y + 2, '#fff', K.FONT(13));
 
       // 分类图标（gcopy 3, 288 + var_558(var_486)*48, 48, 48,48）
-      this.gspr(288 + 48, 48, 48, 48, INV_X + 46, INV_Y - 14, 48, 48);
+      {
+        const ic = (IC && UI.invMode === 'use') ? IC.icon(useCmd || 14) : -1;
+        this.gspr(288 + (ic >= 0 ? ic : 1) * 48, 48, 48, 48, INV_X + 46, INV_Y - 14, 48, 48);
+      }
+      // 0-GU / 297059-297084：命令条（当前组 + 高亮当前命令）
+      if (IC && UI.invMode === 'use') this.drawItemCmdBar(game, ctx, K);
 
       // deco_inv.bmp：窗口四角的皮革装饰
       if (this.decoInv) {

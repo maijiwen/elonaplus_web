@@ -33,6 +33,7 @@
   "item_materials.json",
   "item_tags.json",
   "itemcand.json",
+  "itemcmd.json",
   "itemfx.json",
   "itemnamesuffix.json",
   "itemnamex.json",
@@ -76,5 +77,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 68
+ "count": 69
 }

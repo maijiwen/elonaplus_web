@@ -731,6 +731,12 @@
         // 295829 / 299389：z = 情報切替（var_2251）
         e.preventDefault();
         UI.toggleInvInfoCols();
+      } else if (e.key === 'Tab' && mode === 'use') {
+        // 0-GU / 299322-299344：Tab = 命令切换（原版 Tab 换组，这里在组内环绕）
+        e.preventDefault();
+        const r = UI.cycleItemCmd(game, e.shiftKey ? -1 : 1);
+        if (r && r.ok) UI.pushMessage(`切换到「${Elona.ItemCmd.name(r.id, 'ch')
+          || Elona.ItemCmd.name(r.id, 'jp')}」。`);
       } else if (e.key === '*' && mode === 'bag') {
         // 2971xx：* = 保持指定（ibit 13）
         e.preventDefault();

@@ -4565,6 +4565,9 @@
       if (this.state !== STATE.PLAY) return;
       // 0-GM / 605015-605199：pc_turn_init 的每回合状态（808 清零、随从坐标同步等）
       this.turnStartInit();
+      // 0-GU / 605349-605415：主循环尾部的常驻检查
+      //   濒死习得「命乞い」（605402-605415）与真实时间的「已玩 N 小时」播报（605383-605396）
+      if (Elona.MainLoop) Elona.MainLoop.tick(this);
       // 0-GO / 603956-604166：*label_4354 的回合开始（速度修正复位、回合计数、
       //   每 10 回合的技能/SP 成长）与 *label_4355 的 var_65(63) 归航倒计时。
       //   归航成功时原版 goto *label_2459 中断本回合，这里 loadMap 后直接 return，
