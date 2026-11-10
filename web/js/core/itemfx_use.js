@@ -667,7 +667,9 @@
         const e1 = ammo.f[40 + n * 2 + 1] | 0;
         const low = e1 % 1000;               // var_399(0)
         const cur = idiv(e1, 1000);          // var_399(1)
-        if ((e0 % 10000) === 4) continue;
+        // 354875：源码判断的是 `var_99(40+…)\10000 == 4`，而此时 hi 已确定为 9，
+        //   因此该 continue 在原版里是**死分支**，这里照抄同一条件。
+        if (hi === 4) continue;
         gain += (cur - low) * (50 + v * v * 10);
         // A412：原件写回的是 var_399(1)*1000 + var_399(1)，原样照抄
         ammo.f[40 + n * 2 + 1] = cur * 1000 + cur;

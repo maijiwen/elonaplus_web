@@ -583,24 +583,32 @@
       }
       // ---------------- 101 特別なきもちいいこと（418146） ----------------
       case 101: {
-        // 源码进入 var_1294=3 的子菜单（優しく/激しく/小休憩）；本项目只做机制（扣 SP），
-        // 描写从略 —— 与源码自带的「（未実装）」同类处理（差异 A335）。
+        // 418147-418158：var_1294=3（子菜单）、var_2698=30（气氛计量）、var_2694=18（表情）、
+        //   两人 var_58(79)（经验残留）清零。描写部分从略（差异 A335 保留）。
+        g.evoGauge = 30;
+        p.set(79, 0);
+        c.set(79, 0);
         pose(c, POSE.blush);
         return { ok: true, message: '', sub: 'intimate' };
       }
       case 102:
       case 103: {
-        const cost = (act | 0) === 102 ? rnd(5) + 3 : rnd(10) + 5;
-        // dmgsp：扣体力（SP）
+        // 418082-418107 / 418109-418134：dmgsp（双方体力）、var_2698 递减、var_1117=45、var_1116=0/1
+        const hard = (act | 0) === 103;
+        const cost = hard ? rnd(10) + 5 : rnd(5) + 3;
         p.set(55, Math.max(0, (p.get(55) | 0) - cost));
         c.set(55, Math.max(0, (c.get(55) | 0) - cost));
+        g.evoGauge = Math.max(0, (g.evoGauge | 0) - (hard ? (rnd(2) + 3) : 2));
         pose(c, POSE.blush);
         const msg = `（两人亲昵了一会儿，消耗了 ${cost} 点体力。）`;
         if (g.log) g.log(msg);
         return { ok: true, message: msg, refresh: true, sub: 'intimate' };
       }
-      case 104:
-        return { ok: true, message: '（稍作休息。）', refresh: true, sub: 'intimate' };
+      case 104: {
+        // 418136-418144：只推进气氛计量（var_2698++，上限 30）与表情 16
+        g.evoGauge = Math.min(30, (g.evoGauge | 0) + 1);
+        return { ok: true, message: `（稍作休息。气氛 ${g.evoGauge}/30）`, refresh: true, sub: 'intimate' };
+      }
       // ---------------- 111 タッグ間でevochat（417965） ----------------
       case 111: {
         const tag = c.get(TAG_PARTNER) | 0;

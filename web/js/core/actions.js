@@ -820,9 +820,24 @@
       const left = (p.get(F_ROWLEFT) | 0);
 
       if (left <= 0) {
-        if (type === 4) g.log('你结束了休息。');                 // 312421
-        else if (type === 3) this.finishSleep(g);                // 311809 *label_2935
-        else if (type === 9) this.finishDig(g, p);
+        if (type === 4) {
+          // 312396-312416：困意 `var_65(90)` >= 30 时 50%、>= 50 时必定「そのまま眠りにおちた」
+          const sleepy = g.getV65(90) | 0;
+          const asleep = sleepy >= 50 || (sleepy >= 30 && (g.rng ? g.rng.rnd(2) === 0 : false));
+          if (asleep) {
+            g.log('你就这样睡着了……');                       // 312410
+            p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0);
+            return { finished: true, type, slept: this.finishSleep(g, -1) };
+          }
+          g.log('你结束了休息。');                             // 312421
+        } else if (type === 3) {
+          // 312687-312705：打盹（rowact 3）结束 → var_1479 = 1、游玩时间 +1/+4、rowactend。
+          //   注意原版打盹**不走** *label_2935 的起床结算（那是床铺 / 休息转睡才走）。
+          g.setV65(26, (g.getV65(26) | 0) + (((g.getV65(20) | 0) === 47) ? 1 : 4));
+          g.log('你打了个盹，醒了过来。');
+          p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0);
+          return { finished: true, type, nap: true };
+        } else if (type === 9) this.finishDig(g, p);
         if (type !== 3) { p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0); }
         return { finished: true, type };
       }
@@ -852,11 +867,43 @@
           }
         }
       } else if (type === 3) {
-        // 睡眠（312425-312455 进入，311845-311884 起床结算）。
-        // 每回合恢复 HP/MP/SP：与休息同构，但原版睡眠不会被附近的敌人打断。
-        if (Elona.Status) {
-          Elona.Status.healhp(p, 1);
-          if (left % 2 === 0) Elona.Status.healmp(p, 1);
+        // 打盹中（*label_2937 的续行段 312467-312686）：
+        //   · 312477-312510：饱腹 <= 1600 且 rnd(10)==0 → 吃掉背包里的食物（category 91000）
+        //   · 312530-312586：积雪（天气 2 或 feat 4）→ rnd(100) 拟声 +10 回合、rnd(1000) 迟滞 +50 回合，
+        //     饱腹 <= 1200 时抓雪吃（饱腹 +5000、冻伤 dmgcon 7）
+        //   · 312637-312686：豪雨 → rnd(100) 拟声 +5 回合
+        //   注意原版打盹**不回复** HP/MP（那是休息/床铺的事）。
+        const rnd = (n) => (g.rng ? g.rng.rnd(Math.max(1, n | 0)) : 0);
+        const satiety = p.get(22) | 0;
+        if (satiety <= 1600 && rnd(10) === 0) {
+          const idx = (p.inv || []).findIndex((it) => it && (it.f[0] | 0) > 0
+            && Elona.ItemDB && Elona.ItemDB.ref(it.f[3] | 0, 5) === 91000);   // 312484
+          if (idx >= 0) {
+            const it = p.inv[idx];
+            const nm = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : '食物';
+            it.f[0] = (it.f[0] | 0) - 1;
+            if ((it.f[0] | 0) <= 0) p.inv[idx] = null;
+            g.log(`你在睡梦中吃掉了${nm}。`);                        // 312495
+            if ((p.get(446) | 0) < 12000) {                          // 312498-312507
+              p.set(446, (p.get(446) | 0) + 2000);
+              g.log('顺便把附带的饮料也喝了。');
+            }
+          }
+        }
+        const w = g.getV65(17) | 0;
+        const feat = this.cellFeat(g, p.x, p.y);
+        if ((w === 2 || feat === 4) && (g.getV65(83) | 0) === 0) {
+          if (rnd(100) === 0) { g.log(' *ずぶっ* '); p.set(F_ROWLEFT, left + 10); return { type, left: left + 10 }; }   // 312551
+          if (rnd(1000) === 0) { g.log('积雪拖慢了你的脚步。'); p.set(F_ROWLEFT, left + 50); return { type, left: left + 50 }; }  // 312570
+          if ((p.get(22) | 0) <= 1200) {                            // 312573-312584
+            g.log('太饿了，你抓起积雪往嘴里塞。');
+            p.set(22, (p.get(22) | 0) + 5000);
+          }
+        }
+        if (w === 4 && (g.getV65(83) | 0) === 0 && rnd(100) === 0) {   // 312637-312656
+          g.log(' *ザブッ* ');
+          p.set(F_ROWLEFT, left + 5);
+          return { type, left: left + 5 };
         }
       } else if (type === 9) {
         // 每 5 回合一次拟声（313028-313036）
@@ -873,9 +920,13 @@
     },
 
     /**
-     * 躺下睡觉 —— *label_2937（312425-312455）。
-     *   基础 20 回合；按天气修正（var_65(17)：1 晴 ×0.5 / 2 雨 ×2.2 / 3 雪 ×1.3 / 4 豪雨 ×1.6）。
-     *   在海上（地图 47）且有船/载具时再 ×2（312441-312450）。
+     * 躺下打盹 —— *label_2937（312425-312464）。
+     *   141 = 20；天气 `var_65(17)`：3 雪 ×13/10、4 豪雨 ×16/10、2 雨 或 脚下积雪（feat 4）×22/10、1 以太 ×5/10；
+     *   地图 47（海上）再 ×2，`var_65(694)` 决定 `var_2406`（500 / 0），其余地图看 `var_65(667)`；
+     *   最后 ×100/(100 + var_65(28) + 疲労 var_82(182) + var_2406)，
+     *   并在 `var_65(667) == 2` 且脚下是 33..56（除 44）的野地时再 ×3/5（312460-312463）。
+     * @param {object} g
+     * @param {object} [bedItem] 仅用于提示文案
      */
     startSleep(g, bedItem) {
       const p = g.player;
@@ -883,35 +934,65 @@
       if ((p.get(F_ROWACT) | 0) !== 0) {
         return { ok: false, reason: 'busy', message: '你正在做别的事情。' };
       }
-      if (Elona.Status && Elona.Status.isHostileVisible) {
-        const near = this.visibleCharas(g, 2).find((t) => this.isHostile(t.chara));
-        if (near) {
-          g.log(`附近有 ${near.chara.name}，睡不着。`);
-          return { ok: false, reason: 'enemy', message: '附近有敌人，睡不着。' };
-        }
-      }
+      const rnd = (n) => (g.rng ? g.rng.rnd(Math.max(1, n | 0)) : 0);
       let t = 20;                                  // 312428
       const w = g.getV65(17) | 0;                  // var_65(17) 天候
-      if (w === 3) t = idiv(t * 13, 10);           // 312429-312431
-      if (w === 4) t = idiv(t * 16, 10);           // 312432-312434
-      if (w === 2) t = idiv(t * 22, 10);           // 312435-312437（雨天/地表水体）
-      if (w === 1) t = idiv(t * 5, 10);            // 312438-312440
-      if ((g.getV65(20) | 0) === 47) t *= 2;       // 312441-312450 海上
+      const feat = this.cellFeat(g, p.x, p.y);
+      if (w === 3) t = idiv(t * 13, 10);           // 312429-312431 雪
+      if (w === 4) t = idiv(t * 16, 10);           // 312432-312434 豪雨
+      if (w === 2 || feat === 4) t = idiv(t * 22, 10);   // 312435-312437 雨 / 积雪地块
+      if (w === 1) t = idiv(t * 5, 10);            // 312438-312440 以太风
+      let bonus = 0;                               // var_2406
+      if ((g.getV65(20) | 0) === 47) {             // 312441-312450 海上
+        bonus = (g.getV65(694) | 0) > 0 ? 500 : 0;
+        t *= 2;
+      } else {
+        bonus = (g.getV65(667) | 0) > 0 ? 500 : 0; // 312451-312458
+      }
+      // 312459：按 疲劳 / var_65(28) / var_2406 缩短
+      t = idiv(t * 100, 100 + (g.getV65(28) | 0) + (p.get(182) | 0) + bonus);
+      // 312460-312463：野地（33..56，除 44）再 ×3/5
+      if ((g.getV65(667) | 0) === 2 && feat >= 33 && feat < 57 && feat !== 44) t = idiv(t * 3, 5);
+      const turns = Math.max(1, t);
       p.set(F_ROWACT, 3);
-      p.set(F_ROWLEFT, Math.max(5, t));
+      p.set(F_ROWLEFT, turns);
       p.set(F_ROWARG, 0);
-      g.log(`你躺在${bedItem ? Elona.ItemDB.name(bedItem.id, 'en') : '地上'}睡着了。`);
-      return { ok: true, turns: Math.max(5, t) };
+      g.log(`你躺在${bedItem ? Elona.ItemDB.name(bedItem, 'en') : '地上'}打了个盹。`);
+      return { ok: true, turns, rnd };
+    },
+
+    /** 脚下地块的 feat 号（原版 `var_704(x, y, 0)`） */
+    cellFeat(g, x, y) {
+      const M = Elona.MapFeat;
+      if (!M || !g.map || !g.map.inBounds(x, y)) return 0;
+      try {
+        const f = M.read(g, x, y);
+        return (f && (f.id | 0)) || 0;
+      } catch (e) { return 0; }
     },
 
     /**
-     * 起床结算 —— *label_2935 的 311845-311895 段。
-     *   全体：清状态（var_58(250..259)）、HP/MP/SP 回满、幸福度归零、healcon 12、healsan 10；
-     *   玩家：行動力 var_58(433,0) = 10；
-     *   然后推进 7 + rnd(4) 小时（持有寝具 1094 时为 8 小时）。
+     * 起床结算 —— *label_2935（311809-312226）。
+     *   1) 311810-311818：地图 13 / (81 且 var_65(22)==5) 时「想起了重要的事」，睡不成；
+     *   2) 311845-311883：全体清状态（250..259 / 445）、HP/MP/SP 回满、healcon 12、healsan 10、拒食症计数递减；
+     *   3) 311886-311893：睡 7 + rnd(4) 小时，持有寝具 1094 时为 8；
+     *   4) 311947-311949：醒来减少饱腹 1500/(耐饥 feat+1)、水分 750；
+     *   5) 311991-312218：有床且床的 `f[25]`（品質 0..200）>0 → 睡眠点数换算潜在能力成长，否则「まあまあの目覚めだ」。
+     * @param {object} g
+     * @param {number} [bedIdx] 床物品下标；缺省 / -1 = 没有床（原版 `var_58(142,0) == -1`）
      */
-    finishSleep(g) {
+    finishSleep(g, bedIdx) {
       const p = g.player;
+      const rnd = (n) => (g.rng ? g.rng.rnd(Math.max(1, n | 0)) : 0);
+      const S = Elona.Stats;
+      // 311810-311818
+      const mapId = g.getV65(20) | 0;
+      if (mapId === 13 || (mapId === 81 && (g.getV65(22) | 0) === 5)) {
+        g.log('但是，你想起了重要的事情，跳了起来。');
+        g.setV65(98, 0);
+        if (p) { p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0); }
+        return { ok: false, reason: 'urgent' };
+      }
       for (const c of (g.charas || [])) {
         if (!c || (c.get(0) | 0) === 0) continue;
         for (let i = 250; i <= 259; i++) c.set(i, 0);
@@ -921,12 +1002,12 @@
         c.set(55, c.get(56) | 0);
         c.set(52, c.get(53) | 0);
         if (Elona.Status) {
-          if (Elona.Status.healcon) Elona.Status.healcon(c, 12, 7 + g.rng.rnd(7));
+          if (Elona.Status.healcon) Elona.Status.healcon(c, 12, 7 + rnd(7));
           if (Elona.Status.healsan) Elona.Status.healsan(c, 10);
           // 311866-311876：拒食症时呕吐计数 93 减 rnd(5)+1，否则减 rnd(2)+1；
           // 减到 <=0 时 cure_anorexia（清 cbit 986）并把计数归零。
           const sick = Elona.Status.cbit ? !!Elona.Status.cbit(c, 986) : false;
-          const v93 = (c.get(93) | 0) - (sick ? (g.rng.rnd(5) + 1) : (g.rng.rnd(2) + 1));
+          const v93 = (c.get(93) | 0) - (sick ? (rnd(5) + 1) : (rnd(2) + 1));
           c.set(93, v93);
           if (v93 <= 0) {
             if (Elona.Status.cureAnorexia) Elona.Status.cureAnorexia(g, c);
@@ -937,14 +1018,78 @@
       if (Elona.Companion && Elona.Companion.onWake) Elona.Companion.onWake(g);
       else if (p) p.set(433, 10);
       // 时间推进（311886-311896）—— var_2395 = 7 + rnd(4)；持有寝具（1094）时为 8
-      let hours = 7 + g.rng.rnd(4);
+      let hours = 7 + rnd(4);
       const hasBedding = !!(g.player && (g.player.inv || []).some((it) => it && (it.f[0] | 0) > 0 && (it.id | 0) === 1094));
       if (hasBedding) hours = 8;
       if (g.advanceHours) g.advanceHours(hours);
       else for (let i = 0; i < hours; i++) if (g.advanceClock) g.advanceClock();
       if (p) { p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0); }
-      g.log(`你睡了一觉（${hours} 小时），精神恢复了。`);
-      return { ok: true, hours };
+      // 311947-311949：醒来后的饱腹 / 水分消耗
+      if (p) {
+        p.set(22, (p.get(22) | 0) - idiv(1500, (p.get(158) | 0) + 1));
+        p.set(446, (p.get(446) | 0) - idiv(1500, 2));
+      }
+      g.log(`睡了 ${hours} 小时。你感到神清气爽。`);
+      // 311991-312026：床的品質 → 睡眠点数（var_65(92)）
+      const bed = (p && bedIdx !== undefined && bedIdx !== null && bedIdx >= 0) ? p.inv[bedIdx] : null;
+      const quality = bed ? (bed.f[25] | 0) : 0;
+      if (!quality) {
+        // 312011-312021：没有床（或床已失效）→「まあまあの目覚めだ」，累计次数上限 9
+        g.log('醒来时感觉一般。');
+        g.setV65(635, Math.min(9, (g.getV65(635) | 0) + 1));
+        return { ok: true, hours, quality: 0 };
+      }
+      // 312022-312226：潜在能力成长
+      let points = idiv(g.getV65(92) | 0, 100) * quality;   // 312025-312026
+      const total = points;
+      let mainGain = 0, skillGain = 0;
+      const list = (g.charas && g.charas.length) ? g.charas : (p ? [p] : []);
+      for (let i = 0; i < Math.min(16, list.length); i++) {
+        const c = list[i];
+        if (!c || !c.get || (c.get(0) | 0) !== 1 || !S) continue;
+        // 312035-312039：8 项主能力（10..17）的潜力合计 /6，钳制 10..1000；三次方 /10 = 每次成长所需点数
+        let sum = 0;
+        for (let s = 10; s <= 17; s++) sum += limit(S.sorg(c, s), 1, 300);
+        const base = limit(idiv(sum, 6), 10, 1000);
+        const need = Math.max(1, idiv(base * base * base, 10));
+        let times = 0;
+        while (points >= need && times < 50) {
+          points -= need;
+          S.modGrowth(c, 10 + rnd(8), c, 3, g);            // 312061
+          times++;
+          if (i === 0) mainGain += 3;
+        }
+        // 312175-312194：成长次数（1..10）次，每次把全部已知技能（100..301）潜力 +2
+        const n = limit(times, 1, 10);
+        for (let k = 0; k < n; k++) {
+          for (let s = 100; s <= 301; s++) {
+            if (S.sorg(c, s) === 0) continue;
+            S.modGrowth(c, s, c, 2, g);
+            if (i === 0) skillGain += 2;
+          }
+        }
+      }
+      g.setV65(92, 0);
+      g.setV65(635, 0);                                    // 312218
+      g.log(`睡得很舒服。潜在能力提升了（主能力 ${mainGain}%／技能 ${skillGain}%）。`);
+      return { ok: true, hours, quality, points: total, mainGain, skillGain };
+    },
+
+    /**
+     * 在床上睡（使用床 / 寝具）—— 311707-311713：`あなたは眠り込んだ。` → gosub *label_2935。
+     * 原版的「寝る仕度」(rowact 10) 在这一步之前，本项目直接进入结算。
+     * @param {object} g
+     * @param {number} idx 床物品下标
+     */
+    sleepInBed(g, idx) {
+      const p = g.player;
+      if (!p) return { ok: false };
+      if ((p.get(F_ROWACT) | 0) !== 0) {
+        g.log('你正在做别的事情。');
+        return { ok: false, reason: 'busy' };
+      }
+      g.log('你钻进了被窝，沉沉地睡去。');
+      return this.finishSleep(g, idx);
     },
 
     /**

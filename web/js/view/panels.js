@@ -3542,7 +3542,7 @@
         ];
         title = `二人の時間 — ${ally.name}`;
         hint = 'a~d 选择　Esc 关闭';
-        note = '（本项目的这一节只保留源码的体力消耗与时间经过，描写从略。）';
+        note = '体力消耗 / 气氛计量（0-30）/ 经验清零均按源码；描写从略。';
       } else if (mode === 'unlock') {
         const rates = C.unlockRates(g, ally);
         const cb = (n) => (Elona.Status && Elona.Status.cbit) ? Elona.Status.cbit(ally, n) : 0;

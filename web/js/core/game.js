@@ -2944,9 +2944,9 @@
         }
         return { ok: true, action: 'gene-machine', item: it, idx };
       }
-      // 0-DG：床 / 寝具 → 睡觉（*label_2937，312425-312455）
+      // 0-DG：床 / 寝具 → 睡觉（311707-311713：`あなたは眠り込んだ。` → *label_2935 起床结算）
       if (Elona.Companion && Elona.Companion.isBed(it.id)) {
-        const sr = Elona.Actions.startSleep(this, it);
+        const sr = Elona.Actions.sleepInBed(this, idx);
         if (sr.ok) this.endTurn();
         return sr;
       }

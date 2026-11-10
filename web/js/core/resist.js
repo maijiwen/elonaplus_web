@@ -77,11 +77,23 @@
     if ((cur >= 300 && delta >= 25) || cur < 100) {
       return { changed: false, value: cur, message: msgNone() };
     }
+    // resistmodh（195294-195470）与 resistmod（195109）的差异：
+    //   195295 `var_1081 = sorg(...)` —— **原版没有把 prm_942 加上去**（resistmod 是 `sorg + prm_939`）；
+    //   随后 195307-195309 是 `if (var_1081 >= 100) var_1081 = 300;`，195470 直接写回 `var_1081`。
+    //   因此照抄源码时：走完 195296 的放行条件后，成功分支一律把耐性写成 300，衰退（负 delta）也不生效。
+    if (isH) {
+      let v = cur;
+      if (v < 50) v = 50;                       // 195304-195306
+      if (v >= 100) v = 300;                    // 195307-195309
+      setSorg(c, skillId, limit(v, 0, 2000));
+      const dir = delta >= 25 ? 'up' : (delta <= -50 ? 'down' : null);
+      return { changed: true, value: v, message: dir ? msgElem(skillId, dir, c) : null };
+    }
     let v = cur + delta;
     if (v < 50) v = 50;
-    if (v >= (isH ? 100 : 300)) v = 300;
+    if (v >= 300) v = 300;
     setSorg(c, skillId, limit(v, 0, 2000));
-    const upAt = isH ? 25 : 50;
+    const upAt = 50;
     const dir = delta >= upAt ? 'up' : (delta <= -50 ? 'down' : null);
     return { changed: true, value: v, message: dir ? msgElem(skillId, dir, c) : null };
   }
