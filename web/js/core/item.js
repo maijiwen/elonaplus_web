@@ -116,6 +116,11 @@
         const ex = Elona.ItemNameExtra.prefix(it, lang);
         if (ex) body = ex + body;
       }
+      // 0-GT / *label_0407（30951-31190）：强化值 / LV / 充能 / 装弹数 / 变体名 / 骰子等后缀
+      if (Elona.ItemNameExtra && Elona.ItemNameExtra.suffix) {
+        const sfx = Elona.ItemNameExtra.suffix(it, lang);
+        if (sfx) body += sfx;
+      }
       // 31217-31221：92000 货物带仕入值 → 后缀「(仕入れ値 Xg)」
       let cat = it.field657 | 0;
       if (!cat) {
@@ -165,12 +170,6 @@
       if ((it.id | 0) === 869) {
         const e = HEART_NAMES[it.f[25] | 0] || HEART_NAMES[0];
         return lang === 'en' ? e[1] : e[0];
-      }
-      // 瓶塞发射器（1200-1203）：30988 的 `(装填数N)` 后缀
-      if ([1203, 1202, 1201, 1200].indexOf(it.id | 0) >= 0) {
-        const base = this.name(it.id, lang);
-        const n = it.f[26] | 0;
-        return n ? `${base}(装填数${n})` : base;
       }
       if ((it.id | 0) === 618 || (it.id | 0) === 619) {
         const idx = it.f[23] | 0;

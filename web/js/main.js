@@ -130,6 +130,17 @@
       });
       return true;
     }
+    // 0-GT / 340470-340545 个别指导（能力 840）：选目标 → *label_2972
+    if (r.request === 'teach' && Elona.Panels && Elona.Teach) {
+      const list = (Elona.Companion ? Elona.Companion.allies(game)
+        : (game.charas || [])).filter((c) => c && c.index !== 0 && (c.get(0) | 0) === 1);
+      Elona.Panels.openAllySelect(game, '要指导谁？', list, (c) => {
+        const rr = Elona.Teach.teach(game, game.player, c);
+        for (const m of (rr.messages || [])) UI.pushMessage(m);
+        if (rr.ok) game.endTurn();
+      });
+      return true;
+    }
     return false;
   }
   Elona.consumeSpellRequest = consumeSpellRequest;
