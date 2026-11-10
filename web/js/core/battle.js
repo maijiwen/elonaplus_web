@@ -597,49 +597,10 @@
         Elona.Spell.dmgconOf(g, att, 7, pow);
       }
     }
-    // 击杀经验（200426-200455）：死者等级³/10+10，玩家/队友累计 var_65(92)。
-    // 注意只调 onKill —— check_talk（196675-196828）是 dmgsptalk（体力吸取致死）
-    // 专用的另一条路径，两者不该叠加（物理击杀没有观察学习/147 记录）
-    let kill = null;
-    if (def.hp <= 0 && Elona.KillReward) {
-      kill = Elona.KillReward.onKill(g, att, def);
-    }
-    // 0-FA：地城主击破 → var_132(20)=-1 + 通关奖励（609775-609790）
-    if (def.hp <= 0 && Elona.RandDungeon && Elona.RandDungeon.onBossKilled) {
-      Elona.RandDungeon.onBossKilled(g, def);
-    }
-    // 0-DG：盗窃技能（300）的击杀掠夺 —— 200349-200360：
-    //   var_1167 = limit(技能*5+100, 50, 2000)，不超过死者持有的金钱；
-    //   攻击者 gold += var_1167、死者 gold -= var_1167、盗窃技能经验 +80。
-    //   受保护对象（cbit 23/27/964/960）不触发。
-    if (def.hp <= 0 && att && att.index !== undefined && (att.index | 0) > 0
-      && typeof att.skill === 'function' && (att.skill(300) | 0) !== 0
-      && Elona.Status && !(Elona.Status.cbit(def, 23) || Elona.Status.cbit(def, 27)
-        || Elona.Status.cbit(def, 964) || Elona.Status.cbit(def, 960))) {
-      // 200351-200353 读的是 var_82(300) = 技能等级（不是潜力 sorg）
-      const sk = att.skill(300) | 0;
-      let gain = Math.max(50, Math.min(2000, sk * 5 + 100));
-      const victimGold = def.get(30) | 0;
-      if (gain > victimGold) gain = victimGold;
-      if (gain > 0) {
-        att.set(30, (att.get(30) | 0) + gain);
-        def.set(30, victimGold - gain);
-        if (Elona.Stats.skillExp) Elona.Stats.skillExp(att, 300, att.index | 0, 80, 1, 0, g);
-        if (g && g.log) {
-          g.log(`${att.index === 0 ? '你' : att.name}从尸体上摸走了 ${gain} gold。`);
-        }
-      }
-    }
-    // 0-CW：使役死灵战死 → 变回暗之棺（冷却 24 小时，落在死亡地点）
-    if (def.hp <= 0 && Elona.Necro && Elona.Necro.onNecroDeath) {
-      const nd = Elona.Necro.onNecroDeath(g, def);
-      if (nd && nd.message && g.log) g.log(nd.message);
-    }
-    // 0-CC：竞技场对手被击杀 → 全灭结算
-    if (def.hp <= 0 && Elona.Arena && Elona.Arena.onKill) {
-      const ar = Elona.Arena.onKill(g, def);
-      if (ar && ar.message && g.log) g.log(ar.message);
-    }
+    // 0-GH：击杀结算统一入口 —— 近战 / 远程 / 法术 / 能力 / 地面效果共用一套
+    //   （经验、招募事件、盗窃掠夺、死灵暗棺、竞技场、掉落、委托进度）
+    const death = (def.hp <= 0) ? onDeath(g, def, att) : null;
+    const kill = death ? death.exp : null;
     return {
       hit: true,
       dmg: applied,
@@ -685,12 +646,129 @@
    * @param {number} [attrArg] 属性参数（prm_989）
    * @returns {number} 实际扣除的 HP
    */
-  function applyDamage(def, dmg, g, att, attr, attrArg) {
+  /**
+   * 0-GH：死亡结算总入口（幂等）。
+   *
+   * 源码里没有单一函数：死亡效果分散在 `*label_2287`（201319 的掉落唯一调用点）、
+   * dmghp 的 200426-200455（经验）与各事件分支。本项目原先按「谁打死的」分了三份，
+   * 结果近战走 attackOne（有经验、无掉落）、远程走 fireAtTarget（有掉落、无经验）、
+   * 状态/地面效果走 ai.runAll（只有掉落）。统一到这里后三条路径一致。
+   *
+   * 顺序（与原版的副作用顺序保持一致）：
+   *   1. 同伴阵亡 → `Companion.onDeath`（var_58(0)=6，等复活；不掉落、不消失）
+   *   2. 主击杀经验 → `KillReward.onKill`（200426-200455）
+   *   3. 可招募物种 → `KillReward.queueRecruit`（200086-200160）
+   *   4. 盗窃掠夺（200349-200360）
+   *   5. 死灵从者 → 暗之棺（0-CW）
+   *   6. 竞技场结算（0-CC）
+   *   7. 死亡掉落 → `Loot.onDeath`（*label_2287；内部含地城主击破）
+   *   8. `var_58(0) = 0`（194144 的 chara_vanquish 前半）
+   *   9. 坐骑阵亡 → `Riding.end`
+   *  10. 附近同伴斗志 +5（199945-199952）与委托进度（`Quest.onKill`）
+   *
+   * @param {object} g
+   * @param {object} dead 死者
+   * @param {object} [att] 击杀者（环境伤害可为 null）
+   * @returns {object|null} 各子系统的结果；已结算过则返回上次的结果
+   */
+  function onDeath(g, dead, att) {
+    if (!dead || typeof dead.get !== 'function') return null;
+    if ((dead.get(0) | 0) !== 1) return null;
+    if ((dead.hp | 0) > 0) return null;
+    if (dead.__death) return dead.__death;
+    const out = {
+      exp: null, loot: null, recruit: null, arena: null, necro: null,
+      companion: null, morale: null, quest: null, vanquished: false, gold: 0,
+    };
+    // 0-GQ / 200036-200348：死因文案（var_1165 / txt_select）与尸体清理
+    //   （cell_removechara + 血痕 / 碎片）。放在玩家分支之前，玩家与 NPC 都会记录；
+    //   负值来源（毒 -4 / 饿死 -3 等）可由调用方通过 DeathMsg.log 的 source 参数补。
+    if (Elona.DeathMsg) {
+      try {
+        const src = Elona.DeathMsg.sourceOf(att, null);
+        Elona.DeathMsg.log(g, dead, src, { attacker: att ? att.name : undefined });
+        Elona.DeathMsg.cleanup(g, dead, src);
+      } catch (e) { /* 死因文案失败不影响结算 */ }
+    }
+    // 玩家死亡走 game 的主循环（0-CQ / 0-FI），这里只记账
+    if ((dead.index | 0) === 0) { dead.__death = out; return out; }
+
+    // 1. 同伴
+    if (Elona.Companion && Elona.Companion.onDeath) {
+      try { out.companion = Elona.Companion.onDeath(g, dead); } catch (e) { out.companion = null; }
+    }
+    if (!out.companion) {
+      // 2. 经验 / AP
+      if (att && Elona.KillReward && Elona.KillReward.onKill) {
+        out.exp = Elona.KillReward.onKill(g, att, dead);
+      }
+      // 3. 招募事件
+      if (Elona.KillReward && Elona.KillReward.queueRecruit) {
+        out.recruit = Elona.KillReward.queueRecruit(g, dead);
+      }
+      // 4. 盗窃掠夺（200349-200360）：玩家/队友带盗窃技能时从尸体摸钱
+      if (att && (att.index | 0) > 0 && typeof att.skill === 'function'
+        && (att.skill(300) | 0) !== 0 && Elona.Status
+        && !(Elona.Status.cbit(dead, 23) || Elona.Status.cbit(dead, 27)
+          || Elona.Status.cbit(dead, 964) || Elona.Status.cbit(dead, 960))) {
+        const sk = att.skill(300) | 0;
+        let gain = Math.max(50, Math.min(2000, sk * 5 + 100));
+        const victimGold = dead.get(30) | 0;
+        if (gain > victimGold) gain = victimGold;
+        if (gain > 0) {
+          att.set(30, (att.get(30) | 0) + gain);
+          dead.set(30, victimGold - gain);
+          out.gold = gain;
+          if (Elona.Stats && Elona.Stats.skillExp) Elona.Stats.skillExp(att, 300, att.index | 0, 80, 1, 0, g);
+          if (g && g.log) g.log(`${att.index === 0 ? '你' : att.name}从尸体上摸走了 ${gain} gold。`);
+        }
+      }
+      // 5. 死灵从者 → 暗之棺
+      if (Elona.Necro && Elona.Necro.onNecroDeath) {
+        out.necro = Elona.Necro.onNecroDeath(g, dead);
+        if (out.necro && out.necro.message && g.log) g.log(out.necro.message);
+      }
+      // 6. 竞技场
+      if (Elona.Arena && Elona.Arena.onKill) {
+        out.arena = Elona.Arena.onKill(g, dead);
+        if (out.arena && out.arena.message && g.log) g.log(out.arena.message);
+      }
+      // 7. 掉落（*label_2287；地城主击破也在其中）
+      if (Elona.Loot) {
+        try { out.loot = Elona.Loot.onDeath(g, dead, att); } catch (e) { out.loot = null; }
+      }
+      // 8. 离开世界
+      dead.set((Elona.ATTR && Elona.ATTR.ACTIVE !== undefined) ? Elona.ATTR.ACTIVE : 0, 0);
+      out.vanquished = true;
+    }
+    // 9. 坐骑阵亡
+    if (Elona.Riding && Elona.Riding.mountOf && Elona.Riding.mountOf(g) === (dead.index | 0)) {
+      try { Elona.Riding.end(g); } catch (e) { /* 骑乘未就绪 */ }
+    }
+    // 10. 士气 / 委托
+    if (att && Elona.Morale && Elona.Morale.onKill) {
+      try { out.morale = Elona.Morale.onKill(g, att, dead); } catch (e) { out.morale = null; }
+    }
+    if (Elona.Quest && Elona.Quest.onKill) {
+      try { out.quest = Elona.Quest.onKill(g, dead); } catch (e) { out.quest = null; }
+    }
+    if (g && typeof g.syncCharaCells === 'function') g.syncCharaCells();
+    dead.__death = out;
+    return out;
+  }
+
+  /**
+   * 显式触发死亡结算（供「先扣血、后做事」的能力使用，见 `opts.deferDeath`）。
+   */
+  function checkDeath(g, dead, att) { return onDeath(g, dead, att); }
+
+  function applyDamage(def, dmg, g, att, attr, attrArg, opts) {
     const A = (attr === undefined || attr === null) ? 0 : (attr | 0);
     const attIdx = (att && att.index !== undefined) ? (att.index | 0) : -1;
     let d = dmg | 0;
     if (d < 0) d = 0;
     if (!def || (def.get(0) | 0) !== 1) return 0;        // 197982 目标已死
+    if ((def.hp | 0) > 0) def.__death = null;            // 复活/新回合 → 清结算标记
     // 0-EY / 199698-199712：元素 58（神）或 52（雷）伤害会杀死脑寄生虫（cbit 1045）
     if (g && Elona.FoodLeft && Elona.FoodLeft.cureBrainParasite) {
       Elona.FoodLeft.cureBrainParasite(g, def, A);
@@ -826,6 +904,25 @@
 
     def.hp -= d;
     if (def.hp <= 0) def.hp = 0;
+
+    // 0-GH：死亡结算统一入口 —— 不论伤害来自近战 / 远程 / 法术 / 能力 /
+    //   地面效果（mef）/ 环境，都在 HP 归零处结算一次（幂等）。
+    //   原先经验、掉落、招募、竞技场等分散在 attackOne / game.fireAtTarget /
+    //   ai.runAll 三处，导致「近战不掉落、远程没经验」。
+    if (d > 0 && def.hp <= 0 && !(opts && opts.deferDeath)) onDeath(g, def, att);
+
+    // 0-GP / 199713-199920：*label_2044 的受击副作用（睡眠妨害、hostileaction、
+    //   拍照音、cbit 23/27 分身分裂、怒气、仇恨目标、剧情击晕、濒死以太耐性）。
+    //   放在死亡结算之后，保证既有掉落 / 经验的随机序列不变；
+    //   199945-199952 的附近同伴斗志 +5 仍由 Morale.onKill 承担，不重复累加。
+    if (d > 0 && Elona.OnHit && Elona.OnHit.onDamage) {
+      try {
+        const hr = Elona.OnHit.onDamage(g, def, att, d, A);
+        if (hr && hr.messages && g && typeof g.log === 'function') {
+          for (const m of hr.messages) g.log(m);
+        }
+      } catch (e) { /* 副作用失败不影响伤害结算 */ }
+    }
 
     // ================= 199131-199231：斗志（var_58(182)）结算 =================
     //   目标受伤累积（d*150/最大HP+2，上限 96 / 196）
@@ -1329,6 +1426,7 @@
 
   Elona.Battle = {
     role, rolemax, dist, carmor, calcArmor, calcAttackHit, calcAttackDmg, attack, applyDamage,
+    onDeath, checkDeath,
     attackSeq, attackOne, critCheck,
     loadWeaponSpells, setWeaponSpells,
     findbuff, cbit, idiv, limit,

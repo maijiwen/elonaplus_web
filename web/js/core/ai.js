@@ -667,11 +667,14 @@
       if (Elona.Status) Elona.Status.statusTick(g, c);
       if (g.mef && c.hp > 0) g.mef.tick(g, c);     // 地面魔法效果（604202-604340）
       if (c.hp <= 0) {                                      // 状态/地面效果致死
-        // 0-DG：同伴 → var_58(0)=6（等调酒师复活），其他角色照旧 vanquish
-        if (!(Elona.Companion && Elona.Companion.onDeath(g, c))) {
-          // 0-EE：死亡掉落（*label_2287；状态/地面效果致死的 killer 传 null）
-          if (Elona.Loot) Elona.Loot.onDeath(g, c, null);
-          c.set(0, 0);
+        // 0-GH：与近战 / 远程 / 法术共用同一套死亡结算
+        if (Elona.Battle && Elona.Battle.onDeath) Elona.Battle.onDeath(g, c, null);
+        else {
+          // 兜底（Battle 未加载时）
+          if (!(Elona.Companion && Elona.Companion.onDeath(g, c))) {
+            if (Elona.Loot) Elona.Loot.onDeath(g, c, null);
+            c.set(0, 0);
+          }
         }
         deaths++; continue;
       }

@@ -14,6 +14,7 @@
   "craft_upgrade.json",
   "creature.json",
   "creature_bits.json",
+  "deathtexts.json",
   "dishimage.json",
   "dishnames.json",
   "dmgcon.json",
@@ -21,15 +22,19 @@
   "enchant.json",
   "enchant_fx.json",
   "equipgen.json",
+  "events.json",
   "evolution.json",
   "farm.json",
   "feats.json",
   "feats_mutation.json",
   "fish.json",
+  "giftpacks.json",
   "item_icons.json",
+  "item_materials.json",
   "item_tags.json",
   "itemcand.json",
   "itemfx.json",
+  "itemnamex.json",
   "items.json",
   "itemuse.json",
   "journal.json",
@@ -38,6 +43,7 @@
   "monster_tags.json",
   "names.json",
   "npc_menu.json",
+  "onhit.json",
   "palette.json",
   "production.json",
   "profile.json",
@@ -50,6 +56,8 @@
   "skills.json",
   "status.json",
   "talkscripts.json",
+  "talktxt.json",
+  "throwhit.json",
   "tile_attributes.json",
   "town_npcs.json",
   "traits.json",
@@ -67,5 +75,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 59
+ "count": 67
 }

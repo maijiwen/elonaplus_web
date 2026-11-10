@@ -808,9 +808,13 @@
     }
     // dmghp var_244, var_58(51), var_243, 658 —— 致死
     if (Elona.Battle && Elona.Battle.applyDamage) {
-      try { Elona.Battle.applyDamage(c, G(c, 51), g, g.player, 658, 0); } catch (e) { c.hp = 0; }
+      try { Elona.Battle.applyDamage(c, G(c, 51), g, g.player, 658, 0); } catch (e) {
+        c.hp = 0;
+        if (Elona.Battle.onDeath) Elona.Battle.onDeath(g, c, g.player);
+      }
     } else {
       c.hp = 0;
+      if (Elona.Battle && Elona.Battle.onDeath) Elona.Battle.onDeath(g, c, g.player);
     }
     g.setV65(250 + 372, 0);
     return { end: 'turnWeight' };

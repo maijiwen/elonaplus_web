@@ -353,7 +353,9 @@
     if (!ready()) return [];
     const lang = (opts && opts.lang) || 'en';
     const out = [];
-    out.push({ title: 'News', lines: news() });
+    // 0-GL：`addnews`（590276 / 590290）写入 g.news，日志的 News 段读真实消息池
+    out.push({ title: 'News', lines: (Elona.Adventurer && typeof Elona.Adventurer.news === 'function')
+      ? Elona.Adventurer.news(g) : news() });
     out.push({ title: 'Quest', lines: questSection(g, lang) });
     out.push({ title: 'Quest Item', lines: itemSection(g, lang) });
     out.push({ title: 'Title & Ranking', lines: rankingSection(g, lang).lines });

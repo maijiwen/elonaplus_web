@@ -4260,8 +4260,7 @@
     },
     {
      "k": "evadd",
-     "src": "evadd 88",
-     "supported": false
+     "id": 88
     }
    ],
    "ok": true
@@ -4553,8 +4552,7 @@
     },
     {
      "k": "evadd",
-     "src": "evadd 57",
-     "supported": false
+     "id": 57
     }
    ],
    "ok": true
@@ -5175,9 +5173,9 @@
      "v": 200
     },
     {
-     "k": "other",
-     "src": "var_65(10) += 3",
-     "supported": false
+     "k": "addV65",
+     "i": 10,
+     "v": 3
     }
    ],
    "ok": true
@@ -5240,14 +5238,12 @@
      "v": 355
     },
     {
-     "k": "other",
-     "src": "msg_newline",
-     "supported": false
+     "k": "newline"
     },
     {
-     "k": "other",
-     "src": "var_232 = lang(\"  あなたはヨウィンで荷馬車から抜け出した。\", \"  You were out of the wagon in the Yowyn.\")",
-     "supported": false
+     "k": "text",
+     "jp": "  あなたはヨウィンで荷馬車から抜け出した。",
+     "en": "  You were out of the wagon in the Yowyn."
     }
    ],
    "ok": true
@@ -5904,9 +5900,9 @@
      "v": 350
     },
     {
-     "k": "other",
-     "src": "var_65(10) += 3",
-     "supported": false
+     "k": "addV65",
+     "i": 10,
+     "v": 3
     }
    ],
    "ok": true
@@ -6146,8 +6142,7 @@
     },
     {
      "k": "evadd",
-     "src": "evadd 57",
-     "supported": false
+     "id": 57
     }
    ],
    "ok": true

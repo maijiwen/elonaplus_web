@@ -1,0 +1,377 @@
+{
+  "meta": {
+    "source": "345293-345507 / 222106-222108 / 344924-345091",
+    "turnSource": "603956-604166",
+    "skillSource": "211959-212171",
+    "note": "由 tools/extract_giftpacks.py 从 start.hsp 编译，勿手改"
+  },
+  "pools": {
+    "mid": {
+      "var": "var_1552",
+      "src": [
+        222106,
+        222106
+      ],
+      "items": [
+        753,
+        754,
+        754,
+        756,
+        756,
+        540,
+        541,
+        537,
+        538,
+        526,
+        415,
+        511,
+        343,
+        340,
+        338,
+        328,
+        220,
+        575,
+        622,
+        167
+      ]
+    },
+    "common": {
+      "var": "var_1553",
+      "src": [
+        222107,
+        222107
+      ],
+      "items": [
+        755,
+        755,
+        633,
+        847,
+        502,
+        632,
+        667,
+        555,
+        748,
+        640
+      ]
+    },
+    "rare": {
+      "var": "var_1554",
+      "src": [
+        222108,
+        222108
+      ],
+      "items": [
+        757,
+        558,
+        664,
+        758,
+        759,
+        761
+      ]
+    }
+  },
+  "texts": {
+    "open": {
+      "jp": "あなたは{item}を開けた。",
+      "en": "You open {item}.",
+      "src": 345300,
+      "template": true
+    },
+    "malice": {
+      "jp": "悪意を持った何かが袋から飛び出してきた！",
+      "en": "Something jumps out from the pack!",
+      "src": 345318
+    },
+    "trap": {
+      "jp": "罠だ！お年玉袋は発火した。",
+      "en": "It's trap! The gift ignites.",
+      "src": 345334
+    },
+    "cursed_letter": {
+      "jp": "中には呪いの手紙が入っていた。",
+      "en": "You find a cursed letter inside.",
+      "src": 345352
+    },
+    "ring": {
+      "jp": " *チリリリリーン* ",
+      "en": "*ring ring ring*",
+      "src": 345370
+    },
+    "sister": {
+      "jp": "妹が入っていた！",
+      "en": "The pack contains your younger sister!",
+      "src": 345388
+    },
+    "something": {
+      "jp": "何かが袋から出てきた。",
+      "en": "There's something inside the pack.",
+      "src": 345402
+    },
+    "wonderful": {
+      "jp": "これは素晴らしい贈り物だ！",
+      "en": "This is truely a wonderful gift!",
+      "src": 345439
+    },
+    "catbox_open": {
+      "jp": "あなたは{item}を開けた。",
+      "en": "You open {item}.",
+      "src": 345467,
+      "template": true
+    },
+    "cat": {
+      "jp": "猫が入っていた！",
+      "en": "The box contains a cat!",
+      "src": 345480
+    },
+    "zombie_cat": {
+      "jp": "死んだ猫が入ってい…ゾンビだこれー！？",
+      "en": "There's something inside the box.",
+      "src": 345495
+    }
+  },
+  "packs": {
+    "752": {
+      "label": "label_3001",
+      "src": [
+        345293,
+        345459
+      ],
+      "openText": "open",
+      "nameJp": "お年玉",
+      "nameEn": "new year's gift",
+      "grades": [
+        {
+          "test": "f27<100",
+          "src": 345310,
+          "name": "low",
+          "branches": [
+            {
+              "src": 345311,
+              "cond": "rnd(3)==0",
+              "text": "malice",
+              "effect": {
+                "kind": "monsters",
+                "count": [
+                  3,
+                  3
+                ],
+                "level": "player*3/2+3",
+                "fix": 2,
+                "src": [
+                  345321,
+                  345324
+                ]
+              }
+            },
+            {
+              "src": 345327,
+              "cond": "rnd(3)==0",
+              "text": "trap",
+              "effect": {
+                "kind": "fire",
+                "repeat": 6,
+                "src": [
+                  345337,
+                  345345
+                ]
+              }
+            },
+            {
+              "src": 345348,
+              "cond": "else",
+              "text": "cursed_letter",
+              "effect": {
+                "kind": "spell",
+                "id": 1114,
+                "power": 1000,
+                "src": [
+                  345355,
+                  345358
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "test": "f27<200",
+          "src": 345363,
+          "name": "mid",
+          "branches": [
+            {
+              "src": 345364,
+              "cond": "rnd(4)==0",
+              "text": "ring",
+              "effect": {
+                "kind": "npc",
+                "id": 328,
+                "rnd": 2,
+                "count": 1,
+                "hostileFix": true,
+                "src": [
+                  345373,
+                  345380
+                ]
+              }
+            },
+            {
+              "src": 345383,
+              "cond": "rnd(5)==0",
+              "text": "sister",
+              "effect": {
+                "kind": "npc",
+                "id": 176,
+                "count": 1,
+                "f30": 5000,
+                "src": [
+                  345391,
+                  345395
+                ]
+              }
+            },
+            {
+              "src": 345398,
+              "cond": "else",
+              "text": "something",
+              "effect": {
+                "kind": "pool",
+                "pool": "mid",
+                "src": [
+                  345405,
+                  345406
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "test": "else",
+          "src": 345411,
+          "name": "high",
+          "branches": [
+            {
+              "src": 345411,
+              "cond": "rnd(3)==0",
+              "text": "ring",
+              "effect": {
+                "kind": "npc",
+                "id": 328,
+                "rnd": 2,
+                "count": [
+                  2,
+                  3
+                ],
+                "hostileFix": true,
+                "src": [
+                  345420,
+                  345429
+                ]
+              }
+            },
+            {
+              "src": 345434,
+              "cond": "rnd(10)==0",
+              "text": "wonderful",
+              "effect": {
+                "kind": "pool",
+                "pool": "rare",
+                "src": [
+                  345442,
+                  345443
+                ]
+              }
+            },
+            {
+              "src": 345448,
+              "cond": "else",
+              "text": "something",
+              "effect": {
+                "kind": "pool",
+                "pool": "common",
+                "src": [
+                  345455,
+                  345456
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "744": {
+      "label": "label_3002",
+      "src": [
+        345460,
+        345507
+      ],
+      "openText": "catbox_open",
+      "nameJp": "シュレディンガーの猫",
+      "nameEn": "Schrodinger's cat",
+      "branches": [
+        {
+          "src": 345475,
+          "cond": "rnd(2)==0",
+          "text": "cat",
+          "effect": {
+            "kind": "npc",
+            "id": 164,
+            "count": 1,
+            "f30": 1000,
+            "src": [
+              345483,
+              345487
+            ]
+          }
+        },
+        {
+          "src": 345490,
+          "cond": "else",
+          "text": "zombie_cat",
+          "effect": {
+            "kind": "npc",
+            "id": 447,
+            "count": 1,
+            "f30": 1000,
+            "src": [
+              345498,
+              345502
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "dispatch": [
+    {
+      "id": 752,
+      "label": "label_3001",
+      "src": [
+        344936,
+        344940
+      ]
+    },
+    {
+      "id": 744,
+      "label": "label_3002",
+      "src": [
+        344942,
+        344946
+      ]
+    },
+    {
+      "id": 1105,
+      "label": "envelope",
+      "src": [
+        344948,
+        344963
+      ]
+    },
+    {
+      "id": 784,
+      "label": "cardpack",
+      "src": [
+        344965,
+        345080
+      ]
+    }
+  ]
+}

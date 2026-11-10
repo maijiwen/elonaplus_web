@@ -104,6 +104,18 @@
       const f23 = (it.f && it.f[23]) | 0;
       const pre = (Elona.Ego && f23 >= 10000 && Elona.Ego.prefixOf) ? Elona.Ego.prefixOf(it, lang) : '';
       let body = this._instanceBody(it, lang);
+      // 0-GK / 30540-30565：`var_99(24)` 材质 → 「<材质>細工の / <material>work / <材质>制」
+      //   1061（野花）且材质 35、以及 630 的 1000/1001 档由 ItemMaterial 内部排除。
+      if (Elona.ItemMaterial && Elona.ItemMaterial.workPrefix) {
+        const wp = Elona.ItemMaterial.workPrefix(it, lang);
+        if (wp) body = wp + body;
+      }
+      // 0-GN / 29922-30168 `*label_0405`：型号 / 书名 / 饮品等特殊名称片段。
+      //   源码在 30534-30536 先于材质前缀累加，因此这里也放在最外层。
+      if (Elona.ItemNameExtra && Elona.ItemNameExtra.prefix) {
+        const ex = Elona.ItemNameExtra.prefix(it, lang);
+        if (ex) body = ex + body;
+      }
       // 31217-31221：92000 货物带仕入值 → 后缀「(仕入れ値 Xg)」
       let cat = it.field657 | 0;
       if (!cat) {

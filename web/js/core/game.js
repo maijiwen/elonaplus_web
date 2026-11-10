@@ -181,6 +181,21 @@
      * 0-CM：小时级时间快进 —— 对应原版每小时 `var_65(13)++ ; gosub *label_4352`
      * 的循环（调合的必要时间、281762-281775）。
      * 在当前小时基础上前进 n 小时，跨日归零并触发跨日结算。
+     *
+     * 【0-GN / 603686-603912 `*label_4352` 的跨日 / 跨月 / 跨年段】
+     *   603686-603697  var_65(545) 的 1/10 重掷、576 从 200 回到 100、580 清零
+     *                  → 由 Weather.tickHour / Daily.tickDay 的整点结算承载
+     *   603698-603748  var_126(6)==3 时的角色扫描与 gosub 2616 / 2445
+     *                  → Quest.tick / Encounter / Arena 的每日重置
+     *   603755-603769  公会排名过期（var_65(140+cnt)-- 与 modrank）
+     *                  → daily.js 的 addGroupExp / tickDay
+     *   603770-603798  日历推进（var_65(10..13)：时 / 日 / 月 / 年，含 31 天进位、
+     *                  12 月进位、跨年 825/95/851 衰减）→ 本方法的小时累加与跨日分支
+     *   603801-603845  每月 1/15 日、节日与委托计时（var_65(557/554/549/514/607)）
+     *                  → Quest.tick / Festival / Story.run
+     *   603845-603912  税率、悬赏与特殊地图的每日随机增量（var_65(524/690) 等）
+     *                  → Economy.tick / Quest.tick
+     *   逐项近似口径见 docs/02 A493；特殊地图专属扫描由宿主按地图模块注入。
      */
     advanceHours(n, opts) {
       const sleepMode = !!(opts && opts.sleeping);
@@ -192,8 +207,19 @@
         if (Elona.Status.rotTick) Elona.Status.rotTick(this, advanced);
       }
       let hours = (this.getV65(13) | 0) + Math.max(0, n | 0);
+      // 0-GS / 603444-603559：整点的眠気累加与一次性提示（天亮 / 困意 / 饥饿 / 日记）
+      const hourly = (times) => {
+        if (!Elona.Hourly) return;
+        for (let k = 0; k < times; k++) {
+          const sl = Elona.Hourly.sleepiness(this, { sleeping: sleepMode });
+          for (const m of sl.messages) this.log(m);
+          const nt = Elona.Hourly.notices(this);
+          for (const m of nt.messages) this.log(m);
+        }
+      };
       if (hours < 24) {
         this.setV65(13, hours);
+        hourly(Math.max(1, advanced));
         // 整点事件 —— *label_4352：天气倒计时与重 roll（603256-603443）
         if (Elona.Weather) Elona.Weather.tickHour(this);
         // 0-DC：火焰 mef 每小时扩散（602981-603021）→ 点燃地面物品
@@ -211,6 +237,7 @@
       }
       let day = (this.getV65(12) | 0) + idiv(hours, 24);
       this.setV65(13, hours % 24);
+      hourly(Math.max(1, advanced));
       if (Elona.Weather) Elona.Weather.tickHour(this);
       this.spreadFireHourly();
       this.spawnVisitorsHourly();
@@ -218,10 +245,21 @@
       if (day > 30) { day -= 30; this.setV65(11, (this.getV65(11) | 0) + 1); newMonth = true; }
       this.setV65(12, day);
       if ((this.getV65(11) | 0) > 12) { this.setV65(11, 1); this.year++; }
+      // 0-GS / 603560-603612：跨日的播报、心情档位重掷与日记提示
+      if (Elona.Hourly) {
+        const nd = Elona.Hourly.newDay(this);
+        for (const m of nd.messages) this.log(m);
+      }
       // 跨日：冒险日和轮换（603613-603685）
       if (Elona.Daily && this.player) {
         const dv = Elona.Daily.tickDay(this);
         for (const m of (dv.messages || [])) this.log(m);
+      }
+      // 0-GL / 590235-590401 `*label_4277`：冒险者契约到期 / 离场 / 回归 / 换地图。
+      // 源码每次地图更新调一次，本项目按跨日聚合（每次给一次 rnd(60) 机会，保守）。
+      if (Elona.Adventurer && this.player) {
+        const ar = Elona.Adventurer.refresh(this, { hours: 1 });
+        for (const m of ar.messages) this.log(m);
       }
       // 跨日：自营店的当日营业（*label_2445，235208-235225；由 603752 在每日主循环里调用）
       if (Elona.ShopSale && this.player) {
@@ -572,6 +610,8 @@
       this.log(`HP ${p.hpMax}  MP ${p.mpMax}  SP ${p.spMax}  Lv ${p.level}`);
 
       this.populateTown();
+      // 0-GL / 590181-590189 `*label_4275`：槽 16..39 生成冒险者 NPC（原版新游戏 / 调试开局调用）
+      if (Elona.Adventurer) Elona.Adventurer.spawnAll(this);
       this.checkStoryEvents();     // 0-DG：起始城镇是 Vernis → 首次入城会触发「ペットとの再会」
       this.state = STATE.PLAY;
       return true;
@@ -1003,6 +1043,15 @@
       target.x = px; target.y = py;
       if (this.syncCharaCells) this.syncCharaCells();
       this.log(`你和 ${target.name} 交换了位置。`);
+      // 0-GP / 343081-343227：交换位置后的被偷钱（271 号种族）与演出中 NPC /
+      //   搭档的五档好感度反应；343228-343229 的 *label_2992 落脚处理已由
+      //   onEnterCell / MapFeat 承担。
+      if (Elona.Bump && Elona.Bump.onSwap) {
+        try {
+          const br = Elona.Bump.onSwap(this, p, target);
+          if (br && br.messages) for (const m of br.messages) this.log(m);
+        } catch (e) { /* 碰撞后续失败不影响换位 */ }
+      }
       this.endTurn();
       return true;
     }
@@ -1010,6 +1059,16 @@
     // ---------- 玩家动作 ----------
     /**
      * 移动/等待。dir 为 1..9（5 表示原地等待）。返回是否消耗了回合。
+     *
+     * 【0-GM / 343806-344044 `*label_2992` 的落脚处理】
+     *   343806-343825  自动行走 var_65(30) 的四邻 cell_check → 本项目无自动行走，
+     *                  由 movePlayer 的一次一格输入替代；
+     *   343826-343860  踩到灰烬 / 烧毁地块（var_704(...,0)==267）→ MapFeat 的地形消息；
+     *   343861-343930  地块上的物品与地形特征（var_704(...,4)、addefmap、snd 32 处）
+     *                  → MapFeat.read / mef.tick / Property.ambientMessage；
+     *   343931-344044  陷阱、门、采集点与移动音效 → Actions / MapFeat / Encounter。
+     *   本项目的 `movePlayer` 在落脚后统一调用 `endTurn()`，把这些检查分散到
+     *   `MapFeat` / `mef` / `Encounter` / `Property` 各自模块，详见 docs/02 A492。
      */
     movePlayer(dir) {
       if (this.state !== STATE.PLAY) return false;
@@ -1035,6 +1094,14 @@
         return true;
       }
       const nx = p.x + d[0], ny = p.y + d[1];
+      // 0-GP / 342926-343027：移动前的摇晃（var_58(257)）与坐骑 / 搭档的
+      //   演出反应。摇晃造成的 var_58(3/4) 偏移按一次一格输入替代，不改写 nx/ny。
+      if (Elona.Bump && Elona.Bump.onBeforeMove) {
+        try {
+          const bm = Elona.Bump.onBeforeMove(this, p);
+          if (bm && bm.messages) for (const m of bm.messages) this.log(m);
+        } catch (e) { /* 演出反应失败不影响移动 */ }
+      }
       // 朝向（var_58(83)）：0=北 1=东 2=西 3=南；斜向时 y 覆盖 x（343484-343501 的顺序）
       if (d[0] > 0) this.facing = 1; else if (d[0] < 0) this.facing = 2;
       if (d[1] > 0) this.facing = 3; else if (d[1] < 0) this.facing = 0;
@@ -1072,7 +1139,20 @@
           const target = this.charas[chk.charaIndex];
           if (target && target.index !== p.index) {
             if ((target.get(9) | 0) <= -1) {
-              this.attackTarget(target);
+              // 0-GP / 343232-343275：骑乘中（var_65(183)!=0）带 buff 53 撞到
+              //   敌对 NPC → 冲撞：换位、伤害、畏缩（var_58(175)=10）、技能 301 经验。
+              let charged = false;
+              if (Elona.Bump && Elona.Bump.tryMountCharge) {
+                try {
+                  const cr = Elona.Bump.tryMountCharge(this, p, target);
+                  if (cr && cr.ok) {
+                    for (const m of (cr.messages || [])) this.log(m);
+                    this.endTurn();
+                    charged = true;
+                  }
+                } catch (e) { /* 冲撞失败退回普通攻击 */ }
+              }
+              if (!charged) this.attackTarget(target);
             } else if (this.canSwapWith(target)) {
               // 0-BW：原版 343053-343080 —— 普通市民与玩家**交换位置**
               //   （cell_swap var_243, var_244；提示「あなたと入れ替わった。」）
@@ -1089,7 +1169,11 @@
               }
               this.log(`你向 ${target.name} 打了声招呼。`);
               this.endTurn();
-              this.pendingInteraction = { action: 'npc', npc: target };
+              // 0-GP / 343276-343285：var_183 的放行与 cbit 1049 的对话分派
+              //   都由 *label_3031 的互动窗口承担；scripted 标记供 UI 选择脚本。
+              const scripted = !!(Elona.Bump && Elona.Bump.wantsDialogue
+                && Elona.Bump.wantsDialogue(target));
+              this.pendingInteraction = { action: 'npc', npc: target, scripted };
             }
             return true;
           }
@@ -2563,6 +2647,17 @@
       return true;
     }
 
+    /**
+     * 0-GO / 604021-604026：启动归航 / 船出倒计时（var_65(63)）。
+     * 原版由归还卷轴、法术 428 与世界地图的船出写入；本项目 spell.js 428
+     * 仍保留「立即归返」的既有行为，这里提供延迟归返入口，倒计时由
+     * endTurn 里的 TurnCycle.worldReturn 逐回合递减并做阻止判定。
+     */
+    startReturnTravel(turns, destination) {
+      if (!Elona.TurnCycle) return { ok: false };
+      return Elona.TurnCycle.startReturn(this, turns === undefined ? 3 : turns, destination);
+    }
+
     /** 归返（法术 428）：地下时回到进入前的城镇；否则加载归返地图（缺省 vernis）。 */
     returnToTown() {
       if (this.questMap) {
@@ -2997,6 +3092,20 @@
     }
 
     /**
+     * 0-GM / 203900-203915：教程提示窗口的文案（原版 `var_1280` → gosub *label_0262）。
+     * 原版用 ie_guide.bmp 画窗口；本项目用日志/Panel 文本呈现，只还原取词与变量展开。
+     * @param {number|string} id 教程编号（exhelp.txt 的 %N 类别）
+     */
+    showGuide(id) {
+      const r = Elona.IdleTalk && Elona.IdleTalk.guide(this, id, { lang: 'en' });
+      if (!r || !r.text) return null;
+      for (const row of r.text.split('\n')) {
+        if (row.trim()) this.log(row.trim());
+      }
+      return r;
+    }
+
+    /**
      * 吃完结算 —— *label_2944 的完成段（313546-313587）+ *label_2304（225137-226114）。
      *   营养、水分、SP、食物技能成长、消耗 1 个物品。
      */
@@ -3114,6 +3223,20 @@
         } else if (cannibal) {
           this.log('虽然你更想吃人肉……');                     // 226055
         }
+      }
+
+      // 0-GM / 226445-226465：738 フォーチュンクッキー —— 读了饼干里的签文
+      //   先 gosub *label_0263 取 %COOKIE2；祝福（f17>=1）或普通（f17==0 且 rnd(2)）
+      //   再取 %COOKIE1 覆盖 var_122；最后只输出最后一次的结果。
+      if (id === 738 && (p.index | 0) < 16 && Elona.IdleTalk) {
+        const bless = it.f[17] | 0;
+        this.log(`${who}读了饼干里的签文。`);
+        let fortune = Elona.IdleTalk.cookie(this, 2, { lang: 'en' });
+        if (bless >= 1 || (bless === 0 && this.rng.rnd(2) !== 0)) {
+          const second = Elona.IdleTalk.cookie(this, 1, { lang: 'en' });
+          if (second) fortune = second;
+        }
+        if (fortune && fortune.text) this.log(fortune.text);
       }
 
       // 313650-313664：饼类食物有概率噎住（var_58(263) = 100 + rnd(100)）
@@ -3570,22 +3693,11 @@
       else this.log(`你向 ${target.name} 射击${a.critical ? '（会心一击！）' : ''} —— ${a.dmg} 点伤害，剩余 HP ${target.hp}`);
       if (target.hp <= 0) {
         this.log(`${target.name} 被击倒了。`);
-        // 0-DG：同伴阵亡 → var_58(0)=6（可付费复活），其他角色照旧 vanquish
-        if (!(Elona.Companion && Elona.Companion.onDeath(this, target))) {
-          // 0-EE：死亡掉落（*label_2287，201319 唯一调用点）
-          if (Elona.Loot) Elona.Loot.onDeath(this, target, this.player);
-          target.set(A.ACTIVE, 0);
-        }
-        // 0-DC：chara_vanquish（194136-194138）—— 坐骑阵亡 → ride_end
-        if (Elona.Riding && Elona.Riding.mountOf(this) === (target.index | 0)) {
-          Elona.Riding.end(this);
-        }
-        // 199945-199952：击杀时附近同伴斗志 +5
-        if (Elona.Morale && Elona.Morale.onKill) Elona.Morale.onKill(this, this.player, target);
-        this.syncCharaCells();
-        if (Elona.Quest) {
-          const prs = Elona.Quest.onKill(this, target);
-          if (prs) for (const pr of prs) {
+        // 0-GH：近战 / 远程 / 法术 / 能力统一走 Battle.onDeath
+        //   （经验、招募、盗窃、暗棺、竞技场、掉落、坐骑、士气、委托）
+        const dth = Elona.Battle.onDeath(this, target, this.player);
+        if (Elona.Quest && dth && dth.quest) {
+          for (const pr of dth.quest) {
             this.log(`委托进度：${Elona.Quest.progressText(this, pr.quest)}` +
               (pr.completed ? '（可以报告了）' : ''));
           }
@@ -3640,6 +3752,10 @@
         }
       }
       if (r.placed) this.log('物品落在了地上。');
+      // 0-GR：命中角色的效果文案（かばう / 命中 / 决斗 / 寄生 …）
+      for (const m of (r.messages || [])) this.log(m);
+      // 0-GR：341854-341858 貯金箱被打碎后散落金币
+      if (r.ground && r.ground.gold > 0) this.log(`存钱罐碎了，散落 ${r.ground.gold} 枚金币。`);
       if (r.effect.includes('fire')) this.log('燃起了火焰！');
       if (r.effect.includes('acid')) this.log('溅出了酸液！');
       if (r.effect.includes('smoke')) this.log('烟雾弥漫开来。');
@@ -4300,11 +4416,142 @@
     }
 
     /**
+     * 0-GM / 604861-605014：`*label_4358` 的 turn_end:pc 收尾链。
+     *
+     * 源码把这段挂在「玩家一次行动结束」上；本项目 endTurn() 已经承担了
+     * 时间推进（603094-603157）、状态结算（215805-216701）、行动计（603075-603092）、
+     * 委托递减、mef、事件队列（603050-603060）、负重刷新（193826）、升级（604850-604858）
+     * 与 NPC AI，所以这里只补原先缺席的几处每回合状态推进：
+     *   604869-604879  var_58(191,0)==8 → 日志更新提示 + 191 += 1000
+     *   604880-604885  var_65(98) 计时器跨 10000 + var_65(91)=100
+     *   604886-604892  负重档 >=3 时 1/20 概率的超重压伤
+     *   604898-604990  var_65(801) / 663 递减、664 找种族 1014 的跟踪者
+     *   604991-605010  var_65(623)>9999 → evadd 18 + 生成 4 个 945
+     * 未知字段（var_17 / var_126(6)）与原本就由 NPC AI 处理的动画延迟用保守近似，
+     * 详见 docs/02 A492。
+     */
+    turnEndTail(actor) {
+      const pc = actor || this.player;
+      if (!pc || typeof pc.get !== 'function') return null;
+      const out = { journal: false, timer98: false, crush: 0, timer801: 0, tracker: 0, ambush: false };
+
+      // 604869-604879：日志有更新
+      if ((pc.get(191) | 0) === 8 && (pc.get(52) | 0) < 50) {
+        pc.set(191, (pc.get(191) | 0) + 1000);
+        this.log('日志已更新。');
+        out.journal = true;
+      }
+
+      // 604880-604885：var_65(98) 的跨阈值计时（gosub *label_2932 由 Quest.tick 覆盖）
+      const t98 = this.getV65(98) | 0;
+      if (t98 !== 0 && t98 < 10000) {
+        this.setV65(98, t98 + 10000);
+        this.setV65(91, 100);
+        out.timer98 = true;
+      }
+
+      // 604886-604892：超重压伤。原版伤害用 var_58(43/44)/var_58(51) 的比值，
+      // 本项目用当前 HP 作近似（不臆造原版字段语义）。
+      if ((pc.get(45) | 0) >= 3 && this.rng && this.rng.rnd(20) === 0) {
+        const hpmax = Math.max(1, pc.get(51) | 0);
+        const hp = Math.max(1, pc.hp | 0);
+        const dmg = Math.max(1, Math.floor(hpmax * (hp * 10 / hpmax + 10) / 200) + 1);
+        if (Elona.Battle && Elona.Battle.applyDamage) Elona.Battle.applyDamage(pc, dmg, this, null, -6, 0);
+        else pc.hp = Math.max(0, (pc.hp | 0) - dmg);
+        out.crush = dmg;
+      }
+
+      // 604898-604990：限时召唤/追踪计时器
+      const t801 = this.getV65(801) | 0;
+      if (t801 > 0) {
+        const left = t801 - 1;
+        this.setV65(801, left);
+        out.timer801 = left;
+        const alive = (pc.get(0) | 0) === 1;
+        if (!alive || left === 0) {
+          this.setV65(664, 0);                       // 追踪结束
+        } else {
+          // 604937-604960：在活跃角色里找种族 1014，写入 var_65(664)
+          let found = 0;
+          const list = this.charas || [];
+          for (let i = 0; i < list.length; i++) {
+            const c = list[i];
+            if (!c || i === (pc.index | 0) || (c.get && (c.get(0) | 0) !== 1)) continue;
+            if (c.get && (c.get(27) | 0) === 1014) { found = i; break; }
+          }
+          this.setV65(664, found);
+          if (found && (this.getV65(663) | 0) === 0) this.setV65(663, left + 1);
+          out.tracker = found;
+        }
+      } else if ((this.getV65(663) | 0) > 0) {
+        // 604985-604990：663 是 801 的镜像计时，单独递减
+        const left = (this.getV65(663) | 0) - 1;
+        this.setV65(663, left > 0 ? left : 0);
+        out.timer801 = left;
+      }
+
+      // 604991-605010：var_65(623) > 9999 → evadd 18 + 生成 4 个 945 伏兵
+      if ((this.getV65(623) | 0) > 9999) {
+        if (this.events && typeof this.events.add === 'function') this.events.add(18, 0, 0);
+        if (Elona.CharaFactory && typeof Elona.CharaFactory.create === 'function') {
+          for (let i = 0; i < 4; i++) {
+            const c = Elona.CharaFactory.create(this, 945, 5, pc.x, pc.y);
+            if (c && typeof c.set === 'function') { c.set(201, 300); c.set(29, 0); }
+          }
+        }
+        this.setV65(623, -9999);
+        out.ambush = true;
+      }
+      return out;
+    }
+
+    /**
+     * 0-GM / 605015-605199：`*label_4359` 的 pc_turn_init 开局链。
+     *   · 605020-605022 神谕提示（1/1000，本项目无 txtgod，只记录概率位）
+     *   · 605023      var_65(808) 每回合清零
+     *   · 605024-605030 随从/坐骑坐标同步（var_65(183)、var_58(167)）
+     *   · 605031-605037 以太侵蚀 >= 20000 的致死已在 endTurn 的 Weather 分支实现
+     *   · 605038-605120 var_65(30) 自动行走校验（本项目无自动行走，按设计跳过）
+     *   · 605121-605170 var_1231/2364/2845 三个一次性提示（由 UI 层按需显示）
+     *   · 605171-605199 var_253 的动画刷新（Canvas 重写）
+     */
+    turnStartInit() {
+      const pc = this.player;
+      const out = { oracle: false, followers: 0 };
+      if (!pc) return out;
+      if ((this.getV65(185) | 0) && this.rng && this.rng.rnd(1000) === 0) out.oracle = true;
+      this.setV65(808, 0);
+      // 随从 / 坐骑坐标跟随玩家
+      const ids = [this.getV65(183) | 0, pc.get(167) | 0];
+      for (const idx of ids) {
+        if (!idx || idx === (pc.index | 0)) continue;
+        const c = (this.charas || [])[idx];
+        if (!c) continue;
+        c.x = pc.x; c.y = pc.y;
+        out.followers++;
+      }
+      return out;
+    }
+
+    /**
      * 结束一个回合：回合数 +1，先结算玩家异常状态，再推进所有 NPC 行动。
      *
      * 说明：玩家与 NPC 的异常状态都「每回合结算一次」，对应原版主回合循环中
      * 对每个角色调用 label_2224(215805-216701)。NPC 在 AI.runAll 内逐个结算，
      * 玩家在此处结算（endTurn 只在真正消耗回合的动作后才被调用，故不会重复结算）。
+     *
+     * 【0-GM / 604167-604581 `*label_4356` 的回合前处理】
+     *   604167-604340  buff / 以太病 / 天气 / 地面效果 → Weather.tickTurn、mef.tick、
+     *                  Status.statusTick、Vomit.tickTurn、Potion.tickTurn（上方各分支）；
+     *   604341-604360  var_58(280+cnt*3+2) 的 buff 计时递减与 16 号 buff 致死
+     *                  → Status.statusTick 的 buff 到期处理；
+     *   604361-604390  地图 74 的守卫刷新 / evadd 91 → QuestMap.tick 与 EventQueue；
+     *   604391-604460  醉酒（85）、眩晕（251）、行动阻断（263/256/181/buff 57）
+     *                  → AI.runAll 的行动计与 Actions.requestInterrupt；
+     *   604461-604520  踩到 1098 的随机异常与 dmgcon → mef.tick / Resist.dmgcon；
+     *   604521-604581  醉酒 NPC 搭话与寻衅（var_58(257)）→ npc.talk / Relation.modimp。
+     *   「行动被跳过」在原版是 goto *label_4358，本项目由 TurnGauge.tick 的
+     *   行动计返回 0 次来等效表达，详见 docs/02 A492。
      */
     endTurn() {
       this.turn++;
@@ -4316,6 +4563,27 @@
       //   dmghp 198553-198560 用它做防连击减伤：>=50 开始递减，>=200 强制 1 点
       if (this.player && this.player.set) this.player.set(444, 0);
       if (this.state !== STATE.PLAY) return;
+      // 0-GM / 605015-605199：pc_turn_init 的每回合状态（808 清零、随从坐标同步等）
+      this.turnStartInit();
+      // 0-GO / 603956-604166：*label_4354 的回合开始（速度修正复位、回合计数、
+      //   每 10 回合的技能/SP 成长）与 *label_4355 的 var_65(63) 归航倒计时。
+      //   归航成功时原版 goto *label_2459 中断本回合，这里 loadMap 后直接 return，
+      //   不再重复调用 endTurn（returnToTown 内部已有一次 endTurn）。
+      if (Elona.TurnCycle) {
+        Elona.TurnCycle.beginAction(this, 0);
+        Elona.TurnCycle.playerPeriodic(this);
+        const wr = Elona.TurnCycle.worldReturn(this);
+        if (wr && wr.travel && wr.destination) {
+          const dest = wr.destination;
+          this.pendingMap = dest;
+          this.loadMap(dest).then(() => {
+            this.log(`归返到了 ${this.map.name}。`);
+            if (this.onMapChange) this.onMapChange(this.map);
+          }).catch((e) => this.log('归返失败：' + e.message));
+          if (this.onTurn) this.onTurn(this.turn);
+          return;
+        }
+      }
       // 时间推进（603094-603157）：每个行动约 7~21 时间单位，60 单位 = 1 分钟
       this.advanceClock();
       // 0-FY：行动计累加（603075-603092）+ *label_4353 的行动次数结算。
@@ -4450,6 +4718,8 @@
         this.log('敌人已经全部倒下。');
         this.leaveEncounter();
       }
+      // 0-GM / 604861-605014：turn_end:pc 的收尾状态（日志更新 / 801 计时 / 伏兵事件）
+      this.turnEndTail();
       if (this.onTurn) this.onTurn(this.turn);
     }
 
@@ -4541,22 +4811,11 @@
       }
       if (target.hp <= 0) {
         this.log(`${target.name} 被击倒了。`);
-        // 0-DG：同伴阵亡 → var_58(0)=6（可付费复活），其他角色照旧 vanquish
-        if (!(Elona.Companion && Elona.Companion.onDeath(this, target))) {
-          // 0-EE：死亡掉落（*label_2287，201319 唯一调用点）
-          if (Elona.Loot) Elona.Loot.onDeath(this, target, this.player);
-          target.set(A.ACTIVE, 0);
-        }
-        // 0-DC：chara_vanquish（194136-194138）—— 坐骑阵亡 → ride_end
-        if (Elona.Riding && Elona.Riding.mountOf(this) === (target.index | 0)) {
-          Elona.Riding.end(this);
-        }
-        // 199945-199952：击杀时附近同伴斗志 +5
-        if (Elona.Morale && Elona.Morale.onKill) Elona.Morale.onKill(this, this.player, target);
-        this.syncCharaCells();
-        if (Elona.Quest) {
-          const prs = Elona.Quest.onKill(this, target);
-          if (prs) for (const pr of prs) {
+        // 0-GH：近战 / 远程 / 法术 / 能力统一走 Battle.onDeath
+        //   （经验、招募、盗窃、暗棺、竞技场、掉落、坐骑、士气、委托）
+        const dth = Elona.Battle.onDeath(this, target, this.player);
+        if (Elona.Quest && dth && dth.quest) {
+          for (const pr of dth.quest) {
             this.log(`委托进度：${Elona.Quest.progressText(this, pr.quest)}` +
               (pr.completed ? '（可以报告了）' : ''));
           }

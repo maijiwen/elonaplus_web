@@ -1,0 +1,337 @@
+{
+  "meta": {
+    "hit": "199713-199920",
+    "bump": "343081-343285",
+    "front": "342924-343053",
+    "morale": "199945-199952",
+    "note": "由 tools/extract_onhit.py 从 start.hsp 编译，勿手改"
+  },
+  "hit": {
+    "src": [
+      199713,
+      199920
+    ],
+    "rules": [
+      {
+        "key": "sleep",
+        "src": [
+          199714,
+          199726
+        ],
+        "field": 251,
+        "skill": 58,
+        "excludeAttr": [
+          68,
+          58,
+          59
+        ],
+        "text": "sleep"
+      },
+      {
+        "key": "hostile",
+        "src": [
+          199727,
+          199731
+        ],
+        "attacker": 0,
+        "v65": 94,
+        "anger": 100
+      },
+      {
+        "key": "nearDeathSound",
+        "src": [
+          199732,
+          199743
+        ],
+        "target": 0,
+        "hpDiv": 4,
+        "snd": 32
+      },
+      {
+        "key": "camera",
+        "src": [
+          199744,
+          199759
+        ],
+        "bit": 18,
+        "setBit": 972,
+        "denom": 3,
+        "etherField": 259,
+        "stunField": 256,
+        "stunMax": 60,
+        "text": "camera"
+      },
+      {
+        "key": "split23",
+        "src": [
+          199760,
+          199795
+        ],
+        "bit": 23,
+        "textMan": "splitMan",
+        "textCell": "splitCell",
+        "hpDiv": 10,
+        "hpDiv2": 3
+      },
+      {
+        "key": "split27",
+        "src": [
+          199796,
+          199835
+        ],
+        "bit": 27,
+        "denom": 3,
+        "textMan": "splitMan",
+        "textCell": "splitCell",
+        "hpDiv": 10,
+        "hpDiv2": 3
+      },
+      {
+        "key": "fury",
+        "src": [
+          199836,
+          199852
+        ],
+        "bit": 32,
+        "denom": 20,
+        "field": 264,
+        "add": [
+          30,
+          15
+        ],
+        "text": "fury"
+      },
+      {
+        "key": "hate",
+        "src": [
+          199853,
+          199889
+        ],
+        "targetField": 29,
+        "aiField": 201
+      },
+      {
+        "key": "knockout",
+        "src": [
+          199891,
+          199904
+        ],
+        "v193": 888,
+        "hpDiv": 20,
+        "field": 256,
+        "value": 100,
+        "text": "knockout"
+      },
+      {
+        "key": "dying",
+        "src": [
+          199905,
+          199955
+        ],
+        "etherField": 86,
+        "morale": 5,
+        "moraleLimit": 195,
+        "moraleText": 199952
+      }
+    ]
+  },
+  "bump": {
+    "steal": {
+      "src": [
+        343078,
+        343097
+      ],
+      "race": 271,
+      "denom": 5,
+      "goldField": 30,
+      "sleepField": 251,
+      "blockBit": 15,
+      "maxGold": 20,
+      "text": "steal"
+    },
+    "reaction": {
+      "src": [
+        343098,
+        343227
+      ],
+      "rowact": 140,
+      "rowleft": 141,
+      "rowarg": 142,
+      "shyBit": 1032,
+      "shyTurn": 5080,
+      "dateField": 428,
+      "impDelta": 20,
+      "impField": 17,
+      "masterField": 169,
+      "partnerFlag": 168,
+      "partnerIdx": 167,
+      "thresholds": [
+        200,
+        250,
+        300,
+        350
+      ],
+      "texts": [
+        "glare",
+        "dissatisfied",
+        "disappointed",
+        "nod",
+        "stepBack"
+      ],
+      "shyText": "stare"
+    },
+    "charge": {
+      "src": [
+        343232,
+        343275
+      ],
+      "mountV65": 183,
+      "relationField": 9,
+      "relationMax": -1,
+      "buff": 53,
+      "targetField": 29,
+      "falterField": 175,
+      "falterValue": 10,
+      "skill": 301,
+      "skillExpPc": 30,
+      "skillExpMount": 20,
+      "text": "runOver",
+      "falterText": "falter"
+    },
+    "tag": {
+      "src": [
+        342985,
+        343027
+      ],
+      "partnerIdx": 167,
+      "thresholds": [
+        200,
+        250,
+        300,
+        350
+      ],
+      "texts": [
+        "glare",
+        "dissatisfied",
+        "disappointed",
+        "nod",
+        "stepBack"
+      ]
+    },
+    "front": {
+      "src": [
+        342924,
+        343053
+      ],
+      "staggerField": 257,
+      "staggerMod": 404,
+      "stunFields": [
+        263,
+        254
+      ],
+      "weightField": 45,
+      "cargoV65": [
+        80,
+        82
+      ]
+    }
+  },
+  "texts": {
+    "sleep": {
+      "key": "sleep",
+      "src": 199722,
+      "jp": "は眠りを妨げられた。",
+      "en": "sleep is disturbed."
+    },
+    "camera": {
+      "key": "camera",
+      "src": 199754,
+      "jp": "*カチッ*",
+      "en": "*click*"
+    },
+    "splitMan": {
+      "key": "splitMan",
+      "src": 199776,
+      "jp": "は分身した！",
+      "en": "split"
+    },
+    "splitCell": {
+      "key": "splitCell",
+      "src": 199783,
+      "jp": "は分裂した！",
+      "en": "split"
+    },
+    "fury": {
+      "key": "fury",
+      "src": 199845,
+      "jp": "は怒りに体を奮わせた！",
+      "en": "engulfed in fury!"
+    },
+    "knockout": {
+      "key": "knockout",
+      "src": 199899,
+      "jp": "＊ノックアウト＊",
+      "en": "*Knockout*"
+    },
+    "steal": {
+      "key": "steal",
+      "src": 343092,
+      "jp": "「おっと、ごめんよ」",
+      "en": "Ops, sorry."
+    },
+    "stare": {
+      "key": "stare",
+      "src": 343105,
+      "jp": "はバツが悪そうにあなたを見た。",
+      "en": "stares in your face."
+    },
+    "glare": {
+      "key": "glare",
+      "src": 343146,
+      "jp": "はあなたを睨み付けた。",
+      "en": "glare"
+    },
+    "dissatisfied": {
+      "key": "dissatisfied",
+      "src": 343153,
+      "jp": "はあなたを不満げに見つめた。",
+      "en": "looked away you with dissatisfaction."
+    },
+    "disappointed": {
+      "key": "disappointed",
+      "src": 343160,
+      "jp": "は残念そうにうなだれた。",
+      "en": "looked disappointing."
+    },
+    "nod": {
+      "key": "nod",
+      "src": 343167,
+      "jp": "は小さく頷いた。",
+      "en": "nodded small."
+    },
+    "stepBack": {
+      "key": "stepBack",
+      "src": 343174,
+      "jp": "は何も言わず一歩下がった。",
+      "en": "went down one step without saying anything."
+    },
+    "runOver": {
+      "key": "runOver",
+      "src": 343254,
+      "jp": "を轢いた。",
+      "en": "You blew "
+    },
+    "falter": {
+      "key": "falter",
+      "src": 343263,
+      "jp": "は怯んだ。",
+      "en": "faltered."
+    },
+    "stagger": {
+      "key": "stagger",
+      "src": 342933,
+      "jp": "*ふらり*",
+      "en": "*stagger*"
+    }
+  }
+}

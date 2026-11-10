@@ -1,286 +1,854 @@
 {
-"1": {
-"jp": "聖なる盾",
-"en": "Holy Shield"
-},
-"55": {
-"jp": "守護石",
-"en": "Gem Power"
-},
-"70": {
-"jp": "エナジーマックス",
-"en": "Energy MAX"
-},
-"2": {
-"jp": "沈黙の霧",
-"en": "Mist of Silence"
-},
-"3": {
-"jp": "リジェネレーション",
-"en": "Regeneration"
-},
-"4": {
-"jp": "属性保護",
-"en": "Attribution Shield"
-},
-"66": {
-"jp": "土竜闘気",
-"en": "Mogranic Aura"
-},
-"5": {
-"jp": "加速",
-"en": "Speed"
-},
-"6": {
-"jp": "鈍足",
-"en": "Slow"
-},
-"7": {
-"jp": "英雄",
-"en": "Hero"
-},
-"59": {
-"jp": "シューティングモード",
-"en": "Shooting Mode"
-},
-"62": {
-"jp": "一投入魂",
-"en": "OverLimit-Throw"
-},
-"63": {
-"jp": "データスキャン",
-"en": "Data scan"
-},
-"60": {
-"jp": "ディスインフェクション",
-"en": "Disinfection"
-},
-"49": {
-"jp": "錬成掌",
-"en": "Resolution Hand"
-},
-"50": {
-"jp": "瞳の奥の深淵",
-"en": "Abyss in the eye"
-},
-"54": {
-"jp": "黒曜鏡",
-"en": "Black Mirror"
-},
-"53": {
-"jp": "烈走破",
-"en": "Hyper Dash"
-},
-"52": {
-"jp": "重力偏向",
-"en": "Gravity Accel"
-},
-"43": {
-"jp": "集中",
-"en": "Concentration"
-},
-"71": {
-"jp": "冥界の瘴気",
-"en": "Miasma of Hell"
-},
-"8": {
-"jp": "脆弱の霧",
-"en": "Mist of Frailness"
-},
-"61": {
-"jp": "飢餓の呪い",
-"en": "Curse of Hunger"
-},
-"9": {
-"jp": "元素の傷跡",
-"en": "Element Scar"
-},
-"10": {
-"jp": "ホーリーヴェイル",
-"en": "Holy Veil"
-},
-"11": {
-"jp": "ナイトメア",
-"en": "Nightmare"
-},
-"12": {
-"jp": "知者の加護",
-"en": "Divine Wisdom"
-},
-"13": {
-"jp": "天罰",
-"en": "Punishment"
-},
-"14": {
-"jp": "ルルウィの憑依",
-"en": "Lulwy's Trick"
-},
-"15": {
-"jp": "インコグニート",
-"en": "Incognito"
-},
-"16": {
-"jp": "死の宣告",
-"en": "Death Word"
-},
-"17": {
-"jp": "ブースト",
-"en": "Boost"
-},
-"18": {
-"jp": "契約",
-"en": "Contingency"
-},
-"39": {
-"jp": "不幸",
-"en": "Unlucky"
-},
-"57": {
-"jp": "鬱",
-"en": "Melancholy"
-},
-"56": {
-"jp": "散漫",
-"en": "Distracted"
-},
-"19": {
-"jp": "幸運",
-"en": "Luck"
-},
-"67": {
-"jp": "人生の含味",
-"en": "Life Tasting"
-},
-"20": {
-"jp": "筋力の成長",
-"en": "Grow Strength"
-},
-"21": {
-"jp": "耐久の成長",
-"en": "Grow Endurance"
-},
-"22": {
-"jp": "器用の成長",
-"en": "Grow Dexterity"
-},
-"23": {
-"jp": "感覚の成長",
-"en": "Grow Perception"
-},
-"24": {
-"jp": "習得の成長",
-"en": "Grow Learning"
-},
-"25": {
-"jp": "意志の成長",
-"en": "Grow Will"
-},
-"26": {
-"jp": "魔力の成長",
-"en": "Grow Magic"
-},
-"27": {
-"jp": "魅力の成長",
-"en": "Grow Charisma"
-},
-"28": {
-"jp": "速度の成長",
-"en": "Grow Speed"
-},
-"29": {
-"jp": "明鏡止水",
-"en": "ClearMind"
-},
-"30": {
-"jp": "超再生",
-"en": "Super Regene"
-},
-"31": {
-"jp": "フェザー",
-"en": "Feather"
-},
-"32": {
-"jp": "チャージ",
-"en": "Charge"
-},
-"33": {
-"jp": "緊急回避",
-"en": "Emergency Evasion"
-},
-"34": {
-"jp": "魔装",
-"en": "Magic Equip"
-},
-"35": {
-"jp": "超重装",
-"en": "Super Armor"
-},
-"51": {
-"jp": "シールドパリィ",
-"en": "Shield Parry"
-},
-"64": {
-"jp": "呪装豪身",
-"en": "Jyusou Goushin"
-},
-"65": {
-"jp": "ハーモニックアサルト",
-"en": "Harmonic Assault"
-},
-"58": {
-"jp": "死神の舞踏",
-"en": "Killing Dance"
-},
-"36": {
-"jp": "アトリビウト",
-"en": "Attribute"
-},
-"37": {
-"jp": "絶対防衛",
-"en": "AutoGuard"
-},
-"38": {
-"jp": "パワーアイテム",
-"en": "Power Item"
-},
-"40": {
-"jp": "暴走",
-"en": "Run Wildly"
-},
-"41": {
-"jp": "空間掌握",
-"en": "Retention"
-},
-"42": {
-"jp": "タッグフォース",
-"en": "Form Shift"
-},
-"44": {
-"jp": "フォルムシフト",
-"en": "Form Shift"
-},
-"45": {
-"jp": "フォルムシフト",
-"en": "Form Shift"
-},
-"46": {
-"jp": "フォルムシフト",
-"en": "Form Shift"
-},
-"47": {
-"jp": "フォルムシフト",
-"en": "Form Shift"
-},
-"48": {
-"jp": "ファイナルシフト",
-"en": "Final Form Shift"
-},
-"68": {
-"jp": "操魔の鎖",
-"en": "Chain of Mana"
-},
-"69": {
-"jp": "偽命の灯",
-"en": "Flame of Life"
-}
+ "1": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "聖なる盾",
+  "en": "Holy Shield",
+  "line": 414,
+  "msgJp": "は光り輝いた。",
+  "msgEn": "begin to shine."
+ },
+ "55": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "守護石",
+  "en": "Gem Power",
+  "line": 417,
+  "msgJp": "は宝石の輝きを纏った。",
+  "msgEn": "wear the glow of gem."
+ },
+ "70": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "エナジーマックス",
+  "en": "Energy MAX",
+  "line": 420,
+  "msgJp": "に労働エナジーがみなぎった。",
+  "msgEn": "get Toil-Energy."
+ },
+ "2": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "沈黙の霧",
+  "en": "Mist of Silence",
+  "line": 423,
+  "msgJp": "はぼやけた霧に覆われた。",
+  "msgEn": "get surrounded by hazy mist."
+ },
+ "3": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "リジェネレーション",
+  "en": "Regeneration",
+  "line": 426,
+  "msgJp": "の代謝が活性化した。",
+  "msgEn": "start to regenerate."
+ },
+ "4": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "属性保護",
+  "en": "Attribution Shield",
+  "line": 429,
+  "msgJp": "は属性への耐性を得た。",
+  "msgEn": "obtain resistance to attribution."
+ },
+ "66": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "土竜闘気",
+  "en": "Mogranic Aura",
+  "line": 432,
+  "msgJp": "は闘気を纏った。",
+  "msgEn": "wore anti-magic aura."
+ },
+ "5": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "加速",
+  "en": "Speed",
+  "line": 435,
+  "msgJp": "は機敏になった。",
+  "msgEn": "speed up."
+ },
+ "6": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "鈍足",
+  "en": "Slow",
+  "line": 438,
+  "msgJp": "は鈍重になった。",
+  "msgEn": "slow down."
+ },
+ "7": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "英雄",
+  "en": "Hero",
+  "line": 441,
+  "msgJp": "の士気が向上した。",
+  "msgEn": "feel heroic."
+ },
+ "59": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "シューティングモード",
+  "en": "Shooting Mode",
+  "line": 444,
+  "msgJp": "は姿勢を固定した。",
+  "msgEn": "shift to shooting mode."
+ },
+ "62": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "一投入魂",
+  "en": "OverLimit-Throw",
+  "line": 447,
+  "msgJp": "は投擲に魂を込めた。",
+  "msgEn": "pour mana into throwing."
+ },
+ "63": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "データスキャン",
+  "en": "Data scan",
+  "line": 450,
+  "msgJp": "はスキャンモードに移行した。",
+  "msgEn": "shift to the scanning mode."
+ },
+ "60": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "ディスインフェクション",
+  "en": "Disinfection",
+  "line": 453,
+  "msgJp": "は汚染から守られた。",
+  "msgEn": "get protection from pollution."
+ },
+ "49": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "錬成掌",
+  "en": "Resolution Hand",
+  "line": 456,
+  "msgJp": "の手が光りだした。",
+  "msgEn": "shine hands."
+ },
+ "50": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "瞳の奥の深淵",
+  "en": "Abyss in the eye",
+  "line": 459,
+  "msgJp": "の眼に深みが増した。",
+  "msgEn": "represent the abyss in own eye."
+ },
+ "54": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "黒曜鏡",
+  "en": "Black Mirror",
+  "line": 462,
+  "msgJp": "はあなたの力を写し取った。",
+  "msgEn": "copy your power."
+ },
+ "53": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "烈走破",
+  "en": "Hyper Dash",
+  "line": 465,
+  "msgJp": "は脚に力を込めた。",
+  "msgEn": "put power on the legs."
+ },
+ "52": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "重力偏向",
+  "en": "Gravity Accel",
+  "line": 468,
+  "msgJp": "の重力の向きが変わった。",
+  "msgEn": "accel by gravity."
+ },
+ "43": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "集中",
+  "en": "Concentration",
+  "line": 471,
+  "msgJp": "の集中力が向上した。",
+  "msgEn": "feel concentration."
+ },
+ "71": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "冥界の瘴気",
+  "en": "Miasma of Hell",
+  "line": 474,
+  "msgJp": "は瘴気に包み込まれた。",
+  "msgEn": "surrounded in miasma."
+ },
+ "8": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "脆弱の霧",
+  "en": "Mist of Frailness",
+  "line": 477,
+  "msgJp": "は脆くなった。",
+  "msgEn": "feel weak."
+ },
+ "61": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "飢餓の呪い",
+  "en": "Curse of Hunger",
+  "line": 480,
+  "msgJp": "はお腹が減りやすくなった。",
+  "msgEn": "feel hungry."
+ },
+ "9": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "元素の傷跡",
+  "en": "Element Scar",
+  "line": 483,
+  "msgJp": "は元素への耐性を失った。",
+  "msgEn": "lose resistance to element."
+ },
+ "10": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "ホーリーヴェイル",
+  "en": "Holy Veil",
+  "line": 486,
+  "msgJp": "は聖なる衣に保護された。",
+  "msgEn": "receive holy protection."
+ },
+ "11": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "ナイトメア",
+  "en": "Nightmare",
+  "line": 489,
+  "msgJp": "は悪夢に襲われた。",
+  "msgEn": "start to suffer."
+ },
+ "12": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "知者の加護",
+  "en": "Divine Wisdom",
+  "line": 492,
+  "msgJp": "の思考は冴え渡った。",
+  "msgEn": "start to think clearly."
+ },
+ "13": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "天罰",
+  "en": "Punishment",
+  "line": 495,
+  "msgJp": "は雷に打たれた！",
+  "msgEn": "incur the wrath of God."
+ },
+ "14": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "ルルウィの憑依",
+  "en": "Lulwy's Trick",
+  "line": 498,
+  "msgJp": "にルルウィが乗り移った。",
+  "msgEn": "repeatthe name of Lulwy."
+ },
+ "15": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "インコグニート",
+  "en": "Incognito",
+  "line": 501,
+  "msgJp": "は別人になりすました。",
+  "msgEn": "start to disguise."
+ },
+ "16": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "死の宣告",
+  "en": "Death Word",
+  "line": 504,
+  "msgJp": "は死の宣告を受けた！",
+  "msgEn": "receive death verdict."
+ },
+ "17": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "ブースト",
+  "en": "Boost",
+  "line": 507,
+  "msgJp": "はブーストした！",
+  "msgEn": "gain massive power."
+ },
+ "18": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "契約",
+  "en": "Contingency",
+  "line": 510,
+  "msgJp": "は死神と契約した。",
+  "msgEn": "feel up contracts with the Reaper."
+ },
+ "39": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "不幸",
+  "en": "Unlucky",
+  "line": 513,
+  "msgJp": "に不幸な日が訪れた！",
+  "msgEn": "feel very unlucky today..."
+ },
+ "57": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "鬱",
+  "en": "Melancholy",
+  "line": 516,
+  "msgJp": "は鬱になった。",
+  "msgEn": "became melancholy."
+ },
+ "56": {
+  "type": [
+   2,
+   1,
+   0
+  ],
+  "jp": "散漫",
+  "en": "Distracted",
+  "line": 519,
+  "msgJp": "は気が散り始めた。",
+  "msgEn": "feel distracted."
+ },
+ "19": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "幸運",
+  "en": "Luck",
+  "line": 522,
+  "msgJp": "に幸運な日が訪れた！",
+  "msgEn": "feel very lucky today!"
+ },
+ "67": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "人生の含味",
+  "en": "Life Tasting",
+  "line": 525,
+  "msgJp": "はスキルの成長期に突入した。",
+  "msgEn": "enters a period of rapid skill growth."
+ },
+ "20": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "筋力の成長",
+  "en": "Grow Strength",
+  "line": 528,
+  "msgJp": "は筋力の成長期に突入した。",
+  "msgEn": "enters a period of rapid STR growth."
+ },
+ "21": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "耐久の成長",
+  "en": "Grow Endurance",
+  "line": 531,
+  "msgJp": "は耐久の成長期に突入した。",
+  "msgEn": "enters a period of rapid END growth."
+ },
+ "22": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "器用の成長",
+  "en": "Grow Dexterity",
+  "line": 534,
+  "msgJp": "は器用の成長期に突入した。",
+  "msgEn": "enters a period of rapid DEX growth."
+ },
+ "23": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "感覚の成長",
+  "en": "Grow Perception",
+  "line": 537,
+  "msgJp": "は感覚の成長期に突入した。",
+  "msgEn": "enters a period of rapid PER growth."
+ },
+ "24": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "習得の成長",
+  "en": "Grow Learning",
+  "line": 540,
+  "msgJp": "は習得の成長期に突入した。",
+  "msgEn": "enters a period of rapid LER growth."
+ },
+ "25": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "意志の成長",
+  "en": "Grow Will",
+  "line": 543,
+  "msgJp": "は意志の成長期に突入した。",
+  "msgEn": "enters a period of rapid WIL growth."
+ },
+ "26": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "魔力の成長",
+  "en": "Grow Magic",
+  "line": 546,
+  "msgJp": "は魔力の成長期に突入した。",
+  "msgEn": "enters a period of rapid MAG growth."
+ },
+ "27": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "魅力の成長",
+  "en": "Grow Charisma",
+  "line": 549,
+  "msgJp": "は魅力の成長期に突入した。",
+  "msgEn": "enters a period of rapid CHR growth."
+ },
+ "28": {
+  "type": [
+   3,
+   1,
+   0
+  ],
+  "jp": "速度の成長",
+  "en": "Grow Speed",
+  "line": 552,
+  "msgJp": "は速度の成長期に突入した。",
+  "msgEn": "enters a period of rapid SPD growth."
+ },
+ "29": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "明鏡止水",
+  "en": "ClearMind",
+  "line": 555,
+  "msgJp": "は己の心を研ぎ澄ました…。",
+  "msgEn": "sharpen the minds of self..."
+ },
+ "30": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "超再生",
+  "en": "Super Regene",
+  "line": 558,
+  "msgJp": "の体は超再生を始めた。",
+  "msgEn": "'s body regenerate fast."
+ },
+ "31": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "フェザー",
+  "en": "Feather",
+  "line": 561,
+  "msgJp": "の体が羽のように軽くなった。",
+  "msgEn": "'s body change light as a feather."
+ },
+ "32": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "チャージ",
+  "en": "Charge",
+  "line": 564,
+  "msgJp": "の力が最大限に達した。",
+  "msgEn": "charged power."
+ },
+ "33": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "緊急回避",
+  "en": "Emergency Evasion",
+  "line": 567,
+  "msgJp": "は装備の力を引き出した。",
+  "msgEn": "bring out the power of equipments."
+ },
+ "34": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "魔装",
+  "en": "Magic Equip",
+  "line": 570,
+  "msgJp": "は装備の力を引き出した。",
+  "msgEn": "bring out the power of equipments."
+ },
+ "35": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "超重装",
+  "en": "Super Armor",
+  "line": 573,
+  "msgJp": "は装備の力を引き出した。",
+  "msgEn": "bring out the power of equipments."
+ },
+ "51": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "シールドパリィ",
+  "en": "Shield Parry",
+  "line": 576,
+  "msgJp": "は盾の力を引き出した。",
+  "msgEn": "bring out the power of shield."
+ },
+ "64": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "呪装豪身",
+  "en": "Jyusou Goushin",
+  "line": 579,
+  "msgJp": "は呪いの力を引き出した。",
+  "msgEn": "bring out the power of curse."
+ },
+ "65": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "ハーモニックアサルト",
+  "en": "Harmonic Assault",
+  "line": 582,
+  "msgJp": "は言葉の力を引き出した。",
+  "msgEn": "bring out the power of voice."
+ },
+ "58": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "死神の舞踏",
+  "en": "Killing Dance",
+  "line": 585,
+  "msgJp": "は戦闘動作を最適化した。",
+  "msgEn": "optimized the killing pattern."
+ },
+ "36": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "アトリビウト",
+  "en": "Attribute",
+  "line": 588,
+  "msgJp": "は己の属性を纏った。",
+  "msgEn": "taken into the body attributes."
+ },
+ "37": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "絶対防衛",
+  "en": "AutoGuard",
+  "line": 591,
+  "msgJp": "は仲間を庇う体勢に入った。",
+  "msgEn": "joined  the posture that protect ally."
+ },
+ "38": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "パワーアイテム",
+  "en": "Power Item",
+  "line": 594,
+  "msgJp": "はアイテムの力を引き出した。",
+  "msgEn": "bring out the power of Items."
+ },
+ "40": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "暴走",
+  "en": "Run Wildly",
+  "line": 597,
+  "msgJp": "は暴走を始めた。",
+  "msgEn": "began to  uncontrollable."
+ },
+ "41": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "空間掌握",
+  "en": "Retention",
+  "line": 600,
+  "msgJp": "は周囲の空間を掌握した。",
+  "msgEn": "stabilize the space around."
+ },
+ "42": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "タッグフォース",
+  "en": "Form Shift",
+  "line": 603,
+  "msgJp": "は結束した。",
+  "msgEn": "shine with the tag partner."
+ },
+ "44": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "フォルムシフト",
+  "en": "Form Shift",
+  "line": 606,
+  "msgJp": "に変化した。",
+  "msgEn": "change the form."
+ },
+ "45": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "フォルムシフト",
+  "en": "Form Shift",
+  "line": 609,
+  "msgJp": "に変化した。",
+  "msgEn": "change the form."
+ },
+ "46": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "フォルムシフト",
+  "en": "Form Shift",
+  "line": 612,
+  "msgJp": "に変化した。",
+  "msgEn": "change the form."
+ },
+ "47": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "フォルムシフト",
+  "en": "Form Shift",
+  "line": 615,
+  "msgJp": "に変化した。",
+  "msgEn": "change the form."
+ },
+ "48": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "ファイナルシフト",
+  "en": "Final Form Shift",
+  "line": 618,
+  "msgJp": "に変化した。",
+  "msgEn": "change the form."
+ },
+ "68": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "操魔の鎖",
+  "en": "Chain of Mana",
+  "line": 621,
+  "msgJp": "は魔力を帯びた鎖に繋がれた。",
+  "msgEn": "was chained with enchanted chain."
+ },
+ "69": {
+  "type": [
+   1,
+   1,
+   0
+  ],
+  "jp": "偽命の灯",
+  "en": "Flame of Life",
+  "line": 624,
+  "msgJp": "の身体に生命力が満ち始めた。",
+  "msgEn": "gained life force temporarily."
+ }
 }

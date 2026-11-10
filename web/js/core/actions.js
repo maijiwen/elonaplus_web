@@ -324,6 +324,13 @@
      *   3. 站在已发现陷阱上 → *label_2910 解除
      *   4. 脚下的矿脉/泉/遗迹/植物（type 24..28）→ 转入对应的 rowact（挖掘等）
      * 【推断】扫描半径：源码用固定矩形窗口遍历，本实现取切比雪夫半径 6。
+     *
+     * 【0-GN / 344141-344645 `*label_2992` / `*label_2993` 的采集点】
+     *   344141-344230  var_503(1)=24..35 的落脚提示（「何かが見つかりそうだ」/ 泉 / 残骸 /
+     *                  採掘場 / 植物 / 割り箸）→ MapFeat.describe 与 mapfeat.js 的类型名
+     *   344231-344400  采集点产物（野菜 / 果物 / ハーブ / 鉱石）→ material.js 的类型表
+     *   344401-344645  搜索与采集的回合消耗、成品生成 → Actions.search /
+     *                  Actions.tickRowAct / Material.spotYield
      */
     search(g) {
       if (this.onWorldMap(g)) { g.log('在世界地图上无法搜索。'); return { ok: false }; }
@@ -441,7 +448,8 @@
      * 【已确认】*label_2987 的顺序：
      *   1. 目标格有地面物品且 id=526（果树）：count-- ，掉落 f[26] 的果实；
      *      count<=0 时把该物品改成 592（枯树）（342625-342661）。
-     *   2. 目标格有地面物品且 id=578（树）：数量 -1 并掉落 id=54（木材）（342664-342682）。
+     *   2. 目标格有地面物品且 id=578（貯金箱）：无主（`var_99(21) != 5`）时
+     *      数量 -1 并在该格散落 f[25] 枚金币（id 54）（342664-342682）。
      *   3. 目标格有角色 → 攻击（走 *label_3006）。
      * 【推断】关着的门：原版由 *label_2991 的开锁/破坏分支处理，本实现直接调用
      *   MapFeat.openDoor（其内部已含开锁判定）。
@@ -454,15 +462,23 @@
       const tx = p.x + d[0], ty = p.y + d[1];
       if (!g.map.inBounds(tx, ty)) { g.log('那里什么也没有。'); return { ok: false }; }
 
-      // 1) 目标格的角色 → 直接攻击
+      // 0-GL / *label_2989（343030-343052）：压溃或荷车超载两倍时无法行动
+      if ((p.get(45) | 0) >= 4 && (g.getV65(17) | 0) === 0) {
+        g.log('被压得动弹不得！');
+        return { ok: false, reason: 'crushed' };
+      }
+      const V = Elona.Vehicle;
+      if (V && V.cargoWeight && V.cargoLimit
+          && (V.cargoWeight(g) | 0) > (V.cargoLimit(g) | 0) * 2) {
+        g.log('货车太重，动不了！');
+        return { ok: false, reason: 'cargo' };
+      }
+
+      // 1) 目标格的角色（342683-342766）：窒息 / 睡眠 / 普通体当たり
       const chk = g.map.check(tx, ty);
       if (chk.charaIndex >= 0) {
         const target = g.charas[chk.charaIndex];
-        if (target && target !== p) {
-          g.log(`你向 ${target.name} 撞了过去。`);
-          g.attackTarget(target);
-          return { ok: true, action: 'attack' };
-        }
+        if (target && target !== p) return this.bashChara(g, p, target);
       }
 
       // 2) 果树 / 树（342625-342682）
@@ -494,34 +510,109 @@
       if (tree2) {
         const n = tree2.f[25] | 0;
         g.log(`你撞向了 ${Elona.ItemDB.name(tree2.id, 'en')}。`);
-        tree2.f[0] = (tree2.f[0] | 0) - 1;
-        tree2.f[25] = Math.max(0, n - 1);
-        const wood = Elona.ItemDB.createItem(54, Math.max(1, n));
-        if (wood) {
-          wood.f[5] = p.x; wood.f[6] = p.y; wood.f[21] = -1;
-          g.groundItems.push(wood);
-          g.refreshGroundCell(p.x, p.y);
-          g.log(`${Elona.ItemDB.name(wood.id, 'en')} 掉了下来。`);
+        // 342674-342679：只有无主（var_99(21) != 5）的貯金箱才会碎，
+        //   碎后数量 -1、在**该格**散落 f[25] 枚金币（f[25] 本身不递减）
+        if ((tree2.f[21] | 0) !== 5) {
+          tree2.f[0] = (tree2.f[0] | 0) - 1;
+          const gold = Elona.ItemDB.createItem(54, Math.max(1, n));
+          if (gold) {
+            gold.f[5] = tx; gold.f[6] = ty; gold.f[21] = -1;
+            g.groundItems.push(gold);
+            g.refreshGroundCell(tx, ty);
+            g.log(`${Elona.ItemDB.name(gold.id, 'en')} 散落了一地。`);
+          }
         }
         if ((tree2.f[0] | 0) <= 0) g.removeGroundItem(tree2);
         g.endTurn();
-        return { ok: true, action: 'tree' };
+        return { ok: true, action: 'bank' };
       }
 
-      // 3) 门
+      // 3) 壶（342770-342788：var_503(1)==30 → 清特性 + spillfrag + 随机物品）
       const M = Elona.MapFeat;
+      const rnd = (n) => (g.rng ? g.rng.rnd(n) : (Elona.rng ? Elona.rng.rnd(n) : 0));
       if (M) {
         const f = M.read(g, tx, ty);
-        if (f.type === M.TYPE.DOOR_CLOSED) {
-          const r = M.openDoor(g, p, tx, ty);
-          g.log(r.ok ? (r.locked ? '你硬撞开了门。' : '你撞开了门。') : '门纹丝不动。');
+        if (f.type === M.TYPE.POT) {
+          M.clear(g, tx, ty);
+          if (g.addParticles) g.addParticles(tx, ty, 2);
+          const it = (Elona.ItemDB && Elona.ItemDB.create) ? Elona.ItemDB.create(g, {}) : null;
+          if (it) {
+            it.f[5] = tx; it.f[6] = ty; it.f[21] = -1;
+            g.groundItems.push(it);
+            if (g.refreshGroundCell) g.refreshGroundCell(tx, ty);
+          }
+          g.log('你打碎了壶。');
           g.endTurn();
-          return { ok: !!r.ok, action: 'door' };
+          return { ok: true, action: 'pot' };
+        }
+        // 4) 门（342791-342862）：按门强度与力量判定破坏，失败时肌肉拉伤 / 门裂开
+        if (f.type === M.TYPE.DOOR_CLOSED) {
+          const str = p.skill ? (p.skill(10) | 0) : (p.get(10) | 0);
+          const jail = (g.getV65(20) | 0) === 41;
+          const diff = ((f.sub | 0) * 3 + 30) * (jail ? 20 : 1);
+          const broke = diff > 0 && rnd(diff) < str && rnd(2) === 1;
+          if (broke) {
+            if ((f.sub | 0) > str && Elona.Stats && Elona.Stats.skillExp) {
+              try { Elona.Stats.skillExp(p, 10, p, ((f.sub | 0) - str) * 15, 1, 0, g); } catch (e) { /* noop */ }
+            }
+            M.clear(g, tx, ty);
+            if (g.refreshGroundCell) g.refreshGroundCell(tx, ty);
+            g.log('你把门撞碎了。');
+          } else {
+            if (jail) g.log('果然牢狱的门很结实。');
+            if (rnd(4) === 0) g.log('你拉伤了肌肉。');
+            if (rnd(3) === 0 && (f.sub | 0) > 0) {
+              M.write(g, tx, ty, -1, -1, (f.sub | 0) - 1, -1);   // 342852-342856
+              g.log('门只是裂开了一点。');
+            } else {
+              const r = M.openDoor(g, p, tx, ty);
+              g.log(r.ok ? '你撞开了门。' : '门纹丝不动。');
+            }
+          }
+          g.endTurn();
+          return { ok: true, action: 'door', broke: !!broke };
         }
       }
-      g.log('你撞了个空。');
+      g.log('你撞了个空。');                       // 342869
       g.endTurn();
       return { ok: false, reason: 'nothing' };
+    },
+
+    /**
+     * 0-GL / 342683-342766：对角色「体当たり」。
+     *   窒息 var_58(263)>=15 → 全力撞击（力量×2 伤害），救回后清 263、好感 +10；
+     *   睡眠/眩晕 → 妨碍睡眠、karma -1、var_58(79)=418；
+     *   其余 → 普通撞击 + hostileaction（本项目沿用 attackTarget 近似）。
+     *   收尾 342762-342765：256>60 → 59，251 清 0。
+     */
+    bashChara(g, p, t) {
+      const str = p.skill ? (p.skill(10) | 0) : (p.get(10) | 0);
+      const asleep = (t.get(251) | 0) !== 0 || (t.get(256) | 0) >= 60;
+      if (!asleep && (t.get(263) | 0) >= 15) {
+        g.log(`你用尽全力撞向 ${t.name}！`);
+        if (Elona.Battle && Elona.Battle.applyDamage) {
+          Elona.Battle.applyDamage(t, str * 2, g, p, 0, 0);
+        }
+        if ((t.get(0) | 0) === 1) {
+          g.log(`${t.name} 确保了气道。`);
+          g.log('「得救了！」');
+          t.set(263, 0);
+          if ((t.index | 0) !== 0 && Elona.Relation && Elona.Relation.modimp) {
+            try { Elona.Relation.modimp(t, 10, g); } catch (e) { /* noop */ }
+          }
+        }
+      } else if (asleep) {
+        g.log(`你撞向了 ${t.name}。`);
+        g.log(`${t.name} 的睡眠被打扰了。`);
+        if (typeof g.modkarma === 'function') g.modkarma(-1);
+        t.set(79, 18 + 100 * 4);                 // 590? / 342759 var_58(79)
+      } else {
+        g.log(`你向 ${t.name} 撞了过去。`);
+        g.attackTarget(t);                       // hostileaction 的项目近似
+      }
+      if ((t.get(256) | 0) > 60) t.set(256, 59);
+      t.set(251, 0);
+      return { ok: true, action: 'bash-chara', asleep: asleep };
     },
 
     // ======================================================================

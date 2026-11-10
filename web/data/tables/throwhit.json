@@ -1,0 +1,461 @@
+{
+ "src": "hsp/start.hsp",
+ "ranges": {
+  "groupA": [
+   341421,
+   341604
+  ],
+  "category": [
+   341605,
+   341844
+  ],
+  "ground": [
+   341846,
+   341860
+  ]
+ },
+ "cats": [
+  57000,
+  60000,
+  64000,
+  80000
+ ],
+ "groupA": [
+  {
+   "id": 906,
+   "src": [
+    341421,
+    341469
+   ],
+   "cond": {
+    "f26": 0
+   },
+   "tagGuard": 627,
+   "counter": 262
+  },
+  {
+   "id": 1098,
+   "src": [
+    341470,
+    341485
+   ]
+  },
+  {
+   "id": 1313,
+   "src": [
+    341486,
+    341520
+   ],
+   "makeItem": 504
+  },
+  {
+   "id": 984,
+   "src": [
+    341521,
+    341565
+   ],
+   "duel": true
+  },
+  {
+   "id": 1079,
+   "src": [
+    341566,
+    341603
+   ]
+  },
+  {
+   "id": 1080,
+   "src": [
+    341566,
+    341603
+   ]
+  }
+ ],
+ "excludeGeneric": [
+  1133,
+  988,
+  989,
+  1064,
+  1059,
+  1061,
+  1304,
+  1305,
+  1306,
+  1307,
+  1309,
+  1312
+ ],
+ "specials": [
+  {
+   "id": 987,
+   "tag": "skull sword",
+   "src": [
+    341677,
+    341699
+   ],
+   "spell": null,
+   "dmgcon": null,
+   "buff": null,
+   "power": null
+  },
+  {
+   "id": 1008,
+   "tag": "violent skull sword",
+   "src": [
+    341677,
+    341699
+   ],
+   "spell": null,
+   "dmgcon": null,
+   "buff": null,
+   "power": null
+  },
+  {
+   "id": 1064,
+   "tag": "ohuda",
+   "src": [
+    341700,
+    341722
+   ],
+   "spell": null,
+   "dmgcon": null,
+   "buff": null,
+   "power": null
+  },
+  {
+   "id": 1059,
+   "tag": "present",
+   "src": [
+    341723,
+    341731
+   ],
+   "spell": null,
+   "dmgcon": null,
+   "buff": null,
+   "power": null
+  },
+  {
+   "id": 1061,
+   "tag": "wild flower",
+   "src": [
+    341732,
+    341739
+   ],
+   "spell": null,
+   "dmgcon": null,
+   "buff": null,
+   "power": null
+  },
+  {
+   "id": 1133,
+   "tag": "bomb barrel",
+   "src": [
+    341740,
+    341747
+   ],
+   "spell": 432,
+   "dmgcon": null,
+   "buff": null,
+   "power": "176"
+  },
+  {
+   "id": 1309,
+   "tag": "surstromming",
+   "src": [
+    341748,
+    341758
+   ],
+   "spell": 479,
+   "dmgcon": 7,
+   "buff": null,
+   "power": "184"
+  },
+  {
+   "id": 1307,
+   "tag": "snow crystal",
+   "src": [
+    341759,
+    341769
+   ],
+   "spell": 431,
+   "dmgcon": null,
+   "buff": 9,
+   "power": "179"
+  },
+  {
+   "id": 1312,
+   "tag": "expoopsion",
+   "src": [
+    341770,
+    341780
+   ],
+   "spell": 473,
+   "dmgcon": null,
+   "buff": 11,
+   "power": "179"
+  },
+  {
+   "id": 1306,
+   "tag": "darknessbang",
+   "src": [
+    341781,
+    341790
+   ],
+   "spell": 469,
+   "dmgcon": null,
+   "buff": null,
+   "power": "152"
+  },
+  {
+   "id": 1305,
+   "tag": "lightning discharger",
+   "src": [
+    341791,
+    341801
+   ],
+   "spell": 470,
+   "dmgcon": null,
+   "buff": null,
+   "power": "164"
+  },
+  {
+   "id": 1304,
+   "tag": "echinobox",
+   "src": [
+    341802,
+    341817
+   ],
+   "spell": 478,
+   "dmgcon": null,
+   "buff": null,
+   "power": "175"
+  },
+  {
+   "id": 988,
+   "tag": "magistus",
+   "src": [
+    341818,
+    341825
+   ],
+   "spell": 460,
+   "dmgcon": null,
+   "buff": null,
+   "power": "174"
+  },
+  {
+   "id": 989,
+   "tag": "trismagistus",
+   "src": [
+    341826,
+    341837
+   ],
+   "spell": 460,
+   "dmgcon": null,
+   "buff": null,
+   "power": "174",
+   "times": 3
+  }
+ ],
+ "texts": [
+  {
+   "src": 341434,
+   "jp": "{arg1}は{arg2}をかばった！",
+   "en": "{arg1} guarded {arg2}.",
+   "rawJp": "name(var_244) + \"は\" + name(var_58(167, var_244)) + \"をかばった！\"",
+   "rawEn": "name(var_244) + \" guarded \" + name(var_58(167, var_244)) + \".\""
+  },
+  {
+   "src": 341442,
+   "jp": "{arg1}に見事に命中した！",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"に見事に命中した！\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  {
+   "src": 341460,
+   "jp": "「お、おのれ！卑劣な真似を！」",
+   "en": "Chestnut giant yells, You idiot!",
+   "rawJp": "\"「お、おのれ！卑劣な真似を！」\"",
+   "rawEn": "\"Chestnut giant yells, \" + cnvtalk(\"You idiot!\")"
+  },
+  {
+   "src": 341479,
+   "jp": "{arg1}の足元に落ちた。",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"の足元に落ちた。\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  {
+   "src": 341495,
+   "jp": "{arg1}の足元に落ちた。",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"の足元に落ちた。\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  {
+   "src": 341503,
+   "jp": "ブランクカードに{arg1}の情報が刻まれた。",
+   "en": "The information of {arg1} was engraved on the blank card.",
+   "rawJp": "\"ブランクカードに\" + name(var_244) + \"の情報が刻まれた。\"",
+   "rawEn": "\"The information of \" + name(var_244) + \" was engraved on the blank card.\""
+  },
+  {
+   "src": 341530,
+   "jp": "{arg1}の足元に落ちた。",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"の足元に落ちた。\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  {
+   "src": 341544,
+   "jp": "{arg1}は手袋を拾い上げ、臨戦態勢に入った。＊決闘開始＊",
+   "en": "*Duel!!*",
+   "rawJp": "name(var_244) + \"は手袋を拾い上げ、臨戦態勢に入った。＊決闘開始＊\"",
+   "rawEn": "\"*Duel!!*\""
+  },
+  {
+   "src": 341559,
+   "jp": "{arg1}に鼻で笑われた。",
+   "en": "{arg1} ridiculed you.",
+   "rawJp": "name(var_244) + \"に鼻で笑われた。\"",
+   "rawEn": "name(var_244) + \" ridiculed you.\""
+  },
+  {
+   "src": 341575,
+   "jp": "{arg1}に見事に命中した！",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"に見事に命中した！\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  {
+   "src": 341616,
+   "jp": "{arg1}は{arg2}をかばった！",
+   "en": "{arg1} guarded {arg2}.",
+   "rawJp": "name(var_244) + \"は\" + name(var_58(167, var_244)) + \"をかばった！\"",
+   "rawEn": "name(var_244) + \" guarded \" + name(var_58(167, var_244)) + \".\""
+  },
+  {
+   "src": 341625,
+   "jp": "{arg1}に見事に命中した！",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"に見事に命中した！\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  {
+   "src": 341645,
+   "jp": "{arg1}は思わず{item}に食いついた！",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"は思わず\" + itemname(var_579, 1) + \"に食いついた！\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  {
+   "src": 341660,
+   "jp": "{arg1}はむせた。「げほっげほっ！」",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"はむせた。「げほっげほっ！」\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  {
+   "src": 341813,
+   "jp": "{arg1}の脳で何かがうごめきだした！",
+   "en": "Something began to stir in {arg1}'s brain!",
+   "rawJp": "name(var_244) + \"の脳で何かがうごめきだした！\"",
+   "rawEn": "\"Something began to stir in \" + name(var_244) + \"'s brain!\""
+  },
+  {
+   "src": 341850,
+   "jp": "それは地面に落ちて砕けた。",
+   "en": "It falls on the ground and shatters.",
+   "rawJp": "\"それは地面に落ちて砕けた。\"",
+   "rawEn": "\"It falls on the ground and shatters.\""
+  }
+ ],
+ "keyed": {
+  "guard": {
+   "src": 341434,
+   "jp": "{arg1}は{arg2}をかばった！",
+   "en": "{arg1} guarded {arg2}.",
+   "rawJp": "name(var_244) + \"は\" + name(var_58(167, var_244)) + \"をかばった！\"",
+   "rawEn": "name(var_244) + \" guarded \" + name(var_58(167, var_244)) + \".\""
+  },
+  "hit": {
+   "src": 341442,
+   "jp": "{arg1}に見事に命中した！",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"に見事に命中した！\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  "fell": {
+   "src": 341479,
+   "jp": "{arg1}の足元に落ちた。",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"の足元に落ちた。\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  "chestnut": {
+   "src": 341460,
+   "jp": "「お、おのれ！卑劣な真似を！」",
+   "en": "Chestnut giant yells, You idiot!",
+   "rawJp": "\"「お、おのれ！卑劣な真似を！」\"",
+   "rawEn": "\"Chestnut giant yells, \" + cnvtalk(\"You idiot!\")"
+  },
+  "card": {
+   "src": 341503,
+   "jp": "ブランクカードに{arg1}の情報が刻まれた。",
+   "en": "The information of {arg1} was engraved on the blank card.",
+   "rawJp": "\"ブランクカードに\" + name(var_244) + \"の情報が刻まれた。\"",
+   "rawEn": "\"The information of \" + name(var_244) + \" was engraved on the blank card.\""
+  },
+  "duel": {
+   "src": 341544,
+   "jp": "{arg1}は手袋を拾い上げ、臨戦態勢に入った。＊決闘開始＊",
+   "en": "*Duel!!*",
+   "rawJp": "name(var_244) + \"は手袋を拾い上げ、臨戦態勢に入った。＊決闘開始＊\"",
+   "rawEn": "\"*Duel!!*\""
+  },
+  "ridicule": {
+   "src": 341559,
+   "jp": "{arg1}に鼻で笑われた。",
+   "en": "{arg1} ridiculed you.",
+   "rawJp": "name(var_244) + \"に鼻で笑われた。\"",
+   "rawEn": "name(var_244) + \" ridiculed you.\""
+  },
+  "bite": {
+   "src": 341645,
+   "jp": "{arg1}は思わず{item}に食いついた！",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"は思わず\" + itemname(var_579, 1) + \"に食いついた！\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  "choke": {
+   "src": 341660,
+   "jp": "{arg1}はむせた。「げほっげほっ！」",
+   "en": "It hits {arg1}!",
+   "rawJp": "name(var_244) + \"はむせた。「げほっげほっ！」\"",
+   "rawEn": "\"It hits \" + name(var_244) + \"!\""
+  },
+  "parasite": {
+   "src": 341813,
+   "jp": "{arg1}の脳で何かがうごめきだした！",
+   "en": "Something began to stir in {arg1}'s brain!",
+   "rawJp": "name(var_244) + \"の脳で何かがうごめきだした！\"",
+   "rawEn": "\"Something began to stir in \" + name(var_244) + \"'s brain!\""
+  },
+  "shatter": {
+   "src": 341850,
+   "jp": "それは地面に落ちて砕けた。",
+   "en": "It falls on the ground and shatters.",
+   "rawJp": "\"それは地面に落ちて砕けた。\"",
+   "rawEn": "\"It falls on the ground and shatters.\""
+  }
+ },
+ "ground": {
+  "shatter": 341850,
+  "bank": 578,
+  "coin": 54
+ },
+ "tag": {
+  "guard": 341434,
+  "spouse": 167
+ }
+}

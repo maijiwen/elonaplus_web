@@ -257,6 +257,11 @@
   function talk(g, npc) {
     const r = roleOf(npc);
     const title = roleName(r);
+    // 0-GN / 365740-365762：睡眠（var_58(256)>60）或眩晕（var_58(251)!=0）的角色，
+    //   对话窗口第一项是「（XX 正睡得香甜……）」而非闲聊台词。
+    if ((npc.get(251) | 0) !== 0 || (npc.get(256) | 0) > 60) {
+      return `（${npc.name}正睡得香甜……）`;
+    }
     // 情报屋的传话效果（246142-246150）：交谈时结算
     let extra = '';
     if ((npc.get(428) | 0) > 0) {
@@ -270,6 +275,16 @@
       if (t && t.text) {
         const line = /^["「]/.test(t.text) ? t.text : `「${t.text}」`;
         return title ? `${npc.name}（${title}）${line}` : `${npc.name}${line}`;
+      }
+    }
+    // 0-GM / 414098-414105：原版先 gosub *label_0264 取 data\talk.txt 的随机闲聊，
+    // 再 customtalk 106 覆盖；这里 customtalk 已在上面优先返回，
+    // 因此把内置闲聊接在自定义台词之后、硬编码 GREET 之前（结果等价）。
+    if (Elona.IdleTalk) {
+      const idl = Elona.IdleTalk.idle(g, npc, { lang: 'en' });
+      if (idl && idl.text) {
+        const body = /^[「"『]/.test(idl.text) ? idl.text : `「${idl.text}」`;
+        return (title ? `${npc.name}（${title}）` : npc.name) + body + extra;
       }
     }
     const lines = GREET[r] || GREET[3];

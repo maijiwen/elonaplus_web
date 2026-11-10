@@ -116,25 +116,23 @@
    * 能力 806 在伤害结算之后调用：判定 → 斩杀 → （可选）生成肉人偶。
    * @returns {object|null} null = 不满足濒死/排除条件
    */
-  function execute(g, caster, t) {
-    const r = roll(g, caster, t);
-    if (!r.kill) return null;
+  /** 扣血之后的部分：标记 → 生成/掉落 → 死亡结算（0-GH 起死亡结算延迟到这里） */
+  function complete(g, caster, t, r) {
     // 338429：skillexp 151, caster, 50
     if (caster && Elona.Stats && Elona.Stats.skillExp) {
       Elona.Stats.skillExp(caster, SKILL_BIO, caster, 50, 1, 0, g);
     }
     if (g && g.setV65) g.setV65(FLAG, r.doll ? 100 : -1);   // 338430-338434
-    // 338436 dmghp target, maxHP, caster, 658（处决，元素 658 = 变成人偶/内部崩坏）
-    if (Elona.Battle && Elona.Battle.applyDamage) {
-      Elona.Battle.applyDamage(t, (t.hpMax | 0) * 2, g, caster, 658, 0);
-    }
     t.hp = 0;
+    t.__fleshDoll = r.doll ? 100 : 0;                       // Loot.onDeath 取用
     let item = null;
-    if (r.doll) item = spawn(g, t);
-    // 338442 复位全局标志；把「本次已生成人偶」挂在角色上，等 Loot.onDeath 取用
-    // （源码 dmghp 同步触发 vanquish，网页版死亡结算延后到动作结束）。
-    t.__fleshDoll = r.doll ? 100 : 0;
-    t.set(0, 0);                                            // chara_vanquish
+    const canSettle = !!(Elona.Battle && Elona.Battle.checkDeath);
+    if (r.doll) item = spawn(g, t);                          // 204 肉人偶（Rank10）
+    if (canSettle) {
+      Elona.Battle.checkDeath(g, t, caster);                 // 普通掉落会被 pendingDoll 抑制
+    } else {
+      t.set(0, 0);                                          // chara_vanquish
+    }
     if (g && g.setV65) g.setV65(FLAG, 0);                  // 338442
     if (g && g.log) {
       g.log(r.doll ? `${t.name || '目标'}被丝线变成了肉人偶。`
@@ -142,6 +140,33 @@
     }
     if (g && g.syncCharaCells) g.syncCharaCells();
     return { kill: true, doll: r.doll, reasons: r.reasons, item: item || null };
+  }
+
+  /**
+   * 能力 806 的「伤害已经结算、但死亡结算被延后」的收尾（0-GH）。
+   * 目标此时 HP <= 0 且仍 ACTIVE，可以正常读 `var_58(50)` 做濒死判定。
+   */
+  function finish(g, caster, t) {
+    const r = roll(g, caster, t);
+    if (!r.kill) {
+      if (t && (t.hp | 0) <= 0 && Elona.Battle && Elona.Battle.checkDeath) {
+        Elona.Battle.checkDeath(g, t, caster);
+      }
+      return null;
+    }
+    return complete(g, caster, t, r);
+  }
+
+  /** 直接调用的入口（旧路径 / 测试）：先判定，再扣血，再收尾 */
+  function execute(g, caster, t) {
+    const r = roll(g, caster, t);
+    if (!r.kill) return null;
+    t.__fleshDoll = r.doll ? 100 : 0;
+    // 338436 dmghp target, maxHP, caster, 658
+    if (Elona.Battle && Elona.Battle.applyDamage) {
+      Elona.Battle.applyDamage(t, (t.hpMax | 0) * 2, g, caster, 658, 0, { deferDeath: true });
+    }
+    return complete(g, caster, t, r);
   }
 
   /** 当前全局标志（338433-338442，只在能力结算瞬间有效） */
@@ -160,6 +185,6 @@
 
   Elona.FleshDoll = {
     FLAG, DUEL, CORPSE_ID, GRAPHIC_DLL, RANK_DOLL, SPECIAL_RACES,
-    roll, spawn, execute, pending, consume,
+    roll, spawn, execute, finish, complete, pending, consume,
   };
 })(window);

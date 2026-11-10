@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "source": "199713-200348",
+    "causes": "200039-200328",
+    "cleanup": "200330-200348",
+    "note": "由 tools/extract_deathtexts.py 从 start.hsp 编译，勿手改"
+  },
+  "killedBy": {
+    "jp": "{attacker}に殺された。",
+    "en": "was killed by {attacker}",
+    "src": 200036
+  },
+  "causes": {
+    "-28": {
+      "jp": "見えざる手に葬られた。",
+      "en": "got assassinated by the unseen hand",
+      "src": 200046
+    },
+    "-11": {
+      "jp": "見えざる手に葬られた。",
+      "en": "got assassinated by the unseen hand",
+      "src": 200056
+    },
+    "-1": {
+      "jp": "罠にかかって死んだ。",
+      "en": "got caught in a trap and died",
+      "src": 200066
+    },
+    "-33": {
+      "jp": "灰になって崩れ落ちた。",
+      "en": "turned to ashes and collapsed",
+      "src": 200076
+    },
+    "-32": {
+      "jp": "灰になって崩れ落ちた。",
+      "en": "turned to ashes and collapsed",
+      "src": 200086
+    },
+    "-2": {
+      "jp": "マナの反動で消滅した。",
+      "en": "was completely wiped by magic reaction",
+      "src": 200096
+    },
+    "-3": {
+      "jp": "飢え死にした。",
+      "en": "was starved to death",
+      "src": 200106
+    },
+    "-4": {
+      "jp": "毒にもがき苦しみながら死んだ。",
+      "en": "miserably died from poison",
+      "src": 200116
+    },
+    "-13": {
+      "jp": "血を流しすぎて死んだ。",
+      "en": "died from loss of blood",
+      "src": 200126
+    },
+    "-27": {
+      "jp": "干からびて死んだ。",
+      "en": "died dried up in the desert.",
+      "src": 200136
+    },
+    "-23": {
+      "jp": "熱したチョコレートで火傷して死んだ。",
+      "en": "melted down",
+      "src": 200146
+    },
+    "-5": {
+      "jp": "呪い殺された。",
+      "en": "died from curse",
+      "src": 200156
+    },
+    "-7": {
+      "jp": "階段から転げ落ちて亡くなった。",
+      "en": "trumbled from stairs and died",
+      "src": 200166
+    },
+    "-8": {
+      "jp": "演奏中に激怒した聴衆に殺された。",
+      "en": "was killed by an audience",
+      "src": 200176
+    },
+    "-9": {
+      "jp": "焼けて消滅した。",
+      "en": "was burnt and turned into ash",
+      "src": 200186
+    },
+    "-12": {
+      "jp": "食中毒で倒れた。",
+      "en": "got killed by food poisoning",
+      "src": 200196
+    },
+    "-14": {
+      "jp": "エーテルの病に倒れた。",
+      "en": "died of the Ether disease",
+      "src": 200206
+    },
+    "-15": {
+      "jp": "溶けて液体になった。",
+      "en": "melted down",
+      "src": 200216
+    },
+    "-34": {
+      "jp": "属性の残滓に呑まれて死んだ。",
+      "en": "consumed by the remnants of the attribute",
+      "src": 200226
+    },
+    "-16": {
+      "jp": "自殺した。",
+      "en": "committed suicide",
+      "src": 200236
+    },
+    "-17": {
+      "jp": "核爆発に巻き込まれて死んだ。",
+      "en": "was killed by an atomic bomb",
+      "src": 200246
+    },
+    "-18": {
+      "jp": "アイアンメイデンにはさまれて死んだ。",
+      "en": "stepped in an iron maiden and died",
+      "src": 200256
+    },
+    "-19": {
+      "jp": "ギロチンで首を落とされて死んだ。",
+      "en": "was guillotined",
+      "src": 200266
+    },
+    "-20": {
+      "jp": "首を吊った。",
+      "en": "commited suicide by hanging",
+      "src": 200290
+    },
+    "-21": {
+      "jp": "窒息して死んだ。",
+      "en": "suffocated and died",
+      "src": 200300
+    },
+    "-6": {
+      "jp": "{item}の重さに耐え切れず潰れた。",
+      "en": "was squashed by {item}",
+      "src": 200326
+    }
+  },
+  "messages": {
+    "-7": {
+      "jp": "{name}は階段から転げ落ちて死んだ。",
+      "en": "{name} tumbled from stairs and died.",
+      "src": 200163
+    },
+    "-8": {
+      "jp": "{name}は聴衆に殺された。",
+      "en": "{name} was killed by an audience.",
+      "src": 200173
+    },
+    "-9": {
+      "jp": "{name}は焼け死んだ。",
+      "en": "{name} was burnt and turned into ash.",
+      "src": 200183
+    },
+    "-12": {
+      "jp": "{name}は食中毒で死んだ。",
+      "en": "{name} was killed by food poisoning.",
+      "src": 200193
+    },
+    "-14": {
+      "jp": "{name}はエーテルに侵食され死んだ。",
+      "en": "{name} died of the Ether disease.",
+      "src": 200203
+    },
+    "-15": {
+      "jp": "{name}は溶けて液体になった。",
+      "en": "{name} melted down.",
+      "src": 200213
+    },
+    "-34": {
+      "jp": "{name}は属性の残滓に呑まれて死んだ。",
+      "en": "{name} was consumed by the remnants of the attribute and died.",
+      "src": 200223
+    },
+    "-16": {
+      "jp": "{name}はバラバラになった。",
+      "en": "{name} shattered.",
+      "src": 200233
+    },
+    "-17": {
+      "jp": "{name}は核爆発に巻き込まれて塵となった。",
+      "en": "{name} was turned into atoms.",
+      "src": 200243
+    },
+    "-18": {
+      "jp": "{name}はアイアンメイデンの中で串刺しになって果てた。",
+      "en": "{name} stepped in an iron maiden and died.",
+      "src": 200253
+    },
+    "-19": {
+      "jp": "{name}はギロチンで首をちょんぎられて死んだ。",
+      "en": "{name} was guillotined and died.",
+      "src": 200263
+    },
+    "-24": {
+      "jp": "{name}は公正な投票の結果処刑された。",
+      "en": "{name} was executed by result of fair vote.",
+      "src": 200273
+    },
+    "-26": {
+      "jp": "{name}は衰弱して死んだ。",
+      "en": "{name} weakened and died.",
+      "src": 200280
+    },
+    "-20": {
+      "jp": "{name}は首を吊った。",
+      "en": "{name} hanged himself.",
+      "src": 200287
+    },
+    "-21": {
+      "jp": "{name}は窒息して死んだ。",
+      "en": "{name} suffocated and died.",
+      "src": 200297
+    },
+    "-6": {
+      "jp": "{name}は{item}の重さに耐え切れず死んだ。",
+      "en": "{name} was squashed by {item}.",
+      "src": 200323
+    }
+  },
+  "cleanup": {
+    "src": [
+      200330,
+      200348
+    ],
+    "removeChara": 200331,
+    "fragBit": 983,
+    "fragCount": 3,
+    "bloodCount": 4,
+    "skipSource": [
+      -31,
+      -30
+    ],
+    "sound": {
+      "frag": 45,
+      "bloodBase": 8,
+      "bloodRnd": 2
+    }
+  }
+}

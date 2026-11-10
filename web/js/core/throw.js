@@ -16,8 +16,13 @@
  *   「特殊食物专属效果 / 瞬间进食（含 1/8 噎住）/ 无属性伤害」，
  *   瞬间进食走 Game.eatItemNow 复用 finishEating 的全部结算。
  *
- * 【未移植】685 怪物球捕获、906 栗子/1228 蝉等专例、var_1321 特殊弹药、
- *   以及全部文本/动画/音效。本模块只返回结构化结果，由 game 输出日志。
+ * 【0-GR 追加】341421-341860 的命中分派整段交 core/throwhit.js：
+ *   按 id 的专例（906/1098/1313/984/1079/1080）、类别 57000/60000/64000/80000 的
+ *   公共前段与 12 个专例 id（987/1008/1064/1059/1061/1133/1309/1307/1312/1306/
+ *   1305/1304/988/989）、以及 578 貯金箱落地散落金币。
+ *
+ * 【未移植】685 怪物球捕获以外的 var_1321 特殊弹药、以及全部文本/动画/音效。
+ *   本模块只返回结构化结果，由 game 输出日志。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -165,27 +170,16 @@
       placed = copy;
     }
 
-    // ---- 0-EY：食物命中角色（341605-341676）----
-    //   特殊食物（番茄/纳豆/酸奶/黄油）走 341069-341210 的专属效果；
-    //   其余 57000 类食物在目标不饱/未睡眠/未眩晕时瞬间进食，否则造成无属性伤害。
+    // ---- 0-GR：命中角色的效果分派（341421-341860，见 core/throwhit.js）----
+    //   涵盖按 id 的专例（906/1098/1313/984/1079/1080）、类别 57000/60000/64000/80000
+    //   的公共前段与 12 个专例 id；57000 食物的瞬间进食仍由 core/foodleft.js 承担。
     let food = null;
+    let hit = null;
     const hitChara = charaAt(g, lx, ly);
-    const FL = Elona.FoodLeft;
-    if (hitChara && cat === 57000 && placed && FL) {
-      food = FL.specialThrowFood(g, c, hitChara, placed)
-        || FL.throwFoodHit(g, c, hitChara, placed, skill);
-      // 341630-341634：投掷命中非玩家目标给战术/投掷技能经验
-      if ((hitChara.index | 0) !== 0 && Elona.Stats && Elona.Stats.skillExp) {
-        const evade = hitChara.skill(173) | 0;
-        Elona.Stats.skillExp(c, 152, c, limit(evade * 3 - (c.skill(152) | 0) + 1, 5, 80), 1, 0, g);
-        Elona.Stats.skillExp(c, 111, c, limit(evade * 3 - (c.skill(111) | 0) + 1, 5, 80), 1, 0, g);
-      }
-      // 341637-341639：对非同伴目标增加敌意
-      if ((hitChara.index | 0) >= 16 && Elona.Relation && Elona.Relation.hostileAction) {
-        Elona.Relation.hostileAction(g, c, hitChara);
-      }
-      // 副本已被吃掉 / 消耗时，不再让 game.throwAt 报「物品落在了地上」
-      if ((food.special || food.eaten) && placed && (placed.f[0] | 0) <= 0) placed = null;
+    if (hitChara && Elona.ThrowHit) {
+      hit = Elona.ThrowHit.hit(g, c, hitChara, placed || it, { skill });
+      if (hit && hit.food) food = hit.food;
+      if (hit && hit.consumed && placed && (placed.f[0] | 0) <= 0) placed = null;
     }
 
     // ---- 341347-341390：落地效果 ----
@@ -215,9 +209,16 @@
       }
     }
 
+    // ---- 341846-341860：落到地面的收尾（578 貯金箱散落 f[25] 枚金币）----
+    let ground = null;
+    if (!hitChara && Elona.ThrowHit) {
+      ground = Elona.ThrowHit.ground(g, placed || it, lx, ly);
+    }
+
     return {
       ok: true, missed, itemId, count, target: { x: lx, y: ly },
-      placed, effect, skill, food,
+      placed, effect, skill, food, hit, ground,
+      messages: (hit && hit.messages) ? hit.messages : [],
     };
   }
 

@@ -40,6 +40,17 @@
  *   ev = { kind:'say'|'menu'|'end'|'blocked', text, items, allowEsc, ... }
  *   s.answer(value) / s.cancel();               // 回答后继续 step()
  * 驱动方在 web/js/view/ui.js（openNpcTalk）。
+ *
+ * 【0-GN / 365737-365964 `*label_3031` 的开场特殊分支】
+ *   365737-365742  evid 2 / 16 → 事件对话（EventQueue 与 Scene 播放）
+ *   365743-365762  睡眠（var_58(256)>60）或眩晕（var_58(251)）→ npc.talk 的状态说明
+ *   365763-365775  生日（var_2613）→ 日历字段见 gene.js，专用台词随场景链处理
+ *   365776-365800  主线 NPC 1015/1018/1017（状态 850/860/870、地图 76）
+ *                  → story.js 的场景推进与固定 NPC 分支
+ *   365801-365870  NPC 886 / 1014 的剧情分支与 var_65(568/574) 条件
+ *   365871-365964  对话菜单构造（var_484/485/701/2060）→ Session.menu / step()
+ *   原版 goto *label_3053~3058 的剧情块由 talkscripts.json 的分支级联承载，
+ *   逐条近似口径见 docs/02 A493。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};

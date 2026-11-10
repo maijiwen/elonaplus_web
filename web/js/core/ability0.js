@@ -70,7 +70,7 @@
   function say(g, s) { if (g && g.log && s) g.log(s); }
   function nm(c) { return (c && c.name) || '某人'; }
 
-  function dmg(g, t, n, caster, elem, arg) {
+  function dmg(g, t, n, caster, elem, arg, opts) {
     if (!t || (t.get(0) | 0) !== 1) return 0;
     // 0-EX：魔力控制（技能 188 / calcmagiccontrol）—— 源码在 10 处广域能力命中前调用
     //   （323937/324085/324165/327056/327887/327968/328081/329493/329564/338810）。
@@ -84,7 +84,7 @@
     }
     if (Elona.Battle && Elona.Battle.applyDamage) {
       return Elona.Battle.applyDamage(t, dmgVal, g, caster || null,
-        elem === undefined ? 0 : (elem | 0), arg === undefined ? 0 : (arg | 0)) | 0;
+        elem === undefined ? 0 : (elem | 0), arg === undefined ? 0 : (arg | 0), opts) | 0;
     }
     t.set(50, Math.max(0, (t.get(50) | 0) - dmgVal));
     return dmgVal;
@@ -1085,10 +1085,13 @@
       + R((c.skill(151) | 0) * 2 + 5)
       + idiv((limit((c.get(38) | 0) - 50, 1, 2000) + limit((c.get(38) | 0) - 100, 1, 2000))
         * 4 * Math.sqrt(limit(c.get(38) | 0, 1, 2000) * 3) + 31, 3);
-    dmg(g, t, d, c, 58, (c.skill(13) | 0) + 200);
+    // 0-GH：斩杀要把「已生成肉人偶」的标记写进死亡结算，所以先延后结算
+    const hasFD = !!(Elona.FleshDoll && Elona.FleshDoll.finish);
+    dmg(g, t, d, c, 58, (c.skill(13) | 0) + 200, hasFD ? { deferDeath: true } : undefined);
     setV65(g, 193, 0);
     // 0-EZ / 338396-338443：濒死时触发斩杀，按条件生成肉人偶（Rank10 尸体料理）
-    const fd = Elona.FleshDoll ? Elona.FleshDoll.execute(g, c, t) : null;
+    const fd = hasFD ? Elona.FleshDoll.finish(g, c, t)
+      : (Elona.FleshDoll ? Elona.FleshDoll.execute(g, c, t) : null);
     return { implemented: true, dmg: d, fleshDoll: fd || undefined };
   };
   T[807] = (g, c, t) => {                                   // 标记 337666

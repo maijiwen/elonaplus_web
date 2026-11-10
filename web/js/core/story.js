@@ -44,6 +44,14 @@
   /** 单次进图最多连续播放几段，防止规则互相触发形成死循环 */
   const MAX_SCENES = 8;
 
+  /**
+   * 0-GI：触发链上 `var_232 = lang(...)` 的文本（链里只有 1 条，248121）。
+   * 原版把这些行直接打进消息窗；项目按中文呈现，未收录的回落到英文。
+   */
+  const STORY_TEXT = {
+    '  あなたはヨウィンで荷馬車から抜け出した。': '  你在约温从货车上爬了出来。',
+  };
+
   let data = null;
   let loading = null;
 
@@ -224,8 +232,23 @@
 
       for (const e of r.effects || []) {
         if (e.k === 'setState') g.setV65(V_STATE, e.v | 0);
-        // evadd / 其它副作用：原版会挂定时事件或改物品，本项目尚未移植，
-        // 已在 triggers.json 的 effects 里标 supported:false，这里不臆造效果。
+        // 0-GI：链上的其它副作用（原版散落在 *label_4295 之后）
+        else if (e.k === 'evadd') {
+          // evadd 57 / 88：把事件压入队列（247797 / 247105 / 248210）
+          if (g.events && typeof g.events.add === 'function') g.events.add(e.id | 0);
+          else if (Elona.Event && typeof Elona.Event.add === 'function') Elona.Event.add(e.id | 0);
+        } else if (e.k === 'setV65') {
+          g.setV65(e.i | 0, e.v | 0);
+        } else if (e.k === 'addV65') {
+          // var_65(10) += 3：约温线的三年时间跳跃（248115 / 248169）
+          g.setV65(e.i | 0, (g.getV65(e.i | 0) | 0) + (e.v | 0));
+        } else if (e.k === 'text') {
+          const line = STORY_TEXT[e.jp] || e.en || e.zh || '';
+          if (line && g.log) g.log(line);
+        } else if (e.k === 'newline') {
+          if (g.log) g.log('');
+        }
+        // 其余（未识别的 HSP 语句）保持 recorded-only，已在 triggers.json 标 supported:false
       }
       fired.push({ block: r.block, nextState: r.nextState, line: r.line });
     }

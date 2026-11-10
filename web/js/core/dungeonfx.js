@@ -594,6 +594,13 @@
   function openChest(g, c, it) {
     if (!it) return { ok: false, reason: 'no-item' };
     const id = it.id | 0;
+    // 0-GO / 344936-344947：752 お年玉袋 → *label_3001、744 猫窝 → *label_3002。
+    //   这两类在源码里先于 f[25] 的「中身は空っぽだ」判定分派，产物池见
+    //   core/giftpack.js（222106-222108 / 345293-345507）。
+    if (Elona.GiftPack && Elona.GiftPack.has(id)) {
+      const r = Elona.GiftPack.open(g, c, it);
+      return { ok: !!r.ok, empty: !!r.empty, result: r, gift: true };
+    }
     if ((it.f[25] | 0) === 0) return { ok: true, empty: true };
     if ((it.f[26] | 0) > 0 && id !== 784 && id !== 1105) {
       const u = tryUnlock(g, c, it);

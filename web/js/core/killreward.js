@@ -88,6 +88,36 @@
     return { exp, targetLevel: tLv, capped };
   }
 
+  /**
+   * 0-GF：可招募物种的「起き上がり」事件（200086-200160）。
+   *   200094 `prm_985 > 16`（只对 NPC 槽位）
+   *   200112 物种 32（清洁工）还要 `var_58(150) != 3`
+   *   200093-200160 物种 → 事件号；`get_freeally() == 0` 时不排队
+   *   事件本体：608214-608490 的 9 个分支（event.js 的 RECRUIT 表）
+   * @returns {number|null} 排队的事件号
+   */
+  const RECRUIT_BY_SPECIES = { 25: 52, 26: 53, 27: 45, 32: 54, 384: 46, 385: 47, 421: 48, 492: 49, 938: 79 };
+
+  function queueRecruit(g, dead) {
+    if (!g || !dead || typeof dead.get !== 'function') return null;
+    if ((dead.index | 0) <= 16) return null;                     // 200094
+    const sp = dead.get(27) | 0;
+    const eid = RECRUIT_BY_SPECIES[sp];
+    if (!eid) return null;
+    // 200602-200606：地图 35/74/42/40 不触发；死者是同伴（cbit 960）不触发；
+    //   var_58(58) != 0 不触发
+    const mapId = (g.getV65 ? (g.getV65(20) | 0) : 0);
+    if (mapId === 35 || mapId === 74 || mapId === 42 || mapId === 40) return null;
+    if (cbit(dead, 960) === 1) return null;
+    if ((dead.get(58) | 0) !== 0) return null;
+    if (sp === 32 && (dead.get(150) | 0) === 3) return null;     // 200112
+    const free = (Elona.Party && Elona.Party.freeAlly) ? Elona.Party.freeAlly(g) : 0;
+    if (!free) return null;                                      // get_freeally() == 0
+    if (!g.events || typeof g.events.add !== 'function') return null;
+    g.events.add(eid, dead.x | 0, dead.y | 0, { level: dead.level | 0, name: dead.name });
+    return eid;
+  }
+
   /** 196727-196741：var_58(198/199/160) 的惰性缓存 */
   function ensureDerived(c) {
     if (!c) return;
@@ -224,5 +254,6 @@
   Elona.KillReward = {
     EXP_CAP,
     expOf, onKill, checkTalk, ensureDerived, sorgV,
+    queueRecruit, RECRUIT_BY_SPECIES,
   };
 })(window);
