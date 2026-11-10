@@ -87,6 +87,175 @@
   }
 
   // =========================================================================
+  // 〇、*label_2044 前半（199519-199712）：酸蚀装备 / 恐惧失禁 / 元素附加状态
+  // =========================================================================
+
+  function preTexts(T) { return (T && T.preTexts) ? T.preTexts : {}; }
+
+  /** 199544 / 199560 / 199594 / 199602 都是「名字 + 固定句」的拼接 */
+  function preLine(T, key, c, itemName, g) {
+    const t = preTexts(T)[key];
+    if (!t) return '';
+    const nm = nameOf(c);
+    if (key === 'acidDamage') return `${nm}的${itemName}因伤害而损坏了。`;
+    if (key === 'acidMelted') return `${nm}的${itemName}崩碎散落了。`;
+    if (key === 'fear') return `${nm}吓得动弹不得。`;
+    if (key === 'urine') return `${nm}失禁了。`;
+    if (key === 'relief') return '「……畅快！」';
+    return '';
+  }
+
+  /**
+   * 199520-199571：Abnormal 模式（`var_65(273)==1`）下，受到 >= 最大 HP/5 的伤害时
+   * 随机腐蚀一件**装备中**的物品（耐久 -1，<-10 时崩碎并卸下）。
+   */
+  function acidErode(g, def, att, dmg, P, rnd, out) {
+    const A = P.acid;
+    if (V(g, 273) !== A.modeValue) return null;
+    if (!att) return null;                                     // 199521：prm_987 >= 0
+    const hpMax = Math.max(1, G(def, 51) || (def.hpMax | 0));
+    if (!(dmg >= idiv(hpMax, A.hpDiv))) return null;           // 199522
+    let idx = -1;
+    for (let body = 0; body < A.scans; body++) {               // 199524-199537
+      const v = G(def, body);
+      if (idiv(v, 10000) === 0) break;
+      const slot = (v % 10000) - 1;
+      if (slot === -1) continue;
+      if (rnd(A.pickDenom) === 0) { idx = slot; break; }
+    }
+    if (idx < 0) return null;
+    const IT = Elona.ItemDB;
+    const it = def.inv && def.inv[idx];
+    if (!it || (it.f[0] | 0) <= 0) return null;
+    it.f[A.durabilityField] = (it.f[A.durabilityField] | 0) - 1;
+    out.messages.push(preLine(table(), 'acidDamage', def, IT ? IT.name(it.id, 'ch') : it.id, g));
+    if ((it.f[A.durabilityField] | 0) < A.breakAt) {           // 199554-199567
+      out.messages.push(preLine(table(), 'acidMelted', def, IT ? IT.name(it.id, 'ch') : it.id, g));
+      it.f[0] = (it.f[0] | 0) - 1;
+      const bodySlot = it.eqSlot | 0;
+      if (bodySlot >= 0) {
+        const raw = 100 + bodySlot;
+        SET(def, raw, idiv(G(def, raw), 10000) * 10000);
+        it.eqSlot = -1;
+      }
+      if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(def, g);
+    }
+    out.keys.push('acid');
+    return idx;
+  }
+
+  /**
+   * 199573-199631：重伤（HP < 最大/5）的角色受击时有概率陷入恐惧；
+   * 水分 > 12000 时同时失禁，在脚下留下 1115「ジョロジョロ」，水分回到 5000。
+   */
+  function fearCheck(g, def, dmg, P, rnd, out) {
+    const F = P.fear;
+    if ((def.index | 0) === F.meIndex) return false;           // 199574：prm_985 != 0
+    const hpMax = Math.max(1, G(def, 51) || (def.hpMax | 0));
+    if (!((def.hp | 0) < idiv(hpMax, F.hpDiv))) return false;  // 199573
+    if (G(def, F.fearField) !== 0) return false;               // 199575
+    if (cbit(def, F.immuneBit)) return false;                  // 199576
+    // 199577 的 `var_58(25) >= 4` 会被 199580 的结果直接覆盖，源码上是死分支
+    const chance = idiv(dmg * F.dmgScale, hpMax) + F.base;
+    if (!(chance > rnd(F.denom))) return false;                // 199580
+    SET(def, F.fearField, rnd(F.turnsBase) + F.turnsAdd);      // 199587
+    out.messages.push(preLine(table(), 'fear', def, '', g));
+    out.keys.push('fear');
+    if (G(def, F.waterField) > F.waterMax) {                   // 199596
+      out.messages.push(preLine(table(), 'urine', def, '', g));
+      out.keys.push('urine');
+      if (mapType(g) !== 1) {                                  // 199612-199623
+        const IT = Elona.ItemDB;
+        if (IT && IT.createItem) {
+          const it = IT.createItem(F.urineItem, 1, g.rng);
+          if (it) {
+            it.f[5] = def.x | 0; it.f[6] = def.y | 0; it.f[21] = -1;
+            if (g.groundItems) g.groundItems.push(it);
+            if (g.refreshGroundCell) g.refreshGroundCell(def.x, def.y);
+          }
+        }
+      }
+      SET(def, F.waterField, F.waterReset);                    // 199624
+      // 199604-199610：玩家还会自嘲一句
+      if ((def.index | 0) === F.meIndex) out.messages.push(preLine(table(), 'relief', def, '', g));
+    }
+    return true;
+  }
+
+  /**
+   * 199632-199696：按伤害属性附加状态（`dmgcon`）与道具破坏。
+   *   - 50 火 / 51 冷：攻击者持有 941 / 1172 时免疫，否则 item_fire / item_cold
+   *   - 63 酸：玩家或 1/3 概率 → item_acid
+   *   - 62 精気：玩家 → modcorrupt
+   */
+  function elemental(g, def, att, dmg, elem, power, P, rnd, out) {
+    const R2 = Elona.Resist;
+    const tbl = g && g.dmgconTable;
+    const attIdx = att ? (att.index | 0) : -1;
+    const hpMax = Math.max(1, G(def, 51) || (def.hpMax | 0));
+    for (const e of P.elements) {
+      if ((e.elem | 0) !== (elem | 0)) continue;
+      for (const c of e.conds) {
+        if (!R2 || !tbl) break;
+        const base = idiv(power, c.div) * c.mul;
+        const pw = clamp(rnd(base + 1), 1, c.cap);
+        try { R2.dmgcon(g, tbl, def, c.id, pw); } catch (err) { /* noop */ }
+        out.keys.push('dmgcon' + c.id);
+      }
+    }
+    for (const s of P.specials) {
+      if ((s.elem | 0) !== (elem | 0)) continue;
+      if (s.kind === 'cond') {
+        if (R2 && tbl) {
+          try { R2.dmgcon(g, tbl, def, s.id, rnd(power + 1)); } catch (err) { /* noop */ }
+          out.keys.push('dmgcon' + s.id);
+        }
+      } else if (s.kind === 'corrupt') {
+        if ((def.index | 0) === 0 && Elona.Weather && Elona.Weather.modCorrupt) {
+          try { Elona.Weather.modCorrupt(g, rnd(power + 1)); } catch (err) { /* noop */ }
+          out.keys.push('corrupt');
+        }
+      } else if (s.kind === 'itemAcid') {
+        if (((def.index | 0) === 0 || rnd(3) === 0) && Elona.ItemDB && Elona.ItemDB.itemAcid) {
+          const r = Elona.ItemDB.itemAcid(def, def.index | 0, -1, g);
+          for (const m of (r.messages || [])) out.messages.push(m);
+          if (r.ok) out.keys.push('itemAcid');
+        }
+      }
+    }
+    // 199644-199656：火 / 冰伤害破坏道具（攻击者持有吸收道具时免疫）
+    const guard = P.guards[String(elem | 0)];
+    if (guard && Elona.ItemDB) {
+      const immune = attIdx >= 0 && (att.inv || []).some((x) => x && (x.f[0] | 0) > 0 && (x.id | 0) === guard.item);
+      if (!immune) {
+        const fn = Elona.ItemDB[guard.fn];
+        if (typeof fn === 'function') {
+          try { fn.call(Elona.ItemDB, def, def.index | 0, -1, g); } catch (err) { /* noop */ }
+          out.keys.push(guard.fn);
+        }
+      }
+    }
+    // 199572：受击打断持续行动
+    if (G(def, 140) !== 0 && G(def, 140) !== 3) SET(def, 143, 1);
+    return out;
+  }
+
+  /** 前半段的统一入口（onDamage 开头调用） */
+  function preDamage(g, def, att, dmg, elem, power) {
+    const T = table();
+    if (!T || !T.pre) return { keys: [], messages: [] };
+    const P = T.pre;
+    const rnd = R(g);
+    const d = dmg | 0;
+    const out = { keys: [], messages: [] };
+    if (d <= 0) return out;
+    acidErode(g, def, att, d, P, rnd, out);
+    fearCheck(g, def, d, P, rnd, out);
+    elemental(g, def, att, d, elem, power, P, rnd, out);
+    return out;
+  }
+
+  // =========================================================================
   // 一、*label_2044：受击副作用（199713-199920）
   // =========================================================================
 
@@ -126,7 +295,7 @@
    * 由 Battle.applyDamage 在扣血之后调用。
    * @returns {{ok:boolean, keys:Array, messages:Array, clones:number, dying:boolean}}
    */
-  function onDamage(g, def, att, dmg, attr) {
+  function onDamage(g, def, att, dmg, attr, power) {
     const T = table();
     if (!T) return { ok: false, reason: 'no-table' };
     if (!def || (dmg | 0) <= 0) return { ok: true, keys: [], messages: [], clones: 0, dying: false };
@@ -134,6 +303,13 @@
     const d = dmg | 0, A = attr | 0;
     const attIdx = att ? (att.index | 0) : -1;
     const out = { ok: true, keys: [], messages: [], clones: 0, dying: false, fields: {} };
+
+    // 0-GV / 199519-199712：*label_2044 前半（酸蚀装备、恐惧失禁、元素附加状态）
+    const pw = (power === undefined || power === null) ? 100 : (power | 0);
+    const pre = preDamage(g, def, att, d, A, pw);
+    for (const k of pre.keys) out.keys.push(k);
+    for (const m of pre.messages) out.messages.push(m);
+    out.pre = pre;
 
     for (const rule of T.hit.rules) {
       switch (rule.key) {
@@ -414,7 +590,7 @@
   /** 343281-343285：cbit 1049 的角色撞上去走对话窗口 */
   function wantsDialogue(target) { return cbit(target, 1049) === 1; }
 
-  Elona.OnHit = { onDamage, canSplit, copyChara, table };
+  Elona.OnHit = { onDamage, preDamage, canSplit, copyChara, table };
   Elona.Bump = { onSwap, tryMountCharge, onBeforeMove, wantsDialogue, reactionKey, dateCode, table };
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = { OnHit: Elona.OnHit, Bump: Elona.Bump };

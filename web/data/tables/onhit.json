@@ -1,6 +1,7 @@
 {
   "meta": {
     "hit": "199713-199920",
+    "pre": "199519-199712",
     "bump": "343081-343285",
     "front": "342924-343053",
     "morale": "199945-199952",
@@ -132,6 +133,307 @@
         "morale": 5,
         "moraleLimit": 195,
         "moraleText": 199952
+      }
+    ]
+  },
+  "pre": {
+    "src": [
+      199519,
+      199712
+    ],
+    "acid": {
+      "src": [
+        199520,
+        199571
+      ],
+      "modeValue": 1,
+      "needAttacker": true,
+      "hpDiv": 5,
+      "scans": 30,
+      "pickDenom": 30,
+      "durabilityField": 20,
+      "breakAt": -10,
+      "texts": {
+        "damage": "acidDamage",
+        "melted": "acidMelted"
+      }
+    },
+    "rowact": {
+      "src": [
+        199572,
+        199572
+      ]
+    },
+    "fear": {
+      "src": [
+        199573,
+        199631
+      ],
+      "hpDiv": 5,
+      "meIndex": 0,
+      "fearField": 255,
+      "immuneBit": 10,
+      "roleField": 25,
+      "roleMax": 4,
+      "denom": 200,
+      "dmgScale": 100,
+      "base": 10,
+      "turnsBase": 20,
+      "turnsAdd": 5,
+      "waterField": 446,
+      "waterMax": 12000,
+      "waterReset": 5000,
+      "urineItem": 1115,
+      "texts": {
+        "fear": "fear",
+        "urine": "urine",
+        "relief": "relief"
+      }
+    },
+    "elements": [
+      {
+        "elem": 59,
+        "src": [
+          199632,
+          199643
+        ],
+        "conds": [
+          {
+            "id": 22,
+            "div": 9,
+            "mul": 2,
+            "cap": 9000,
+            "src": 199634
+          },
+          {
+            "id": 23,
+            "div": 9,
+            "mul": 2,
+            "cap": 9000,
+            "src": 199635
+          },
+          {
+            "id": 4,
+            "div": 18,
+            "mul": 1,
+            "cap": 4500,
+            "src": 199636
+          },
+          {
+            "id": 3,
+            "div": 18,
+            "mul": 1,
+            "cap": 4500,
+            "src": 199637
+          },
+          {
+            "id": 2,
+            "div": 36,
+            "mul": 1,
+            "cap": 2250,
+            "src": 199638
+          },
+          {
+            "id": 6,
+            "div": 36,
+            "mul": 1,
+            "cap": 2250,
+            "src": 199639
+          },
+          {
+            "id": 7,
+            "div": 18,
+            "mul": 1,
+            "cap": 4500,
+            "src": 199640
+          },
+          {
+            "id": 1,
+            "div": 9,
+            "mul": 2,
+            "cap": 9000,
+            "src": 199641
+          },
+          {
+            "id": 21,
+            "div": 9,
+            "mul": 2,
+            "cap": 9000,
+            "src": 199642
+          }
+        ]
+      },
+      {
+        "elem": 50,
+        "src": [
+          199657,
+          199659
+        ],
+        "conds": [
+          {
+            "id": 22,
+            "div": 1,
+            "mul": 2,
+            "cap": 10000,
+            "src": 199658
+          }
+        ]
+      },
+      {
+        "elem": 51,
+        "src": [
+          199660,
+          199662
+        ],
+        "conds": [
+          {
+            "id": 23,
+            "div": 1,
+            "mul": 2,
+            "cap": 10000,
+            "src": 199661
+          }
+        ]
+      },
+      {
+        "elem": 53,
+        "src": [
+          199663,
+          199665
+        ],
+        "conds": [
+          {
+            "id": 4,
+            "div": 2,
+            "mul": 1,
+            "cap": 5000,
+            "src": 199664
+          }
+        ]
+      },
+      {
+        "elem": 52,
+        "src": [
+          199666,
+          199668
+        ],
+        "conds": [
+          {
+            "id": 3,
+            "div": 2,
+            "mul": 1,
+            "cap": 5000,
+            "src": 199667
+          }
+        ]
+      },
+      {
+        "elem": 58,
+        "src": [
+          199669,
+          199671
+        ],
+        "conds": [
+          {
+            "id": 2,
+            "div": 4,
+            "mul": 1,
+            "cap": 2500,
+            "src": 199670
+          }
+        ]
+      },
+      {
+        "elem": 54,
+        "src": [
+          199672,
+          199674
+        ],
+        "conds": [
+          {
+            "id": 6,
+            "div": 4,
+            "mul": 1,
+            "cap": 2500,
+            "src": 199673
+          }
+        ]
+      },
+      {
+        "elem": 57,
+        "src": [
+          199675,
+          199677
+        ],
+        "conds": [
+          {
+            "id": 7,
+            "div": 2,
+            "mul": 1,
+            "cap": 5000,
+            "src": 199676
+          }
+        ]
+      },
+      {
+        "elem": 55,
+        "src": [
+          199678,
+          199680
+        ],
+        "conds": [
+          {
+            "id": 1,
+            "div": 1,
+            "mul": 2,
+            "cap": 10000,
+            "src": 199679
+          }
+        ]
+      },
+      {
+        "elem": 56,
+        "src": [
+          199681,
+          199683
+        ],
+        "conds": [
+          {
+            "id": 21,
+            "div": 1,
+            "mul": 2,
+            "cap": 10000,
+            "src": 199682
+          }
+        ]
+      }
+    ],
+    "guards": {
+      "50": {
+        "item": 941,
+        "fn": "itemFire"
+      },
+      "51": {
+        "item": 1172,
+        "fn": "itemCold"
+      }
+    },
+    "specials": [
+      {
+        "elem": 61,
+        "src": 199685,
+        "kind": "cond",
+        "id": 9
+      },
+      {
+        "elem": 62,
+        "src": 199689,
+        "kind": "corrupt"
+      },
+      {
+        "elem": 63,
+        "src": 199694,
+        "kind": "itemAcid"
       }
     ]
   },
@@ -333,5 +635,68 @@
       "jp": "*ふらり*",
       "en": "*stagger*"
     }
+  },
+  "preTexts": {
+    "acidDamage": {
+      "key": "acidDamage",
+      "src": 199544,
+      "jp": "はダメージで傷ついた。",
+      "en": " is damaged."
+    },
+    "acidMelted": {
+      "key": "acidMelted",
+      "src": 199560,
+      "jp": "はボロボロに崩れ散った。",
+      "en": " is melted by acid."
+    },
+    "fear": {
+      "key": "fear",
+      "src": 199594,
+      "jp": "は恐怖で立ちすくんだ。",
+      "en": " can't move by fear."
+    },
+    "urine": {
+      "key": "urine",
+      "src": 199602,
+      "jp": "は漏らした。",
+      "en": " is incontinent."
+    },
+    "relief": {
+      "key": "relief",
+      "src": 199608,
+      "jp": "「…スッキリ！」",
+      "en": "Do not look at me!"
+    }
+  },
+  "acidTexts": {
+    "hurt": {
+      "key": "hurt",
+      "src": 197075,
+      "jp": "は酸で傷ついた。",
+      "en": " is damaged by acid."
+    },
+    "melted": {
+      "key": "melted",
+      "src": 197092,
+      "jp": "は酸でドロドロに溶けてしまった。",
+      "en": " is melted by acid."
+    },
+    "immune": {
+      "key": "immune",
+      "src": 197106,
+      "jp": "は酸では傷つかない。",
+      "en": " is immune to acid."
+    }
+  },
+  "acid": {
+    "src": [
+      197034,
+      197109
+    ],
+    "texts": [
+      "hurt",
+      "melted",
+      "immune"
+    ]
   }
 }

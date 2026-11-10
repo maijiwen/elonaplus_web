@@ -804,12 +804,9 @@
       dmg = mc.dmg;
       if (Elona.Status.findbuff(caster, 32) !== -1 && (caster.index !== 0 || t.get(9) === -3)) dmg *= 11;  // 318315-318320
       const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id);   // 318340 dmghp + 复合咏唱
-      // dmghp 内的 199644-199656：火/冰伤害破坏目标道具（施法者持有 941/1172 时免疫）
-      if (Elona.ItemDB && (dice.elem === 50 || dice.elem === 51)) {
-        const has = (iid) => (caster.inv || []).some((x) => x && x.f[0] > 0 && x.f[3] === iid);
-        if (dice.elem === 50 && !has(941) && Elona.ItemDB.itemFire) Elona.ItemDB.itemFire(t, tIdx, -1, g);
-        if (dice.elem === 51 && !has(1172) && Elona.ItemDB.itemCold) Elona.ItemDB.itemCold(t, tIdx, -1, g);
-      }
+      // dmghp 内的 199644-199656（火/冰破坏目标道具、攻击者持有 941/1172 时免疫）
+      // 已在 Battle.applyDamage → OnHit.onDamage 的 elemental() 里统一处理，
+      // 这里不再重复调用，避免同一件物品被破坏两次。
       results.push({ index: tIdx, dmg: applied });
     }
 

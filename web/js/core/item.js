@@ -1382,6 +1382,81 @@
     },
 
     /**
+     * 酸腐蚀装备 —— item_acid（197034-197109）。
+     *
+     * 与 item_fire / item_cold 不同：**只扫装备栏**（`var_58(0..29)` 的
+     * `类型*10000 + 物品下标+1` 编码），削的是耐久 `var_99(20)`，不是数量。
+     *   197040-197061  扫 30 个部位：
+     *     第一次 `rnd(30)==0` 且**Abnormal 模式**（`var_65(273)==1`）→ 直接选中
+     *     第二次 `rnd(30)==0` 且耐久 > -4 → 选中
+     *   197066         类别 >= 50000（武器/防具）才继续
+     *   197070-197077  `ibit(1)`（耐酸）为 0 → 「は酸で傷ついた。」耐久 -1
+     *   197079-197084  Abnormal 模式下耐久恰好 -10 → 音效 + 动画
+     *   197085-197100  Abnormal 模式下耐久 < -10 → 「はドロドロに溶けてしまった。」数量 -1、
+     *                  清空部位槽、`*label_2174` 重算属性
+     *   197102-197107  耐酸 → 「は酸では傷つかない。」
+     *
+     * @param {object} c 角色
+     * @param {number} charaIdx 角色下标（-1 = 不扫装备，只处理 onlyIdx）
+     * @param {number} [onlyIdx] 指定物品下标（-1 = 随机）
+     * @returns {{ok:boolean, idx:number, action:string, messages:string[]}}
+     */
+    itemAcid(c, charaIdx, onlyIdx, g) {
+      const out = { ok: false, idx: -1, action: 'none', messages: [] };
+      if (!c || !c.inv) return out;
+      const rng = (g && g.rng) || Elona.rng;
+      const R = (n) => rng.rnd(n);
+      const mode = (g && g.getV65) ? (g.getV65(273) | 0) : 0;
+      let idx = -1;
+      if (onlyIdx !== undefined && onlyIdx !== -1) {
+        idx = onlyIdx | 0;
+      } else if (charaIdx !== -1) {
+        for (let body = 0; body < 30; body++) {                       // 197040
+          const v = c.get(body) | 0;
+          if (idiv(v, 10000) === 0) break;                             // 197042
+          const slot = (v % 10000) - 1;                                // 197045
+          if (slot === -1) continue;                                   // 197046
+          if (R(30) === 0 && mode === 1) { idx = slot; break; }        // 197049-197054
+          if (R(30) === 0) {                                           // 197055-197060
+            const it0 = c.inv[slot];
+            if (it0 && (it0.f[20] | 0) > -4) { idx = slot; break; }
+          }
+        }
+      }
+      if (idx < 0) return out;                                         // 197063
+      const it = c.inv[idx];
+      if (!it || (it.f[0] | 0) <= 0) return out;
+      if (this.ref(it.id, 5) >= 50000) return out;                      // 197066
+      out.ok = true; out.idx = idx;
+      const nm = (c && c.name) ? c.name : '???';
+      const itemName = this.name(it.id, 'ch') || this.name(it.id, 'jp');
+      const base = `${nm}的${itemName}`;
+      if (this.ibit(1, it) === 0) {                                     // 197070
+        it.f[20] = (it.f[20] | 0) - 1;
+        out.action = 'hurt';
+        out.messages.push(`${base}被酸腐蚀了。`);
+        if (mode === 1 && (it.f[20] | 0) < -10) {                        // 197085-197100
+          out.action = 'melted';
+          out.messages.push(`${base}被酸溶得面目全非。`);
+          it.f[0] = (it.f[0] | 0) - 1;
+          const bodySlot = it.eqSlot | 0;
+          if (bodySlot >= 0) {
+            const raw = 100 + bodySlot;
+            if (typeof c.set === 'function') {
+              c.set(raw, idiv(c.get(raw) | 0, 10000) * 10000);
+            }
+            it.eqSlot = -1;
+          }
+          if (Elona.Stats && Elona.Stats.recalcStats && g) Elona.Stats.recalcStats(c, g);
+        }
+      } else {
+        out.action = 'immune';
+        out.messages.push(`${base}不怕酸。`);
+      }
+      return out;
+    },
+
+    /**
      * 地面物品的火焰破坏 —— mapitem_fire（197314-197340）。
      * 找到 (x,y) 上的第一件地面物品 → item_fire(-1, item)；若被烧毁且格上无 mef
      * → addmef(x,y,5,24,rnd(10)+5,100,attacker)。

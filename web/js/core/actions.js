@@ -678,6 +678,17 @@
       const p = g.player;
       if (!p || (p.hp | 0) <= 0) return null;
       const type = p.get(F_ROWACT) | 0;
+      // 0-GV / 194534-194539 rowact_check：受击时置 var_58(143)=1，
+      //   下一次推进就打断持续行动（3 = 睡眠不打断）
+      if (type !== 0 && type !== 3 && (p.get(143) | 0) !== 0) {
+        p.set(143, 0);
+        p.set(F_ROWACT, 0);
+        p.set(141, 0);
+        p.set(142, 0);
+        p.rowActPayload = null;
+        if (typeof g.log === 'function') g.log('行动被打断了。');
+        return { type, interrupted: true };
+      }
       // 6 = 演奏（604779-604781 → *label_2912），逻辑全在 core/perform.js
       if (type === 6 && Elona.Perform && Elona.Perform.tick) {
         const r = Elona.Perform.tick(g);

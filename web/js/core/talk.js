@@ -67,7 +67,10 @@
     /** 解析 cp932 转来的纯文本（浏览器端不直接用，留给测试与工具） */
     parse(text, lang) {
       const out = {};
-      const segs = String(text || '').replace(/\r\n?/g, '\n').split(/(?=^%txt)/m);
+      const body0 = (Elona.TextUtil && Elona.TextUtil.toLf)
+        ? Elona.TextUtil.toLf(text)
+        : String(text || '').replace(/\r\n?/g, '\n');
+      const segs = body0.split(/(?=^%txt)/m);
       for (const seg of segs) {
         if (!seg.startsWith('%txt')) continue;
         const nl = seg.indexOf('\n');

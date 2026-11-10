@@ -913,11 +913,13 @@
 
     // 0-GP / 199713-199920：*label_2044 的受击副作用（睡眠妨害、hostileaction、
     //   拍照音、cbit 23/27 分身分裂、怒气、仇恨目标、剧情击晕、濒死以太耐性）。
+    //   0-GV / 199519-199712：同一入口的前半段（酸蚀装备、恐惧失禁、
+    //   元素附加状态 dmgcon 与火/冰/酸的道具破坏），prm_989 由 attrArg 传入。
     //   放在死亡结算之后，保证既有掉落 / 经验的随机序列不变；
     //   199945-199952 的附近同伴斗志 +5 仍由 Morale.onKill 承担，不重复累加。
     if (d > 0 && Elona.OnHit && Elona.OnHit.onDamage) {
       try {
-        const hr = Elona.OnHit.onDamage(g, def, att, d, A);
+        const hr = Elona.OnHit.onDamage(g, def, att, d, A, attrArg);
         if (hr && hr.messages && g && typeof g.log === 'function') {
           for (const m of hr.messages) g.log(m);
         }
@@ -1193,7 +1195,7 @@
           const d = limit(idiv(dmg, 10), 1, idiv(def.get(51), 10));
           res.extra.push({ kind: 'thorns', dmg: applyDamage(att, d, g, def, elem | 0, 0), element: elem });
         }
-        // elem == 63（酸）需要 item_acid（未移植）
+        // elem == 63（酸）的道具腐蚀由 applyDamage → OnHit 的 elemental() 统一处理
       }
 
       // ---- 347717-347787：気力吐息 → 武器种类法术 ----
