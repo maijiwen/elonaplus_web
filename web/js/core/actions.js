@@ -1165,8 +1165,8 @@
       const here = ((g.groundItems || [])).filter((it) => it && (it.f[0] | 0) > 0
         && (it.f[5] | 0) === (p.x | 0) && (it.f[6] | 0) === (p.y | 0));
       const n = g.pickupAt(p);          // 只拿 townOwned 之外的（含作物等无主物）
+      // 0-GW / 342338：逐件播报改由 pickupAt 承担（「你拾取了◯◯。」），这里不再汇总
       if (n > 0) {
-        g.log(`拾取了 ${n} 件物品。`);
         g.endTurn();
         return { ok: true, count: n };
       }

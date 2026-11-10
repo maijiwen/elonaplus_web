@@ -19,7 +19,7 @@
  *   1→0  2→13  3→9  4→6  5→1,5,2  6→11,12  7→7  8→10  9→8  10→3  11→4
  *
  * 【未移植（如实标注）】
- *   · gosub *label_2144（mutant 变异装备）、*label_3105(var_59=4) 的特殊外观、var_99(20) 高价值附魔
+ *   · *label_3105(var_59=4) 的特殊外观、var_99(20) 高价值附魔
  *     （依赖 var_132(0, mapId)>=20 的全局判定）
  *   · 消费循环里 var_1466 的 15 次「重掷到价值达标」仅按同一过滤条件实现
  *   · cbit(964) 等全局开关按 g.getV65 读取（缺省 0）；var_65(250+347) 的稀有门已随 0-FO 移除，
@@ -460,9 +460,10 @@
     generate(g, c, opt) {
       opt = opt || {};
       // 218272-218277：mutant 先长出 limit(等级/3, 0, 16) 个肉体部位
+      //   （生成路径 var_685 = 1，219590 → 静默）
       if (c.raceName === 'mutant') {
         const reps = Math.min(Math.max(Math.trunc((c.level || 0) / 3), 0), 16);
-        for (let i = 0; i < reps; i++) this.growMutantPart(g, c);
+        for (let i = 0; i < reps; i++) this.growMutantPart(g, c, { silent: true });
       }
       const ctx = new Ctx(g, c);
       ctx.vars['var_1461'] = opt.var1461 !== undefined ? opt.var1461 : (c.var1461 || 0);
@@ -490,12 +491,17 @@
     },
 
     /**
-     * *label_2144：mutant 的肉体部位成长。
+     * *label_2144（211733-211853）：mutant 的肉体部位成长。
      * 只检查第一个空槽（源码 211850 的 break 使 repeat 只跑一次）；
-     * 按 7/9/8/4/6/5/5/1 的概率生成 頭/体/手/指/腕/腰/足 等部位（槽值 = 类型*10000）。
+     * 按 7/9/8/4/6/5/5/1 的概率生成 首/背中/手/指/腕/腰/足/頭（槽值 = 类型*10000）。
+     * @param {object} [opt] { silent } —— 对应 var_685：角色生成（219590）与读档
+     *   （220484）时为 1 静默；通常游玩（220233 归零）为 0 → 211747 等八处播报
+     *   「〜の身体から新たな〜が生えてきた！」（英文 `grow` + `_s`，8250-8265：
+     *   玩家无 s、NPC 有 s；部位名取 var_257，9144 / 9172 的表）。
      * @returns {number} 生成的槽类型（0 = 本次未成长）
      */
-    growMutantPart(g, c) {
+    growMutantPart(g, c, opt) {
+      opt = opt || {};
       const R = (n) => ((g && g.rng) || Elona.rng).rnd(n);
       let type = 0;
       for (let cnt = 100; cnt < 130; cnt++) {
@@ -511,8 +517,20 @@
         if (type) c.set(cnt, type * 10000);
         break;
       }
+      if (!type) return 0;
       // 211851：`gosub *label_2143` —— 重算「身体が複雑」(var_58(68))
-      if (type && Elona.Equipment && Elona.Equipment.updateComplex) Elona.Equipment.updateComplex(c);
+      if (Elona.Equipment && Elona.Equipment.updateComplex) Elona.Equipment.updateComplex(c);
+      // 211740-211849：var_685 == 0 时播报（211747 / 211761 / 211775 / 211789 /
+      //   211803 / 211817 / 211831 / 211845 的同一句模板，部位名按类型取 var_257）
+      if (!opt.silent && g && typeof g.log === 'function') {
+        const jp = (g.lang === 'jp');
+        const part = (Elona.Equipment && Elona.Equipment.typeName)
+          ? Elona.Equipment.typeName(type, jp ? 'jp' : 'en') : '';
+        const s = ((c.index | 0) === 0) ? '' : 's';   // _s(var_691)
+        g.log(jp
+          ? `${c.name || '?'}の身体から新たな${part}が生えてきた！`
+          : `${c.name || '?'} grow${s} a new ${part}!`);
+      }
       return type;
     },
     _internals: { Ctx, runOps, equipAction, doItemCreate, doFlt, eqWeaponLight, eqWeaponHeavy, generateMoney, evalExpr, evalCond },

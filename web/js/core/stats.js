@@ -587,7 +587,7 @@
       }
       c.set(41, c.get(41) + bonus); set65(310, v65(310) + bonus);
     }
-    // 211940-211947：mutant 成长
+    // 211940-211947：mutant 成长（游玩期 var_685 = 0 → growMutantPart 内播报，211747）
     if ((c.raceName === 'mutant' || (c.index === 0 && Elona.Feat && Elona.Feat.get(c, 0) === 1))
       && c.level < 37 && c.level % 3 === 0 && c.get(48) < c.level) {
       if (Elona.EquipGen) Elona.EquipGen.growMutantPart(g, c);

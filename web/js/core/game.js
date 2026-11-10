@@ -3819,16 +3819,48 @@
       cell[4] = this.groundItemAt(x, y) ? 1 : 0;
     }
 
-    /** 把背包第 idx 件物品放到地面 */
-    dropItem(c, idx, x, y) {
+    /**
+     * 把背包第 idx 件物品放到地面 —— 0-GW 按 *label_2979（342404-342451）补齐：
+     *   - opt.silent（var_2264 == 1，偷窃/收纳路径，311723）：先尝试与脚下同类堆
+     *     合并（342410-342412 的 item_stack，516「水」不合并）；没合并成则
+     *     写入状态 3（var_99(21)=3）、序号 var_99(9) = var_65(27)+5 并 var_65(27)++、
+     *     序号 > 50 时 var_99(26)=10（342426-342433）。
+     *   - 非静默：原版不做地面合并、总是新堆（342413-342425）；地面槽满时
+     *     「もう周りに物を置くスペースがない！」（本项目 groundItems 无槽上限，
+     *     见 docs/02 A517 的近似口径）。
+     *   - 营火 255 落地 → var_126(20)=1 的等价标志（342482）。
+     * 342452-342470：放在**自己信仰的神**的祭坛上的水 → 祝福的水。
+     */
+    dropItem(c, idx, x, y, opt) {
+      opt = opt || {};
       const it = c.inv && c.inv[idx];
       if (!it || (it.f[0] | 0) <= 0 || it.eqSlot >= 0) return false;
       it.f[5] = x;
       it.f[6] = y;
-      it.f[21] = -1;                       // 所有者 = 地面
+      if (opt.silent) {
+        // 342410-342412：item_stack(-1, …) —— 与同格同类同品质堆合并（水 516 除外）
+        if ((it.f[3] | 0) !== 516) {
+          const tgt = (this.groundItems || []).find((o) => o && (o.f[0] | 0) > 0
+            && (o.f[3] | 0) === (it.f[3] | 0) && (o.f[4] | 0) === (it.f[4] | 0)
+            && (o.f[5] | 0) === (x | 0) && (o.f[6] | 0) === (y | 0));
+          if (tgt) {
+            tgt.f[0] = (tgt.f[0] | 0) + (it.f[0] | 0);
+            c.inv[idx] = null;
+            this.refreshGroundCell(x, y);
+            return true;
+          }
+        }
+        it.f[21] = 3;                                   // 342427
+        const serial = (this.getV65 ? (this.getV65(27) | 0) : 0) + 5;   // 342428
+        it.f[9] = serial;
+        if (this.setV65) this.setV65(27, (this.getV65(27) | 0) + 1);    // 342429
+        if (serial > 50) it.f[26] = 10;                 // 342430-342432
+      }
+      it.f[21] = (it.f[21] === 3) ? 3 : -1;             // 所有者 = 地面（保留偷窃状态）
       c.inv[idx] = null;
       this.groundItems.push(it);
       this.refreshGroundCell(x, y);
+      if ((it.f[3] | 0) === 255) this.campfireFlag = true;   // 342482 / var_126(20)=1
       // 342452-342470：放在**自己信仰的神**的祭坛上的水 → 祝福的水
       if (Elona.Faith && Elona.Faith.blessWater(this, c, it)) {
         this.log('水受到了祝福。');
@@ -4350,6 +4382,7 @@
     /** 拾取脚下全部地面物品 */
     pickupAt(c) {
       let picked = 0;
+      let pickedCampfire = false;   // 0-GW：本轮拾起过营火 255（342366-342385）
       let pickedWeight = 0;
       let blocked = false;
       const rest = [];
@@ -4395,10 +4428,30 @@
           const conv = Elona.ItemDB.convertArtifact(c, slotIdx);
           if (conv) this.log(`${conv.name} 化成了星尘。`);
         }
+        // 0-GW / 342338：逐件拾取播报（「(名前)は(物品)を拾った。」；NPC 的 _s 分支
+        //   342355-342365 由 AI 拾取承担，本项目 NPC 不拾取，见 docs/02 A517）
+        {
+          const nm = (Elona.ItemDB && Elona.ItemDB.instanceName)
+            ? Elona.ItemDB.instanceName(it) : String(it.f[3] | 0);
+          this.log(`你拾取了 ${nm}。`);
+          if ((it.f[3] | 0) === 255) pickedCampfire = true;
+        }
         picked++;
       }
       this.groundItems = rest;
       this.refreshGroundCell(c.x, c.y);
+      // 0-GW / 342366-342385：玩家拾起营火 255 后，若地面（inv -1）再无 255 →
+      //   var_126(20)=0 + 重选 BGM（label_0069）。本项目无 BGM 模块，只清标志；
+      //   判定放在地面列表重建之后，避免把刚拾走的算进去。
+      if (pickedCampfire && this.campfireFlag
+        && !this.groundItems.some((o) => o && (o.f[0] | 0) > 0 && (o.f[3] | 0) === 255)) {
+        this.campfireFlag = false;
+      }
+      // 0-GW / 342398：`gosub *label_2225` 重算负重（feat.js 的 applyWeight，
+      //   var_58(43/44/45)）；endTurn 里还有一份，这里保持源码顺序
+      if (picked > 0 && Elona.Feat && Elona.Feat.applyWeight) {
+        try { Elona.Feat.applyWeight(c, this); } catch (e) { /* 缺表时静默 */ }
+      }
       // 1006：拾取作物即累计重量
       if (picked > 0 && this.questMap && this.questMap.type === 1006 && Elona.QuestMap) {
         const hr = Elona.QuestMap.onPickup(this, pickedWeight);
