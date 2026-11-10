@@ -1,0 +1,2281 @@
+{
+ "meta": {
+  "group": "C",
+  "title": "NPC 服务 / 菜单结算 / 事件",
+  "source": "hsp/start.hsp",
+  "encoding": "cp932",
+  "verifiedSourceLines": 995,
+  "distinctCheckedLines": 970,
+  "groupSegmentCount": 34,
+  "segmentCount": 40,
+  "srcCount": 35,
+  "note": "条件 / 阈值 / id 集合 / 文案 / 菜单分支，由 residual_npc.js 解释成可调用 API"
+ },
+ "segments": [
+  {
+   "range": "292183-292600",
+   "lines": 418,
+   "name": "label_2777..2778 var_472 物种候选清单（特定地点的随从生成）",
+   "api": "npcSiteCandidates"
+  },
+  {
+   "range": "307377-307622",
+   "lines": 246,
+   "name": "label_2915 乞讨本体（830 认真乞讨的完整流程）",
+   "api": "begFlow"
+  },
+  {
+   "range": "300986-301181",
+   "lines": 196,
+   "name": "label_2850 var_65(828) 的恶作剧事件",
+   "api": "prankEvent"
+  },
+  {
+   "range": "308243-308426",
+   "lines": 184,
+   "name": "label_2920 一次性动作收尾（斗志溢出判定）",
+   "api": "cheerFlow"
+  },
+  {
+   "range": "590483-590657",
+   "lines": 175,
+   "name": "label_4282..4283 装备位遍历与随机物品取样",
+   "api": "equipmentScan"
+  },
+  {
+   "range": "590235-590401",
+   "lines": 167,
+   "name": "label_4277 var_58(84) 的店铺/仓库槽扫描",
+   "api": "shopSlotScan"
+  },
+  {
+   "range": "300770-300915",
+   "lines": 146,
+   "name": "label_2847 确认对话（var_486=22 的选择结算）",
+   "api": "confirmDialogue"
+  },
+  {
+   "range": "295513-295599",
+   "lines": 87,
+   "name": "label_2815 com_wear 同伴自动装备",
+   "api": "companionAutoEquip"
+  },
+  {
+   "range": "299398-299476",
+   "lines": 79,
+   "name": "label_2828 savecycle 季节切换",
+   "api": "seasonCycle"
+  },
+  {
+   "range": "294372-294449",
+   "lines": 78,
+   "name": "label_2789 var_444 选择值结算（雇佣/收养菜单）",
+   "api": "hireResolve"
+  },
+  {
+   "range": "308171-308242",
+   "lines": 72,
+   "name": "label_2919 rowactend 与一次性动作清场",
+   "api": "burrowFlow"
+  },
+  {
+   "range": "279353-279422",
+   "lines": 70,
+   "name": "label_2625 shoptmp.s2 店铺临时数据",
+   "api": "shopData"
+  },
+  {
+   "range": "283252-283321",
+   "lines": 70,
+   "name": "label_2667 var_65(828) 恶作剧事件的音效分支",
+   "api": "prankSound"
+  },
+  {
+   "range": "295443-295512",
+   "lines": 70,
+   "name": "label_2814 repeat 30 扫描（var_1374）",
+   "api": "equipWeightScan"
+  },
+  {
+   "range": "289262-289329",
+   "lines": 68,
+   "name": "label_2748 広域能力的确认播报段",
+   "api": "wideAbility"
+  },
+  {
+   "range": "304361-304410",
+   "lines": 50,
+   "name": "label_2878 gosub 2873 的一览前处理",
+   "api": "listPreprocess"
+  },
+  {
+   "range": "300916-300964",
+   "lines": 49,
+   "name": "label_2848 神託（413）的道具检查",
+   "api": "oracleItemCheck"
+  },
+  {
+   "range": "220463-220509",
+   "lines": 47,
+   "name": "label_2246 var_65(828) 恶作剧标记（var_1480）",
+   "api": "prankMark"
+  },
+  {
+   "range": "300412-300457",
+   "lines": 46,
+   "name": "label_2839 gosub 2836 的选择结算",
+   "api": "selectionResolve"
+  },
+  {
+   "range": "590190-590234",
+   "lines": 45,
+   "name": "label_4276 随机生成物品（flt + var_1023）",
+   "api": "randomItemGen"
+  },
+  {
+   "range": "285005-285049",
+   "lines": 45,
+   "name": "label_2692 角色信息展示",
+   "api": "characterInfo"
+  },
+  {
+   "range": "590413-590456",
+   "lines": 44,
+   "name": "label_4279 角色物品扫描（inv_getheader × 10）",
+   "api": "characterItemScan"
+  },
+  {
+   "range": "220394-220436",
+   "lines": 43,
+   "name": "label_2244 cbitmod 980 + rowactend 清场",
+   "api": "rowActEnd"
+  },
+  {
+   "range": "292143-292182",
+   "lines": 40,
+   "name": "label_2776 能力门槛计算（var_83(1,399)/1000）",
+   "api": "abilityThreshold"
+  },
+  {
+   "range": "304259-304297",
+   "lines": 39,
+   "name": "label_2874 一览构建（sdim 1024 缓冲）",
+   "api": "listPreprocess"
+  },
+  {
+   "range": "591142-591175",
+   "lines": 34,
+   "name": "label_4289 var_65(70)==1006 的仓库扫描",
+   "api": "warehouseScan"
+  },
+  {
+   "range": "302533-302561",
+   "lines": 29,
+   "name": "label_2857 shop3.s2 店铺数据",
+   "api": "shopData"
+  },
+  {
+   "range": "300383-300411",
+   "lines": 29,
+   "name": "label_2838 var_396==678 战术指示的结算",
+   "api": "tacticalOrder"
+  },
+  {
+   "range": "291069-291096",
+   "lines": 28,
+   "name": "label_2750 确认播报段",
+   "api": "namingPrompt"
+  },
+  {
+   "range": "29294-29312",
+   "lines": 19,
+   "name": "fix_find 装备部位查找",
+   "api": "fixFind"
+  },
+  {
+   "range": "300758-300769",
+   "lines": 12,
+   "name": "label_2846 var_1442 = 0",
+   "api": "questReturnCheck"
+  },
+  {
+   "range": "590402-590412",
+   "lines": 11,
+   "name": "label_4278 var_1245 = refitem(...)",
+   "api": "equipSlotCheck"
+  },
+  {
+   "range": "590181-590189",
+   "lines": 9,
+   "name": "label_4275 if ( var_41 == 1 )",
+   "api": "randomItemGen"
+  },
+  {
+   "range": "32260-32261",
+   "lines": 2,
+   "name": "calcshopreform 店铺改造计价",
+   "api": "shopReformCost"
+  },
+  {
+   "range": "220358-220394",
+   "lines": 37,
+   "name": "label_2242/2243 cbitmod 复活清场",
+   "api": "startupConstants",
+   "extra": true
+  },
+  {
+   "range": "220510-220560",
+   "lines": 51,
+   "name": "label_2247..2250 通名选择",
+   "api": "startupConstants",
+   "extra": true
+  },
+  {
+   "range": "220619-220660",
+   "lines": 42,
+   "name": "label_2251/2252 经历再抽选菜单",
+   "api": "startupConstants",
+   "extra": true
+  },
+  {
+   "range": "220812-220835",
+   "lines": 24,
+   "name": "label_2256 页号环绕",
+   "api": "startupConstants",
+   "extra": true
+  },
+  {
+   "range": "220984-221000",
+   "lines": 17,
+   "name": "label_2261/2262 性别选择",
+   "api": "startupConstants",
+   "extra": true
+  },
+  {
+   "range": "221656-221745",
+   "lines": 90,
+   "name": "label_2275/2276 满意确认与角色写入",
+   "api": "startupConstants",
+   "extra": true
+  }
+ ],
+ "src": {
+  "shopSlotScan": "590235-590401",
+  "randomItemGen": "590181-590234",
+  "equipSlotCheck": "590402-590412",
+  "characterItemScan": "590413-590456",
+  "equipmentScan": "590483-590657",
+  "warehouseScan": "591142-591175",
+  "begFlow": "307377-307622",
+  "prankEvent": "300986-301181",
+  "prankSound": "283252-283321",
+  "prankMark": "220463-220509",
+  "confirmDialogue": "300770-300915",
+  "questReturnCheck": "300758-300769",
+  "companionAutoEquip": "295513-295599",
+  "equipWeightScan": "295443-295512",
+  "seasonCycle": "299398-299476",
+  "hireResolve": "294372-294449",
+  "wideAbility": "289262-289329",
+  "namingPrompt": "291069-291096",
+  "abilityThreshold": "292143-292182",
+  "npcSiteCandidates": "292183-292600",
+  "listPreprocess": "304259-304410",
+  "oracleItemCheck": "300916-300964",
+  "selectionResolve": "300412-300457",
+  "tacticalOrder": "300383-300411",
+  "targetLock": "300334-300382",
+  "shopData": "279353-279422",
+  "shop3Data": "302533-302561",
+  "burrowFlow": "308171-308242",
+  "cheerFlow": "308243-308426",
+  "rowActEnd": "220394-220436",
+  "characterInfo": "285005-285049",
+  "incognitoBegin": "194576-194612",
+  "fixFind": "29294-29312",
+  "shopReformCost": "32260-32261",
+  "startupConstants": "220358-221745"
+ },
+ "text": {
+  "color": [
+   255,
+   255,
+   255
+  ],
+  "contractExpired": [
+   "との契約期間が切れた。",
+   "The period of contract with {name} has been expired."
+  ],
+  "recall": [
+   "はあなたからのメッセージを思い出した…。",
+   " recalled your message..."
+  ],
+  "begStart": [
+   "は物乞いを始めた。",
+   " start{_s} begging."
+  ],
+  "begNotice": [
+   "は{name}に気づいた。",
+   " has noticed {name}."
+  ],
+  "begRefuseJp": [
+   "「目障り」",
+   "「あっちいけ！」",
+   "「シッシッ！」"
+  ],
+  "begRefuseEn": [
+   "Go away!",
+   "You are an eyesore!"
+  ],
+  "begRichJp": [
+   "「{ore}よりお金持ってるみたい{dana}」"
+  ],
+  "begRichEn": [
+   "You have more money than me!"
+  ],
+  "begPityJp": [
+   "「哀れな…」",
+   "「すっごいかわいそ！」",
+   "「みじめぇ！」"
+  ],
+  "begPityEn": [
+   "Pathetic!",
+   "Very pitiful..."
+  ],
+  "begTotal": [
+   "は合計 {gold}{unit}めぐんでもらった。",
+   "The audience gives {name} total of {gold} gold pieces."
+  ],
+  "begFame": [
+   "名声値を{fame}失った。",
+   "{name} lose {fame} fame."
+  ],
+  "burrowStart": [
+   "は地中に潜った。",
+   " went underground."
+  ],
+  "burrowStay": [
+   "は地中に潜っている。",
+   " is underground."
+  ],
+  "burrowJump": [
+   "は地中から飛び出し{name}を奇襲した。",
+   " jumped out of the ground and attacked {name}."
+  ],
+  "burrowMiss": [
+   "しかし、わずかに距離が足りず当たらなかった。",
+   "However, the distance was just a little short and it missed."
+  ],
+  "cheerStart": [
+   "は応援を始めた。",
+   " start cheering."
+  ],
+  "cheerJoin": [
+   "も応援に加わった！",
+   " also joined the cheering."
+  ],
+  "cheerBreak": [
+   "は一息ついた。",
+   " was a little break."
+  ],
+  "leaveItems": [
+   "まだアイテムが残っているがいい？",
+   "Really leave these items?"
+  ],
+  "shortcutCargo": [
+   "荷車の荷物は登録できない。",
+   "You can't make a shortcut for cargo stuff."
+  ],
+  "shortcutAssigned": [
+   "{key}キーにショートカットを割り当てた。",
+   "You have assigned the shortcut to {{{key}}} key."
+  ],
+  "noTarget": [
+   "ターゲットが見当たらない。",
+   "You find no target."
+  ],
+  "noReturn": [
+   "この大陸には帰還できる場所が無い。",
+   "You don't know any location you can return to"
+  ],
+  "returnWhere": [
+   "どの場所に帰還する？",
+   "Where do you want to go?"
+  ],
+  "returnAir": [
+   "周囲の大気がざわめきだした。",
+   "The air around you becomes charged."
+  ],
+  "incognitoDuel": [
+   "決闘中は変装が効かない。",
+   "Incognito does not work for the duel opponent."
+  ],
+  "shopSalary": [
+   "デイリークエストの報酬アイテムが給料として振り込まれた。",
+   "As a salary, dairy quest reward have been sent to your house."
+  ],
+  "oracleAsk": [
+   "{mat}を使ってガシャガシャする？",
+   "Pay {mat} to gasha-gasha?"
+  ],
+  "oracleDrop": [
+   "何かが足元に転がってきた。",
+   "Something is put on the ground."
+  ],
+  "oracleLack": [
+   "{mat}を持っていない…",
+   "You don't have {mat}."
+  ],
+  "namingAsk": [
+   "を何と呼ぶ？ ",
+   "What do you want to call {him}? "
+  ],
+  "namingStop": [
+   "名前をつけるのはやめた。",
+   "You changed your mind."
+  ],
+  "namingDone": [
+   "という名前で呼ぶことにした。",
+   "You named {him} {name}."
+  ]
+ },
+ "constants": {
+  "absTime": {
+   "vars": [
+    13,
+    12,
+    11,
+    10
+   ],
+   "coeffs": [
+    1,
+    24,
+    720,
+    8640
+   ],
+   "expr": "var_65(13) + var_65(12)*24 + var_65(11)*24*30 + var_65(10)*24*30*12"
+  },
+  "notesMax": 195,
+  "color": [
+   255,
+   255,
+   255
+  ],
+  "selectWidths": {
+   "prank": 240,
+   "confirm": 240,
+   "wide": 200,
+   "dialog": 160
+  }
+ },
+ "shopSlot": {
+  "loop": {
+   "expr": "repeat 40 - 1, 16",
+   "start": 16,
+   "count": 39
+  },
+  "contract": {
+   "field": 84,
+   "cbit": 969,
+   "resetFields": [
+    84,
+    9
+   ],
+   "textKey": "contractExpired"
+  },
+  "skipCurrentMap": {
+   "field": 80,
+   "equalsVar": 20
+  },
+  "state5": {
+   "state": 5,
+   "gosub": "label_4276"
+  },
+  "state4": {
+   "state": 4,
+   "deadlineField": 5,
+   "chance": "rnd(3)==0",
+   "flagField": 428,
+   "flagRecall": 5,
+   "flagQuiet": 4,
+   "newsRecall": 5,
+   "newsQuiet": 3,
+   "resultState": 3,
+   "textKey": "recall"
+  },
+  "mapPick": {
+   "repeat": 10,
+   "chance": 60,
+   "hiChance": 4,
+   "hiRange": [
+    450,
+    500
+   ],
+   "loRange": [
+    0,
+    300
+   ],
+   "forceIds": [
+    7,
+    9
+   ],
+   "forceValue": 4,
+   "gates": [
+    {
+     "typeField": 30,
+     "type": 44,
+     "fameVar": 252,
+     "lt": 200,
+     "set": 4
+    },
+    {
+     "typeField": 30,
+     "type": 70,
+     "fameVar": 252,
+     "lt": 400,
+     "set": 44
+    }
+   ],
+   "firstN": 5,
+   "firstNType": 3,
+   "typeField": 16,
+   "assign": {
+    "field": 80,
+    "flagField": 81,
+    "flag": 1
+   },
+   "rerunWhen": 4
+  },
+  "deadBranches": [
+   590348,
+   590351
+  ],
+  "messageRecheck": {
+   "chance": 200,
+   "flagField": 428,
+   "flag": 1,
+   "impressionField": 9,
+   "clearFields": [
+    9,
+    201,
+    428
+   ],
+   "textKey": "recall"
+  },
+  "itemScan": {
+   "chance": 200,
+   "typeField": 0,
+   "excludeType": 3,
+   "gosub": "label_4279"
+  },
+  "growth": [
+   {
+    "chance": 10,
+    "levelField": 38,
+    "levelClamp": [
+     1,
+     3000
+    ],
+    "targetField": 35,
+    "formula": "level*level*2"
+   },
+   {
+    "chance": 20,
+    "levelField": 38,
+    "levelClamp": [
+     1,
+     3000
+    ],
+    "targetField": 34,
+    "formula": "limit(rnd(level*sqrt(level+1)/40+5) - rnd(level*sqrt(level+1)/50+5), 2, 999)",
+    "limit": [
+     2,
+     999
+    ]
+   },
+   {
+    "chance": 2000,
+    "levelField": 38,
+    "levelClamp": [
+     1,
+     3000
+    ],
+    "targetField": 35,
+    "formula": "level*level*10",
+    "bonusField": 34,
+    "bonus": "rnd(level*sqrt(level+1)/10+10)",
+    "news": 4,
+    "gosub": "label_4279"
+   }
+  ],
+  "clampNegative": {
+   "field": 35
+  },
+  "levelUpCheck": {
+   "field": 35,
+   "thresholdField": 36,
+   "gosub": "label_2145"
+  }
+ },
+ "itemGen": {
+  "guard": {
+   "var": 41,
+   "value": 1,
+   "action": "return"
+  },
+  "loop": {
+   "expr": "repeat 40 - 1, 16",
+   "start": 16,
+   "count": 39
+  },
+  "flt": [
+   0,
+   4
+  ],
+  "level": {
+   "expr": "limit(rnd(60 + var_58(38, 0)) + 1, 1, 200)",
+   "base": 60,
+   "clamp": [
+    1,
+    200
+   ]
+  },
+  "characreateIds": [
+   75,
+   41,
+   160
+  ],
+  "initFields": {
+   "9": 0,
+   "69": 0,
+   "156": 100,
+   "0": 3,
+   "150": 13
+  },
+  "rndFields": {
+   "7": "rnd(33)*2+1+var_58(8,var_581)",
+   "161": "rnd(45)+1",
+   "162": "rnd(45)+1",
+   "163": "rnd(45)+1",
+   "164": "rnd(45)+1",
+   "165": "rnd(45)+1"
+  },
+  "nameFields": [
+   "randomname()",
+   "random_title()"
+  ],
+  "mapPick": {
+   "start": "rnd(450)",
+   "invalid": [
+    "var_132(16,var_400)==0",
+    "var_132(16,var_400)==7",
+    "var_132(0,var_400)==7"
+   ],
+   "forceValue": 4,
+   "gates": [
+    {
+     "type": 44,
+     "fameVar": 252,
+     "lt": 200,
+     "set": 4
+    },
+    {
+     "type": 70,
+     "fameVar": 252,
+     "lt": 400,
+     "set": 44
+    }
+   ],
+   "extras": [
+    {
+     "chance": 4,
+     "set": 5
+    },
+    {
+     "chance": 4,
+     "set": 11
+    },
+    {
+     "chance": 6,
+     "set": 12
+    }
+   ],
+   "assign": {
+    "field": 80,
+    "flagField": 81,
+    "flag": 1
+   }
+  },
+  "goldField": {
+   "field": 34,
+   "expr": "level*sqrt(level+1)*30 + rnd(level*200+100) + rnd(500)"
+  },
+  "equipSlotCheck": {
+   "refIds": [
+    57000,
+    52000,
+    53000
+   ],
+   "setField": 12,
+   "cbit": 1050,
+   "cbitItemField": 24,
+   "cbitItemValue": 35
+  },
+  "itemScan": {
+   "repeat": 10,
+   "foundFlag": 1442,
+   "skipItemFlags": [
+    0,
+    18
+   ],
+   "setField": 8,
+   "setValue": 3,
+   "qualityField": 4,
+   "qualityMin": 4,
+   "refItemLt": 50000,
+   "news": 1,
+   "flt": "flt var_58(38,var_581), 4",
+   "poolA": "var_645",
+   "poolB": "var_646",
+   "poolChance": 3
+  },
+  "freeSlot": {
+   "repeat": 100,
+   "gosub": "label_4280"
+  },
+  "equipScan": {
+   "repeat": "repeat 30, 100",
+   "start": 100,
+   "count": 30,
+   "bodyParts": [
+    10,
+    5
+   ],
+   "divisor": 10000,
+   "twoHandFlag": "var_99(8,var_579)==3",
+   "gosubEquip": "label_2980",
+   "gosubSwap": "label_2981"
+  },
+  "randomEquip": {
+   "outerRepeat": 100,
+   "innerRepeat": 4,
+   "shopRole": 13,
+   "fltShop": 3,
+   "fltOther": "calcfixlv(2)",
+   "category": {
+    "5": 10000,
+    "1": 12000,
+    "4": 16000,
+    "10": 24001,
+    "11": 25001
+   },
+   "news": 1,
+   "qualityMin": 4,
+   "refItemLt": 50000,
+   "setField": 8,
+   "setValue": 3,
+   "loopBreak": "rnd(3)"
+  },
+  "warehouse": {
+   "triggerVar": 70,
+   "triggerValue": 1006,
+   "clearItemField": 21,
+   "clearItemValue": 4,
+   "skipVar": 73,
+   "skipValue": 3,
+   "escortVar": 70,
+   "escortValue": 1007,
+   "escortCheck": "var_434(8,var_435)==0",
+   "reset": [
+    0,
+    0,
+    0,
+    0
+   ],
+   "textKey": null,
+   "leftClient": [
+    "あなたはクライアントを置き去りにした。",
+    "You left your client."
+   ]
+  }
+ },
+ "beg": {
+  "stateField": 140,
+  "counterField": 141,
+  "totalField": 145,
+  "start": {
+   "state": 29,
+   "counter": 61,
+   "total": 0,
+   "textKey": "begStart",
+   "makeSound": [
+    5,
+    1,
+    1
+   ]
+  },
+  "collect": {
+   "interval": 20,
+   "scanRepeat": 245,
+   "aliveState": 1,
+   "impressionField": 14,
+   "impressionReset": 100,
+   "timeField": 15,
+   "timeOffset": 12,
+   "distLimit": 3,
+   "syncSameMap": "var_58(6,cnt)==var_104",
+   "skipFields": {
+    "251": ">0",
+    "256": ">=60"
+   },
+   "skipCbit": 992,
+   "mapAccessField": 704,
+   "noticeState": -3,
+   "noticeField": 201,
+   "noticeValue": 30,
+   "noticeTextKey": "begNotice",
+   "refuseTextJp": "begRefuseJp",
+   "refuseTextEn": "begRefuseEn",
+   "richTextJp": "begRichJp",
+   "richTextEn": "begRichEn",
+   "pityTextJp": "begPityJp",
+   "pityTextEn": "begPityEn",
+   "giveChance": 3,
+   "gold": {
+    "base": "level*2+5",
+    "levelField": 38,
+    "townNpcUnder": 16,
+    "townNpcValue": 1,
+    "shopRoleRange": [
+     1000,
+     2000
+    ],
+    "shopRoleExact": 2003,
+    "shopRoleDiv": 50,
+    "merchantCbits": [
+     23,
+     27,
+     964
+    ],
+    "merchantFormula": "limit((gold+1)/5+1, 1, 300)",
+    "goldField": 30
+   },
+   "drop": {
+    "chance": "rnd(var_2368*2+4)==0",
+    "coordBase": "-1+rnd(3)",
+    "cellFlag": 787,
+    "fovLos": true,
+    "items": [
+     {
+      "rnd": 5,
+      "item": 187
+     },
+     {
+      "rnd": 10,
+      "item": 258
+     },
+     {
+      "rnd": 20,
+      "item": 812
+     },
+     {
+      "rnd": 30,
+      "item": 571
+     }
+    ],
+    "gosub": "label_2111",
+    "aiParam": 15
+   },
+   "snd": 11
+  },
+  "end": {
+   "fameLoss": 40,
+   "textKey": "begTotal",
+   "fameTextKey": "begFame",
+   "txtef": 3,
+   "rowactend": true
+  }
+ },
+ "prank": {
+  "wizardVar": 828,
+  "disabledMaps": [
+   35,
+   6,
+   40
+  ],
+  "snd": 27,
+  "wizardText": [
+   "デバッグモードでは無効だ。",
+   "This function is disabled in the wizard's mode."
+  ],
+  "mapText": [
+   "このマップでは利用できない。",
+   "You can't user it in this area."
+  ],
+  "teamName": {
+   "field": "var_492(0)",
+   "fallback": "random_title(2)",
+   "text": [
+    "チームネームが決まっていないので、自動的に{name}という名前が付けられた。",
+    "Your initial team name is {name}. You can change it any time."
+   ]
+  },
+  "menu": [
+   {
+    "key": "a",
+    "jp": "ショウルームを記録",
+    "en": "Save current area"
+   },
+   {
+    "key": "b",
+    "jp": "ペットチームを記録",
+    "en": "Save your pet team"
+   },
+   {
+    "key": "c",
+    "jp": "チームネーム変更",
+    "en": "Change your team name"
+   },
+   {
+    "key": "d",
+    "jp": "カスタムNPCを作成",
+    "en": "Make custom NPC"
+   },
+   {
+    "key": "e",
+    "jp": "アップロード",
+    "en": "Upload"
+   },
+   {
+    "key": "f",
+    "jp": "設定",
+    "en": "Setting"
+   }
+  ],
+  "wizardOnlyKeys": [
+   "e",
+   "f"
+  ],
+  "title": [
+   "[カスタム機能]何をする？",
+   "[Customize Menu] What do you want to do?"
+  ],
+  "selectWidth": 240,
+  "branches": [
+   {
+    "choice": 0,
+    "wildBlock": [
+     1,
+     35
+    ],
+    "noSave": [
+     "このマップは保存できない。",
+     "You can't save this area."
+    ],
+    "file": {
+     "ext": "pum",
+     "title": "ElonaPlus User Map",
+     "default": "default.pum"
+    },
+    "gosub": "label_2874",
+    "saved": [
+     "現在地の情報を{file}に保存した。",
+     "Current area is saved to {file}."
+    ]
+   },
+   {
+    "choice": 1,
+    "dim": 16,
+    "repeat": 16,
+    "repeat245": 245,
+    "avgLevel": "var_2281 / var_483",
+    "file": {
+     "ext": "pet",
+     "title": "ElonaPlus Extra Team",
+     "default": "default.pet"
+    },
+    "gosub": "label_2875",
+    "saved": [
+     "ペットチームを{file}に保存した。",
+     "Your team is saved to {file}."
+    ]
+   },
+   {
+    "choice": 2,
+    "gosub": "label_2725",
+    "param": 2,
+    "text": [
+     "あなたはチーム名を{name}に決めた。",
+     "Your team name is {name} now."
+    ]
+   },
+   {
+    "choice": 3,
+    "gosub": "label_2872"
+   },
+   {
+    "choice": 4,
+    "noArea": 35,
+    "levelVar": 38,
+    "levelMin": 10,
+    "cooldownVar": 804,
+    "gosub": "label_2088"
+   },
+   {
+    "choice": 5,
+    "exec": "user\\export.txt",
+    "mode": 16
+   }
+  ],
+  "sound": {
+   "saveSnd": 44,
+   "openSnd": 26,
+   "buffer": 1024,
+   "page": 16,
+   "patterns": {
+    "0": "*.pum",
+    "1": "*.pet",
+    "2": "*.pum"
+   },
+   "tempNames": [
+    "temp.eum",
+    "temp.ept",
+    "temp.pum",
+    "temp.pet"
+   ],
+   "savingText": [
+    " *保存* ",
+    "*saving*"
+   ],
+   "roomText": [
+    "どのルームを訪問する？ ",
+    "Which room do you want to visit? "
+   ],
+   "teamText": [
+    "どのチームと対戦する？",
+    "Which team do you want to play a match? "
+   ]
+  },
+  "mark": {
+   "flag": 1480,
+   "wizardVar": 828,
+   "devFlag": 31,
+   "dev": {
+    "race": "elea",
+    "class": "warrior",
+    "name": "Noa",
+    "title": "デベロッパー",
+    "gene": 18000000,
+    "geneRepeat": 8
+   },
+   "saveSlotMax": 5,
+   "fullText": [
+    "これ以上は冒険者を保存できない。",
+    "Save slots are full. You have to delete some of your adventurers."
+   ]
+  }
+ },
+ "confirm": {
+  "questCheck": {
+   "repeat": 5,
+   "questVar": 160,
+   "flagField": 8,
+   "flagValue": 1,
+   "types": [
+    1007,
+    1002
+   ]
+  },
+  "questText": [
+   "依頼請負中の帰還は法律で禁止されている。それでも帰還する？",
+   "Returning while taking a quest if forbidden. Are you sure you want to return?"
+  ],
+  "bossGates": [
+   {
+    "fameVar": 252,
+    "lo": 715,
+    "hi": 760,
+    "map": 76,
+    "depth": 179,
+    "snd": 27,
+    "text": [
+     "無力化しないと奴が神の間から出てきてしまう！",
+     "If you do not weaken the <Chaos Child>, it will come out of God's prison!"
+    ]
+   },
+   {
+    "fameVar": 252,
+    "lo": 845,
+    "hi": 1000,
+    "map": 76,
+    "depth": 179,
+    "snd": 27,
+    "text": [
+     "最後まであきらめずに戦おう。",
+     "I will fight until the end without giving up."
+    ]
+   }
+  ],
+  "firstMap": 7,
+  "excludeMaps": [
+   43,
+   33,
+   73
+  ],
+  "excludeDepth": 100,
+  "scanRepeat": 500,
+  "fameVar": 850,
+  "typeField": 16,
+  "clampMap": 76,
+  "clampDepthType": 178,
+  "resetTypes": [
+   61,
+   43,
+   74,
+   92
+  ],
+  "allowedTypes": [
+   3,
+   25,
+   29,
+   42,
+   43,
+   45,
+   49,
+   65,
+   76,
+   71,
+   96
+  ],
+  "excludedType": 7,
+  "rankExpr": "cnvrank(var_132(6)-var_132(17)+1)",
+  "noPlaceText": [
+   "この大陸には帰還できる場所が無い。",
+   "You don't know any location you can return to"
+  ],
+  "askText": [
+   "どの場所に帰還する？",
+   "Where do you want to go?"
+  ],
+  "airText": [
+   "周囲の大気がざわめきだした。",
+   "The air around you becomes charged."
+  ],
+  "dungeonText": [
+   "このままダンジョンを出ると、この階のクエストは達成できない…",
+   "The lord of the dungeon might disappear if you escape now."
+  ],
+  "selectWidth": 240,
+  "setVars": {
+   "64": "var_484(0,var_444), var_484(1,var_444)",
+   "63": "15 + rnd(15)"
+  }
+ },
+ "hire": {
+  "default": -2,
+  "modes": [
+   {
+    "mode": 0,
+    "choices": [
+     {
+      "choice": 0,
+      "value": [
+       -2
+      ]
+     },
+     {
+      "choice": 1,
+      "value": [
+       100,
+       0,
+       "var_58(13,var_243)"
+      ]
+     },
+     {
+      "choice": 2,
+      "value": [
+       1,
+       0,
+       "var_508(1,var_243)\\1000"
+      ],
+      "key": "hair"
+     },
+     {
+      "choice": 3,
+      "value": [
+       10,
+       0,
+       "var_508(10,var_243)\\1000"
+      ],
+      "key": "subhair"
+     },
+     {
+      "choice": 4,
+      "value": [
+       1,
+       1,
+       "var_508(1,var_243)/1000"
+      ]
+     },
+     {
+      "choice": 5,
+      "value": [
+       15,
+       0,
+       "var_508(15,var_243)\\1000"
+      ],
+      "key": "body"
+     },
+     {
+      "choice": 6,
+      "value": [
+       9,
+       0,
+       "var_508(9,var_243)\\1000"
+      ],
+      "key": "cloth"
+     },
+     {
+      "choice": 7,
+      "value": [
+       7,
+       0,
+       "var_508(7,var_243)\\1000"
+      ],
+      "key": "pants"
+     },
+     {
+      "choice": 8,
+      "value": [
+       -1
+      ],
+      "key": ""
+     },
+     {
+      "choice": 9,
+      "value": [
+       101,
+       0,
+       "cbit(967,var_243)"
+      ],
+      "elseValue": [
+       16,
+       0,
+       "var_508(16,var_243)\\1000"
+      ],
+      "elseKey": "ride"
+     }
+    ]
+   },
+   {
+    "mode": 1,
+    "choices": [
+     {
+      "choice": 0,
+      "value": [
+       15,
+       1,
+       "var_508(15,var_243)/1000"
+      ]
+     },
+     {
+      "choice": 1,
+      "value": [
+       9,
+       1,
+       "var_508(9,var_243)/1000"
+      ]
+     },
+     {
+      "choice": 2,
+      "value": [
+       7,
+       1,
+       "var_508(7,var_243)/1000"
+      ]
+     },
+     {
+      "choice": 3,
+      "value": [
+       11,
+       0,
+       "var_508(11,var_243)\\1000"
+      ],
+      "key": "etc"
+     },
+     {
+      "choice": 4,
+      "value": [
+       12,
+       0,
+       "var_508(12,var_243)\\1000"
+      ],
+      "key": "etc"
+     },
+     {
+      "choice": 5,
+      "value": [
+       13,
+       0,
+       "var_508(13,var_243)\\1000"
+      ],
+      "key": "etc"
+     },
+     {
+      "choice": 6,
+      "value": [
+       14,
+       0,
+       "var_508(14,var_243)\\1000"
+      ],
+      "key": "eye"
+     },
+     {
+      "choice": 7,
+      "value": [
+       -1
+      ],
+      "key": ""
+     }
+    ]
+   }
+  ]
+ },
+ "season": {
+  "savecycle": true,
+  "leaveItems": {
+   "cmd": 22,
+   "subCmd": 0,
+   "itemCountVar": 701,
+   "yes": [
+    "y",
+    "0"
+   ],
+   "no": [
+    "n",
+    "1"
+   ],
+   "textKey": "leaveItems",
+   "width": 160
+  },
+  "reset": {
+   "var_243": 0,
+   "var_2267": 1,
+   "breakVar": 2068,
+   "cmd6": {
+    "var_218": -1,
+    "var_993": 1,
+    "goto": "label_2815"
+   },
+   "gotoCmds": [
+    11,
+    12,
+    22,
+    28
+   ],
+   "goto": "label_3075",
+   "flag2255": 1,
+   "flag2263": "label_4358"
+  },
+  "shortcut": {
+   "cmds": [
+    5,
+    7,
+    8,
+    9,
+    14,
+    15,
+    26
+   ],
+   "tag": "sc",
+   "weightField": 7,
+   "cargoLt": 0,
+   "cargoSnd": 27,
+   "cargoTextKey": "shortcutCargo",
+   "assignSnd": 20,
+   "idField": 3,
+   "multiplier": 10000,
+   "slotBase": 40,
+   "repeat": 20,
+   "textKey": "shortcutAssigned"
+  }
+ },
+ "comWear": {
+  "label": "com_wear",
+  "counterExpr": "(var_123 + 1) \\ 4",
+  "page": 14,
+  "repeat": {
+   "start": 100,
+   "count": 30
+  },
+  "var97Filter": {
+   "206": 2,
+   "203": 9,
+   "205": 3,
+   "217": 1,
+   "218": 4,
+   "223": 5,
+   "221": 6,
+   "222": 7,
+   "219": 8
+  },
+  "divisor": 10000,
+  "firstBodyPart": 5,
+  "window": {
+   "w": 690,
+   "h": 380,
+   "anime": [
+    10,
+    4
+   ]
+  },
+  "snd": 95,
+  "sndCondition": "var_983 == 0"
+ },
+ "equipWeight": {
+  "repeat": {
+   "start": 100,
+   "count": 30
+  },
+  "bodyPart": 5,
+  "divisor": 10000,
+  "itemFlag": 10,
+  "weightField": 7,
+  "twoHand": {
+   "flagMask": 2,
+   "heavy": 4000
+  },
+  "dualWield": {
+   "flagMask": 4,
+   "singleHeavy": 4000,
+   "otherHeavy": 1500
+  },
+  "buff": 35,
+  "skillVar": 64,
+  "skillThreshold": 35000,
+  "ridingVar": 183,
+  "weightHeavy": 4000,
+  "texts": {
+   "twoHandFit": [
+    "装備中の{item}は両手にしっくりとおさまる。",
+    "{item} fits well for two-hand fighting style."
+   ],
+   "twoHandLight": [
+    "装備中の{item}は両手持ちにはやや軽すぎる。",
+    "{item} is too light for two-hand fighting style."
+   ],
+   "dualSingleHeavy": [
+    "装備中の{item}は利手で扱うにも重すぎる。",
+    "{item} is too heavy for two-wield fighting style."
+   ],
+   "dualOtherHeavy": [
+    "装備中の{item}は片手で扱うには重すぎる。",
+    "{item} is too heavy for two-wield fighting style."
+   ],
+   "ridingHeavy": [
+    "装備中の{item}は乗馬中に扱うには重過ぎる。",
+    "{item} is too heavy to use when riding."
+   ]
+  }
+ },
+ "wideAbility": {
+  "directionText": [
+   "どの方向に？ ",
+   "Which direction? "
+  ],
+  "targetExpr": "var_244 = var_704(var_451,var_1166,1) - 1",
+  "switch": {
+   "field": 167,
+   "options": 2,
+   "width": 200,
+   "choice": 1,
+   "ridingVar": 183,
+   "cbit": 963,
+   "cmd": 10,
+   "snd": 100
+  },
+  "naming": {
+   "textKey": "namingAsk",
+   "stopKey": "namingStop",
+   "doneKey": "namingDone",
+   "cbitmod": 977,
+   "width": 340,
+   "height": 90
+  }
+ },
+ "abilityThreshold": {
+  "buffVar": "var_83(1,var_399)/1000==1",
+  "buffDivisor": 1000,
+  "buffGosub": "calcbuff -2",
+  "featVar": 165,
+  "featIds": [
+   50,
+   51,
+   52
+  ],
+  "featMultiplier": [
+   125,
+   100
+  ],
+  "spellId": 461,
+  "spellLimit": [
+   1,
+   100
+  ],
+  "diceExpr": "var_89 + \"d\" + var_90"
+ },
+ "species": {
+  "base": [
+   159,
+   173
+  ],
+  "offset": 21000,
+  "groups": [
+   {
+    "map": 12,
+    "mode": null,
+    "ids": [
+     154,
+     162,
+     184,
+     176,
+     177,
+     180,
+     301,
+     167,
+     153
+    ]
+   },
+   {
+    "map": 5,
+    "mode": null,
+    "ids": [
+     178,
+     154,
+     184,
+     163,
+     182,
+     185,
+     158
+    ]
+   },
+   {
+    "map": 15,
+    "mode": null,
+    "ids": [
+     151,
+     150,
+     161,
+     179,
+     301,
+     156,
+     160,
+     172,
+     178
+    ]
+   },
+   {
+    "map": 33,
+    "mode": null,
+    "ids": [
+     181,
+     150,
+     162,
+     184,
+     182,
+     155,
+     153
+    ]
+   },
+   {
+    "map": 36,
+    "mode": 1,
+    "ids": [
+     172,
+     154,
+     150,
+     174,
+     185,
+     171,
+     160,
+     167
+    ]
+   },
+   {
+    "map": 36,
+    "mode": 3,
+    "ids": [
+     172,
+     165,
+     155,
+     164,
+     178,
+     188,
+     171,
+     187
+    ]
+   },
+   {
+    "map": 14,
+    "mode": 1,
+    "ids": [
+     158,
+     157,
+     170,
+     171,
+     176,
+     174,
+     183,
+     163
+    ]
+   },
+   {
+    "map": 14,
+    "mode": 3,
+    "ids": [
+     300,
+     175,
+     158,
+     157,
+     189
+    ]
+   },
+   {
+    "map": 11,
+    "mode": 1,
+    "ids": [
+     156,
+     160,
+     183,
+     185,
+     174,
+     151,
+     190
+    ]
+   },
+   {
+    "map": 11,
+    "mode": 3,
+    "ids": [
+     153,
+     166,
+     167,
+     169,
+     152,
+     189,
+     168,
+     186
+    ]
+   },
+   {
+    "map": 50,
+    "mode": null,
+    "ids": [
+     154,
+     162,
+     184,
+     176,
+     177,
+     180,
+     301,
+     167,
+     153
+    ]
+   },
+   {
+    "map": 52,
+    "mode": null,
+    "ids": [
+     151,
+     150,
+     161,
+     179,
+     301,
+     156,
+     160,
+     172,
+     178
+    ]
+   },
+   {
+    "map": 53,
+    "mode": null,
+    "ids": [
+     181,
+     150,
+     162,
+     184,
+     182,
+     155,
+     190
+    ]
+   },
+   {
+    "map": 54,
+    "mode": null,
+    "ids": [
+     158,
+     157,
+     170,
+     171,
+     176,
+     174,
+     183,
+     190
+    ]
+   },
+   {
+    "map": 55,
+    "mode": null,
+    "ids": [
+     156,
+     160,
+     183,
+     185,
+     174,
+     151,
+     190
+    ]
+   },
+   {
+    "map": 56,
+    "mode": null,
+    "ids": [
+     158,
+     157,
+     170,
+     171,
+     176,
+     174,
+     183
+    ]
+   },
+   {
+    "map": 57,
+    "mode": null,
+    "ids": [
+     156,
+     160,
+     183,
+     185,
+     174,
+     151
+    ]
+   }
+  ],
+  "all": [
+   150,
+   151,
+   152,
+   153,
+   154,
+   155,
+   156,
+   157,
+   158,
+   159,
+   160,
+   161,
+   162,
+   163,
+   164,
+   165,
+   166,
+   167,
+   168,
+   169,
+   170,
+   171,
+   172,
+   173,
+   174,
+   175,
+   176,
+   177,
+   178,
+   179,
+   180,
+   181,
+   182,
+   183,
+   184,
+   185,
+   186,
+   187,
+   188,
+   189,
+   190,
+   300,
+   301
+  ],
+  "filter": "sorg(var_400,var_243)==0 && var_83(0,var_400)!=0"
+ },
+ "listPre": {
+  "buffer": 1024,
+  "headerTag": "[＋製]",
+  "serial": 100002,
+  "var541": [
+   20,
+   22,
+   10,
+   7
+  ],
+  "scanRepeat": 245,
+  "scanSkip": {
+   "168": 1,
+   "150": 13,
+   "cbit": 975
+  },
+  "scanKeep": {
+   "0": 1
+  },
+  "saveExpr": "bsave var_1839, var_2307",
+  "cleanup": {
+   "label2876": [
+    "_tmp_*.npc",
+    "!tmp*.npc"
+   ],
+   "label2877": [
+    "*.t"
+   ]
+  },
+  "pcpicRepeat": 16,
+  "pcpicCbit": 967,
+  "debugVar": 828,
+  "debugTitle": "*Debug*",
+  "diary": {
+   "tag": "<HTML><TITLE>",
+   "file": "diary.html"
+  }
+ },
+ "oracle": {
+  "items": {
+   "413": 40,
+   "414": 41
+  },
+  "askTextKey": "oracleAsk",
+  "stockVar": "var_497(var_2278)",
+  "paySnd": 56,
+  "matdel": "matdelmain var_2278",
+  "result": {
+   "413": 415,
+   "else": 416
+  },
+  "setItemField": 26,
+  "setItemValue": 0,
+  "dropTextKey": "oracleDrop",
+  "lackTextKey": "oracleLack",
+  "yes": [
+   "y",
+   "0"
+  ],
+  "no": [
+   "n",
+   "1"
+  ],
+  "width": 160
+ },
+ "selection": {
+  "tacticalVar": 396,
+  "tacticalValue": 678,
+  "tacticalReturn": 1,
+  "attackText": [
+   "本当に{name}を攻撃する？ ",
+   "Really attack {name}? "
+  ],
+  "yes": [
+   "y",
+   "0"
+  ],
+  "no": [
+   "n",
+   "1"
+  ],
+  "width": 160,
+  "targetExpr": "var_244 = var_58(29,0)",
+  "impressionField": 9,
+  "impressionMin": 0,
+  "errors": {
+   "-1": [
+    "射撃用の道具を装備していない。",
+    "You need to equip a firing weapon."
+   ],
+   "-2": [
+    "矢/弾丸を装備する必要がある。",
+    "You need to equip ammos or arrows."
+   ],
+   "-3": [
+    "矢/弾丸の種類が適していない。",
+    "You're equipped with wrong type of ammos."
+   ]
+  },
+  "gosub": "label_3005"
+ },
+ "targetLock": {
+  "aliveState": 1,
+  "priorityPlayer": [
+   -3,
+   -1,
+   0
+  ],
+  "priorityNpc": [
+   10,
+   0,
+   0
+  ],
+  "repeat": 3,
+  "clearField": 253,
+  "textKey": "noTarget"
+ },
+ "shopData": {
+  "shopId": 4,
+  "tmpFile": "shoptmp.s2",
+  "shopFile": "shop4.s2",
+  "var541": [
+   4,
+   3
+  ],
+  "mode": 6,
+  "itemByMod": {
+   "2": 1271,
+   "3": 1270,
+   "4": 1269,
+   "5": 1270,
+   "6": 1269,
+   "0": 1270,
+   "1": 1269
+  },
+  "expr": "var_58(195,0)/10 \\ 7",
+  "snd": 24,
+  "textKey": "shopSalary",
+  "shop3": {
+   "file": "shop3.s2",
+   "fame": {
+    "expr": "(var_2295-250)/7",
+    "lo": 5,
+    "hi": 50,
+    "base": 250,
+    "div": 7,
+    "target": 31
+   },
+   "karma": {
+    "expr": "(var_2296-250)/8",
+    "lo": 5,
+    "hi": 40,
+    "base": 250,
+    "div": 8,
+    "target": 41
+   },
+   "goldVar": 2297,
+   "repeat": 400,
+   "stockDiv": 3
+  }
+ },
+ "rowAct": {
+  "burrow": {
+   "state": 31,
+   "counter": 10,
+   "interval": 5,
+   "textStartKey": "burrowStart",
+   "textStayKey": "burrowStay",
+   "snd": 308,
+   "targetField": 29,
+   "skipState": 30,
+   "tryRepeat": 200,
+   "jumpTextKey": "burrowJump",
+   "missTextKey": "burrowMiss",
+   "dist": 5,
+   "animeload": 59,
+   "gosub": "label_2911"
+  },
+  "cheer": {
+   "state": 33,
+   "counter": 5,
+   "gate": {
+    "fameVar": 252,
+    "fameLo": 350,
+    "levelLo": 130,
+    "levelHi": 50,
+    "forceVars": [
+     16,
+     58,
+     0
+    ],
+    "forceValue": 100,
+    "flagVar": 273,
+    "flagValue": 1,
+    "moraleField": 182,
+    "moraleLo": 200,
+    "suppress": {
+     "v1636": 100,
+     "v25": 3,
+     "v50": ">v51/2"
+    },
+    "debugVar": 193,
+    "debugValue": 888,
+    "aiField": 266,
+    "aiReset": [
+     -1,
+     1,
+     2
+    ],
+    "overflow": {
+     "morale": 100,
+     "var396": 876,
+     "gosub": "label_2960"
+    }
+   },
+   "scanRepeat": 245,
+   "rangeExpr": "var_83(3,656)\\1000+1",
+   "cheerRoleField": 266,
+   "cheerRole": 3,
+   "cheerBuff": 65,
+   "bonusExpr": "(var_82(162,cnt)+10)/5",
+   "customtalk": 143,
+   "startVar": 191,
+   "startValue": 100,
+   "startTextKey": "cheerStart",
+   "joinTextKey": "cheerJoin",
+   "loop": {
+    "gate": "var_65(801)==0 && var_65(663)==0",
+    "fatigueField": 256,
+    "fatigueCap": 60,
+    "fatigueSet": 59,
+    "clearField": 251,
+    "moraleAdd": 2,
+    "moraleCapA": 100,
+    "moraleCapB": 200,
+    "emoField": 79,
+    "emoHit": 106,
+    "emoMiss": 121,
+    "skillField": 17,
+    "skillTiers": [
+     100,
+     150,
+     200
+    ],
+    "healTiers": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "skillExp": [
+     17,
+     40
+    ]
+   },
+   "breakTextKey": "cheerBreak"
+  },
+  "clear": {
+   "cbitmod": 980,
+   "fields": [
+    250,
+    445,
+    251,
+    254,
+    253,
+    252,
+    263,
+    264,
+    256,
+    257,
+    258,
+    262,
+    12,
+    201,
+    29,
+    261,
+    267,
+    268,
+    412,
+    269,
+    434,
+    79
+   ],
+   "extraRepeat": {
+    "start": 240,
+    "count": 10
+   },
+   "buffRepeat": {
+    "start": 280,
+    "count": 16,
+    "stride": 3,
+    "skipValue": 13
+   },
+   "gosub": "label_2174"
+  }
+ },
+ "charInfo": {
+  "tempChara": 56,
+  "snd": 26,
+  "page": 16,
+  "repeat": 600,
+  "divisor": 1000000,
+  "title": [
+   "◆ {name}の受けている影響",
+   "◆ その内、祝福と呪いによる影響"
+  ],
+  "buffRepeat": 15,
+  "buffStride": 3,
+  "gosub": "label_2174",
+  "noteVar": 701
+ },
+ "incognito": {
+  "duelVar": 556,
+  "snd": 27,
+  "textKey": "incognitoDuel",
+  "loop": {
+   "start": 16,
+   "count": 229
+  },
+  "skip": {
+   "role": [
+    1010,
+    16
+   ],
+   "race": 534,
+   "special": {
+    "field": 25,
+    "value": 6,
+    "race": 516
+   }
+  },
+  "condition": {
+   "originalField": 69,
+   "originalMin": -2,
+   "relationField": 9,
+   "relationMax": -2
+  },
+  "apply": {
+   "201": 0,
+   "9": "var_58(69,cnt)",
+   "79": 221
+  }
+ },
+ "startup": {
+  "cbitmodIds": [
+   972,
+   973,
+   978,
+   980,
+   986
+  ],
+  "reviveFields": {
+   "50": "v51/3",
+   "55": "v56/3",
+   "52": "v53/3",
+   "86": 0,
+   "0": 1,
+   "80": 0,
+   "9": "v69",
+   "22": 8000,
+   "446": 8000
+  },
+  "snd": {
+   "revive": 64,
+   "confirm": 20,
+   "reroll": 94
+  },
+  "aliasText": [
+   "まずは君の通り名を教えてくれるかい。",
+   "Choose your Alias."
+  ],
+  "historyText": [
+   "君の経歴を教えてくれるかな。内緒にしてもいいけれど。",
+   "Can you tell me the history of you? I do not mind even if you make a secret."
+  ],
+  "historyRerolls": 5,
+  "historyRnd": [
+   45,
+   1
+  ],
+  "historyMenu": [
+   [
+    "決定する",
+    "Proceed"
+   ],
+   [
+    "内緒にする",
+    "Keep secret"
+   ],
+   [
+    "全て再抽選",
+    "Reroll all"
+   ],
+   [
+    "前半再抽選",
+    "Reroll first half"
+   ],
+   [
+    "後半再抽選",
+    "Reroll second half"
+   ]
+  ],
+  "gender": [
+   "自称男性",
+   "自称女性",
+   "両性具有",
+   "性別不明"
+  ],
+  "genderEn": [
+   "male?",
+   "female?",
+   "bisexual",
+   "unknown"
+  ],
+  "finalQuestion": [
+   "最後の質問だ。君の名前は？",
+   "Last question. What's your name?"
+  ],
+  "satisfied": [
+   "満足できたかな？",
+   "Are you satisfied now?"
+  ],
+  "satisfiedMenu": [
+   [
+    "はい",
+    "Yes",
+    "a"
+   ],
+   [
+    "いいえ",
+    "No",
+    "b"
+   ],
+   [
+    "最初から",
+    "Restart",
+    "c"
+   ]
+  ],
+  "gene": 18000000,
+  "geneRepeat": 8,
+  "fields161to165": [
+   161,
+   162,
+   163,
+   164,
+   165
+  ],
+  "level": 1,
+  "namePlaceholder": "????",
+  "help": "Press F1 to show help."
+ },
+ "fixFind": {
+  "itemId": 555,
+  "flagField": 21,
+  "flagValue": 3,
+  "reset": {
+   "21": 0,
+   "9": 0,
+   "26": 100
+  },
+  "snd": 90
+ },
+ "shopReform": {
+  "var": "var_126(18)",
+  "multiplier": 100,
+  "base": 1000
+ }
+}

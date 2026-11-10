@@ -1,0 +1,4952 @@
+{
+ "src": "hsp/start.hsp",
+ "totalLines": 611941,
+ "ranges": [
+  [
+   335,
+   363
+  ],
+  [
+   25900,
+   25900
+  ],
+  [
+   30225,
+   30314
+  ],
+  [
+   37314,
+   37328
+  ],
+  [
+   197461,
+   197520
+  ],
+  [
+   222619,
+   222847
+  ],
+  [
+   223955,
+   223991
+  ],
+  [
+   229827,
+   229866
+  ],
+  [
+   229928,
+   229957
+  ],
+  [
+   230181,
+   231622
+  ],
+  [
+   232947,
+   232968
+  ],
+  [
+   235164,
+   235169
+  ],
+  [
+   235683,
+   235699
+  ],
+  [
+   237796,
+   237816
+  ],
+  [
+   237817,
+   237830
+  ],
+  [
+   249768,
+   249782
+  ],
+  [
+   271045,
+   272103
+  ],
+  [
+   278852,
+   278855
+  ],
+  [
+   278856,
+   278902
+  ],
+  [
+   278971,
+   278974
+  ],
+  [
+   281038,
+   281053
+  ],
+  [
+   282962,
+   282973
+  ],
+  [
+   283955,
+   283960
+  ],
+  [
+   284002,
+   284005
+  ],
+  [
+   286895,
+   286911
+  ],
+  [
+   287072,
+   287084
+  ],
+  [
+   287624,
+   287636
+  ],
+  [
+   287730,
+   287732
+  ],
+  [
+   288728,
+   288745
+  ],
+  [
+   288746,
+   288752
+  ],
+  [
+   291908,
+   291914
+  ],
+  [
+   294450,
+   294463
+  ],
+  [
+   295363,
+   295404
+  ],
+  [
+   295600,
+   295610
+  ],
+  [
+   296099,
+   296113
+  ],
+  [
+   296114,
+   296132
+  ],
+  [
+   296133,
+   296154
+  ],
+  [
+   300687,
+   300690
+  ],
+  [
+   300691,
+   300702
+  ],
+  [
+   300965,
+   300985
+  ],
+  [
+   301182,
+   301413
+  ],
+  [
+   301502,
+   301509
+  ],
+  [
+   302526,
+   302532
+  ],
+  [
+   302656,
+   302681
+  ],
+  [
+   304470,
+   304476
+  ],
+  [
+   304904,
+   304910
+  ],
+  [
+   305368,
+   305380
+  ],
+  [
+   305381,
+   305389
+  ],
+  [
+   305759,
+   305763
+  ],
+  [
+   305764,
+   305773
+  ],
+  [
+   340431,
+   340435
+  ],
+  [
+   341871,
+   341873
+  ],
+  [
+   342527,
+   342548
+  ],
+  [
+   342583,
+   342597
+  ],
+  [
+   342877,
+   342923
+  ],
+  [
+   344651,
+   344739
+  ],
+  [
+   344742,
+   344750
+  ],
+  [
+   345086,
+   345091
+  ],
+  [
+   348233,
+   348245
+  ],
+  [
+   348246,
+   348249
+  ],
+  [
+   348250,
+   348265
+  ],
+  [
+   365528,
+   365561
+  ],
+  [
+   365607,
+   365698
+  ],
+  [
+   365985,
+   365999
+  ],
+  [
+   425448,
+   425452
+  ],
+  [
+   591176,
+   591181
+  ],
+  [
+   602248,
+   602269
+  ],
+  [
+   604861,
+   605199
+  ]
+ ],
+ "rules": {
+  "speciesDispatch": {
+   "range": [
+    222619,
+    222847
+   ],
+   "label": "label_2288",
+   "dispatch": "var_1302 = refchara(var_58(27, var_581), 3)",
+   "flt": "flt calcobjlv(var_58(38, var_244)), calcfixlv(2)",
+   "itemcreate": "itemcreate -1, 0, var_58(1, var_581), var_58(2, var_581), 0",
+   "next": "label_2289",
+   "guard": {
+    "expr": "var_65(250 + 372) <= 0 & var_65(250 + 386) == 0",
+    "slots": [
+     622,
+     636
+    ],
+    "classes": [
+     1,
+     2
+    ],
+    "remainMake": "remain_make var_579, var_581"
+   },
+   "classes": [
+    {
+     "id": 3,
+     "line": 222624,
+     "rolls": [
+      {
+       "den": 40,
+       "cat": 52000,
+       "line": 222626
+      },
+      {
+       "den": 40,
+       "cat": 53000,
+       "line": 222633
+      },
+      {
+       "den": 40,
+       "cat": "var_645(rnd(length(var_645)))",
+       "line": 222640
+      },
+      {
+       "den": 40,
+       "cat": "var_1520(rnd(length(var_1520)))",
+       "line": 222647
+      },
+      {
+       "den": 20,
+       "cat": 68000,
+       "line": 222654
+      }
+     ]
+    },
+    {
+     "id": 1,
+     "line": 222664,
+     "guard": true,
+     "rolls": [
+      {
+       "den": 20,
+       "cat": 62000,
+       "line": 222667,
+       "remainMake": true
+      }
+     ]
+    },
+    {
+     "id": 2,
+     "line": 222679,
+     "guard": true,
+     "rolls": [
+      {
+       "den": 20,
+       "cat": 62000,
+       "line": 222682,
+       "remainMake": true
+      }
+     ]
+    },
+    {
+     "id": 6,
+     "line": 222694,
+     "rolls": [
+      {
+       "den": 10,
+       "cat": 32000,
+       "line": 222696
+      },
+      {
+       "den": 10,
+       "cat": 34000,
+       "line": 222703
+      },
+      {
+       "den": 20,
+       "cat": 54000,
+       "line": 222710
+      },
+      {
+       "den": 10,
+       "cat": 52000,
+       "line": 222717
+      },
+      {
+       "den": 10,
+       "cat": 53000,
+       "line": 222724
+      },
+      {
+       "den": 20,
+       "cat": 72000,
+       "line": 222731
+      },
+      {
+       "den": 10,
+       "cat": 68000,
+       "line": 222738
+      },
+      {
+       "den": 10,
+       "cat": 77000,
+       "line": 222745
+      }
+     ]
+    },
+    {
+     "id": 4,
+     "line": 222755,
+     "rolls": [
+      {
+       "den": 5,
+       "cat": "var_645(rnd(length(var_645)))",
+       "line": 222757
+      },
+      {
+       "den": 5,
+       "cat": "var_1520(rnd(length(var_1520)))",
+       "line": 222764
+      },
+      {
+       "den": 20,
+       "cat": 72000,
+       "line": 222771
+      },
+      {
+       "den": 4,
+       "cat": 68000,
+       "line": 222778
+      }
+     ]
+    },
+    {
+     "id": 5,
+     "line": 222788,
+     "rolls": [
+      {
+       "den": 5,
+       "cat": "var_645(rnd(length(var_645)))",
+       "line": 222790
+      },
+      {
+       "den": 5,
+       "cat": "var_1520(rnd(length(var_1520)))",
+       "line": 222797
+      },
+      {
+       "den": 15,
+       "cat": 54000,
+       "line": 222804
+      },
+      {
+       "den": 5,
+       "cat": 52000,
+       "line": 222811
+      },
+      {
+       "den": 5,
+       "cat": 53000,
+       "line": 222818
+      },
+      {
+       "den": 10,
+       "cat": 72000,
+       "line": 222825
+      },
+      {
+       "den": 4,
+       "cat": 68000,
+       "line": 222832
+      },
+      {
+       "den": 4,
+       "cat": 77000,
+       "line": 222839
+      }
+     ]
+    }
+   ]
+  },
+  "mapInit": {
+   "range": [
+    230181,
+    231622
+   ],
+   "labels": [
+    "label_2410",
+    "label_2411",
+    "label_2412",
+    "label_2413",
+    "label_2414",
+    "label_2415",
+    "label_2416",
+    "label_2417",
+    "label_2418",
+    "label_2419",
+    "label_2420"
+   ],
+   "entryGuard": "if ( var_126(2) != 0 ) { return }",
+   "var126Fields": {
+    "0": "地图宽",
+    "1": "地图高",
+    "2": "重载保护",
+    "6": "地图类型",
+    "10": "地图等级 / 生成量",
+    "12": "tileset / 区域",
+    "14": "子类型",
+    "15": "重置标志"
+   },
+   "defaults": {
+    "width": "34 + rnd(15)",
+    "height": "22 + rnd(15)",
+    "level": "var_126(0) * var_126(1) / 100",
+    "var_1654": 0,
+    "var_1630": "var_126(0) * var_126(1) / 70",
+    "var_1658": 3,
+    "var_1657": 4,
+    "var_1675": 80,
+    "var_1674": 1,
+    "var_1650": 20,
+    "var_1709": 0
+   },
+   "coast": {
+    "base": 285,
+    "span": 12,
+    "waterLo": 264,
+    "waterHi": 363,
+    "bases": [
+     107,
+     173,
+     206,
+     605
+    ],
+    "coastExpr": "selectcoast(...)",
+    "tileRange": "285 <= tile < 297"
+   },
+   "sizes": [
+    {
+     "label": "label_2413",
+     "w": "34 + rnd(15)",
+     "h": "22 + rnd(15)",
+     "line": 230575
+    },
+    {
+     "label": "label_2415",
+     "w": "65 + rnd(16)",
+     "h": "50 + rnd(16)",
+     "line": 231150
+    },
+    {
+     "label": "label_2416",
+     "w": "58 + rnd(16)",
+     "h": "50 + rnd(16)",
+     "line": 231304
+    },
+    {
+     "label": "label_2419",
+     "w": "48 + rnd(20)",
+     "h": 22,
+     "line": 231495
+    },
+    {
+     "label": "label_1001",
+     "w": "28 + rnd(6)",
+     "h": "20 + rnd(6)",
+     "line": 230807
+    }
+   ],
+   "var126_12": [
+    10,
+    99,
+    96,
+    10,
+    97,
+    10,
+    98,
+    101,
+    0,
+    100,
+    200,
+    0,
+    7,
+    0,
+    200,
+    300,
+    13,
+    19,
+    20,
+    4,
+    15
+   ],
+   "facilityTable": [
+    {
+     "key": 1,
+     "gosub": "label_2417",
+     "line": 230839
+    },
+    {
+     "key": 2,
+     "gosub": "label_2420",
+     "line": 230836
+    },
+    {
+     "key": 3,
+     "gosub": "label_2421",
+     "line": 230848
+    },
+    {
+     "key": 4,
+     "gosub": "label_2418",
+     "line": 230842
+    },
+    {
+     "key": 5,
+     "gosub": "label_2419",
+     "line": 230845
+    },
+    {
+     "key": 6,
+     "gosub": "label_2414",
+     "var126_14": 2,
+     "return": true,
+     "line": 230852
+    },
+    {
+     "key": 8,
+     "gosub": "label_2426",
+     "line": 230856
+    },
+    {
+     "key": 9,
+     "gosub": "label_2428",
+     "var_1737": 12,
+     "var_1738": 2,
+     "line": 230866
+    },
+    {
+     "key": 10,
+     "gosub": "label_2431",
+     "var_1737": "5 + rnd(4)",
+     "var_1738": 2,
+     "line": 230861
+    }
+   ],
+   "mapTypeToFacility": [
+    {
+     "var_132_16": 68,
+     "key": 8,
+     "line": 230791
+    },
+    {
+     "var_132_16": 27,
+     "key": 10,
+     "line": 230794
+    },
+    {
+     "var_132_16": 38,
+     "key": 9,
+     "line": 230797
+    },
+    {
+     "var_132_16": [
+      69,
+      88
+     ],
+     "key": 2,
+     "var126_12": 300,
+     "line": 230800
+    },
+    {
+     "var_65_70": 1001,
+     "key": 6,
+     "var126_12": 300,
+     "line": 230805
+    },
+    {
+     "var_65_70": 1009,
+     "gosub": "label_2422",
+     "line": 230811
+    },
+    {
+     "var_65_70": 1006,
+     "gosub": "label_2416",
+     "line": 230815
+    },
+    {
+     "var_65_70": 1013,
+     "gosub": "label_2415",
+     "line": 230819
+    },
+    {
+     "var_65_70": 1008,
+     "gosub": "label_2423",
+     "line": 230823
+    },
+    {
+     "var_65_70": 1010,
+     "gosub": "label_2423",
+     "line": 230827
+    }
+   ],
+   "entryGosubs": [
+    "label_2422",
+    "label_2416",
+    "label_2415",
+    "label_2423",
+    "label_2420",
+    "label_2417",
+    "label_2418",
+    "label_2419",
+    "label_2421",
+    "label_2414",
+    "label_2426",
+    "label_2431",
+    "label_2428",
+    "label_2457",
+    "label_2873"
+   ],
+   "tailCalls": "map_converttile / map_placeplayer"
+  },
+  "dumpInit": {
+   "range": [
+    301182,
+    301413
+   ],
+   "label": "label_2851",
+   "version": "6.43",
+   "header": "Elona Version 6.43 キャラクター情報",
+   "sections": [
+    "Dump:Init",
+    "Dump:1",
+    "Dump:1-2",
+    "Dump:1-3",
+    "Dump:2",
+    "Dump:3",
+    "Dump:4",
+    "Dump:5",
+    "Dump:6",
+    "Dump:7",
+    "Dump:8",
+    "Dump:9"
+   ],
+   "gosubs": [
+    3103,
+    3104,
+    2932,
+    2811,
+    2832,
+    2697,
+    2879
+   ],
+   "dateVars": [
+    "var_65(10)",
+    "var_65(11)",
+    "var_65(12)",
+    "var_65(13)",
+    "var_65(14)"
+   ],
+   "skillTiers": [
+    {
+     "min": 200,
+     "label": "superb"
+    },
+    {
+     "min": 150,
+     "label": "great"
+    },
+    {
+     "min": 100,
+     "label": "good"
+    },
+    {
+     "min": 50,
+     "label": "bad"
+    },
+    {
+     "min": null,
+     "label": "hopeless"
+    }
+   ],
+   "tierExpr": "var_400 = var_82(10 + cnt + 600, 0) \\ 1000",
+   "equipSlotExpr": "var_58(cnt, var_243) / 10000",
+   "equipRepeat": "repeat 30, 100",
+   "rankRepeat": "repeat 9",
+   "saveExpr": "notesave var_47 + \"\\\\save\\\\\" + var_943 + \".txt\"",
+   "lines": [
+    301182,
+    301188,
+    301196,
+    301225,
+    301256,
+    301269,
+    301344,
+    301361,
+    301391,
+    301411
+   ]
+  },
+  "itemFind636": {
+   "range": [
+    344651,
+    344739
+   ],
+   "label": "label_2995",
+   "lockpickId": 636,
+   "skeletonKeyId": 637,
+   "snd": 22,
+   "skillVar": "var_82(158, 0)",
+   "difficultyVar": "var_2535",
+   "skillWithKey": "var_82(158, 0) * 150 / 100 + 5",
+   "skillBase": "var_82(158, 0)",
+   "noSkillExpr": "var_399 * 2 < var_2535",
+   "easyExpr": "var_399 / 2 >= var_2535",
+   "rollExpr": "rnd(rnd(var_399 * 2) + 1) < var_2535",
+   "breakExpr": "rnd(3) == 0",
+   "breakEffect": "var_99(0, var_580)-- / cell_refresh",
+   "menu": {
+    "yes": "y",
+    "no": "n",
+    "var_1238": 2,
+    "gosub": 2896,
+    "retryLabel": "label_2996"
+   },
+   "gotoSuccess": "label_2997",
+   "messages": {
+    "jp": [
+     "ロックピックを所持していない。",
+     "ロックピックを使用した。",
+     "スケルトンキーも使用した。",
+     "この鍵を開ける技術はない。",
+     "楽勝だ。",
+     "開錠に失敗した。",
+     "ロックピックは壊れた。",
+     "もう一度試みる？"
+    ],
+    "en": [
+     "You don't have lockpicks.",
+     "You use a lockpick.",
+     "You also use the skeleton key.",
+     "The lock mechanism is beyond your skill.",
+     "Easy.",
+     "You fail to unlock it.",
+     "Your lockpick breaks.",
+     "Try again?"
+    ]
+   }
+  },
+  "turnEndPc": {
+   "range": [
+    604861,
+    605199
+   ],
+   "labels": [
+    "label_4358",
+    "label_4359"
+   ],
+   "entry": "var_243 = var_124 ; if ( var_58(0, var_243) != 1 ) goto label_4353",
+   "steps": [
+    {
+     "line": 604862,
+     "expr": "var_2783 = 0"
+    },
+    {
+     "line": 604871,
+     "expr": "var_1230 = 10"
+    },
+    {
+     "line": 604872,
+     "expr": "var_1152++ (cap 21 -> 0) / var_1151 = 0"
+    },
+    {
+     "line": 604879,
+     "expr": "var_58(191,0)==8 & var_58(52,0)<50 -> snd 44 / journal +1000"
+    },
+    {
+     "line": 604891,
+     "expr": "var_65(98)!=0 & <10000 -> +10000 / var_65(91)=100 / gosub 2932"
+    },
+    {
+     "line": 604898,
+     "expr": "var_58(45,0)>=3 & var_17==0 & rnd(20)==0 -> dmghp crush"
+    },
+    {
+     "line": 604910,
+     "expr": "refreshspeed var_243"
+    },
+    {
+     "line": 604916,
+     "expr": "var_65(801)>0 -> decrement / snd 115 / animeload 42"
+    },
+    {
+     "line": 604972,
+     "expr": "var_65(663)>0 time-freeze chain"
+    },
+    {
+     "line": 605000,
+     "expr": "var_65(623)>9999 & var_126(6)!=1 -> evadd 18 / 4x characreate 945"
+    },
+    {
+     "line": 605014,
+     "expr": "goto label_4353"
+    }
+   ],
+   "pcTurnInit": [
+    {
+     "line": 605018,
+     "expr": "var_65(185) & rnd(1000)==0 -> txtgod 12"
+    },
+    {
+     "line": 605023,
+     "expr": "var_65(808)=0 / var_2189=0"
+    },
+    {
+     "line": 605025,
+     "expr": "companion x/y sync from player"
+    },
+    {
+     "line": 605033,
+     "expr": "var_126(6)==1 -> tile occupant = 1"
+    },
+    {
+     "line": 605036,
+     "expr": "var_65(85)>=20000 -> dmghp 0, 999999, -14"
+    },
+    {
+     "line": 605105,
+     "expr": "var_1231 -> save *saving* (snd 44)"
+    },
+    {
+     "line": 605123,
+     "expr": "var_2364 -> save *saving*"
+    },
+    {
+     "line": 605140,
+     "expr": "var_2845 -> gosub 2879"
+    },
+    {
+     "line": 605150,
+     "expr": "var_253==1 -> gosub 2104"
+    },
+    {
+     "line": 605157,
+     "expr": "var_65(20)==40 -> var_65(73)=3 / gosub 4292 / msg_halt / snd 49"
+    }
+   ],
+   "constants": {
+    "journalSnd": 44,
+    "timeSnd": 115,
+    "timeAnime": 42,
+    "freezeSlot": 663,
+    "geneSlot": 623,
+    "saveSnd": 49
+   },
+   "gosubs": [
+    2224,
+    2932,
+    2104,
+    2879,
+    4292,
+    2459,
+    4353,
+    4354
+   ]
+  },
+  "randSiteAtx": {
+   "range": [
+    271045,
+    272103
+   ],
+   "labels": [
+    "label_2591",
+    "label_2592",
+    "label_2593",
+    "label_2594",
+    "label_2595",
+    "label_2596",
+    "label_2597",
+    "label_2598",
+    "label_2599",
+    "label_2600",
+    "label_2601",
+    "label_2602",
+    "label_2604",
+    "label_2605"
+   ],
+   "init": {
+    "var_2069": 10,
+    "var_2049": 19,
+    "var_2058": 1,
+    "var_1270_0": "ランダムサイト",
+    "atxinit": 271252
+   },
+   "sites": [
+    {
+     "type": 1,
+     "bg": "bg13",
+     "anim": 9,
+     "var_2066": "0, 495, 3",
+     "line": 271309
+    },
+    {
+     "type": 2,
+     "bg": "bg15",
+     "anim": 10,
+     "var_2066": "0, 495, 3",
+     "line": 271319
+    },
+    {
+     "type": 3,
+     "bg": "bg16",
+     "anim": 11,
+     "var_2066": "0, 495, 3",
+     "line": 271324
+    },
+    {
+     "type": 4,
+     "bg": "bg17",
+     "anim": 12,
+     "var_2066": "0, 495, 3",
+     "line": 271314
+    },
+    {
+     "type": 5,
+     "bg": "bg18",
+     "anim": 13,
+     "var_2066": "0, 495, 3",
+     "line": 271303
+    },
+    {
+     "type": 6,
+     "bg": "bg19",
+     "anim": 14,
+     "var_2066": "0, 495, 3",
+     "line": 271297
+    },
+    {
+     "type": 7,
+     "bg": "bg20",
+     "anim": 15,
+     "var_2066": "0, 495, 3",
+     "line": 271291
+    },
+    {
+     "type": 8,
+     "bg": "bg21",
+     "anim": 16,
+     "var_2066": "0, 495, 3",
+     "line": 271285
+    }
+   ],
+   "mapTypeToSite": [
+    {
+     "var_126_6": 20,
+     "type": 1
+    },
+    {
+     "var_126_6": 21,
+     "type": 4
+    },
+    {
+     "var_126_6": 22,
+     "type": 2
+    },
+    {
+     "var_126_6": 23,
+     "type": 4
+    }
+   ],
+   "snd": [
+    40,
+    1,
+    39,
+    41,
+    70,
+    2,
+    162,
+    60,
+    115
+   ],
+   "anime": {
+    "grotateFrames": 12,
+    "fadeStep": 25,
+    "await": [
+     20,
+     15,
+     100,
+     200
+    ],
+    "scale": "0.6222 * cnt",
+    "bgLabel": "picload graphic/*.bmp"
+   },
+   "gosubs": [
+    2590,
+    2594,
+    2595,
+    2468,
+    2104,
+    2824,
+    6,
+    2896
+   ],
+   "entryNumbers": {
+    "var_2069": 10,
+    "var_2049": 19,
+    "var_893": 16,
+    "var_1237": "await",
+    "var_220": "var_803 + 36"
+   }
+  },
+  "copyChara": {
+   "range": [
+    197461,
+    197520
+   ],
+   "def": "#deffunc copy_chara int prm_980",
+   "slotScan": "repeat 245 - 57, 57 -> var_58(0,cnt)==0",
+   "placeScan": "repeat 8 -> rnd(cnt / 4 + 1) 双向抖动",
+   "memBlocks": [
+    {
+     "src": "var_82(0, prm_980)",
+     "dst": "var_82(0, var_1127)",
+     "bytes": "600 * 4 * 2",
+     "line": 197497
+    },
+    {
+     "src": "var_58(0, prm_980)",
+     "dst": "var_58(0, var_1127)",
+     "bytes": "500 * 4",
+     "line": 197498
+    }
+   ],
+   "strBlocks": [
+    {
+     "expr": "repeat 10 -> var_63(cnt, var_1127) = var_63(cnt, prm_980)",
+     "line": 197499
+    }
+   ],
+   "fields": [
+    {
+     "n": "var_82 全块",
+     "line": 197497
+    },
+    {
+     "n": "var_58 全块",
+     "line": 197498
+    },
+    {
+     "n": "var_63(0..9)",
+     "line": 197499
+    },
+    {
+     "n": "var_704(x,y,1) = var_1127 + 1",
+     "line": 197502
+    },
+    {
+     "n": "var_58(1) = var_1130",
+     "line": 197503
+    },
+    {
+     "n": "var_58(2) = var_1129",
+     "line": 197504
+    },
+    {
+     "n": "var_58(17) = 0",
+     "line": 197505
+    },
+    {
+     "n": "var_58(30) = 0",
+     "line": 197506
+    },
+    {
+     "n": "repeat 30,100 -> /10000*10000",
+     "line": 197507
+    },
+    {
+     "n": "var_58(69) = -3",
+     "line": 197510
+    }
+   ],
+   "overrides": {
+    "17": 0,
+    "30": 0,
+    "69": -3
+   },
+   "cbits": [
+    {
+     "id": 967,
+     "v": 0,
+     "line": 197511
+    },
+    {
+     "id": 960,
+     "v": 0,
+     "line": 197512
+    },
+    {
+     "id": 961,
+     "v": 0,
+     "line": 197513
+    },
+    {
+     "id": 975,
+     "v": 0,
+     "line": 197514
+    },
+    {
+     "id": 981,
+     "v": 1,
+     "line": 197515
+    },
+    {
+     "id": 985,
+     "v": 0,
+     "line": 197516
+    },
+    {
+     "id": 964,
+     "v": 1,
+     "line": 197517
+    }
+   ],
+   "delChara": "del_chara var_1127",
+   "returns": [
+    "copy_chara:Begin",
+    "copy_chara:Proc",
+    "copy_chara:end"
+   ]
+  },
+  "repeat17": {
+   "range": [
+    342877,
+    342923
+   ],
+   "label": "label_2988",
+   "counter": "var_2526",
+   "pcScan": {
+    "size": 17,
+    "expr": "var_58(2, var_243) - 17 / 2 + cnt",
+    "xExpr": "var_58(1, var_243) - 17 / 2 + cnt",
+    "line": 342880
+   },
+   "npcScan": {
+    "size": "var_58(28, var_243) - 2",
+    "expr": "var_58(2, var_243) - var_58(28, var_243) / 2 + cnt + 1",
+    "line": 342902
+   },
+   "conditions": [
+    "var_704(x,y,1) != 0",
+    "var_243 != var_704(x,y,1) - 1",
+    "fov_los(...) != 0"
+   ],
+   "bounds": "0 <= x < var_126(0) ; 0 <= y < var_126(1)"
+  },
+  "clientGuide": {
+   "range": [
+    365528,
+    365561
+   ],
+   "def": "#deffunc clientguide int",
+   "scan": "repeat 5 -> var_2605 = var_65(160 + cnt)",
+   "gate": "var_434(8, var_2605) == 1 & var_65(22) == 1",
+   "cases": [
+    {
+     "id": 1011,
+     "expr": "var_434(1, var_2605) == var_65(20) -> var_434(10, var_2605)",
+     "line": 365535
+    },
+    {
+     "id": 1002,
+     "expr": "var_434(0, var_434(10, var_2605))",
+     "line": 365540
+    }
+   ],
+   "dedupe": "repeat cnt -> var_65(160+cnt) == var_2605",
+   "output": "var_444(var_2604) = var_2606 ; return var_2604",
+   "counter": "var_2604"
+  },
+  "dialog106": {
+   "range": [
+    295363,
+    295404
+   ],
+   "label": "label_2812",
+   "init": {
+    "var_1322": 106,
+    "var_1369": -1,
+    "var_1374": 0,
+    "var_400_1": "0, 0"
+   },
+   "repeat": "repeat 30 -> var_1090 = 100 + cnt",
+   "skips": [
+    "var_58(var_1090,var_243) \\ 10000 == 0",
+    "var_58(...) / 10000 == 10",
+    "var_58(...) / 10000 == 11"
+   ],
+   "equip": "var_1368 = var_58(var_1090, var_243) \\ 10000 - 1 ; var_1322 = var_99(16, var_1368)",
+   "meleeOverride": {
+    "iequiploc": 10,
+    "var_1322": 103
+   },
+   "distOverride": {
+    "stat": 1,
+    "iequiploc": 5,
+    "var_1322": 111
+   },
+   "labels": {
+    "jp": [
+     "武器",
+     "格闘",
+     "射撃"
+    ],
+    "en": [
+     "Melee",
+     "Unarmed",
+     "Dist"
+    ]
+   },
+   "gosubs": [
+    2813,
+    2840
+   ]
+  },
+  "reSelect": {
+   "range": [
+    278856,
+    278902
+   ],
+   "label": "label_2619",
+   "guard": "var_2113 & var_701 <= 1 -> snd 62 / var_444 = -1 / return",
+   "init": {
+    "var_188": 1,
+    "var_761": 0,
+    "var_894": 0,
+    "var_895": 0,
+    "var_893": 16,
+    "var_763": -1,
+    "var_138": "",
+    "var_139": "",
+    "var_2060": "0 (var_701<=1) / -1 (else)"
+   },
+   "draw": [
+    "gsel 7",
+    "gmode 0",
+    "pos 0, 0",
+    "picload graphic/*.bmp",
+    "var_803 = ginfo(12)",
+    "var_802 = ginfo(13)",
+    "gsel 0"
+   ],
+   "snd": 62,
+   "widthExpr": "var_220 = var_803 + 36",
+   "talkConv": "talk_conv var_122, (var_220 - 80) / (7 - var_205) - var_205 * 4",
+   "notesel": "notesel var_122",
+   "heightExpr": "var_222 = var_802 + noteinfo(0) * 15 + 80 + var_701 * 20"
+  },
+  "npcTalkGate": {
+   "range": [
+    365607,
+    365698
+   ],
+   "label": "label_3031",
+   "init": [
+    {
+     "expr": "var_58(188,var_244) = 1 (var_58(8)==0) / 2 (else)",
+     "line": 365608
+    },
+    {
+     "expr": "var_188 = 1",
+     "line": 365616
+    }
+   ],
+   "tutorial": [
+    {
+     "trigger": "var_58(150,var_244)==1005",
+     "set": "var_65(207)=1 / var_1087=7",
+     "gosub": [
+      4317,
+      2104
+     ],
+     "line": 365617
+    },
+    {
+     "trigger": "var_58(150,var_244)==7",
+     "set": "var_65(208)=1 / var_1087=8",
+     "gosub": [
+      4317,
+      2104
+     ],
+     "line": 365634
+    }
+   ],
+   "faith": "gosub *label_2605 ; if ( var_134 == 0 ) { snd 99 ; gosub *label_2467 }",
+   "reset": {
+    "var_761": 0,
+    "var_2609": 0,
+    "var_2060": 1,
+    "line": 365656
+   },
+   "gates": [
+    {
+     "id": "training",
+     "expr": "cbit(960,var_244)==1 & var_65(20)==67 & var_106==0",
+     "jp": "は修行で忙しい。",
+     "en": " won't listen.",
+     "line": 365659
+    },
+    {
+     "id": "excited",
+     "expr": "cbit(960,var_244)==1 & var_132(16,var_65(20))==100 & var_106==0",
+     "jp": "ははしゃいでいて話を聞かない。",
+     "en": " won't listen.",
+     "line": 365671
+    },
+    {
+     "id": "deaf",
+     "expr": "var_58(9,var_244)<=-1 & cbit(960)!=1 & cbit(1049)!=1 & var_106==0",
+     "jp": "は耳を貸さない。",
+     "en": " won't listen.",
+     "line": 365683
+    }
+   ],
+   "gateCommon": {
+    "var_242": 0,
+    "var_246": "rnd(9)",
+    "var_209": "255, 255, 255",
+    "var_2207": 0,
+    "gosub": 2104,
+    "then": "return"
+   },
+   "snd": 99
+  },
+  "itemNameFragments": {
+   "range": [
+    30225,
+    30314
+   ],
+   "buffer": "var_719",
+   "itemIndex": "prm_617",
+   "itemId": "var_99(3, prm_617)",
+   "bodyParts": {
+    "id": 1265,
+    "field": "var_99(32, prm_617)",
+    "jp": [
+     "あたま",
+     "くび",
+     "せなか",
+     "どうたい",
+     "て",
+     "ゆび",
+     "うで",
+     "こし",
+     "あし"
+    ],
+    "en": [
+     "head",
+     "neck",
+     "back",
+     "chest",
+     "hand",
+     "finger",
+     "arm",
+     "waist",
+     "leg"
+    ]
+   },
+   "materialName": {
+    "ids": [
+     60000,
+     1325,
+     1326,
+     1327,
+     1328,
+     1329,
+     1330,
+     1331
+    ],
+    "field": "var_99(23, prm_617)",
+    "expr": "var_282(idx) ; >=13 -> 0",
+    "line": 30257
+   },
+   "rules": [
+    {
+     "id": 344,
+     "jp": "var_279(var_99(25)) + \"の\"",
+     "en": "\" of \" + var_279(var_99(25))",
+     "line": 30277
+    },
+    {
+     "id": 615,
+     "jp": "var_99(23) + \"goldの\"",
+     "en": "\" <\" + var_99(23) + \" gp>\"",
+     "line": 30280
+    },
+    {
+     "id": [
+      704,
+      1115
+     ],
+     "jp": "refchara(var_99(23),2,1) + \"の\"",
+     "en": "\" of \" + refchara(var_99(23),2,1)",
+     "bugged": "var_99(23)<0 | >=1499 -> /bugged/",
+     "line": 30283
+    },
+    {
+     "id": 672,
+     "field": "var_99(25, prm_617)",
+     "line": 30291
+    }
+   ],
+   "gods": [
+    {
+     "key": 169,
+     "jp": "善人の",
+     "en": " of saint"
+    },
+    {
+     "key": 162,
+     "jp": "悪人の",
+     "en": " of wicked"
+    },
+    {
+     "key": 163,
+     "jp": "エヘカトルの",
+     "en": " of Ehekatl"
+    },
+    {
+     "key": 164,
+     "jp": "オパートスの",
+     "en": " of Opatos"
+    },
+    {
+     "key": 165,
+     "jp": "イツパロトルの",
+     "en": " of Itzpalt"
+    },
+    {
+     "key": 166,
+     "jp": "ジュアの",
+     "en": " of Jure"
+    },
+    {
+     "key": "var_728",
+     "jp": "マニの",
+     "en": " of Mani"
+    }
+   ],
+   "returnLine": 30314
+  }
+ },
+ "trivial": [
+  {
+   "range": [
+    335,
+    363
+   ],
+   "line": 336,
+   "src": "\tsdim var_66, 30, 11, 9",
+   "label": "label_0026",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 335,
+     "s": "*label_0026"
+    },
+    {
+     "n": 336,
+     "s": "\tsdim var_66, 30, 11, 9"
+    },
+    {
+     "n": 337,
+     "s": "\tif ( var_52 ) {"
+    },
+    {
+     "n": 338,
+     "s": "\t\tvar_66(0, 0) = \"アリーナのチャンピオン\", \"アリーナの超エリート闘士\", \"アリーナのスター闘士\", \"アリーナのエリート闘士\", \"アリーナの熟練闘士\", \"アリーナの中堅闘士\", \"アリーナの期待の星\", \"アリーナのダークホース\", \"アリーナの下級闘士\", \"アリーナの無名の闘士\", \"アリーナ\""
+    },
+    {
+     "n": 339,
+     "s": "\t\tvar_66(0, 1) = \"全てのペットの王\", \"超エリートペット使い\", \"ペットの王子\", \"ペットの憧れの的\", \"ペット使いのエリート\", \"名の知れたペット使い\", \"ペットの母\", \"なかなかのペット使い\", \"駆け出しのペット使い\", \"無名のペット使い\", \"ペットアリーナ\""
+    },
+    {
+     "n": 340,
+     "s": "\t\tvar_66(0, 2) = \"ネフィアを統べる者\", \"迷宮の覇者\", \"ダンジョンの主\", \"高名な探検者\", \"子供達の憧れの的\", \"ダンジョン案内人\", \"名の知れた遺跡荒らし\", \"探検者\", \"ちんけな遺跡荒らし\", \"観光客\", \"クローラー\""
+    },
+    {
+     "n": 341,
+     "s": "\t\tvar_66(0, 3) = \"ティリス最大の博物館\", \"超有名な博物館\", \"大人気の博物館\", \"有名な博物館\", \"来客の絶えない博物館\", \"ちょっと人気のある博物館\", \"名の知れた博物館\", \"まあまあの博物館\", \"来客の少ない博物館\", \"無名の博物館\", \"博物館\""
+    },
+    {
+     "n": 342,
+     "s": "\t\tvar_66(0, 4) = \"イルヴァの楽園\", \"超セレブな家\", \"世界有数の家\", \"とても住みたくなる家\", \"主婦の憧れの家\", \"ちょっと人目をひく家\", \"まあまあの家\", \"少しみすぼらしい家\", \"貧困にあえぐ家\", \"乞食の家\", \"ホーム\""
+    },
+    {
+     "n": 343,
+     "s": "\t\tvar_66(0, 5) = \"イルヴァ最大の店\", \"王様が来る店\", \"大繁盛している店\", \"セレブが来る店\", \"来客の絶えない店\", \"マダムの来る店\", \"リピーターのいる店\", \"人が増えてきた売店\", \"ほとんど売れない売店\", \"無名の売店\", \"店\""
+    },
+    {
+     "n": 344,
+     "s": "\t\tvar_66(0, 6) = \"ボス\", \"王様のアドバイザー\", \"エリートコンサルター\", \"ご意見番\", \"有権者の鑑\", \"マダム好みの有権者\", \"名の知れた有権者\", \"普通の有権者\", \"無関心な有権者\", \"ぎりぎり有権者\", \"コミュニティ\""
+    },
+    {
+     "n": 345,
+     "s": "\t\tvar_66(0, 8) = \"次代ギルドマスター\", \"ギルドマスターの右腕\", \"ギルドの重役\", \"ギルドの重役候補\", \"アダプト\", \"エキスパート\", \"ジャーニーマン\", \"ギルドの正式メンバー\", \"ギルドのメンバー候補\", \"見習い\", \"ギルド\""
+    },
+    {
+     "n": 346,
+     "s": "\t}"
+    },
+    {
+     "n": 347,
+     "s": "\telse {"
+    },
+    {
+     "n": 348,
+     "s": "\t\tvar_66(0, 0) = \"Arena champion\", \"Super elite gladiator\", \"Star gladiator\", \"Elite gladiator\", \"Veteran gladiator\", \"Popular gladiator\", \"New hope\", \"Darkhorse\", \"Low class fighter\", \"Unknown fighter\", \"Arena\""
+    },
+    {
+     "n": 349,
+     "s": "\t\tvar_66(0, 1) = \"King of tamer\", \"Super elite tamer\", \"Prince of animals\", \"Chief of animals\", \"Elite tamer\", \"Notorious tamer\", \"New hope\", \"Average tamer\", \"Petty tamer\", \"Unknown tamer\", \"Pet Arena\""
+    },
+    {
+     "n": 350,
+     "s": "\t\tvar_66(0, 2) = \"King of Nefia\", \"Champion of labyrinth\", \"Dungeon master\", \"Famous adventurer\", \"Children's star\", \"Guide of Nefia\", \"Notorious tomb robber\", \"Tomb robber\", \"Famous tourist\", \"Tourist\", \"Crawler\""
+    },
+    {
+     "n": 351,
+     "s": "\t\tvar_66(0, 3) = \"Tyris' greatest museum\", \"Royal museum\", \"Great museum\", \"Top museum\", \"Great museum\", \"Good museum\", \"Average museum\", \"Small museum\", \"Unknown museum\", \"Unknown Ruin\", \"Museum\""
+    },
+    {
+     "n": 352,
+     "s": "\t\tvar_66(0, 4) = \"Heaven of Tyris\", \"Royal mansion\", \"Celebrity mansion\", \"Dream mansion\", \"Cozy mansion\", \"Attractive house\", \"Average house\", \"Poor house\", \"Peasant's shack\", \"Beggar's shack\", \"Home\""
+    },
+    {
+     "n": 353,
+     "s": "\t\tvar_66(0, 5) = \"Tyris' greatest mall\", \"Royal mall\", \"Prosperous mall\", \"Celebrity shop\", \"Prosperous shop\", \"Popular shop\", \"Average shop\", \"Small shop\", \"Souvenir shop \", \"Unknown shop\", \"Shop\""
+    },
+    {
+     "n": 354,
+     "s": "\t\tvar_66(0, 6) = \"Boss\", \"King's advisor\", \"Elite consultant\", \"Famous consultant\", \"Model voter\", \"Nice voter\", \"Infamous voter\", \"Average voter\", \"Indifferent voter\", \"Almost voter\", \"Community\""
+    },
+    {
+     "n": 355,
+     "s": "\t\tvar_66(0, 8) = \"Next master\", \"Master\", \"Adept\", \"Expert\", \"Journeyman\", \"Senior\", \"Apprentice\", \"Official member\", \"Candidate\", \"Thug\", \"Guild\""
+    },
+    {
+     "n": 356,
+     "s": "\t}"
+    },
+    {
+     "n": 357,
+     "s": "\tdim var_67, 9"
+    },
+    {
+     "n": 358,
+     "s": "\tvar_67(0) = 20"
+    },
+    {
+     "n": 359,
+     "s": "\tvar_67(1) = 60"
+    },
+    {
+     "n": 360,
+     "s": "\tvar_67(2) = 45"
+    },
+    {
+     "n": 361,
+     "s": "\tvar_67(6) = 30"
+    },
+    {
+     "n": 362,
+     "s": "\treturn"
+    },
+    {
+     "n": 363,
+     "s": "\tgoto *label_0028"
+    }
+   ]
+  },
+  {
+   "range": [
+    25900,
+    25900
+   ],
+   "line": 25900,
+   "src": "#defcfunc random_title int prm_530",
+   "label": "random_title",
+   "type": "跳转",
+   "statements": [
+    {
+     "n": 25900,
+     "s": "#defcfunc random_title int prm_530"
+    }
+   ]
+  },
+  {
+   "range": [
+    37314,
+    37328
+   ],
+   "line": 37315,
+   "src": "\tvar_915 = \"\\n\"",
+   "label": "id_crlf",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 37314,
+     "s": "#defcfunc id_crlf var prm_784"
+    },
+    {
+     "n": 37315,
+     "s": "\tvar_915 = \"\\n\""
+    },
+    {
+     "n": 37316,
+     "s": "\tif ( instr(prm_784, 0, var_915) >= 0 ) {"
+    },
+    {
+     "n": 37317,
+     "s": "\t\treturn 0"
+    },
+    {
+     "n": 37318,
+     "s": "\t}"
+    },
+    {
+     "n": 37319,
+     "s": "\tvar_915 = \" \""
+    },
+    {
+     "n": 37320,
+     "s": "\tpoke var_915, 0, 13"
+    },
+    {
+     "n": 37321,
+     "s": "\tif ( instr(prm_784, 0, var_915) >= 0 ) {"
+    },
+    {
+     "n": 37322,
+     "s": "\t\treturn 1"
+    },
+    {
+     "n": 37323,
+     "s": "\t}"
+    },
+    {
+     "n": 37324,
+     "s": "\tpoke var_915, 0, 10"
+    },
+    {
+     "n": 37325,
+     "s": "\tif ( instr(prm_784, 0, var_915) >= 0 ) {"
+    },
+    {
+     "n": 37326,
+     "s": "\t\treturn 2"
+    },
+    {
+     "n": 37327,
+     "s": "\t}"
+    },
+    {
+     "n": 37328,
+     "s": "\treturn 100"
+    }
+   ]
+  },
+  {
+   "range": [
+    223955,
+    223991
+   ],
+   "line": 223956,
+   "src": "\tif ( rnd(4) == 0 ) {",
+   "label": "label_2291",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 223955,
+     "s": "*label_2291"
+    },
+    {
+     "n": 223956,
+     "s": "\tif ( rnd(4) == 0 ) {"
+    },
+    {
+     "n": 223957,
+     "s": "\t\tif ( var_58(25, var_243) > 3 ) {"
+    },
+    {
+     "n": 223958,
+     "s": "\t\t\treturn"
+    },
+    {
+     "n": 223959,
+     "s": "\t\t}"
+    },
+    {
+     "n": 223960,
+     "s": "\t\tdmghp var_243, var_58(50, var_243) * (5 + var_58(87, var_243) / 5) / 100, -5"
+    },
+    {
+     "n": 223961,
+     "s": "\t\treturn"
+    },
+    {
+     "n": 223962,
+     "s": "\t}"
+    },
+    {
+     "n": 223963,
+     "s": "\tif ( var_126(6) != 1 ) {"
+    },
+    {
+     "n": 223964,
+     "s": "\t\tif ( rnd(10 - limit(var_58(87, var_243) / 10, 0, 9)) == 0 ) {"
+    },
+    {
+     "n": 223965,
+     "s": "\t\t\tif ( var_58(150, var_243) == 0 ) {"
+    },
+    {
+     "n": 223966,
+     "s": "\t\t\t\tvar_396 = 408"
+    },
+    {
+     "n": 223967,
+     "s": "\t\t\t\tvar_244 = var_243"
+    },
+    {
+     "n": 223968,
+     "s": "\t\t\t\tgosub *label_2960"
+    },
+    {
+     "n": 223969,
+     "s": "\t\t\t\treturn"
+    },
+    {
+     "n": 223970,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 223971,
+     "s": "\t\t}"
+    },
+    {
+     "n": 223972,
+     "s": "\t}"
+    },
+    {
+     "n": 223973,
+     "s": "\tif ( rnd(10) == 0 ) {"
+    },
+    {
+     "n": 223974,
+     "s": "\t\tif ( var_58(30, var_243) > 0 ) {"
+    },
+    {
+     "n": 223975,
+     "s": "\t\t\tvar_400 = rnd(var_58(30, var_243)) / 100 + rnd(10) + 1"
+    },
+    {
+     "n": 223976,
+     "s": "\t\t\tif ( var_400 > var_58(30, var_243) ) {"
+    },
+    {
+     "n": 223977,
+     "s": "\t\t\t\tvar_400 = var_58(30, var_243)"
+    },
+    {
+     "n": 223978,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 223979,
+     "s": "\t\t\tvar_58(30, var_243) -= var_400"
+    },
+    {
+     "n": 223980,
+     "s": "\t\t\tif ( synccheck(var_243, -1) ) {"
+    },
+    {
+     "n": 223981,
+     "s": "\t\t\t\ttxtef 8"
+    },
+    {
+     "n": 223982,
+     "s": "\t\t\t\tvar_242 = 0"
+    },
+    {
+     "n": 223983,
+     "s": "\t\t\t\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 223984,
+     "s": "\t\t\t\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 223985,
+     "s": "\t\t\t\ttxt_select lang(\"悪意のある手が\" + name(var_243) + \"の財布から金貨を抜き去った。\", \"A malicious hand filches some gold pieces from \" + name(var_243) + your(var_243) + \" wallet.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 223986,
+     "s": "\t\t\t\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 223987,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 223988,
+     "s": "\t\t\treturn"
+    },
+    {
+     "n": 223989,
+     "s": "\t\t}"
+    },
+    {
+     "n": 223990,
+     "s": "\t}"
+    },
+    {
+     "n": 223991,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    229827,
+    229866
+   ],
+   "line": 229828,
+   "src": "\tvar_122 = \"\"",
+   "label": "label_2392",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 229827,
+     "s": "*label_2392"
+    },
+    {
+     "n": 229828,
+     "s": "\tvar_122 = \"\""
+    },
+    {
+     "n": 229829,
+     "s": "\tnotesel var_122"
+    },
+    {
+     "n": 229830,
+     "s": "\tvar_1708 = 0"
+    },
+    {
+     "n": 229831,
+     "s": "\trepeat -1"
+    },
+    {
+     "n": 229832,
+     "s": "\t\tvar_579 = 0"
+    },
+    {
+     "n": 229833,
+     "s": "\t\tvar_60 = cnt"
+    },
+    {
+     "n": 229834,
+     "s": "\t\tif ( cnt >= var_729 - 2 ) {"
+    },
+    {
+     "n": 229835,
+     "s": "\t\t\tbreak"
+    },
+    {
+     "n": 229836,
+     "s": "\t\t}"
+    },
+    {
+     "n": 229837,
+     "s": "\t\tif ( stat == (-999) ) {"
+    },
+    {
+     "n": 229838,
+     "s": "\t\t\tif ( 0 == 0 ) {"
+    },
+    {
+     "n": 229839,
+     "s": "\t\t\t\tcls"
+    },
+    {
+     "n": 229840,
+     "s": "\t\t\t\tmes var_60"
+    },
+    {
+     "n": 229841,
+     "s": "\t\t\t\tstop"
+    },
+    {
+     "n": 229842,
+     "s": "\t\t\t\tbreak"
+    },
+    {
+     "n": 229843,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 229844,
+     "s": "\t\t\telse {"
+    },
+    {
+     "n": 229845,
+     "s": "\t\t\t\tbreak"
+    },
+    {
+     "n": 229846,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 229847,
+     "s": "\t\t}"
+    },
+    {
+     "n": 229848,
+     "s": "\t\tif ( var_1715(var_1701) != 0 ) {"
+    },
+    {
+     "n": 229849,
+     "s": "\t\t\tif ( refitem(cnt, 5) != var_1715(var_1701) ) {"
+    },
+    {
+     "n": 229850,
+     "s": "\t\t\t\tcontinue"
+    },
+    {
+     "n": 229851,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 229852,
+     "s": "\t\t}"
+    },
+    {
+     "n": 229853,
+     "s": "\t\tvar_59 = 3"
+    },
+    {
+     "n": 229854,
+     "s": "\t\tgosub *label_0598"
+    },
+    {
+     "n": 229855,
+     "s": "\t\tif ( var_1716 == 1 ) {"
+    },
+    {
+     "n": 229856,
+     "s": "\t\t\tvar_121 = var_54(var_99(3, var_579))"
+    },
+    {
+     "n": 229857,
+     "s": "\t\t\tif ( instr(var_121, 0, var_1687) == (-1) ) {"
+    },
+    {
+     "n": 229858,
+     "s": "\t\t\t\tcontinue"
+    },
+    {
+     "n": 229859,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 229860,
+     "s": "\t\t}"
+    },
+    {
+     "n": 229861,
+     "s": "\t\tvar_122 += \"\" + cnt + \": \" + var_54(cnt) + \"\\n\""
+    },
+    {
+     "n": 229862,
+     "s": "\t\tvar_1692(var_1708) = cnt"
+    },
+    {
+     "n": 229863,
+     "s": "\t\tvar_1689(var_1708) = var_99(2, var_579)"
+    },
+    {
+     "n": 229864,
+     "s": "\t\tvar_1708++"
+    },
+    {
+     "n": 229865,
+     "s": "\tloop"
+    },
+    {
+     "n": 229866,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    229928,
+    229957
+   ],
+   "line": 229929,
+   "src": "\tnotesel var_433",
+   "label": "label_2397",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 229928,
+     "s": "*label_2397"
+    },
+    {
+     "n": 229929,
+     "s": "\tnotesel var_433"
+    },
+    {
+     "n": 229930,
+     "s": "\tvar_433 = \"\""
+    },
+    {
+     "n": 229931,
+     "s": "\trepeat var_1678"
+    },
+    {
+     "n": 229932,
+     "s": "\t\tif ( var_469(0, cnt) == 0 ) {"
+    },
+    {
+     "n": 229933,
+     "s": "\t\t\tvar_433 += \" \\n\""
+    },
+    {
+     "n": 229934,
+     "s": "\t\t\tcontinue"
+    },
+    {
+     "n": 229935,
+     "s": "\t\t}"
+    },
+    {
+     "n": 229936,
+     "s": "\t\tif ( var_469(4, cnt) == 1 ) {"
+    },
+    {
+     "n": 229937,
+     "s": "\t\t\tvar_60 = var_469(0, cnt)"
+    },
+    {
+     "n": 229938,
+     "s": "\t\t\tvar_59 = 16"
+    },
+    {
+     "n": 229939,
+     "s": "\t\t\tvar_61 = 2"
+    },
+    {
+     "n": 229940,
+     "s": "\t\t\tgosub *label_3105"
+    },
+    {
+     "n": 229941,
+     "s": "\t\t\tvar_121 = refstr"
+    },
+    {
+     "n": 229942,
+     "s": "\t\t\tvar_433 += \"\" + var_469(0, cnt) + \":\" + var_121 + \"\\n\""
+    },
+    {
+     "n": 229943,
+     "s": "\t\t}"
+    },
+    {
+     "n": 229944,
+     "s": "\t\tif ( var_469(4, cnt) == 2 ) {"
+    },
+    {
+     "n": 229945,
+     "s": "\t\t\tvar_433 += \"\" + var_469(0, cnt) + \":\" + var_1616(var_469(0, cnt)) + \"/\" + var_469(1, cnt) + \"-\" + var_469(2, cnt) + \"  \" + var_469(3, cnt) + \"\\n\""
+    },
+    {
+     "n": 229946,
+     "s": "\t\t}"
+    },
+    {
+     "n": 229947,
+     "s": "\t\tif ( var_469(4, cnt) == 0 ) {"
+    },
+    {
+     "n": 229948,
+     "s": "\t\t\tif ( var_469(3, cnt) != 0 ) {"
+    },
+    {
+     "n": 229949,
+     "s": "\t\t\t\tvar_121 = \"(n)\""
+    },
+    {
+     "n": 229950,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 229951,
+     "s": "\t\t\telse {"
+    },
+    {
+     "n": 229952,
+     "s": "\t\t\t\tvar_121 = \"\""
+    },
+    {
+     "n": 229953,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 229954,
+     "s": "\t\t\tvar_433 += \"\" + var_469(0, cnt) + var_121 + \":\" + var_54(var_469(0, cnt)) + \"\\n\""
+    },
+    {
+     "n": 229955,
+     "s": "\t\t}"
+    },
+    {
+     "n": 229956,
+     "s": "\tloop"
+    },
+    {
+     "n": 229957,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    232947,
+    232968
+   ],
+   "line": 232948,
+   "src": "\tvar_400 = 7",
+   "label": "label_2434",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 232947,
+     "s": "*label_2434"
+    },
+    {
+     "n": 232948,
+     "s": "\tvar_400 = 7"
+    },
+    {
+     "n": 232949,
+     "s": "\tvar_132(15, var_400) = 143"
+    },
+    {
+     "n": 232950,
+     "s": "\tif ( var_65(24) == 0 ) {"
+    },
+    {
+     "n": 232951,
+     "s": "\t\tvar_132(15, var_400) = 138"
+    },
+    {
+     "n": 232952,
+     "s": "\t}"
+    },
+    {
+     "n": 232953,
+     "s": "\tif ( var_65(24) == 4 ) {"
+    },
+    {
+     "n": 232954,
+     "s": "\t\tvar_132(15, var_400) = 148"
+    },
+    {
+     "n": 232955,
+     "s": "\t}"
+    },
+    {
+     "n": 232956,
+     "s": "\tif ( var_65(24) == 5 ) {"
+    },
+    {
+     "n": 232957,
+     "s": "\t\tvar_132(15, var_400) = 144"
+    },
+    {
+     "n": 232958,
+     "s": "\t}"
+    },
+    {
+     "n": 232959,
+     "s": "\tif ( var_65(24) == 6 ) {"
+    },
+    {
+     "n": 232960,
+     "s": "\t\tvar_132(15, var_400) = 136"
+    },
+    {
+     "n": 232961,
+     "s": "\t}"
+    },
+    {
+     "n": 232962,
+     "s": "\tif ( var_1778 == 100 | var_65(24) != 0 ) {"
+    },
+    {
+     "n": 232963,
+     "s": "\t\tvar_132(1, var_400) = var_58(1, 0)"
+    },
+    {
+     "n": 232964,
+     "s": "\t\tvar_132(2, var_400) = var_58(2, 0)"
+    },
+    {
+     "n": 232965,
+     "s": "\t\tvar_1778 = 0"
+    },
+    {
+     "n": 232966,
+     "s": "\t}"
+    },
+    {
+     "n": 232967,
+     "s": "\tvar_132(30, var_400) = var_65(850)"
+    },
+    {
+     "n": 232968,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    235164,
+    235169
+   ],
+   "line": 235165,
+   "src": "\tvar_1340 = 0",
+   "label": "label_2443",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 235164,
+     "s": "*label_2443"
+    },
+    {
+     "n": 235165,
+     "s": "\tvar_1340 = 0"
+    },
+    {
+     "n": 235166,
+     "s": "\tvar_1339 = 0"
+    },
+    {
+     "n": 235167,
+     "s": "\tvar_218 = -1"
+    },
+    {
+     "n": 235168,
+     "s": "\tgosub *label_2104"
+    },
+    {
+     "n": 235169,
+     "s": "\tgoto *label_2435"
+    }
+   ]
+  },
+  {
+   "range": [
+    235683,
+    235699
+   ],
+   "line": 235684,
+   "src": "\tvar_444 = 0",
+   "label": "label_2449",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 235683,
+     "s": "*label_2449"
+    },
+    {
+     "n": 235684,
+     "s": "\tvar_444 = 0"
+    },
+    {
+     "n": 235685,
+     "s": "\tvar_581 = 56"
+    },
+    {
+     "n": 235686,
+     "s": "\tvar_641 = 2"
+    },
+    {
+     "n": 235687,
+     "s": "\tvar_59 = 3"
+    },
+    {
+     "n": 235688,
+     "s": "\tgosub *label_3105"
+    },
+    {
+     "n": 235689,
+     "s": "\tvar_472(var_428, var_58(27, 56))++"
+    },
+    {
+     "n": 235690,
+     "s": "\tif ( var_641 == 6 | var_58(27, 56) == 534 | var_58(27, 56) == 414 | var_58(27, 56) == 203 ) {"
+    },
+    {
+     "n": 235691,
+     "s": "\t\tvar_444 = var_58(38, 56)"
+    },
+    {
+     "n": 235692,
+     "s": "\t}"
+    },
+    {
+     "n": 235693,
+     "s": "\tif ( var_58(38, 56) >= var_65(189) * 2 ) {"
+    },
+    {
+     "n": 235694,
+     "s": "\t\tvar_444 = 0"
+    },
+    {
+     "n": 235695,
+     "s": "\t}"
+    },
+    {
+     "n": 235696,
+     "s": "\tif ( var_472(var_428, var_58(27, 56)) > 1 ) {"
+    },
+    {
+     "n": 235697,
+     "s": "\t\tvar_444 = 0"
+    },
+    {
+     "n": 235698,
+     "s": "\t}"
+    },
+    {
+     "n": 235699,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    237796,
+    237816
+   ],
+   "line": 237797,
+   "src": "\trepeat 57",
+   "label": "label_2460",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 237796,
+     "s": "*label_2460"
+    },
+    {
+     "n": 237797,
+     "s": "\trepeat 57"
+    },
+    {
+     "n": 237798,
+     "s": "\t\trowactend cnt"
+    },
+    {
+     "n": 237799,
+     "s": "\t\tif ( var_58(12, cnt) == 0 ) {"
+    },
+    {
+     "n": 237800,
+     "s": "\t\t\tcontinue"
+    },
+    {
+     "n": 237801,
+     "s": "\t\t}"
+    },
+    {
+     "n": 237802,
+     "s": "\t\tif ( var_99(3, var_58(12, cnt)) == 901 | var_99(3, var_58(12, cnt)) == 887 | var_99(3, var_58(12, cnt)) == 570 | var_99(3, var_58(12, cnt)) == 565 | var_99(3, var_58(12, cnt)) == 175 | var_99(3, var_58(12, cnt)) == 123 | var_99(3, var_58(12, cnt)) == 122 | var_99(3, var_58(12, cnt)) == 120 | var_99(3, var_58(12, cnt)) == 1026 | var_99(3, var_58(12, cnt)) == 1027 | var_99(3, var_58(12, cnt)) == 1032 ) {"
+    },
+    {
+     "n": 237803,
+     "s": "\t\t\tcontinue"
+    },
+    {
+     "n": 237804,
+     "s": "\t\t}"
+    },
+    {
+     "n": 237805,
+     "s": "\t\tif ( var_99(3, var_58(12, cnt)) == 1260 | var_99(3, var_58(12, cnt)) == 1030 | var_99(3, var_58(12, cnt)) == 1029 | var_99(3, var_58(12, cnt)) == 1203 | var_99(3, var_58(12, cnt)) == 1202 | var_99(3, var_58(12, cnt)) == 1201 | var_99(3, var_58(12, cnt)) == 1200 ) {"
+    },
+    {
+     "n": 237806,
+     "s": "\t\t\tcontinue"
+    },
+    {
+     "n": 237807,
+     "s": "\t\t}"
+    },
+    {
+     "n": 237808,
+     "s": "\t\tvar_58(12, cnt) = 0"
+    },
+    {
+     "n": 237809,
+     "s": "\tloop"
+    },
+    {
+     "n": 237810,
+     "s": "\trepeat 40 - 1, 16"
+    },
+    {
+     "n": 237811,
+     "s": "\t\tif ( var_58(0, cnt) == 1 ) {"
+    },
+    {
+     "n": 237812,
+     "s": "\t\t\tvar_704(var_58(1, cnt), var_58(2, cnt), 1) = 0"
+    },
+    {
+     "n": 237813,
+     "s": "\t\t\tvar_58(0, cnt) = 3"
+    },
+    {
+     "n": 237814,
+     "s": "\t\t}"
+    },
+    {
+     "n": 237815,
+     "s": "\tloop"
+    },
+    {
+     "n": 237816,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    237817,
+    237830
+   ],
+   "line": 237818,
+   "src": "\tgosub *label_2460",
+   "label": "label_2461",
+   "type": "跳转",
+   "statements": [
+    {
+     "n": 237817,
+     "s": "*label_2461"
+    },
+    {
+     "n": 237818,
+     "s": "\tgosub *label_2460"
+    },
+    {
+     "n": 237819,
+     "s": "\trepeat var_126(1)"
+    },
+    {
+     "n": 237820,
+     "s": "\t\tvar_1166 = cnt"
+    },
+    {
+     "n": 237821,
+     "s": "\t\trepeat var_126(0)"
+    },
+    {
+     "n": 237822,
+     "s": "\t\t\tvar_704(cnt, var_1166, 7) = 0"
+    },
+    {
+     "n": 237823,
+     "s": "\t\tloop"
+    },
+    {
+     "n": 237824,
+     "s": "\tloop"
+    },
+    {
+     "n": 237825,
+     "s": "\tvar_541 = 2"
+    },
+    {
+     "n": 237826,
+     "s": "\tgosub *label_2873"
+    },
+    {
+     "n": 237827,
+     "s": "\tvar_489 = \"inv_\" + var_1776 + \".s2\""
+    },
+    {
+     "n": 237828,
+     "s": "\tvar_541 = 4"
+    },
+    {
+     "n": 237829,
+     "s": "\tgosub *label_2873"
+    },
+    {
+     "n": 237830,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    249768,
+    249782
+   ],
+   "line": 249769,
+   "src": "\trepeat var_126(1)",
+   "label": "label_2473",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 249768,
+     "s": "*label_2473"
+    },
+    {
+     "n": 249769,
+     "s": "\trepeat var_126(1)"
+    },
+    {
+     "n": 249770,
+     "s": "\t\tvar_1166 = cnt"
+    },
+    {
+     "n": 249771,
+     "s": "\t\trepeat var_126(0)"
+    },
+    {
+     "n": 249772,
+     "s": "\t\t\tvar_451 = cnt"
+    },
+    {
+     "n": 249773,
+     "s": "\t\t\tcell_featread var_451, var_1166"
+    },
+    {
+     "n": 249774,
+     "s": "\t\t\tif ( var_503(1) >= 24 & var_503(1) <= 28 | var_503(1) == 10 | var_503(1) == 11 ) {"
+    },
+    {
+     "n": 249775,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 249776,
+     "s": "\t\t\telse {"
+    },
+    {
+     "n": 249777,
+     "s": "\t\t\t\tvar_704(var_451, var_1166, 6) = 0"
+    },
+    {
+     "n": 249778,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 249779,
+     "s": "\t\t\tvar_704(var_451, var_1166, 9) = 0"
+    },
+    {
+     "n": 249780,
+     "s": "\t\tloop"
+    },
+    {
+     "n": 249781,
+     "s": "\tloop"
+    },
+    {
+     "n": 249782,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    278852,
+    278855
+   ],
+   "line": 278853,
+   "src": "\tvar_243 = 0",
+   "label": "label_2618",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 278852,
+     "s": "*label_2618"
+    },
+    {
+     "n": 278853,
+     "s": "\tvar_243 = 0"
+    },
+    {
+     "n": 278854,
+     "s": "\tgosub *label_2107"
+    },
+    {
+     "n": 278855,
+     "s": "\treturn 1"
+    }
+   ]
+  },
+  {
+   "range": [
+    278971,
+    278974
+   ],
+   "line": 278972,
+   "src": "\tvar_138 = \"\"",
+   "label": "label_2621",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 278971,
+     "s": "*label_2621"
+    },
+    {
+     "n": 278972,
+     "s": "\tvar_138 = \"\""
+    },
+    {
+     "n": 278973,
+     "s": "\treturn var_444"
+    },
+    {
+     "n": 278974,
+     "s": "\tgoto *label_2623"
+    }
+   ]
+  },
+  {
+   "range": [
+    281038,
+    281053
+   ],
+   "line": 281039,
+   "src": "\tvar_1442 = 1",
+   "label": "label_2656",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 281038,
+     "s": "*label_2656"
+    },
+    {
+     "n": 281039,
+     "s": "\tvar_1442 = 1"
+    },
+    {
+     "n": 281040,
+     "s": "\trepeat 10"
+    },
+    {
+     "n": 281041,
+     "s": "\t\tif ( var_2127(10 + cnt * 2) == (-1) ) {"
+    },
+    {
+     "n": 281042,
+     "s": "\t\t\tbreak"
+    },
+    {
+     "n": 281043,
+     "s": "\t\t}"
+    },
+    {
+     "n": 281044,
+     "s": "\t\tif ( var_2127(10 + cnt * 2) == (-2) ) {"
+    },
+    {
+     "n": 281045,
+     "s": "\t\t\tvar_1442 = 0"
+    },
+    {
+     "n": 281046,
+     "s": "\t\t\tbreak"
+    },
+    {
+     "n": 281047,
+     "s": "\t\t}"
+    },
+    {
+     "n": 281048,
+     "s": "\t\tif ( var_99(0, var_2127(10 + cnt * 2)) <= 0 | var_99(3, var_2127(10 + cnt * 2)) != var_2127(11 + cnt * 2) ) {"
+    },
+    {
+     "n": 281049,
+     "s": "\t\t\tvar_1442 = 0"
+    },
+    {
+     "n": 281050,
+     "s": "\t\t\tbreak"
+    },
+    {
+     "n": 281051,
+     "s": "\t\t}"
+    },
+    {
+     "n": 281052,
+     "s": "\tloop"
+    },
+    {
+     "n": 281053,
+     "s": "\treturn var_1442"
+    }
+   ]
+  },
+  {
+   "range": [
+    282962,
+    282973
+   ],
+   "line": 282963,
+   "src": "\titem_stack 0, var_579",
+   "label": "label_2661",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 282962,
+     "s": "*label_2661"
+    },
+    {
+     "n": 282963,
+     "s": "\titem_stack 0, var_579"
+    },
+    {
+     "n": 282964,
+     "s": "\tif ( var_99(18, var_579) != 0 ) {"
+    },
+    {
+     "n": 282965,
+     "s": "\t\tcreate_pcpic 0, 1"
+    },
+    {
+     "n": 282966,
+     "s": "\t}"
+    },
+    {
+     "n": 282967,
+     "s": "\tif ( inv_getowner(var_579) == (-1) ) {"
+    },
+    {
+     "n": 282968,
+     "s": "\t\tcell_refresh var_99(5, var_579), var_99(6, var_579)"
+    },
+    {
+     "n": 282969,
+     "s": "\t}"
+    },
+    {
+     "n": 282970,
+     "s": "\tvar_691 = 0"
+    },
+    {
+     "n": 282971,
+     "s": "\tgosub *label_2174"
+    },
+    {
+     "n": 282972,
+     "s": "\treturn"
+    },
+    {
+     "n": 282973,
+     "s": "\tgoto *label_2663"
+    }
+   ]
+  },
+  {
+   "range": [
+    283955,
+    283960
+   ],
+   "line": 283956,
+   "src": "\tvar_910 = 33",
+   "label": "label_2679",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 283955,
+     "s": "*label_2679"
+    },
+    {
+     "n": 283956,
+     "s": "\tvar_910 = 33"
+    },
+    {
+     "n": 283957,
+     "s": "\tvar_911 = 25"
+    },
+    {
+     "n": 283958,
+     "s": "\tvar_219 = 0"
+    },
+    {
+     "n": 283959,
+     "s": "\tvar_221 = 0"
+    },
+    {
+     "n": 283960,
+     "s": "\tsnd 26"
+    }
+   ]
+  },
+  {
+   "range": [
+    284002,
+    284005
+   ],
+   "line": 284003,
+   "src": "\tvar_218 = -1",
+   "label": "label_2682",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 284002,
+     "s": "*label_2682"
+    },
+    {
+     "n": 284003,
+     "s": "\tvar_218 = -1"
+    },
+    {
+     "n": 284004,
+     "s": "\tgosub *label_2104"
+    },
+    {
+     "n": 284005,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    286895,
+    286911
+   ],
+   "line": 286896,
+   "src": "\tsnd 26",
+   "label": "label_2712",
+   "type": "音效",
+   "statements": [
+    {
+     "n": 286895,
+     "s": "*label_2712"
+    },
+    {
+     "n": 286896,
+     "s": "\tsnd 26"
+    },
+    {
+     "n": 286897,
+     "s": "\tvar_701 = 0"
+    },
+    {
+     "n": 286898,
+     "s": "\tvar_894 = 0"
+    },
+    {
+     "n": 286899,
+     "s": "\tvar_893 = 16"
+    },
+    {
+     "n": 286900,
+     "s": "\tvar_761 = 0"
+    },
+    {
+     "n": 286901,
+     "s": "\tvar_243 = 0"
+    },
+    {
+     "n": 286902,
+     "s": "\tvar_763 = -1"
+    },
+    {
+     "n": 286903,
+     "s": "\trepeat 1499"
+    },
+    {
+     "n": 286904,
+     "s": "\t\tif ( var_498(2, cnt) == 0 ) {"
+    },
+    {
+     "n": 286905,
+     "s": "\t\t\tcontinue"
+    },
+    {
+     "n": 286906,
+     "s": "\t\t}"
+    },
+    {
+     "n": 286907,
+     "s": "\t\tvar_484(0, var_701) = cnt, cnt"
+    },
+    {
+     "n": 286908,
+     "s": "\t\tvar_701++"
+    },
+    {
+     "n": 286909,
+     "s": "\tloop"
+    },
+    {
+     "n": 286910,
+     "s": "\tgosub *label_2821"
+    },
+    {
+     "n": 286911,
+     "s": "\tvar_886 = 1"
+    }
+   ]
+  },
+  {
+   "range": [
+    287072,
+    287084
+   ],
+   "line": 287073,
+   "src": "\tsnd 26",
+   "label": "label_2716",
+   "type": "音效",
+   "statements": [
+    {
+     "n": 287072,
+     "s": "*label_2716"
+    },
+    {
+     "n": 287073,
+     "s": "\tsnd 26"
+    },
+    {
+     "n": 287074,
+     "s": "\tvar_701 = 0"
+    },
+    {
+     "n": 287075,
+     "s": "\tvar_894 = 0"
+    },
+    {
+     "n": 287076,
+     "s": "\tvar_893 = 16"
+    },
+    {
+     "n": 287077,
+     "s": "\tvar_761 = 0"
+    },
+    {
+     "n": 287078,
+     "s": "\tvar_243 = 0"
+    },
+    {
+     "n": 287079,
+     "s": "\tvar_763 = -1"
+    },
+    {
+     "n": 287080,
+     "s": "\trepeat 139 - 50 - 1, 50"
+    },
+    {
+     "n": 287081,
+     "s": "\t\tvar_484(0, var_701) = cnt, cnt"
+    },
+    {
+     "n": 287082,
+     "s": "\t\tvar_701++"
+    },
+    {
+     "n": 287083,
+     "s": "\tloop"
+    },
+    {
+     "n": 287084,
+     "s": "\tgosub *label_2821"
+    }
+   ]
+  },
+  {
+   "range": [
+    287624,
+    287636
+   ],
+   "line": 287625,
+   "src": "\tif ( var_52 ) {",
+   "label": "label_2724",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 287624,
+     "s": "*label_2724"
+    },
+    {
+     "n": 287625,
+     "s": "\tif ( var_52 ) {"
+    },
+    {
+     "n": 287626,
+     "s": "\t\tvar_478 = del_str(var_478, \",\")"
+    },
+    {
+     "n": 287627,
+     "s": "\t\tvar_478 = del_str(var_478, \" \")"
+    },
+    {
+     "n": 287628,
+     "s": "\t\tvar_478 = del_str(var_478, \"　\")"
+    },
+    {
+     "n": 287629,
+     "s": "\t}"
+    },
+    {
+     "n": 287630,
+     "s": "\telse {"
+    },
+    {
+     "n": 287631,
+     "s": "\t\tvar_478 = getpath(var_478, 16)"
+    },
+    {
+     "n": 287632,
+     "s": "\t}"
+    },
+    {
+     "n": 287633,
+     "s": "\tvar_478 = del_str(var_478, lang(\"アイテム\", \"item\"))"
+    },
+    {
+     "n": 287634,
+     "s": "\tvar_478 = del_str(var_478, lang(\"スキル\", \"skill \"))"
+    },
+    {
+     "n": 287635,
+     "s": "\tvar_478 = del_str(var_478, lang(\"スキル\", \"skill\"))"
+    },
+    {
+     "n": 287636,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    287730,
+    287732
+   ],
+   "line": 287731,
+   "src": "\tvar_121 = lang(var_63(1, 0) + var_63(0, 0) + \"は狂喜して叫んだ。「\" + var_478 + \"！！」\" + var_234, var_63(1, 0) + \" \" + var_63(0, 0) + \" goes wild with joy, \\\"\" + var_478 + \"!!\\\" \" + cnven(var_234))",
+   "label": "label_2728",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 287730,
+     "s": "*label_2728"
+    },
+    {
+     "n": 287731,
+     "s": "\tvar_121 = lang(var_63(1, 0) + var_63(0, 0) + \"は狂喜して叫んだ。「\" + var_478 + \"！！」\" + var_234, var_63(1, 0) + \" \" + var_63(0, 0) + \" goes wild with joy, \\\"\" + var_478 + \"!!\\\" \" + cnven(var_234))"
+    },
+    {
+     "n": 287732,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    288728,
+    288745
+   ],
+   "line": 288729,
+   "src": "\tvar_242 = 0",
+   "label": "label_2737",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 288728,
+     "s": "*label_2737"
+    },
+    {
+     "n": 288729,
+     "s": "\tvar_242 = 0"
+    },
+    {
+     "n": 288730,
+     "s": "\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 288731,
+     "s": "\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 288732,
+     "s": "\ttxt_select lang(\"どの方向に体当たりする？ \", \"Which direction do you want to bash? \"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 288733,
+     "s": "\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 288734,
+     "s": "\tvar_428 = 0"
+    },
+    {
+     "n": 288735,
+     "s": "\tgosub *label_2893"
+    },
+    {
+     "n": 288736,
+     "s": "\tif ( stat == 0 ) {"
+    },
+    {
+     "n": 288737,
+     "s": "\t\tvar_242 = 0"
+    },
+    {
+     "n": 288738,
+     "s": "\t\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 288739,
+     "s": "\t\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 288740,
+     "s": "\t\ttxt_select lang(\"それは無理だ。\", \"It's impossible.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 288741,
+     "s": "\t\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 288742,
+     "s": "\t\tgosub *label_2104"
+    },
+    {
+     "n": 288743,
+     "s": "\t\tgoto *label_4363"
+    },
+    {
+     "n": 288744,
+     "s": "\t}"
+    },
+    {
+     "n": 288745,
+     "s": "\tgoto *label_2987"
+    }
+   ]
+  },
+  {
+   "range": [
+    288746,
+    288752
+   ],
+   "line": 288747,
+   "src": "\tgosub *label_2958",
+   "label": "label_2738",
+   "type": "跳转",
+   "statements": [
+    {
+     "n": 288746,
+     "s": "*label_2738"
+    },
+    {
+     "n": 288747,
+     "s": "\tgosub *label_2958"
+    },
+    {
+     "n": 288748,
+     "s": "\tif ( stat == 0 ) {"
+    },
+    {
+     "n": 288749,
+     "s": "\t\tgosub *label_2104"
+    },
+    {
+     "n": 288750,
+     "s": "\t\tgoto *label_4363"
+    },
+    {
+     "n": 288751,
+     "s": "\t}"
+    },
+    {
+     "n": 288752,
+     "s": "\tgoto *label_4358"
+    }
+   ]
+  },
+  {
+   "range": [
+    291908,
+    291914
+   ],
+   "line": 291909,
+   "src": "\tvar_244 = var_243",
+   "label": "label_2771",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 291908,
+     "s": "*label_2771"
+    },
+    {
+     "n": 291909,
+     "s": "\tvar_244 = var_243"
+    },
+    {
+     "n": 291910,
+     "s": "\tgosub *label_2950"
+    },
+    {
+     "n": 291911,
+     "s": "\tif ( stat == 0 ) {"
+    },
+    {
+     "n": 291912,
+     "s": "\t\tgoto *label_4363"
+    },
+    {
+     "n": 291913,
+     "s": "\t}"
+    },
+    {
+     "n": 291914,
+     "s": "\tgoto *label_4358"
+    }
+   ]
+  },
+  {
+   "range": [
+    294450,
+    294463
+   ],
+   "line": 294451,
+   "src": "\tvar_444 = -2",
+   "label": "label_2790",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 294450,
+     "s": "*label_2790"
+    },
+    {
+     "n": 294451,
+     "s": "\tvar_444 = -2"
+    },
+    {
+     "n": 294452,
+     "s": "\tif ( var_894 == 0 ) {"
+    },
+    {
+     "n": 294453,
+     "s": "\t\tif ( var_428 == 0 ) {"
+    },
+    {
+     "n": 294454,
+     "s": "\t\t\tvar_444 = -2"
+    },
+    {
+     "n": 294455,
+     "s": "\t\t}"
+    },
+    {
+     "n": 294456,
+     "s": "\t\tif ( var_428 == 1 ) {"
+    },
+    {
+     "n": 294457,
+     "s": "\t\t\tvar_444 = -3"
+    },
+    {
+     "n": 294458,
+     "s": "\t\t}"
+    },
+    {
+     "n": 294459,
+     "s": "\t\tif ( var_428 == 2 ) {"
+    },
+    {
+     "n": 294460,
+     "s": "\t\t\tvar_444 = 100, 0, var_58(7, var_243) - 692"
+    },
+    {
+     "n": 294461,
+     "s": "\t\t}"
+    },
+    {
+     "n": 294462,
+     "s": "\t}"
+    },
+    {
+     "n": 294463,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    295600,
+    295610
+   ],
+   "line": 295601,
+   "src": "\tvar_763 = -1",
+   "label": "label_2816",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 295600,
+     "s": "*label_2816"
+    },
+    {
+     "n": 295601,
+     "s": "\tvar_763 = -1"
+    },
+    {
+     "n": 295602,
+     "s": "\tvar_895 = (var_701 - 1) / var_893"
+    },
+    {
+     "n": 295603,
+     "s": "\tif ( var_894 < 0 ) {"
+    },
+    {
+     "n": 295604,
+     "s": "\t\tvar_894 = var_895"
+    },
+    {
+     "n": 295605,
+     "s": "\t}"
+    },
+    {
+     "n": 295606,
+     "s": "\telse {"
+    },
+    {
+     "n": 295607,
+     "s": "\t\tif ( var_894 > var_895 ) {"
+    },
+    {
+     "n": 295608,
+     "s": "\t\t\tvar_894 = 0"
+    },
+    {
+     "n": 295609,
+     "s": "\t\t}"
+    },
+    {
+     "n": 295610,
+     "s": "\t}"
+    }
+   ]
+  },
+  {
+   "range": [
+    296099,
+    296113
+   ],
+   "line": 296100,
+   "src": "\tif ( var_58(141, var_244) != 0 ) {",
+   "label": "label_2820",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 296099,
+     "s": "*label_2820"
+    },
+    {
+     "n": 296100,
+     "s": "\tif ( var_58(141, var_244) != 0 ) {"
+    },
+    {
+     "n": 296101,
+     "s": "\t\tvar_242 = 0"
+    },
+    {
+     "n": 296102,
+     "s": "\t\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 296103,
+     "s": "\t\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 296104,
+     "s": "\t\ttxt_select lang(name(var_244) + \"は忙しい。\", name(var_244) + \" \" + is(var_244) + \" busy now.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 296105,
+     "s": "\t\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 296106,
+     "s": "\t\tgosub *label_2104"
+    },
+    {
+     "n": 296107,
+     "s": "\t\tgoto *label_4363"
+    },
+    {
+     "n": 296108,
+     "s": "\t}"
+    },
+    {
+     "n": 296109,
+     "s": "\tvar_993 = 1"
+    },
+    {
+     "n": 296110,
+     "s": "\tvar_2255 = 1"
+    },
+    {
+     "n": 296111,
+     "s": "\tvar_486 = 10"
+    },
+    {
+     "n": 296112,
+     "s": "\tsnd 100"
+    },
+    {
+     "n": 296113,
+     "s": "\tgoto *label_2824"
+    }
+   ]
+  },
+  {
+   "range": [
+    296114,
+    296132
+   ],
+   "line": 296115,
+   "src": "\tif ( var_701 < 1 ) {",
+   "label": "label_2821",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 296114,
+     "s": "*label_2821"
+    },
+    {
+     "n": 296115,
+     "s": "\tif ( var_701 < 1 ) {"
+    },
+    {
+     "n": 296116,
+     "s": "\t\treturn"
+    },
+    {
+     "n": 296117,
+     "s": "\t}"
+    },
+    {
+     "n": 296118,
+     "s": "\trepeat"
+    },
+    {
+     "n": 296119,
+     "s": "\t\tvar_400 = 0"
+    },
+    {
+     "n": 296120,
+     "s": "\t\trepeat var_701 - 1"
+    },
+    {
+     "n": 296121,
+     "s": "\t\t\tif ( var_484(1, cnt) > var_484(1, cnt + 1) ) {"
+    },
+    {
+     "n": 296122,
+     "s": "\t\t\t\tvar_400 = var_484(0, cnt), var_484(1, cnt)"
+    },
+    {
+     "n": 296123,
+     "s": "\t\t\t\tvar_484(0, cnt) = var_484(0, cnt + 1), var_484(1, cnt + 1)"
+    },
+    {
+     "n": 296124,
+     "s": "\t\t\t\tvar_484(0, cnt + 1) = var_400, var_400(1)"
+    },
+    {
+     "n": 296125,
+     "s": "\t\t\t\tvar_400 = 1"
+    },
+    {
+     "n": 296126,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 296127,
+     "s": "\t\tloop"
+    },
+    {
+     "n": 296128,
+     "s": "\t\tif ( var_400 == 0 ) {"
+    },
+    {
+     "n": 296129,
+     "s": "\t\t\tbreak"
+    },
+    {
+     "n": 296130,
+     "s": "\t\t}"
+    },
+    {
+     "n": 296131,
+     "s": "\tloop"
+    },
+    {
+     "n": 296132,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    296133,
+    296154
+   ],
+   "line": 296134,
+   "src": "\tif ( var_701 < 1 ) {",
+   "label": "label_2822",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 296133,
+     "s": "*label_2822"
+    },
+    {
+     "n": 296134,
+     "s": "\tif ( var_701 < 1 ) {"
+    },
+    {
+     "n": 296135,
+     "s": "\t\treturn"
+    },
+    {
+     "n": 296136,
+     "s": "\t}"
+    },
+    {
+     "n": 296137,
+     "s": "\trepeat"
+    },
+    {
+     "n": 296138,
+     "s": "\t\tvar_400 = 0"
+    },
+    {
+     "n": 296139,
+     "s": "\t\trepeat var_701 - 1"
+    },
+    {
+     "n": 296140,
+     "s": "\t\t\tif ( var_484(1, cnt) > var_484(1, cnt + 1) ) {"
+    },
+    {
+     "n": 296141,
+     "s": "\t\t\t\tvar_400 = var_484(0, cnt), var_484(1, cnt)"
+    },
+    {
+     "n": 296142,
+     "s": "\t\t\t\tvar_484(0, cnt) = var_484(0, cnt + 1), var_484(1, cnt + 1)"
+    },
+    {
+     "n": 296143,
+     "s": "\t\t\t\tvar_484(0, cnt + 1) = var_400, var_400(1)"
+    },
+    {
+     "n": 296144,
+     "s": "\t\t\t\tvar_121 = var_485(0, cnt), var_485(1, cnt)"
+    },
+    {
+     "n": 296145,
+     "s": "\t\t\t\tvar_485(0, cnt) = var_485(0, cnt + 1), var_485(1, cnt + 1)"
+    },
+    {
+     "n": 296146,
+     "s": "\t\t\t\tvar_485(0, cnt + 1) = var_121, var_121(1)"
+    },
+    {
+     "n": 296147,
+     "s": "\t\t\t\tvar_400 = 1"
+    },
+    {
+     "n": 296148,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 296149,
+     "s": "\t\tloop"
+    },
+    {
+     "n": 296150,
+     "s": "\t\tif ( var_400 == 0 ) {"
+    },
+    {
+     "n": 296151,
+     "s": "\t\t\tbreak"
+    },
+    {
+     "n": 296152,
+     "s": "\t\t}"
+    },
+    {
+     "n": 296153,
+     "s": "\tloop"
+    },
+    {
+     "n": 296154,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    300687,
+    300690
+   ],
+   "line": 300688,
+   "src": "\tvar_691 = 50",
+   "label": "label_2843",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 300687,
+     "s": "*label_2843"
+    },
+    {
+     "n": 300688,
+     "s": "\tvar_691 = 50"
+    },
+    {
+     "n": 300689,
+     "s": "\tgosub *label_2936"
+    },
+    {
+     "n": 300690,
+     "s": "\tgoto *label_4358"
+    }
+   ]
+  },
+  {
+   "range": [
+    300691,
+    300702
+   ],
+   "line": 300692,
+   "src": "\tvar_242 = 0",
+   "label": "label_2844",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 300691,
+     "s": "*label_2844"
+    },
+    {
+     "n": 300692,
+     "s": "\tvar_242 = 0"
+    },
+    {
+     "n": 300693,
+     "s": "\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 300694,
+     "s": "\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 300695,
+     "s": "\ttxt_select lang(var_366(var_58(140, var_243)) + \"を中断したほうがいいだろうか？ \", \"Do you want to cancel \" + var_366(var_58(140, var_243)) + \"? \"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 300696,
+     "s": "\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 300697,
+     "s": "\tvar_487(0, 0) = var_393, \"y\", \"0\""
+    },
+    {
+     "n": 300698,
+     "s": "\tvar_487(0, 1) = var_394, \"n\", \"1\""
+    },
+    {
+     "n": 300699,
+     "s": "\tvar_1238 = 2"
+    },
+    {
+     "n": 300700,
+     "s": "\tvar_428 = var_1239, var_1240, 160, 1"
+    },
+    {
+     "n": 300701,
+     "s": "\tgosub *label_2896"
+    },
+    {
+     "n": 300702,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    300965,
+    300985
+   ],
+   "line": 300966,
+   "src": "\tif ( var_99(3, var_579) == 563 ) {",
+   "label": "label_2849",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 300965,
+     "s": "*label_2849"
+    },
+    {
+     "n": 300966,
+     "s": "\tif ( var_99(3, var_579) == 563 ) {"
+    },
+    {
+     "n": 300967,
+     "s": "\t\tif ( sorg(var_99(25, var_579), 0) == 0 ) {"
+    },
+    {
+     "n": 300968,
+     "s": "\t\t\tvar_242 = 0"
+    },
+    {
+     "n": 300969,
+     "s": "\t\t\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 300970,
+     "s": "\t\t\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 300971,
+     "s": "\t\t\ttxt_select lang(\"この本の内容には興味がない。それでも読む？ \", \"You are not interested in this book. Do you want to read it anyway? \"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 300972,
+     "s": "\t\t\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 300973,
+     "s": "\t\t\tvar_487(0, 0) = var_393, \"y\", \"0\""
+    },
+    {
+     "n": 300974,
+     "s": "\t\t\tvar_487(0, 1) = var_394, \"n\", \"1\""
+    },
+    {
+     "n": 300975,
+     "s": "\t\t\tvar_1238 = 2"
+    },
+    {
+     "n": 300976,
+     "s": "\t\t\tvar_428 = var_1239, var_1240, 160, 1"
+    },
+    {
+     "n": 300977,
+     "s": "\t\t\tgosub *label_2896"
+    },
+    {
+     "n": 300978,
+     "s": "\t\t\tif ( var_444 != 0 ) {"
+    },
+    {
+     "n": 300979,
+     "s": "\t\t\t\treturn 0"
+    },
+    {
+     "n": 300980,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 300981,
+     "s": "\t\t}"
+    },
+    {
+     "n": 300982,
+     "s": "\t}"
+    },
+    {
+     "n": 300983,
+     "s": "\tvar_65(91) = 104"
+    },
+    {
+     "n": 300984,
+     "s": "\tgosub *label_2932"
+    },
+    {
+     "n": 300985,
+     "s": "\treturn 1"
+    }
+   ]
+  },
+  {
+   "range": [
+    301502,
+    301509
+   ],
+   "line": 301503,
+   "src": "\tinv_getheader -1",
+   "label": "label_2853",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 301502,
+     "s": "*label_2853"
+    },
+    {
+     "n": 301503,
+     "s": "\tinv_getheader -1"
+    },
+    {
+     "n": 301504,
+     "s": "\trepeat var_696, var_695"
+    },
+    {
+     "n": 301505,
+     "s": "\t\tif ( var_99(3, cnt) == 504 | var_99(3, cnt) == 503 ) {"
+    },
+    {
+     "n": 301506,
+     "s": "\t\t\tvar_99(0, cnt) = 0"
+    },
+    {
+     "n": 301507,
+     "s": "\t\t}"
+    },
+    {
+     "n": 301508,
+     "s": "\tloop"
+    },
+    {
+     "n": 301509,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    302526,
+    302532
+   ],
+   "line": 302527,
+   "src": "\tvar_65(184)++",
+   "label": "label_2856",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 302526,
+     "s": "*label_2856"
+    },
+    {
+     "n": 302527,
+     "s": "\tvar_65(184)++"
+    },
+    {
+     "n": 302528,
+     "s": "\tdim var_434, 20, 500"
+    },
+    {
+     "n": 302529,
+     "s": "\tsdim var_436, 40, 500"
+    },
+    {
+     "n": 302530,
+     "s": "\tvar_65(75) = 0"
+    },
+    {
+     "n": 302531,
+     "s": "\tgosub *label_2474"
+    },
+    {
+     "n": 302532,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    302656,
+    302681
+   ],
+   "line": 302657,
+   "src": "\tvar_400 = 12",
+   "label": "label_2861",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 302656,
+     "s": "*label_2861"
+    },
+    {
+     "n": 302657,
+     "s": "\tvar_400 = 12"
+    },
+    {
+     "n": 302658,
+     "s": "\tvar_119 = var_47 + \"user\\\\\""
+    },
+    {
+     "n": 302659,
+     "s": "\tbload var_119 + var_489, var_2183, 1024"
+    },
+    {
+     "n": 302660,
+     "s": "\tgosub *label_4336"
+    },
+    {
+     "n": 302661,
+     "s": "\texist var_119 + var_489"
+    },
+    {
+     "n": 302662,
+     "s": "\tvar_2309 = strsize"
+    },
+    {
+     "n": 302663,
+     "s": "\tsdim var_2307, var_2309"
+    },
+    {
+     "n": 302664,
+     "s": "\tbload var_119 + var_489, var_2307, var_2309"
+    },
+    {
+     "n": 302665,
+     "s": "\tvar_2303 = 1024"
+    },
+    {
+     "n": 302666,
+     "s": "\trepeat 10000"
+    },
+    {
+     "n": 302667,
+     "s": "\t\tsdim var_2305, var_400"
+    },
+    {
+     "n": 302668,
+     "s": "\t\tsdim var_2306, var_400"
+    },
+    {
+     "n": 302669,
+     "s": "\t\tmemcpy var_2305, var_2307, var_400, 0, var_2303"
+    },
+    {
+     "n": 302670,
+     "s": "\t\tmemcpy var_2306, var_2307, var_400, 0, var_2303 + var_400"
+    },
+    {
+     "n": 302671,
+     "s": "\t\tvar_2302 = int(var_2306)"
+    },
+    {
+     "n": 302672,
+     "s": "\t\tsdim var_2308, var_2302 - var_400 * 2"
+    },
+    {
+     "n": 302673,
+     "s": "\t\tmemcpy var_2308, var_2307, var_2302 - var_400 * 2, 0, var_2303 + var_400 * 2"
+    },
+    {
+     "n": 302674,
+     "s": "\t\tbsave var_119 + var_2305, var_2308"
+    },
+    {
+     "n": 302675,
+     "s": "\t\tvar_2303 += var_2302"
+    },
+    {
+     "n": 302676,
+     "s": "\t\tif ( var_2303 >= var_2309 ) {"
+    },
+    {
+     "n": 302677,
+     "s": "\t\t\tbreak"
+    },
+    {
+     "n": 302678,
+     "s": "\t\t}"
+    },
+    {
+     "n": 302679,
+     "s": "\tloop"
+    },
+    {
+     "n": 302680,
+     "s": "\treturn"
+    },
+    {
+     "n": 302681,
+     "s": "\tgoto *label_2866"
+    }
+   ]
+  },
+  {
+   "range": [
+    304470,
+    304476
+   ],
+   "line": 304471,
+   "src": "\tsnd 49",
+   "label": "label_2880",
+   "type": "音效",
+   "statements": [
+    {
+     "n": 304470,
+     "s": "*label_2880"
+    },
+    {
+     "n": 304471,
+     "s": "\tsnd 49"
+    },
+    {
+     "n": 304472,
+     "s": "\tvar_65(66) = var_65(20), var_65(22), var_58(1, 0), var_58(2, 0)"
+    },
+    {
+     "n": 304473,
+     "s": "\tvar_65(64) = 35"
+    },
+    {
+     "n": 304474,
+     "s": "\tvar_65(65) = 1"
+    },
+    {
+     "n": 304475,
+     "s": "\tvar_1777 = 2"
+    },
+    {
+     "n": 304476,
+     "s": "\tgoto *label_2459"
+    }
+   ]
+  },
+  {
+   "range": [
+    305764,
+    305773
+   ],
+   "line": 305765,
+   "src": "\tCreateMutexA 0, 0, \"ElonaPlus 2.33R\"",
+   "label": "label_2906",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 305764,
+     "s": "*label_2906"
+    },
+    {
+     "n": 305765,
+     "s": "\tCreateMutexA 0, 0, \"ElonaPlus 2.33R\""
+    },
+    {
+     "n": 305766,
+     "s": "\tvar_574 = stat"
+    },
+    {
+     "n": 305767,
+     "s": "\tfunc_2"
+    },
+    {
+     "n": 305768,
+     "s": "\tif ( stat == 183 ) {"
+    },
+    {
+     "n": 305769,
+     "s": "\t\tdialog lang(\"二重起動のため終了します。\", \"The program is already running.\"), 1"
+    },
+    {
+     "n": 305770,
+     "s": "\t\tend"
+    },
+    {
+     "n": 305771,
+     "s": "\t}"
+    },
+    {
+     "n": 305772,
+     "s": "\treturn"
+    },
+    {
+     "n": 305773,
+     "s": "\tgoto *label_2908"
+    }
+   ]
+  },
+  {
+   "range": [
+    340431,
+    340435
+   ],
+   "line": 340432,
+   "src": "\tvar_579 = var_2436",
+   "label": "label_2970",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 340431,
+     "s": "*label_2970"
+    },
+    {
+     "n": 340432,
+     "s": "\tvar_579 = var_2436"
+    },
+    {
+     "n": 340433,
+     "s": "\tvar_2362 = 0"
+    },
+    {
+     "n": 340434,
+     "s": "\tvar_2367 = 0"
+    },
+    {
+     "n": 340435,
+     "s": "\treturn 1"
+    }
+   ]
+  },
+  {
+   "range": [
+    341871,
+    341873
+   ],
+   "line": 341872,
+   "src": "\titem_exchange var_579, var_580",
+   "label": "label_2977",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 341871,
+     "s": "*label_2977"
+    },
+    {
+     "n": 341872,
+     "s": "\titem_exchange var_579, var_580"
+    },
+    {
+     "n": 341873,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    342527,
+    342548
+   ],
+   "line": 342528,
+   "src": "\tif ( var_99(3, var_579) == 783 ) {",
+   "label": "label_2983",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 342527,
+     "s": "*label_2983"
+    },
+    {
+     "n": 342528,
+     "s": "\tif ( var_99(3, var_579) == 783 ) {"
+    },
+    {
+     "n": 342529,
+     "s": "\t\tif ( var_99(23, var_579) == 0 ) {"
+    },
+    {
+     "n": 342530,
+     "s": "\t\t\tvar_242 = 0"
+    },
+    {
+     "n": 342531,
+     "s": "\t\t\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 342532,
+     "s": "\t\t\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 342533,
+     "s": "\t\t\ttxt_select lang(\"最後に調合したアイテムを、レシピに加えることができる。\", \"You can add a recipe of the item you previously created.(Not implemented yet)\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 342534,
+     "s": "\t\t\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 342535,
+     "s": "\t\t\tgoto *label_4358"
+    },
+    {
+     "n": 342536,
+     "s": "\t\t}"
+    },
+    {
+     "n": 342537,
+     "s": "\t}"
+    },
+    {
+     "n": 342538,
+     "s": "\tvar_396 = 0"
+    },
+    {
+     "n": 342539,
+     "s": "\tvar_59 = 13"
+    },
+    {
+     "n": 342540,
+     "s": "\tvar_60 = var_99(3, var_579)"
+    },
+    {
+     "n": 342541,
+     "s": "\tgosub *label_0598"
+    },
+    {
+     "n": 342542,
+     "s": "\tif ( var_396 == 1115 ) {"
+    },
+    {
+     "n": 342543,
+     "s": "\t\tgoto *label_2433"
+    },
+    {
+     "n": 342544,
+     "s": "\t}"
+    },
+    {
+     "n": 342545,
+     "s": "\tif ( findbuff(var_243, 38) != (-1) ) {"
+    },
+    {
+     "n": 342546,
+     "s": "\t\tmodgauge var_243, 5"
+    },
+    {
+     "n": 342547,
+     "s": "\t}"
+    },
+    {
+     "n": 342548,
+     "s": "\tgoto *label_4358"
+    }
+   ]
+  },
+  {
+   "range": [
+    342583,
+    342597
+   ],
+   "line": 342584,
+   "src": "\tvar_59 = 15",
+   "label": "label_2985",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 342583,
+     "s": "*label_2985"
+    },
+    {
+     "n": 342584,
+     "s": "\tvar_59 = 15"
+    },
+    {
+     "n": 342585,
+     "s": "\tvar_60 = var_99(3, var_579)"
+    },
+    {
+     "n": 342586,
+     "s": "\tgosub *label_0598"
+    },
+    {
+     "n": 342587,
+     "s": "\tif ( var_2429 == 0 ) {"
+    },
+    {
+     "n": 342588,
+     "s": "\t\tif ( findbuff(var_243, 38) != (-1) ) {"
+    },
+    {
+     "n": 342589,
+     "s": "\t\t\tmodgauge var_243, 5"
+    },
+    {
+     "n": 342590,
+     "s": "\t\t}"
+    },
+    {
+     "n": 342591,
+     "s": "\t}"
+    },
+    {
+     "n": 342592,
+     "s": "\tif ( var_243 == 0 ) {"
+    },
+    {
+     "n": 342593,
+     "s": "\t\tif ( var_99(2, var_579) == 354 ) {"
+    },
+    {
+     "n": 342594,
+     "s": "\t\t\tvar_65(250 + 439)++"
+    },
+    {
+     "n": 342595,
+     "s": "\t\t}"
+    },
+    {
+     "n": 342596,
+     "s": "\t}"
+    },
+    {
+     "n": 342597,
+     "s": "\tgoto *label_4358"
+    }
+   ]
+  },
+  {
+   "range": [
+    344742,
+    344750
+   ],
+   "line": 344743,
+   "src": "\ttxtmore",
+   "label": "label_2997",
+   "type": "绘制",
+   "statements": [
+    {
+     "n": 344742,
+     "s": "*label_2997"
+    },
+    {
+     "n": 344743,
+     "s": "\ttxtmore"
+    },
+    {
+     "n": 344744,
+     "s": "\tvar_242 = 0"
+    },
+    {
+     "n": 344745,
+     "s": "\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 344746,
+     "s": "\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 344747,
+     "s": "\ttxt_select lang(\"開錠に成功した。\", \"You successfully unlock it.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 344748,
+     "s": "\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 344749,
+     "s": "\tskillexp 158, var_243, 100 + limit(var_2535 * 2, 1, 400)"
+    },
+    {
+     "n": 344750,
+     "s": "\treturn 1"
+    }
+   ]
+  },
+  {
+   "range": [
+    345086,
+    345091
+   ],
+   "line": 345087,
+   "src": "\t\titem_stack var_243, var_2464",
+   "label": "label_2999",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 345086,
+     "s": "*label_2999"
+    },
+    {
+     "n": 345087,
+     "s": "\t\titem_stack var_243, var_2464"
+    },
+    {
+     "n": 345088,
+     "s": "\t}"
+    },
+    {
+     "n": 345089,
+     "s": "\tvar_218 = -1"
+    },
+    {
+     "n": 345090,
+     "s": "\tgosub *label_2104"
+    },
+    {
+     "n": 345091,
+     "s": "\tgoto *label_4358"
+    }
+   ]
+  },
+  {
+   "range": [
+    348233,
+    348245
+   ],
+   "line": 348234,
+   "src": "\tif ( var_65(70) == 1013 ) {",
+   "label": "label_3010",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 348233,
+     "s": "*label_3010"
+    },
+    {
+     "n": 348234,
+     "s": "\tif ( var_65(70) == 1013 ) {"
+    },
+    {
+     "n": 348235,
+     "s": "\t\tif ( var_503(2) == 7 | var_503(2) == 9 ) {"
+    },
+    {
+     "n": 348236,
+     "s": "\t\t\tcell_featset var_2214, var_2215, var_1598, -1, -1"
+    },
+    {
+     "n": 348237,
+     "s": "\t\t}"
+    },
+    {
+     "n": 348238,
+     "s": "\t\tif ( var_503(2) == 15 | var_503(2) == 16 ) {"
+    },
+    {
+     "n": 348239,
+     "s": "\t\t\tcell_featset var_2214, var_2215, var_1599, -1, -1"
+    },
+    {
+     "n": 348240,
+     "s": "\t\t}"
+    },
+    {
+     "n": 348241,
+     "s": "\t}"
+    },
+    {
+     "n": 348242,
+     "s": "\telse {"
+    },
+    {
+     "n": 348243,
+     "s": "\t\tcell_featset var_2214, var_2215, var_1597, -1, -1"
+    },
+    {
+     "n": 348244,
+     "s": "\t}"
+    },
+    {
+     "n": 348245,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    348246,
+    348249
+   ],
+   "line": 348247,
+   "src": "\tvar_704(var_2214, var_2215, 0) = var_1471",
+   "label": "label_3011",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 348246,
+     "s": "*label_3011"
+    },
+    {
+     "n": 348247,
+     "s": "\tvar_704(var_2214, var_2215, 0) = var_1471"
+    },
+    {
+     "n": 348248,
+     "s": "\tcell_featset var_2214, var_2215, 0, 0"
+    },
+    {
+     "n": 348249,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    348250,
+    348265
+   ],
+   "line": 348251,
+   "src": "\tif ( var_58(52, var_243) < 0 ) {",
+   "label": "label_3012",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 348250,
+     "s": "*label_3012"
+    },
+    {
+     "n": 348251,
+     "s": "\tif ( var_58(52, var_243) < 0 ) {"
+    },
+    {
+     "n": 348252,
+     "s": "\t\tvar_242 = 0"
+    },
+    {
+     "n": 348253,
+     "s": "\t\tvar_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+    },
+    {
+     "n": 348254,
+     "s": "\t\tvar_246 = rnd(var_246)"
+    },
+    {
+     "n": 348255,
+     "s": "\t\ttxt_select lang(\"疲れ過ぎて無理だ。\", \"You are too exhausted to do that.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+    },
+    {
+     "n": 348256,
+     "s": "\t\tvar_209 = 255, 255, 255"
+    },
+    {
+     "n": 348257,
+     "s": "\t\tgosub *label_2104"
+    },
+    {
+     "n": 348258,
+     "s": "\t\tgoto *label_4363"
+    },
+    {
+     "n": 348259,
+     "s": "\t}"
+    },
+    {
+     "n": 348260,
+     "s": "\tvar_1296 = 0"
+    },
+    {
+     "n": 348261,
+     "s": "\tvar_2414 = var_1311"
+    },
+    {
+     "n": 348262,
+     "s": "\tvar_2415 = var_1312"
+    },
+    {
+     "n": 348263,
+     "s": "\tgosub *label_2943"
+    },
+    {
+     "n": 348264,
+     "s": "\tgoto *label_4358"
+    },
+    {
+     "n": 348265,
+     "s": "\tgoto *label_3015"
+    }
+   ]
+  },
+  {
+   "range": [
+    365985,
+    365999
+   ],
+   "line": 365986,
+   "src": "\tvar_701 = 0",
+   "label": "label_3032",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 365985,
+     "s": "*label_3032"
+    },
+    {
+     "n": 365986,
+     "s": "\tvar_701 = 0"
+    },
+    {
+     "n": 365987,
+     "s": "\tvar_122 = var_122"
+    },
+    {
+     "n": 365988,
+     "s": "\tvar_244 = var_244 * (0 == 0) + (0 != 0) * 0"
+    },
+    {
+     "n": 365989,
+     "s": "\tvar_484(0, var_701) = 0"
+    },
+    {
+     "n": 365990,
+     "s": "\tvar_485(0, var_701) = var_362"
+    },
+    {
+     "n": 365991,
+     "s": "\tvar_701++"
+    },
+    {
+     "n": 365992,
+     "s": "\tvar_2060 = 1"
+    },
+    {
+     "n": 365993,
+     "s": "\tgosub *label_3068"
+    },
+    {
+     "n": 365994,
+     "s": "\tif ( var_134 ) {"
+    },
+    {
+     "n": 365995,
+     "s": "\t\tif ( var_2612 == 1 ) {"
+    },
+    {
+     "n": 365996,
+     "s": "\t\t\tgoto *label_3067"
+    },
+    {
+     "n": 365997,
+     "s": "\t\t}"
+    },
+    {
+     "n": 365998,
+     "s": "\t}"
+    },
+    {
+     "n": 365999,
+     "s": "\tgoto *label_3067"
+    }
+   ]
+  },
+  {
+   "range": [
+    425448,
+    425452
+   ],
+   "line": 425449,
+   "src": "\tsnd 10",
+   "label": "label_3070",
+   "type": "音效",
+   "statements": [
+    {
+     "n": 425448,
+     "s": "*label_3070"
+    },
+    {
+     "n": 425449,
+     "s": "\tsnd 10"
+    },
+    {
+     "n": 425450,
+     "s": "\tvar_761 = 0"
+    },
+    {
+     "n": 425451,
+     "s": "\tvar_701 = 0"
+    },
+    {
+     "n": 425452,
+     "s": "\treturn"
+    }
+   ]
+  },
+  {
+   "range": [
+    591176,
+    591181
+   ],
+   "line": 591177,
+   "src": "\tvar_581 = 0",
+   "label": "label_4290",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 591176,
+     "s": "*label_4290"
+    },
+    {
+     "n": 591177,
+     "s": "\tvar_581 = 0"
+    },
+    {
+     "n": 591178,
+     "s": "\tgosub *label_2245"
+    },
+    {
+     "n": 591179,
+     "s": "\tvar_1777 = 4"
+    },
+    {
+     "n": 591180,
+     "s": "\tvar_65(22) = 0"
+    },
+    {
+     "n": 591181,
+     "s": "\tgoto *label_2459"
+    }
+   ]
+  },
+  {
+   "range": [
+    602248,
+    602269
+   ],
+   "line": 602249,
+   "src": "\tinv_getheader 0",
+   "label": "label_4346",
+   "type": "赋值",
+   "statements": [
+    {
+     "n": 602248,
+     "s": "*label_4346"
+    },
+    {
+     "n": 602249,
+     "s": "\tinv_getheader 0"
+    },
+    {
+     "n": 602250,
+     "s": "\tvar_400 = 0, 0"
+    },
+    {
+     "n": 602251,
+     "s": "\tvar_400 = 0, 0"
+    },
+    {
+     "n": 602252,
+     "s": "\trepeat var_696, var_695"
+    },
+    {
+     "n": 602253,
+     "s": "\t\tif ( var_99(0, cnt) == 0 ) {"
+    },
+    {
+     "n": 602254,
+     "s": "\t\t\tcontinue"
+    },
+    {
+     "n": 602255,
+     "s": "\t\t}"
+    },
+    {
+     "n": 602256,
+     "s": "\t\tvar_399 = refitem(var_99(3, cnt), 5)"
+    },
+    {
+     "n": 602257,
+     "s": "\t\tif ( var_399 != 53000 & var_399 != 52000 & var_399 != 56000 & var_399 != 54000 & var_399 >= 50000 ) {"
+    },
+    {
+     "n": 602258,
+     "s": "\t\t\tcontinue"
+    },
+    {
+     "n": 602259,
+     "s": "\t\t}"
+    },
+    {
+     "n": 602260,
+     "s": "\t\tif ( var_99(8, cnt) < 5 ) {"
+    },
+    {
+     "n": 602261,
+     "s": "\t\t\titem_identify cnt, 250, -1"
+    },
+    {
+     "n": 602262,
+     "s": "\t\t\titem_stack 0, cnt"
+    },
+    {
+     "n": 602263,
+     "s": "\t\t\tvar_400(1)++"
+    },
+    {
+     "n": 602264,
+     "s": "\t\t\tif ( var_716 == 5 ) {"
+    },
+    {
+     "n": 602265,
+     "s": "\t\t\t\tvar_400++"
+    },
+    {
+     "n": 602266,
+     "s": "\t\t\t}"
+    },
+    {
+     "n": 602267,
+     "s": "\t\t}"
+    },
+    {
+     "n": 602268,
+     "s": "\tloop"
+    },
+    {
+     "n": 602269,
+     "s": "\treturn"
+    }
+   ]
+  }
+ ],
+ "byDesign": [
+  {
+   "range": [
+    304904,
+    304910
+   ],
+   "reason": "label_2891 读 wparam==27 与 ginfo(2) 的 HSP 窗口消息输入，Web 版由 DOM 键盘事件承担"
+  },
+  {
+   "range": [
+    305368,
+    305380
+   ],
+   "reason": "label_2901 的 await 20 / stick 开机闪屏等待循环，属 HSP 整屏绘制与轮询输入，由 Canvas 事件循环重写"
+  },
+  {
+   "range": [
+    305381,
+    305389
+   ],
+   "reason": "label_2902 的 clrobj 1/2 清除 HSP 屏幕对象，对象生命周期由 Canvas 视图层管理"
+  },
+  {
+   "range": [
+    305759,
+    305763
+   ],
+   "reason": "label_2905 的 noteadd / objprm 构建 HSP 屏幕对象，由 Canvas 视图层重写"
+  }
+ ],
+ "stats": {
+  "ranges": 68,
+  "rules": 13,
+  "trivial": 51,
+  "byDesign": 4,
+  "sourceLinesChecked": 4524,
+  "trivialStatements": 688
+ }
+}

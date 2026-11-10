@@ -1,0 +1,2462 @@
+{
+ "meta": {
+  "source": "hsp/start.hsp",
+  "encoding": "cp932",
+  "group": "B 组：地图 / 世界 / tile / 货物",
+  "segmentCount": 59,
+  "verifiedSourceLines": 449
+ },
+ "segments": [
+  {
+   "range": "249342-249767",
+   "lines": 426,
+   "name": "`label_2468..2472` `map_prepareTile` 与 `world_setArea:building`"
+  },
+  {
+   "range": "232357-232638",
+   "lines": 282,
+   "name": "`label_2430..2431` 迷宫尺寸计算与 `map_initialize`"
+  },
+  {
+   "range": "251302-251441",
+   "lines": 140,
+   "name": "`label_2475` 地图 450-500 区间的特殊地块扫描"
+  },
+  {
+   "range": "343328-343452",
+   "lines": 125,
+   "name": "`label_2990` 世界地图的 tile 范围检查（264..363）"
+  },
+  {
+   "range": "237831-237925",
+   "lines": 95,
+   "name": "`label_2462` `map_init` 地图初始化收尾"
+  },
+  {
+   "range": "232181-232270",
+   "lines": 90,
+   "name": "`label_2424..2425` 地图入口坐标计算（var_126(1)/2 居中）"
+  },
+  {
+   "range": "232271-232336",
+   "lines": 66,
+   "name": "`label_2426` 地图生成（宽 30、高 60+rnd(60)）"
+  },
+  {
+   "range": "229082-229142",
+   "lines": 61,
+   "name": "`label_2380` exgoto 批量扫描（var_1381 表）"
+  },
+  {
+   "range": "304411-304469",
+   "lines": 59,
+   "name": "`label_2879` 特定地图禁入检查（35 / 76+179 / 74）"
+  },
+  {
+   "range": "245727-245784",
+   "lines": 58,
+   "name": "`label_2464` `map_preBegin`（地图生成前置）"
+  },
+  {
+   "range": "300703-300757",
+   "lines": 55,
+   "name": "`label_2845` 特定地图的提示（txtnew + 35/76+179）"
+  },
+  {
+   "range": "232129-232180",
+   "lines": 52,
+   "name": "`label_2423` `map_initcustom`（自定义地图初始化）"
+  },
+  {
+   "range": "300334-300382",
+   "lines": 49,
+   "name": "`label_2837` 锁定目标清理（var_58(29) 无效则清 0）"
+  },
+  {
+   "range": "228987-229028",
+   "lines": 42,
+   "name": "`label_2370` 地图随机坐标（rnd(var_126(0)-5)+2）"
+  },
+  {
+   "range": "233681-233721",
+   "lines": 41,
+   "name": "`label_2439` 地图生成的 txtnew 提示"
+  },
+  {
+   "range": "230090-230125",
+   "lines": 36,
+   "name": "`label_2403` 地图尺寸下限修正（var_1722）"
+  },
+  {
+   "range": "342549-342582",
+   "lines": 34,
+   "name": "`label_2984` `cargocheck` 货物检查"
+  },
+  {
+   "range": "232639-232669",
+   "lines": 31,
+   "name": "`label_2432` if ( var_65(24) == 0 )"
+  },
+  {
+   "range": "301510-301540",
+   "lines": 31,
+   "name": "`label_2854` `fixOnMapEnter`（进图修正）"
+  },
+  {
+   "range": "270959-270987",
+   "lines": 29,
+   "name": "`label_2589` `begintempinv` 临时背包"
+  },
+  {
+   "range": "229175-229203",
+   "lines": 29,
+   "name": "`label_2384` rnd(100) 判定（var_1675）"
+  },
+  {
+   "range": "211202-211228",
+   "lines": 27,
+   "name": "`label_2120` 地图随机装饰"
+  },
+  {
+   "range": "211229-211255",
+   "lines": 27,
+   "name": "`label_2121` 地图随机装饰"
+  },
+  {
+   "range": "211256-211282",
+   "lines": 27,
+   "name": "`label_2122` 地图随机装饰"
+  },
+  {
+   "range": "228116-228141",
+   "lines": 26,
+   "name": "`map_line` 划线"
+  },
+  {
+   "range": "231623-231646",
+   "lines": 24,
+   "name": "`label_2421` var_126(0) = 48 + rnd(20)"
+  },
+  {
+   "range": "211179-211201",
+   "lines": 23,
+   "name": "`label_2119` 地图随机装饰"
+  },
+  {
+   "range": "211347-211369",
+   "lines": 23,
+   "name": "`label_2126` 地图随机装饰"
+  },
+  {
+   "range": "229893-229914",
+   "lines": 22,
+   "name": "`label_2395` var_122 = \"\""
+  },
+  {
+   "range": "232947-232968",
+   "lines": 22,
+   "name": "`label_2434` var_400 = 7"
+  },
+  {
+   "range": "24277-24298",
+   "lines": 22,
+   "name": "`label_0289` 季节/地图初始化（repeat 12）"
+  },
+  {
+   "range": "228142-228163",
+   "lines": 22,
+   "name": "`map_makesimpleroom` 简易房间"
+  },
+  {
+   "range": "229035-229052",
+   "lines": 18,
+   "name": "`label_2373` exgoto var_1672, 1, 3, *label_2374"
+  },
+  {
+   "range": "229059-229076",
+   "lines": 18,
+   "name": "`label_2376` exgoto var_1672, 1, 3, *label_2377"
+  },
+  {
+   "range": "228761-228776",
+   "lines": 16,
+   "name": "`map_placedownstairs` 下行楼梯"
+  },
+  {
+   "range": "230146-230160",
+   "lines": 15,
+   "name": "`label_2406` var_1729 = \"map\""
+  },
+  {
+   "range": "229915-229927",
+   "lines": 13,
+   "name": "`label_2396` var_122 = \"\""
+  },
+  {
+   "range": "228748-228760",
+   "lines": 13,
+   "name": "`map_placeupstairs` 上行楼梯"
+  },
+  {
+   "range": "229204-229215",
+   "lines": 12,
+   "name": "`label_2385` dialog \"Unsaved data will be lost. Create a"
+  },
+  {
+   "range": "31537-31547",
+   "lines": 11,
+   "name": "`cargocheck` 货物检查"
+  },
+  {
+   "range": "230135-230145",
+   "lines": 11,
+   "name": "`label_2405` var_1729 = \"map\""
+  },
+  {
+   "range": "230161-230170",
+   "lines": 10,
+   "name": "`label_2407` var_1678 = 0"
+  },
+  {
+   "range": "232347-232356",
+   "lines": 10,
+   "name": "`label_2429` var_126(0) = var_1737 * (var_1738 * 2) - var"
+  },
+  {
+   "range": "230081-230089",
+   "lines": 9,
+   "name": "`label_2402` repeat var_126(1)"
+  },
+  {
+   "range": "230126-230134",
+   "lines": 9,
+   "name": "`label_2404` if ( var_1626 == \"\" )"
+  },
+  {
+   "range": "228461-228469",
+   "lines": 9,
+   "name": "`map_setfog` 战争迷雾"
+  },
+  {
+   "range": "229867-229874",
+   "lines": 8,
+   "name": "`label_2393` var_1716 = 1"
+  },
+  {
+   "range": "230065-230072",
+   "lines": 8,
+   "name": "`label_2400` if ( var_1693 == 0 )"
+  },
+  {
+   "range": "230073-230080",
+   "lines": 8,
+   "name": "`label_2401` repeat var_126(1)"
+  },
+  {
+   "range": "233647-233652",
+   "lines": 6,
+   "name": "`label_2437` goto *label_2443"
+  },
+  {
+   "range": "230060-230064",
+   "lines": 5,
+   "name": "`label_2399` var_469(0, var_1725) = 0, 0, 0, 0, 0"
+  },
+  {
+   "range": "228111-228115",
+   "lines": 5,
+   "name": "`map_randomtile` 随机地块"
+  },
+  {
+   "range": "229031-229034",
+   "lines": 4,
+   "name": "`map_web` 蛛网"
+  },
+  {
+   "range": "229055-229058",
+   "lines": 4,
+   "name": "`map_barrel` 桶"
+  },
+  {
+   "range": "229328-229330",
+   "lines": 3,
+   "name": "`label_2388` map_tileset var_4"
+  },
+  {
+   "range": "228458-228459",
+   "lines": 2,
+   "name": "`map_makeroom` 房间"
+  },
+  {
+   "range": "229080-229081",
+   "lines": 2,
+   "name": "`map_connectroom` 房间连接"
+  },
+  {
+   "range": "292183-292600",
+   "lines": 418,
+   "name": "label_2777/2778 var_472 物种候选清单"
+  },
+  {
+   "range": "425317-425379",
+   "lines": 63,
+   "name": "label_3067 事件区变量初始化"
+  }
+ ],
+ "src": {
+  "prepareTile": "249342-249767",
+  "maze": "232357-232638",
+  "randSite": "251302-251441",
+  "worldTileCheck": "343328-343452",
+  "mapInit": "237831-237925",
+  "entryCenter": "232181-232270",
+  "corridor": "232271-232336",
+  "connectRoom": "229082-229142",
+  "noSaveCheck": "304411-304469",
+  "mapPreBegin": "245727-245784",
+  "exitPrompt": "300703-300757",
+  "initCustom": "232129-232180",
+  "targetLock": "300334-300382",
+  "randomTilePos": "228987-229028",
+  "movePrompt": "233681-233721",
+  "clampSize": "230090-230125",
+  "cargoCheck": "342549-342582",
+  "label2432": "232639-232669",
+  "fixOnMapEnter": "301510-301540",
+  "tempInv": "270959-270987",
+  "label2384": "229175-229203",
+  "render2119": "211179-211201",
+  "render2120": "211202-211228",
+  "render2121": "211229-211255",
+  "render2122": "211256-211282",
+  "render2126": "211347-211369",
+  "mapLine": "228116-228141",
+  "arena": "231623-231646",
+  "label2429": "232347-232356",
+  "simpleRoom": "228142-228163",
+  "season": "24277-24298",
+  "web": "229035-229052",
+  "barrel": "229059-229076",
+  "downstairs": "228761-228776",
+  "label2406": "230146-230160",
+  "label2396": "229915-229927",
+  "upstairs": "228748-228760",
+  "label2385": "229204-229215",
+  "cargoFunc": "31537-31547",
+  "label2405": "230135-230145",
+  "label2407": "230161-230170",
+  "label2402": "230081-230089",
+  "label2404": "230126-230134",
+  "setfog": "228461-228469",
+  "label2393": "229867-229874",
+  "label2400": "230065-230072",
+  "label2401": "230073-230080",
+  "label2437": "233647-233652",
+  "label2399": "230060-230064",
+  "randomtile": "228111-228115",
+  "webDef": "229031-229034",
+  "barrelDef": "229055-229058",
+  "tileset": "229328-229330",
+  "makeroom": "228458-228459",
+  "connectroom": "229080-229081",
+  "label2395": "229893-229914",
+  "siteCandidates": "292183-292600",
+  "eventZone": "425317-425379"
+ },
+ "tileRanges": {
+  "worldBlocking": {
+   "lo": 264,
+   "hi": 363,
+   "hiExclusive": true,
+   "src": [
+    343330,
+    343330
+   ]
+  },
+  "water": {
+   "lo": 33,
+   "hi": 57,
+   "hiExclusive": true,
+   "exclude": [
+    44
+   ],
+   "src": [
+    251314,
+    249735
+   ]
+  },
+  "siteSlot": {
+   "lo": 450,
+   "hi": 500,
+   "count": 50,
+   "src": [
+    251303,
+    249569
+   ]
+  },
+  "worldAreaScan": {
+   "lo": 0,
+   "hi": 500,
+   "src": [
+    249699,
+    249699
+   ]
+  },
+  "wall": 3,
+  "floor": 100,
+  "river": 165,
+  "fogLayer": 2,
+  "buildIdFix": {
+   "exact": 900,
+   "to": 40,
+   "ge": 900,
+   "sub": 800
+  },
+  "src": [
+   249342,
+   343452
+  ]
+ },
+ "lighting": {
+  "default": {
+   "rgb": {
+    "base": [
+     5,
+     5,
+     5
+    ],
+    "step": [
+     0,
+     0,
+     0
+    ],
+    "offset": [
+     0,
+     0,
+     0
+    ]
+   },
+   "bright": 15,
+   "src": [
+    249364,
+    249365
+   ]
+  },
+  "enabledWhen": "var_126(14) == 2",
+  "indoor": {
+   "hours": [
+    {
+     "lo": 24,
+     "hi": 999,
+     "rgb": {
+      "base": [
+       80,
+       65,
+       50
+      ],
+      "step": [
+       0,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       0,
+       0
+      ]
+     },
+     "bright": 8,
+     "src": 249368
+    },
+    {
+     "lo": 0,
+     "hi": 4,
+     "rgb": {
+      "base": [
+       80,
+       65,
+       50
+      ],
+      "step": [
+       0,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       0,
+       0
+      ]
+     },
+     "bright": 8,
+     "src": 249372
+    },
+    {
+     "lo": 4,
+     "hi": 9,
+     "rgb": {
+      "base": [
+       60,
+       70,
+       50
+      ],
+      "step": [
+       -10,
+       -12,
+       -10
+      ],
+      "offset": [
+       3,
+       3,
+       3
+      ]
+     },
+     "bright": 15,
+     "src": 249376,
+     "floor": 10,
+     "floorBright": {
+      "base": 8,
+      "step": 2,
+      "offset": 3
+     }
+    },
+    {
+     "lo": 9,
+     "hi": 12,
+     "rgb": {
+      "base": [
+       5,
+       5,
+       5
+      ],
+      "step": [
+       0,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       0,
+       0
+      ]
+     },
+     "bright": 25,
+     "src": 249383
+    },
+    {
+     "lo": 12,
+     "hi": 18,
+     "rgb": {
+      "base": [
+       0,
+       0,
+       0
+      ],
+      "step": [
+       0,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       0,
+       0
+      ]
+     },
+     "bright": 25,
+     "src": 249387
+    },
+    {
+     "lo": 18,
+     "hi": 21,
+     "rgb": {
+      "base": [
+       0,
+       15,
+       10
+      ],
+      "step": [
+       20,
+       15,
+       10
+      ],
+      "offset": [
+       18,
+       18,
+       18
+      ]
+     },
+     "bright": 12,
+     "src": 249391
+    },
+    {
+     "lo": 21,
+     "hi": 24,
+     "rgb": {
+      "base": [
+       50,
+       45,
+       30
+      ],
+      "step": [
+       10,
+       10,
+       5
+      ],
+      "offset": [
+       21,
+       21,
+       21
+      ]
+     },
+     "bright": 7,
+     "src": 249395
+    }
+   ],
+   "weatherFloor": {
+    "3": 35,
+    "4": 55
+   },
+   "mapBonus": {
+    "mapId": 33,
+    "add": 25,
+    "when": "hour>=17|hour<7"
+   },
+   "src": [
+    249366,
+    249416
+   ]
+  },
+  "outdoor": {
+   "hours": [
+    {
+     "lo": 24,
+     "hi": 999,
+     "rgb": {
+      "base": [
+       110,
+       90,
+       60
+      ],
+      "step": [
+       0,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       0,
+       0
+      ]
+     },
+     "bright": 8,
+     "src": 249418
+    },
+    {
+     "lo": 0,
+     "hi": 4,
+     "rgb": {
+      "base": [
+       110,
+       90,
+       60
+      ],
+      "step": [
+       0,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       0,
+       0
+      ]
+     },
+     "bright": 8,
+     "src": 249422
+    },
+    {
+     "lo": 4,
+     "hi": 10,
+     "rgb": {
+      "base": [
+       70,
+       80,
+       60
+      ],
+      "step": [
+       -10,
+       -12,
+       -10
+      ],
+      "offset": [
+       3,
+       3,
+       3
+      ]
+     },
+     "bright": 15,
+     "src": 249426,
+     "floor": 10,
+     "floorBright": {
+      "base": 8,
+      "step": 2,
+      "offset": 3
+     }
+    },
+    {
+     "lo": 10,
+     "hi": 12,
+     "rgb": {
+      "base": [
+       10,
+       10,
+       10
+      ],
+      "step": [
+       0,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       0,
+       0
+      ]
+     },
+     "bright": 25,
+     "src": 249433
+    },
+    {
+     "lo": 12,
+     "hi": 17,
+     "rgb": {
+      "base": [
+       0,
+       0,
+       0
+      ],
+      "step": [
+       0,
+       0,
+       0
+      ],
+      "offset": [
+       0,
+       0,
+       0
+      ]
+     },
+     "bright": 25,
+     "src": 249437
+    },
+    {
+     "lo": 17,
+     "hi": 21,
+     "rgb": {
+      "base": [
+       0,
+       15,
+       10
+      ],
+      "step": [
+       20,
+       15,
+       10
+      ],
+      "offset": [
+       17,
+       16,
+       16
+      ]
+     },
+     "bright": 12,
+     "src": 249441
+    },
+    {
+     "lo": 21,
+     "hi": 24,
+     "rgb": {
+      "base": [
+       80,
+       70,
+       40
+      ],
+      "step": [
+       10,
+       10,
+       5
+      ],
+      "offset": [
+       21,
+       21,
+       21
+      ]
+     },
+     "bright": 7,
+     "src": 249445
+    }
+   ],
+   "weatherFloor": {
+    "3": 40,
+    "4": 65
+   },
+   "mapBonus": {
+    "mapId": 33,
+    "add": 35,
+    "when": "hour>=17|hour<7"
+   },
+   "src": [
+    249417,
+    249466
+   ]
+  },
+  "special47": {
+   "mapId": 850,
+   "worldTile": 47,
+   "siteMapId": 2,
+   "illumA": {
+    "hours": [
+     {
+      "lo": 24,
+      "hi": 999,
+      "rgb": {
+       "base": [
+        250,
+        120,
+        60
+       ],
+       "step": [
+        0,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        0,
+        0
+       ]
+      },
+      "bright": 8,
+      "src": 249471
+     },
+     {
+      "lo": 0,
+      "hi": 4,
+      "rgb": {
+       "base": [
+        250,
+        120,
+        60
+       ],
+       "step": [
+        0,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        0,
+        0
+       ]
+      },
+      "bright": 8,
+      "src": 249475
+     },
+     {
+      "lo": 4,
+      "hi": 10,
+      "rgb": {
+       "base": [
+        210,
+        110,
+        60
+       ],
+       "step": [
+        -10,
+        -12,
+        -10
+       ],
+       "offset": [
+        3,
+        3,
+        3
+       ]
+      },
+      "bright": 15,
+      "src": 249479,
+      "floor": 10,
+      "floorBright": {
+       "base": 8,
+       "step": 2,
+       "offset": 3
+      }
+     },
+     {
+      "lo": 10,
+      "hi": 12,
+      "rgb": {
+       "base": [
+        140,
+        40,
+        10
+       ],
+       "step": [
+        0,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        0,
+        0
+       ]
+      },
+      "bright": 25,
+      "src": 249486
+     },
+     {
+      "lo": 12,
+      "hi": 17,
+      "rgb": {
+       "base": [
+        140,
+        30,
+        0
+       ],
+       "step": [
+        0,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        0,
+        0
+       ]
+      },
+      "bright": 25,
+      "src": 249490
+     },
+     {
+      "lo": 17,
+      "hi": 21,
+      "rgb": {
+       "base": [
+        140,
+        45,
+        10
+       ],
+       "step": [
+        20,
+        15,
+        10
+       ],
+       "offset": [
+        17,
+        16,
+        16
+       ]
+      },
+      "bright": 12,
+      "src": 249494
+     },
+     {
+      "lo": 21,
+      "hi": 24,
+      "rgb": {
+       "base": [
+        220,
+        110,
+        40
+       ],
+       "step": [
+        10,
+        10,
+        5
+       ],
+       "offset": [
+        21,
+        21,
+        21
+       ]
+      },
+      "bright": 7,
+      "src": 249498
+     }
+    ],
+    "src": [
+     249470,
+     249502
+    ]
+   },
+   "illumB": {
+    "hours": [
+     {
+      "lo": 24,
+      "hi": 999,
+      "rgb": {
+       "base": [
+        250,
+        90,
+        60
+       ],
+       "step": [
+        0,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        0,
+        0
+       ]
+      },
+      "bright": 8,
+      "src": 249504
+     },
+     {
+      "lo": 0,
+      "hi": 4,
+      "rgb": {
+       "base": [
+        250,
+        90,
+        60
+       ],
+       "step": [
+        0,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        0,
+        0
+       ]
+      },
+      "bright": 8,
+      "src": 249508
+     },
+     {
+      "lo": 4,
+      "hi": 10,
+      "rgb": {
+       "base": [
+        210,
+        80,
+        60
+       ],
+       "step": [
+        -10,
+        -12,
+        -10
+       ],
+       "offset": [
+        3,
+        3,
+        3
+       ]
+      },
+      "bright": 15,
+      "src": 249512,
+      "floor": 10,
+      "floorBright": {
+       "base": 8,
+       "step": 2,
+       "offset": 3
+      }
+     },
+     {
+      "lo": 10,
+      "hi": 12,
+      "rgb": {
+       "base": [
+        140,
+        10,
+        10
+       ],
+       "step": [
+        0,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        0,
+        0
+       ]
+      },
+      "bright": 25,
+      "src": 249519
+     },
+     {
+      "lo": 12,
+      "hi": 17,
+      "rgb": {
+       "base": [
+        140,
+        0,
+        0
+       ],
+       "step": [
+        0,
+        0,
+        0
+       ],
+       "offset": [
+        0,
+        0,
+        0
+       ]
+      },
+      "bright": 25,
+      "src": 249523
+     },
+     {
+      "lo": 17,
+      "hi": 21,
+      "rgb": {
+       "base": [
+        140,
+        15,
+        10
+       ],
+       "step": [
+        20,
+        15,
+        10
+       ],
+       "offset": [
+        17,
+        16,
+        16
+       ]
+      },
+      "bright": 12,
+      "src": 249527
+     },
+     {
+      "lo": 21,
+      "hi": 24,
+      "rgb": {
+       "base": [
+        220,
+        80,
+        40
+       ],
+       "step": [
+        10,
+        10,
+        5
+       ],
+       "offset": [
+        21,
+        21,
+        21
+       ]
+      },
+      "bright": 7,
+      "src": 249531
+     }
+    ],
+    "src": [
+     249503,
+     249535
+    ]
+   },
+   "src": [
+    249468,
+    249537
+   ]
+  },
+  "src": [
+   249342,
+   249767
+  ]
+ },
+ "worldArea": {
+  "slot": {
+   "start": 450,
+   "count": 50,
+   "end": 500
+  },
+  "typeRandomSite": 8,
+  "targetCount": {
+   "base": 40,
+   "min": 1
+  },
+  "skipWorldId": 91,
+  "randomPoint": {
+   "x": "rnd(w)",
+   "y": "rnd(h)"
+  },
+  "siteReset": {
+   "rndChance": "rnd(3)==0",
+   "x": "cnt*3\\w",
+   "y": "cnt*3\\h",
+   "minLevel": 33,
+   "maxLevel": 33
+  },
+  "customMaps": [
+   {
+    "mapId": 4,
+    "file": "ntyris"
+   },
+   {
+    "mapId": 44,
+    "file": "styris"
+   },
+   {
+    "mapId": "var_410",
+    "file": "test"
+   },
+   {
+    "mapId": 70,
+    "file": "lost"
+   },
+   {
+    "mapId": 91,
+    "file": "ether"
+   }
+  ],
+  "diastrophism": {
+   "usedAtMost": 25,
+   "flags": [
+    "var_65(262)",
+    "var_65(79)"
+   ],
+   "removeIf": [
+    "var_65(561)==1",
+    "rnd(5)==0",
+    "var_132(20,cnt)==-1"
+   ]
+  },
+  "building": {
+   "scan": 500,
+   "skip": [
+    "var_132(16,cnt)==0",
+    "var_132(15,cnt)==0",
+    "var_132(30,cnt)!=var_65(850)"
+   ],
+   "idFix": {
+    "exact": 900,
+    "exactTo": 40,
+    "greaterEqual": 900,
+    "subtract": 800
+   },
+   "outOfBoundsCenter": {
+    "x": "w/2",
+    "y": "h/2"
+   },
+   "retry": {
+    "radius": "limit(rnd(cnt/4+1)+1, 1, w)",
+    "delta": "rnd(radius)-rnd(radius)",
+    "water": {
+     "lo": 33,
+     "hi": 57,
+     "exclude": [
+      44
+     ]
+    }
+   },
+   "keepTile": {
+    "water": {
+     "lo": 33,
+     "hi": 57,
+     "exclude": [
+      44
+     ]
+    },
+    "tileAttr0Eq4": true,
+    "tileAttr1Eq9": true
+   },
+   "feat": {
+    "id": 15,
+    "p1": "cnt\\100",
+    "p2": "cnt/100"
+   },
+   "guestMarker": {
+    "types": [
+     3,
+     2
+    ],
+    "layer": 9,
+    "value": 11
+   }
+  },
+  "src": [
+   249565,
+   249767
+  ]
+ },
+ "randSite": {
+  "slot": {
+   "start": 450,
+   "count": 50,
+   "end": 500
+  },
+  "attempts": 1000,
+  "jitter": "rnd(slot+1)-rnd(slot+1)",
+  "border": 6,
+  "water": {
+   "lo": 33,
+   "hi": 57,
+   "exclude": [
+    44
+   ]
+  },
+  "maxTile": 16,
+  "occupiedMask": "var_704(x,y,6)\\1000",
+  "spacing": 2,
+  "type": {
+   "base": 20,
+   "rnd": 8,
+   "min": 20,
+   "max": 27
+  },
+  "fields": {
+   "16": 8,
+   "15": 133,
+   "3": 1,
+   "4": 1,
+   "18": 1,
+   "9": 10000,
+   "21": 1,
+   "30": "var_65(850)"
+  },
+  "level": {
+   "base": "max(var_65(189), floor(var_65(252)/4)+1)",
+   "modes": [
+    {
+     "id": 0,
+     "expr": "base/2 + rnd(base*11/10+5) + 1",
+     "resetWorld": 4,
+     "src": [
+      251364,
+      251369
+     ]
+    },
+    {
+     "id": 1,
+     "expr": "base/2 + rnd(base*11/10+5) + 1",
+     "worldDiv": {
+      "4": 4,
+      "44": 2,
+      "70": "3/4"
+     },
+     "src": [
+      251370,
+      251384
+     ]
+    },
+    {
+     "id": 2,
+     "expr": "rnd(45)+1",
+     "worldOverride": {
+      "44": "rnd(60)+30",
+      "70": "rnd(50)+100"
+     },
+     "src": [
+      251385,
+      251393
+     ]
+    },
+    {
+     "id": 3,
+     "expr": "base*9/10 + rnd(base*1/5+2) + 1",
+     "resetWorld": 4,
+     "src": [
+      251394,
+      251399
+     ]
+    }
+   ],
+   "maxLevel": "level+2"
+  },
+  "typeFeat": {
+   "20": {
+    "feat": 133,
+    "value": 0,
+    "src": [
+     251407,
+     251409
+    ]
+   },
+   "21": {
+    "feat": 137,
+    "value": 100,
+    "src": [
+     251411,
+     251413
+    ]
+   },
+   "23": {
+    "feat": 140,
+    "value": 200,
+    "src": [
+     251415,
+     251417
+    ]
+   },
+   "22": {
+    "feat": 135,
+    "value": 300,
+    "src": [
+     251419,
+     251421
+    ]
+   },
+   "24": {
+    "feat": 380,
+    "value": 15,
+    "src": [
+     251423,
+     251425
+    ]
+   },
+   "25": {
+    "feat": 381,
+    "value": 16,
+    "src": [
+     251427,
+     251429
+    ]
+   },
+   "26": {
+    "feat": 382,
+    "value": 17,
+    "src": [
+     251431,
+     251433
+    ]
+   },
+   "27": {
+    "feat": 383,
+    "value": 18,
+    "src": [
+     251435,
+     251437
+    ]
+   }
+  },
+  "src": [
+   251302,
+   251441
+  ]
+ },
+ "siteCandidates": {
+  "base": [
+   159,
+   173
+  ],
+  "byMap": {
+   "12": [
+    154,
+    162,
+    184,
+    176,
+    177,
+    180,
+    301,
+    167,
+    153
+   ],
+   "5": [
+    178,
+    154,
+    184,
+    163,
+    182,
+    185,
+    158
+   ],
+   "15": [
+    151,
+    150,
+    161,
+    179,
+    301,
+    156,
+    160,
+    172,
+    178
+   ],
+   "33": [
+    181,
+    150,
+    162,
+    184,
+    182,
+    155,
+    153
+   ],
+   "50": [
+    154,
+    162,
+    184,
+    176,
+    177,
+    180,
+    301,
+    167,
+    153
+   ],
+   "52": [
+    151,
+    150,
+    161,
+    179,
+    301,
+    156,
+    160,
+    172,
+    178
+   ],
+   "53": [
+    181,
+    150,
+    162,
+    184,
+    182,
+    155,
+    190
+   ],
+   "54": [
+    158,
+    157,
+    170,
+    171,
+    176,
+    174,
+    183,
+    190
+   ],
+   "55": [
+    156,
+    160,
+    183,
+    185,
+    174,
+    151,
+    190
+   ],
+   "56": [
+    158,
+    157,
+    170,
+    171,
+    176,
+    174,
+    183
+   ],
+   "57": [
+    156,
+    160,
+    183,
+    185,
+    174,
+    151
+   ]
+  },
+  "byMapMode": {
+   "36:1": [
+    172,
+    154,
+    150,
+    174,
+    185,
+    171,
+    160,
+    167
+   ],
+   "36:3": [
+    172,
+    165,
+    155,
+    164,
+    178,
+    188,
+    171,
+    187
+   ],
+   "14:1": [
+    158,
+    157,
+    170,
+    171,
+    176,
+    174,
+    183,
+    163
+   ],
+   "14:3": [
+    300,
+    175,
+    158,
+    157,
+    189
+   ],
+   "11:1": [
+    156,
+    160,
+    183,
+    185,
+    174,
+    151,
+    190
+   ],
+   "11:3": [
+    153,
+    166,
+    167,
+    169,
+    152,
+    189,
+    168,
+    186
+   ]
+  },
+  "all": [
+   150,
+   151,
+   152,
+   153,
+   154,
+   155,
+   156,
+   157,
+   158,
+   159,
+   160,
+   161,
+   162,
+   163,
+   164,
+   165,
+   166,
+   167,
+   168,
+   169,
+   170,
+   171,
+   172,
+   173,
+   174,
+   175,
+   176,
+   177,
+   178,
+   179,
+   180,
+   181,
+   182,
+   183,
+   184,
+   185,
+   186,
+   187,
+   188,
+   189,
+   190,
+   300,
+   301
+  ],
+  "filter": "sorg==0 && var_83(0,id)!=0",
+  "entry": {
+   "id": "id",
+   "sortKey": "var_83(0,id)+21000"
+  },
+  "src": [
+   292183,
+   292600
+  ]
+ },
+ "worldTileCheck": {
+  "blocking": {
+   "lo": 264,
+   "hi": 363,
+   "hiExclusive": true,
+   "worldType": 1
+  },
+  "leaveCheck": {
+   "worldTypes": [
+    1,
+    6
+   ],
+   "excludeMaps": [
+    80,
+    96
+   ],
+   "bounds": "x<0 || x>w-1 || y<0 || y>h-1"
+  },
+  "questMaps": [
+   1009,
+   1006,
+   1013
+  ],
+  "specialActions": {
+   "21": "continue",
+   "23": "snd 99",
+   "31": "gosub 2080",
+   "33": "gosub 3080"
+  },
+  "bumpWhen": "var_58(254,0)!=0",
+  "src": [
+   343328,
+   343452
+  ]
+ },
+ "noSaveMaps": [
+  {
+   "mapId": 35,
+   "src": 304412
+  },
+  {
+   "mapId": 76,
+   "depth": 179,
+   "src": 304412
+  },
+  {
+   "mapId": 74,
+   "depthMin": 10,
+   "src": 304412
+  }
+ ],
+ "noSaveExit": {
+  "rules": [
+   {
+    "mapId": 35
+   },
+   {
+    "mapId": 76,
+    "depth": 179
+   }
+  ],
+  "textNoSave": "You can't save the game in a user made map. Exit anyway?",
+  "textNormal": "Do you want to save the game and exit?",
+  "saveWhen": "mapId != 35",
+  "src": [
+   300703,
+   300757
+  ]
+ },
+ "targetLock": {
+  "slot": 29,
+  "clearWhen": [
+   "var_58(0,target)!=1",
+   "synccheck(target,-1)==0",
+   "target<0"
+  ],
+  "autoPickTiers": {
+   "friendly": [
+    -3,
+    -1,
+    0
+   ],
+   "hostile": [
+    10,
+    0,
+    0
+   ]
+  },
+  "noTargetText": "You find no target.",
+  "src": [
+   300334,
+   300382
+  ]
+ },
+ "cargo": {
+  "mapTypes": [
+   1,
+   5,
+   3,
+   4,
+   6,
+   2
+  ],
+  "refItem": "var_99(3,var_579)",
+  "refItemSlot": 10,
+  "alwaysPass": true,
+  "playerOnly": true,
+  "usedByItem": "itemusingfind(var_579)>0",
+  "activity": 116,
+  "src": [
+   31537,
+   31547
+  ],
+  "caller": [
+   342549,
+   342582
+  ]
+ },
+ "fixOnMapEnter": {
+  "scan": 245,
+  "bounds": "x<0 || x>=w || y<0 || y>=h",
+  "fixTo": {
+   "x": 0,
+   "y": 0
+  },
+  "clearVar126_18When": "mapType!=5",
+  "map7": {
+   "minLevel": 0,
+   "maxLevel": 10,
+   "startLevel": 1,
+   "var126_8": 1,
+   "evadd": 44,
+   "flag": "var_65(550)!=0"
+  },
+  "clearVar193": true,
+  "src": [
+   301510,
+   301540
+  ]
+ },
+ "tempInv": {
+  "scene": 9,
+  "bg": "bg13",
+  "dim": {
+   "name": "var_1270",
+   "w": 80,
+   "h": 5
+  },
+  "modes": {
+   "1": "talkToDealer",
+   "2": "goto 2597",
+   "4": "gosub 0069"
+  },
+  "dealerChara": 77,
+  "src": [
+   270959,
+   270987
+  ]
+ },
+ "mapSizes": {
+  "maze": {
+   "w": "rooms*(span*2)-span+8",
+   "h": "w",
+   "creatureLimit": "w*h/12",
+   "src": [
+    232347,
+    232356
+   ]
+  },
+  "maze2": {
+   "w": "rooms*(span*2)-span+8",
+   "h": "w",
+   "creatureLimit": "w*h/12",
+   "rooms": 50,
+   "roomSize": "10+rnd(4)",
+   "feat": 21,
+   "src": [
+    232502,
+    232638
+   ]
+  },
+  "corridor": {
+   "w": 30,
+   "h": "60+rnd(60)",
+   "creatureLimit": "w*h/20",
+   "band": 6,
+   "upY": "rnd(15)",
+   "downY": "h-rnd(15)-1",
+   "src": [
+    232271,
+    232336
+   ]
+  },
+  "arena": {
+   "w": "48+rnd(20)",
+   "h": 22,
+   "creatureLimit": "w*h/20",
+   "wall": 3,
+   "src": [
+    231623,
+    231646
+   ]
+  },
+  "rivers": {
+   "vertical": {
+    "band": "6+var_65(682)",
+    "start": "h/2-band/2-5",
+    "tile": 165,
+    "src": [
+     232181,
+     232225
+    ]
+   },
+   "horizontal": {
+    "band": "6+var_65(682)",
+    "start": "w/2-band/2-5",
+    "tile": 165,
+    "src": [
+     232226,
+     232270
+    ]
+   }
+  },
+  "initCustom": {
+   "var126_10": 0,
+   "var126_14": 2,
+   "var65_26": 5,
+   "mapfile": "mapfile(var_65(66))",
+   "quest1008": {
+    "var65_84": 360,
+    "var65_87": 9999
+   },
+   "quest1010": {
+    "repeat": "6+rnd(4)"
+   },
+   "itemTweaks": {
+    "109": -10,
+    "173": -10,
+    "241": 0
+   },
+   "src": [
+    232129,
+    232180
+   ]
+  }
+ },
+ "mapInit": {
+  "clamp": "min(depth, var_132(10,mapId)) then max(depth, var_132(17,mapId))",
+  "var65_1": "max(var_65(1), depth) when mapId!=30",
+  "var132_6": "max(var_132(6,mapId), depth)",
+  "companionScan": 16,
+  "saveKey": "\"mapId\" + \"_\" + (100+depth)",
+  "reloadMapTypes": [
+   3,
+   2,
+   6,
+   1
+  ],
+  "src": [
+   237831,
+   237925
+  ]
+ },
+ "mapPreBegin": {
+  "userGraphicMaps": [
+   4,
+   44,
+   70,
+   91
+  ],
+  "userGraphicOffset": 329,
+  "threeYearReturns": [
+   {
+    "mapId": 4,
+    "yearFlag": 180,
+    "site": 11
+   },
+   {
+    "mapId": 44,
+    "yearFlag": 345,
+    "site": 55
+   }
+  ],
+  "companionScan": {
+   "count": 39,
+   "start": 16
+  },
+  "src": [
+   245727,
+   245784
+  ]
+ },
+ "clampSize": {
+  "wFloor": "var_537",
+  "hFloor": "var_538",
+  "objprm": [
+   0,
+   1
+  ],
+  "buffer": {
+   "name": "var_1728",
+   "layers": 10
+  },
+  "src": [
+   230090,
+   230125
+  ]
+ },
+ "difficulty": {
+  "levels": {
+   "0": {
+    "maxMap": 100,
+    "gold": 1000
+   },
+   "1": {
+    "maxMap": 150,
+    "gold": 3000
+   },
+   "2": {
+    "maxMap": 200,
+    "gold": 5000
+   },
+   "3": {
+    "maxMap": 300,
+    "gold": 7000
+   },
+   "4": {
+    "maxMap": 350,
+    "gold": 8000,
+    "tileset": 8
+   },
+   "5": {
+    "maxMap": 400,
+    "gold": 10000
+   },
+   "6": {
+    "maxMap": 400,
+    "gold": 15000
+   }
+  },
+  "var": "var_65(24)",
+  "src": [
+   232639,
+   232669
+  ]
+ },
+ "site7": {
+  "slot": 7,
+  "feat": 143,
+  "featByDifficulty": {
+   "0": 138,
+   "4": 148,
+   "5": 144,
+   "6": 136
+  },
+  "syncPosWhen": "var_1778==100 || var_65(24)!=0",
+  "src": [
+   232947,
+   232968
+  ]
+ },
+ "prompts": {
+  "moveWho": "Move who?",
+  "whereMove": "Where do you want to move ",
+  "invalid": "The location is invalid.",
+  "moved": " moved to the location.",
+  "src": [
+   233647,
+   233721
+  ]
+ },
+ "season": {
+  "repeat": 12,
+  "map47": {
+   "even": [
+    1223,
+    1040,
+    208,
+    160
+   ],
+   "odd": [
+    935,
+    976,
+    288,
+    224
+   ]
+  },
+  "other": {
+   "even": [
+    288,
+    1040,
+    208,
+    160
+   ],
+   "odd": [
+    0,
+    976,
+    288,
+    224
+   ]
+  },
+  "x": "rnd(100)+cnt*200+100000",
+  "y": "rnd(100)+cnt/5*200+100000",
+  "src": [
+   24277,
+   24298
+  ]
+ },
+ "eventZone": {
+  "zeroVars": [
+   "var_2207",
+   "var_2694",
+   "var_2696",
+   "var_2695",
+   "var_2693",
+   "var_2697"
+  ],
+  "resetVar1294": "var_1294>=9 or (var_1294>=1 or var_1294<=-1) and var_1294<9",
+  "impression": {
+   "threshold": 10,
+   "activity": 317,
+   "cap": 10
+  },
+  "clearVar2719": true,
+  "src": [
+   425317,
+   425379
+  ]
+ },
+ "mapTools": {
+  "randomTile": {
+   "count": "floor(w*h*pct/100)+1",
+   "layer": 0,
+   "src": [
+    228111,
+    228115
+   ]
+  },
+  "line": {
+   "tile": 100,
+   "order": "x then y",
+   "src": [
+    228116,
+    228141
+   ]
+  },
+  "simpleRoom": {
+   "size": "w+3 by h+3",
+   "wall": "prm_1100",
+   "floor": "prm_1099",
+   "ok": 1,
+   "fail": 0,
+   "src": [
+    228142,
+    228163
+   ]
+  },
+  "digCheck": {
+   "bounds": "1..w-2 / 1..h-2",
+   "tile": 100,
+   "src": [
+    228164,
+    228171
+   ]
+  },
+  "makeRoom": {
+   "noop": true,
+   "src": [
+    228458,
+    228459
+   ]
+  },
+  "fog": {
+   "layer": 2,
+   "expr": "var_812 + (rnd(var_812(2))==0)*rnd(var_812(1))",
+   "src": [
+    228461,
+    228469
+   ]
+  },
+  "upstairs": {
+   "feat": 10,
+   "enc": "y*1000+x",
+   "slot": 5,
+   "random": "rnd(roomW-2)+roomX+1",
+   "src": [
+    228748,
+    228760
+   ]
+  },
+  "downstairs": {
+   "feat": 11,
+   "enc": "y*1000+x",
+   "slot": 4,
+   "skipWhen": "depth>=var_132(10,mapId)",
+   "src": [
+    228761,
+    228776
+   ]
+  },
+  "web": {
+   "tries": 3,
+   "mef": [
+    1,
+    11,
+    -1
+   ],
+   "feat": 11,
+   "random": "rnd(w-5)+2",
+   "src": [
+    229031,
+    229054
+   ]
+  },
+  "barrel": {
+   "tries": 3,
+   "feat": 30,
+   "random": "rnd(w-5)+2",
+   "src": [
+    229055,
+    229078
+   ]
+  },
+  "connectRoom": {
+   "start": 0,
+   "src": [
+    229080,
+    229081
+   ]
+  },
+  "trap": {
+   "tries": 3,
+   "feat": 14,
+   "random": "rnd(w-5)+2",
+   "shallowDepth": 5,
+   "shallowForbidden": [
+    6,
+    1,
+    5
+   ],
+   "deepDepth": 25,
+   "deepForbidden": 7,
+   "deepQuest": 1013,
+   "src": [
+    228987,
+    229030
+   ]
+  }
+ },
+ "connectRoom": {
+  "range": "var_1381 = 1 .. var_1654-1",
+  "repeat": "rnd(var_1674+1)+1",
+  "dirCount": 4,
+  "sides": {
+   "1": {
+    "x": "roomX",
+    "y": "roomY + rnd(roomH-2)+1",
+    "vec": [
+     -1,
+     0
+    ]
+   },
+   "2": {
+    "x": "roomX + roomW-1",
+    "y": "roomY + rnd(roomH-2)+1",
+    "vec": [
+     1,
+     0
+    ]
+   },
+   "3": {
+    "x": "roomX + rnd(roomW-2)+1",
+    "y": "roomY",
+    "vec": [
+     0,
+     -1
+    ]
+   },
+   "0": {
+    "x": "roomX + rnd(roomW-2)+1",
+    "y": "roomY + roomH-1",
+    "vec": [
+     0,
+     1
+    ]
+   }
+  },
+  "doorTile": 3,
+  "floorTile": 100,
+  "fail": {
+   "var_518(var_1381)": 0,
+   "var_518(var_400)": 0,
+   "return": 0
+  },
+  "pass": {
+   "return": 1
+  },
+  "src": [
+   229082,
+   229142
+  ]
+ },
+ "editor": {
+  "label2384": {
+   "chance": "var_1675>=rnd(100)",
+   "countExpr": "(count*10-1)/400",
+   "src": [
+    229175,
+    229203
+   ]
+  },
+  "label2385": {
+   "dialog": "Unsaved data will be lost. Create a new map?",
+   "dim": {
+    "var_469": [
+     5,
+     400
+    ]
+   },
+   "src": [
+    229204,
+    229215
+   ]
+  },
+  "label2388": {
+   "tileset": "var_4",
+   "src": [
+    229328,
+    229330
+   ]
+  },
+  "label2393": {
+   "var1716": 1,
+   "src": [
+    229867,
+    229874
+   ]
+  },
+  "label2395": {
+   "clear": "var_122",
+   "src": [
+    229893,
+    229914
+   ]
+  },
+  "label2396": {
+   "clear": "var_122",
+   "src": [
+    229915,
+    229927
+   ]
+  },
+  "label2399": {
+   "zeroRow": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "src": [
+    230060,
+    230064
+   ]
+  },
+  "label2400": {
+   "toggle": "var_1693",
+   "src": [
+    230065,
+    230072
+   ]
+  },
+  "label2401": {
+   "expr": "var_1663 + (rnd(var_1663(2))==0)*rnd(var_1663(1))",
+   "src": [
+    230073,
+    230080
+   ]
+  },
+  "label2402": {
+   "layer": 2,
+   "value": "var_1663",
+   "src": [
+    230081,
+    230089
+   ]
+  },
+  "label2404": {
+   "empty": "var_1626",
+   "src": [
+    230126,
+    230134
+   ]
+  },
+  "label2405": {
+   "var": "var_1729",
+   "value": "map",
+   "fdialog": 17,
+   "src": [
+    230135,
+    230145
+   ]
+  },
+  "label2406": {
+   "var": "var_1729",
+   "value": "map",
+   "fdialog": 16,
+   "src": [
+    230146,
+    230160
+   ]
+  },
+  "label2407": {
+   "zeroVar": "var_1678",
+   "scan": 400,
+   "setVar1700": 1,
+   "src": [
+    230161,
+    230170
+   ]
+  }
+ },
+ "render": {
+  "repeat": "var_509 * (1 + (mapType==1))",
+  "2119": {
+   "rnd": 20,
+   "color": [
+    255,
+    20,
+    20
+   ],
+   "src": [
+    211179,
+    211201
+   ]
+  },
+  "2120": {
+   "rnd": 100,
+   "color": [
+    170,
+    200,
+    250
+   ],
+   "when": "var_126(14)==2",
+   "src": [
+    211202,
+    211228
+   ]
+  },
+  "2121": {
+   "rnd": 100,
+   "color": [
+    170,
+    200,
+    250
+   ],
+   "when": "var_126(14)==2",
+   "src": [
+    211229,
+    211255
+   ]
+  },
+  "2122": {
+   "repeat": "var_509*2",
+   "color": [
+    0,
+    0,
+    0
+   ],
+   "src": [
+    211256,
+    211282
+   ]
+  },
+  "2126": {
+   "repeat": "var_509",
+   "color": [
+    0,
+    0,
+    0
+   ],
+   "src": [
+    211347,
+    211369
+   ]
+  }
+ }
+}

@@ -1,0 +1,813 @@
+{
+  "meta": {
+    "source": "hsp/start.hsp",
+    "encoding": "cp932",
+    "holes": "tools/_holes.txt",
+    "totalLines": 611941,
+    "generatedBy": "tools/extract_source_anchors.py",
+    "holeBlocks": 81,
+    "anchorCount": 64,
+    "byDesignCount": 17
+  },
+  "anchors": [
+    {
+      "start": 37434,
+      "end": 38156,
+      "range": "37434-38156",
+      "hsp": "role",
+      "js": "core/battle.js",
+      "fn": "role",
+      "why": "掷骰 role/rolemax 与角色定位，battle.js 导出 role"
+    },
+    {
+      "start": 198611,
+      "end": 199003,
+      "range": "198611-199003",
+      "hsp": "dmghp",
+      "js": "core/battle.js",
+      "fn": "applyDamage",
+      "why": "dmghp 扣血主逻辑，applyDamage 逐分支落地"
+    },
+    {
+      "start": 628,
+      "end": 1019,
+      "range": "628-1019",
+      "hsp": "calcbuff",
+      "js": "core/buff.js",
+      "fn": "Elona.BuffEffects",
+      "why": "calcbuff 成长率与 buff ops，BuffEffects.apply 承接"
+    },
+    {
+      "start": 30566,
+      "end": 30923,
+      "range": "30566-30923",
+      "hsp": "itemname",
+      "js": "core/item.js",
+      "fn": "instanceName",
+      "why": "itemname 名称前后缀拼装，ItemDB.instanceName 承接"
+    },
+    {
+      "start": 199232,
+      "end": 199518,
+      "range": "199232-199518",
+      "hsp": "dmghp",
+      "js": "core/battle.js",
+      "fn": "applyDamage",
+      "why": "dmghp 斗志与致死结算，applyDamage 尾部"
+    },
+    {
+      "start": 194831,
+      "end": 195108,
+      "range": "194831-195108",
+      "hsp": "delbuff",
+      "js": "core/status.js",
+      "fn": "delbuff",
+      "why": "delbuff 清空槽位并把后续槽位整体前移"
+    },
+    {
+      "start": 196829,
+      "end": 197033,
+      "range": "196829-197033",
+      "hsp": "check_kill",
+      "js": "core/battle.js",
+      "fn": "onDeath",
+      "why": "击杀与死亡结算，onDeath 派发同伴与掉落"
+    },
+    {
+      "start": 1332,
+      "end": 1517,
+      "range": "1332-1517",
+      "hsp": "calcbuff",
+      "js": "core/buff.js",
+      "fn": "Elona.BuffEffects",
+      "why": "calcbuff 后段 ops，随 BuffEffects 规则表"
+    },
+    {
+      "start": 1521,
+      "end": 1705,
+      "range": "1521-1705",
+      "hsp": "calcbuff",
+      "js": "core/buff.js",
+      "fn": "Elona.BuffEffects",
+      "why": "calcbuff 末段，随 BuffEffects 规则表"
+    },
+    {
+      "start": 29428,
+      "end": 29603,
+      "range": "29428-29603",
+      "hsp": "itemlist/label_0370",
+      "js": "core/game.js",
+      "fn": "groundItems",
+      "why": "itemlist 一族物品遍历，game.js 的 groundItems 数组承接"
+    },
+    {
+      "start": 30315,
+      "end": 30457,
+      "range": "30315-30457",
+      "hsp": "itemname",
+      "js": "core/item.js",
+      "fn": "instanceName",
+      "why": "itemname 定义段，物品名拼装入口"
+    },
+    {
+      "start": 192751,
+      "end": 192888,
+      "range": "192751-192888",
+      "hsp": "fixaiact",
+      "js": "core/ai.js",
+      "fn": "Elona.AI",
+      "why": "AI 行动槽修正，随 npcTurn/castBranch 决策链"
+    },
+    {
+      "start": 193158,
+      "end": 193284,
+      "range": "193158-193284",
+      "hsp": "customtalk",
+      "js": "core/event.js",
+      "fn": "Elona.Event",
+      "why": "customtalk 之后的 findchara 族，event.js 的 findchara 承接"
+    },
+    {
+      "start": 194680,
+      "end": 194797,
+      "range": "194680-194797",
+      "hsp": "addbuff",
+      "js": "core/status.js",
+      "fn": "addbuff",
+      "why": "addbuff 写入 buff 槽与持续回合"
+    },
+    {
+      "start": 12479,
+      "end": 12586,
+      "range": "12479-12586",
+      "hsp": "txtskillchange",
+      "js": "core/stats.js",
+      "fn": "Elona.Stats",
+      "why": "属性变化文案，随 Stats 成长播报模块承接"
+    },
+    {
+      "start": 201763,
+      "end": 201869,
+      "range": "201763-201869",
+      "hsp": "chara_morasi",
+      "js": "core/potion.js",
+      "fn": "morasi",
+      "why": "失禁尾部与 gain_iden 段，随 potion.js 的 morasi 结算"
+    },
+    {
+      "start": 194438,
+      "end": 194533,
+      "range": "194438-194533",
+      "hsp": "hostileaction",
+      "js": "core/intimacy.js",
+      "fn": "hostileAction",
+      "why": "敌对行动的表情/嫌弃/karma 近似"
+    },
+    {
+      "start": 345623,
+      "end": 345709,
+      "range": "345623-345709",
+      "hsp": "label_3005",
+      "js": "core/source_anchors.js",
+      "fn": "strongestElementSkill",
+      "why": "按最大元素属性选法术，本模块 strongestElementSkill 实现"
+    },
+    {
+      "start": 29313,
+      "end": 29398,
+      "range": "29313-29398",
+      "hsp": "item_find",
+      "js": "core/game.js",
+      "fn": "groundItems",
+      "why": "item_find 地面与背包扫描，groundItems 遍历承接"
+    },
+    {
+      "start": 343508,
+      "end": 343586,
+      "range": "343508-343586",
+      "hsp": "label_2991",
+      "js": "core/source_anchors.js",
+      "fn": "groundCollide",
+      "why": "地面效果结算，本模块 groundCollide 实现"
+    },
+    {
+      "start": 213139,
+      "end": 213216,
+      "range": "213139-213216",
+      "hsp": "calcattackdmg",
+      "js": "core/battle.js",
+      "fn": "calcAttackDmg",
+      "why": "伤害计算骰与护甲减伤"
+    },
+    {
+      "start": 591261,
+      "end": 591335,
+      "range": "591261-591335",
+      "hsp": "label_4291",
+      "js": "core/arena.js",
+      "fn": "Elona.Arena",
+      "why": "竞技场胜利名声结算，Arena 模块承接"
+    },
+    {
+      "start": 1204,
+      "end": 1271,
+      "range": "1204-1271",
+      "hsp": "calcbuff",
+      "js": "core/buff.js",
+      "fn": "Elona.BuffEffects",
+      "why": "calcbuff 中段，随 BuffEffects 规则表"
+    },
+    {
+      "start": 212366,
+      "end": 212432,
+      "range": "212366-212432",
+      "hsp": "calcattackhit",
+      "js": "core/battle.js",
+      "fn": "calcAttackHit",
+      "why": "命中计算与骑乘/回避修正"
+    },
+    {
+      "start": 1113,
+      "end": 1173,
+      "range": "1113-1173",
+      "hsp": "calcbuff",
+      "js": "core/buff.js",
+      "fn": "Elona.BuffEffects",
+      "why": "calcbuff 子区间，随 BuffEffects 规则表"
+    },
+    {
+      "start": 195601,
+      "end": 195660,
+      "range": "195601-195660",
+      "hsp": "label_2015",
+      "js": "core/monster.js",
+      "fn": "Elona.CharaFactory",
+      "why": "animeload 与 label_2174 怪物生成，CharaFactory 承接"
+    },
+    {
+      "start": 30476,
+      "end": 30533,
+      "range": "30476-30533",
+      "hsp": "itemname",
+      "js": "core/item.js",
+      "fn": "instanceName",
+      "why": "itemname 子区间，同一名称拼装流程"
+    },
+    {
+      "start": 194613,
+      "end": 194667,
+      "range": "194613-194667",
+      "hsp": "incognitoend",
+      "js": "core/chara.js",
+      "fn": "Elona.Chara",
+      "why": "变装结束与 cell_setchara/removechara，Chara 对象模型承接"
+    },
+    {
+      "start": 199011,
+      "end": 199064,
+      "range": "199011-199064",
+      "hsp": "dmghp",
+      "js": "core/battle.js",
+      "fn": "applyDamage",
+      "why": "dmghp 中子区间，同一扣血流程"
+    },
+    {
+      "start": 602929,
+      "end": 602980,
+      "range": "602929-602980",
+      "hsp": "label_4349",
+      "js": "core/scene.js",
+      "fn": "Elona.Scene",
+      "why": "场景变量初始化与 gosub 2644，Scene 模块承接"
+    },
+    {
+      "start": 194257,
+      "end": 194306,
+      "range": "194257-194306",
+      "hsp": "get_freeallyne",
+      "js": "core/companion.js",
+      "fn": "Elona.Companion",
+      "why": "同伴空位扫描与 del_chara，Companion 模块承接"
+    },
+    {
+      "start": 199081,
+      "end": 199130,
+      "range": "199081-199130",
+      "hsp": "dmghp",
+      "js": "core/battle.js",
+      "fn": "applyDamage",
+      "why": "dmghp 中子区间，斗志结算前置"
+    },
+    {
+      "start": 1282,
+      "end": 1324,
+      "range": "1282-1324",
+      "hsp": "calcbuff",
+      "js": "core/buff.js",
+      "fn": "Elona.BuffEffects",
+      "why": "calcbuff 子区间，随 BuffEffects 规则表"
+    },
+    {
+      "start": 1060,
+      "end": 1101,
+      "range": "1060-1101",
+      "hsp": "calcbuff",
+      "js": "core/buff.js",
+      "fn": "Elona.BuffEffects",
+      "why": "calcbuff 子区间，随 BuffEffects 规则表"
+    },
+    {
+      "start": 201547,
+      "end": 201588,
+      "range": "201547-201588",
+      "hsp": "modweight",
+      "js": "core/feat.js",
+      "fn": "applyWeight",
+      "why": "负重修正 modweight，Feat.applyWeight 承接"
+    },
+    {
+      "start": 201321,
+      "end": 201360,
+      "range": "201321-201360",
+      "hsp": "dmghp",
+      "js": "core/battle.js",
+      "fn": "applyDamage",
+      "why": "dmghp 受击音效与 cbit(19) 分支"
+    },
+    {
+      "start": 213009,
+      "end": 213048,
+      "range": "213009-213048",
+      "hsp": "calcattackdmg",
+      "js": "core/battle.js",
+      "fn": "calcAttackDmg",
+      "why": "伤害计算子区间，护甲与回避量"
+    },
+    {
+      "start": 29255,
+      "end": 29293,
+      "range": "29255-29293",
+      "hsp": "inv_getheader",
+      "js": "core/game.js",
+      "fn": "groundItems",
+      "why": "背包与地面扫描衔接，groundItems 遍历承接"
+    },
+    {
+      "start": 31721,
+      "end": 31759,
+      "range": "31721-31759",
+      "hsp": "sin_reduction",
+      "js": "core/economy.js",
+      "fn": "Elona.Economy",
+      "why": "罪与声望结算文案，Economy 模块承接"
+    },
+    {
+      "start": 604801,
+      "end": 604839,
+      "range": "604801-604839",
+      "hsp": "rowactend",
+      "js": "core/game.js",
+      "fn": "Elona.Game",
+      "why": "rowactend 行动收尾，Game 回合循环承接"
+    },
+    {
+      "start": 265,
+      "end": 302,
+      "range": "265-302",
+      "hsp": "cbit",
+      "js": "core/status.js",
+      "fn": "cbit",
+      "why": "cbit/cbitmod 位标志读写，Status.cbit 承接"
+    },
+    {
+      "start": 591432,
+      "end": 591468,
+      "range": "591432-591468",
+      "hsp": "label_4292",
+      "js": "core/arena.js",
+      "fn": "Elona.Arena",
+      "why": "区域制压结算，Arena 模块承接"
+    },
+    {
+      "start": 376,
+      "end": 407,
+      "range": "376-407",
+      "hsp": "title_table",
+      "js": "core/titletext.js",
+      "fn": "Elona.TitleText",
+      "why": "称号文本表（市长/村长/司祭），TitleText 承接"
+    },
+    {
+      "start": 1025,
+      "end": 1056,
+      "range": "1025-1056",
+      "hsp": "calcbuff",
+      "js": "core/buff.js",
+      "fn": "Elona.BuffEffects",
+      "why": "calcbuff 子区间，随 BuffEffects 规则表"
+    },
+    {
+      "start": 343453,
+      "end": 343483,
+      "range": "343453-343483",
+      "hsp": "label_2991",
+      "js": "core/source_anchors.js",
+      "fn": "groundCollide",
+      "why": "移动与碰撞段前置，本模块 groundCollide 实现"
+    },
+    {
+      "start": 29611,
+      "end": 29640,
+      "range": "29611-29640",
+      "hsp": "removeitem",
+      "js": "core/game.js",
+      "fn": "groundItems",
+      "why": "removeitem/item_copy，groundItems 数组承接"
+    },
+    {
+      "start": 32413,
+      "end": 32440,
+      "range": "32413-32440",
+      "hsp": "cell_movechara",
+      "js": "core/map.js",
+      "fn": "Elona.GameMap",
+      "why": "角色格子移动，GameMap 承接"
+    },
+    {
+      "start": 36247,
+      "end": 36274,
+      "range": "36247-36274",
+      "hsp": "cell_itemlist",
+      "js": "core/mapfeat.js",
+      "fn": "Elona.MapFeat",
+      "why": "地面物品列扫描，MapFeat 承接"
+    },
+    {
+      "start": 213246,
+      "end": 213272,
+      "range": "213246-213272",
+      "hsp": "calcattackdmg",
+      "js": "core/battle.js",
+      "fn": "calcAttackDmg",
+      "why": "伤害计算子区间，倍率结算"
+    },
+    {
+      "start": 309,
+      "end": 334,
+      "range": "309-334",
+      "hsp": "refrace",
+      "js": "core/racename.js",
+      "fn": "Elona.RaceName",
+      "why": "refrace/ranktitle 种族称号，RaceName 承接"
+    },
+    {
+      "start": 212291,
+      "end": 212315,
+      "range": "212291-212315",
+      "hsp": "calcattackhit",
+      "js": "core/battle.js",
+      "fn": "calcAttackHit",
+      "why": "命中计算子区间"
+    },
+    {
+      "start": 194540,
+      "end": 194562,
+      "range": "194540-194562",
+      "hsp": "rowact_item",
+      "js": "core/actions.js",
+      "fn": "Elona.Actions",
+      "why": "rowact_item 行动行，Actions 模块承接"
+    },
+    {
+      "start": 29648,
+      "end": 29669,
+      "range": "29648-29669",
+      "hsp": "item_delete",
+      "js": "core/game.js",
+      "fn": "groundItems",
+      "why": "item_delete/inv_getspace/inv_sum 槽管理"
+    },
+    {
+      "start": 602905,
+      "end": 602925,
+      "range": "602905-602925",
+      "hsp": "label_4348",
+      "js": "core/scene.js",
+      "fn": "Elona.Scene",
+      "why": "场景变量初始化，Scene 模块承接"
+    },
+    {
+      "start": 213353,
+      "end": 213372,
+      "range": "213353-213372",
+      "hsp": "cnvbonus",
+      "js": "core/battle.js",
+      "fn": "calcAttackDmg",
+      "why": "伤害加成换算 cnvbonus"
+    },
+    {
+      "start": 11958,
+      "end": 11976,
+      "range": "11958-11976",
+      "hsp": "maplevel",
+      "js": "core/mapids.js",
+      "fn": "Elona.MapIds",
+      "why": "地图层级名 maplevel，MapIds 承接"
+    },
+    {
+      "start": 196276,
+      "end": 196294,
+      "range": "196276-196294",
+      "hsp": "healhp",
+      "js": "core/status.js",
+      "fn": "Elona.Status",
+      "why": "healhp 回血，Status 模块承接"
+    },
+    {
+      "start": 342331,
+      "end": 342348,
+      "range": "342331-342348",
+      "hsp": "pickup_fx",
+      "js": "core/game.js",
+      "fn": "groundItems",
+      "why": "拾取音效与文案，groundItems/pickupAt 承接"
+    },
+    {
+      "start": 30173,
+      "end": 30188,
+      "range": "30173-30188",
+      "hsp": "itemname_grown",
+      "js": "core/item.js",
+      "fn": "instanceName",
+      "why": "itemname grown 前缀，instanceName 承接"
+    },
+    {
+      "start": 343312,
+      "end": 343327,
+      "range": "343312-343327",
+      "hsp": "label_2991",
+      "js": "core/source_anchors.js",
+      "fn": "groundCollide",
+      "why": "移动前处理，随 groundCollide 规则表"
+    },
+    {
+      "start": 25814,
+      "end": 25828,
+      "range": "25814-25828",
+      "hsp": "csvsort",
+      "js": "core/smallfns.js",
+      "fn": "Elona.SmallFns",
+      "why": "csvsort CSV 解析工具，SmallFns 模块承接"
+    },
+    {
+      "start": 29910,
+      "end": 29921,
+      "range": "29910-29921",
+      "hsp": "itemowner",
+      "js": "core/game.js",
+      "fn": "groundItems",
+      "why": "itemowner 物品归属，groundItems 承接"
+    },
+    {
+      "start": 31548,
+      "end": 31559,
+      "range": "31548-31559",
+      "hsp": "rndshuffle",
+      "js": "core/rng.js",
+      "fn": "Elona.RNG",
+      "why": "rndshuffle 随机洗牌，RNG 模块承接"
+    },
+    {
+      "start": 194150,
+      "end": 194161,
+      "range": "194150-194161",
+      "hsp": "turn_aggro",
+      "js": "core/ai.js",
+      "fn": "Elona.AI",
+      "why": "turn_aggro 仇恨轮转，AI 模块承接"
+    }
+  ],
+  "byDesign": [
+    {
+      "start": 197521,
+      "end": 197973,
+      "range": "197521-197973",
+      "hsp": "txteledmg",
+      "reason": "HSP 元素伤害文字特效与 gmes 排版，项目以消息日志与 Canvas 绘制承接"
+    },
+    {
+      "start": 201948,
+      "end": 202344,
+      "range": "201948-202344",
+      "hsp": "net_send/net_read",
+      "reason": "HSP 网络收发族（net_send/net_read/net_dllist/net_dl），项目以本地存档与离线对象模型承接"
+    },
+    {
+      "start": 600574,
+      "end": 600763,
+      "range": "600574-600763",
+      "hsp": "cnvjkey",
+      "reason": "HSP 日文键位串转换，项目以 Keys 模块与浏览器键码承接"
+    },
+    {
+      "start": 37139,
+      "end": 37311,
+      "range": "37139-37311",
+      "hsp": "window2",
+      "reason": "HSP window2/display_window2 窗口族，项目以 view/panels.js 与 Canvas 承接"
+    },
+    {
+      "start": 23618,
+      "end": 23784,
+      "range": "23618-23784",
+      "hsp": "label_0282",
+      "reason": "开机收尾 DMEND/DSEND/delcom/end，HSP 运行时与绘制宏，项目以启动流程承接"
+    },
+    {
+      "start": 36923,
+      "end": 37076,
+      "range": "36923-37076",
+      "hsp": "display_customkey",
+      "reason": "HSP 自定义键显示与 cursor_check，项目以 Keys 与输入层承接"
+    },
+    {
+      "start": 605200,
+      "end": 605328,
+      "range": "605200-605328",
+      "hsp": "label_4360",
+      "reason": "await/key_check 输入等待循环，项目以 core/keys.js 与事件循环承接"
+    },
+    {
+      "start": 602136,
+      "end": 602247,
+      "range": "602136-602247",
+      "hsp": "label_4343",
+      "reason": "redraw 0 / winposy 整屏窗口绘制，项目以 Canvas 重绘承接"
+    },
+    {
+      "start": 31563,
+      "end": 31653,
+      "range": "31563-31653",
+      "hsp": "winposy",
+      "reason": "HSP winposy 窗口坐标与 cs_list，项目以 panels.js 布局承接"
+    },
+    {
+      "start": 177,
+      "end": 259,
+      "range": "177-259",
+      "hsp": "netload",
+      "reason": "HSP netload 网络加载与开机文本工具族，项目以本地存档承接"
+    },
+    {
+      "start": 425380,
+      "end": 425447,
+      "range": "425380-425447",
+      "hsp": "label_3068",
+      "reason": "font/cs_list/redraw 一览窗绘制，项目以 view/panels.js 承接"
+    },
+    {
+      "start": 202768,
+      "end": 202818,
+      "range": "202768-202818",
+      "hsp": "label_2087/2088",
+      "reason": "网络族延续标签，项目以离线对象模型承接"
+    },
+    {
+      "start": 31436,
+      "end": 31473,
+      "range": "31436-31473",
+      "hsp": "colorres",
+      "reason": "HSP colorres 颜色与画面资源，项目以 Canvas 调色承接"
+    },
+    {
+      "start": 202999,
+      "end": 203033,
+      "range": "202999-203033",
+      "hsp": "label_2100/2101",
+      "reason": "网络族延续标签，项目以离线对象模型承接"
+    },
+    {
+      "start": 425453,
+      "end": 425483,
+      "range": "425453-425483",
+      "hsp": "label_3071",
+      "reason": "一览窗 cs_list 绘制延续，项目以 panels.js 承接"
+    },
+    {
+      "start": 365578,
+      "end": 365606,
+      "range": "365578-365606",
+      "hsp": "label_3029/3030",
+      "reason": "gsel/buffer/picload 头像位图绘制，项目以 Canvas 头像承接"
+    },
+    {
+      "start": 602103,
+      "end": 602118,
+      "range": "602103-602118",
+      "hsp": "label_4342",
+      "reason": "窗口绘制衔接标签，项目以 Canvas 重绘承接"
+    }
+  ],
+  "rules": {
+    "strongestElement": {
+      "source": "345623-345709",
+      "label": "*label_3005",
+      "bit": 1016,
+      "defaultSkill": 414,
+      "scan": [
+        [
+          50,
+          485
+        ],
+        [
+          51,
+          486
+        ],
+        [
+          52,
+          487
+        ],
+        [
+          53,
+          418
+        ],
+        [
+          54,
+          488
+        ],
+        [
+          55,
+          489
+        ],
+        [
+          56,
+          415
+        ],
+        [
+          57,
+          490
+        ],
+        [
+          58,
+          416
+        ],
+        [
+          59,
+          417
+        ]
+      ],
+      "attr60": 60,
+      "id60": 414,
+      "overrideSlot": 414,
+      "override": {
+        "1": 485,
+        "2": 486,
+        "3": 487,
+        "4": 418,
+        "5": 488,
+        "6": 489,
+        "7": 415,
+        "8": 490,
+        "9": 416,
+        "10": 417,
+        "11": 414
+      },
+      "resultVar": "var_396",
+      "castLabel": "*label_2950"
+    },
+    "groundCollide": {
+      "source": "343508-343586",
+      "label": "*label_2991",
+      "featSlot": 6,
+      "mefSlot": 8,
+      "tileSlot": 0,
+      "feat": {
+        "trapdoor": 21,
+        "pot": 30
+      },
+      "mef": {
+        "cobweb": 1,
+        "typeField": 0,
+        "hpField": 5
+      },
+      "tile": {
+        "waterType": 3,
+        "waterSub": 5,
+        "wetTurns": 20
+      },
+      "cobweb": {
+        "checkBase": 25,
+        "attrStr": 10,
+        "attrDex": 12,
+        "hpMul": 3,
+        "hpDiv": 4
+      },
+      "spiderRace": "spider",
+      "labels": {
+        "trapdoor": "*label_3003",
+        "pot": "*label_2987",
+        "abort": "*label_4358"
+      }
+    }
+  }
+}

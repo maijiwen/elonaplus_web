@@ -1,0 +1,637 @@
+{
+  "meta": {
+    "name": "residual_status",
+    "group": "D",
+    "source": "hsp/start.hsp",
+    "encoding": "cp932",
+    "totalLines": 611940,
+    "generatedBy": "tools/extract_residual_status.py",
+    "consumer": "web/js/core/residual_status.js",
+    "note": "状态 / 物品工具 / 小工具函数段的阈值、状态 id、公式、文案、技能 id 与经验值规则表"
+  },
+  "ranges": [
+    { "src": "224184-224244", "api": "selfHarmCheck, appraise", "note": "label_2295 自伤状态自检 254/251/252/263 与背包鉴定链" },
+    { "src": "201589-201614", "api": "modHeight", "note": "modheight 身高槽 19 调整与长高/变矮播报" },
+    { "src": "201615-201628", "api": "anorexia, cureAnorexia", "note": "cure_anorexia 厌食治疗 cbit 986 / snd 65" },
+    { "src": "201928-201933", "api": "anorexia, charaAnorexia", "note": "chara_anorexia 厌食发作 chara_vomit" },
+    { "src": "201870-201898", "api": "eatStatus", "note": "eatstatus 进食心情状态效果" },
+    { "src": "201899-201927", "api": "eatStatusFood", "note": "eatstatusfood 食物品质效果" },
+    { "src": "196631-196651", "api": "bloodStain, spillBlood", "note": "spillblood 血迹 mef 字段 7" },
+    { "src": "196652-196672", "api": "bloodStain, spillFrag", "note": "spillfrag 碎片 mef 字段 7" },
+    { "src": "29604-29610", "api": "itemRot", "note": "itemturn 全局计数器 826 与物品槽 30" },
+    { "src": "31286-31309", "api": "remainMake", "note": "remain_make 尸体分支 204 / 1214 与价值公式" },
+    { "src": "201526-201541", "api": "advFavoriteSkill", "note": "advfavoriteskill 技能 100..399 取 2 项" },
+    { "src": "201542-201546", "api": "advFavoriteStat", "note": "advfavoritestat 属性 10..17" },
+    { "src": "192908-192919", "api": "relationBetween", "note": "relationbetween 关系槽 9 条件链" },
+    { "src": "192920-192930", "api": "calcAge", "note": "calcage 年龄换算 / 不明 / cbit 1026" },
+    { "src": "194563-194573", "api": "wakeUp", "note": "wake_up 白天 7..22 时唤醒 57..244 号睡眠状态 251" },
+    { "src": "201361-201388", "api": "label2045", "note": "label_2045 濒死播报 6 条台词与 rnd(20)" },
+    { "src": "211959-212087", "api": "growthChain", "note": "label_2146..2158 技能成长衰减链与 skillexp" },
+    { "src": "212172-212185", "api": "growthChain", "note": "label_2166..2168 技能成长 skillexp 174/185/165" },
+    { "src": "226858-227252", "api": "pronounSynccheck", "note": "label_2305..2335 synccheck 播报族 31 条" },
+    { "src": "202819-202947", "api": "comevdisp", "note": "label_2089..2098 comevdisp 变量族与时间换算" },
+    { "src": "210969-211000", "api": "variableAssign, neighborBitmask", "note": "label_2115/2116 变量赋值与八邻域位掩码" },
+    { "src": "26065-26090", "api": "getInheritance", "note": "getinheritance 基因继承 repeat 10 / rnd(15)" },
+    { "src": "26150-26193", "api": "fltFamily", "note": "flt / fltn / discsetmc / fltsetdungeon 物品过滤族" },
+    { "src": "29294-29312", "api": "fixFind", "note": "fix_find 物品 555 的 f21==3 重置与 snd 90" },
+    { "src": "31523-31535", "api": "csvstr2", "note": "csvstr2 逗号分隔 44 最多 40 段" },
+    { "src": "32260-32261", "api": "calcShopReform", "note": "calcshopreform var_126(18)*100+1000" },
+    { "src": "29901-29909", "api": "rpname", "note": "rpname 自定义名 / 400 门槛 / ????? 兜底" },
+    { "src": "201512-201523", "api": "actionsp", "note": "actionsp 槽 52 与 rnd(75) 的 SP 消耗" },
+    { "src": "26029-26064", "api": "cheerLine", "note": "label_0319 伙伴应援台词 11 条" },
+    { "src": "229175-229203", "api": "rnd100Gate, inventoryCount", "note": "label_2384 rnd(100) 判定与背包计数公式" },
+    { "src": "291069-291096", "api": "nameConfirm", "note": "label_2750 命名确认播报与 cbit 977" },
+    { "src": "602270-602302", "api": "dateInit", "note": "label_4347 日期时间初始化 517,10,12,16,10" },
+    { "src": "19670-19709", "api": "misc.talkBlock", "note": "label_0260..0263 strmid / instr 子串与 %END 标记" },
+    { "src": "25829-25855", "api": "misc.nameTable", "note": "label_0310 sdim 与 ndata.csv / name.csv 表装载" },
+    { "src": "26008-26027", "api": "misc.guildSuffix", "note": "label_0317 团体名后缀词表与 rnd(5)/rnd(2)/rnd(4)/rnd(7)" },
+    { "src": "28874-28888", "api": "misc.applyMat", "note": "label_0356 附魔 8 组与位标志 10 组回填" },
+    { "src": "31411-31435", "api": "misc.itemStack", "note": "label_0413 物品堆叠合并与汇总播报" },
+    { "src": "37387-37413", "api": "misc.crlfJoin", "note": "label_0539 getstr 分段拼接与尾部分隔符" },
+    { "src": "303-308", "api": "misc.refclass", "note": "refclass 职业引用 var_59=16" },
+    { "src": "364-375", "api": "guildName", "note": "guildname 公会名 263/264/265 位" },
+    { "src": "5024-5027", "api": "randSkill, randAttb", "note": "randskill 150..190 / randattb 10..17" },
+    { "src": "8653-8661", "api": "misc.stxt", "note": "stxt 播报 var_58(253,0)==0 门控" },
+    { "src": "8710-8725", "api": "misc.at", "note": "at 回合等待与重绘标志" },
+    { "src": "11950-11957", "api": "prefixWord", "note": "label_0218 前缀词表 2 组 5 档" },
+    { "src": "194576-194612", "api": "incognitoBegin", "note": "incognitobegin 变装开始跳过链与 79=221" },
+    { "src": "235635-235656", "api": "cellRefreshLevel", "note": "label_2447 var_126(10) 公式" },
+    { "src": "235860-235889", "api": "foodValue", "note": "label_2451 食物 60000 与价值除数 20/10/10/1000" },
+    { "src": "279451-279464", "api": "blendCheckExt", "note": "blendcheckext 调合扩展检查 10000 / 1499" },
+    { "src": "280034-280041", "api": "misc.bitScan", "note": "label_2644 var_500 位登记" },
+    { "src": "304316-304331", "api": "ringIndex", "note": "label_2876 环形缓冲 (v+1) mod 4" },
+    { "src": "344646-344650", "api": "clamp2000", "note": "label_2994 var_2535 上限 2000" },
+    { "src": "603945-603955", "api": "misc.turnReset", "note": "label_4353 var_124>=245 与 var_58(10) 回绕" },
+    { "src": "220619-220624", "api": "misc.rand45", "note": "label_2251 四个 rnd(45)+1" },
+    { "src": "220812-220822", "api": "misc.pageClamp", "note": "label_2256 分页 (var_701-1)/var_893" },
+    { "src": "340772-340794", "api": "misc.clearStatus", "note": "label_2974 状态字段清零表" },
+    { "src": "211370-211440", "api": "misc.moveCheck", "note": "label_2127 目标格差 >1 拒绝" },
+    { "src": "235890-235944", "api": "misc.depthGate", "note": "label_2452 var_65(22)!=1 返回" },
+    { "src": "425317-425379", "api": "coveredBy", "note": "label_3067 由 core/residual_map.js 的 eventZoneInit() 覆盖" },
+    { "src": "31537-31547", "api": "coveredBy", "note": "cargocheck 由 core/residual_map.js 的 cargoCheck() 覆盖" },
+    { "src": "28874-28888", "api": "coveredBy", "note": "附魔位标志回填由 core/residual_tables.js 的 materialEnchants/materialBits 覆盖" },
+    { "src": "37329-37386", "api": "coveredBy", "note": "conv_crlf 由 core/residual_tables.js 的 convCrlf 覆盖" },
+    { "src": "37414-37431", "api": "coveredBy", "note": "rm_crlf 由 core/residual_tables.js 的 rmCrlf 覆盖" },
+    { "src": "26150-26168", "api": "coveredBy", "note": "flt 主体由 core/residual_tables.js 的 fltLevels 覆盖" },
+    { "src": "212088-212171", "api": "coveredBy", "note": "label_2159..2165 由 core/turncycle.js 的 GROWTH 表覆盖" }
+  ],
+  "rules": {
+    "selfHarmCheck": {
+      "src": "224184-224244",
+      "fields": [254, 251, 252, 263],
+      "chara": 0,
+      "gate": "anyNonZero",
+      "fieldMeanings": { "251": "睡眠", "252": "麻痹", "254": "混乱", "263": "窒息" },
+      "returnOnHit": true
+    },
+    "appraise": {
+      "src": "224184-224244",
+      "skill": 162,
+      "exp": 50,
+      "rareThreshold": 50000,
+      "highIdThreshold": 50000,
+      "var1572Limit": 5,
+      "aliveField": 140,
+      "rareCountField": 1572,
+      "silenceField": 1573,
+      "skipFields": { "count": 0, "identifyLevel": 8, "identifyLevelMax": 3 },
+      "roll": { "skillBase": 13, "skillMul": 5, "secondBase": 1500, "secondMul": 5, "rareMul": 5 },
+      "counterField": 826,
+      "texts": {
+        "appraiseJp": "バックパックの中の{name}は{item}だと判明した。",
+        "appraiseEn": "You appraise {name} as {item}.",
+        "senseJp": "バックパックの中の{item}は{quality}だという感じがする。",
+        "senseEn": "You sense the quality of {item} is {quality}.",
+        "someJp": "バックパックの中のいくつかのアイテムの詳細が判明した。",
+        "someEn": "You appraise some items."
+      }
+    },
+    "modHeight": {
+      "src": "201589-201614",
+      "field": 19,
+      "blockItem": 1114,
+      "formula": "h*(100+pct)/100 + (pct>0) - (pct<0)",
+      "minHeight": 1,
+      "texts": {
+        "tallerJp": "{name}の身長は少し伸びた。",
+        "tallerEn": "{name} grow{_s} taller.",
+        "smallerJp": "{name}の身長は少し縮んだ。",
+        "smallerEn": "{name} grow{_s} smaller."
+      }
+    },
+    "anorexia": {
+      "src": "201615-201628",
+      "attackSrc": "201928-201933",
+      "bit": 986,
+      "snd": 65,
+      "ccBound": 16,
+      "cureText": {
+        "jp": "{name}の拒食症は治った。",
+        "en": "{name} manage{_s} to recover from anorexia."
+      },
+      "attack": { "vomit": true, "result": 1, "emptyResult": 0 }
+    },
+    "eatStatus": {
+      "src": "201870-201898",
+      "foodSrc": "201899-201927",
+      "aliveField": 0,
+      "aliveValue": 1,
+      "hungerField": 22,
+      "hungerDelta": 1500,
+      "badAt": -1,
+      "goodAt": 1,
+      "badText": { "jp": "{name}は嫌な感じがした。", "en": "{name} feel{_s} bad." },
+      "goodText": { "jp": "{name}は良い予感がした。", "en": "{name} feel{_s} good." },
+      "buff": {
+        "id": 19,
+        "chance": 5,
+        "status": { "power": 100, "base": 500, "rndRange": 500 },
+        "food": { "power": 200, "base": 700, "rndRange": 300 }
+      },
+      "healsan": { "status": 2, "food": 3 },
+      "vomit": true
+    },
+    "bloodStain": {
+      "src": "196631-196672",
+      "mefField": 7,
+      "jitter": "rnd(2)-rnd(2)",
+      "centerFirst": true,
+      "bounds": { "w": "var_126(0)", "h": "var_126(1)" },
+      "block": "var_593(2,tile)",
+      "blood": { "cap": 5, "test": "imod(v,10)<5", "update": "v+1" },
+      "frag": { "cap": 4, "test": "idiv(v,10)<4", "update": "imod(v,10)+(idiv(v,10)+1)*10" }
+    },
+    "itemRot": {
+      "src": "29604-29610",
+      "counter": 826,
+      "resetBelow": 0,
+      "itemField": 30
+    },
+    "remainMake": {
+      "src": "31286-31309",
+      "fields": {
+        "23": "var_58(27,cc)",
+        "22": "(var_58(7,cc)-var_58(435,cc)*1000)/1000",
+        "7": "var_58(20,cc)+1"
+      },
+      "branches": [
+        {
+          "id": 204,
+          "value": "limit(f7/10*500,500,50000)",
+          "price": "limit((f7+20000)/7,2700,10000)",
+          "lo": 500, "hi": 50000, "priceLo": 2700, "priceHi": 10000
+        },
+        {
+          "id": 1214,
+          "value": "limit(f7/10*500,5000,100000)",
+          "price": "limit((var_58(38,cc)+30)*300,3000,90000)",
+          "lo": 5000, "hi": 100000, "priceLo": 3000, "priceHi": 90000
+        },
+        {
+          "id": "else",
+          "value": "limit(f7/10*50,0,5000)",
+          "price": "limit(var_58(38,cc)*40+600,1,12000)",
+          "lo": 0, "hi": 5000, "priceLo": 1, "priceHi": 12000,
+          "raceRef": 6, "raceThreshold": 20, "corpseField": 69, "corpseThreshold": -1,
+          "multiplier": "limit(4-refchara(race,6)/5,1,5)"
+        }
+      ]
+    },
+    "advFavorite": {
+      "src": "201526-201546",
+      "skill": { "lo": 100, "hi": 400, "rndN": 300, "count": 2, "valid": "var_83(0,id)!=0" },
+      "stat": { "lo": 10, "hi": 18, "rndN": 8 },
+      "seeded": true
+    },
+    "relationBetween": {
+      "src": "192908-192919",
+      "field": 9,
+      "thresholds": [-2, -3],
+      "chain": [
+        { "if": "v>=-2", "then": { "if": "v<=-3", "return": -3 } },
+        { "else": { "if": "v>=-2", "return": -3 } }
+      ],
+      "result": 0
+    },
+    "calcAge": {
+      "src": "192920-192930",
+      "yearField": 10,
+      "birthField": 21,
+      "raceUnknown": 207,
+      "agelessBit": 1026,
+      "unknownText": { "jp": "不明", "en": "Unknown" }
+    },
+    "wakeUp": {
+      "src": "194563-194573",
+      "hourField": 13,
+      "hours": [7, 22],
+      "range": [57, 245],
+      "statusField": 251,
+      "rnd": 10,
+      "clearChance": "9/10"
+    },
+    "label2045": {
+      "src": "201361-201388",
+      "bit": 985,
+      "phaseField": 1146,
+      "phaseValue": 2,
+      "skipSources": [-31, -30],
+      "prefix": { "jp": "({var_1134}) ", "en": "({var_1134})" },
+      "rnd": 20,
+      "lines": [
+        { "jp": "「くっ！」", "en": "Kill me already!" },
+        { "jp": "「まだまだ！」", "en": "No..not yet...!" },
+        { "jp": "「もう限界…」", "en": "I can't take it anymore..." },
+        { "jp": "「うぐぐ」", "en": "Argh!" },
+        { "jp": "「あう」", "en": "Uhhh" },
+        { "jp": "「ああんっ」", "en": "Ugggg" }
+      ],
+      "reset": { "var_65_809": 0, "var_1132": 0 }
+    },
+    "comevdisp": {
+      "src": "202819-202947",
+      "eventCode": 252,
+      "slowLoad": 300,
+      "saveAt": 2,
+      "snd": { "open": 20, "save": 44, "browser": 102 },
+      "var400ResetLabels": [2089, 2095],
+      "slowText": {
+        "jp": "ブラウザ等を閉じるか、ゲームを再起動してみたらいいかもしれない…とあなたは感じた。",
+        "en": "Slow loading? Try exiting your internet browser or restart the game."
+      },
+      "saveText": { "jp": " *保存* ", "en": "*saving*" },
+      "saveHours": {
+        "hourField": 13, "dayField": 12, "monthField": 11, "yearField": 10,
+        "hoursPerDay": 24, "daysPerMonth": 30, "monthsPerYear": 12, "addHours": 720
+      },
+      "url": "http://hpcgi3.nifty.com/rfish/vote/votec.cgi?no={var_587}&uname={uname}",
+      "modes": { "load": 3, "newGame": 4 }
+    },
+    "variableAssign": {
+      "src": "210969-211000",
+      "label2115": {
+        "fields": [
+          "var_105(x,y)=var_104",
+          "var_58(6,mef1-1)=var_104",
+          "mef2=mef0;gosub_2129",
+          "mef5=mef4"
+        ]
+      },
+      "neighborBits": [
+        [0, 0, 1000], [1, 0, 1], [-1, 0, 8], [0, -1, 2], [0, 1, 4],
+        [1, 1, 16], [-1, -1, 32], [1, -1, 64], [-1, 1, 128]
+      ],
+      "incrementX": true
+    },
+    "getInheritance": {
+      "src": "26065-26090",
+      "seed": "var_99(30,item)+1",
+      "arraySize": 15,
+      "repeat": 10,
+      "rndN": 15,
+      "geneBase": 40,
+      "geneStep": 2,
+      "geneLevelOffset": 0,
+      "geneFlagOffset": 1,
+      "dedup": true,
+      "rnd4": 4,
+      "condition": "rnd(4)>count | var_99(41+2*id,item)<0"
+    },
+    "fltFamily": {
+      "src": "26150-26193",
+      "flt": { "objLvField": 640, "fixLvField": 641, "calcobjlvArg": 22, "calcfixlvArg": 2, "cleared": [636, 637, 638, 639, 514] },
+      "fltn": { "separator": 47, "repeat": 10, "wrap": "/", "countField": 636 },
+      "discsetmc": { "rndN": 87, "base": 52, "expr": "rnd(139-50-2)" },
+      "fltsetdungeon": { "rnd20": 20, "rnd3": 3, "tables": [644, 645, 646] }
+    },
+    "fixFind": {
+      "src": "29294-29312",
+      "item": 555,
+      "f21": 3,
+      "reset": { "21": 0, "9": 0, "26": 100 },
+      "snd": 90,
+      "skipEmptyField": 0
+    },
+    "csvstr2": {
+      "src": "31523-31535",
+      "separator": 44,
+      "maxParts": 40
+    },
+    "cargoCheck": {
+      "src": "31537-31547",
+      "result": 1,
+      "maps": [1, 5, 3, 4, 6, 2],
+      "coveredBy": "core/residual_map.js:cargoCheck"
+    },
+    "calcShopReform": {
+      "src": "32260-32261",
+      "mul": 100,
+      "add": 1000,
+      "field": 18,
+      "array": "var_126"
+    },
+    "actionsp": {
+      "src": "201512-201523",
+      "field": 52,
+      "threshold": 50,
+      "rnd": 75,
+      "playerOnly": 0
+    },
+    "rpname": {
+      "src": "29901-29909",
+      "fallback": "?????",
+      "customArray": "var_718",
+      "threshold": 400,
+      "nameArray": "var_54"
+    },
+    "rnd100": {
+      "src": "229175-229203",
+      "gate": "var_1675>=rnd(100)",
+      "grid": 3,
+      "countFormula": "(count*10-1)/400",
+      "countMul": 10,
+      "countSub": 1,
+      "countDiv": 400
+    },
+    "nameConfirm": {
+      "src": "291069-291096",
+      "bit": 977,
+      "prompt": { "jp": "{name}を何と呼ぶ？ ", "en": "What do you want to call {him}? " },
+      "cancel": { "jp": "名前をつけるのはやめた。", "en": "You changed your mind." },
+      "named": { "jp": "{newName}という名前で呼ぶことにした。", "en": "You named {him} {newName}." }
+    },
+    "dateInit": {
+      "src": "602270-602302",
+      "v65": [517, 10, 12, 16, 10],
+      "fields": [10, 11, 12, 13, 14],
+      "var2784": 1,
+      "meditFlag": 1858,
+      "modes": { "load": 3, "newGame": 4 },
+      "savePrefix": "sav_"
+    },
+    "misc": {
+      "guildname": {
+        "src": "364-375",
+        "default": { "jp": "なし", "en": "None" },
+        "bits": [
+          { "v65": 263, "jp": "魔術士ギルド", "en": "Mages Guild" },
+          { "v65": 264, "jp": "戦士ギルド", "en": "Fighters Guild" },
+          { "v65": 265, "jp": "盗賊ギルド", "en": "Thieves Guild" }
+        ]
+      },
+      "refclass": { "src": "303-308", "var59": 16 },
+      "randskill": { "src": "5024-5025", "lo": 150, "hi": 191, "rndN": 41 },
+      "randattb": { "src": "5026-5027", "lo": 10, "rndN": 8 },
+      "stxt": { "src": "8653-8661", "flagField": 253 },
+      "at": { "src": "8710-8725", "var253": 1 },
+      "prefixWords": {
+        "src": "11950-11957",
+        "groups": [
+          [
+            { "jp": "はじまりの", "en": "Beginner's " },
+            { "jp": "冒険者の", "en": "Adventurer's" },
+            { "jp": "迷いの", "en": "Dangerous " },
+            { "jp": "死の", "en": "Fearful " },
+            { "jp": "不帰の", "en": "King's " }
+          ],
+          [
+            { "jp": "安全な", "en": "Safe " },
+            { "jp": "時めきの", "en": "Exciting " },
+            { "jp": "勇者の", "en": "Servant's " },
+            { "jp": "闇の", "en": "Shadow " },
+            { "jp": "混沌の", "en": "Chaotic " }
+          ]
+        ]
+      },
+      "incognitobegin": {
+        "src": "194576-194612",
+        "duelFlag": 556,
+        "snd": 27,
+        "range": [16, 245],
+        "skips": [
+          { "field": 150, "eq": 1010 },
+          { "field": 150, "eq": 16 },
+          { "field": 27, "eq": 534 },
+          { "field": 25, "eq": 6, "andRaceNot": 516 }
+        ],
+        "relationField": 9,
+        "relationAt": -2,
+        "impField": 69,
+        "impAt": -2,
+        "set": { "201": 0, "9": "var_58(69)", "79": 221 },
+        "duelText": { "jp": "決闘中は変装が効かない。", "en": "Incognito does not work for the duel opponent." }
+      },
+      "label2447": { "src": "235635-235656", "formula": "(100-var_65(125)/100)/4+1", "base": 100, "div": 100, "div4": 4, "add": 1 },
+      "label2451": {
+        "src": "235860-235889",
+        "foodCat": 60000,
+        "homeValueAdd": "limit(var_99(1)/50,50,500)",
+        "valueDiv": { "60000": 20, "80000": 10, "77000": 10, "default": 1000 },
+        "topSlots": 10
+      },
+      "blendcheckext": { "src": "279451-279464", "ge": 10000, "mod": 10000, "upper": 1499, "compareField": 23 },
+      "label2644": { "src": "280034-280041", "mod": 100000 },
+      "ringIndex": { "src": "304316-304331", "mod": 4, "label": "del_userNpc" },
+      "clamp2000": { "src": "344646-344650", "cap": 2000 },
+      "label4353": { "src": "603945-603955", "charaMax": 245, "field": 10, "wrap": "var_126(9)" },
+      "rand45": { "src": "220619-220624", "rndN": 45, "count": 4, "add": 1 },
+      "pageClamp": { "src": "220812-220822", "formula": "(var_701-1)/var_893" },
+      "clearStatus": {
+        "src": "340772-340794",
+        "fields": [445, 250, 251, 254, 253, 252, 263, 256, 255, 257, 258, 267, 268, 412],
+        "capField": 269,
+        "cap": 1,
+        "v65": 90,
+        "restore": [[50, 51], [55, 56], [52, 53]]
+      },
+      "moveCheck": { "src": "211370-211440", "maxDelta": 1, "worldMap": 1 },
+      "depthGate": { "src": "235890-235944", "field": 22, "eq": 1 },
+      "talkBlock": { "src": "19670-19709", "endMarker": "%END", "defaultKey": "%DEFAULT,", "files": ["data\\talk.txt", "guide\\guide.txt"] },
+      "nameTable": { "src": "25829-25855", "files": ["data\\ndata.csv", "data\\ndata-e.csv", "data\\name.csv"], "separator": 44, "cols": 15 },
+      "guildSuffix": {
+        "src": "26008-26027",
+        "trigger": 2,
+        "jpSuffixes": ["団", "チーム", "パーティー", "の集い", "の軍", "アーミー", "隊", "の一家", "軍", "の隊", "の団"],
+        "enPrefixes": ["The army of ", "The party of ", "The house of ", "Clan "],
+        "enSuffixes": ["Clan", "Party", "Band", "Gangs", "Gathering", "House", "Army"],
+        "rnd": [5, 2, 4, 7]
+      },
+      "itemStack": { "src": "31411-31435", "mergedTextJp": "{item}をまとめた(計{n}個) ", "mergedTextEn": "{item} has been stacked. (Total:{n})" },
+      "crlfJoin": { "src": "37387-37413", "modes": [0, 1, 2], "tailFlag": "var_920" },
+      "label0413": { "src": "31411-31435", "owner": "prm_626" },
+      "label0539": { "src": "37387-37413", "separators": [13, 10] }
+    }
+  },
+  "broadcasts": [
+    { "label": 2305, "src": "226858-226868", "pre": [], "txtef": 8, "jp": "まるで鉄のように硬い！{name}の胃は悲鳴をあげた。", "en": "It's too hard! {name}{your} stomach screams.", "effects": [["dmgcon", 7, 200]] },
+    { "label": 2306, "src": "226869-226880", "pre": [], "txtef": 8, "jp": "気が変になりそうな味だ。", "en": "It tastes really, really strange.", "effects": [["dmgsan", 25], ["dmgcon", 11, 500]] },
+    { "label": 2307, "src": "226881-226891", "pre": [], "txtef": 2, "jp": "{name}の病気は軽くなった。", "en": "{name} feel{_s} less sick.", "effects": [["healcon", 12, 10]] },
+    { "label": 2308, "src": "226892-226902", "pre": [], "txtef": 2, "jp": "馬肉だ！これは精がつきそうだ。", "en": "A horsemeat! It's nourishing", "effects": [["skillexp", 11, 100]] },
+    { "label": 2309, "src": "226903-226913", "pre": [], "txtef": 2, "jp": "{name}は神聖なものを汚した気がした。", "en": "{name} feel{_s} as {he} {have} been corrupted.", "effects": [["resistmodh", 53, 50]] },
+    { "label": 2310, "src": "226914-226922", "pre": [], "txtef": 0, "jp": "＠を食べるなんて…", "en": "You dare to eat @...", "effects": [] },
+    { "label": 2311, "src": "226923-226936", "pre": ["var_243==0"], "txtef": 8, "jp": "ガード達はあなたを憎悪した。", "en": "Guards hate you.", "effects": [["modkarma", -15]] },
+    { "label": 2312, "src": "226937-226949", "pre": ["var_99(31,var_579)!=1"], "txtef": 2, "jp": "{name}の体は一瞬燃え上がった。", "en": "{name}{your} body burns up for a second.", "effects": [["resistmodh", 50, 50]] },
+    { "label": 2313, "src": "226950-226964", "pre": ["var_99(31,var_579)!=1"], "txtef": 8, "jp": "{name}の胃は狂気で満たされた。", "en": "Sheer madness!", "effects": [["resistmodh", 54, 50], ["dmgsan", 200], ["dmgcon", 11, 1000]] },
+    { "label": 2314, "src": "226965-226975", "pre": [], "txtef": 2, "jp": "肌がつるつるになりそうだ。", "en": "{name}{your} skin becomes smooth.", "effects": [["skillexp", 17, 150]] },
+    { "label": 2315, "src": "226976-226986", "pre": [], "txtef": 2, "jp": "{name}は恋をしている気分になった！", "en": "{name} feel{_s} love!", "effects": [["skillexp", 17, 400]] },
+    { "label": 2316, "src": "226987-226997", "pre": [], "txtef": 8, "jp": "これは有毒だ！", "en": "Argh! It's poisonous!", "effects": [["dmgcon", 1, 100]] },
+    { "label": 2317, "src": "226998-227008", "pre": [], "txtef": 2, "jp": "血が沸き立つようだ。", "en": "A troll meat. This must be good for your body.", "effects": [["skillexp", 154, 200]] },
+    { "label": 2318, "src": "227009-227019", "pre": [], "txtef": 8, "jp": "腐ってるなんて分かりきっていたのに…うげぇ", "en": "Of course, it's rotten! Urgh...", "effects": [["gosub", 2302]] },
+    { "label": 2319, "src": "227020-227030", "pre": [], "txtef": 2, "jp": "力が湧いてくるようだ。", "en": "Mighty taste!", "effects": [["skillexp", 10, 250]] },
+    { "label": 2320, "src": "227031-227042", "pre": [], "txtef": 2, "jp": "微かな魔力の刺激を感じた。", "en": "{name} {is} magically stimulated.", "effects": [["skillexp", 155, 250], ["resistmodh", 57, 50]] },
+    { "label": 2321, "src": "227043-227053", "pre": [], "txtef": 8, "jp": "胃の調子がおかしい…", "en": "Something is wrong with {name}{your} stomach...", "effects": [["dmgcon", 5, 200]] },
+    { "label": 2322, "src": "227054-227064", "pre": [], "txtef": 2, "jp": "この肉は心を落ち着かせる効果があるようだ。", "en": "Eating this brings {name} inner peace.", "effects": [["healsan", 20]] },
+    { "label": 2323, "src": "227065-227076", "pre": [], "txtef": 8, "jp": "{name}の胃は狂気で満たされた。", "en": "Sheer madness!", "effects": [["dmgsan", 50], ["resistmodh", 54, 50]] },
+    { "label": 2324, "src": "227077-227087", "pre": [], "txtef": 8, "jp": "{name}の胃は混沌で満たされた。", "en": "{name} {is} shaken by a chaotic power.", "effects": [["dmgcon", 5, 300]] },
+    { "label": 2325, "src": "227088-227098", "pre": [], "txtef": 8, "jp": "{name}の神経に電流が走った。", "en": "{name}{your} nerve is damaged.", "effects": [["dmgcon", 3, 300]] },
+    { "label": 2326, "src": "227099-227111", "pre": ["var_243==0"], "txtef": 0, "jp": "猫を食べるなんて！！", "en": "How can you eat a cat!!", "effects": [["modkarma", -5]] },
+    { "label": 2327, "src": "227112-227125", "pre": ["var_243==0"], "txtef": 8, "jp": "{name}の体内はエーテルで満たされた。", "en": "Ether corrupts your body.", "effects": [["modcorrupt", 1000]] },
+    { "label": 2328, "src": "227126-227135", "pre": [], "txtef": 2, "jp": "体力がつきそうだ。", "en": "This food is good for your endurance.", "effects": [] },
+    { "label": 2329, "src": "227136-227145", "pre": [], "txtef": 2, "jp": "魔力が鍛えられる。", "en": "This food is good for your magic.", "effects": [] },
+    { "label": 2330, "src": "227146-227155", "pre": [], "txtef": 2, "jp": "力がつきそうだ。", "en": "This food is good for your strength.", "effects": [] },
+    { "label": 2331, "src": "227156-227165", "pre": [], "txtef": 2, "jp": "精神が少しずぶとくなった。", "en": "This food is good for your will power.", "effects": [] },
+    { "label": 2332, "src": "227166-227181", "pre": [], "txtef": 2, "jp": "ワアーォ、{name}は速くなった気がする！", "en": "Wow, {name} speed{_s} up!", "effects": [["skillexp", 18, 2000], ["skillexpElse", 18, 8000]] },
+    { "label": 2333, "src": "227182-227192", "pre": [], "txtef": 0, "jp": "何かが{name}の体内に入り込んだ。", "en": "Something gets into {name}{your} body.", "effects": [["gosub", 2334]] },
+    { "label": 2335, "src": "227242-227252", "pre": [], "txtef": 0, "jp": "何かが{name}の体内に入り込んだ。", "en": "Something gets into {name}{your} body.", "effects": [["gosub", 2336]] }
+  ],
+  "parasiteCheck": {
+    "src": "227193-227241",
+    "fetusField": 42,
+    "fetusThreshold": -1000000,
+    "flowerBit": 220,
+    "encfind": 48,
+    "parasiteBit": 1045,
+    "texts": {
+      "fetusJp": "しかしすぐに分解された。", "fetusEn": "But it was immediately turned into fetus nutrients.",
+      "flowerJp": "しかしすぐに花の養分に変えられた。", "flowerEn": "But it was immediately turned into flower nutrients.",
+      "pushJp": "しかしすぐに弾き出した。", "pushEn": "But {he} push{_s} it out quickly.",
+      "parasiteJp": "{name}は脳髄に寄生された。", "parasiteEn": "{name} parasitized in the brain."
+    }
+  },
+  "growth": [
+    { "label": 2146, "src": "211959-211974", "kind": "decay", "ranges": [[10, 20], [100, 112], [150, 191], [300, 302]], "rules": [{ "from": 10, "to": 20, "test": ">50000000", "div": 5, "lo": 50000000, "hi": 400000000 }, { "from": 100, "to": 112, "div": 2, "lo": 1, "hi": 200000000 }, { "from": 150, "to": 191, "div": 2, "lo": 1, "hi": 200000000 }, { "from": 300, "to": 302, "div": 2, "lo": 1, "hi": 200000000 }] },
+    { "label": 2147, "src": "211975-212003", "kind": "decay", "ranges": [[10, 20], [100, 112], [150, 191], [300, 302]], "rules": [{ "from": 18, "to": 19, "test": ">50000000", "div": 2, "lo": 50000000, "hi": 1000000000 }, { "from": 10, "to": 18, "test": ">20000000", "div": 2, "lo": 20000000, "hi": 1000000000 }, { "from": 100, "to": 112, "test": ">20000000", "div": 2, "lo": 20000000, "hi": 1000000000 }, { "from": 150, "to": 191, "test": ">20000000", "div": 2, "lo": 20000000, "hi": 1000000000 }, { "from": 300, "to": 302, "test": ">20000000", "div": 2, "lo": 20000000, "hi": 1000000000 }] },
+    { "label": 2148, "src": "212004-212019", "kind": "decay", "ranges": [[10, 20], [100, 112], [150, 191], [300, 302]], "rules": [{ "from": 10, "to": 20, "test": ">100000000", "div": 5, "lo": 100000000, "hi": 1000000000 }, { "from": 100, "to": 112, "div": 2, "lo": 1, "hi": 200000000 }, { "from": 150, "to": 191, "div": 2, "lo": 1, "hi": 200000000 }, { "from": 300, "to": 302, "div": 2, "lo": 1, "hi": 200000000 }] },
+    { "label": 2149, "src": "212020-212033", "kind": "clamp", "ranges": [[10, 20], [100, 112], [150, 191], [300, 302]], "rules": [{ "from": 10, "to": 20, "lo": 1, "hi": 50000000 }, { "from": 100, "to": 112, "lo": 1, "hi": 25000000 }, { "from": 150, "to": 191, "lo": 1, "hi": 25000000 }, { "from": 300, "to": 302, "lo": 1, "hi": 25000000 }] },
+    { "label": 2150, "src": "212034-212041", "kind": "growth", "repeat": "20-10,10", "add": "1000000*rnd(3)", "lo": 1, "hi": 2000000000, "extraList": "var_552" },
+    { "label": 2151, "src": "212042-212047", "kind": "formula", "field": 36, "levelField": 38, "levelClamp": [1, 200], "formula": "L*(L+1)*(L+2)*(L+3)+3000", "cap": 100000000 },
+    { "label": 2152, "src": "212048-212050", "kind": "skillexp", "calls": [{ "skill": 163, "chara": 0, "exp": 100 }] },
+    { "label": 2153, "src": "212051-212053", "kind": "skillexp", "calls": [{ "skill": 150, "chara": 0, "exp": 15, "p3": 10, "p4": 100 }] },
+    { "label": 2154, "src": "212054-212058", "kind": "skillexpCond", "gate": "var_1362>=limit((var_82(156,cc)+10)^2,1,15000)", "calls": [{ "skill": 156, "chara": "var_691", "exp": "limit(var_1362/(limit(var_82(156,cc),1,100)+10),10,300)", "p3": 10 }] },
+    { "label": 2155, "src": "212059-212061", "kind": "skillexp", "calls": [{ "skill": 158, "chara": "var_691", "exp": 100 }] },
+    { "label": 2156, "src": "212062-212064", "kind": "skillexp", "calls": [{ "skill": 159, "chara": "var_243", "exp": "var_65(22)*2+20" }] },
+    { "label": 2157, "src": "212065-212084", "kind": "skillexpCond", "skipBits": [985, 23, 27, 992, 964, 960], "boost": 2, "boostField": 428, "calls": [{ "skill": 172, "chara": "var_691", "exp": "(var_83(2,var_1362)+10)*2*(1+var_1363)", "p3": 5 }] },
+    { "label": 2158, "src": "212085-212087", "kind": "skillexp", "calls": [{ "skill": 164, "chara": "var_691", "exp": "limit(abs(var_58(55,cc))*400/(var_58(56,cc)+1),1,400)" }] },
+    { "label": 2166, "src": "212172-212179", "kind": "skillexpCond", "skipBits": [985, 23, 27, 992, 964, 960], "calls": [{ "skill": 174, "chara": "var_243", "exp": 50 }] },
+    { "label": 2167, "src": "212180-212182", "kind": "skillexp", "calls": [{ "skill": 185, "chara": 0, "exp": 100 }] },
+    { "label": 2168, "src": "212183-212185", "kind": "skillexp", "calls": [{ "skill": 165, "chara": 0, "exp": "30+var_83(4,var_396)" }] }
+  ],
+  "growthCovered": [
+    { "label": 2159, "src": "212088-212099", "skills": [154, 155], "caps": [11, 16], "module": "core/turncycle.js" },
+    { "label": 2160, "src": "212100-212107", "skills": [157], "rnd": 20, "module": "core/turncycle.js" },
+    { "label": 2161, "src": "212108-212112", "skills": [160, 183], "exp": 600, "module": "core/turncycle.js" },
+    { "label": 2162, "src": "212113-212123", "skills": [153], "rnd": 20, "module": "core/turncycle.js" },
+    { "label": 2163, "src": "212124-212137", "skills": [190], "rnd": 10, "max": 30, "module": "core/turncycle.js" },
+    { "label": 2164, "src": "212138-212153", "skills": [169, 170, 171], "bands": [35000, 15000], "module": "core/turncycle.js" },
+    { "label": 2165, "src": "212154-212171", "skills": [301], "rnd": 20, "module": "core/turncycle.js" }
+  ],
+  "cheerLines": [
+    { "id": 1, "jp": "ラーネイレ「がんばれ～」", "en": "Larneire cheers, \"Way to go!\"" },
+    { "id": 2, "jp": "ロミアス「陰ながら応援しているよ（ニヤリ）」", "en": "Lomias grins, \"Go for it.\"" },
+    { "id": 3, "jp": "クミロミ「…大丈夫…だよね？」", "en": "Kumiromi worries, \"Are you...okay..?\"" },
+    { "id": 4, "jp": "ルルウィ「あら、思いの他がんばるのね」", "en": "Lulwy sneers, \"You're tougher than I thought, little kitty.\"" },
+    { "id": 5, "jp": "ラーネイレ「いけない。このままでは…手遅れになってしまうわ…」", "en": "Larneire cries, \"No...before it is too late...\"" },
+    { "id": 6, "jp": "ロミアス「まだまだ、これからだろう（ニヤリ）」", "en": "Lomias grins, \"Tt hasn't even started yet... hasn't it?\"" },
+    { "id": 7, "jp": "ルルウィ「休憩しなさい。壊れちゃったら、私の役にたてないじゃない」", "en": "Lulwy warns you, \"Have a rest, kitty. If you are broken, you're no use to me.\"" },
+    { "id": 8, "jp": "ルルウィ「何を言っても無駄のようね。好きにするといいわ」", "en": "Lulwy laughs, \"I guess there's no use warning you. Alright. Do as you please, kitty.\"" },
+    { "id": 9, "jp": "ヤカテクト「体を壊したら元も子もないんやで？」", "en": "Opatos laughs, \"Muwahahahahahaha!\"" },
+    { "id": 12, "jp": "オパートス「フハハハハッフハー」", "en": "Opatos laughs, \"Muwahahahahahaha!\"" },
+    { "id": 24, "jp": "エヘカトル「死なにゃいで！死なにゃいって約束して！して！」", "en": "Ehekatl hugs you,\"Don't die! Promise you don't die!\"" }
+  ],
+  "trivial": [
+    { "src": "221056-221057", "content": "label_2262 snd 20，纯音效" },
+    { "src": "221656-221657", "content": "label_2275 snd 20，纯音效" },
+    { "src": "221658-221659", "content": "label_2276 snd 94，纯音效" },
+    { "src": "286895-286911", "content": "label_2712 snd 26 + var_701=0/var_894=0/var_893=16 变量声明" },
+    { "src": "287072-287084", "content": "label_2716 snd 26 + 同上变量声明" },
+    { "src": "304470-304476", "content": "label_2880 snd 49 + var_65(64)=35/var_65(65)=1 位置快照" },
+    { "src": "425448-425452", "content": "label_3070 snd 10 + var_761=0/var_701=0" },
+    { "src": "305759-305763", "content": "label_2905 noteadd \"\" 与 return，空函数" },
+    { "src": "305381-305389", "content": "label_2902 clrobj 1 与 var_2354 复位" },
+    { "src": "305764-305773", "content": "label_2906 CreateMutexA 0,0,\"ElonaPlus 2.33R\" 互斥体检测" },
+    { "src": "305368-305380", "content": "label_2901 if(1==0) 按键 128/32 分派，整屏绘制" },
+    { "src": "304904-304910", "content": "label_2891 wparam==27 ESC 关闭判定" },
+    { "src": "302526-302532", "content": "label_2856 var_65(184)++ 与 var_65(75)=0" },
+    { "src": "281038-281053", "content": "label_2656 var_1442=1 与 10 槽 -1/-2 扫描" },
+    { "src": "283955-283960", "content": "label_2679 var_910=33 / var_911=25 / var_219=0 / var_221=0" },
+    { "src": "284002-284005", "content": "label_2682 var_218=-1 与 gosub 2104" },
+    { "src": "278852-278855", "content": "label_2618 var_243=0 与 gosub 2107" },
+    { "src": "278971-278974", "content": "label_2621 var_138=\"\" 与 return var_444" },
+    { "src": "288728-288745", "content": "label_2737 var_242=0 与 txt_select 播报壳" },
+    { "src": "288746-288752", "content": "label_2738 gosub 2958 与 stat==0 分派" },
+    { "src": "291908-291914", "content": "label_2771 var_244=var_243 与 gosub 2950" },
+    { "src": "294450-294463", "content": "label_2790 var_444=-2 变量声明" },
+    { "src": "295600-295610", "content": "label_2816 分页变量 (var_701-1)/var_893 声明" },
+    { "src": "296099-296154", "content": "label_2820/2821/2822 var_701<1 早退与播报壳" },
+    { "src": "300687-300702", "content": "label_2843/2844 var_691=50 与中断确认播报" },
+    { "src": "300965-300985", "content": "label_2849 物品 563 的 sorg 判定播报壳" },
+    { "src": "301502-301509", "content": "label_2853 inv_getheader -1 清 503/504 物品" },
+    { "src": "302656-302681", "content": "label_2861 var_400=12 与 user 目录扫描" },
+    { "src": "304298-304315", "content": "label_2875 sdim var_2183,1024 与角色信息文本" },
+    { "src": "340431-340435", "content": "label_2970 var_579=var_2436 与 return 1" },
+    { "src": "340772-340794", "content": "label_2974 状态字段清零表（规则表 misc.clearStatus 登记数值）" },
+    { "src": "341871-341873", "content": "label_2977 item_exchange var_579,var_580" },
+    { "src": "342527-342548", "content": "label_2983 物品 783 的 f23==0 播报壳" },
+    { "src": "342583-342597", "content": "label_2985 var_59=15 与 gosub 0598" },
+    { "src": "342877-342923", "content": "label_2988 repeat 17 的 var_2526 邻域扫描" },
+    { "src": "344742-344750", "content": "label_2997 txtmore + txt_select 播报壳" },
+    { "src": "345086-345091", "content": "label_2999 item_stack var_243,var_2464" },
+    { "src": "348233-348265", "content": "label_3010/3011/3012 事件变量与 var_58(52)<0 播报壳" },
+    { "src": "365985-365999", "content": "label_3032 var_701=0 与 var_484 清零" },
+    { "src": "365528-365561", "content": "clientguide 委托引导 repeat 5 扫描" },
+    { "src": "590457-590482", "content": "label_4280/4281 inv_getfreeid 与背包遍历" },
+    { "src": "591176-591181", "content": "label_4290 var_581=0 与 gosub 2245" },
+    { "src": "602248-602269", "content": "label_4346 inv_getheader 0 与 var_400 清零" },
+    { "src": "604861-605199", "content": "label_4358/4359 turn_end:pc 与 pc_turn_init 主回合循环，由 core/actions.js 与 core/game.js 覆盖" },
+    { "src": "301182-301413", "content": "label_2851 Dump:Init 角色生成调试例程，含环形缓冲 (var_123+1) mod 4" },
+    { "src": "222619-222847", "content": "label_2288 物种专属分派链，由 core/evolution.js 承接物种表" },
+    { "src": "344651-344739", "content": "label_2995 item_find 636 道具检查与播报壳" },
+    { "src": "211370-211440", "content": "label_2127 玩家移动合法性检查，目标差 >1 拒绝" },
+    { "src": "197461-197520", "content": "copy_chara 全字段复制，由 core/onhit.js 的 copyChara 承接" },
+    { "src": "235890-235944", "content": "label_2452 地下层 var_65(22)!=1 早退，由 core/game.js 承接" },
+    { "src": "295363-295404", "content": "label_2812 var_1322=106 / var_1369=-1 对话类型声明" },
+    { "src": "223955-223991", "content": "label_2291 随机性格 rnd(4) 与品质 >3 判定" },
+    { "src": "220358-220624", "content": "label_2242..2251 角色复位与四个 rnd(45)+1 声明" },
+    { "src": "235164-235169", "content": "label_2443 var_1340=0 / var_1339=0 / var_218=-1" },
+    { "src": "235683-235699", "content": "label_2449 var_444=0 / var_581=56 / var_641=2 / var_59=3" },
+    { "src": "237796-237830", "content": "label_2460/2461 repeat 57 与全图刷新循环" },
+    { "src": "249768-249782", "content": "label_2473 全图 var_704 刷新循环" },
+    { "src": "280034-280041", "content": "label_2644 repeat length(var_2161) 位登记循环" },
+    { "src": "282962-282973", "content": "label_2661 item_stack 0,var_579 与 cell_refresh" },
+    { "src": "287624-287636", "content": "label_2724 var_52 的 del_str 文本清洗" },
+    { "src": "287730-287732", "content": "label_2728 狂喜台词拼接" },
+    { "src": "300691-300702", "content": "label_2844 中断确认播报壳" },
+    { "src": "348246-348249", "content": "label_3011 var_704(x,y,0)=var_1471" },
+    { "src": "220510-220520", "content": "label_2247 if(1==0) 死分支与 var_138 判定" },
+    { "src": "220437-220462", "content": "label_2245 gosub 2243 与 var_65(63)=0" },
+    { "src": "220372-220393", "content": "label_2243 cbitmod 972 与 HP/MP/SP 三分之一复位" },
+    { "src": "29604-29610", "content": "itemturn 计数器 826，规则表 rules.itemRot 登记数值" },
+    { "src": "25900-25900", "content": "random_title 随机称号声明行" },
+    { "src": "26183-26184", "content": "discsetmc rnd(87)，规则表 rules.fltFamily 登记数值" },
+    { "src": "5024-5027", "content": "randskill / randattb，规则表 rules.misc 登记数值" }
+  ],
+  "coveredBy": [
+    { "src": "31537-31547", "module": "core/residual_map.js", "api": "cargoCheck", "note": "cargocheck 允许的地图类型 1/5/3/4/6/2" },
+    { "src": "425317-425379", "module": "core/residual_map.js", "api": "eventZoneInit", "note": "label_3067 事件区变量与好感度阈值" },
+    { "src": "229175-229203", "module": "core/residual_map.js", "api": "editorRules", "note": "label_2384 编辑器 rnd(100) 与计数公式" },
+    { "src": "28874-28888", "module": "core/residual_tables.js", "api": "materialEnchants/materialBits", "note": "附魔与位标志回填" },
+    { "src": "37314-37328", "module": "core/residual_tables.js", "api": "idCrlf", "note": "id_crlf 换行类型识别" },
+    { "src": "37329-37386", "module": "core/residual_tables.js", "api": "convCrlf/idCrlf", "note": "conv_crlf 换行规整" },
+    { "src": "37414-37431", "module": "core/residual_tables.js", "api": "rmCrlf", "note": "rm_crlf 删除 CR/LF" },
+    { "src": "26150-26168", "module": "core/residual_tables.js", "api": "fltLevels", "note": "flt 物品生成过滤等级" },
+    { "src": "212088-212171", "module": "core/turncycle.js", "api": "GROWTH[2159..2165]", "note": "技能成长链 2159-2165" },
+    { "src": "192908-192930", "module": "core/relation.js / core/chara.js", "api": "relation / 生日换算", "note": "关系判定与年龄文案" },
+    { "src": "197461-197520", "module": "core/onhit.js", "api": "copyChara", "note": "角色全字段复制" },
+    { "src": "604861-605199", "module": "core/actions.js / core/game.js", "api": "玩家回合循环", "note": "turn_end:pc 主循环" }
+  ]
+}

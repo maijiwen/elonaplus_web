@@ -54,8 +54,14 @@
   "race_tags.json",
   "recipes.json",
   "relation_words.json",
+  "residual_final.json",
+  "residual_map.json",
+  "residual_npc.json",
+  "residual_status.json",
+  "residual_tables.json",
   "resist_msgs.json",
   "skills.json",
+  "source_anchors.json",
   "status.json",
   "talkscripts.json",
   "talktxt.json",
@@ -77,5 +83,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 69
+ "count": 75
 }
