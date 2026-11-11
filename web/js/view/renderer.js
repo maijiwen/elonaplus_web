@@ -280,10 +280,10 @@
       if (Elona.Hud && Elona.Hud.drawCharaBars) {
         Elona.Hud.drawCharaBars(this, game, startX, startY);
       }
-      this.drawEffects(game);
+      this.drawEffects(game, startX, startY);
       this.drawWeatherOverlay(game);      // 天气滤镜（雨/雪/以太风）
       this.drawTorchLight(game, startX, startY);   // 0-FY：火把光照遮罩
-      this.drawAimCursor(game, startX, startY);
+      this.drawTargetOverlay(game, startX, startY);
       this.drawDesignCursor(game, startX, startY);
       this.drawDirArrows(game, startX, startY);
       ctx.restore();
@@ -434,43 +434,100 @@
     }
 
     /**
-     * 瞄准光标 —— `*label_2672` 的 `gfini` 白框（283552 / 283605 / 283899）。
-     * 原版是「把该格图块用 50% 白叠加再描边」，这里用半透明底 + 虚线框近似。
-     * 另外把「当前锁定」画成实线框（原版锁定目标在 `*label_2106` 里高亮，
-     * 本项目没有那层绘制，单独补一个，免得锁定后看不出锁了谁）。
+     * 瞄准 / 锁定覆盖层 —— `*label_2672`（283536-283808）。
+     *
+     * 原版这一段做三件事：
+     *   ① `get_route` + `route_info` 把「玩家 → 光标」的每一格 `gfini 50,50,100`
+     *      （50% 白色）+ `gfinc 25,25,25` 铺成半透明路径；
+     *   ② 光标格 `gfini` 后描白框（283552 / 283605）；
+     *   ③ `txttargetnpc`（283056）在左下角 `x=100, y=var_217-45-行号*20` 打 3 行信息。
+     * 本项目 0-GW 之前只画了光标、信息走 HTML 弹窗；现在按原版全部画到画布上：
+     *   · 路径：只要有「光标」或「已锁定目标」就画（射线/直线魔法的命中走向）；
+     *   · 信息：瞄准会话进行中显示（锁定后由消息窗播报一次）。
      */
-    drawAimCursor(game, startX, startY) {
+    drawTargetOverlay(game, startX, startY) {
       const ctx = this.ctx;
-      const lit = (x, y, color) => {
+      const Aim = Elona.Aim;
+      if (!Aim || !game || !game.player) return;
+      const cur = Aim.cursor || null;
+      const tgt = Aim.target ? Aim.target(game) : null;
+      const me = game.player;
+      const dest = cur ? { x: cur.x | 0, y: cur.y | 0 }
+        : (tgt && tgt.tile ? { x: tgt.tile.x | 0, y: tgt.tile.y | 0 } : null);
+
+      // ① 半透明路径
+      if (dest && Aim.pathCells) {
+        const cells = Aim.pathCells(game, me.x | 0, me.y | 0, dest.x, dest.y, 40);
+        for (const c of cells) {
+          const vx = c.x - startX, vy = c.y - startY;
+          if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
+          const px = vx * TILE, py = vy * TILE;
+          ctx.fillStyle = 'rgba(255,255,255,0.28)';
+          ctx.fillRect(px, py, TILE, TILE);
+          ctx.fillStyle = 'rgba(255,255,255,0.10)';
+          ctx.fillRect(px + 6, py + 6, TILE - 12, TILE - 12);
+        }
+      }
+
+      // ② 光标 / 已锁定目标
+      const box = (x, y, fill, stroke) => {
         const vx = x - startX, vy = y - startY;
         if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) return;
         const px = vx * TILE, py = vy * TILE;
-        ctx.fillStyle = color;
+        ctx.fillStyle = fill;
         ctx.fillRect(px, py, TILE, TILE);
-        ctx.strokeStyle = '#fff';
+        ctx.strokeStyle = stroke;
         ctx.lineWidth = 2;
         ctx.strokeRect(px + 1, py + 1, TILE - 2, TILE - 2);
       };
-
-      const cur = (Elona.Aim && Elona.Aim.cursor) || null;
       if (cur) {
-        const info = Elona.Aim.inspect(game);
+        const info = Aim.inspect(game);
         // 看不见的格子用红色提示（283740 会拦下锁定）
-        lit(cur.x, cur.y, info.inSight ? 'rgba(255,255,255,.45)' : 'rgba(255,80,80,.35)');
-        return;
+        box(cur.x, cur.y, info.inSight ? 'rgba(255,255,255,.42)' : 'rgba(255,80,80,.35)',
+          info.inSight ? '#ffffff' : '#ff9090');
+      } else if (tgt && tgt.tile && !tgt.ground) {
+        // 锁定的是角色才画绿框；锁定地面（var_2189）只画路径，免得整局都在闪
+        box(tgt.tile.x, tgt.tile.y, 'rgba(120,255,150,.20)', 'rgba(120,255,150,.85)');
       }
-      const t = (Elona.Aim && game) ? Elona.Aim.target(game) : null;
-      if (t && t.tile) lit(t.tile.x, t.tile.y, 'rgba(120,255,150,.22)');
+
+      // ③ 左下角的目标信息（只在瞄准中显示）
+      if (cur && Aim.describe) {
+        const info = Aim.describe(game);
+        const lines = (info && info.lines) || [];
+        if (lines.length) {
+          const baseY = UI_TOP - 52;                 // var_217 - var_810 - 45（留出与消息窗的间距）
+          ctx.save();
+          ctx.font = FONT_UI(13);                    // 源码 14 - var_205*2
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'top';
+          for (let i = 0; i < lines.length; i++) {
+            // 数组第 0 行是「现在目标是…」，原版画在最高处；最后一行贴着 baseY
+            const ty = baseY - (lines.length - 1 - i) * 20;
+            if (ty < 0) continue;
+            const tx = 100;
+            ctx.fillStyle = 'rgba(0,0,0,.9)';
+            ctx.fillText(lines[i], tx + 1, ty + 1);
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(lines[i], tx, ty);
+          }
+          ctx.restore();
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'top';
+        }
+      }
     }
 
     /** 事件 21 的粒子效果（mef type 7 删除时）——近似 *label_4376 209874-209919 */
-    drawEffects(game) {
+    drawEffects(game, startX, startY) {
       if (!game.effects || !game.effects.length) return;
       const ctx = this.ctx;
       const now = (typeof performance !== 'undefined' ? performance.now() : Date.now());
       const px = game.player.x, py = game.player.y;
       const ox = 8, oy = 5;
+      const sx = (startX === undefined) ? (px - ox) : startX;
+      const sy = (startY === undefined) ? (py - oy) : startY;
       for (const e of game.effects) {
+        if (e.kind === 'beam') { this.drawBeam(e, now, sx, sy); continue; }
         if (e.kind !== 'particles') continue;
         const age = (now - e.t) / 900;                 // 0 → 1
         if (age < 0 || age > 1) continue;
@@ -484,6 +541,73 @@
           ctx.fillRect(cx + Math.cos(a) * r, cy + Math.sin(a) * r - age * 24, s, s);
         }
       }
+    }
+
+    /**
+     * 射线动画 —— 沿 `get_route` 的路径逐格飞出（0-GW）。
+     * 与伤害结算无关（伤害在 Spell.effectType1 里已经算完），只是把「射线沿着
+     * 锁定路径移动」这件事画出来：头部一格最亮，尾部依次变淡，结束时整体消失。
+     */
+    drawBeam(e, now, startX, startY) {
+      const cells = e.cells || [];
+      if (!cells.length) return;
+      const dur = (e.dur | 0) || 500;
+      const t = (now - e.t) / dur;                 // 0 → 1（飞行），>1 淡出
+      if (t < 0 || t > 1.8) return;
+      const fade = t <= 1 ? 1 : Math.max(0, 1 - (t - 1) / 0.8);
+      const n = cells.length;
+      const col = e.color || '#dff0ff';
+      const ctx = this.ctx;
+      // 格中心（世界坐标已换算成屏幕像素）
+      const px = (i) => ((cells[Math.max(0, Math.min(n - 1, i))].x - startX) * TILE) + TILE / 2;
+      const py = (i) => ((cells[Math.max(0, Math.min(n - 1, i))].y - startY) * TILE) + TILE / 2;
+      const pos = Math.min(n, Math.max(0, t * n));     // 头部在「第几格」
+      const whole = Math.min(n, Math.floor(pos));
+      const pts = [];
+      for (let i = 0; i < whole; i++) pts.push([px(i), py(i)]);
+      if (whole < n) {
+        const f = pos - whole;
+        const a = Math.max(0, whole - 1);
+        pts.push([px(a) + (px(whole) - px(a)) * f, py(a) + (py(whole) - py(a)) * f]);
+      }
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      // 光束主体：外层彩色 + 内层白芯
+      if (pts.length >= 2) {
+        const stroke = (color, alpha, w) => {
+          ctx.strokeStyle = this._rgba(color, alpha);
+          ctx.lineWidth = w;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.beginPath();
+          ctx.moveTo(pts[0][0], pts[0][1]);
+          for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+          ctx.stroke();
+        };
+        stroke(col, 0.30 * fade, TILE * 0.52);
+        stroke(col, 0.45 * fade, TILE * 0.26);
+        stroke('#ffffff', 0.60 * fade, TILE * 0.10);
+      }
+      // 头部光核
+      const hx = pts.length ? pts[pts.length - 1][0] : px(0);
+      const hy = pts.length ? pts[pts.length - 1][1] : py(0);
+      const hg = ctx.createRadialGradient(hx, hy, 1, hx, hy, TILE * 0.45);
+      hg.addColorStop(0, this._rgba('#ffffff', 0.9 * fade));
+      hg.addColorStop(0.4, this._rgba(col, 0.6 * fade));
+      hg.addColorStop(1, this._rgba(col, 0));
+      ctx.fillStyle = hg;
+      ctx.beginPath();
+      ctx.arc(hx, hy, TILE * 0.45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    /** '#rrggbb' + alpha → rgba() 字符串（光束用） */
+    _rgba(hex, a) {
+      const h = String(hex || '#ffffff').replace('#', '');
+      const n = parseInt(h.length === 3 ? h.split('').map((c) => c + c).join('') : h, 16);
+      const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+      return `rgba(${r},${g},${b},${Math.max(0, Math.min(1, a)).toFixed(3)})`;
     }
 
     // =====================================================================
@@ -1468,6 +1592,8 @@
         ctx.fillText('正在载入世界地图……', cv.width / 2, cv.height / 2);
         return;
       }
+      // 0-GW：世界地图上要画玩家立绘，角色表也必须就绪（平时只在进城时载入）
+      if (!this.sheets.character) this.loadCharacterSheet().catch(() => { });
       // 世界地图的 tileset（ntyris = 0）可能与当前城镇不同，需要按需加载
       let sheet = this.sheets[WM.tileset];
       if (!sheet) {
@@ -1517,17 +1643,31 @@
       }
       // 玩家标记（画在城镇标记之前，避免挡住城镇名）
       //   0-FT：查看模式下镜头不跟玩家，所以标记要按玩家真实世界坐标换算。
+      //   0-GW：世界地图上也画玩家立绘（character.bmp / PCC 合成图），
+      //        贴图未就绪时才退回原来的白点。
       const pvx = (w.x | 0) - startX, pvy = (w.y | 0) - startY;
       if (pvx >= 0 && pvy >= 0 && pvx < this.viewW && pvy < this.viewH) {
         const px = pvx * TILE + TILE / 2, py = pvy * TILE + TILE / 2;
-        const pulse = 5 + Math.sin(performance.now() / 250) * 1.2;
+        // 先垫一层淡光晕，深色地形上也能看清自己
         ctx.beginPath();
-        ctx.arc(px, py, pulse, 0, Math.PI * 2);
-        ctx.fillStyle = '#fff';
+        ctx.arc(px, py, TILE * 0.42, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255,248,200,.22)';
         ctx.fill();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = '#000';
-        ctx.stroke();
+        const hasSprite = !!(this.sheets.character
+          && (this.charaSpriteIndex(game.player) >= 0
+            || (Elona.PCC && Elona.PCC.ready && Elona.PCC.ready(game.player, game))));
+        if (hasSprite) {
+          this.drawPlayer(game, pvx, pvy);
+        } else {
+          const pulse = 5 + Math.sin(performance.now() / 250) * 1.2;
+          ctx.beginPath();
+          ctx.arc(px, py, pulse, 0, Math.PI * 2);
+          ctx.fillStyle = '#fff';
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#000';
+          ctx.stroke();
+        }
         if (look) {
           // 查看模式下镜头已离开玩家，给标记加个「你」，免得找不到自己
           ctx.font = FONT_UI(10);
@@ -1540,6 +1680,7 @@
       }
       // 城镇标记（世界坐标与地图格一一对应）
       const towns = (Elona.Towns && Elona.Towns.LIST) || [];
+      const townName = (t) => ((Elona.Towns && Elona.Towns.labelOf) ? Elona.Towns.labelOf(t) : t.label);
       ctx.textAlign = 'center';
       ctx.font = FONT_UI(10);
       for (const t of towns) {
@@ -1562,12 +1703,13 @@
         // 名字画在点/地标下方（有贴图时贴到图块下沿），黑底描边保证在任何地形上都清晰
         ctx.font = FONT_UI(11);
         const tx = x, ty = y + (hasArt ? 34 : 15);
+        const nm = townName(t);
         ctx.fillStyle = 'rgba(0,0,0,.8)';
-        ctx.fillText(t.label, tx + 1, ty + 1);
+        ctx.fillText(nm, tx + 1, ty + 1);
         ctx.fillStyle = 'rgba(0,0,0,.8)';
-        ctx.fillText(t.label, tx - 1, ty - 1);
+        ctx.fillText(nm, tx - 1, ty - 1);
         ctx.fillStyle = current ? '#ffd700' : '#ffffff';
-        ctx.fillText(t.label, tx, ty);
+        ctx.fillText(nm, tx, ty);
       }
       // 0-FA：站点 / 随机地城入口（*label_2469 的槽位 450..499 与 35 个固定站点）。
       //   贴图已在上面按 `var_132(15)` 铺好；这里只补「状态点 + 名字」，
@@ -1646,7 +1788,7 @@
 
         let place = '';
         for (const t of (Elona.Towns && Elona.Towns.LIST) || []) {
-          if (t.wx === (look.x | 0) && t.wy === (look.y | 0)) { place = t.label; break; }
+          if (t.wx === (look.x | 0) && t.wy === (look.y | 0)) { place = townName(t); break; }
         }
         if (!place && ST && ST.ready && ST.ready()) {
           const hit = placed.find((x) => x && x.fields

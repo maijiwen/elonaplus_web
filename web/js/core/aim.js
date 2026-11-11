@@ -129,6 +129,40 @@
   }
 
   /**
+   * `txttargetsp`（9642-9669）—— 目标的体力（SP）描述行。
+   * 原版按 SP 占上限的比例给出「神情自若 / 呼吸略微凌乱 …」。
+   */
+  function spText(c) {
+    const sp = c.get(52) | 0, spMax = c.get(53) | 0;
+    const pct = spMax ? idiv(sp * 100, spMax) : 0;
+    let txt;
+    if (sp < 0) txt = '明显疲惫不堪';
+    else if (sp < 25) txt = '连掩饰疲态的气力都没有';
+    else if (sp < 50) txt = '动作摇摇晃晃';
+    else if (sp < idiv(spMax, 4)) txt = '肩膀在抖着喘气';
+    else if (sp < idiv(spMax, 2)) txt = '表情里透着焦急';
+    else if (sp < idiv(spMax * 3, 4)) txt = '呼吸略微凌乱';
+    else txt = '很平静';
+    return `${txt}。[SP ${pct}%]`;
+  }
+
+  /** `txttargetlevel`（9571-9614）—— 强弱提示（按双方等级比） */
+  function levelText(p, c) {
+    const myLv = p.get(38) | 0, tLv = c.get(38) | 0;
+    if (myLv * 20 < tLv) return '对方若是巨人，你连蚂蚁的粪便都不如。';
+    if (myLv * 10 < tLv) return '绝对赢不了的对手。';
+    if (myLv * 5 < tLv) return '一定会被杀掉吧。';
+    if (myLv * 3 < tLv) return '除非发生奇迹，否则会被杀。';
+    if (myLv * 2 < tLv) return '至少比你强一倍。';
+    if (idiv(myLv * 3, 2) < tLv) return '对方看起来相当强。';
+    if (myLv < tLv) return '不是赢不了的对手。';
+    if (idiv(myLv, 3) * 2 < tLv) return '大概会赢。';
+    if (idiv(myLv, 2) < tLv) return '不是大意的对手。';
+    if (idiv(myLv, 3) < tLv) return '闭着眼睛也能赢。';
+    return '闭着眼睛、抱着胳膊都能赢。';
+  }
+
+  /**
    * `txttargetnpc`（283056-283144）的可锁定判定 + 信息行。
    * 返回 `{ ok, lines }`：ok = false 时对应 283740 的「その場所は見えない」。
    */
@@ -155,18 +189,7 @@
     const c = charaAtCell(g, x, y);
     if (c) {
       lines.push(`${c.name}　Lv ${c.get(38) | 0}`);
-      // txttargetsp（9642-9669）
-      const sp = c.get(52) | 0, spMax = c.get(53) | 0;
-      const pct = spMax ? idiv(sp * 100, spMax) : 0;
-      let txt;
-      if (sp < 0) txt = '明显疲惫不堪';
-      else if (sp < 25) txt = '连掩饰疲态的气力都没有';
-      else if (sp < 50) txt = '动作摇摇晃晃';
-      else if (sp < idiv(spMax, 4)) txt = '肩膀在抖着喘气';
-      else if (sp < idiv(spMax, 2)) txt = '表情里透着焦急';
-      else if (sp < idiv(spMax * 3, 4)) txt = '呼吸略微凌乱';
-      else txt = '神情自若';
-      lines.push(`${txt}。[SP ${pct}%]`);
+      lines.push(spText(c));
       // 关系 / 距离
       const rel = c.get(F_REL) | 0;
       const tag = rel <= -3 ? '敌对' : (rel < 0 ? '敌意' : (rel >= 10 ? '同伴' : '中立'));
@@ -191,19 +214,7 @@
         const rider = (g.charas || [])[c.get(F_IS_RIDING) | 0];
         if (rider) lines.push(`正被 ${rider.name} 骑乘`);
       }
-      // txttargetlevel（9571-9614）：强弱提示
-      const myLv = p.get(38) | 0, tLv = c.get(38) | 0;
-      if (myLv * 20 < tLv) lines.push('对方若是巨人，你连蚂蚁的粪便都不如。');
-      else if (myLv * 10 < tLv) lines.push('绝对赢不了的对手。');
-      else if (myLv * 5 < tLv) lines.push('一定会被杀掉吧。');
-      else if (myLv * 3 < tLv) lines.push('除非发生奇迹，否则会被杀。');
-      else if (myLv * 2 < tLv) lines.push('至少比你强一倍。');
-      else if (idiv(myLv * 3, 2) < tLv) lines.push('对方看起来相当强。');
-      else if (myLv < tLv) lines.push('不是赢不了的对手。');
-      else if (idiv(myLv, 3) * 2 < tLv) lines.push('大概会赢。');
-      else if (idiv(myLv, 2) < tLv) lines.push('不是大意的对手。');
-      else if (idiv(myLv, 3) < tLv) lines.push('闭着眼睛也能赢。');
-      else lines.push('闭着眼睛、抱着胳膊都能赢。');
+      lines.push(levelText(p, c));
       if (o.free) ok = true;
     }
 
@@ -258,12 +269,23 @@
 
       // 283501-283507：光标起点跟随使用者的格子
       let cx = me.x | 0, cy = me.y | 0;
+      // 0-GW / *label_2836（300333-300382）：还没有锁定目标时，**先自动选一个**——
+      //   依次按关系 `var_58(9) <= -3`（敌对）→ `<= 10`（中立/友好）→ `<= 0` 三轮，
+      //   每轮取候选表（已按距离排序）里的第一个，选中就写进 `var_58(29)`。
+      //   玩家侧（自己是 0 号槽或非敌对）用 -3/10/0，敌对阵营的角色用 10/0/0。
+      let locked = (me.get(F_LOCK) | 0);
+      if (!free && !locked && list.length) {
+        const selfRel = me.get(F_REL) | 0;
+        const passes = (me.index === 0 || selfRel >= 0) ? [-3, 10, 0] : [10, 0, 0];
+        for (const lim of passes) {
+          const hit = list.find((e) => (e.chara.get(F_REL) | 0) <= lim);
+          if (hit) { me.set(F_LOCK, hit.chara.index | 0); locked = hit.chara.index | 0; break; }
+        }
+      }
       // 283514-283534：已经有锁定目标时把光标挪过去
-      const locked = (me.get(F_LOCK) | 0);
       if (!free && locked > 0) {
         const lc = (g.charas || [])[locked];
-        if (lc && list.some((e) => (e.chara.index | 0) === locked)) { cx = lc.x | 0; cy = lc.y | 0; }
-        else if (lc) { cx = lc.x | 0; cy = lc.y | 0; }
+        if (lc && (lc.get(0) | 0) === 1) { cx = lc.x | 0; cy = lc.y | 0; }
       }
 
       const s = {
@@ -292,6 +314,73 @@
       const o = opt || {};
       if (!s) return { ok: false, lines: ['（没有锁定会话）'], chara: null, items: [] };
       return inspect(g, s.x, s.y, { me: s.me, free: s.free, skipLos: o.skipLos });
+    },
+
+    /**
+     * 左下角的目标信息（`txttargetnpc` 283056-283144 的紧凑 3 行版）。
+     *
+     * 原版把每行按 `pos 100, var_217 - var_810 - 45 - var_2176 * 20` 往上叠，
+     * 也就是**后压入的行画得更高**。玩家实际会看到从上到下：
+     *   ① `現在のターゲットは <名前> (距離 N)`（最后压入 → 最高）
+     *   ② `txttargetsp` 的体力描述 + SP%
+     *   ③ `txttargetlevel` 的强弱提示（最先压入 → 最底）
+     * 这里直接按这个顺序返回，交给 renderer 从上往下画。
+     *
+     * @returns {{lines:string[], chara:object|null, inSight:boolean, dest:{x,y}|null}}
+     */
+    describe(g) {
+      const s = this.s;
+      const me = (s && s.me) || (g && g.player);
+      let x, y;
+      if (s) { x = s.x; y = s.y; }
+      else {
+        const t = this.target(g);
+        if (!t || !t.tile) return { lines: [], chara: null, inSight: true, dest: null };
+        x = t.tile.x; y = t.tile.y;
+      }
+      const info = inspect(g, x, y, { me, free: s ? s.free : false });
+      const c = info.chara;
+      if (!c) {
+        // 没有角色：只保留物品 / 地形提示（原版显示在目标行之上）
+        const extra = info.lines.filter((ln) => /^(地上：|视野)/.test(ln));
+        return { lines: extra, chara: null, inSight: info.inSight, dest: { x, y } };
+      }
+      const dist = Math.max(Math.abs((c.x | 0) - (me.x | 0)), Math.abs((c.y | 0) - (me.y | 0)));
+      const head = `现在的目标是 ${c.name}（距离 ${dist}）`;
+      const sp = spText(c);
+      const lv = levelText(me, c);
+      // 取 inspect 里压在强弱提示之后的行（地上物品 / 地形），放到最上方
+      const idx = info.lines.indexOf(lv);
+      const extra = idx >= 0 ? info.lines.slice(idx + 1) : [];
+      return {
+        lines: [head, sp, lv].concat(extra),
+        chara: c, inSight: info.inSight, dest: { x, y },
+      };
+    },
+
+    /**
+     * 从 (x1,y1) 到 (x2,y2) 的路径格（`get_route` / `route_info` 的显示用途）。
+     * 原版 `*label_2672` 用同样的 route 把每格 `gfini 50,50,100` 铺成半透明白色。
+     * @returns {Array<{x:number,y:number}>} 不含起点，最多 max 格
+     */
+    pathCells(g, x1, y1, x2, y2, max) {
+      const S = Elona.Spell;
+      const out = [];
+      if (!S || !S.getRoute || !S.routeInfo) return out;
+      if (!g || !g.map) return out;
+      let gr = null;
+      try { gr = S.getRoute(g, x1 | 0, y1 | 0, x2 | 0, y2 | 0); } catch (e) { return out; }
+      if (!gr || !gr.ok || !gr.route || !gr.route.length) return out;
+      let x = x1 | 0, y = y1 | 0;
+      const lim = Math.min(60, Math.max(1, max | 0 || 40));
+      for (let i = 0; i < lim; i++) {
+        const ri = S.routeInfo(g, x, y, i, gr.route);
+        x = ri.x | 0; y = ri.y | 0;
+        if (ri.stat === 0) break;
+        out.push({ x, y });
+        if (x === (x2 | 0) && y === (y2 | 0)) break;
+      }
+      return out;
     },
 
     /** 光标位置（渲染用） */

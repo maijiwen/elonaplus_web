@@ -1603,13 +1603,14 @@
      *   · 行坐标 x = 80 + (i/20)*306、y = 45 + (i%20)*16，行高 16、字号 12；
      *   · `@XX` 前缀决定颜色（QM 红 / QD 橙 / QC 绿 / QS 青 / QL 橄榄 / RE 深红 / BL 深蓝）；
      *   · 每页底部 `- N -` 页码，还有下一页时右页右下 `(more)`。
-     * 正文取 **日文**（journal.json 的 jp 分支）—— 与游戏内截图一致。
+     * 正文取 **中文**（journal.json 的 ch 分支）—— 汉化版的日记正文；
+     * 缺 ch 时 Journal.loc 会回退到日文原文。
      */
     async openJournal(g) {
       this.rows = [];
       this.onPick = null;
       try { await Elona.Journal.load(); } catch (e) { /* 无数据 */ }
-      const secs = Elona.Journal.ready() ? Elona.Journal.sections(g, { lang: 'jp' }) : [];
+      const secs = Elona.Journal.ready() ? Elona.Journal.sections(g, { lang: 'ch' }) : [];
 
       // ① 拼行（源码 noteadd 的顺序）：每段前加「 - <段名> - 」+ 空行，
       //    段尾补齐到半页（20 行）—— 源码用 `repeat 20 - 行数%20: noteadd ""` 对齐。
@@ -1890,48 +1891,33 @@
      * 本项目改成「状态在 Elona.Aim、渲染在 Renderer、按键在 main.js」：
      * 这里只负责在按键后刷新提示文字。
      */
-    aimRefresh(g) {
-      if (!Elona.Aim.active) { this.close(); return; }
-      const info = Elona.Aim.inspect(g);
-      const s = Elona.Aim.s;
-      const mode = s.free ? '自由锁定' : '角色锁定';
-      const head = info.inSight ? '' : '<div class="pui-line pui-dim">（视野范围外）</div>';
-      const rows = info.lines.map((x) => `<div class="pui-line">${esc(x)}</div>`).join('');
-      const html = head + rows;
-      const title = `${mode}　光标 (${s.x},${s.y})`;
-      const hint = s.free
-        ? '方向键移动　+/- 跳到角色　回车锁定　Esc 取消'
-        : '方向键切换目标　←/→ 翻页　回车锁定　Esc 取消';
-      const el = this.root;
-      if (this.kind !== 'aim' || !el || el.classList.contains('hidden')) {
-        this.open('aim', title, html, { wide: false, hint });
-        // open() 会把 sel 归零并清掉 onKeyFn；瞄准自己处理全部按键
-        this.rows = [];
-        this.onKeyFn = null;
-        return;
-      }
-      el.querySelector('#pui-title').textContent = title;
-      el.querySelector('#pui-hint').textContent = hint;
-      el.querySelector('#pui-body').innerHTML = html;
-    },
-
     /**
      * `*` 键（`var_167` = key_target → 605915 → `*label_2670`）。
      * 大地图（`var_126(6) == 1`）上原版是「环顾四周」，进的是自由锁定（283789 之前
      * 的 `var_1784` 分支）；普通地图进角色锁定。
-     * 本项目：普通地图先给「角色锁定」，若视野内一个目标都没有则退化成自由锁定
-     * （否则玩家会卡在一个空列表里，什么也按不了）。
+     *
+     * 0-GW：原版在光标模式下**不弹窗** —— `txttargetnpc`（283056）把目标信息直接
+     *   画在画面左下角（x=100，从 `var_217-45` 往上每行 20px），路径用 `get_route`
+     *   逐格 `gfini 50,50,100` 铺成半透明白。本项目此前开了个 HTML 信息窗，
+     *   现在改为：这里只建立 Aim 会话并关掉残留窗口，绘制全部交给
+     *   `renderer.drawTargetOverlay()`。
      */
     openAim(g) {
       const world = (g.map && g.map.header && (g.map.header[6] | 0) === 1);
       const tab = world ? null : Elona.Aim.listFor(g);
       const free = world || !tab || !tab.list.length;
       const s = Elona.Aim.start(g, { free });
+      if (this.kind) this.close();          // 能力窗等旧窗口不能挡住地图
       if (!free && !s.list.length) g.log('视野内没有可以锁定的目标。');
       if (free && world) g.log('环顾四周 —— 方向键移动光标，回车确认。');
-      this.aimRefresh(g);
+      else if (!free) g.log('方向键切换目标，回车锁定，Esc 取消。');
     },
 
+    /**
+     * 0-GW：信息窗已改由画布左下角绘制，这里保留接口（鼠标移动时 main.js 会调），
+     * 只做「光标已由 Aim.moveTo 更新」的空同步。
+     */
+    aimRefresh(g) { void g; },
     /**
      * 0-EO：强制「自由光标」—— 地面指定法术（类别 7000）用它。
      * 原版 315731 `gosub *label_2670` 是全屏光标，可以在射程内任意移动，

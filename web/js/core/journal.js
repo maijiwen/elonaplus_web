@@ -260,13 +260,20 @@
   /** - Title & Ranking - （285986-286006） */
   function rankingSection(g, lang) {
     const jp = (lang === 'jp');
+    const ch = (lang === 'ch');
     const out = [];
     const deep = slotOf(g, 189);
-    out.push({ cls: 'body', text: jp ? `最深攻略階層: ${deep}階相当` : `ClearDeep: ${deep} level` });
+    out.push({
+      cls: 'body',
+      text: jp ? `最深攻略階層: ${deep}階相当`
+        : (ch ? `最深攻略层数：${deep} 层相当` : `ClearDeep: ${deep} level`),
+    });
     const ally = deep + 20;
     out.push({
       cls: 'body',
-      text: jp ? `[レベル${ally}までの仲間が戦闘時に従う]` : `[Allies up to level ${ally} will follow in battle]`,
+      text: jp ? `[レベル${ally}までの仲間が戦闘時に従う]`
+        : (ch ? `[等级 ${ally} 以下的同伴会在战斗中跟随]`
+          : `[Allies up to level ${ally} will follow in battle]`),
     });
     out.push({ cls: 'blank', text: '' });
     out.push({ cls: 'blank', text: '' });
@@ -276,10 +283,12 @@
       const title = Elona.Rank && Elona.Rank.title ? Elona.Rank.title(g, cat, lang) : '';
       out.push({ cls: 'body', text: `${title} Rank.${idiv(score, 100)}` });
       const income = Elona.Economy && Elona.Economy.calcIncome ? Elona.Economy.calcIncome(g, cat) : 0;
-      let pay = jp ? `給料: 約 ${income} gold  ` : `Pay: About ${income} gold pieces `;
+      let pay = jp ? `給料: 約 ${income} gold  `
+        : (ch ? `工资：约 ${income} gold  ` : `Pay: About ${income} gold pieces `);
       // 286000：3/4/5/8 号（竞技场、博物馆等）没有期限
       if (!(cat === 3 || cat === 4 || cat === 5 || cat === 8)) {
-        pay += (jp ? 'ノルマ: ' : '\nDeadline: ') + slotOf(g, 140 + cat) + (jp ? '日以内' : ' Days left');
+        pay += (jp ? 'ノルマ: ' : (ch ? '期限：' : '\nDeadline: '))
+          + slotOf(g, 140 + cat) + (jp ? '日以内' : (ch ? ' 天内' : ' Days left'));
       }
       out.push({ cls: 'body', text: pay });
       out.push({ cls: 'blank', text: '' });
@@ -287,7 +296,9 @@
     const wins = slotOf(g, 802), best = slotOf(g, 803);
     out.push({
       cls: 'body',
-      text: jp ? `EXバトル: 勝利 ${wins}回 最高Lv${best}` : `EX Arena Wins:${wins}  Highest Level:${ordinal(best, lang)}`,
+      text: jp ? `EXバトル: 勝利 ${wins}回 最高Lv${best}`
+        : (ch ? `EX 竞技场：胜利 ${wins} 次　最高 Lv${best}`
+          : `EX Arena Wins:${wins}  Highest Level:${ordinal(best, lang)}`),
     });
     return { lines: out, total: income_total(g, deep) };
   }
@@ -313,6 +324,7 @@
   /** - Income & Expense - （286011-286041） */
   function incomeSection(g, lang) {
     const jp = (lang === 'jp');
+    const ch = (lang === 'ch');
     const total = income_total(g, slotOf(g, 189));
     const labor = slotOf(g, 170);
     const build = Elona.Economy && Elona.Economy.calcBuilding ? Elona.Economy.calcBuilding(g) : 0;
@@ -332,6 +344,18 @@
       if (prepaid > 0) out.push({ cls: 'body', text: `現在先払いの残額は${prepaid} GP` });
       out.push({ cls: 'blank', text: '' });
       out.push({ cls: 'body', text: `現在未払いの請求書は${unpaid}枚` });
+    } else if (ch) {
+      out.push({ cls: 'body', text: '◆ 工资（每月 1 日与 15 日发放）' });
+      out.push({ cls: 'blue', text: `合计　　 ：约 ${total} GP` });
+      out.push({ cls: 'blank', text: '' });
+      out.push({ cls: 'body', text: '◆ 账单明细（每月 1 日开出）' });
+      out.push({ cls: 'red', text: `人工费　 ：约 ${labor} GP` });
+      out.push({ cls: 'red', text: `维持费　 ：约 ${build} GP` });
+      out.push({ cls: 'red', text: `税金　　 ：约 ${tax} GP` });
+      out.push({ cls: 'red', text: `合计　　 ：约 ${labor + build + tax} GP` });
+      if (prepaid > 0) out.push({ cls: 'body', text: `目前预付余额为 ${prepaid} GP` });
+      out.push({ cls: 'blank', text: '' });
+      out.push({ cls: 'body', text: `目前有 ${unpaid} 张未付账单` });
     } else {
       out.push({ cls: 'body', text: 'Salary (Paid every 1st and 15th day)' });
       out.push({ cls: 'blue', text: `Sum    : About ${total} GP` });
@@ -360,38 +384,42 @@
   function miscSection(g, lang) {
     const v = (n) => (g && typeof g.getV65 === 'function') ? (g.getV65(n) | 0) : 0;
     const V = (n) => v(250 + n);
+    const ch = (lang === 'ch');
+    const jp = (lang === 'jp');
     const out = [];
     const p = (t) => out.push({ cls: 'body', text: t });
-    out.push({ cls: 'head', text: '◆ 至今为止的你' });
+    /** 行标签：中文 / 日文（原版）二选一 */
+    const L = (zh, jpText) => (ch ? zh : jpText);
+    out.push({ cls: 'head', text: L('◆ 至今为止的你', '◆ これまでのあなた') });
     out.push({ cls: 'blank', text: '' });
-    p(`　ネフィア制覇数　　　: ${V(24)}`);
-    p(`　殺害数　　　　　　　: ${v(2)}`);                 // 286053：总击杀数 = var_65(2)
-    p(`　決闘の経験　　　　　: ${V(59)}`);
-    p(`　依頼達成数　　　　　: ${V(25)}`);
+    p(`${L('　奈菲亚制霸数　　　：', '　ネフィア制覇数　　　:')} ${V(24)}`);
+    p(`${L('　杀害数　　　　　　：', '　殺害数　　　　　　　:')} ${v(2)}`);          // 286053
+    p(`${L('　决斗经验　　　　　：', '　決闘の経験　　　　　:')} ${V(59)}`);
+    p(`${L('　委托达成数　　　　：', '　依頼達成数　　　　　:')} ${V(25)}`);
     out.push({ cls: 'blank', text: '' });
-    p(`　世界移動距離　　　　: ${V(26)} ${lang === 'jp' ? 'マイル' : 'Miles'}`);   // 286057
-    p(`　生産数(錬金術)　　　: ${V(47)}`);
-    p(`　生産数(大工)　　　　: ${V(48)}`);
-    p(`　生産数(宝石細工)　　: ${V(49)}`);
-    p(`　生産数(裁縫)　　　　: ${V(50)}`);
+    p(`${L('　世界移动距离　　　：', '　世界移動距離　　　　:')} ${V(26)} ${jp ? 'マイル' : (ch ? '英里' : 'Miles')}`);   // 286057
+    p(`${L('　生产数（炼金术）　：', '　生産数(錬金術)　　　:')} ${V(47)}`);
+    p(`${L('　生产数（木工）　　：', '　生産数(大工)　　　　:')} ${V(48)}`);
+    p(`${L('　生产数（宝石加工）：', '　生産数(宝石細工)　　:')} ${V(49)}`);
+    p(`${L('　生产数（裁缝）　　：', '　生産数(裁縫)　　　　:')} ${V(50)}`);
     out.push({ cls: 'blank', text: '' });
-    p(`　最大通常ダメージ　　: ${V(27)}`);
-    p(`　掘り壊した壁の数　　: ${V(46)}`);
-    p(`　総睡眠時間　　　　　: ${V(39)} ${lang === 'jp' ? '時間' : 'Hours'}`);
-    p(`　経過日　　　　　　　: ${v(7)} ${lang === 'jp' ? '日' : 'Days'}`);          // 286066
-    p(`　願い発生回数　　　　: ${V(36)}`);
+    p(`${L('　最大普通伤害　　　：', '　最大通常ダメージ　　:')} ${V(27)}`);
+    p(`${L('　挖坏的墙壁数　　　：', '　掘り壊した壁の数　　:')} ${V(46)}`);
+    p(`${L('　总睡眠时间　　　　：', '　総睡眠時間　　　　　:')} ${V(39)} ${jp ? '時間' : (ch ? '小时' : 'Hours')}`);
+    p(`${L('　经过天数　　　　　：', '　経過日　　　　　　　:')} ${v(7)} ${jp ? '日' : (ch ? '天' : 'Days')}`);          // 286066
+    p(`${L('　许愿发生次数　　　：', '　願い発生回数　　　　:')} ${V(36)}`);
     out.push({ cls: 'blank', text: '' });
-    p(`　わが家への訪問客　　: ${V(51)} ${lang === 'jp' ? '人' : 'Guest'}`);
-    p(`　宝発掘回数　　　　　: ${V(33)}`);
-    p(`　潰した盗賊団の数　　: ${V(40)}`);
-    p(`　アリーナ総勝数　　　: ${V(57)}`);
-    p(`　Ｐアリーナ総勝数　　: ${V(58)}`);
+    p(`${L('　家中来访客人数　　：', '　わが家への訪問客　　:')} ${V(51)} ${jp ? '人' : (ch ? '人' : 'Guest')}`);
+    p(`${L('　宝物发掘次数　　　：', '　宝発掘回数　　　　　:')} ${V(33)}`);
+    p(`${L('　击溃的盗贼团数量　：', '　潰した盗賊団の数　　:')} ${V(40)}`);
+    p(`${L('　竞技场总胜数　　　：', '　アリーナ総勝数　　　:')} ${V(57)}`);
+    p(`${L('　宠物竞技场总胜数　：', '　Ｐアリーナ総勝数　　:')} ${V(58)}`);
     out.push({ cls: 'blank', text: '' });
-    p(`　ﾌﾟﾗﾁﾅ硬貨入手数　　 : ${V(41)} ${lang === 'jp' ? '枚' : 'Plat'}`);
-    p(`　PCｽｷﾙﾎﾞｰﾅｽ入手数　　: ${V(60)}`);
-    p(`　ｽﾍﾟﾙﾎﾞｰﾅｽ入手数　　 : ${V(61)}`);
+    p(`${L('　白金币入手数　　　：', '　ﾌﾟﾗﾁﾅ硬貨入手数　　 :')} ${V(41)} ${jp ? '枚' : (ch ? '枚' : 'Plat')}`);
+    p(`${L('　PC 技能加成入手数 ：', '　PCｽｷﾙﾎﾞｰﾅｽ入手数　　:')} ${V(60)}`);
+    p(`${L('　法术加成入手数　　：', '　ｽﾍﾟﾙﾎﾞｰﾅｽ入手数　　 :')} ${V(61)}`);
     // 286080-286085：クイズ最高記録只在 var_65(250+2) >= 370 时显示
-    if (V(2) >= 370) p(`　クイズ最高記録　　　: ${V(308)} ${lang === 'jp' ? '点' : 'points'}`);
+    if (V(2) >= 370) p(`${L('　猜谜最高记录　　　：', '　クイズ最高記録　　　:')} ${V(308)} ${jp ? '点' : (ch ? '分' : 'points')}`);
     return out;
   }
 

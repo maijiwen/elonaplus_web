@@ -624,6 +624,12 @@
       return true;
     }
 
+    /** 城镇显示名（中文优先，见 core/towns.js 的 labelOf） */
+    townName(t) {
+      if (!t) return '';
+      return (Elona.Towns && Elona.Towns.labelOf) ? Elona.Towns.labelOf(t) : (t.label || t.name || '');
+    }
+
     /**
      * 城镇 NPC 生成 —— vernis 使用原版固定坐标表（239933-240034）；
      * 其他城镇按原版城镇构成生成通用店主/服务/市民（角色表 var_58(150)）。
@@ -728,7 +734,7 @@
       }
 
       this.syncCharaCells();
-      this.log(`${town.label} 的街道上可以看到店主、市民和服务区 NPC。`);
+      this.log(`${this.townName(town)} 的街道上可以看到店主、市民和服务区 NPC。`);
     }
 
     /** 载入游戏运行所需的全部数据表（原 newGame 内的初始化段） */
@@ -2105,12 +2111,22 @@
           const arr = Elona.Quest.onArriveTown(this, name);
           if (arr) for (const a of arr) {
             this.log(a.report && a.report.message ? a.report.message
-              : `你把 ${a.quest.clientName} 送到了 ${town.label}。`);
+              : `你把 ${a.quest.clientName} 送到了 ${this.townName(town)}。`);
           }
           Elona.Quest.ensure(this);
         }
         if (this.onMapChange) this.onMapChange(this.map);
-        this.log(`你来到了 ${town.label}。`);
+        this.log(`你来到了 ${this.townName(town)}。`);
+        // 0-GW：进城剧情事件 —— 原版 map_init 里 `evadd`（如 247786 的 Vernis 首次
+        //   「ペットとの再会」），主循环当帧就会处理队尾事件。本项目进图入口分散在
+        //   loadMap / enterTown，统一在这里补一次：checkStoryEvents 压队列，
+        //   随后立刻处理一条，玩家一进城就能看到剧情，不必先走一步。
+        if (this.state === STATE.PLAY) {
+          this.checkStoryEvents();
+          if (this.events && this.events.size && this.events.size() > 0) {
+            this.events.process(this);
+          }
+        }
         return true;
       } finally {
         this.transitioning = false;
@@ -2225,7 +2241,7 @@
       const town = site ? null
         : (Elona.Towns && Elona.Towns.LIST.find((t) => t.wx === nx && t.wy === ny));
       if (site || town) {
-        const label = site ? ((Elona.Sites.nameOf(site.id, 'jp') || Elona.Sites.nameOf(site.id))) : town.label;
+        const label = site ? ((Elona.Sites.nameOf(site.id, 'jp') || Elona.Sites.nameOf(site.id))) : this.townName(town);
         // 0-FA：随机地城按源码 mapname() 的提示补上「入口危险度」
         const danger = (site && site.dyn) ? `（入口危险度 ${site.fields[17] | 0} 层相当）` : '';
         this.log(`你来到了${label}${danger}。按「回车」进入。`);
@@ -2433,14 +2449,14 @@
         // 0-FC：空白格 → 野外地图（原版 var_65(20)=2）
         if (!town) { this.enterWilderness(); return true; }
         this.worldMap = null;
-        if (this.map && this.map.name === town.name) { this.log(`你回到了 ${town.label}。`); return true; }
+        if (this.map && this.map.name === town.name) { this.log(`你回到了 ${this.townName(town)}。`); return true; }
         this.travelToTown(town.name);
         return true;
       }
       const cur = Elona.Towns && Elona.Towns.byId(site.id);
       this.worldMap = null;                          // 进入 site = 离开世界地图
       if (cur && this.map && this.map.name === cur.name) {   // 就是当前所在地
-        this.log(`你回到了 ${cur.label}。`);
+        this.log(`你回到了 ${this.townName(cur)}。`);
         return true;
       }
       this.enterSite(site);
@@ -3674,6 +3690,25 @@
     }
 
     /**
+     * 射线魔法的颜色（按法术名里的属性关键词，用于渲染层的光束）。
+     * 源码没有显式色表（用的是 anime.bmp 的动画编号），这里按属性给近似色。
+     */
+    beamColor(id) {
+      const S = Elona.Spell;
+      const nm = (S && S.actionName) ? (S.actionName(id) || {}) : {};
+      const s = `${nm.ch || ''}${nm.jp || ''}`;
+      if (/冷|冰|水/.test(s)) return '#8fd8ff';
+      if (/火|热|炎|獄|狱/.test(s)) return '#ff9a4a';
+      if (/雷|电|電/.test(s)) return '#ffe76a';
+      if (/暗|冥|幽|死/.test(s)) return '#b48cff';
+      if (/幻/.test(s)) return '#ff9ad8';
+      if (/毒/.test(s)) return '#a6e05a';
+      if (/音|声|聲/.test(s)) return '#ffd9a0';
+      if (/魔/.test(s)) return '#c9a6ff';
+      return '#dff0ff';
+    }
+
+    /**
      * 玩家咏唱法术/能力 —— *label_2950 的玩家路径（315507-315573）。
      * 消耗：MP（calcspellcostmp）+ 魔力库存（calcspellcoststock）；
      * 失败率：calcspellfail（var_1430）；效果：Spell.cast（前置检查 + *label_2960）。
@@ -3760,6 +3795,22 @@
         return { ok: false, reason: 'fail', failed: true };
       }
       const r = S.cast(this, p, id, pre.target || target, tile);
+      // 0-GW：射线类魔法（`var_83(1,id) == 1` = Line）沿 `get_route` 的路径播放动画。
+      //   原版 315993-316261 用 route_info 逐格推进伤害，画面上的射线也是一格一格飞出去的；
+      //   这里只在玩家咏唱成功时生成一条视觉轨迹（伤害仍由 Spell.effectType1 结算）。
+      if ((!r || r.ok !== false) && (S.field(id, 1) | 0) === 1) {
+        const tg = pre.target || target;
+        if (tg && tg.x !== undefined && Elona.Aim && Elona.Aim.pathCells) {
+          const cells = Elona.Aim.pathCells(this, p.x | 0, p.y | 0, tg.x | 0, tg.y | 0, 20);
+          if (cells.length) {
+            this.effects.push({
+              kind: 'beam', cells,
+              t: (typeof performance !== 'undefined' ? performance.now() : Date.now()),
+              dur: 420, color: this.beamColor(id),
+            });
+          }
+        }
+      }
       // 314529-314536 → *label_2157：咏唱成功后练「法术技能」+「咏唱」，
       //   属性经验由 skillexp 按 var_83(0, 法术id) 递归给出（31933-31937）。
       if ((!r || r.ok !== false) && S.grantCastExp) {
@@ -3935,7 +3986,8 @@
     updateEffects(now) {
       if (!this.effects.length) return;
       const t = now || (typeof performance !== 'undefined' ? performance.now() : Date.now());
-      this.effects = this.effects.filter((e) => t - e.t < 900);
+      // 0-GW：光束动画有自己的时长（e.dur），不能一律按 900ms 清掉
+      this.effects = this.effects.filter((e) => t - e.t < Math.max(900, (e.dur | 0) + 600));
     }
 
     // ---------- 地面物品 ----------

@@ -2071,7 +2071,7 @@
     openWorldMap(game) {
       const town = Elona.Towns && game.map ? Elona.Towns.byName(game.map.name) : null;
       this.el('wm-info').textContent =
-        `当前位置：${town ? town.label : (game.map ? game.map.name : '未知')}　回合 ${game.turn}`;
+        `当前位置：${town ? (Elona.Towns.labelOf ? Elona.Towns.labelOf(town) : town.label) : (game.map ? game.map.name : '未知')}　回合 ${game.turn}`;
       const box = this.el('wm-dest');
       if (box) {
         box.innerHTML = '';
@@ -2083,7 +2083,7 @@
         } else if (Elona.Towns) {
           for (const t of Elona.Towns.LIST) {
             const b = document.createElement('button');
-            b.textContent = t.label;
+            b.textContent = Elona.Towns.labelOf ? Elona.Towns.labelOf(t) : t.label;
             b.disabled = town && town.name === t.name;
             b.onclick = () => {
               this.closeWorldMap();
@@ -2119,7 +2119,7 @@
       const cur = game.map ? game.map.name : null;
       for (const t of Elona.Towns.LIST) {
         const b = document.createElement('button');
-        b.textContent = t.label;
+        b.textContent = Elona.Towns.labelOf ? Elona.Towns.labelOf(t) : t.label;
         b.disabled = cur === t.name;
         b.onclick = () => {
           game.leaveWorldMap();

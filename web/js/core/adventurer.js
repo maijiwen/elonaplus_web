@@ -165,8 +165,9 @@
   /** Journal 的 - News - 段（285944 var_440） */
   function news(g, lang) {
     const jp = (lang === 'jp');
+    const ch = (lang === 'ch');
     const list = (g && g.news) || [];
-    if (!list.length) return [{ cls: 'body', text: 'No news' }];
+    if (!list.length) return [{ cls: 'body', text: ch ? '（还没有消息）' : 'No news' }];
     const out = [];
     for (const n of list.slice(0, 8)) {
       const d = n.date || {};

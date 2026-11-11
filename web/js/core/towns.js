@@ -17,22 +17,25 @@
 
   const BASE = 57, SIZE = 75;   // 57..131，足够容纳原版最大城镇（Palmia 72 个）
   // wx/wy = 原版 var_132(1/2, mapId) 世界地图坐标（100×60 网格）
-  const mk = (name, id, label, wx, wy) => ({ name, id, label, wx, wy, base: BASE, size: SIZE });
+  // zh = 中文地名（与 data/scene/strings.json 的汉化用词保持一致）；
+  //      世界地图与「你来到了…」等提示都显示它，label 仅作英文兜底。
+  const mk = (name, id, label, zh, wx, wy) =>
+    ({ name, id, label, zh, wx, wy, base: BASE, size: SIZE });
   const LIST = [
-    mk('vernis', 5, 'Vernis', 26, 23),
-    mk('kapul', 11, 'Kapul', 3, 15),
-    mk('yowyn', 12, 'Yowyn', 43, 32),
-    mk('rogueden', 14, 'Rogueden', 14, 35),
-    mk('palmia', 15, 'Palmia', 53, 24),
-    mk('noyel', 33, 'Noyel', 89, 14),
-    mk('lumiest', 36, 'Lumiest', 61, 32),
-    mk('eirel', 50, 'Eirel', 41, 2),
-    mk('melkawn1', 52, 'Melkawn', 24, 11),
-    mk('kurualm', 53, 'Kurualm', 16, 10),
-    mk('valm', 54, 'Valm', 3, 33),
-    mk('melugas', 55, 'Melugas', 25, 29),
-    mk('arcbelc', 56, 'Arcbelc', 30, 42),
-    mk('ludus', 57, 'Ludus', 56, 32),
+    mk('vernis', 5, 'Vernis', '维尔尼斯', 26, 23),
+    mk('kapul', 11, 'Kapul', '卡普尔', 3, 15),
+    mk('yowyn', 12, 'Yowyn', '约温', 43, 32),
+    mk('rogueden', 14, 'Rogueden', '罗格登', 14, 35),
+    mk('palmia', 15, 'Palmia', '帕尔米亚', 53, 24),
+    mk('noyel', 33, 'Noyel', '诺伊尔', 89, 14),
+    mk('lumiest', 36, 'Lumiest', '鲁米艾斯特', 61, 32),
+    mk('eirel', 50, 'Eirel', '艾雷尔', 41, 2),
+    mk('melkawn1', 52, 'Melkawn', '梅尔卡恩', 24, 11),
+    mk('kurualm', 53, 'Kurualm', '库尔阿姆', 16, 10),
+    mk('valm', 54, 'Valm', '瓦尔姆', 3, 33),
+    mk('melugas', 55, 'Melugas', '梅鲁加斯', 25, 29),
+    mk('arcbelc', 56, 'Arcbelc', '阿库贝尔克', 30, 42),
+    mk('ludus', 57, 'Ludus', '鲁杜斯', 56, 32),
   ];
 
   const ESCORT_SLOTS = [236, 237, 238, 239, 240];
@@ -60,7 +63,9 @@
     byName(name) { return LIST.find((t) => t.name === name) || null; },
     byId(id) { return LIST.find((t) => t.id === (id | 0)) || null; },
     names() { return LIST.map((t) => t.name); },
-    labels() { return LIST.map((t) => ({ name: t.name, label: t.label })); },
+    labels() { return LIST.map((t) => ({ name: t.name, label: t.label, zh: t.zh })); },
+    /** 显示用名字：中文优先，没有则英文（世界地图 / 提示语统一走这里） */
+    labelOf(t) { return (t && (t.zh || t.label)) || ''; },
     isTown(name) { return !!this.byName(name); },
     /** 原版 var_1558 / var_1559 可选目的地（排除当前城镇） */
     escortTargets(currentName) {
