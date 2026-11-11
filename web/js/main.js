@@ -23,6 +23,36 @@
   let titleScreen = null;
 
   // ---------- 渲染循环 ----------
+  // 长时间行动（rowact）自动过回合：
+  //   源码 *label_2616 在 `var_58(140,0) != 0` 时直接 return（273430-273436），
+  //   主循环因此**不等按键**、连续推进回合，直到行动完成或被打断。
+  //   网页版没有阻塞式主循环，这里用渲染帧计时补上同样的行为：
+  //   有弹窗 / 瞄准 / 背包时不推进（让玩家处理 UI），关闭后自动继续。
+  const ROWACT_TURN_MS = 90;
+  let rowactNextAt = 0;
+  function rowactActive() {
+    return game.state === STATE.PLAY && !!game.player
+      && (game.player.get(140) | 0) !== 0
+      && (game.player.hp | 0) > 0;
+  }
+  function maybeRowactTurn(now) {
+    if (!rowactActive()) { rowactNextAt = 0; return; }
+    if (!rowactNextAt) { rowactNextAt = now + ROWACT_TURN_MS; return; }
+    if (now < rowactNextAt) return;
+    if (modalOpen() || (Elona.Aim && Elona.Aim.active)
+      || (Elona.DirSel && Elona.DirSel.active)
+      || (Elona.Interact && Elona.Interact.active)) {
+      rowactNextAt = now + ROWACT_TURN_MS;
+      return;
+    }
+    game.endTurn();
+    renderer.lastMove = performance.now();
+    rowactNextAt = now + ROWACT_TURN_MS;
+  }
+  Elona.rowactActive = rowactActive;
+  // 供自动化脚本（tools/smoke_fixes.js）在绕过创建界面时启动渲染/推进循环
+  Elona.startLoop = startLoop;
+
   function startLoop() {
     if (animationHandle) return;
     const tick = () => {
@@ -31,6 +61,7 @@
         renderer.clear();
         if (game.worldMap) renderer.drawWorldMap(game);
         else renderer.drawMap(game);   // 地图 + HUD + 消息窗
+        maybeRowactTurn(performance.now());
       }
       animationHandle = requestAnimationFrame(tick);
     };

@@ -1136,6 +1136,14 @@
           this.enterWorldMap();
           return true;
         }
+        // 0-FZ / 343336-343419：自宅（var_65(20)==7，含初始洞窟）也是「var_65(22)==1 的
+        //   非野外地图」，原版同样弹「离开「<地图名>」？」→ 回世界地图。
+        //   二层以上（var_65(22)>1）不触发，要走楼梯。
+        if (Elona.Home && Elona.Home.inHome(this) && (this.getV65(22) | 0) <= 1) {
+          this.endTurn();
+          this.enterWorldMap();
+          return true;
+        }
         this.log('那里无法通行。');
         return false;
       }

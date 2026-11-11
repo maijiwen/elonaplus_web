@@ -137,7 +137,25 @@
       : type === 3
         ? `${who}踏上了旅程。`
         : `${who}的近况传开了。`;
-    const item = { type: type | 0, text, hour: absHours(g), name: c ? c.name : '' };
+    const textJp = type === 5
+      ? `${who}は町に戻った。`
+      : type === 3
+        ? `${who}は旅立った。`
+        : `${who}の近況が伝わった。`;
+    // addnewstopic（22381）：`var_65(10)/var_65(11)/var_65(12) h var_65(13) <topic>`
+    //   日记的 News 段就是靠这个日期头 + 正文两行显示的（截图左页格式）。
+    const topic = type === 5 ? { jp: '帰郷', ch: '归乡' }
+      : type === 3 ? { jp: '旅立ち', ch: '启程' }
+        : { jp: '近況', ch: '近况' };
+    const item = {
+      type: type | 0, text, textJp, hour: absHours(g), name: c ? c.name : '', topic,
+      date: {
+        y: (g.getV65 ? (g.getV65(10) | 0) : 0),
+        mo: (g.getV65 ? (g.getV65(11) | 0) : 0),
+        d: (g.getV65 ? (g.getV65(12) | 0) : 0),
+        h: (g.getV65 ? (g.getV65(13) | 0) : 0),
+      },
+    };
     g.news = g.news || [];
     g.news.unshift(item);
     if (g.news.length > 20) g.news.length = 20;
@@ -145,10 +163,20 @@
   }
 
   /** Journal 的 - News - 段（285944 var_440） */
-  function news(g) {
+  function news(g, lang) {
+    const jp = (lang === 'jp');
     const list = (g && g.news) || [];
     if (!list.length) return [{ cls: 'body', text: 'No news' }];
-    return list.slice(0, 5).map((n) => ({ cls: 'body', text: n.text }));
+    const out = [];
+    for (const n of list.slice(0, 8)) {
+      const d = n.date || {};
+      const date = `${d.y | 0}/${d.mo | 0}/${d.d | 0} h${d.h | 0}`;
+      const topic = n.topic ? (jp ? n.topic.jp : n.topic.ch) : '';
+      out.push({ cls: 'blue', text: `${date} ${topic}`.trim() });
+      out.push({ cls: 'body', text: (jp && n.textJp) ? n.textJp : n.text });
+      out.push({ cls: 'blank', text: '' });
+    }
+    return out;
   }
 
   /**

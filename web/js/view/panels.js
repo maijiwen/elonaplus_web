@@ -51,6 +51,39 @@
     return String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   }
 
+  // ------------------------------------------------------------------
+  // 日记书本（*label_2701，286144-286230）
+  // ------------------------------------------------------------------
+  /** 行前缀颜色码 → CSS class（源码 286160-286195 的 @XX 分支） */
+  const BOOK_CLS = {
+    qm: 'qm',        // @QM 红（200,0,0）
+    qd: 'qd',        // @QD 橙（200,100,0）
+    qc: 'qc',        // @QC 绿（0,100,0）
+    qs: 'qs',        // @QS 青（0,100,100）
+    ql: 'ql',        // @QL 橄榄（100,100,0）
+    head: 'qm',
+    blue: 'bl',      // @BL 深蓝（0,0,100）
+    red: 're',       // @RE 深红（100,0,0）
+    done: 'qc',
+    body: 'body',
+    plain: 'body',
+  };
+
+  /** 按像素宽度折行：全角 12px / 半角 6px（与 12px 字号 + 306px 栏宽对应） */
+  function wrapBook(text, maxPx) {
+    const s = String(text == null ? '' : text);
+    if (!s) return [''];
+    const out = [];
+    let cur = '', w = 0;
+    for (const ch of s) {
+      const cw = (ch.codePointAt(0) > 0x2000) ? 12 : 6;
+      if (w + cw > maxPx && cur) { out.push(cur); cur = ''; w = 0; }
+      cur += ch; w += cw;
+    }
+    if (cur) out.push(cur);
+    return out;
+  }
+
   const P = {
     root: null,
     kind: null,
@@ -1563,54 +1596,108 @@
     // 冒险日记（j → *label_2700 / 285929-286136）
     // ======================================================================
     /**
-     * 原版把整本日记拼进 note 缓冲：News / Quest / Quest Item / Title & Ranking /
-     * Income & Expense / Completed Quests 六段。正文由 `core/journal.js` 执行
-     * `journal.json`（由 `tools/extract_journal.py` 从 4 段源码编译而来）。
-     *
-     * 与原版不同：面板纵向滚动而非半页翻页；正文取 en 分支；消息池（var_440）未接。
-     * 进行中的委托本应由 `*label_0273` 渲染（var_434 记录），本项目用 Quest 模块近似。
+     * 原版把整本日记拼进 note 缓冲（News / Quest / Quest Item / Title & Ranking /
+     * Income & Expense / Records / Completed Quests），再用 `graphic\book.bmp`
+     * 以**书本双页**显示（*label_2701，286144-286230）：
+     *   · 每屏 40 行 = 左页 20 行 + 右页 20 行；
+     *   · 行坐标 x = 80 + (i/20)*306、y = 45 + (i%20)*16，行高 16、字号 12；
+     *   · `@XX` 前缀决定颜色（QM 红 / QD 橙 / QC 绿 / QS 青 / QL 橄榄 / RE 深红 / BL 深蓝）；
+     *   · 每页底部 `- N -` 页码，还有下一页时右页右下 `(more)`。
+     * 正文取 **日文**（journal.json 的 jp 分支）—— 与游戏内截图一致。
      */
     async openJournal(g) {
       this.rows = [];
+      this.onPick = null;
       try { await Elona.Journal.load(); } catch (e) { /* 无数据 */ }
-      const p = g.player;
-      const cls = (c) => (c === 'head' ? 'pui-jhead'
-        : c === 'done' ? 'pui-jdone'
-          : c === 'blue' ? 'pui-jblue'
-            : c === 'red' ? 'pui-jred'
-              : c === 'blank' ? 'pui-jblank' : 'pui-jbody');
+      const secs = Elona.Journal.ready() ? Elona.Journal.sections(g, { lang: 'jp' }) : [];
 
-      const top = '<div class="pui-kv"><span>日期</span><span>'
-        + `${esc(`${g.year} 年 ${g.getV65(11) | 0} 月 ${g.getV65(12) | 0} 日 ${g.clockText()}`)}</span></div>`
-        + `<div class="pui-kv"><span>现在地</span><span>${esc((g.map && g.map.name) || '-')}</span></div>`
-        + `<div class="pui-kv"><span>等级 / 金币</span><span>${p.level | 0} ／ ${p.get(30) | 0} GP</span></div>`;
-
-      let html = top;
-      const secs = Elona.Journal.ready() ? Elona.Journal.sections(g) : null;
-      if (!secs) {
-        html += '<div class="pui-dim">日记数据（journal.json）缺失。</div>';
-      } else {
-        for (const s of secs) {
-          html += `<div class="pui-sep">${esc(s.title)}</div>`;
-          if (!s.lines.length) { html += '<div class="pui-dim">（没有内容）</div>'; continue; }
-          for (const ln of s.lines) {
-            if (ln.cls === 'blank') { html += '<div class="pui-jblank"></div>'; continue; }
-            html += `<div class="${cls(ln.cls)}">${esc(ln.text)}</div>`;
-          }
-          // 进行中的委托：原版在 Quest 段用 *label_0273 渲染（var_428 = 2 分支）
-          if (s.title === 'Quest') {
-            const actives = (Elona.Quest && Elona.Quest.activeQuests) ? Elona.Quest.activeQuests(g) : [];
-            for (const a of actives) {
-              for (const ln of Elona.Journal.questDetail(g, a)) {
-                if (ln.cls === 'blank') { html += '<div class="pui-jblank"></div>'; continue; }
-                html += `<div class="${cls(ln.cls)}">${esc(ln.text)}</div>`;
-              }
-              html += '<div class="pui-jblank"></div>';
+      // ① 拼行（源码 noteadd 的顺序）：每段前加「 - <段名> - 」+ 空行，
+      //    段尾补齐到半页（20 行）—— 源码用 `repeat 20 - 行数%20: noteadd ""` 对齐。
+      const lines = [];
+      const push = (cls, text) => lines.push({ cls, text: text == null ? '' : String(text) });
+      if (!secs.length) push('body', '（日誌データがありません）');
+      for (const s of secs) {
+        push('plain', ` - ${s.title} - `);
+        push('blank', '');
+        for (const ln of s.lines) {
+          if (ln.cls === 'blank') { push('blank', ''); continue; }
+          const cls = BOOK_CLS[ln.cls] || 'body';
+          for (const w of wrapBook(ln.text, 272)) push(cls, w);
+        }
+        // 进行中的委托：原版在 Quest 段用 *label_0273 渲染（var_428 = 2 分支）
+        if (s.title === 'Quest' && Elona.Quest && Elona.Quest.activeQuests) {
+          const actives = Elona.Quest.activeQuests(g) || [];
+          for (const a of actives) {
+            for (const ln of Elona.Journal.questDetail(g, a)) {
+              if (ln.cls === 'blank') { push('blank', ''); continue; }
+              const cls = BOOK_CLS[ln.cls] || 'body';
+              for (const w of wrapBook(ln.text, 272)) push(cls, w);
             }
           }
         }
+        while (lines.length % 20 !== 0) push('blank', '');
       }
-      this.open('journal', '冒险日记', html, { wide: true, hint: '↑↓ 滚动　Esc 关闭' });
+
+      // ② 分屏：40 行一屏（左页 0..19 / 右页 20..39）
+      this.bookLines = lines;
+      this.bookSpread = 0;
+      this.bookSpreads = Math.max(1, Math.ceil(lines.length / 40));
+      return this.renderBookPage(g);
+    },
+
+    /** 画当前这一屏（翻页时复用） */
+    renderBookPage(g) {
+      const lines = this.bookLines || [];
+      const spreads = this.bookSpreads || 1;
+      const spread = Math.max(0, Math.min(this.bookSpread | 0, spreads - 1));
+      this.bookSpread = spread;
+      const base = spread * 40;
+      let inner = '';
+      for (let i = 0; i < 40; i++) {
+        const ln = lines[base + i];
+        if (!ln) continue;
+        const col = (i / 20) | 0, row = i % 20;
+        const x = 80 + col * 306, y = 45 + row * 16;
+        inner += `<div class="bk-line bk-${ln.cls}" style="left:${x}px;top:${y}px">`
+          + `${esc(ln.text) || '　'}</div>`;
+      }
+      const pageL = spread * 2 + 1, pageR = spread * 2 + 2;
+      const more = spread < spreads - 1 ? '<div class="bk-more">(more)</div>' : '';
+      const html = '<div class="bk-sheet">'
+        + '<div class="bk-hit" style="left:0;width:368px" data-act="prev"></div>'
+        + '<div class="bk-hit" style="left:368px;width:368px" data-act="next"></div>'
+        + inner
+        + `<div class="bk-num" style="left:170px">- ${pageL} -</div>`
+        + `<div class="bk-num" style="left:476px">- ${pageR} -</div>`
+        + more
+        + '</div>';
+      this.open('journal', '冒険日誌', html, { cls: 'book-sheet', hint: '←→ 翻页　Esc 关闭' });
+      const body = this.root && this.root.querySelector('#pui-body');
+      if (body) {
+        body.onclick = (ev) => {
+          const hit = ev.target && ev.target.closest ? ev.target.closest('.bk-hit') : null;
+          if (!hit) return;
+          this.turnBookPage(g, hit.dataset.act === 'next' ? 1 : -1);
+        };
+      }
+      this.onKeyFn = (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === '6'
+          || e.key === 'd' || e.key === 'D') { this.turnBookPage(g, 1); return true; }
+        if (e.key === 'ArrowLeft' || e.key === 'PageUp' || e.key === '4'
+          || e.key === 'a' || e.key === 'A') { this.turnBookPage(g, -1); return true; }
+        return false;
+      };
+      return true;
+    },
+
+    /** 书本翻页（源码 *label_2701 的 var_894++/-- + snd 71） */
+    turnBookPage(g, d) {
+      const spreads = this.bookSpreads || 1;
+      const next = Math.max(0, Math.min((this.bookSpread | 0) + (d | 0), spreads - 1));
+      if (next === this.bookSpread) return false;
+      this.bookSpread = next;
+      this.renderBookPage(g);
+      return true;
     },
 
     // ======================================================================
@@ -2074,7 +2161,7 @@
       if (C.blockedOnWorldMap(g)) { Elona.UI.pushMessage('在世界地图上不能整理容器。'); return; }
 
       const list = C.listContainers(g);
-      if (!list.length) { g.log('你没有可以打开的容器。'); return; }
+      if (!list.length) { g.log('背包和脚下都没有可以打开的容器。'); return; }
       // 344752-344753：进入提包界面时扣一次善恶（刷新窗口不重复扣）
       if (list.length === 1) {
         if (C.beforeOpen) C.beforeOpen(g, list[0].item);

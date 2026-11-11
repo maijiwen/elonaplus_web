@@ -131,23 +131,32 @@
   // ------------------------------------------------------------------
   /** 取 op 在当前语言下的文本 */
   function loc(op, env) {
-    return render(op.text && op.text[env.lang], env);
+    const t = op.text || {};
+    // jp = 源码日文 / ch = 汉化 / en = 英文；缺哪个就退回日文
+    return render(t[env.lang] || t.jp || t.en, env);
   }
 
-  const HEAD = /^@Q[SMD]\[(.*)\]$/;
+  // `@QM[...]` / `@QD<...>` 这样的**整行**颜色标记：源码 *label_2701（286160-286195）
+  //   只剥掉前 3 个字符（"@QM"），方括号/尖括号随文本一起显示。
+  const HEAD = /^@Q([SMDLC])([\[<])([\s\S]*)([\]>])$/;
+  const HEAD_CLS = { M: 'qm', D: 'qd', C: 'qc', S: 'qs', L: 'ql' };
 
-  /** `@QM<...>` / `@QD<...>` 是 HSP 的行内命令，去掉标记保留内容 */
+  /** 行内的 `@QM<...>` / `@QD<...>` 是 HSP 的行内命令，去掉标记保留内容 */
   function stripInline(text) {
     return String(text).replace(/@Q[MSD]<([^>]*)>/g, '$1');
   }
 
   function classify(text) {
-    text = stripInline(text);
-    const m = HEAD.exec(text);
-    if (m) return { cls: 'head', text: m[1] };
-    if (text.startsWith('@BL')) return { cls: 'blue', text: text.slice(3).trim() };
-    if (text.startsWith('@RE')) return { cls: 'red', text: text.slice(3).trim() };
-    return { cls: 'body', text };
+    const raw = String(text);
+    const m = HEAD.exec(raw.trim());
+    if (m) {
+      // 保留源码里的括号（截图里也是 ［…］ / ＜…＞ 一起显示）
+      return { cls: HEAD_CLS[m[1]] || 'qm', text: m[2] + m[3] + m[4] };
+    }
+    const s = stripInline(raw);
+    if (s.startsWith('@BL')) return { cls: 'blue', text: s.slice(3).trim() };
+    if (s.startsWith('@RE')) return { cls: 'red', text: s.slice(3).trim() };
+    return { cls: 'body', text: s };
   }
 
   /**
@@ -220,7 +229,8 @@
   // ------------------------------------------------------------------
   function newEnv(g, lang, mode) {
     return {
-      g, lang: (lang === 'jp') ? 'jp' : 'en', mode: mode | 0,
+      // lang: 'jp' 源码日文 / 'ch' 汉化 / 'en' 英文（日记书本固定用 jp）
+      g, lang: (lang === 'jp' || lang === 'ch') ? lang : 'en', mode: mode | 0,
       vars: {}, curSlot: null,
       slot: (n) => slotOf(g, n),
       p58: (n) => (g.player && g.player.get ? (g.player.get(n) | 0) : 0),
@@ -397,7 +407,7 @@
     const out = [];
     // 0-GL：`addnews`（590276 / 590290）写入 g.news，日志的 News 段读真实消息池
     out.push({ title: 'News', lines: (Elona.Adventurer && typeof Elona.Adventurer.news === 'function')
-      ? Elona.Adventurer.news(g) : news() });
+      ? Elona.Adventurer.news(g, lang) : news() });
     out.push({ title: 'Quest', lines: questSection(g, lang) });
     out.push({ title: 'Quest Item', lines: itemSection(g, lang) });
     out.push({ title: 'Title & Ranking', lines: rankingSection(g, lang).lines });

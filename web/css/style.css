@@ -503,3 +503,51 @@ html, body {
 /* 0-DH：evochat 的红心（行動力 / 幸福度）—— 原版用 interface.bmp 的红心图标 */
 .dh-hearts { letter-spacing: 1px; color: #a3202a; font-family: "MS Gothic", monospace; }
 .pui-kv .dh-hearts { color: #a3202a; }
+
+/* ==================================================================
+   冒险日记 —— 书本双页（*label_2700 / *label_2701，286144-286230）
+   背景用 web/assets/graphic/book.bmp 原图（736×448），文字按源码坐标覆盖：
+     左页 x=80 / 右页 x=386，y=45 起、行高 16px、字号 12px；
+     页码 - N - 在 y=375，还有下一页时右页右下角 (more)。
+   ================================================================== */
+.pui-box.book-sheet {
+  width: 760px; max-width: 96vw; max-height: 96%;
+  background: transparent; border: 0; outline: 0; box-shadow: none;
+}
+.pui-box.book-sheet .pui-head {
+  background: transparent; border: 0; position: absolute; z-index: 3;
+  width: 760px; pointer-events: none;
+}
+.pui-box.book-sheet .pui-head #pui-title { color: #e8dcc0; text-shadow: 0 2px 3px #000; }
+.pui-box.book-sheet .pui-head .pui-hint { color: #d8c9a8; text-shadow: 0 2px 3px #000; }
+.pui-box.book-sheet .pui-body { padding: 0; overflow: hidden; }
+
+.bk-sheet {
+  position: relative; width: 736px; height: 448px; margin: 0 auto;
+  background: url("../assets/graphic/book.bmp") no-repeat 0 0;
+  background-size: 736px 448px;
+  image-rendering: pixelated;
+  font-family: "MS Gothic", "ＭＳ ゴシック", "Noto Sans JP", "Yu Gothic", monospace;
+  user-select: none;
+}
+.bk-line {
+  position: absolute; height: 16px; line-height: 16px;
+  font-size: 12px; white-space: pre; color: #14100a;
+  transform-origin: 0 0;
+}
+.bk-body { color: #14100a; }
+.bk-plain { color: #14100a; font-weight: bold; }
+.bk-bl { color: #0000c8; }        /* @BL 深蓝 */
+.bk-re { color: #640000; }        /* @RE 深红 */
+.bk-qm { color: #c80000; }        /* @QM 红 */
+.bk-qd { color: #c86400; }        /* @QD 橙 */
+.bk-qc { color: #006400; }        /* @QC 绿 */
+.bk-qs { color: #006464; }        /* @QS 青 */
+.bk-ql { color: #646400; }        /* @QL 橄榄 */
+.bk-num {
+  position: absolute; top: 375px; width: 140px; text-align: center;
+  font-size: 12px; color: #14100a;
+}
+.bk-more { position: absolute; top: 375px; left: 586px; font-size: 12px; color: #14100a; }
+.bk-hit { position: absolute; top: 0; height: 448px; cursor: pointer; }
+.bk-hit:hover { background: rgba(0, 0, 0, 0.03); }

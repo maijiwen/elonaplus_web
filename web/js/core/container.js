@@ -199,14 +199,15 @@
       if (it && (it.f[0] | 0) > 0 && canOpen(it)) out.push({ idx: i, item: it });
     }
     // 297590-297608：`f[21] == 2` 的容器**搬不动**（行商/船商的 361 提包），
-    //   只能站在上面按 o 就地打开。这里把脚下这类容器也列进同一个面板。
+    //   只能站在上面按 o 就地打开；普通容器（宝箱/冰箱/给料箱…）也一样能就地打开
+    //   （原版家庭内的 579 冷蔵庫 / 547 給料箱 都是摆在地上直接用的）。
+    //   因此这里把**脚下格子**的所有可开容器都列进同一个面板。
     const p = g && g.player;
     if (p && Array.isArray(g.groundItems)) {
       for (const it of g.groundItems) {
         if (!it || (it.f[0] | 0) <= 0) continue;
         if (it.f[5] !== p.x || it.f[6] !== p.y) continue;
         if (!canOpen(it)) continue;
-        if ((it.f[21] | 0) !== 2) continue;
         out.push({ idx: -1, item: it, ground: true });
       }
     }
