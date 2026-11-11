@@ -331,19 +331,47 @@
    * 目标合法性检查。移植 AI 会走到的 **NPC 路径**（var_243!=0 / var_2367==0）。
    * 返回 { ok, target, nothing?, reason? }：
    *   ok=false → 中止（对应 return 0）；nothing=true → 通过但无事发生（var_2421=1）。
-   * 【未移植】var_2367（道具/法杖施放）改判分支（315581-315611）、f1==6 且 cbit(1017) 的
-   *   var_2435（超额射程豁免）、玩家侧的方向/目标选择 UI（label_2104/2836/2838/2670/2893）。
+   * 魔杖（`opts.wand`）走 315581-315610 的 var_2367 == 1 分支：目标类型互换 + NPC 目标保护。
+   * 【未移植】f1==6 且 cbit(1017) 的 var_2435（超额射程豁免）、玩家侧的方向/目标选择 UI
+   *   （label_2104/2836/2838/2670/2893）。
    */
-  function precheck(g, caster, id, target, tile) {
+  function precheck(g, caster, id, target, tile, opts) {
     if (id > 879) return { ok: true, target: caster };          // 315576：超范围动作 → 自身
     const f3 = field(id, 3);
-    const cls = idiv(f3, 1000) * 1000;                         // var_938 目标选择类别
+    let cls = idiv(f3, 1000) * 1000;                           // var_938 目标选择类别
+    const isNpc = caster.index !== 0;
+    // 315581-315610：魔杖（var_2367 == 1）
+    //   315582-315586  玩家挥「自身系(3000)」的杖 → 改成方向系(8000)（可选目标格）
+    //   315587-315591  NPC 挥「方向系(8000)」的杖 → 改回自身系(3000)（简化为自疗）
+    //   315592-315608  NPC 挥 2/6/9 系的杖：目标是空槽 / 同伴只打敌对 / 同队不打
+    if (opts && opts.wand) {
+      if (!isNpc) {
+        if (cls === 3000) cls = 8000;
+      } else {
+        if (cls === 8000) cls = 3000;
+        if (cls === 2000 || cls === 6000 || cls === 9000) {
+          // 315594：var_243 < 16（同伴）或 var_58(58) == 100（完全驯服）
+          const tamed = (caster.get(58) | 0) === 100;
+          if ((caster.index | 0) < 16 || tamed) {
+            // 315595：目标槽没有角色 → 不生效
+            if (!target || (target.get(0) | 0) !== 1) return { ok: false, reason: 'no_target' };
+            // 315598-315602：同伴只对敌对（var_58(9)==-3）用杖
+            if ((caster.index | 0) < 16 && (target.get(9) | 0) !== -3) {
+              return { ok: false, reason: 'ally_target' };
+            }
+            // 315603-315607：普通 NPC 不打同队
+            if ((caster.index | 0) >= 16 && (target.get(9) | 0) === (caster.get(9) | 0)) {
+              return { ok: false, reason: 'same_team' };
+            }
+          }
+        }
+      }
+    }
     // 315701 / 315758 / 315787 / 316029：射程 = `var_83(3,id) \ 1000 + 1`
     //   （HSP 的 `\` 是整数除）。原先写成 `% 1000 + 1` 是错的：
     //   656 = 3000+6 → 4 格（aim.js 的准星射程也是这么算的），414 = 2000+6 → 3 格。
     const range = idiv(f3, 1000) + 1;
     const tg = target;
-    const isNpc = caster.index !== 0;
     const dist2 = (a, b) => Elona.Battle.dist(a.x, a.y, b.x, b.y);
 
     if (cls === 8000) {                                        // 方向系

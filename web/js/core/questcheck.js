@@ -157,6 +157,42 @@
   }
 
   /**
+   * `*label_4293`（591368-591468）：地图达成 / 委托完成时的统一结算（事件 8 的 handler）。
+   *   591369-591372  `var_65(73) = 3`
+   *   591373-591431  `var_65(70) == 1`（竞技场）：胜负与名声由 Arena.onKill 结算，这里不重复
+   *   591432-591440  1001 / 1010 → 「エリアを制圧した！」
+   *   591441-591448  1007 → 同上
+   *   591449-591457  1012 → 「盗賊団を返り討ちにした！」+ `var_65(250+40)++`
+   *   591458-591467  1008 → `var_65(84) = 0` + 「討伐に成功した！」
+   *   另把当前委托置为完成（`var_434(8, var_65(72)) = 3`）。
+   * @returns {{type:number, messages:string[]}}
+   */
+  function onMapCleared(g) {
+    const type = (g && g.getV65) ? (g.getV65(70) | 0) : 0;
+    const messages = [];
+    if (g && g.setV65) g.setV65(73, 3);
+    if (type === 1001 || type === 1010 || type === 1007) {
+      messages.push('区域已压制！');
+    } else if (type === 1012) {
+      messages.push('击退了盗贼团！');
+      if (g.setV65) g.setV65(250 + 40, (g.getV65(250 + 40) | 0) + 1);
+    } else if (type === 1008) {
+      if (g.setV65) g.setV65(84, 0);
+      messages.push('讨伐成功！');
+    }
+    // var_434(8, var_65(72)) = 3：把当前地图上的委托标记为完成
+    if (Elona.Quest && Elona.Quest.activeQuests && Elona.Quest.markComplete) {
+      try {
+        for (const q of Elona.Quest.activeQuests(g)) {
+          if (q && (q.status | 0) === 1) Elona.Quest.markComplete(q);
+        }
+      } catch (e) { /* 委托表未就绪 */ }
+    }
+    for (const m of messages) if (g && typeof g.log === 'function') g.log(m);
+    return { type, messages };
+  }
+
+  /**
    * 后半段：委托地图的完成判定（193762-193822）。
    * @returns {object|null} { type, completed, left? }；不在委托地图时返回 null
    */
@@ -225,7 +261,7 @@
     CBIT_QUEST_TARGET, RANGE_FROM, RANGE_TO, REL_HOSTILE,
     load, ready, rules, rulesAt,
     putTarget, existTarget, isQuestEnemy,
-    checkProgress, checkQuestMap, check,
+    checkProgress, checkQuestMap, check, completeQuestMap, onMapCleared,
     get table() { return table; },
   };
 })(window);

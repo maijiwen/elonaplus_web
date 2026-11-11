@@ -134,6 +134,86 @@
   }
 
   // ======================================================================
+  // 指挥旗的弹种切换（340676-340764）
+  // ======================================================================
+  /**
+   * var_652 的弹种名（5 バースト / 3 魔弾 / 2 貫通 / 1 炸裂 / 0 連射）。
+   * 菜单 var_444 = 5..10 对应：5 通常弾 / 6 バースト / 7 魔弾 / 8 貫通 / 9 炸裂 / 10 連射。
+   */
+  const AMMO_MODES = [
+    { id: 5, value: -1, jp: '通常弾', note: '无限（f[9] = -1）' },
+    { id: 6, value: 5, jp: 'バースト', en: 'Burst' },
+    { id: 7, value: 3, jp: '魔弾', en: 'Magic' },
+    { id: 8, value: 2, jp: '貫通', en: 'Pierce' },
+    { id: 9, value: 1, jp: '炸裂', en: 'Explode' },
+    { id: 10, value: 0, jp: '連射', en: 'Rapid' },
+  ];
+  const AMMO_NAME = { 5: 'バースト', 3: '魔弾', 2: '貫通', 1: '炸裂', 0: '連射' };
+  const TYPE_AMMO = 11;                 // var_58(100+n) \ 10000 == 11 = 矢弾槽
+
+  /** 找出已装备的矢弾（340678-340696） */
+  function equippedAmmo(c) {
+    const E = Elona.Equipment;
+    if (!E || !c) return null;
+    for (let n = 0; n < 30; n++) {
+      if (E.slotType(c, n) !== TYPE_AMMO) continue;
+      const idx = E.slotItemIdx(c, n);
+      const it = (idx >= 0 && c.inv) ? c.inv[idx] : null;
+      if (it && (it.f[0] | 0) > 0) return { item: it, slot: n };
+    }
+    return null;
+  }
+
+  /**
+   * 弹种切换 —— 340676-340764。
+   *   340698-340708  var_444 == 5 → `f[9] = -1`（通常弾，无限）
+   *   340726-340742  遍历附魔槽，找「弹种附魔（9 号）」值与目标一致的槽 → `f[9] = 槽号`
+   *   340743-340750  找不到 → 「矢弾はその切替に対応していない」
+   * @param {number} mode 5..10（见 AMMO_MODES）
+   */
+  function switchAmmo(g, c, mode) {
+    const who = c && c.index === 0 ? '你' : (c ? c.name : '同伴');
+    const am = c ? equippedAmmo(c) : null;
+    if (!am) return { ok: false, reason: 'no-ammo', message: `${who}没有装备矢弹。` };  // 340694
+    const it = am.item;
+    const m = (mode | 0);
+    if (m === 5) {                                   // 340698-340707
+      it.f[9] = -1;
+      const msg = `${who}切换为「通常弾」（无限）。`;
+      if (g && g.log) g.log(msg);
+      return { ok: true, mode: 5, message: msg };
+    }
+    const table = AMMO_MODES.find((x) => x.id === m);
+    if (!table) return { ok: false, reason: 'bad-mode', message: '没有这种弹种。' };
+    const target = table.value;
+    // 340726-340742：附魔槽 0..14，遇到空槽就停（`if (var_99(40+cnt*2) == 0) break;`）
+    for (let n = 0; n < 15; n++) {
+      const eid = it.f[40 + n * 2] | 0;
+      if (eid === 0) break;
+      if (eid !== 9) continue;                       // 弹种附魔
+      // 9 号附魔的 +1 格 = 发数*1000 + 弹种值（原版 345719/345728 的打包方式）
+      const val = it.f[40 + n * 2 + 1] | 0;
+      if ((val % 1000) === target) {
+        it.f[9] = n;
+        const msg = `${who}切换为「${AMMO_NAME[target] || target}」。`;
+        if (g && g.log) g.log(msg);
+        return { ok: true, mode: m, value: target, slot: n, message: msg };
+      }
+    }
+    return { ok: false, reason: 'no-type', message: `${who}的矢弹不支持该弹种。` };   // 340748
+  }
+
+  /** 当前弹种（f[9] 指向的附魔槽的值；-1 = 通常弾） */
+  function ammoTypeOf(it) {
+    if (!it) return -1;
+    const slot = it.f[9] | 0;
+    if (slot < 0) return -1;
+    const eid = it.f[40 + slot * 2] | 0;
+    if (eid !== 9) return -1;
+    return (it.f[40 + slot * 2 + 1] | 0) % 1000;
+  }
+
+  // ======================================================================
   // 待機 / 呼び出し（技能 684，330718-330809）
   // ======================================================================
 
@@ -660,6 +740,7 @@
     STATE, HAPPY, MODE, REVIVE_FLAG, ACTIVE, DEAD, WAITING, HAPPY_MAX, AP_MAX, MODE_NAMES,
     happiness, addHappiness, actionPoints, spendAction, onWake,
     modeOf, modeName, setMode, setModeAll,
+    AMMO_MODES, switchAmmo, ammoTypeOf, equippedAmmo,
     allies, activeAllies, waitingAllies, deadAllies, wait, call,
     reviveCost, revive, onDeath,
     ITEM, isBed,

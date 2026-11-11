@@ -110,6 +110,12 @@
         }
       }
       let dmg = Elona.Battle.role(g.rng, dice.dice, dice.sides, dice.bonus);
+      // 327974-327976：837 沙尘炮命中 NPC（var_244 >= 16）时
+      //   `var_65(809) = 2`、`var_1132 = 1`（沙尘遮眼的全局标记）
+      if ((id | 0) === 837 && (t.index | 0) >= 16) {
+        if (g.setV65) g.setV65(809, 2);
+        g.var1132 = 1;
+      }
       if (opt.levelHalf) dmg += idiv(lvBonus, 2);
       if ((caster.get(418) | 0) !== 0) {
         dmg = idiv(dmg * (100 + idiv(limit(caster.get(418) | 0, 0, 2000), 10)), 100);

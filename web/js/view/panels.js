@@ -3481,27 +3481,44 @@
       const C = Elona.Companion;
       if (!C) return;
       const cur = target ? C.modeOf(target) : null;
-      const rows = C.MODE_NAMES.map((m, i) => ({ ...m, i }));
+      const rows = C.MODE_NAMES.map((m, i) => ({ ...m, i, kind: 'mode' }));
+      // 340676-340764：装备了矢弾时追加 6 种弹种（通常弾 / バースト / 魔弾 / 貫通 / 炸裂 / 連射）
+      const amFrom = target || g.player;
+      const am = (C.equippedAmmo && C.equippedAmmo(amFrom)) || null;
+      if (am) {
+        for (const a of C.AMMO_MODES) {
+          rows.push({ id: a.id, jp: `弹种：${a.jp}`, en: a.en || a.note || '', kind: 'ammo' });
+        }
+      }
+      const KEYS = 'abcdefghij';
       const html = '<div class="ci-sec">◆ 戦術指示'
         + (target ? `（${esc(target.name)}）` : '（全体同伴）') + '</div>'
         + rows.map((m, i) => `<div class="pui-row" data-i="${i}">`
-          + `<span class="pui-key">${'abcd'[i]}</span>`
+          + `<span class="pui-key">${KEYS[i] || ''}</span>`
           + `<span class="pui-name">${esc(m.jp)}${cur === m.id ? '　← 现在' : ''}</span>`
           + `<span class="pui-dim">${esc(m.en)}</span></div>`).join('')
         + '<div class="pui-note">突撃＝主动追击／防御＝伤害 1/3、不主动进攻／'
-        + '迎撃＝留在玩家附近／交渉＝不攻击，改用交涉能力削减 SP。</div>';
+        + '迎撃＝留在玩家附近／交渉＝不攻击，改用交涉能力削减 SP。'
+        + (am ? '<br>弹种只在装备了矢弹时出现（原版 txtsettactical 的 5..10）。' : '') + '</div>';
       this.rows = rows;
-      this.open('tactical', '戦術指示', html, { hint: 'a~d 选择　Esc 关闭' });
+      this.open('tactical', '戦術指示', html, { hint: 'a~j 选择　Esc 关闭' });
       const apply = (i) => {
-        const m = rows[i] ? rows[i].id : 0;
-        const r = target ? C.setMode(g, target, m) : C.setModeAll(g, m, { x: g.player.x, y: g.player.y, r: 6 });
+        const row = rows[i];
+        if (!row) return;
+        const m = row.id;
+        let r;
+        if (row.kind === 'ammo') {
+          r = C.switchAmmo(g, amFrom, m);
+        } else {
+          r = target ? C.setMode(g, target, m) : C.setModeAll(g, m, { x: g.player.x, y: g.player.y, r: 6 });
+        }
         if (Elona.UI && Elona.UI.pushMessage) Elona.UI.pushMessage(r.message || '');
         this.close();
       };
       this.onPick = (row) => apply(row.i);
       this.onKeyFn = (e) => {
-        const i = 'abcd'.indexOf(e.key);
-        if (i >= 0) { apply(i); return true; }
+        const i = KEYS.indexOf(e.key);
+        if (i >= 0 && i < rows.length) { apply(i); return true; }
         return false;
       };
     },

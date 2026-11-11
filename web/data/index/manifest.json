@@ -52,6 +52,7 @@
   "quest_progress.json",
   "race_class.json",
   "race_tags.json",
+  "recharge.json",
   "recipes.json",
   "relation_words.json",
   "residual_final.json",
@@ -83,5 +84,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 75
+ "count": 76
 }

@@ -412,6 +412,13 @@
   }
 
   /** 生成一批库存（*label_3076）。stock 存在 keeper.inv 中 */
+  /** 559 判定用的独立随机流（不占用主 rnd 序列，见 279070 的注释） */
+  let antiSeed = 20261111;
+  function antiRnd(n) {
+    antiSeed = (Math.imul(antiSeed, 1664525) + 1013904223) >>> 0;
+    return antiSeed % Math.max(1, n | 0);
+  }
+
   function restock(g, keeper) {
     const role = roleOf(keeper);
     const rank = limit(keeper.get(151) | 0, 1, 1000);
@@ -440,6 +447,23 @@
       it.f[8] = 3;                               // 店内商品已鉴定
       it.eqSlot = -1;
       it.f[17] = it.f[17] || 0;
+      // 279070：`rnd(100 + var_65(120+店槽)/5) < 2` → 这一件强制成 559
+      //   （エーテル抗体のポーション）。店槽按 role 末位近似（var_450 = 0..8）。
+      //   这里用独立的随机流：原版消耗的是主 rnd，但进货的其余判定在本项目里
+      //   与原版的调用顺序不同，共用一条流会让既有货架序列整体偏移。
+      const shopSlot = limit((role % 10) | 0, 0, 8);
+      const stockPts = (g && g.getV65) ? (g.getV65(120 + shopSlot) | 0) : 10000;
+      if (antiRnd(100 + idiv(stockPts, 5)) < 2) {
+        let anti = null;
+        try { anti = Elona.ItemDB.create(g, { itemId: 559 }); } catch (e) { anti = null; }
+        if (anti) {
+          anti.f[0] = 1;
+          anti.f[8] = 3;
+          anti.eqSlot = -1;
+          keeper.inv.push(anti);
+          continue;
+        }
+      }
       // 精灵球屋 / 宝具商：固定 1 个、无诅咒。源码在 427377/427385 就 continue，
       // 位于 427390 的标签检查之前，所以这两类店不受 /neg/、/noshop/ 影响。
       if (role === 1016) {

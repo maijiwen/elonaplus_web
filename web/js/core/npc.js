@@ -546,18 +546,19 @@
   // ======================================================================
 
   /**
-   * 魔法库存交换（原版 158 单项 / 159 全部）—— 422475-422560：
-   *   把不需要的魔法库存「减半」，按 stock/200 换成魔力（原版 var_65(25) 充填魔力）。
+   * 魔法库存交换（原版 158 单项 / 159 全部）—— 422475-422565：
+   *   把不需要的魔法库存「减半」，按 stock/200 换成**充填用魔力 var_65(25)**（422500 / 422554）。
    *   特殊：spell 465 的换算 ×5、441 的换算 ×50。
-   * 本实现把换来的魔力直接回复到 MP（上限内），并注明近似（A198）。
+   *   159 的扫描范围是 400..491（422515 `repeat 492-400`），减半时用 `<= 200` 跳过（422561）。
    * @param {number} [spellId] 指定魔法（159 全部时忽略）
    */
   function magicStockExchange(g, npc, player, spellId, all) {
     const st = player.spellStock;
     if (!st) return { ok: false, message: '你没有魔法库存。' };
     let gain = 0, n = 0;
+    const v25 = (g && g.getV65) ? (g.getV65(25) | 0) : 0;
     if (all) {
-      for (let i = 0; i < 200; i++) {
+      for (let i = 0; i <= 91; i++) {                    // 422515：400..491
         const stock = st[i] | 0;
         if (stock < 200) continue;
         let v = idiv(stock, 200);
@@ -569,8 +570,9 @@
       if (gain < 10) {
         return { ok: false, message: '「再多攒一些库存再来吧。」' };
       }
-      for (let i = 0; i < 200; i++) {
-        if ((st[i] | 0) >= 200) st[i] = idiv(st[i] | 0, 2);
+      for (let i = 0; i <= 91; i++) {
+        if ((st[i] | 0) <= 200) continue;                // 422561
+        st[i] = idiv(st[i] | 0, 2);
       }
     } else {
       const i = (spellId | 0) - 400;
@@ -584,15 +586,13 @@
       if (spellId === 465) v *= 5;
       if (spellId === 441) v *= 50;
       gain = v;
-      st[i] = idiv(st[i] | 0, 2);
+      st[i] = idiv(st[i] | 0, 2);                        // 422499
       n = 1;
     }
-    const before = player.mp | 0;
-    const max = player.mpMax | 0;
-    player.mp = Math.min(max, before + gain);
-    const healed = player.mp - before;
-    return { ok: true, gain, healed, count: n,
-      message: `用 ${n} 种魔法库存换来了 ${gain} 点魔力（实际回复 ${healed} MP）。` };
+    if (g && g.setV65) g.setV65(25, v25 + gain);          // 422500 / 422554
+    const pool = (g && g.getV65) ? (g.getV65(25) | 0) : (v25 + gain);
+    return { ok: true, gain, pool, count: n,
+      message: `用 ${n} 种魔法库存换来了 ${gain} 点充填魔力（当前 ${pool}）。` };
   }
 
   /**

@@ -438,6 +438,10 @@
           if ((op.label | 0) === 4274 && ctx.last && Elona.Party && Elona.Party.joinChara) {
             try { Elona.Party.joinChara(g, ctx.last); out.joined = true; } catch (e) { /* noop */ }
           }
+          // *label_4293（591368-591468）：地图达成 / 委托完成的统一结算（事件 8）
+          if ((op.label | 0) === 4293 && Elona.QuestCheck && Elona.QuestCheck.onMapCleared) {
+            try { out.cleared = Elona.QuestCheck.onMapCleared(g); } catch (e) { /* noop */ }
+          }
           break;
         case 'skillexp': {
           const c = charaOf(g, ctx, op.t) || (g && g.player);

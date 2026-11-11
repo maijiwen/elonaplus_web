@@ -344,6 +344,48 @@
   }
 
   /**
+   * 「◆ これまでのあなた」统计段 —— 286050-286085（var_2205 == 2 时的后半段见 286086-286114）。
+   *   所有计数都直接读 var_65(250+n) / var_65(2)；未接线的项显示 0（原版同样如此）。
+   */
+  function miscSection(g, lang) {
+    const v = (n) => (g && typeof g.getV65 === 'function') ? (g.getV65(n) | 0) : 0;
+    const V = (n) => v(250 + n);
+    const out = [];
+    const p = (t) => out.push({ cls: 'body', text: t });
+    out.push({ cls: 'head', text: '◆ 至今为止的你' });
+    out.push({ cls: 'blank', text: '' });
+    p(`　ネフィア制覇数　　　: ${V(24)}`);
+    p(`　殺害数　　　　　　　: ${v(2)}`);                 // 286053：总击杀数 = var_65(2)
+    p(`　決闘の経験　　　　　: ${V(59)}`);
+    p(`　依頼達成数　　　　　: ${V(25)}`);
+    out.push({ cls: 'blank', text: '' });
+    p(`　世界移動距離　　　　: ${V(26)} ${lang === 'jp' ? 'マイル' : 'Miles'}`);   // 286057
+    p(`　生産数(錬金術)　　　: ${V(47)}`);
+    p(`　生産数(大工)　　　　: ${V(48)}`);
+    p(`　生産数(宝石細工)　　: ${V(49)}`);
+    p(`　生産数(裁縫)　　　　: ${V(50)}`);
+    out.push({ cls: 'blank', text: '' });
+    p(`　最大通常ダメージ　　: ${V(27)}`);
+    p(`　掘り壊した壁の数　　: ${V(46)}`);
+    p(`　総睡眠時間　　　　　: ${V(39)} ${lang === 'jp' ? '時間' : 'Hours'}`);
+    p(`　経過日　　　　　　　: ${v(7)} ${lang === 'jp' ? '日' : 'Days'}`);          // 286066
+    p(`　願い発生回数　　　　: ${V(36)}`);
+    out.push({ cls: 'blank', text: '' });
+    p(`　わが家への訪問客　　: ${V(51)} ${lang === 'jp' ? '人' : 'Guest'}`);
+    p(`　宝発掘回数　　　　　: ${V(33)}`);
+    p(`　潰した盗賊団の数　　: ${V(40)}`);
+    p(`　アリーナ総勝数　　　: ${V(57)}`);
+    p(`　Ｐアリーナ総勝数　　: ${V(58)}`);
+    out.push({ cls: 'blank', text: '' });
+    p(`　ﾌﾟﾗﾁﾅ硬貨入手数　　 : ${V(41)} ${lang === 'jp' ? '枚' : 'Plat'}`);
+    p(`　PCｽｷﾙﾎﾞｰﾅｽ入手数　　: ${V(60)}`);
+    p(`　ｽﾍﾟﾙﾎﾞｰﾅｽ入手数　　 : ${V(61)}`);
+    // 286080-286085：クイズ最高記録只在 var_65(250+2) >= 370 时显示
+    if (V(2) >= 370) p(`　クイズ最高記録　　　: ${V(308)} ${lang === 'jp' ? '点' : 'points'}`);
+    return out;
+  }
+
+  /**
    * 整本日记。
    * @param {object} g
    * @param {object} [opts] {lang:'en'|'jp'}
@@ -360,6 +402,8 @@
     out.push({ title: 'Quest Item', lines: itemSection(g, lang) });
     out.push({ title: 'Title & Ranking', lines: rankingSection(g, lang).lines });
     out.push({ title: 'Income & Expense', lines: incomeSection(g, lang) });
+    // 286050-286085：「◆ これまでのあなた」统计段
+    out.push({ title: 'Records', lines: miscSection(g, lang) });
     out.push({ title: 'Completed Quests', lines: completedSection(g, lang) });
     return out;
   }

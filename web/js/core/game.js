@@ -563,6 +563,13 @@
       for (let i = 0; i < 9; i++) this.setV65(120 + i, 10000);
       this.setV65(123, 5000);
       this.setV65(125, 5000);
+      // 0-HB：新游戏快捷槽预置（602315-602317）：var_65(41)=424 / 42=300 / 43=631
+      this.setV65(41, 424);
+      this.setV65(42, 300);
+      this.setV65(43, 631);
+      // 602322-602323：世界地图初始坐标（北ティリス一带），下雪判定 var_65(5)/(6) 依赖它
+      this.setV65(5, 22);
+      this.setV65(6, 21);
       // 荷车负重上限（220013-220014）：var_65(81) = 80000 ; var_65(82) = var_65(81)
       if (Elona.Vehicle && Elona.Vehicle.syncCargoLimit) Elona.Vehicle.syncCargoLimit(this);
       // 税金滞纳月数 / 预付税额（279226-279320）
@@ -2099,10 +2106,14 @@
       if (home) {
         this.setV65(850, (home.world | 0) || 4);
         this.worldMap = { x: home.x | 0, y: home.y | 0 };
+        this.setV65(5, this.worldMap.x);       // 602322-602323：var_65(5)/(6) = 世界地图坐标
+        this.setV65(6, this.worldMap.y);
         this.log('你走出了家门，来到了世界地图。');
         return true;
       }
       this.worldMap = { x: town.wx, y: town.wy };
+      this.setV65(5, this.worldMap.x);
+      this.setV65(6, this.worldMap.y);
       this.log('你来到了世界地图。');
       return true;
     }
@@ -2158,6 +2169,9 @@
         return false;
       }
       w.x = nx; w.y = ny;
+      // 602322-602323：var_65(5)/(6) 与步行坐标同步（603171 的下雪判定用这两个值）
+      this.setV65(5, nx);
+      this.setV65(6, ny);
       // 343594-343604：回避遇敌（var_65(250+375)）每走一格 −1，并按 ×4 英里提示
       this.tickEncounterCancel();
       this.advanceClock();

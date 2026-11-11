@@ -105,6 +105,26 @@
       if (Elona.Panels && Elona.Panels.openPocket) Elona.Panels.openPocket(game);
       return true;
     }
+    // 0-HB：魔力充填（630）/ 魔力抽取（629）—— 326463-326651，选一个物品后结算
+    if (r.request === 'recharge' && Elona.Panels && Elona.Recharge) {
+      const mode = r.mode === 'drain' ? 'drain' : 'fill';
+      const Rc = Elona.Recharge;
+      Rc.load().then(() => {
+        Elona.Panels.openItemPicker(game, {
+          title: mode === 'drain' ? '要毁掉哪件物品来抽取魔力？' : '要给哪件物品充填？',
+          hint: '↑↓ 选择　Esc 取消',
+          decorate: (it) => (mode === 'fill'
+            ? `充填 ${it.f[9] | 0}/${Rc.maxOf(it.id) | 0}`
+            : `可抽出 ${Rc.maxOf(it.id) | 0 ? '魔力' : '—'}`),
+          onPick: (idx, it) => {
+            const rr = (mode === 'drain') ? Rc.drain(game, game.player, it) : Rc.fill(game, game.player, it);
+            if (rr && rr.message) UI.pushMessage(rr.message);
+            if (rr && rr.ok && game.endTurn) game.endTurn();
+          },
+        });
+      });
+      return true;
+    }
     // 炼成雨（751）/ 液体操纵弹（826）：打开「只列可用药水」的选择窗（var_486=23,11）
     if (r.request === 'potion-pick') {
       if (Elona.Panels && Elona.Panels.openPotionPick) {

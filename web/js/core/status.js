@@ -388,6 +388,15 @@
           else c.set(9, -3);
         }
       }
+      // 194210-194212：声源正在演奏/表演（rowact 11 / 32 / 24）时，
+      //   附近被吵到的人表情变成「拍手/惊讶」（var_58(79) = 26 + 100*10）
+      if (srcIdx !== undefined && srcIdx !== null) {
+        const src = g.charas && g.charas[srcIdx | 0];
+        if (src) {
+          const ra = src.get(140) | 0;
+          if (ra === 11 || ra === 32 || ra === 24) c.set(79, 26 + 100 * 10);
+        }
+      }
     }
     return out;
   }

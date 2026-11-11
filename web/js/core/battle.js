@@ -693,6 +693,16 @@
     // 玩家死亡走 game 的主循环（0-CQ / 0-FI），这里只记账
     if ((dead.index | 0) === 0) { dead.__death = out; return out; }
 
+    // 0-HB / 196885-196891：总击杀数 var_65(2)++
+    //   条件：玩家或同伴（index < 16）亲手击杀、死者不是自己/队伍成员（index >= 16、
+    //   var_58(9) != 10）、且死者不带 cbit 992（深渊召唤的临时体）。
+    if (att && (att.index | 0) >= 0 && (att.index | 0) < 16
+      && (att.index | 0) !== (dead.index | 0) && (dead.index | 0) >= 16
+      && (dead.get(9) | 0) !== 10 && !cbit(dead, 992)
+      && g && typeof g.setV65 === 'function') {
+      g.setV65(2, (g.getV65(2) | 0) + 1);
+    }
+
     // 1. 同伴
     if (Elona.Companion && Elona.Companion.onDeath) {
       try { out.companion = Elona.Companion.onDeath(g, dead); } catch (e) { out.companion = null; }
@@ -1342,15 +1352,22 @@
    *   -1 普通弹；0 连射 6 发；1 贯通弹；2 穿甲弹；3 必会心；4 时停；5 散弹 40 发。
    * 弹药把效果存在 f[9] = 效果槽位，f[40+slot*2] = 类型*10000+值，f[40+slot*2+1] = 剩余次数*1000+强度。
    */
+  /**
+   * 特殊弹（var_1321）—— 345713-345733。
+   *   `f[9]` 指向弹种附魔槽；9 号附魔的 +1 格打包「发数*1000 + 弹种值」
+   *   （原版 345719 `f[...+1] \ 1000 <= 0` 判发数、345728 `f[...] \ 10000` 取弹种）。
+   *   本项目附魔槽存 `eid`，所以弹种值走 +1 格的低 3 位。
+   */
   function ammoSpecial(ammo) {
     if (!ammo) return -1;
     const slot = ammo.f[9] | 0;
     if (slot < 0 || slot >= 15) return -1;
-    const e0 = ammo.f[40 + slot * 2] | 0;
+    const eid = ammo.f[40 + slot * 2] | 0;
+    if (eid !== 9) return -1;                                 // 不是弹种附魔
     const e1 = ammo.f[40 + slot * 2 + 1] | 0;
-    if (idiv(e1, 1000) <= 0) { ammo.f[9] = -1; return -1; }   // 345719-345725
+    if (idiv(e1, 1000) <= 0) { ammo.f[9] = -1; return -1; }   // 345719-345725：发数用完 → 通常弾
     ammo.f[40 + slot * 2 + 1] = e1 - 1;                       // 345731
-    return idiv(e0, 10000);
+    return e1 % 1000;                                         // 弹种值 0..5
   }
 
   /** 可见的敌对角色（var_484 的近似） */

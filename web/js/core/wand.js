@@ -184,6 +184,37 @@
   }
 
   /**
+   * 315389-315421：杖的一次复制。
+   *   NPC 分支（315390-315404）：魔道具 `var_82(178)` 判 `sqrt() + 80 >= rnd(100)`，
+   *   成功 → 充能 +1、威力 ×7/10+1、练技能 178（+80）。
+   *   玩家分支（315406-315421）：`var_65(250+310) == 100` 时必定复制（练 178 +40、dmgsp 3）。
+   * @returns {{cloned:boolean, power:number}}
+   */
+  const CLONE_IDS = [901, 887, 570, 565, 175, 123, 122, 120, 1026, 1027, 1032];
+  function tryClone(g, p, it, eid, power) {
+    const id = it.f[3] | 0;
+    if (CLONE_IDS.indexOf(id) < 0) return { cloned: false, power };
+    const sp = (typeof p.get === 'function') ? (p.get(52) | 0) : (p.sp | 0);
+    if (sp <= 0) return { cloned: false, power };
+    const dev = (Elona.Stats && Elona.Stats.sorg) ? (Elona.Stats.sorg(p, 178) | 0) : 0;
+    const rnd = (n) => ((g && g.rng && g.rng.rnd) ? (g.rng.rnd(n) | 0) : 0);
+    let ok = false;
+    if (dev > 0 && Math.sqrt(dev) + 80 >= rnd(100)) ok = true;       // 315390-315391
+    if (!ok && g && typeof g.getV65 === 'function' && (g.getV65(560) | 0) === 100) ok = true;  // 315406
+    if (!ok) return { cloned: false, power };
+    it.f[FIELD_CHARGES] = chargesOf(it) + 1;                          // 315393 / 315409
+    if (Elona.Stats && Elona.Stats.skillExp) {
+      try {
+        Elona.Stats.skillExp(p, 178, p.index | 0, dev > 0 ? 80 : 40, 9999, 0, g);
+      } catch (e) { /* 技能表缺失 */ }
+    }
+    if (Elona.Status && Elona.Status.dmgsp) {
+      try { Elona.Status.dmgsp(p, 3); } catch (e) { /* 忽略 */ }      // 315421
+    }
+    return { cloned: true, power: Math.floor(power * 7 / 10) + 1 };   // 315394
+  }
+
+  /**
    * 使用魔杖（`*label_2986` → `*label_2956`）。
    * @param {object} g
    * @param {number} idx 背包下标（也接受物品实例）
@@ -213,8 +244,12 @@
     if (!S) return { ok: false, reason: 'no-spell' };
 
     // 目标（自身系不需要）：f1 == 0 / 4 / 5 / 7 / >=1000 视为自身或无需目标
+    //   315582-315586：玩家挥「自身系(3000)」的杖时会被改判成方向系(8000)，
+    //   所以这类杖仍要先选目标（治愈/解咒杖朝目标挥）。
     const f1 = S.field(eid, 1);
-    const selfOnly = f1 === 0 || f1 === 4 || f1 === 5 || f1 === 7 || idiv(f1, 1000) === 1;
+    const f3 = S.field(eid, 3);
+    const wandToDir = (idiv(f3, 1000) * 1000) === 3000;
+    const selfOnly = !wandToDir && (f1 === 0 || f1 === 4 || f1 === 5 || f1 === 7 || idiv(f1, 1000) === 1);
     let target = p;
     if (!selfOnly) {
       target = o.target || (o.dir ? targetByDir(g, p, o.dir) : null);
@@ -226,6 +261,11 @@
         g.log('那个方向没有可以瞄准的目标。');
         return { ok: false, reason: 'no-target', effectId: eid };
       }
+      // 治愈/解咒杖（3000 系）：没给目标也没给方向时按「对自己挥」处理
+      //   （原版由方向光标选格，选自己所在格即对自身生效）
+      if (!target && wandToDir) {
+        target = p;
+      }
       if (!target) {
         target = (Elona.Throw && Elona.Throw.nearestEnemy) ? Elona.Throw.nearestEnemy(g, p, 20) : null;
       }
@@ -235,8 +275,8 @@
       }
     }
 
-    // 315359：precheck（`*label_2959`）
-    const pre = S.precheck ? S.precheck(g, p, eid, target) : { ok: true, target };
+    // 315359：precheck（`*label_2959`）—— var_2367 == 1 的魔杖分支（315581-315610）
+    const pre = S.precheck ? S.precheck(g, p, eid, target, null, { wand: true }) : { ok: true, target };
     if (!pre.ok) {
       g.log(`杖的力量没有发挥出来（${pre.reason}）。`);
       return { ok: false, reason: pre.reason };
@@ -254,11 +294,22 @@
       return { ok: false, reason: 'fail', effectId: eid, charges: chargesOf(it) };
     }
 
-    const power = calcPower(g, p, it, eid);                      // 315382-315388
+    let power = calcPower(g, p, it, eid);                        // 315382-315388
     // 315383：var_2422 = var_578（增幅**前**）—— 骰个数用它
     if (g) g.var2422 = calcRaw(p, it);
     // 315354-315357：var_2362 = 物品 f[17]（祝福/诅咒档，buff 系效果会用到）
     if (g) g.var2362 = (it.f[17] | 0);
+
+    // 315389-315421：杖的一次复制
+    //   315389-315404  NPC：id ∈ {901,887,570,565,175,123,122,120,1026,1027,1032}、
+    //                   SP>0、魔道具>0 时 sqrt(魔道具)+80 >= rnd(100) → 充能 +1、威力 ×7/10+1、练技能 178
+    //   315406-315421  玩家：var_65(250+310) == 100 且 SP>0 → 必定复制（练 178，dmgsp 3）
+    const clone = tryClone(g, p, it, eid, power);
+    if (clone.cloned) {
+      power = clone.power;
+      g.log(`你手里的 ${nm} 一时复制了一份。`);
+    }
+
     const r = S.dispatchEffect(g, p, eid, target, power, f1) || { ok: true };
 
     // 315476-315506：消耗充能

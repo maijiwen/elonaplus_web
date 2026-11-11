@@ -243,8 +243,15 @@
     const r = Elona.Mutation.mutate(g, t, { count: 1 });
     return { implemented: true, mutation: r };
   };
-  T[629] = () => ({ implemented: true, nothing: true });     // 魔力抽取 326583（玩家侧无事）
-  T[630] = () => ({ implemented: true, nothing: true });     // 魔力充填 326463（玩家侧无事）
+  // 629 魔力抽取 / 630 魔力充填（326463-326651）—— 都要先选一个物品
+  T[629] = (g, c) => {
+    if ((c.index | 0) !== 0) return { implemented: true, nothing: true };   // 326585
+    return { implemented: true, request: 'recharge', mode: 'drain' };
+  };
+  T[630] = (g, c) => {
+    if ((c.index | 0) !== 0) return { implemented: true, nothing: true };   // 326469
+    return { implemented: true, request: 'recharge', mode: 'fill' };
+  };
   // 以太凝视 339052：源码在「有目标」时直接 goto 2970（无事），只在无目标时继续，
   // 继续的那段属于 636 的共享尾块 —— 因此此处等价于「有目标则无事」。
   T[633] = (g, c, t) => ({ implemented: true, nothing: true, hasTarget: !!t });
