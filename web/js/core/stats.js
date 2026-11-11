@@ -865,14 +865,20 @@
    */
   function skillExp(c, skillId, chara, exp, divisor, teacher, g) {
     g = g || c.__game || Elona.__game || null;
+    // 兼容把角色对象当 chara 传入的调用（源码 prm_672 是下标；项目里多处沿用
+    // `skillExp(c, id, c, ...)` 的写法）。不归一化会让下面的 `chara === 0` /
+    // `chara < 16` 判定全部落空，玩家/同伴的 ×3、×4 加成与睡眠时的封零都会失效。
+    if (chara && typeof chara === 'object') chara = chara.index | 0;
     const div = divisor === undefined ? 0 : divisor;
     const tea = teacher === undefined ? 0 : teacher;
     if (sorg(c, skillId) <= 0) return 0;
     if (exp === 0) return 0;
     if (div !== 9999) {
-      // 关联技能分摊（var_83(0, skillId) = 动作表 f0）
+      // 31933-31937：`skillexp var_83(0, prm_671), prm_672, prm_673 / (2 + prm_674)`
+      //   —— 只传 3 个参数，所以递归调用的除数与教师都是 0（不是外层 div/tea）。
+      //   这就是「使用魔法同时涨魔法属性」的入口：var_83(0, 法术id) = 15/16/13…
       const rel = (Elona.Spell && Elona.Spell.field) ? Elona.Spell.field(skillId, 0) : 0;
-      if (rel !== 0) skillExp(c, rel, chara, idiv(exp, 2 + div), div, tea);
+      if (rel !== 0) skillExp(c, rel, chara, idiv(exp, 2 + div));
     }
     let pot = sorg(c, skillId);
     const capLv = limit(pot, 1, 400);

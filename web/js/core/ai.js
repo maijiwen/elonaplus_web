@@ -210,8 +210,13 @@
     }
 
     let r = null;
-    if (id >= 400 && id < 492) r = Elona.Spell.cast(g, c, id, target);      // gosub *label_2950
-    else if (id >= 600) r = Elona.Spell.cast(g, c, id, target);            // gosub *label_2958
+    if (id >= 400 && id < 492) {
+      r = Elona.Spell.cast(g, c, id, target);                               // gosub *label_2950
+      // 593018 → label_2950 → label_2157：成功咏唱后练「咏唱」172
+      if (r && r.ok !== false && Elona.Spell.grantCastExp) {
+        Elona.Spell.grantCastExp(g, c, id, target);
+      }
+    } else if (id >= 600) r = Elona.Spell.cast(g, c, id, target);          // gosub *label_2958
     else return { cast: false };
 
     if (r.ok && r.implemented) {

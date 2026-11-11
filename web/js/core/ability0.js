@@ -122,7 +122,9 @@
   }
   function skillExp(c, n, amt) {
     if (!c) return;
-    if (Elona.Stats && Elona.Stats.skillExp) Elona.Stats.skillExp(c, n | 0, amt | 0);
+    // 326xxx 各分支的 `skillexp <技能>, var_243, <经验>`：角色下标必须显式传，
+    // 之前只传了 3 个参数（经验被当成 chara、exp 变 undefined），会把技能潜力写成 0。
+    if (Elona.Stats && Elona.Stats.skillExp) Elona.Stats.skillExp(c, n | 0, c.index | 0, amt | 0);
   }
   function morale(c) { return c ? (c.get(182) | 0) : 0; }
   function setMorale(c, v) { if (c) c.set(182, v | 0); }

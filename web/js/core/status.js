@@ -307,6 +307,12 @@
    * @returns {number} 1 = 流程完成（含 NPC 伤害 <10 的跳过分支，源码 201426 同样 return 1）
    */
   function manaBacklash(g, c) {
+    // 201415-201417 → *label_2158：MP 变负时练「魔力の限界 164」
+    //   `limit(abs(MP) * 400 / (maxMP + 1), 1, 400)`
+    if (Elona.Stats && Elona.Stats.skillExp) {
+      const ex = limit(idiv((-c.mp) * 400, (c.get(56) | 0) + 1), 1, 400);
+      try { Elona.Stats.skillExp(c, 164, c.index | 0, ex, 0, 0, g); } catch (e) { /* noop */ }
+    }
     let dmg = idiv((-c.mp) * 400, 100 + (c.skill(164) | 0) * 10);   // 201418
     if ((c.index | 0) === 0) {
       if (Elona.Feat && Elona.Feat.get && Elona.Feat.get(c, 156)) { // 201420-201421

@@ -1628,6 +1628,45 @@
   }
 
   /**
+   * 咏唱魔法后的技能经验 —— `*label_2950`(314527) → `*label_2952` → `*label_2157`(212065-212082)。
+   *
+   *   212066-212069：目标（var_244）带 cbit 985/23/27/992/964/960 之一时整段跳过
+   *   212072-212074：玩家 `var_58(428)==1` 时 `var_1363 = 2`（教师/训练状态，经验 ×3）
+   *   212075-212081：玩家（var_691==0）练「法术技能」=(var_83(2,id)+10)*2、除数 5，
+   *                  再练「咏唱」172 = 上式 ×(1+var_1363)；NPC 只练 172。
+   *
+   * 注意 `skillexp` 内部还会按 `var_83(0, 法术id)` 递归，把 exp/(2+5) 分给对应的
+   * 魔法属性（意志 15 / 魔力 16 / 感知 13），这就是「施法同时涨属性」的来源。
+   *
+   * @param {object} g
+   * @param {object} caster 施法者
+   * @param {number} id     法术 id（只在 400..491 生效，与 label_2950 一致）
+   * @param {object} [target] 目标（用于 cbit 豁免判定）
+   */
+  function grantCastExp(g, caster, id, target) {
+    if (!caster || !Elona.Stats || !Elona.Stats.skillExp) return null;
+    if (!(id >= 400 && id < 492)) return null;              // label_2950 的范围
+    const st = Elona.Status;
+    if (target && st && st.cbit) {
+      for (const b of [985, 23, 27, 992, 964, 960]) {
+        try { if (st.cbit(target, b)) return null; } catch (e) { /* noop */ }
+      }
+    }
+    let v1363 = 0;
+    const p = g && g.player;
+    if (p && (p.get(428) | 0) === 1
+      && ((caster.get(58) | 0) === 100 || (caster.index | 0) === 0)) v1363 = 2;
+    const base = (field(id, 2) + 10) * 2;
+    const e172 = base * (1 + v1363);
+    const idx = caster.index | 0;
+    try {
+      if (idx === 0) Elona.Stats.skillExp(caster, id, 0, base, 5, 0, g);
+      Elona.Stats.skillExp(caster, 172, idx, e172, 5, 0, g);
+    } catch (e) { return null; }
+    return { skill: idx === 0 ? base : 0, chant: e172, teacher: v1363 };
+  }
+
+  /**
    * 咏唱施法的威力增幅（314772-314784）。
    *   var_2423 = limit(var_58(98)*2/3, 0, 1000)/10        ← 附魔「魔法威力增强」合计/15%（上限 100）
    *            + limit(var_82(16)/10, 0, 150)             ← 魔力/10%（上限 150）；453 不加这一项
@@ -1772,7 +1811,7 @@
   Elona.Spell = {
     loadTable, setTable, field, actionName,
     calcSpellPower, calcSpellFail, calcSpellCostMp, calcSpellCostStock, applyPowerBoost,
-    calcSkill, fovLos, losBlockedTile, precheck,
+    calcSkill, fovLos, losBlockedTile, precheck, grantCastExp,
     effectType0, effectType1, effectType2, effectType3, effectType4, effectType5, effectType6, effectType7, effectType8, effectType10,
     healRoutine, getRoute, routeInfo, breathList, calcMagicControl, calcMagicCrit, isHostile, sameGroup, placeChar, mefTypeOf, cast, dispatchEffect,
     dmgconOf,   // 0-EL：此前漏导出，导致 battle/abyss/itemfx 里的 dmgcon 调用全部静默跳过

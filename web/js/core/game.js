@@ -3223,6 +3223,15 @@
           const exp = rotten ? idiv(e.exp, 3) : e.exp;
           Elona.Stats.skillExp(p, e.id, p, exp, 1, 0, this);        // 226088
         }
+        // 225147-225169：人肉（ibit 18）—— 八维 + 速度全部大幅成长，
+        //   玩家 6000、NPC 10000（本项目的「人肉料理」由 cook.js 置 ibit 18）
+        if (Elona.ItemDB.ibit && Elona.ItemDB.ibit(18, it) === 1) {
+          const ex = (p.index | 0) === 0 ? 6000 : 10000;
+          for (let s = 10; s <= 18; s++) {
+            Elona.Stats.skillExp(p, s, p.index | 0, ex, 0, 0, this);
+          }
+          this.log(`${who}感到了人肉带来的力量……`);
+        }
       }
 
       // 0-BS：食物的耐性效果（*label_2304 内的 resistmod/resistmodh 调用，
@@ -3569,9 +3578,22 @@
         }
         const ab = Elona.Abyss.decode(this, it);
         this.log(`你解读了 ${bname}！${ab.message || ''}`);
+      // 313880-313910：解读古書物时视野内**其他**同伴获得 150（400）。
+      //   源码 `if (cnt == 0) continue`，读者本人不吃这一份；687 不再给 165。
+      if (Elona.Stats && Elona.Stats.skillExp && this.charas) {
+        for (const c of this.charas) {
+          if (!c || c === p || (c.get(0) | 0) !== 1) continue;
+          if (Math.max(Math.abs(c.x - p.x), Math.abs(c.y - p.y)) > 5) continue;
+          Elona.Stats.skillExp(c, 150, c.index | 0, 400, 0, 0, this);
+        }
+      }
         return Object.assign({ ok: true, decoded: true, book: eid }, ab);
       }
 
+      // 315315：消耗书页读完后本人练「読書」150（25，除数 2）
+      if (Elona.Stats && Elona.Stats.skillExp) {
+        Elona.Stats.skillExp(p, 150, p.index | 0, 25, 2, 0, this);
+      }
       if (!spellId) { this.log('这本书无法解读。'); return { ok: false, reason: 'no-spell' }; }
       const readSkill = p.skill(165) | 0;                 // 暗記（313864）
       let gain = idiv((this.rng.rnd(51) + 50) * (90 + readSkill + (readSkill > 0 ? 20 : 0)), 200) + 100;
@@ -3585,15 +3607,12 @@
       this.readBooks[eid] = 1;
       // item_identify（313904）
       if (Elona.ItemDB && Elona.ItemDB.identify) Elona.ItemDB.identify(it, 1);
-      // 313880-313903：视野内同伴获得読書 / 暗記经验
-      if (Elona.Stats && Elona.Stats.skillExp && this.charas) {
-        for (const c of this.charas) {
-          if (!c || c === p || (c.get(0) | 0) !== 1) continue;
-          if (Math.max(Math.abs(c.x - p.x), Math.abs(c.y - p.y)) > 5) continue;
-          Elona.Stats.skillExp(c, 150, p, 400, 1, 0, this);
-          Elona.Stats.skillExp(c, 165, p, 10 + idiv(Elona.Spell && Elona.Spell.field
-            ? (Elona.Spell.field(spellId, 4) | 0) : 0, 2), 1, 0, this);
-        }
+      // 315317-315319：魔法书（1292/709/549/411/398/390/389/388/384/242/17）
+      //   且已有「暗記」潜力时再练 165（50），并给威力/魔力加成。
+      const MEMORIZE_BOOKS = [1292, 709, 549, 411, 398, 390, 389, 388, 384, 242, 17];
+      if (MEMORIZE_BOOKS.indexOf(eid) >= 0 && (p.skill(165) | 0) > 0
+        && Elona.Stats && Elona.Stats.skillExp) {
+        Elona.Stats.skillExp(p, 165, p.index | 0, 50, 0, 0, this);
       }
       const gone = consumeBookPage(it, false);
       this.log(`你读完了 ${bname}，魔力库存 +${gain}（当前 ${stock}）。${gone ? '书化作了尘土。' : ''}`);
@@ -3675,6 +3694,11 @@
         return { ok: false, reason: 'fail', failed: true };
       }
       const r = S.cast(this, p, id, pre.target || target, tile);
+      // 314529-314536 → *label_2157：咏唱成功后练「法术技能」+「咏唱」，
+      //   属性经验由 skillexp 按 var_83(0, 法术id) 递归给出（31933-31937）。
+      if ((!r || r.ok !== false) && S.grantCastExp) {
+        S.grantCastExp(this, p, id, pre.target || target);
+      }
       const nameObj = S.actionName(id);
       const nm = nameObj ? (nameObj.ch || nameObj.en || nameObj.jp || `#${id}`) : `#${id}`;
       this.log(`你咏唱了 ${nm}。`);

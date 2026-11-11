@@ -1163,9 +1163,10 @@
       cell[0] = 33;
       g.refreshGroundCell(tx, ty);
       g.log('你挖穿了墙壁。');
-      // 挖掘技能经验（原版 *label_2909 的经验分配，此处按动作次数给固定值）
+      // 313483 `gosub *label_2152` → `skillexp 163, 0, 100`（163 = 採掘；
+      //   之前误写成 157（隠密）且除数用了 9999，经验量与技能都不对）
       if (Elona.Stats && Elona.Stats.skillExp) {
-        Elona.Stats.skillExp(p, 157, p.index, 60, 9999, 0, g);   // 157 = 採掘
+        Elona.Stats.skillExp(p, 163, p.index, 100, 0, 0, g);
       }
       // 0-FB：313448-313481 —— 按地城类型（var_126(6)）分表的挖墙掉落
       let drop = null;
