@@ -1471,7 +1471,7 @@
           }
           // 0-CA：学新技能（原版菜单 30「新しいスキルを覚えたい」）
           if (s.id === 'learn') {
-            const list = Elona.NPC.learnableSkills(game.player);
+            const list = Elona.NPC.learnableSkills(game, game.player);
             if (!list.length) { this.pushMessage('已经没有可以学的技能了。'); return; }
             const sel = this.el('npc-skill');
             this.npcTrainMode = 'learn';

@@ -44,13 +44,18 @@
     1023, 1024, 1026, 2003];
 
   let SKILL_NAMES = {};
+  let SKILL_SHOP = null;       // skillshop.json（A181：*label_2777/2778 场景过滤表）
 
   async function loadTable() {
     const d = await Elona.Data.table('skills');
     SKILL_NAMES = (d && d.skillNames) || {};
+    try {
+      SKILL_SHOP = await Elona.Data.table('skillshop');
+    } catch (e) { SKILL_SHOP = null; }   // 表缺失时退化为「全部未习得」旧行为
     return SKILL_NAMES;
   }
   function setSkillNames(names) { SKILL_NAMES = names || {}; }
+  function setSkillShop(t) { SKILL_SHOP = t || null; }
   function skillName(id, lang) {
     const e = SKILL_NAMES[String(id)];
     if (!e) return 'skill ' + id;
@@ -464,22 +469,83 @@
       message: `${skillName(skillId)} 的潜力提升了（-${cost} 白金币）。` };
   }
 
-  /** 训练师可教的「未习得」技能（原版菜单 30「新しいスキルを覚えたい」） */
-  function learnableSkills(player) {
-    const out = [];
-    const seen = {};
-    for (const key in SKILL_NAMES) {
-      const id = parseInt(key, 10);
-      // 属性 10..19 不能「学」；只列技艺/武器/生活技能
-      if (!(id >= 100 && id <= 199)) continue;
-      if (seen[id]) continue;
-      seen[id] = 1;
+  /**
+   * 训练师可教的「未习得」技能（原版菜单 30「新しいスキルを覚えたい」）。
+   *
+   * 【A181】*label_2777 / *label_2778（292183-292585）：
+   *   - 武器熟练（100..111）不分场景，未习得且在库里就列出（293358-293368 mode-3 分支）；
+   *   - 特殊能力（150..190、300/301）按**当前场景**过滤：恒定 159/173，
+   *     再按 var_65(20)（地图 id）＋ var_65(22)（子图 id，仅 11/14/36 有分册）
+   *     追加场景列表（数据由 tools/extract_skillshop.py 提取到 skillshop.json）；
+   *   - 过滤条件与源码一致：未习得（sorg==0；项目侧同时看 sexp，见下）且
+   *     var_83(0,id) != 0（在技能库 —— skillshop.json 的 attr 列）；
+   *   - 显示顺序 = 源码菜单排序键 var_83(0,id)+31000（武器组）/ +21000（特殊组），
+   *     即按关联主属性升序。
+   *
+   * 兼容：旧签名 learnableSkills(player)（无场景信息）仍可用 —— 只出武器组＋恒定组。
+   */
+  function learnableSkills(g, player) {
+    if (player === undefined) { player = g; g = null; }   // 旧调用风格
+    const shop = SKILL_SHOP;
+    const isLearned = (id) => {
       const pot = Elona.Stats && Elona.Stats.sorg ? Elona.Stats.sorg(player, id) : 0;
       const exp = Elona.Stats && Elona.Stats.sexp ? Elona.Stats.sexp(player, id) : 0;
-      if (pot > 0 || exp > 0) continue;                  // 已习得
-      out.push({ id, name: skillName(id) });
+      // 源码只判 sorg(id)==0；项目把等级/经验拆在 potential 定点数的两段里，
+      // exp>0（还没升上 1 级）同样视为已习得，避免刚学的技能立刻再出现。
+      return pot > 0 || exp > 0;
+    };
+
+    // 表缺失（测试桩没注入 / 加载失败）→ 退化为旧行为：全部未习得的 100..199
+    if (!shop || !shop.attr) {
+      const out0 = [];
+      const seen0 = {};
+      for (const key in SKILL_NAMES) {
+        const id = parseInt(key, 10);
+        if (!(id >= 100 && id <= 199) || seen0[id]) continue;
+        seen0[id] = 1;
+        if (isLearned(id)) continue;
+        out0.push({ id, name: skillName(id), key: 30000 + id });
+      }
+      out0.sort((a, b) => a.id - b.id);
+      return out0.slice(0, 60);
     }
-    out.sort((a, b) => a.id - b.id);
+
+    const attr = shop.attr;
+    const inDb = (id) => (attr[String(id)] | 0) !== 0;
+
+    const out = [];
+    // ◆ 武器熟练（293358-293368：repeat 100..149，mode 3 → 未习得且在库；
+    //   var_83 只给 100..111 定义了关联属性，112..149 自然被滤掉）
+    const weapon = [];
+    for (let id = 100; id <= 149; id++) {
+      if (!inDb(id) || isLearned(id)) continue;
+      weapon.push({ id, name: skillName(id), key: 31000 + (attr[String(id)] | 0) });
+    }
+    weapon.sort((a, b) => (a.key - b.key) || (a.id - b.id));   // drawmenu 按键排序
+    for (const e of weapon) out.push(e);
+    // ◆ 特殊能力（菜单键 var_83(0,id) + 21000）
+    const seen = {};
+    const special = [];
+    const collect = (ids) => {
+      for (const id of ids) {
+        if (seen[id]) continue;
+        seen[id] = 1;
+        if (!inDb(id) || isLearned(id)) continue;
+        special.push({ id, name: skillName(id), key: 21000 + (attr[String(id)] | 0) });
+      }
+    };
+    collect(shop.learn && shop.learn.default ? shop.learn.default : []);
+    const mapId = g && g.getV65 ? (g.getV65(20) | 0) : 0;
+    const subId = g && g.getV65 ? (g.getV65(22) | 0) : 0;
+    if (mapId > 0 && shop.learn && Array.isArray(shop.learn.scenes)) {
+      for (const sc of shop.learn.scenes) {
+        if ((sc.map | 0) !== mapId) continue;
+        if (sc.sub !== null && sc.sub !== undefined && (sc.sub | 0) !== subId) continue;
+        collect(sc.ids || []);
+      }
+    }
+    special.sort((a, b) => (a.key - b.key) || (a.id - b.id));
+    for (const e of special) out.push(e);
     return out.slice(0, 60);
   }
 
@@ -1372,7 +1438,7 @@
   }
 
   Elona.NPC = {
-    ROLE_NAMES, SHOP_ROLES, loadTable, setSkillNames, skillName,
+    ROLE_NAMES, SHOP_ROLES, loadTable, setSkillNames, setSkillShop, skillName,
     roleOf, roleName, isShop, services, talk, meal, drink, identify,
     implevel, modImp, give, intel,
     trainableSkills, trainCost, train, heal, infoText, perform, aside,
