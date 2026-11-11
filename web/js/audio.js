@@ -102,6 +102,7 @@
         100: 'cursor', 101: 'cursor', 102: 'cursor',
         20: 'cancel', 22: 'ok', 23: 'ok', 24: 'coin', 44: 'levelup',
         47: 'drop', 73: 'bash',
+        32: 'Heart1',          // 0-FZ / B3：199739 snd 32（低血量心跳音）
       };
       const nm = map[n | 0];
       if (nm) return this.play(nm);

@@ -682,7 +682,9 @@
       if (table && Array.isArray(table.npcs)) {
         // 原版 map_init_main 固定 NPC 表（tools/extract_town_npcs.py 提取）
         for (const e of table.npcs) {
-          if (e.cond) continue;                  // 剧情条件 NPC：当前进度不生成
+          // 0-FZ / C3：剧情条件 NPC 按 map_init_main 的 var_65(250+N) 条件生成
+          //   （求值器在 core/townnpc.js；未登记条件时保守跳过）。
+          if (e.cond && !(Elona.TownNpc && Elona.TownNpc.passes(this, e))) continue;
           const times = Math.max(1, e.count | 0);
           for (let i = 0; i < times; i++) {
             const cid = e.id ? (e.id | 0) : folkPool[this.rng.rnd(folkPool.length)];
@@ -1201,6 +1203,30 @@
             } else {
               this.log(r.locked ? '门锁着，你没能打开。' : '门打不开。');
             }
+            this.endTurn();
+            return true;
+          }
+          // 【A108】撞作物格 = *label_2818 / *label_2819（295890-295948）：
+          //   `var_503(1) == 29` 且 `var_65(20) != 35`（不是自宅地图 35）时：
+          //   · `var_503 < var_1611 + 2`（刚种下 / 成长中）→「你掐掉了幼苗。」+ 清特性
+          //   · `var_503 == var_1611 + 3`（枯萎）→「你掐掉了枯萎的植物。」+ 清特性
+          //   · 其余（成熟 249 / 施肥成熟 253）→ 进 *label_3023 收获
+          if (Elona.Farm && f.type === Elona.Farm.TYPE_PLANT) {
+            const ST = Elona.Farm.STAGES;
+            const id = f.id | 0;
+            if (id === ST.PLANTED || id === ST.GROWING) {
+              this.log('你掐掉了幼苗。');
+              Elona.MapFeat.clear(this, nx, ny);
+              this.endTurn();
+              return true;
+            }
+            if (id === ST.WITHERED) {
+              this.log('你掐掉了枯萎的植物。');
+              Elona.MapFeat.clear(this, nx, ny);
+              this.endTurn();
+              return true;
+            }
+            Elona.Farm.harvest(this, nx, ny);
             this.endTurn();
             return true;
           }
@@ -2103,6 +2129,14 @@
         const wid = (home ? (home.world | 0) : 0) || (this.getV65(850) | 0) || 4;
         Elona.RandDungeon.onEnterWorld(this, wid);
       }
+      // 【A138】249758：进入世界地图时把各 site 落成格子特性
+      //   `cell_featset(x, y, var_132(15,cnt), 15, cnt\100, cnt/100)`。
+      //   本项目世界地图不是逐格 GameMap，特性表挂在 g.worldFeats。
+      if (Elona.Sites && Elona.Sites.buildWorldFeats) {
+        const wid = (home ? (home.world | 0) : 0) || (this.getV65(850) | 0) || 4;
+        Elona.Sites.buildWorldFeats(this, wid);
+        Elona.Sites.buildWorldFeats(this, 4);
+      }
       if (home) {
         this.setV65(850, (home.world | 0) || 4);
         this.worldMap = { x: home.x | 0, y: home.y | 0 };
@@ -2778,6 +2812,12 @@
         return { ok: false, reason: 'busy' };
       }
       if (it.eqSlot >= 0) { this.log('装备中的物品不能使用。'); return { ok: false, reason: 'equipped' }; }
+      // 0-FZ / A27：*label_2647 的配方窗口由「使用錬金術の道具」(127) 进入；
+      //   m 键只负责 *label_2582 的素材查看窗口（此前由素材窗按 r 进调合）。
+      if ((it.id | 0) === 127 && Elona.Panels && Elona.Panels.openCraft) {
+        Elona.Panels.openCraft(this);
+        return { ok: true, action: 'craft' };
+      }
       // 物品使用效果（*label_3016，349962-364788）：按 var_99(19) 分派。
       // 目前覆盖「坐具」(44)、「人偶/小魔像」(61)、「书架」(74)、「烟」(90)、「调味料」(93)；
       // 其余效果由下方各专例分支处理。
@@ -2908,10 +2948,12 @@
         }
         return { ok: cap.ok, capture: cap };
       }
-      // 作物管理セット（1174）→ 打开栽培面板（手入れ/收获）
-      if (Elona.Farm && (it.id | 0) === 1174) {
-        return { ok: true, action: 'farm', idx };
-      }
+      // 【A108 修正】作物管理セット（1174）不再走「合并栽培面板」。
+      //   源码里它是独立的效果 106（364336-364491）：站在作物格上使用 →
+      //   5 种手入れ方式（txtsetplant 5）→ 扣 SP 10 / 照料余力减半 / 种类升阶。
+      //   项目 `itemfx_use.js` 的 eff106 已按源码实现，这里不再抢先拦截，
+      //   让它继续走下面的 ItemFx.dispatch。收获则回到源码的「撞进作物格」入口
+      //   （*label_2818/2819，295890-295948），施肥仍是 920 的效果 65。
       // 0-FE：有機肥料（920，var_1302 == 65，364292-364334）→ 成长期作物直接催熟（253）
       if (Elona.Farm && (it.id | 0) === Elona.Farm.FERTILIZER) {
         const fr = Elona.Farm.fertilize(this);
@@ -2932,17 +2974,11 @@
       if (Elona.Economy && (it.id | 0) === Elona.Economy.BANK_ITEM) {
         return { ok: true, action: 'bank', idx };
       }
-      // 請求書（615）→ 缴税（279230-279243 生成，交给大使馆纳付）
-      if (Elona.Economy && (it.id | 0) === Elona.Economy.BILL_ITEM) {
-        const r = Elona.Economy.payBill(this, it);
-        if (r.ok) {
-          this.log(`缴纳了 ${r.paid} gold 的税金。`);
-          this.gridChanged = true;
-          if (this.onMapChange) { /* 地面物品清理由 renderer 处理 */ }
-        } else if (r.reason === 'no-money') {
-          this.log(`金貨が足りない…（需要 ${r.need}，持有 ${r.gold}）`);
-        }
-        return r;
+      // 【A120】徵税士の納税箱（616）→ 纳付清单（源码 344762-344770：
+      //   使用 616 时 `var_486 = 24, 2`，进入「納付」模式只列 615/1084/1085）。
+      //   615 請求書本身没有使用效果，缴费必须从 616 的窗口走。
+      if (Elona.Economy && (it.id | 0) === Elona.Economy.TAX_BOX) {
+        return { ok: true, action: 'taxbox', idx };
       }
       // 0-DH：調教鞭（746）→ 同伴管教菜单（txtsettamer，10900-10960）
       if ((it.id | 0) === (Elona.Companion ? Elona.Companion.ITEM.WHIP : 746)) {
@@ -3442,7 +3478,10 @@
         return Elona.Craft.finish(this, pl);
       }
       if (type === 10 && pl.campMode) {
-        // 0-FY：*label_2932 的建设(101) / 训练(104) 分支
+        // 0-FY：*label_2932 的建设(101) 分支
+        if ((pl.campMode | 0) === 101) return this.completeCampRowAct(pl);
+        // 0-FZ：14 伐採 / 103 采摘 / 104 训练 / 102 拉门（311614-311800）
+        if (Elona.Camp && Elona.Camp.rowactFinish) return Elona.Camp.rowactFinish(this, pl);
         return this.completeCampRowAct(pl);
       }
       if (type >= 26 && type <= 28 && Elona.Work) {
@@ -3488,11 +3527,10 @@
           this.log('你建好了避难所。');
         }
       } else if (mode === 104) {
-        const sid = pl.skill | 0;
-        if (sid && Elona.Stats && Elona.Stats.skillExp) {
-          Elona.Stats.skillExp(p, sid, p.index, 100, 1, 0, this);
-        }
+        // 0-FZ：训练经验改由 Camp.rowactTick 每回合发放（311351-311400），
+        //   完成段（311770-311785）只播报并把 var_2392 清零。
         this.log('你完成了训练。');
+        if (this.setV65) this.setV65(2392, 0);
       } else {
         this.log('你完成了工作。');
       }
@@ -3644,9 +3682,29 @@
       const f1 = S.field(id, 1);
       let target = p;
       const selfOnly = f1 === 0 || f1 === 4 || f1 === 5 || idiv(f1, 1000) === 1;
+      const f3cls = idiv(S.field(id, 3) | 0, 1000) * 1000;      // var_938 目标类别
       if (!selfOnly) {
-        target = Elona.Throw ? Elona.Throw.nearestEnemy(this, p, 20) : null;
-        if (!target) { this.log('没有可以瞄准的目标。'); return { ok: false, reason: 'no-target' }; }
+        // 【A115】目标选择统一走瞄准 UI：源码 315663-315707 在 `var_938 == 8000`
+        //   时先「どの方向？」（*label_2893 八方向箭头）取该格角色，邻格没人则
+        //   `var_2421 = 1` 继续咏唱（对地/落空）。因此优先使用瞄准结果
+        //   `opts.target`（可能是 null = 那一格没人）；没有瞄准信息时
+        //   （快捷槽直发 / AI / 控制台）才退化成「最近的敌人」。
+        const hasAim = !!(opts && 'target' in opts);
+        if (hasAim) {
+          const t = opts.target;
+          target = (t && (t.get(0) | 0) === 1 && (t.hp | 0) > 0) ? t : null;
+          // 方向系（8000）允许「那一格没人」→ 对地发动（315679）；其它类别必须有目标
+          if (!target && f3cls !== 8000) {
+            this.log('那里没有可以瞄准的目标。');
+            return { ok: false, reason: 'no-target' };
+          }
+        } else if (f3cls === 8000) {
+          // 玩家还没有选方向 —— 交给 UI 打开箭头（315670「どの方向？」）
+          return { ok: false, reason: 'need-direction', spell: id };
+        } else {
+          target = Elona.Throw ? Elona.Throw.nearestEnemy(this, p, 20) : null;
+          if (!target) { this.log('没有可以瞄准的目标。'); return { ok: false, reason: 'no-target' }; }
+        }
       }
       // 地面指定（var_83(3,id) 的类别 7000）：玩家侧先选方向再咏唱（315674-315683）
       const tile = (opts && opts.tile) || null;
@@ -4448,18 +4506,32 @@
       return { ok: true, dst: target };
     }
 
-    /** 拾取脚下全部地面物品 */
-    pickupAt(c) {
+    /** 拾取脚下全部地面物品；only 指定时只拾取该件（0-FZ 的 103 采摘完成用） */
+    pickupAt(c, only) {
       let picked = 0;
       let pickedCampfire = false;   // 0-GW：本轮拾起过营火 255（342366-342385）
       let pickedWeight = 0;
       let blocked = false;
+      let harvest = false;          // 0-FZ：本轮转入了 103 采摘
       const rest = [];
       for (const it of this.groundItems) {
         if (!it || it.f[0] <= 0) continue;
+        if (only && it !== only) { rest.push(it); continue; }
         if (it.f[5] !== c.x || it.f[6] !== c.y) { rest.push(it); continue; }
         // 0-CI：城镇预设物品（有主）不能白拿 → 留给 stealAt 处理
         if (it.townOwned) { rest.push(it); continue; }
+        // 0-FZ / 341990-342030：未收获作物（f[21]==4、类别 57000）不直接捡起，
+        //   而是启动 103 采摘持续行动（回合数按重量 / 筋力·自然计算）。
+        //   采集任务（1006）的田里作物就带这个标记（见 questmap.js:219）。
+        if (!only && !harvest && (it.f[21] | 0) === 4 && (c.get(140) | 0) === 0) {
+          const cat = (Elona.ItemDB && Elona.ItemDB.ref)
+            ? (Elona.ItemDB.ref(it.id, 5) | 0) : 0;
+          if (cat === 57000 && Elona.Camp && Elona.Camp.beginHarvest) {
+            const hr = Elona.Camp.beginHarvest(this, it);
+            if (hr && hr.ok) { harvest = true; rest.push(it); continue; }
+          }
+        }
+        if (harvest) { rest.push(it); continue; }   // 开始采摘后本回合不再捡其它物品
         // 297590-297608：var_99(21)==2 是「无法搬动」的标记（行商/船商掉落的 361 提包，
         //   见 loot.js 222902）。源码在这里 `goto *label_4363` 中止拾取并提示
         //   「それは持ち運べない。」。提包只能就地用 o 键打开（容器面板会列出地面容器）。
@@ -4526,6 +4598,7 @@
         const hr = Elona.QuestMap.onPickup(this, pickedWeight);
         if (hr && hr.message) this.log(hr.message);
       }
+      this.pendingHarvest = harvest;    // 0-FZ：通知 Actions.get 本回合已转入采摘
       return picked;
     }
 

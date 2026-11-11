@@ -580,11 +580,27 @@
     let hdr = 0;
     try { hdr = (g && g.map && g.map.header) ? (g.map.header[6] | 0) : 0; } catch (e) { hdr = 0; }
     if (hdr !== 1 && !(g && g.var1095) && Elona.ItemDB && Elona.ItemDB.createItem) {
-      const it = Elona.ItemDB.createItem(1115, 1, g && g.rng);
+      let it = Elona.ItemDB.createItem(1115, 1, g && g.rng);
       if (it) {
         it.f[5] = c.x | 0; it.f[6] = c.y | 0; it.f[21] = -1;
-        if (g.groundItems) g.groundItems.push(it);
-        if (g.refreshGroundCell) g.refreshGroundCell(it.f[5], it.f[6]);
+        // 201756-201760：NPC 失禁写种族 id 到 f[23] 并 item_stack(-1) 合并
+        if ((c.index | 0) !== 0) {
+          it.f[23] = c.get(27) | 0;
+          const same = (g.groundItems || []).find((o) => o && (o.f[0] | 0) > 0
+            && (o.f[3] | 0) === (it.f[3] | 0)
+            && (o.f[5] | 0) === it.f[5] && (o.f[6] | 0) === it.f[6]
+            && (o.f[4] | 0) === (it.f[4] | 0)
+            && (o.f[23] | 0) === (it.f[23] | 0));
+          if (same) {
+            same.f[0] = (same.f[0] | 0) + (it.f[0] | 0);
+            if (g.refreshGroundCell) g.refreshGroundCell(it.f[5], it.f[6]);
+            it = null;
+          }
+        }
+        if (it) {
+          if (g.groundItems) g.groundItems.push(it);
+          if (g.refreshGroundCell) g.refreshGroundCell(it.f[5], it.f[6]);
+        }
       }
     }
     c.set(446, 5000);

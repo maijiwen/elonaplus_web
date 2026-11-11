@@ -22,6 +22,9 @@
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
 
+  // HSP 的 `/` 对整数是截断除法（`cnt / 100`），对应这里的 idiv
+  const idiv = (a, b) => (b === 0 ? 0 : ((a / b) | 0));
+
   const MAP_TYPE_FARM = 103;      // 232878 / 365043
   const MAP_TYPE_RANCH = 31;      // 232890 / 236217
   const MAP_TYPE_MUSEUM = 101;
@@ -305,9 +308,15 @@
      * 与世界地图上的占格无关。
      * 旧实现按 width×height 做矩形包含判定，于是「アクリ・テオラ」（x21 y27 w8 h1）
      * 整个 8 格宽都成了入口——玩家从 Vernis(26,23) 往南走到 (26,27) 就凭空进了 Cyber Dome。
+     *
+     * 【A138】现在先读世界地图格的 feat（type 15，值里带 site 槽位），
+     *   与源码 `cell_featset(..., 15, cnt\100, cnt/100)` 同构；没有 feat 时才退回扫描。
      */
     at(worldId, x, y, g) {
       const xx = x | 0, yy = y | 0;
+      // A138：世界地图格的 feat（`var_704(x, y, 6)`）
+      const featSite = this.siteAtFeat(g, worldId, xx, yy);
+      if (featSite) return featSite;
       // 0-CY：玩家自己建造的地产（运行时记录，g.propertySites）
       if (g && g.propertySites) {
         for (const k of Object.keys(g.propertySites)) {
@@ -320,6 +329,77 @@
       for (const s of this.ofWorld(worldId, { placed: true }, g)) {
         if ((s.fields[1] | 0) === xx && (s.fields[2] | 0) === yy) return s;
       }
+      return null;
+    },
+
+    // ------------------------------------------------------------------
+    // A138：世界地图格的 site 特性（249744-249764）
+    // ------------------------------------------------------------------
+    /**
+     * 249758 的打包值与 `cell_featset` 完全一致：
+     *   `id = var_132(15, cnt)`（地图/图标 id）· `type = 15` ·
+     *   `sub = cnt \ 100` · `arg3 = cnt / 100`
+     * 由 sub + arg3*100 还原槽位 cnt，再到**同一顺序**的世界地图站点表里取第 cnt 个。
+     */
+    featValueOf(site, cnt) {
+      if (!site) return 0;
+      const id = site.fields ? (site.fields[15] | 0) : (site.featId | 0);
+      const c = cnt | 0;
+      const sub = c % 100;               // `cnt \ 100`（HSP 的 \ 是取余）
+      const arg3 = idiv(c, 100);
+      return id + 15 * 1000 + sub * 100000 + arg3 * 10000000;
+    },
+
+    /**
+     * 把某世界地图上所有已放置 site 落成格子特性（`cell_featset`）。
+     * 世界地图在本项目里不是逐格 GameMap，因此特性表挂在 `g.worldFeats[worldId]`：
+     * 键 "x,y" → 打包值。语义与源码相同（一格一个入口 + 槽位编码）。
+     */
+    buildWorldFeats(g, worldId) {
+      if (!g) return null;
+      const w = worldId | 0;
+      if (!g.worldFeats) g.worldFeats = {};
+      const bag = {};
+      const list = this.ofWorld(w, { placed: true }, g);
+      for (let i = 0; i < list.length; i++) {
+        const s = list[i];
+        const x = s.fields[1] | 0, y = s.fields[2] | 0;
+        bag[x + ',' + y] = this.featValueOf(s, i);
+        // 249762：kind 2 / 3（城镇类）额外写 `var_704(x, y, 9) = 11`（入口向标）
+        const kind = s.fields[0] | 0;
+        if (kind === 2 || kind === 3) bag['m' + x + ',' + y] = 11;
+      }
+      // 玩家地产（0-CY 的运行时站点）也占一格
+      if (g.propertySites) {
+        for (const k of Object.keys(g.propertySites)) {
+          const s = g.propertySites[k];
+          if (!s || (s.world | 0) !== w) continue;
+          bag[(s.x | 0) + ',' + (s.y | 0)] =
+            (s.featId | 0) + 15 * 1000 + 99 * 100000;      // 槽位 99xx 段留给自建地产
+        }
+      }
+      g.worldFeats[w] = bag;
+      return bag;
+    },
+
+    /** 读取世界地图格的 feat 值（`var_704(x, y, 6)`；0 = 没有特性） */
+    worldFeatAt(g, worldId, x, y) {
+      const bag = g && g.worldFeats && g.worldFeats[worldId | 0];
+      if (!bag) return 0;
+      return bag[(x | 0) + ',' + (y | 0)] | 0;
+    },
+
+    /** 由 feat 值找到站点（type 必须是 15；槽位解码后按同一顺序取表） */
+    siteAtFeat(g, worldId, x, y) {
+      const v = this.worldFeatAt(g, worldId, x, y);
+      if (!v) return null;
+      const type = idiv(v, 1000) % 100;
+      if (type !== 15) return null;
+      const sub = idiv(v, 100000) % 100;
+      const arg3 = idiv(v, 10000000);
+      const slot = sub + arg3 * 100;
+      const list = this.ofWorld(worldId, { placed: true }, g);
+      if (slot >= 0 && slot < list.length) return list[slot];
       return null;
     },
 

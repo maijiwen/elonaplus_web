@@ -88,8 +88,18 @@
       if (idOrItem && typeof idOrItem === 'object') return this.instanceName(idOrItem, lang);
       const e = this.eq(idOrItem);
       if (!e) return '(未知物品)';
-      if (lang === 'jp') return e.nameCh || e.nameJp || e.nameEn || '';
       if (e.prefixEn) return e.prefixEn + ' of ' + (e.nameCh || e.nameEn || '');
+      // 【B4】未显式指定语言时按 config 的 `language` 取（默认中文）。
+      //   注意：显式传 'jp' 的调用点沿用的是历史语义（返回汉化名），
+      //   这些是播报串联用的名称，不动它们以免把中文播报换成日文。
+      if (!lang && Elona.Lang && Elona.Lang.current) {
+        const cur = Elona.Lang.current();
+        if (cur === 'jp') return e.nameJp || e.nameCh || e.nameEn || '';
+        if (cur === 'en') return e.nameEn || e.nameCh || e.nameJp || '';
+      }
+      // 约定：显式传 'jp' / 'en' 的调用点在本项目里都取**汉化名**
+      //   （历史语义，播报串联用；verify_i18n 也断言这一点），不要改。
+      if (lang === 'jp') return e.nameCh || e.nameJp || e.nameEn || '';
       return e.nameCh || e.nameEn || e.nameJp || '';
     },
 

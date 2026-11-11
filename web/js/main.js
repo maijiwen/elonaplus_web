@@ -56,6 +56,39 @@
   };
 
   /**
+   * 0-FZ / A33：`key_check`（7800-7809）里 `repeat 10, 48` 扫主键盘 '0'..'9'，
+   *   `var_186 = cnt - 48 + (Shift)*10` → `var_138="sc"` → *label_2735 使用
+   *   `var_65(40 + var_186)` 这个槽。小键盘（Numpad0-9）不在此列，仍是移动键。
+   *   浏览器恰好能用 `e.code` 区分 DigitX 与 NumpadX，按原版分流。
+   */
+  const quickSlotFromKey = (e) => {
+    const code = e.code || '';
+    if (/^Numpad/.test(code)) return -1;
+    const dm = /^Digit([0-9])$/.exec(code);
+    if (dm) {
+      const d = Number(dm[1]);
+      // 正常数字键：e.key 就是该数字。Shift+数字时 e.key 变成 '!' '@' 等符号，
+      // 但按 7802 仍算 Shift 槽（10..19）；两者都不是时不占用，
+      // 以免把模拟 '*'（Digit8 + 无 Shift）误当快捷槽。
+      if (e.key === String(d)) return d + (e.shiftKey ? 10 : 0);
+      return e.shiftKey ? d + 10 : -1;
+    }
+    if (!code && /^[0-9]$/.test(e.key || '')) return Number(e.key) + (e.shiftKey ? 10 : 0);
+    return -1;
+  };
+  const useQuickSlotKey = (e) => {
+    const n = quickSlotFromKey(e);
+    if (n < 0 || modalOpen()) return false;
+    e.preventDefault();
+    if (Elona.Panels && Elona.Panels.useQuick) Elona.Panels.useQuick(game, n);
+    else if (Elona.QuickSlot) {
+      const r = Elona.QuickSlot.use(game, n);
+      if (r && r.message) UI.pushMessage(r.message);
+    }
+    return true;
+  };
+
+  /**
    * 是否有阻塞式窗口正开着。
    *   原版的窗口都是阻塞循环（`*label_2896` 等），模态期间按键只属于窗口；
    *   网页版把窗口拆成了 DOM/Canvas 两种，这里统一判定，供「按键不得穿透到地图」用。
@@ -590,6 +623,7 @@
     //   0-FF：有模态窗口（背包 / 阅读窗 / NPC 菜单…）时**不**进这一段，
     //     否则在世界地图上打开背包后，方向键会被当成移动光标。
     if (game.worldMap && !modalOpen()) {
+      if (useQuickSlotKey(e)) return;      // 主键盘数字 → 快捷槽（小键盘仍是移动）
       let wdir = KEYMAP[e.code];
       if (!wdir) wdir = CHARMAP[e.key];
       // 0-FT：`*` 切换「查看模式」——镜头跟着光标跑，玩家原地不动（不改坐标、不走时间）
@@ -822,7 +856,9 @@
     //   ↑/↓ 会漏到下面；不在这里拦住，角色就会在弹窗背后走掉。
     if (modalOpen()) { e.preventDefault(); return; }
 
-    // ---------- 4) 移动 ----------
+    // ---------- 4) 快捷槽 / 移动 ----------
+    // 0-FZ / A33：主键盘数字先按原版走快捷槽；小键盘数字与方向键才是移动。
+    if (useQuickSlotKey(e)) return;
     let dir = KEYMAP[e.code];
     if (!dir) dir = CHARMAP[e.key];
     if (dir) {
@@ -1367,17 +1403,27 @@
    * 若浏览器窗口小于放大后的尺寸，则按可用空间收小，避免画面被裁。
    */
   const STAGE_BASE = 1.25;
+  /** B5：基准缩放来自 config 的 windowW/windowH（800×600 为 1.0 倍） */
+  function stageBase() {
+    const o = Elona.Options;
+    const w = o && o.values ? (o.values.windowW | 0) : 0;
+    if (w >= 400) return Math.max(0.5, Math.min(3, w / 800));
+    return STAGE_BASE;
+  }
   function fitStage() {
     const w = (typeof window !== 'undefined' && window.innerWidth) || 0;
     const h = (typeof window !== 'undefined' && window.innerHeight) || 0;
-    let s = STAGE_BASE;
-    if (w > 0 && h > 0) s = Math.min(STAGE_BASE, w / 800, h / 600);
-    s = Math.max(0.5, Math.min(STAGE_BASE, s));
+    const base = stageBase();
+    let s = base;
+    if (w > 0 && h > 0) s = Math.min(base, w / 800, h / 600);
+    s = Math.max(0.5, Math.min(3, s));
     if (typeof document !== 'undefined' && document.documentElement
       && document.documentElement.style && document.documentElement.style.setProperty) {
       document.documentElement.style.setProperty('--stage-scale', String(s));
     }
   }
+  // B5：选项面板改窗口大小后立即生效
+  Elona.applyStageScale = fitStage;
   if (typeof window !== 'undefined' && window.addEventListener) {
     window.addEventListener('resize', fitStage);
   }

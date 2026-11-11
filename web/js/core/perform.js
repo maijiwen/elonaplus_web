@@ -357,8 +357,8 @@
         // 306647-306656：同一张地图（本项目 charas 都在当前地图）+ 3 格以内
         if (d > 3) continue;
         if ((c.get(14) | 0) <= 0) continue;                // 306657
-        if ((c.get(251) | 0) > 0) continue;                // 306660（251 未移植，恒 0）
-        if ((c.get(256) | 0) >= 60) continue;              // 306663
+        if ((c.get(251) | 0) > 0) continue;                // 306660：眩晕/麻痹中不理会演奏
+        if ((c.get(256) | 0) >= 60) continue;              // 306663：睡眠中不理会演奏
         if (Elona.Status && Elona.Status.cbit(c, 992) === 1) continue;   // 306666
         if (c === p) continue;                             // 306675
 

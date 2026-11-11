@@ -33,6 +33,7 @@
   const GOLD_ITEM = 54;        // 金币物品
   const BANK_ITEM = 1097;      // ヤカテクトの預金箱
   const BILL_ITEM = 615;       // 請求書
+  const TAX_BOX = 616;         // 徴税士の納税箱（纳付窗口的入口）
 
   const TAX_CAP = 1000000000;  // 貯金箱上限（358614）
 
@@ -57,7 +58,7 @@
   function limit(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
 
   const Economy = {
-    GOLD_ITEM, BANK_ITEM, BILL_ITEM, TAX_CAP,
+    GOLD_ITEM, BANK_ITEM, BILL_ITEM, TAX_BOX, TAX_CAP,
     BUILDING_COST, VEHICLE_LAND, VEHICLE_SEA, HIRE_COST,
 
     // ==================================================================
@@ -303,21 +304,54 @@
     },
 
     /**
-     * 缴纳账单（大使馆，279230 生成 615）。
-     * 原版是把请求书交给大使馆窗口；这里做成「持请求书到 type 32 地图使用」。
+     * 缴纳账单 —— 源码 298946-299010（`var_486 == 24 & var_486(1) == 2` 的纳付模式）。
+     *
+     * 入口不是「对请求书使用」，而是使用「徴税士の納税箱」616
+     * （344762-344770 `var_486 = 24, 2` → 打开纳付清单）。清单里只列三种凭证：
+     *   · 615 請求書   → 金额 = `var_99(23)`，要求 `var_65(179) > 0`（有滞纳才收）
+     *   · 1084 120万納税書 → 固定 120 万，`var_65(250+359) += 1200000`
+     *   · 1085 1200万納税書 → 固定 1200 万，`var_65(250+359) += 12000000`
+     * 缴纳后凭证消耗；615 另外把滞纳月数 `var_65(179)` 减 1（不是清零）。
      */
     payBill(g, bill) {
       if (!bill || (bill.id | 0) !== BILL_ITEM) return { ok: false, reason: 'not-bill' };
       const p = g.player;
+      // 299007-299012：没有欠税时不受理
+      if ((g.getV65(179) | 0) <= 0) return { ok: false, reason: 'not-due' };
       const amount = bill.f[23] | 0;
       if (amount <= 0) return { ok: false, reason: 'bad-bill' };
       const gold = p.get(30) | 0;
       if (gold < amount) return { ok: false, reason: 'no-money', need: amount, gold };
 
       p.set(30, gold - amount);
-      bill.f[0] = 0;                       // 消费掉请求书
-      g.setV65(179, 0);                    // 滞纳月数清零
-      return { ok: true, paid: amount };
+      bill.f[0] = 0;                                    // 299031-299032 `var_99(0)--`
+      g.setV65(179, Math.max(0, (g.getV65(179) | 0) - 1));
+      return { ok: true, paid: amount, kind: 'tax' };
+    },
+
+    /** 1084 / 1085 的定额纳税（298970-299040）：扣钱后把金额计入 `var_65(250+359)` */
+    payTaxDocument(g, it) {
+      const id = it ? (it.id | 0) : 0;
+      const amount = id === 1084 ? 1200000 : (id === 1085 ? 12000000 : 0);
+      if (!amount) return { ok: false, reason: 'not-document' };
+      const p = g.player;
+      const gold = p.get(30) | 0;
+      if (gold < amount) return { ok: false, reason: 'no-money', need: amount, gold };
+      p.set(30, gold - amount);
+      it.f[0] = 0;
+      g.setV65(609, (g.getV65(609) | 0) + amount);      // 299037-299043
+      return { ok: true, paid: amount, kind: 'document' };
+    },
+
+    /** 纳付清单里可缴的凭证（299010-299045 只认这三种） */
+    payableDocuments(g) {
+      const out = [];
+      for (const it of (g.player.inv || [])) {
+        if (!it || (it.f[0] | 0) <= 0) continue;
+        const id = it.id | 0;
+        if (id === BILL_ITEM || id === 1084 || id === 1085) out.push(it);
+      }
+      return out;
     },
 
     // ==================================================================

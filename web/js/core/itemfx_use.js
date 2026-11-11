@@ -1589,6 +1589,15 @@
 
   /** 9 训练机 / 学习书（353955-353966 → *label_2849 300965-300983） */
   function eff9(g, st) {
+    // 0-FZ：入口交给 Camp.beginTrain —— 它按 311208-311246 处理无聊冷却、
+    //   书签（1014，学习书冷却 48h→4h）与哑铃（1019，var_2392=100 训练量翻倍），
+    //   回合数固定 50（311248），经验由每回合 311351-311400 发放。
+    if (Elona.Camp && Elona.Camp.beginTrain) {
+      const r = Elona.Camp.beginTrain(g, st.it);
+      if (!r.ok) { g.log(r.message || '现在不能训练。'); return { end: 'none' }; }
+      g.endTurn();
+      return { end: 'none' };
+    }
     const r = beginCampRowAct(g, 104, 50, {
       itemId: st.it.id | 0, skill: st.it.f[25] | 0,
     });
@@ -1614,6 +1623,14 @@
       const r = beginCampRowAct(g, 101, 25, { itemId: it.id | 0, kind: 'shelter' });
       if (!r.ok) { g.log(r.message || '现在不能建造。'); return { end: 'none' }; }
       g.log('你开始建造避难所。（25 回合）');
+      g.endTurn();
+      return { end: 'none' };
+    }
+    // 0-FZ：已建成 → 358471 的 102「拉门」（10 回合）。完成后由
+    //   Camp.rowactFinish 记录回程点并切到 shelter_1 / 或在内部拉门回到地面。
+    if (Elona.Camp && Elona.Camp.beginHatch) {
+      const r = Elona.Camp.beginHatch(g, it);
+      if (!r.ok) { g.log(r.message || '现在不能拉门。'); return { end: 'none' }; }
       g.endTurn();
       return { end: 'none' };
     }

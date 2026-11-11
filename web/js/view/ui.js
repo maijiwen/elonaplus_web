@@ -358,6 +358,16 @@
       if (!row) return;
       if (this.invMode === 'spell') {
         const r = game.castPlayerSpell(row);
+        // 【A115】方向系（`var_938 == 8000`）法术：源码 315663-315707 先
+        //   「どの方向？」（*label_2893 八方向箭头）再取该格角色，邻格没人
+        //   则 `var_2421 = 1` 对地发动。此前是自动索敌，现在统一走瞄准。
+        if (r && r.reason === 'need-direction' && Elona.DirSel) {
+          this.closeInventory();
+          const range = Elona.DirSel.rangeOf(row);
+          Elona.DirSel.startSpellTarget(game, row, range);
+          this.pushMessage('朝哪个方向咏唱？（方向键 / 小键盘 1-9，Esc 取消）');
+          return;
+        }
         // 类别 7000（造墙/造门/酸/火墙…）：原版走 `*label_2670` 的**全屏光标**
         //   （315731 `gosub *label_2670`），可以在射程内任意移动光标，不是八方向一格。
         if (r && r.reason === 'need-tile' && Elona.Aim && Elona.Panels) {
@@ -550,10 +560,10 @@
           Elona.Panels.openBank(game, r.idx);
           return;
         }
-        // 作物管理セット → 栽培面板
-        if (r && r.action === 'farm' && Elona.Panels) {
+        // 【A120】徵税士の納税箱（616）→ 纳付窗口（`var_486 = 24, 2`）
+        if (r && r.action === 'taxbox' && Elona.Panels) {
           this.closeInventory();
-          Elona.Panels.openFarm(game);
+          Elona.Panels.openTaxBox(game);
           return;
         }
         // 0-CX：深淵魔術書 → 打开深淵法术菜单

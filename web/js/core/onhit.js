@@ -39,6 +39,23 @@
     return (cached && cached.hit) ? cached : null;
   }
 
+  let lastHeartbeat = 0;
+  /**
+   * 0-FZ / B3：199732-199743 的玩家濒死心跳音。
+   *   `var_58(51)/4 > var_58(50)`（HP < 最大/4）由 nearDeathSound 规则判定；
+   *   `var_112 == 1`（sound 开关）与 `var_1163 == 1`（heartbeat 开关）在这里检查；
+   *   `CHECKPLAY 32` 用「同一音效 1.2 秒内不重播」近似，避免每回合叠加。
+   */
+  function playHeartbeat(g, snd) {
+    const v = (Elona.Options && Elona.Options.values) || {};
+    if (!(v.sound | 0) || !(v.heartbeat | 0)) return;
+    if (!Elona.Audio || typeof Elona.Audio.playIndex !== 'function') return;
+    const now = Date.now();
+    if (now - lastHeartbeat < 1200) return;
+    lastHeartbeat = now;
+    try { Elona.Audio.playIndex(snd | 0); } catch (e) { /* 无声卡 */ }
+  }
+
   const idiv = (a, b) => Math.trunc((a | 0) / (b || 1));
   const clamp = (v, a, b) => (v < a ? a : (v > b ? b : v));
   const G = (c, n) => (c && typeof c.get === 'function' ? (c.get(n) | 0) : 0);
@@ -167,11 +184,28 @@
       if (mapType(g) !== 1) {                                  // 199612-199623
         const IT = Elona.ItemDB;
         if (IT && IT.createItem) {
-          const it = IT.createItem(F.urineItem, 1, g.rng);
+          let it = IT.createItem(F.urineItem, 1, g.rng);
           if (it) {
             it.f[5] = def.x | 0; it.f[6] = def.y | 0; it.f[21] = -1;
-            if (g.groundItems) g.groundItems.push(it);
-            if (g.refreshGroundCell) g.refreshGroundCell(def.x, def.y);
+            // 199618-199620：NPC 失禁要把种族 id 写进 f[23]，再 item_stack(-1)
+            //   与同格同类同品质的尿堆合并（玩家失禁不合并，直接留新堆）。
+            if ((def.index | 0) !== 0) {
+              it.f[23] = G(def, 27) | 0;
+              const same = (g.groundItems || []).find((o) => o && (o.f[0] | 0) > 0
+                && (o.f[3] | 0) === (it.f[3] | 0)
+                && (o.f[5] | 0) === it.f[5] && (o.f[6] | 0) === it.f[6]
+                && (o.f[4] | 0) === (it.f[4] | 0)
+                && (o.f[23] | 0) === (it.f[23] | 0));
+              if (same) {
+                same.f[0] = (same.f[0] | 0) + (it.f[0] | 0);
+                if (g.refreshGroundCell) g.refreshGroundCell(def.x, def.y);
+                it = null;
+              }
+            }
+            if (it) {
+              if (g.groundItems) g.groundItems.push(it);
+              if (g.refreshGroundCell) g.refreshGroundCell(def.x, def.y);
+            }
           }
         }
       }
@@ -341,6 +375,7 @@
           if (idiv(hpMax, rule.hpDiv) > (def.hp | 0)) {
             out.fields.sound = rule.snd;
             out.keys.push('nearDeathSound');
+            playHeartbeat(g, rule.snd);        // 0-FZ / B3：真正把心跳音播出来
           }
           break;
         }

@@ -511,6 +511,316 @@
     return { ok: true, energy: tool.energy, toilEnergy: r.toilEnergy };
   }
 
+  // ======================================================================
+  // 0-FZ：*label_2932 的家具/设备行动（311250-311800）
+  //
+  //   var_65(91) 是「正在使用的设备类型」，与 rowact 10 一一对应：
+  //     14  伐採   333738（能力 712）→ 311135 回合数 / 311262 每回合 / 311751 完成
+  //     103 采摘   342010（拾取成熟作物）→ 311127 / 311316 / 311743
+  //     104 训练   300965（训练机 / 学习书）→ 311166 / 311351 / 311770
+  //     102 拉门   358471（已建成的避难所书）→ 311119 / 311726
+  //   101 建设在 itemfx_use.eff7 + Game.completeCampRowAct，
+  //   105 偷窃在 Game.tickSteal，100 野营在 Game 的 camp 分支，
+  //   107/108 劳动见上面的 workWithTool / workTick。
+  // ======================================================================
+  const TREE_ITEMS = [935, 589, 588, 530, 529, 528, 527, 526, 525, 524, 523]; // 333745-333758
+  const AXE_BASE = [[234, 100], [1149, 30], [794, 30]];                       // 333778-333790
+  const TRAIN_BOOK = 563;      // 学習書（属性书，f[25] = 属性 id）
+  const TRAIN_ALL = 1175;      // 万能トレーニングマシン（randwskill）
+  const DUMBBELL = 1019;       // ダンベル → var_2392 = 100（训练量翻倍档）
+  const BOOKMARK = 1014;       // 栞 → 学习书无聊冷却 48h → 4h
+  const SHELTER_MAP = 'shelter_1';   // 避难所内部（var_65(64) = 30 → shelter_1）
+  const SHELTER_X = 11, SHELTER_Y = 9;
+
+  const rndOf = (g) => (n) => ((g && g.rng && g.rng.rnd) ? (g.rng.rnd(n) | 0) : 0);
+  const skOf = (c, id) => (c && typeof c.skill === 'function' ? (c.skill(id) | 0) : 0);
+  const potOf = (c, id) => (Elona.Stats && Elona.Stats.sorg
+    ? (Elona.Stats.sorg(c, id) | 0) : 0);
+  function gainExp(g, c, id, v) {
+    if (!v) return;
+    if (Elona.Stats && Elona.Stats.skillExp) {
+      Elona.Stats.skillExp(c, id | 0, c.index | 0, v | 0, 0, 0, g);
+    }
+  }
+  const randAttr = (rnd) => 10 + rnd(8);       // randattb（5027）rnd(8)+10
+  const randWeapon = (rnd) => 100 + rnd(12);   // randwskill（5030）rnd(112-100)+100
+
+  /**
+   * 333745-333790：找脚下的树与斧头。
+   *   树 935/588/589/523..530；斧 234（基础 100 回合）/ 1149 / 794（30 回合）。
+   */
+  function findTree(g) {
+    const p = g && g.player;
+    if (!p) return null;
+    let tree = null;
+    for (const it of (g.groundItems || [])) {
+      if (!it || (it.f[0] | 0) <= 0) continue;
+      if ((it.f[5] | 0) !== (p.x | 0) || (it.f[6] | 0) !== (p.y | 0)) continue;
+      if (TREE_ITEMS.indexOf(it.f[3] | 0) < 0) continue;
+      tree = it; break;
+    }
+    if (!tree) return null;
+    let axeId = 0, base = 0;
+    for (const pair of AXE_BASE) {
+      const id = pair[0];
+      if ((p.inv || []).some((x) => x && (x.f[0] | 0) > 0 && (x.f[3] | 0) === id)) {
+        axeId = id; base = pair[1]; break;
+      }
+    }
+    return { tree, axeId, base };
+  }
+
+  /** 能力 712（333738-333790）：开始伐採（311135 回合数 = limit(基础 - 伐採/8, 20, 100)） */
+  function beginChop(g) {
+    const found = findTree(g);
+    if (!found) return { ok: false, reason: 'no-tree', message: '没有可砍伐的树木。' };
+    if (!found.axeId) return { ok: false, reason: 'no-axe', message: '你没有砍伐树木的工具。' };
+    const p = g.player;
+    const turns = Math.max(20, Math.min(100, found.base - ((skOf(p, 102) / 8) | 0)));
+    const A = Elona.Actions;
+    if (!A) return { ok: false, reason: 'no-actions' };
+    const r = A.begin(g, 10, turns, {
+      campMode: 14, tree: found.tree, axeId: found.axeId, base: found.base,
+    });
+    if (!r.ok) return r;
+    if (g.setV65) g.setV65(91, 14);
+    g.log(found.axeId === 234
+      ? '你开始用斧头砍伐树木。'
+      : '你开始用锯子砍伐树木。');
+    return { ok: true, mode: 14, turns, tree: found.tree, axeId: found.axeId };
+  }
+
+  /** 342010-342030：拾取成熟作物（57000 类、f[21]==4）时改为 103 采摘 */
+  function beginHarvest(g, item) {
+    const p = g && g.player;
+    if (!p || !item) return { ok: false, reason: 'no-item' };
+    // 311127-311133：2 + limit(f[7] / 500, 0, 50) 是 105 偷窃；
+    // 103 采摘是 10 + limit(f[7] / (1 + 筋力*10 + 自然*40), 1, 100)
+    const w = item.f[7] | 0;
+    const denom = 1 + skOf(p, 10) * 10 + skOf(p, 180) * 40;
+    const turns = 10 + Math.max(1, Math.min(100, (w / Math.max(1, denom)) | 0));
+    const A = Elona.Actions;
+    if (!A) return { ok: false, reason: 'no-actions' };
+    const r = A.begin(g, 10, turns, { campMode: 103, item, itemId: item.f[3] | 0 });
+    if (!r.ok) return r;
+    if (g.setV65) g.setV65(91, 103);
+    g.log('你开始采摘。');
+    return { ok: true, mode: 103, turns };
+  }
+
+  /** 300965-300983（*label_2849）：开始训练 / 学习（311248 回合数固定 50） */
+  function beginTrain(g, item) {
+    const p = g && g.player;
+    if (!p || !item) return { ok: false, reason: 'no-item' };
+    const id = item.f[3] | 0;
+    const now = timeHours(g);
+    // 311208-311246：无聊冷却（563 → var_65(177)，其它 → var_65(88)）+ 栞/哑铃
+    let dumbbell = 0;
+    if (id === TRAIN_BOOK) {
+      if (g.setV65) g.setV65(177, now + 48);
+      if ((p.inv || []).some((x) => x && (x.f[0] | 0) > 0 && (x.f[3] | 0) === BOOKMARK)) {
+        if (g.setV65) g.setV65(177, now + 4);
+        g.log('你准备好了书签。');
+      }
+    } else {
+      if (g.setV65) g.setV65(2392, 0);   // var_2392 —— 哑铃标记（全局，非角色字段）
+      if ((p.inv || []).some((x) => x && (x.f[0] | 0) > 0 && (x.f[3] | 0) === DUMBBELL)) {
+        g.log('你准备好了哑铃。');
+        dumbbell = 100;
+      }
+      if (g.setV65) g.setV65(88, now + 48);
+    }
+    const A = Elona.Actions;
+    if (!A) return { ok: false, reason: 'no-actions' };
+    const r = A.begin(g, 10, 50, {
+      campMode: 104, item, itemId: id, skill: item.f[25] | 0, dumbbell,
+    });
+    if (!r.ok) return r;
+    if (g.setV65) g.setV65(91, 104);
+    g.log(id === TRAIN_BOOK ? '你开始学习。' : '你开始训练。');
+    return { ok: true, mode: 104, turns: 50 };
+  }
+
+  /** 358471-358480：已建成的避难所书 → 拉门（311119 回合数 10） */
+  function beginHatch(g, item) {
+    const A = Elona.Actions;
+    if (!A) return { ok: false, reason: 'no-actions' };
+    const r = A.begin(g, 10, 10, { campMode: 102, item, itemId: item.f[3] | 0 });
+    if (!r.ok) return r;
+    if (g.setV65) g.setV65(91, 102);
+    g.log('你开始拉开避难所的舱门。');
+    return { ok: true, mode: 102, turns: 10 };
+  }
+
+  /** var_65(13/12/11/10) → 当前游戏内小时（与源码 var_65(88) 的冷却比较口径一致） */
+  function timeHours(g) {
+    if (!g || !g.getV65) return 0;
+    return (g.getV65(13) | 0) + (g.getV65(12) | 0) * 24
+      + (g.getV65(11) | 0) * 24 * 30 + (g.getV65(10) | 0) * 24 * 30 * 12;
+  }
+
+  /**
+   * 每回合结算（311250-311613 的剩余分支）。
+   *   由 Actions.tickRowAct 在 type==10 且 payload.campMode 时调用；
+   *   剩余回合的递减由 Actions 统一处理。
+   * @returns {{ok:boolean, mode:number, messages?:string[]}}
+   */
+  function rowactTick(g, mode, payload) {
+    const p = g && g.player;
+    const pl = payload || {};
+    const rnd = rndOf(g);
+    const out = { ok: true, mode: mode | 0, messages: [] };
+
+    if (mode === 14) {                                   // 311262-311315
+      if (rnd(5) === 0) gainExp(g, p, 102, 20);          // 伐採
+      if (rnd(6) === 0 && rnd(55) > potOf(p, 10) + 25) gainExp(g, p, 10, 50);   // 筋力
+      if (rnd(3) === 0) p.set(52, Math.max(0, (p.get(52) | 0) - 1));            // 311276：体力 -1
+      // 311300-311314：每 10 回合一次砍伐音（链锯 30 / 斧 100 的文本不同）
+      const left = p.get(141) | 0;
+      if (left > 0 && left % 10 === 0) {
+        out.messages.push(pl.base === 30 ? ' *がぁぁぁん* ' : ' *カツーン* ');
+      }
+      return out;
+    }
+
+    if (mode === 103) {                                  // 311316-311350
+      if (rnd(5) === 0) {
+        if (Elona.Stats && Elona.Stats.skillExp) {
+          Elona.Stats.skillExp(p, 180, p.index | 0, 40, 4, 0, g);   // 自然識別（除数 4）
+        }
+      }
+      if (rnd(6) === 0 && rnd(55) > potOf(p, 10) + 25) gainExp(g, p, 10, 50);
+      if (rnd(8) === 0 && rnd(55) > potOf(p, 11) + 28) gainExp(g, p, 11, 50);
+      if (rnd(10) === 0) gainExp(g, p, 15, 50);
+      if (rnd(4) === 0) out.messages.push(' *ザクッ* ');
+      return out;
+    }
+
+    if (mode === 104) {                                  // 311351-311400
+      let roll = 25;                                     // var_400
+      const weather = g.getV65 ? (g.getV65(17) | 0) : 0;
+      if (weather !== 0 && weather !== 3) {
+        // 311353-311355：避难所内部（var_65(20)==30）训练量更足；
+        //   项目里地图 id 不总是写入 var_65(20)，补一条 shelter_* 地图名判定。
+        const mapId = g.getV65 ? (g.getV65(20) | 0) : 0;
+        const inShelter = mapId === 30 || (g.map && /^shelter/.test(g.map.name || ''));
+        if (inShelter) roll = 5;
+        else if (((g.v126 && g.v126[14]) | 0) === 1) {
+          const w = (g.v126 && g.v126[6]) | 0;
+          if (w === 5 || w === 3 || w === 2) {           // 恶劣天气
+            roll = 5;
+            if (g.setV65) g.setV65(14, (g.getV65(14) | 0) + 30);
+          }
+        }
+      }
+      const book = (pl.itemId | 0) === TRAIN_BOOK;
+      const all = (pl.itemId | 0) === TRAIN_ALL;
+      if (book) {
+        if (rnd(roll) === 0) gainExp(g, p, pl.skill | 0, 25);
+      } else if ((pl.dumbbell | 0) === 100) {
+        // 先掷判定再取随机技能/属性（源码 311371-311386 的顺序）
+        if (all) { const hit = rnd(roll) === 0; gainExp(g, p, randWeapon(rnd), hit ? 350 : 50); }
+        else { const hit = rnd(roll) === 0; gainExp(g, p, randAttr(rnd), hit ? 175 : 25); }
+      } else if (all) {
+        if (rnd(roll) === 0) gainExp(g, p, randWeapon(rnd), 50);
+      } else if (rnd(roll) === 0) {
+        gainExp(g, p, randAttr(rnd), 25);
+      }
+      return out;
+    }
+
+    return out;      // 102 拉门没有每回合逻辑（311119-311126 只设回合数）
+  }
+
+  /**
+   * 完成结算（311614-311800）。
+   *   14 伐採：掉材木 330 / 枝 1316 / 种子 936，树数量 -1；
+   *   103 采摘：把目标作物捡起（*label_2978）；
+   *   104 训练：只播报（经验在每回合）+ var_2392 = 0；
+   *   102 拉门：记录回程点并切到 sjelter_1（311726-311742）。
+   */
+  function rowactFinish(g, payload) {
+    const p = g && g.player;
+    const pl = payload || {};
+    const mode = pl.campMode | 0;
+    if (g.setV65) g.setV65(91, 0);
+
+    if (mode === 14) {                                   // 311751-311795
+      const tree = pl.tree;
+      g.log('你砍倒了树木。');
+      if (tree && (tree.f[0] | 0) > 0) {
+        const x = tree.f[5] | 0, y = tree.f[6] | 0;
+        tree.f[0] = (tree.f[0] | 0) - 1;
+        g.refreshGroundCell(x, y);
+        const L = Elona.Loot;
+        if (L && L.spawnItem) {
+          L.spawnItem(g, 330, x, y, { cnt: 1 });         // 材木
+          L.spawnItem(g, 1316, x, y, { cnt: 1 });        // 枝
+          L.spawnItem(g, 936, x, y, { cnt: 1 });         // 种子
+        }
+      }
+      return { ok: true, mode };
+    }
+
+    if (mode === 103) {                                  // 311743-311750 → *label_2978
+      const it = pl.item;
+      if (it && (it.f[0] | 0) > 0 && g.pickupAt && p) {
+        const nm = Elona.ItemDB && Elona.ItemDB.instanceName
+          ? Elona.ItemDB.instanceName(it) : String(it.f[3] | 0);
+        g.log(`你收获了${nm}。`);
+        g.pickupAt(p, it);
+      }
+      return { ok: true, mode };
+    }
+
+    if (mode === 104) {                                  // 311770-311785
+      g.log((pl.itemId | 0) === TRAIN_BOOK ? '你完成了学习。' : '你完成了训练。');
+      if (g.setV65) g.setV65(2392, 0);
+      return { ok: true, mode };
+    }
+
+    if (mode === 102) {                                  // 311726-311742
+      const inside = g.map && /^shelter/.test(g.map.name || '');
+      if (inside) {
+        // 从避难所内部拉门回原地图（var_65(66) 记录的地图 + 坐标）
+        const back = g.shelterReturn || null;
+        g.shelterReturn = null;
+        const dest = back && back.map ? back.map : (g.getV65 ? g.getV65(66) : 'vernis');
+        g.log('你回到了地上。');
+        if (g.loadMap) {
+          g.loadMap(dest || 'vernis').then(() => {
+            if (back && g.player) {
+              g.player.x = back.x | 0; g.player.y = back.y | 0;
+              if (g.onMapChange) g.onMapChange(g.map);
+            }
+          }).catch(() => { /* 地图缺失时留在原地 */ });
+        }
+      } else {
+        // 311727-311741：记录回程点、f[26] 重置，切到避难所内部
+        const it = pl.item;
+        g.shelterReturn = { map: g.map ? g.map.name : 'vernis', x: p.x | 0, y: p.y | 0 };
+        if (g.setV65) {
+          // var_65(66) 在原版是「地图、var_65(22)、x、y」四项；项目 setV65 只存数字，
+          // 这里记录来源地图 id（名字在 g.shelterReturn 里）。
+          g.setV65(66, g.getV65 ? (g.getV65(20) | 0) : 0);
+          g.setV65(64, 30);                              // 避难所内部地图
+          g.setV65(65, (5 + ((it ? (it.f[9] | 0) : 0) / 50)) | 0);
+        }
+        if (it && (it.f[26] | 0) <= 10) it.f[26] = 100;  // 311736-311739
+        g.log('你钻进了避难所。');
+        if (g.loadMap) {
+          g.loadMap(SHELTER_MAP).then(() => {
+            if (g.player) { g.player.x = SHELTER_X; g.player.y = SHELTER_Y; }
+            if (g.onMapChange) g.onMapChange(g.map);
+          }).catch(() => { g.log('避难所内部无法进入。'); });
+        }
+      }
+      return { ok: true, mode };
+    }
+
+    return { ok: true, mode };
+  }
+
   Elona.Camp = {
     CAMP_TYPE, CG_CAPTIVE, CG_BOUND, CG_ESCORT, CG_PROTECTED, CG_DISGUISE, CG_FATIGUE,
     CERT_ITEM, MAX_CAPTIVE, ENERGY_MAX,
@@ -519,5 +829,8 @@
     imprison, release, addEnergy,
     setToilLevel, exchangeEnergy, produceDaily, producePeriodically,
     workWithTool, workTick,
+    TREE_ITEMS, AXE_BASE, SHELTER_MAP,
+    findTree, beginChop, beginHarvest, beginTrain, beginHatch,
+    rowactTick, rowactFinish,
   };
 })(window);

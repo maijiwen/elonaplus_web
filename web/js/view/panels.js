@@ -2355,8 +2355,8 @@
      * 原版界面：标题「所持マテリアル」，每行「名称 ×数量」+ 右列说明，带图标。
      * 本项目没有单独的材料图标素材，用分类名代替图标。
      *
-     * 因为 0-AQ 把「调合 / 炼金」挂在 `m` 上只是个临时安排，这里把 `m` 还原成
-     * 素材窗口，调合改为在面板内按 `r` 进入（差异报告 A58）。
+     * 0-FZ / A27：按原版，`m` 只打开 *label_2582 的素材查看窗口；
+     * 调合（*label_2647）由「使用錬金術の道具」(127) 进入 Game.useItem → openCraft。
      */
     async openMaterials(g, keepSel) {
       const Mat = Elona.Material;
@@ -2380,14 +2380,10 @@
         : '<div class="pui-note">（还没有任何材料）</div>';
 
       this.open('materials', `所持材料（${held.length} 种）`, head + body, {
-        wide: true, hint: 'r 调合 / 炼金　↑↓ 选择　Esc 关闭',
+        wide: true, hint: '↑↓ 选择　Esc 关闭',
       });
       this.sel = Math.min(keepSel === undefined ? 0 : keepSel, Math.max(0, held.length - 1));
       this.renderSel();
-      this.onKeyFn = (e) => {
-        if (e.key === 'r' || e.key === 'R') { this.openCraft(g); return true; }
-        return false;
-      };
       return held;
     },
 
@@ -2998,47 +2994,53 @@
     },
 
     // ======================================================================
-    // 栽培（使用作物管理セット 1174 → 手入れ / 收获）
+    // 纳付窗口（徵税士の納税箱 616 → `var_486 = 24, 2`）
     // ======================================================================
     /**
-     * 栽培窗口 —— 对应 364492-364490（手入れ的 5 种方式）、365009（收获）、
-     * 364292-364334（施肥）。原版站在作物格上使用对应道具；这里用一个面板统一入口。
+     * 源码 298946-299045：纳付模式只列 615 請求書 / 1084 120万納税書 /
+     * 1085 1200万納税書；没有欠税时 615 会被「まだ払う必要はない」拒绝。
+     * 缴纳后凭证消耗，615 另把 `var_65(179)`（滞纳月数）减 1。
      */
-    async openFarm(g) {
-      const F = Elona.Farm;
-      if (!F) { Elona.UI.pushMessage('栽培模块未加载。'); return; }
-      await F.load();
-      const p = g.player;
-      const feat = F.plantAt(g, p.x, p.y);
-      const st = F.STAGES;
-      const head = feat
-        ? `<div class="pui-note">脚下的作物：${esc(F.stageName(feat))}`
-          + `　种类 ${feat.sub | 0}　照料余力 ${feat.arg3 | 0}</div>`
-        : '<div class="pui-note">脚下没有作物。站到作物格上再使用作物管理セット。</div>';
-      const rows = [];
-      if (feat && (feat.id | 0) !== st.RIPE) {
-        for (let i = 1; i <= 5; i++) rows.push({ act: 'tend', choice: i, label: `手入れ ${i}：${F.TEXT.tend[i - 1]}` });
-      }
-      if (feat && (feat.id | 0) === st.RIPE) rows.push({ act: 'harvest', label: '收获' });
-      if (feat && (feat.id | 0) === st.GROWING && F.isField(g, p.x, p.y)) {
-        rows.push({ act: 'fertilize', label: '施肥' });
-      }
-      this.rows = rows;
+    openTaxBox(g) {
+      const E = Elona.Economy;
+      if (!E) { Elona.UI.pushMessage('经济模块未加载。'); return; }
+      const gold = g.player.get(30) | 0;
+      const arrears = g.getV65(179) | 0;
+      const docs = E.payableDocuments(g);
+      const head = `<div class="pui-note">所持金 ${gold} gold　滞纳 ${arrears} 个月</div>`;
+      const nameOf = (it) => {
+        const id = it.id | 0;
+        if (id === E.BILL_ITEM) return `税单（${it.f[23] | 0} gold）`;
+        if (id === 1084) return '120万纳税书（1,200,000 gold）';
+        return '1200万纳税书（12,000,000 gold）';
+      };
+      const rows = docs.map((it) => ({ it, label: nameOf(it) }));
       const html = rows.length
-        ? rows.map((r, i) => `<div class="pui-row" data-i="${i}"><span class="pui-name">${esc(r.label)}</span></div>`).join('')
-        : '<div class="pui-dim">现在没有可做的事。</div>';
-      this.open('farm', '栽培', head + html, {
-        hint: '↑↓ 选择　Enter 执行　Esc 关闭',
+        ? rows.map((r, i) => `<div class="pui-row" data-i="${i}">`
+          + `<span class="pui-name">${esc(r.label)}</span></div>`).join('')
+        : '<div class="pui-dim">没有可以缴纳的凭证。</div>';
+      this.rows = rows;
+      this.open('taxbox', '帕尔米亚大使馆', head + html, {
+        hint: '↑↓ 选择　Enter 缴纳　Esc 关闭',
         onPick: (row) => {
-          let r = null;
-          if (row.act === 'tend') r = F.tend(g, p.x, p.y, row.choice);
-          else if (row.act === 'harvest') r = F.harvest(g, p.x, p.y);
-          else if (row.act === 'fertilize') r = F.fertilize(g, p.x, p.y);
-          if (r && r.ok) g.endTurn();
-          this.openFarm(g);
+          const it = row.it;
+          const id = it.id | 0;
+          const res = id === E.BILL_ITEM ? E.payBill(g, it) : E.payTaxDocument(g, it);
+          if (res.ok) {
+            Elona.UI.pushMessage(`缴纳了 ${res.paid} gold。`);
+            g.endTurn();
+          } else if (res.reason === 'no-money') {
+            Elona.UI.pushMessage(`钱不够…（需要 ${res.need}，持有 ${res.gold}）`);
+          } else if (res.reason === 'not-due') {
+            Elona.UI.pushMessage('还没有需要缴纳的税金。');
+          } else {
+            Elona.UI.pushMessage('现在无法缴纳。');
+          }
+          this.openTaxBox(g);
         },
       });
     },
+
 
     // ======================================================================
     // 料理（烹饪器具 → *label_2303，225016-225136；itemfx effect 15）
@@ -3152,9 +3154,10 @@
       await Elona.QuickSlot.loadNames();
       const rows = Elona.QuickSlot.all(g);
       this.rows = rows;
-      const html = '<div class="pui-note">Enter 使用　s 绑定技能/法术　x 绑定物品　d 清除该槽</div>'
+      const html = '<div class="pui-note">主键盘数字 0-9 直接施放对应槽，Shift+数字 = 槽 10-19；'
+        + 'Enter 使用　s 绑定技能/法术　x 绑定物品　d 清除该槽</div>'
         + rows.map((r, i) => `<div class="pui-row" data-i="${i}">`
-          + `<span class="pui-key">{${i + 1}}</span>`
+          + `<span class="pui-key">{${i}}</span>`
           + `<span class="pui-name">${esc(r.label)}</span>`
           + `<span class="pui-dim">${r.kind === 'empty' ? '' : r.kind}</span></div>`).join('');
       this.open('quick', '快捷栏', html, {
@@ -3168,7 +3171,7 @@
         if (e.key === 'x') { this.bindQuickItem(g); return true; }
         if (e.key === 'd') {
           Elona.QuickSlot.clear(g, this.sel);
-          Elona.UI.pushMessage(`已清除 {${this.sel + 1}}。`);
+          Elona.UI.pushMessage(`已清除 {${this.sel}}。`);
           this.openQuickSlots(g, this.sel);
           return true;
         }
@@ -3185,6 +3188,13 @@
         Elona.UI.openUse(g, r.mode);        // 288629-288632：打开对应模式的物品选择
       } else if (r.ok && r.kind === 'spell') {
         this.close();
+        // 【A115】方向系法术：源码同样先「どの方向？」再咏唱（315670）
+        const res = r.result || {};
+        if (res.reason === 'need-direction' && Elona.DirSel && res.spell) {
+          const range = Elona.DirSel.rangeOf(res.spell);
+          Elona.DirSel.startSpellTarget(g, res.spell, range);
+          Elona.UI.pushMessage('朝哪个方向咏唱？（方向键 / 小键盘 1-9，Esc 取消）');
+        }
       }
       return r;
     },
@@ -3390,10 +3400,22 @@
       html += row(items.length - 1, '音效（sound）', o.sound ? '开' : '关');
       items.push({ id: 'music', label: '音乐（music）' });
       html += row(items.length - 1, '音乐（music）', o.music ? '开' : '关');
+      items.push({ id: 'heartbeat', label: '心跳音（heartbeat）' });
+      html += row(items.length - 1, '心跳音（heartbeat）', o.heartbeat ? '开' : '关');
       items.push({ id: 'volume', label: '音量（0-100）' });
       html += row(items.length - 1, '音量（0-100）', String(o.volume | 0));
 
       html += '<div class="pui-sep">操作</div>';
+      items.push({ id: 'language', label: '语言（language）' });
+      html += row(items.length - 1, '语言（language）',
+        Elona.Lang ? Elona.Lang.label() : '中文');
+      items.push({ id: 'windowSize', label: '窗口大小（windowW/H）' });
+      {
+        const presets = (Opt && Opt.WINDOW_PRESETS) || [];
+        const pi = Opt && Opt.windowPresetIndex ? Opt.windowPresetIndex() : 0;
+        const cur = presets[pi] ? presets[pi].label : '';
+        html += row(items.length - 1, '窗口大小（windowW/H）', cur);
+      }
       items.push({ id: 'shiftEsc', label: 'Shift 当 Esc（key_sCancel）' });
       html += row(items.length - 1, 'Shift 当 Esc（key_sCancel）', K.shiftAsEsc ? '开' : '关');
       items.push({ id: 'keybind', label: '键位设置…' });
@@ -3406,6 +3428,16 @@
         wide: true, hint: 'Enter 切换　Esc 返回菜单',
         onPick: (it) => {
           if (it.id === 'keybind') { this.openKeybinds(); return; }
+          if (it.id === 'language') {
+            const cur = Elona.Lang ? Elona.Lang.cycle() : 'ch';
+            this.openOptions(`语言切换为 ${Elona.Lang ? Elona.Lang.label() : cur}（只影响数据表里的名称）。`);
+            return;
+          }
+          if (it.id === 'windowSize') {
+            const next = Opt && Opt.cycleWindowSize ? Opt.cycleWindowSize() : null;
+            this.openOptions(next ? `窗口大小改为 ${next.label}。` : '');
+            return;
+          }
           if (it.id === 'keyreset') { K.reset(); this.openOptions('键位已恢复为 original/config.txt 的默认值。'); return; }
           if (it.id === 'shiftEsc') { K.shiftAsEsc = !K.shiftAsEsc; this.openOptions(); return; }
           if (it.id === 'volume') {

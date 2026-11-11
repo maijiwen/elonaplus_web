@@ -129,6 +129,29 @@
     },
 
     /**
+     * 咏唱的目标选择 —— 源码 315663-315707（`var_938 == 8000` 分支）：
+     *   `txt_select "どの方向？"` → `gosub *label_2893`（八方向箭头）→
+     *   取该格角色 `var_704(x, y, 1)`；邻格没人 → `var_2421 = 1`（对地/落空），
+     *   再 `return 1` 继续咏唱；有意选定的同伴可用 `var_58(168)` 换成别的目标。
+     * 与地面指定（7000）共用箭头与按键，只是结算时把角色交给 `castPlayerSpell`。
+     */
+    startSpellTarget(g, id, range, opts) {
+      const o = opts || {};
+      this.active = true;
+      this.kind = 'spellChara';
+      this.aid = id | 0;
+      this.itemIdx = -1;
+      this.groundItem = null;
+      this.allowSelf = !!o.allowSelf;
+      this.allowEmpty = true;          // 315679：邻格没人也继续（var_2421 = 1）
+      this.passEmpty = false;
+      this.range = Math.max(1, range | 0 || 1);
+      this.lastResult = null;
+      if (g) g.dirSel = { aid: this.aid, range: this.range, kind: 'spellChara' };
+      return { ok: true, aid: this.aid, range: this.range, dirs: DIRS.slice() };
+    },
+
+    /**
      * 通用「做哪个方向？」—— 原版这些动作都走 `*label_2893`：
      *   挖掘 d（`*label_2736`，288688-288700「どの方向を掘る？」）
      *   体当たり b（`*label_2737`，288728-288740）
@@ -267,6 +290,13 @@
         const r2 = g.castPlayerSpell(id, { tile: { x, y } });
         this.lastResult = r2 || null;
         return r2 || { ok: false };
+      }
+      if (this.kind === 'spellChara') {
+        // 315683：该格有角色 → 以它为对象；空 → var_2421 = 1（对地发动 / 落空）
+        const c = charaAt(g, x, y);
+        const r5 = g.castPlayerSpell(id, { target: c || null, tile: { x, y } });
+        this.lastResult = r5 || null;
+        return r5 || { ok: false };
       }
       if (this.kind === 'cmd') {
         const fn = this.cmdCb;

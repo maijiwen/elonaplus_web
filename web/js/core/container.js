@@ -22,8 +22,10 @@
  *   **每件容器物品自带 `inv` 数组**（随物品一起进存档）——结果更符合直觉，
  *   但与原版「按容器编号共享」不同，已如实登记。
  *
- * 【不做容量上限】原版只有 641 号物品会把 `f[7]` 设成容量（inv_weight+2500），
- *   普通宝箱/金库的 `f[7]` 是重量 1，不是容量；因此这里不设上限。
+ * 【容量上限（0-FZ 补齐）】原版只有 641 号物品（小冰箱）会算容量：
+ *   `var_2536 = inv_weight(-1) + 2500`，并在打开窗口时把容量写回 f[7]。
+ *   本项目在 `put()` 里按同一公式拒绝超重放入，但不改写 f[7]
+ *   （项目 f[7] 是容器自身重量，改写会让背包负重暴涨）。普通容器仍无上限。
  *
  * 【0-EY 追加】冰箱(579)/小冰箱(641) 存取 57000 类食物时做腐烂时间换算
  *   （342154-342180，由 core/foodleft.js 提供）：存入把绝对到期时刻改成剩余小时数，
@@ -77,6 +79,26 @@
       w += (x.weight | 0) * (x.f[0] | 0);
     }
     return w;
+  }
+
+  /**
+   * 0-FZ：小冰箱 641 的容量上限（344804 / 344893-344903）。
+   *   源码 `var_2536 = inv_weight(-1) + 2500` —— inv_weight(-1) 是**当前地图地面
+   *   所有物品的正重量合计**（29738-29756），只在 641 号容器上生效，其它容器
+   *   var_2536 = 0（无上限）。
+   *   源码随后还把容量写回 `var_99(7, 容器)`；本项目 f[7] 是容器自身重量，
+   *   写回会让背包负重暴涨，故只保留「容量判定」这一玩法语义，不改写 f[7]。
+   * @returns {number} 0 表示无上限
+   */
+  function capacityOf(g, it) {
+    if (!g || !it || (it.id | 0) !== 641) return 0;
+    let w = 0;
+    for (const o of ((g && g.groundItems) || [])) {
+      if (!o || (o.f[0] | 0) <= 0) continue;
+      const iw = o.f[7] | 0;
+      if (iw >= 0) w += iw * (o.f[0] | 0);
+    }
+    return w + 2500;
   }
 
   /** 内容物件数（按堆叠数算） */
@@ -144,6 +166,12 @@
     if (!x || (x.f[0] | 0) <= 0) return { ok: false, message: '那一格是空的。' };
     if (x === it) return { ok: false, message: '不能把容器放进它自己。' };
     if (x.eqSlot >= 0) return { ok: false, message: '装备中的物品不能放进容器。' };
+    // 0-FZ / 344804+344893-344903：641 小冰箱的容量 = 地面物品总重量 + 2500
+    const cap = capacityOf(g, it);
+    if (cap > 0) {
+      const add = Math.max(0, (x.f[7] | 0) * (x.f[0] | 0));
+      if (weight(it) + add > cap) return { ok: false, message: '已经装不下了。' };
+    }
 
     const FL = Elona.FoodLeft;
     if (FL && FL.isFreezer(it) && FL.freezerConvert) FL.freezerConvert(g, x, 'in');  // 342177
@@ -187,7 +215,7 @@
 
   Elona.Container = {
     CONTAINER_CAT,
-    isContainer, canOpen, contents, weight, count, summary,
+    isContainer, canOpen, contents, weight, count, summary, capacityOf,
     take, put, listContainers, blockedOnWorldMap, beforeOpen,
   };
 })(window);

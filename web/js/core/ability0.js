@@ -528,14 +528,18 @@
     subMorale(t, 10);
     return { implemented: true, disturb: true };
   };
-  T[712] = (g, c) => {                                      // 砍伐树木 333738
-    const cell = g.map && g.map.cell ? g.map.cell(c.x, c.y) : null;
-    const trees = [935, 589, 588, 530, 529, 528, 527, 526, 525, 524, 523];
-    let found = -1;
-    if (cell && cell[5] !== undefined && trees.indexOf(cell[5]) >= 0) found = cell[5];
-    if (found < 0) { say(g, '没有可砍伐的树木。'); return { implemented: true, nothing: true }; }
-    setV65(g, 91, 14);
-    return { implemented: true, tree: found };
+  T[712] = (g, c) => {                                      // 砍伐树木 333738-333790
+    // 0-FZ：原先只看地图 cell[5]（那是地形，不是地面物品），也没有斧头判定与 rowact。
+    //   现按源码交给 Camp.beginChop：脚下找树 → 找斧（234/1149/794）→
+    //   回合数 limit(基础 - 伐採/8, 20, 100) → rowact 10 + var_65(91)=14。
+    if ((c.index | 0) !== 0) return { implemented: true, nothing: true };
+    if (!Elona.Camp || !Elona.Camp.beginChop) { say(g, '没有可砍伐的树木。'); return { implemented: true, nothing: true }; }
+    const r = Elona.Camp.beginChop(g);
+    if (!r.ok) {
+      say(g, r.reason === 'no-axe' ? '你没有砍伐树木的工具。' : '没有可砍伐的树木。');
+      return { implemented: true, nothing: true };
+    }
+    return { implemented: true, tree: r.tree, mode: 14, turns: r.turns };
   };
   T[714] = (g, c, t) => {                                   // 暴走 335446
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };

@@ -753,6 +753,15 @@
         if (r && r.message) g.log(r.message);
         return r;
       }
+      // 0-FZ：同一个 10 号还承载家具/设备行动（*label_2932 的其它 var_65(91) 分支）：
+      //   14 伐採 / 103 采摘 / 104 训练 / 102 拉门。每回合效果在 core/camp.js，
+      //   这里只播报，剩余回合仍交给下面的通用倒计时递减、到 0 走 completeRowAct。
+      if (type === 10 && g.rowActPayload && g.rowActPayload.campMode
+        && (p.get(F_ROWLEFT) | 0) > 0
+        && Elona.Camp && Elona.Camp.rowactTick) {
+        const cr = Elona.Camp.rowactTick(g, g.rowActPayload.campMode, g.rowActPayload);
+        if (cr && cr.messages) for (const m of cr.messages) g.log(m);
+      }
       // 13 = 充填（604692-604696 → *label_2917，0-EI）：剩余回合先 -1（604684），再判定蓄力完成
       if (type === 13 && Elona.BuffAct) {
         p.set(F_ROWLEFT, Math.max(0, (p.get(F_ROWLEFT) | 0) - 1));
@@ -1397,6 +1406,12 @@
       const here = ((g.groundItems || [])).filter((it) => it && (it.f[0] | 0) > 0
         && (it.f[5] | 0) === (p.x | 0) && (it.f[6] | 0) === (p.y | 0));
       const n = g.pickupAt(p);          // 只拿 townOwned 之外的（含作物等无主物）
+      // 0-FZ：成熟作物转入 103 采摘，本回合结束（不再走「那不是你的东西」分支）
+      if (g.pendingHarvest) {
+        g.pendingHarvest = false;
+        g.endTurn();
+        return { ok: true, harvest: true };
+      }
       // 0-GW / 342338：逐件播报改由 pickupAt 承担（「你拾取了◯◯。」），这里不再汇总
       if (n > 0) {
         g.endTurn();

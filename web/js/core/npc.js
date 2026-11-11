@@ -51,10 +51,14 @@
     return SKILL_NAMES;
   }
   function setSkillNames(names) { SKILL_NAMES = names || {}; }
-  function skillName(id) {
+  function skillName(id, lang) {
     const e = SKILL_NAMES[String(id)];
-    // 汉化：同一层级的 ch 优先（skills.json 的 skillNames 为 {jp, en, ch}）
-    return e ? (e.ch || e.jp || e.en || ('skill ' + id)) : ('skill ' + id);
+    if (!e) return 'skill ' + id;
+    // 【B4】未指定语言时跟随 config 的 language（默认中文）
+    const cur = lang || (Elona.Lang && Elona.Lang.current ? Elona.Lang.current() : 'ch');
+    if (cur === 'jp') return e.jp || e.ch || e.en || ('skill ' + id);
+    if (cur === 'en') return e.en || e.ch || e.jp || ('skill ' + id);
+    return e.ch || e.jp || e.en || ('skill ' + id);
   }
 
   function roleOf(npc) { return npc ? (npc.get(150) | 0) : 0; }
