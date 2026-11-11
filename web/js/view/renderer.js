@@ -505,8 +505,11 @@
             const ty = baseY - (lines.length - 1 - i) * 20;
             if (ty < 0) continue;
             const tx = 100;
-            ctx.fillStyle = 'rgba(0,0,0,.9)';
-            ctx.fillText(lines[i], tx + 1, ty + 1);
+            // 黑描边 + 白字：亮色地形（草地/雪地）上也读得清
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = 'rgba(0,0,0,.9)';
+            ctx.lineJoin = 'round';
+            ctx.strokeText(lines[i], tx, ty);
             ctx.fillStyle = '#ffffff';
             ctx.fillText(lines[i], tx, ty);
           }
