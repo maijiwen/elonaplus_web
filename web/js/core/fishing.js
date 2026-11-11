@@ -142,12 +142,14 @@
      * 本项目的背包是可变长数组，因此按「已用件数」反推剩余格数，
      * 只有钓到第 200 件时才会出现「バックパックが一杯だ」。
      */
-    invSpace(c) {
+    invSpace(c, g) {
       if (!c || !c.inv) return 0;
       let used = 0;
       for (let i = 0; i < c.inv.length; i++) {
         if (c.inv[i] && (c.inv[i].f[0] | 0) > 0) used++;
       }
+      // 226382：Abnormal（var_65(250+23)==1）时玩家的背包按 `inv_sum(0) > 20` 直接判满
+      if (g && c === g.player && ((g.getV65(273) | 0) === 1) && used > 20) return 0;
       return Math.max(0, INV_MAX - used);
     },
 
@@ -188,7 +190,7 @@
       const rod = p.inv[idx];
       if (!rod) return { ok: false, reason: 'no-rod', message: '你没有钓竿。' };
       if ((p.skill(SKILL_FISH) | 0) === 0) return { ok: false, reason: 'no-skill', message: TEXT.noSkill };   // 319899
-      if (this.invSpace(p) === 0) return { ok: false, reason: 'full', message: TEXT.full };                   // 319907
+      if (this.invSpace(p, g) === 0) return { ok: false, reason: 'full', message: TEXT.full };            // 319907 + 226382
       if ((rod.f[9] | 0) <= 0) return { ok: false, reason: 'no-bait', message: TEXT.noBait };                 // 319916
       const t = this.waterTarget(g);
       if (!t) return { ok: false, reason: 'no-water', message: TEXT.noWater };                                // 319950
@@ -402,7 +404,7 @@
       }
 
       // 312836-312853：背包满
-      if (this.invSpace(p) === 0) {
+      if (this.invSpace(p, g) === 0) {
         out.messages.push(TEXT.full);
         this.rowActEnd(g, p);
         out.ended = true;

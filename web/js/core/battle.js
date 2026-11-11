@@ -706,6 +706,26 @@
       if (Elona.KillReward && Elona.KillReward.queueRecruit) {
         out.recruit = Elona.KillReward.queueRecruit(g, dead);
       }
+      // 3-b 200456-200484：击杀者是同伴（1..15、关系 >= 100）时，给其已会的
+      //   采集系技能（163/185/180/151/159）练经验；死者不带 cbit 23/27/964 才算。
+      //   `var_58(191..195)` 是各技能的「收获次数」计数（+limit(潜力/5,1,10)）。
+      if (att && Elona.Stats && Elona.Status
+        && (att.index | 0) > 0 && (att.index | 0) < 16
+        && (att.get(17) | 0) >= 100
+        && !(Elona.Status.cbit(dead, 23) || Elona.Status.cbit(dead, 27)
+          || Elona.Status.cbit(dead, 964))) {
+        const GATHER = [[163, 191], [185, 192], [180, 193], [151, 194], [159, 195]];
+        out.gatherExp = [];
+        for (const [skillId, cntField] of GATHER) {
+          const pot = Elona.Stats.sorg ? (Elona.Stats.sorg(att, skillId) | 0) : 0;
+          if (pot > 0) {
+            att.set(cntField, (att.get(cntField) | 0) + limit(idiv(pot, 5), 1, 10));
+            Elona.Stats.skillExp(att, skillId, att.index | 0, 5, 0, 0, g);
+            out.gatherExp.push(skillId);
+          }
+        }
+        if (!out.gatherExp.length) out.gatherExp = null;
+      }
       // 4. 盗窃掠夺（200349-200360）：玩家/队友带盗窃技能时从尸体摸钱
       if (att && (att.index | 0) > 0 && typeof att.skill === 'function'
         && (att.skill(300) | 0) !== 0 && Elona.Status

@@ -415,12 +415,14 @@
      *   且 `attr(0, tile) != 3`、不能在世界地图、不能在特定地图类型上。
      * 【已确认】rowact：var_58(140)=9、var_58(141)=20（313007-313009）。
      * 【已确认】每回合：`var_58(26,chara) \ 5 == 0` 时输出 "*カキン*" 等拟声（313028-313036）。
-     * 【已确认】完成时检查背包/地面 id=621 的埋藏物（313044-313060）。
+     * 【已确认】目标格 == 自己脚下 → 立即执行 *label_2942（288709-288714）：
+     *   世界地图挖埋藏物（621）、其它地图挖落とし穴 —— 见 `digGround`。
+     * 【已确认】其它格：世界地图「それは無理だ」（288716 的 var_126(6)==1）；
+     *   地下城里只有 `var_593(7)&4` 的墙可挖（除图块 3）。
      * 【推断】挖穿后的地形处理：源码把挖开的格子交给 cell_refresh / map 重建，
      *   本实现把该格图块改写为地板 33（与随机迷宫的地板图块一致）。
      */
     dig(g, dir) {
-      if (this.onWorldMap(g)) { g.log('在世界地图上无法挖掘。'); return { ok: false }; }
       if (this.busy(g)) return { ok: false };
       const p = g.player;
       const d = DIRS[dir || 8] || [0, -1];
@@ -428,7 +430,11 @@
       const dx = dir ? d[0] : this.frontCell(g).dx;
       const dy = dir ? d[1] : this.frontCell(g).dy;
       const tx = p.x + dx, ty = p.y + dy;
-      if (!g.map.inBounds(tx, ty)) { g.log('那里挖不到。'); return { ok: false }; }
+      // 288709-288714：目标格是**自己脚下** → 立即执行 *label_2942（不进入 rowact）：
+      //   世界地图 → 埋藏物 621 判定；其它地图 → 脚下没有 feat 时挖出落とし穴。
+      if (tx === (p.x | 0) && ty === (p.y | 0)) return this.digGround(g);
+      if (this.onWorldMap(g)) { g.log('在世界地图上无法挖掘。'); return { ok: false }; }   // 288716 的 var_126(6)==1
+      if (!g.map.inBounds(tx, ty)) { g.log('那里挖不到。'); return { ok: false } }
       const cell = g.map.cell(tx, ty);
       const blocked = (g.map.attr(cell[0], 7) & 4) !== 0;
       const kind = g.map.attr(cell[0], 0);
@@ -440,6 +446,43 @@
       g.log('你开始挖掘。');                     // 313014
       g.endTurn();
       return { ok: true, started: true, turns: 20, target: { x: tx, y: ty } };
+    },
+
+    /**
+     * 对脚下的一击挖掘（288709-288714 → *label_2942 直进，非 rowact）。
+     *   世界地图（313044-313097）：背包里 `var_99(3)==621` 且 `f[25]/f[26]` 等于
+     *   玩家坐标的埋藏物 → 计数 var_65(283)++、收获；否则无事发生。
+     *   其它地图（313099-313112）：脚下没有 feat → 挖出落とし穴（type 14 / sub 21）。
+     */
+    digGround(g) {
+      const p = g.player;
+      const M = Elona.MapFeat;
+      if (this.onWorldMap(g)) {
+        g.log('你挖完了地面。');                                   // 313042
+        for (const it of (p.inv || [])) {
+          if (!it || (it.f[0] | 0) <= 0 || (it.f[3] | 0) !== 621) continue;
+          if ((it.f[25] | 0) !== (p.x | 0) || (it.f[26] | 0) !== (p.y | 0)) continue;
+          g.setV65(283, (g.getV65(283) | 0) + 1);                  // 313054 var_65(250+33)
+          g.log(' *ガチッ* ……有什么东西！');                          // 313060
+          this.spawnDigLoot(g, p);
+          it.f[0] = (it.f[0] | 0) - 1;                              // 313090
+          if ((it.f[0] | 0) <= 0) p.inv[p.inv.indexOf(it)] = null;
+          g.endTurn();
+          return { ok: true, relic: true };
+        }
+        g.endTurn();
+        return { ok: true, relic: false };
+      }
+      if (M && g.map && g.map.inBounds(p.x, p.y)) {
+        const f = M.read(g, p.x, p.y);
+        if (f && ((f.type | 0) !== 0 || (f.id | 0) !== 0)) return { ok: false, reason: 'feat' };   // 313100-313102
+        M.write(g, p.x, p.y, 0, M.TYPE.TRAP, 21, p.index | 0);      // 313108
+        g.refreshGroundCell(p.x, p.y);
+        g.log('挖出了一个陷阱坑。');                                 // 313106
+        g.endTurn();
+        return { ok: true, pit: true };
+      }
+      return { ok: false };
     },
 
     // ======================================================================
@@ -843,13 +886,8 @@
       }
 
       if (type === 4) {
-        // 敌人靠近时中断（推断）
-        const near = this.visibleCharas(g, 3).find((t) => this.isHostile(t.chara));
-        if (near) {
-          p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0);
-          g.log(`附近有 ${near.chara.name}，你中断了休息。`);
-          return { interrupted: true };
-        }
+        // 312375-312394：休息的每回合结算。原版**没有**「敌人靠近就中断」的检查
+        // （被打了会被 0-GP 的受击副作用打断），这里照抄不再推断。
         for (const c of g.charas) {
           if (!c || (c.get(0) | 0) !== 1) continue;
           let s = c.get(60) | 0;
@@ -1110,7 +1148,10 @@
       return { ok: true, started: true, mode: r.mode, turns: r.turns };
     },
 
-    /** 挖掘完成结算（*label_2942 完成段 313039-313481） */
+    /**
+     * 挖墙完成结算（rowact 9 完成 → *label_2943 313115 起；地下城版）。
+     * 「对脚下的一击挖掘」（埋藏物 / 落とし穴）在 `digGround`，不经过本函数。
+     */
     finishDig(g, p) {
       const arg = p.get(F_ROWARG) | 0;
       const tx = arg % 1000, ty = idiv(arg, 1000);
@@ -1133,6 +1174,44 @@
         if (drop && drop.item) g.log('从碎石堆里找到了什么东西。');
       }
       return { ok: true, x: tx, y: ty, drop };
+    },
+
+    /**
+     * 313055-313092：埋藏物挖出后的收获 —— 622 小徽章 2+rnd(3) 枚、55 ×(1+rnd(3))、
+     *   54 金币 rnd(10000)+2000、1/100 概率 290；再按玩家等级 +10 的生成等级
+     *   掷 4 件随机物品（var_1513 类别表 → `ItemDB.create`）。
+     */
+    spawnDigLoot(g, p) {
+      const drop = (id, count) => {
+        try {
+          const it = Elona.ItemDB.createItem(id, count | 0);
+          if (it) {
+            it.f[5] = p.x; it.f[6] = p.y; it.f[21] = -1;
+            if (g.groundItems) {
+              g.groundItems.push(it);
+              if (g.refreshGroundCell) g.refreshGroundCell(p.x, p.y);
+            }
+          }
+          return it;
+        } catch (e) { return null; }
+      };
+      drop(622, 2 + g.rng.rnd(3));
+      drop(55, 1 + g.rng.rnd(3));
+      drop(54, g.rng.rnd(10000) + 2000);
+      if (g.rng.rnd(100) === 0) drop(290, 1);
+      for (let k = 0; k < 4; k++) {
+        try {
+          const it = Elona.ItemDB.create(g, { level: (p.get(38) | 0) + 10, fix: 3 });
+          if (it) {
+            it.f[5] = p.x; it.f[6] = p.y; it.f[21] = -1;
+            if (g.groundItems) {
+              g.groundItems.push(it);
+              if (g.refreshGroundCell) g.refreshGroundCell(p.x, p.y);
+            }
+          }
+        } catch (e) { /* 生成失败不阻断 */ }
+      }
+      g.log('有什么东西滚到了脚下。');                              // 313087
     },
 
     // ======================================================================
