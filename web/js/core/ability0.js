@@ -745,6 +745,28 @@
     setV65(g, 193, 0);
     return { implemented: true, recast: 619 };
   };
+  T[741] = (g, c, t) => {                                   // タッグフォース 333096-333130
+    // `var_58(182)`（士气）不足 50 →「什么也没有发生……」
+    if (morale(c) < 50) {
+      if ((c.index | 0) === 0) say(g, '什么也没有发生……');
+      return { implemented: true, nothing: true };
+    }
+    subMorale(c, 50);                                       // 333109
+    // 333110：addbuff var_244, 42, 50, 51 —— 目标是**选中的同伴**
+    //   buff 42 = タッグフォース（buffnames.json），p1 = 50（强度）/ p2 = 51（回合）
+    const ally = (t && (t.get(0) | 0) === 1) ? t : null;
+    if (ally) buff(g, ally, 42, 50, 51);
+    // 333111-333113：有搭档（var_58(167) > 0）时回复自身
+    //   `healhp 0, 最大HP * (var_58(182) + 40) / 200`（用的是扣完 50 之后的值）
+    if ((c.get(167) | 0) > 0) {
+      healHp(c, idiv((c.get(51) | 0) * (morale(c) + 40), 200));
+    }
+    if ((c.index | 0) === 0) {
+      const an = (Elona.Spell && Elona.Spell.actionName) ? Elona.Spell.actionName(741) : null;
+      say(g, `*${(an && (an.ch || an.jp || an.en)) || '羁绊之力'}*`);
+    }
+    return { implemented: true, buff: ally ? 42 : 0, morale: morale(c) };
+  };
   T[744] = (g, c, t) => {                                   // 一起上路 333077
     const R = rndOf(g);
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
