@@ -317,6 +317,24 @@
     // 315460-315463：使用者是玩家时，用一次即鉴定（var_2101 == 1）
     if (o.identify !== false) it.identified = true;
 
+    // 315489-315506（A157）：杖使用完毕后的「神填之杖（855）」追加发动。
+    //   条件：效果不是 1132；杖的动作类型 var_83(1) ∈ {1 直线, 2 球, 3 特殊}；
+    //        使用者 var_58(266) == 0（本回合还没决定行动，只有 NPC 会满足）；
+    //        士气 var_58(182) >= 100 且全局 var_65(172) == 0；
+    //        类型 3 时排除 637 / 404。
+    //   满足时把 var_396 改成 855，再走一次 *label_2960（T[855] 自己会扣满槽）。
+    try {
+      const t1 = S.field(eid, 1);
+      if (eid !== 1132 && (t1 === 1 || t1 === 2 || t1 === 3)
+        && (p.get(266) | 0) === 0
+        && (p.get(182) | 0) >= 100
+        && (typeof g.getV65 === 'function' ? (g.getV65(172) | 0) : 0) === 0
+        && (t1 === 1 || t1 === 2 || (t1 === 3 && eid !== 637 && eid !== 404))) {
+        S.dispatchEffect(g, p, 855, target, power, S.field(855, 1));
+        g.log('神填之力涌了出来！');
+      }
+    } catch (e) { /* 855 不可用时静默 */ }
+
     // 342620-342622：带 buff 38 时士气 +5
     if (Elona.Battle && Elona.Battle.modgauge) {
       try { if (Elona.Battle.findbuff(p, 38) !== -1) Elona.Battle.modgauge(p, 5); } catch (e) { /* 忽略 */ }

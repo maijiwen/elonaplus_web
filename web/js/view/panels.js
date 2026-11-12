@@ -2249,14 +2249,21 @@
      */
     openDip(g) {
       const D = Elona.Dip;
-      const isLiquid = (it) => (D && D.isLiquid ? D.isLiquid(it)
-        : (Elona.ItemDB.ref(it.id, 5) === 52000 || (it.f[24] | 0) === 35));
+      // 0-GY：348397-348400 —— 混合窗口的来源过滤是
+      //   refitem(id,5) == 52000（液体） || id == 617（鱼饵）
+      // 之前漏了鱼饵，导致 B 键窗口里看不到 617。
+      const isMixable = (it) => (D && D.isLiquid ? D.isLiquid(it) : (Elona.ItemDB.ref(it.id, 5) === 52000))
+        || (it.id | 0) === 617;
       this.openItemPicker(g, {
-        title: '把什么浸入？', filter: isLiquid,
+        title: '把什么浸入？', filter: isMixable,
         onPick: (srcIdx, src) => {
+          const isBait = (src.id | 0) === 617;
           this.openItemPicker(g, {
             title: `把 ${Elona.ItemDB.name(src.id, 'en')} 涂到哪件物品上？`,
-            filter: (it, i) => i !== srcIdx && (it.f[0] | 0) > 0,
+            // 0-GY：348402-348410 —— 鱼饵只能装到钓竿（342）上；其它液体不能选自己或 516。
+            filter: isBait
+              ? (it) => (it.id | 0) === 342
+              : (it, i) => i !== srcIdx && (it.id | 0) !== 516 && (it.f[0] | 0) > 0,
             onPick: (dstIdx, dst) => {
               const r = D ? D.dip(g, src, dst) : null;
               if (r && r.message) Elona.UI.pushMessage(r.message);
@@ -2821,6 +2828,106 @@
           const r = H.isStaying(c, 7) ? H.unstayAlly(g, c) : H.stayAlly(g, c);
           Elona.UI.pushMessage(r.message || '');
           this.openHomeStay(g);
+        },
+      });
+    },
+
+    /** 道场（地图 67）师范菜单 —— 387244-387738 */
+    openSchool(g) {
+      const S = Elona.School;
+      if (!S) return;
+      const c = S.counters(g);
+      const head = `道场　门生 ${c.pupils}/${S.MAX_PUPILS}　寄放神仆 ${c.servants}　修行 ${c.train}`;
+      this.rows = S.menu(g).map((m, i) => ({ i, key: m.key, label: m.label }));
+      const html = `<div class="pui-note">${esc(head)}</div>`
+        + this.rows.map((r) => `<div class="pui-row" data-i="${r.i}">`
+          + `<span class="pui-key">${'abcdefghij'[r.i] || ''}</span>`
+          + `<span class="pui-name">${esc(r.label)}</span></div>`).join('');
+      this.open('school', '道场', html, {
+        hint: '↑/↓ 选择　Enter 确定　Esc 关闭',
+        onPick: (row) => this.schoolAct(g, row.key),
+      });
+    },
+
+    /** 师范菜单结算 */
+    schoolAct(g, key) {
+      const S = Elona.School;
+      if (!S) return;
+      if (key === 'none') { this.close(); return; }
+      if (key === 'train') {
+        const r = S.specialTrain(g);
+        Elona.UI.pushMessage(r.message);
+        this.openSchool(g);
+        return;
+      }
+      if (key === 'enroll') { this.openSchoolEnroll(g); return; }
+      if (key === 'cast' || key === 'melee') { this.openSchoolStyle(g, key); return; }
+    },
+
+    /** 入門：从队伍里选一名同伴（387306-387392） */
+    openSchoolEnroll(g) {
+      const S = Elona.School;
+      const P = Elona.Party;
+      if (!S || !P) return;
+      const members = (P.members(g) || []).filter((c) => c !== g.player);
+      if (!members.length) {
+        Elona.UI.pushMessage('现在没有可以入门的同伴。');
+        this.openSchool(g);
+        return;
+      }
+      this.rows = members.map((c, i) => ({ i, c }));
+      const html = `<div class="pui-note">让哪名同伴入门？入门费 10000gp。</div>`
+        + this.rows.map((r) => `<div class="pui-row" data-i="${r.i}">`
+          + `<span class="pui-name">${esc(r.c.name || '')}</span>`
+          + `<span class="pui-num" style="margin-left:auto">Lv ${r.c.level | 0}</span></div>`).join('');
+      this.open('schoolenroll', '入門', html, {
+        hint: '↑/↓ 选择　Enter 确定　Esc 返回',
+        onPick: (row) => {
+          const r = S.enroll(g, row.c);
+          Elona.UI.pushMessage(r.message);
+          this.openSchool(g);
+        },
+      });
+    },
+
+    /** 风格变更（387471-387509 魔法 / 387597-387598 格斗），各 200gp */
+    openSchoolStyle(g, kind) {
+      const S = Elona.School;
+      if (!S) return;
+      const list = kind === 'cast' ? S.CAST_STYLES : S.MELEE_STYLES;
+      this.rows = list.map((label, i) => ({ i, label }));
+      const html = `<div class="pui-note">选择新的${kind === 'cast' ? '魔法' : '格斗'}风格（200gp，只影响表现）。</div>`
+        + this.rows.map((r) => `<div class="pui-row" data-i="${r.i}">`
+          + `<span class="pui-name">${esc(r.label)}</span></div>`).join('');
+      this.open('schoolstyle', '风格变更', html, {
+        hint: '↑/↓ 选择　Enter 确定　Esc 返回',
+        onPick: (row) => {
+          const r = S.changeStyle(g, g.player, kind, row.i);
+          Elona.UI.pushMessage(r.message);
+          this.openSchool(g);
+        },
+      });
+    },
+
+    /** 寄放者（cbit 960）—— 收回队伍（589966-589990） */
+    openStayer(g, npc) {
+      const S = Elona.School;
+      if (!S) return;
+      const where = S.isSchool(g) ? '道场' : '牧场';
+      const html = `<div class="pui-note">${esc(npc.name || '')} 寄放在这座${where}。</div>`;
+      this.rows = [
+        { i: 0, key: 'take', label: '收回队伍' },
+        { i: 1, key: 'leave', label: '什么都不做' },
+      ];
+      this.open('stayer', where, html
+        + this.rows.map((r) => `<div class="pui-row" data-i="${r.i}">`
+          + `<span class="pui-name">${esc(r.label)}</span></div>`).join(''), {
+        hint: '↑/↓ 选择　Enter 确定　Esc 关闭',
+        onPick: (row) => {
+          if (row.key !== 'take') { this.close(); return; }
+          const r = S.recruit(g, npc);
+          Elona.UI.pushMessage(r.message);
+          this.close();
         },
       });
     },
@@ -3399,17 +3506,29 @@
       const list = await Elona.Save.list().catch(() => []);
       const known = {};
       for (const s of list) known[s.slot] = s;
+      // 0-HD：时间统一格式化为本地时间（服务端给毫秒时间戳，localStorage 取 savedAt）
+      const fmtTime = (t) => {
+        const n = Number(t) || 0;
+        if (!n) return '有存档';
+        try { return new Date(n).toLocaleString(); } catch (e) { return '有存档'; }
+      };
       const slots = [];
       for (let i = 1; i <= 6; i++) {
         const id = 'slot' + i;
-        slots.push({ id, label: `${id}`, info: known[id] ? (known[id].time || '有存档') : '（空）' });
+        slots.push({ id, label: `${id}`, info: known[id] ? fmtTime(known[id].time) : '（空）' });
       }
       this.rows = slots;
+      // 0-HD：F1 快速存档写在 quick 槽，读取列表里也列出来
+      const quickInfo = known.quick ? fmtTime(known.quick.time) : '（空）';
       const html = (note ? `<div class="pui-note">${esc(note)}</div>` : '')
         + slots.map((s, i) => `<div class="pui-row" data-i="${i}"><span class="pui-name">${esc(s.label)}</span>`
           + `<span class="pui-dim">${esc(s.info)}</span>`
           + `<span class="pui-num">点击 = 保存</span></div>`).join('')
+        + `<div class="pui-row" data-i="0" data-quicksave="1"><span class="pui-name">保存 quick（F1 快速存档）</span>`
+        + `<span class="pui-dim">${esc(quickInfo)}</span><span class="pui-num">点击 = 保存</span></div>`
         + '<div class="pui-sep">读取</div>'
+        + `<div class="pui-row" data-i="0" data-quick="1"><span class="pui-name">读取 quick（F1 快速存档）</span>`
+        + `<span class="pui-dim">${esc(quickInfo)}</span></div>`
         + slots.map((s, i) => `<div class="pui-row" data-i="${slots.length + i}" data-load="1">`
           + `<span class="pui-name">读取 ${esc(s.label)}</span>`
           + `<span class="pui-dim">${esc(s.info)}</span></div>`).join('');
@@ -3424,20 +3543,23 @@
         const row = ev.target.closest('.pui-row');
         if (!row) return;
         const i = parseInt(row.dataset.i, 10) | 0;
-        const slot = slots[i % slots.length];
+        const slot = (row.dataset.quick || row.dataset.quicksave)
+          ? { id: 'quick' } : slots[i % slots.length];
         if (!slot) return;
-        if (row.dataset.load) {
+        if (row.dataset.load || row.dataset.quick) {
           try {
-            const data = await Elona.Save.load(slot.id);
             this.close();
-            await Elona.loadGame(data);
-            Elona.UI.pushMessage(`已读取存档 ${slot.id}。`);
+            // 0-HD：Elona.loadGame 的入参是「槽位名」，不是存档数据本身
+            const ok = await Elona.loadGame(slot.id);
+            if (ok) Elona.UI.pushMessage(`已读取存档 ${slot.id}。`);
           } catch (err) { Elona.UI.pushMessage('读取失败：' + err.message); }
         } else {
           try {
             await Elona.Save.save(slot.id, g.serialize());
-            Elona.UI.pushMessage(`已保存到 ${slot.id}。`);
-            this.openSaveSlots(`已保存到 ${slot.id}。`);
+            const where = Elona.Save.mode === 'server'
+              ? `saves/${slot.id}.json` : '浏览器缓存';
+            Elona.UI.pushMessage(`已保存到 ${slot.id}（${where}）。`);
+            this.openSaveSlots(`已保存到 ${slot.id}（${where}）。`);
           } catch (err) { Elona.UI.pushMessage('保存失败：' + err.message); }
         }
       };

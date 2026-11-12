@@ -569,10 +569,11 @@
     stashNpcs(g);
     g.pendingSite = null;
     const s = ensureSite(g);
-    if (Elona.WorldMap) await Elona.WorldMap.load();
+    // A49：自宅所在世界（s.world）决定载入哪张世界地图
+    const wid = (s && s.world) || 4;
+    if (Elona.WorldMap) await Elona.WorldMap.load(wid);
     if (Elona.Sites) { await Elona.Sites.load(); Elona.Sites.bindGame(g); }
     if (Elona.RandDungeon) {
-      const wid = (s && s.world) || 4;
       Elona.RandDungeon.onEnterWorld(g, wid);
     }
     g.setV65(20, 0);

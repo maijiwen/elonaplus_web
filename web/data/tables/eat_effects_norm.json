@@ -1,0 +1,2418 @@
+{
+ "labels": {
+  "label_2305": {
+   "playerOnly": false,
+   "msg": "硬得像铁一样！{name}的胃发出了悲鸣。",
+   "effects": [
+    {
+     "k": "dmgcon",
+     "elem": 7,
+     "pow": 200
+    }
+   ],
+   "special": null
+  },
+  "label_2306": {
+   "playerOnly": false,
+   "msg": "这味道让人快要发疯了。",
+   "effects": [
+    {
+     "k": "dmgsan",
+     "n": 25
+    },
+    {
+     "k": "dmgcon",
+     "elem": 11,
+     "pow": 500
+    }
+   ],
+   "special": null
+  },
+  "label_2307": {
+   "playerOnly": false,
+   "msg": "{name}的病稍微好了些。",
+   "effects": [
+    {
+     "k": "healcon",
+     "kind": 12,
+     "pow": 10
+    }
+   ],
+   "special": null
+  },
+  "label_2308": {
+   "playerOnly": false,
+   "msg": "是马肉！这似乎能让人精力充沛。",
+   "effects": [
+    {
+     "k": "skillexp",
+     "skill": 11,
+     "exp": 100
+    }
+   ],
+   "special": null
+  },
+  "label_2309": {
+   "playerOnly": false,
+   "msg": "{name}感觉自己玷污了神圣之物。",
+   "effects": [
+    {
+     "k": "resistmodh",
+     "elem": 53,
+     "val": 50
+    }
+   ],
+   "special": null
+  },
+  "label_2310": {
+   "playerOnly": false,
+   "msg": "竟然吃＠……",
+   "effects": [],
+   "special": null
+  },
+  "label_2311": {
+   "playerOnly": true,
+   "msg": "卫兵们对你产生了憎恶。",
+   "effects": [
+    {
+     "k": "karma",
+     "n": -15
+    }
+   ],
+   "special": null
+  },
+  "label_2312": {
+   "playerOnly": false,
+   "msg": "{name}的身体在一瞬间燃烧了起来。",
+   "effects": [
+    {
+     "k": "resistmodh",
+     "elem": 50,
+     "val": 50
+    }
+   ],
+   "special": null
+  },
+  "label_2313": {
+   "playerOnly": false,
+   "msg": "{name}的胃被疯狂填满了。",
+   "effects": [
+    {
+     "k": "resistmodh",
+     "elem": 54,
+     "val": 50
+    },
+    {
+     "k": "dmgsan",
+     "n": 200
+    },
+    {
+     "k": "dmgcon",
+     "elem": 11,
+     "pow": 1000
+    }
+   ],
+   "special": null
+  },
+  "label_2314": {
+   "playerOnly": false,
+   "msg": "皮肤好像变得光滑了。",
+   "effects": [
+    {
+     "k": "skillexp",
+     "skill": 17,
+     "exp": 150
+    }
+   ],
+   "special": null
+  },
+  "label_2315": {
+   "playerOnly": false,
+   "msg": "{name}感觉自己恋爱了！",
+   "effects": [
+    {
+     "k": "skillexp",
+     "skill": 17,
+     "exp": 400
+    }
+   ],
+   "special": null
+  },
+  "label_2316": {
+   "playerOnly": false,
+   "msg": "这是有毒的！",
+   "effects": [
+    {
+     "k": "dmgcon",
+     "elem": 1,
+     "pow": 100
+    }
+   ],
+   "special": null
+  },
+  "label_2317": {
+   "playerOnly": false,
+   "msg": "血液仿佛沸腾起来。",
+   "effects": [
+    {
+     "k": "skillexp",
+     "skill": 154,
+     "exp": 200
+    }
+   ],
+   "special": null
+  },
+  "label_2318": {
+   "playerOnly": false,
+   "msg": "明知道已经腐烂了……呜呃",
+   "effects": [
+    {
+     "k": "label",
+     "name": "label_2302"
+    }
+   ],
+   "special": null
+  },
+  "label_2319": {
+   "playerOnly": false,
+   "msg": "力量好像涌出来了。",
+   "effects": [
+    {
+     "k": "skillexp",
+     "skill": 10,
+     "exp": 250
+    }
+   ],
+   "special": null
+  },
+  "label_2320": {
+   "playerOnly": false,
+   "msg": "感到了微弱的魔力刺激。",
+   "effects": [
+    {
+     "k": "skillexp",
+     "skill": 155,
+     "exp": 250
+    },
+    {
+     "k": "resistmodh",
+     "elem": 57,
+     "val": 50
+    }
+   ],
+   "special": null
+  },
+  "label_2321": {
+   "playerOnly": false,
+   "msg": "胃里感觉不对劲……",
+   "effects": [
+    {
+     "k": "dmgcon",
+     "elem": 5,
+     "pow": 200
+    }
+   ],
+   "special": null
+  },
+  "label_2322": {
+   "playerOnly": false,
+   "msg": "这块肉似乎有镇定心神的效果。",
+   "effects": [
+    {
+     "k": "healsan",
+     "n": 20
+    }
+   ],
+   "special": null
+  },
+  "label_2323": {
+   "playerOnly": false,
+   "msg": "{name}的胃被疯狂填满了。",
+   "effects": [
+    {
+     "k": "dmgsan",
+     "n": 50
+    },
+    {
+     "k": "resistmodh",
+     "elem": 54,
+     "val": 50
+    }
+   ],
+   "special": null
+  },
+  "label_2324": {
+   "playerOnly": false,
+   "msg": "{name}的胃被混沌填满了。",
+   "effects": [
+    {
+     "k": "dmgcon",
+     "elem": 5,
+     "pow": 300
+    }
+   ],
+   "special": null
+  },
+  "label_2325": {
+   "playerOnly": false,
+   "msg": "{name}的神经像被电流穿过。",
+   "effects": [
+    {
+     "k": "dmgcon",
+     "elem": 3,
+     "pow": 300
+    }
+   ],
+   "special": null
+  },
+  "label_2326": {
+   "playerOnly": true,
+   "msg": "竟然吃猫！！",
+   "effects": [
+    {
+     "k": "karma",
+     "n": -5
+    }
+   ],
+   "special": null
+  },
+  "label_2327": {
+   "playerOnly": true,
+   "msg": "{name}的体内充满了以太。",
+   "effects": [
+    {
+     "k": "corrupt",
+     "n": 1000
+    }
+   ],
+   "special": null
+  },
+  "label_2328": {
+   "playerOnly": false,
+   "msg": "体力好像增强了。",
+   "effects": [],
+   "special": null
+  },
+  "label_2329": {
+   "playerOnly": false,
+   "msg": "魔力得到了锻炼。",
+   "effects": [],
+   "special": null
+  },
+  "label_2330": {
+   "playerOnly": false,
+   "msg": "力量好像增强了。",
+   "effects": [],
+   "special": null
+  },
+  "label_2331": {
+   "playerOnly": false,
+   "msg": "精神稍微变得坚强了。",
+   "effects": [],
+   "special": null
+  },
+  "label_2332": {
+   "playerOnly": false,
+   "msg": "哇啊——，{name}感觉自己变快了！",
+   "effects": [
+    {
+     "k": "skillexp2",
+     "skill": 18,
+     "expP": 2000,
+     "expN": 8000
+    }
+   ],
+   "special": null
+  },
+  "label_2333": {
+   "playerOnly": false,
+   "msg": "有什么东西钻进了{name}的体内。",
+   "effects": [],
+   "special": "brain_parasite"
+  },
+  "label_2335": {
+   "playerOnly": false,
+   "msg": "有什么东西钻进了{name}的体内。",
+   "effects": [],
+   "special": "abdomen_parasite"
+  },
+  "label_2302": {
+   "playerOnly": false,
+   "msg": "",
+   "special": null,
+   "effects": [
+    {
+     "k": "nutrition",
+     "value": 1000
+    },
+    {
+     "k": "skillexp",
+     "skill": 10,
+     "exp": -100
+    },
+    {
+     "k": "skillexp",
+     "skill": 11,
+     "exp": -100
+    },
+    {
+     "k": "skillexp",
+     "skill": 12,
+     "exp": -100
+    },
+    {
+     "k": "skillexp",
+     "skill": 13,
+     "exp": -100
+    },
+    {
+     "k": "skillexp",
+     "skill": 14,
+     "exp": -100
+    },
+    {
+     "k": "skillexp",
+     "skill": 15,
+     "exp": -100
+    },
+    {
+     "k": "skillexp",
+     "skill": 16,
+     "exp": -100
+    },
+    {
+     "k": "skillexp",
+     "skill": 17,
+     "exp": -100
+    },
+    {
+     "k": "dmgcon",
+     "elem": 3,
+     "pow": 100
+    },
+    {
+     "k": "dmgcon",
+     "elem": 5,
+     "pow": 200
+    }
+   ]
+  },
+  "label_2334": {
+   "playerOnly": false,
+   "msg": "{name}的脑髓被寄生了。",
+   "special": null,
+   "effects": []
+  },
+  "label_2336": {
+   "playerOnly": false,
+   "msg": "{name}被寄生了。",
+   "special": null,
+   "effects": []
+  }
+ },
+ "species": {
+  "1162": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "1133": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "1093": [
+   {
+    "k": "label",
+    "name": "label_2307"
+   }
+  ],
+  "1053": [
+   {
+    "k": "label",
+    "name": "label_2328"
+   },
+   {
+    "k": "skillexp",
+    "skill": 11,
+    "exp": 800
+   }
+  ],
+  "1051": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "1050": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "1049": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "1029": [
+   {
+    "k": "label",
+    "name": "label_2330"
+   },
+   {
+    "k": "skillexp",
+    "skill": 10,
+    "exp": 400
+   }
+  ],
+  "1025": [
+   {
+    "k": "label",
+    "name": "label_2330"
+   },
+   {
+    "k": "skillexp",
+    "skill": 10,
+    "exp": 400
+   }
+  ],
+  "1021": [
+   {
+    "k": "label",
+    "name": "label_2306"
+   }
+  ],
+  "1019": [
+   {
+    "k": "label",
+    "name": "label_2325"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 58,
+    "val": 50
+   }
+  ],
+  "1017": [
+   {
+    "k": "resistmodh",
+    "elem": 59,
+    "val": 50
+   }
+  ],
+  "1007": [
+   {
+    "k": "label",
+    "name": "label_2313"
+   }
+  ],
+  "1000": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "999": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "998": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "997": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "996": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "975": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   }
+  ],
+  "972": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "937": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "936": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "934": [
+   {
+    "k": "resistmodh",
+    "elem": 59,
+    "val": 50
+   }
+  ],
+  "933": [
+   {
+    "k": "resistmodh",
+    "elem": 56,
+    "val": 50
+   }
+  ],
+  "932": [
+   {
+    "k": "resistmodh",
+    "elem": 56,
+    "val": 50
+   }
+  ],
+  "929": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "928": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "927": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "926": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "923": [
+   {
+    "k": "resistmodh",
+    "elem": 59,
+    "val": 50
+   }
+  ],
+  "885": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "884": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "883": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "882": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "881": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "880": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "878": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "877": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "875": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "867": [
+   {
+    "k": "label",
+    "name": "label_2332"
+   }
+  ],
+  "866": [
+   {
+    "k": "label",
+    "name": "label_2332"
+   }
+  ],
+  "851": [
+   {
+    "k": "label",
+    "name": "label_2322"
+   }
+  ],
+  "840": [
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "831": [
+   {
+    "k": "label",
+    "name": "label_2329"
+   },
+   {
+    "k": "skillexp",
+    "skill": 16,
+    "exp": 500
+   }
+  ],
+  "830": [
+   {
+    "k": "resistmodh",
+    "elem": 54,
+    "val": 50
+   }
+  ],
+  "826": [
+   {
+    "k": "label",
+    "name": "label_2320"
+   }
+  ],
+  "810": [
+   {
+    "k": "resistmodh",
+    "elem": 60,
+    "val": 50
+   }
+  ],
+  "808": [
+   {
+    "k": "resistmodh",
+    "elem": 60,
+    "val": 50
+   }
+  ],
+  "798": [
+   {
+    "k": "resistmodh",
+    "elem": 57,
+    "val": 50
+   }
+  ],
+  "797": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   }
+  ],
+  "795": [
+   {
+    "k": "label",
+    "name": "label_2331"
+   },
+   {
+    "k": "skillexp",
+    "skill": 15,
+    "exp": 400
+   }
+  ],
+  "794": [
+   {
+    "k": "label",
+    "name": "label_2321"
+   }
+  ],
+  "207": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "791": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "771": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "770": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "769": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "768": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "767": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "766": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "765": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "764": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "762": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "761": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "760": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "758": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "757": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "751": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "750": [
+   {
+    "k": "resistmodh",
+    "elem": 60,
+    "val": 50
+   }
+  ],
+  "749": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "748": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "747": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "746": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "745": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "737": [
+   {
+    "k": "resistmodh",
+    "elem": 53,
+    "val": 50
+   }
+  ],
+  "726": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "725": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "716": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "707": [
+   {
+    "k": "label",
+    "name": "label_2314"
+   }
+  ],
+  "701": [
+   {
+    "k": "label",
+    "name": "label_2317"
+   }
+  ],
+  "693": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "692": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "691": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "686": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   }
+  ],
+  "683": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "682": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "681": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "680": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "672": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "671": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "664": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "661": [
+   {
+    "k": "label",
+    "name": "label_2330"
+   },
+   {
+    "k": "skillexp",
+    "skill": 10,
+    "exp": 400
+   }
+  ],
+  "659": [
+   {
+    "k": "label",
+    "name": "label_2312"
+   }
+  ],
+  "658": [
+   {
+    "k": "resistmodh",
+    "elem": 50,
+    "val": 50
+   }
+  ],
+  "630": [
+   {
+    "k": "resistmodh",
+    "elem": 53,
+    "val": 50
+   }
+  ],
+  "613": [
+   {
+    "k": "label",
+    "name": "label_2322"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 56,
+    "val": 50
+   }
+  ],
+  "606": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "601": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "596": [
+   {
+    "k": "label",
+    "name": "label_2322"
+   }
+  ],
+  "593": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 57,
+    "val": 50
+   }
+  ],
+  "584": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "582": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "581": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "579": [
+   {
+    "k": "resistmodh",
+    "elem": 56,
+    "val": 50
+   }
+  ],
+  "568": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "564": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "563": [
+   {
+    "k": "resistmodh",
+    "elem": 53,
+    "val": 50
+   }
+  ],
+  "561": [
+   {
+    "k": "label",
+    "name": "label_2325"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 59,
+    "val": 50
+   }
+  ],
+  "560": [
+   {
+    "k": "resistmodh",
+    "elem": 52,
+    "val": 50
+   }
+  ],
+  "559": [
+   {
+    "k": "label",
+    "name": "label_2332"
+   }
+  ],
+  "557": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "553": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "551": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   }
+  ],
+  "549": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "545": [
+   {
+    "k": "label",
+    "name": "label_2325"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 58,
+    "val": 50
+   }
+  ],
+  "541": [
+   {
+    "k": "label",
+    "name": "label_2319"
+   }
+  ],
+  "532": [
+   {
+    "k": "label",
+    "name": "label_2319"
+   }
+  ],
+  "530": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "529": [
+   {
+    "k": "resistmodh",
+    "elem": 60,
+    "val": 50
+   }
+  ],
+  "525": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "524": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "523": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "516": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "515": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "514": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "513": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "511": [
+   {
+    "k": "label",
+    "name": "label_2329"
+   },
+   {
+    "k": "skillexp",
+    "skill": 16,
+    "exp": 500
+   }
+  ],
+  "510": [
+   {
+    "k": "label",
+    "name": "label_2329"
+   },
+   {
+    "k": "skillexp",
+    "skill": 16,
+    "exp": 500
+   }
+  ],
+  "509": [
+   {
+    "k": "label",
+    "name": "label_2329"
+   },
+   {
+    "k": "skillexp",
+    "skill": 16,
+    "exp": 500
+   }
+  ],
+  "506": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 58,
+    "val": 50
+   }
+  ],
+  "502": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "501": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "498": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "488": [
+   {
+    "k": "resistmodh",
+    "elem": 56,
+    "val": 50
+   }
+  ],
+  "469": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "465": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "464": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "460": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "458": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "454": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "453": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "452": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "451": [
+   {
+    "k": "resistmodh",
+    "elem": 50,
+    "val": 50
+   }
+  ],
+  "450": [
+   {
+    "k": "resistmodh",
+    "elem": 50,
+    "val": 50
+   }
+  ],
+  "448": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "447": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "444": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "439": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "435": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "433": [
+   {
+    "k": "label",
+    "name": "label_2333"
+   }
+  ],
+  "427": [
+   {
+    "k": "label",
+    "name": "label_2317"
+   }
+  ],
+  "426": [
+   {
+    "k": "label",
+    "name": "label_2322"
+   }
+  ],
+  "424": [
+   {
+    "k": "resistmodh",
+    "elem": 60,
+    "val": 50
+   }
+  ],
+  "423": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   }
+  ],
+  "422": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ],
+  "420": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "419": [
+   {
+    "k": "label",
+    "name": "label_2313"
+   }
+  ],
+  "418": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "417": [
+   {
+    "k": "resistmod",
+    "elem": 56,
+    "val": 50
+   }
+  ],
+  "416": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "415": [
+   {
+    "k": "label",
+    "name": "label_2332"
+   }
+  ],
+  "411": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "409": [
+   {
+    "k": "resistmodh",
+    "elem": 52,
+    "val": 50
+   }
+  ],
+  "406": [
+   {
+    "k": "label",
+    "name": "label_2328"
+   },
+   {
+    "k": "skillexp",
+    "skill": 11,
+    "exp": 800
+   }
+  ],
+  "404": [
+   {
+    "k": "label",
+    "name": "label_2319"
+   }
+  ],
+  "402": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "400": [
+   {
+    "k": "label",
+    "name": "label_2329"
+   },
+   {
+    "k": "skillexp",
+    "skill": 16,
+    "exp": 500
+   }
+  ],
+  "398": [
+   {
+    "k": "label",
+    "name": "label_2315"
+   }
+  ],
+  "391": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "390": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "389": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "385": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "382": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "378": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "377": [
+   {
+    "k": "label",
+    "name": "label_2313"
+   }
+  ],
+  "372": [
+   {
+    "k": "label",
+    "name": "label_2314"
+   }
+  ],
+  "74": [
+   {
+    "k": "label",
+    "name": "label_2309"
+   }
+  ],
+  "206": [
+   {
+    "k": "label",
+    "name": "label_2309"
+   }
+  ],
+  "76": [
+   {
+    "k": "label",
+    "name": "label_2311"
+   }
+  ],
+  "77": [
+   {
+    "k": "label",
+    "name": "label_2311"
+   }
+  ],
+  "37": [
+   {
+    "k": "label",
+    "name": "label_2310"
+   }
+  ],
+  "140": [
+   {
+    "k": "label",
+    "name": "label_2312"
+   }
+  ],
+  "141": [
+   {
+    "k": "label",
+    "name": "label_2313"
+   }
+  ],
+  "3": [
+   {
+    "k": "label",
+    "name": "label_2314"
+   }
+  ],
+  "4": [
+   {
+    "k": "label",
+    "name": "label_2314"
+   }
+  ],
+  "13": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   }
+  ],
+  "14": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   }
+  ],
+  "283": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   }
+  ],
+  "251": [
+   {
+    "k": "label",
+    "name": "label_2317"
+   }
+  ],
+  "19": [
+   {
+    "k": "label",
+    "name": "label_2320"
+   }
+  ],
+  "22": [
+   {
+    "k": "label",
+    "name": "label_2319"
+   }
+  ],
+  "21": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "45": [
+   {
+    "k": "resistmodh",
+    "elem": 50,
+    "val": 50
+   }
+  ],
+  "46": [
+   {
+    "k": "resistmodh",
+    "elem": 51,
+    "val": 50
+   }
+  ],
+  "47": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "48": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "49": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "61": [
+   {
+    "k": "label",
+    "name": "label_2322"
+   }
+  ],
+  "62": [
+   {
+    "k": "label",
+    "name": "label_2322"
+   }
+  ],
+  "63": [
+   {
+    "k": "label",
+    "name": "label_2321"
+   }
+  ],
+  "64": [
+   {
+    "k": "label",
+    "name": "label_2321"
+   }
+  ],
+  "65": [
+   {
+    "k": "resistmodh",
+    "elem": 52,
+    "val": 50
+   }
+  ],
+  "66": [
+   {
+    "k": "label",
+    "name": "label_2324"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 59,
+    "val": 50
+   }
+  ],
+  "67": [
+   {
+    "k": "label",
+    "name": "label_2325"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 58,
+    "val": 50
+   }
+  ],
+  "315": [
+   {
+    "k": "label",
+    "name": "label_2325"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 59,
+    "val": 50
+   }
+  ],
+  "316": [
+   {
+    "k": "label",
+    "name": "label_2325"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 54,
+    "val": 50
+   }
+  ],
+  "314": [
+   {
+    "k": "label",
+    "name": "label_2325"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 58,
+    "val": 50
+   }
+  ],
+  "83": [
+   {
+    "k": "label",
+    "name": "label_2328"
+   },
+   {
+    "k": "skillexp",
+    "skill": 11,
+    "exp": 500
+   }
+  ],
+  "84": [
+   {
+    "k": "label",
+    "name": "label_2328"
+   },
+   {
+    "k": "skillexp",
+    "skill": 11,
+    "exp": 800
+   }
+  ],
+  "85": [
+   {
+    "k": "label",
+    "name": "label_2329"
+   },
+   {
+    "k": "skillexp",
+    "skill": 16,
+    "exp": 500
+   }
+  ],
+  "86": [
+   {
+    "k": "label",
+    "name": "label_2329"
+   },
+   {
+    "k": "skillexp",
+    "skill": 16,
+    "exp": 500
+   }
+  ],
+  "87": [
+   {
+    "k": "label",
+    "name": "label_2329"
+   },
+   {
+    "k": "skillexp",
+    "skill": 16,
+    "exp": 500
+   }
+  ],
+  "88": [
+   {
+    "k": "label",
+    "name": "label_2330"
+   },
+   {
+    "k": "skillexp",
+    "skill": 10,
+    "exp": 400
+   }
+  ],
+  "89": [
+   {
+    "k": "label",
+    "name": "label_2330"
+   },
+   {
+    "k": "skillexp",
+    "skill": 10,
+    "exp": 400
+   }
+  ],
+  "90": [
+   {
+    "k": "label",
+    "name": "label_2330"
+   },
+   {
+    "k": "skillexp",
+    "skill": 10,
+    "exp": 400
+   }
+  ],
+  "91": [
+   {
+    "k": "label",
+    "name": "label_2331"
+   },
+   {
+    "k": "skillexp",
+    "skill": 15,
+    "exp": 250
+   }
+  ],
+  "92": [
+   {
+    "k": "label",
+    "name": "label_2331"
+   },
+   {
+    "k": "skillexp",
+    "skill": 15,
+    "exp": 400
+   }
+  ],
+  "95": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "96": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "99": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "100": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "101": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "257": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "254": [
+   {
+    "k": "label",
+    "name": "label_2318"
+   }
+  ],
+  "344": [
+   {
+    "k": "label",
+    "name": "label_2330"
+   }
+  ],
+  "110": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "111": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "112": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "113": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "117": [
+   {
+    "k": "label",
+    "name": "label_2315"
+   }
+  ],
+  "255": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "256": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "128": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "129": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "130": [
+   {
+    "k": "label",
+    "name": "label_2316"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 55,
+    "val": 50
+   }
+  ],
+  "132": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "133": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "134": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "135": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "136": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "137": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "138": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "147": [
+   {
+    "k": "label",
+    "name": "label_2322"
+   },
+   {
+    "k": "resistmodh",
+    "elem": 50,
+    "val": 50
+   }
+  ],
+  "148": [
+   {
+    "k": "resistmodh",
+    "elem": 50,
+    "val": 50
+   }
+  ],
+  "153": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "154": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "155": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "156": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "157": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "158": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "164": [
+   {
+    "k": "label",
+    "name": "label_2326"
+   }
+  ],
+  "246": [
+   {
+    "k": "label",
+    "name": "label_2326"
+   }
+  ],
+  "332": [
+   {
+    "k": "label",
+    "name": "label_2326"
+   }
+  ],
+  "168": [
+   {
+    "k": "label",
+    "name": "label_2322"
+   }
+  ],
+  "178": [
+   {
+    "k": "label",
+    "name": "label_2313"
+   }
+  ],
+  "186": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "187": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "188": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "345": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "346": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "341": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "258": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "189": [
+   {
+    "k": "label",
+    "name": "label_2306"
+   }
+  ],
+  "190": [
+   {
+    "k": "label",
+    "name": "label_2306"
+   }
+  ],
+  "191": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "193": [
+   {
+    "k": "label",
+    "name": "label_2327"
+   }
+  ],
+  "196": [
+   {
+    "k": "resistmodh",
+    "elem": 54,
+    "val": 50
+   }
+  ],
+  "201": [
+   {
+    "k": "resistmodh",
+    "elem": 54,
+    "val": 50
+   }
+  ],
+  "197": [
+   {
+    "k": "resistmodh",
+    "elem": 54,
+    "val": 50
+   }
+  ],
+  "198": [
+   {
+    "k": "resistmodh",
+    "elem": 54,
+    "val": 50
+   }
+  ],
+  "199": [
+   {
+    "k": "resistmodh",
+    "elem": 53,
+    "val": 50
+   }
+  ],
+  "200": [
+   {
+    "k": "resistmodh",
+    "elem": 53,
+    "val": 50
+   }
+  ],
+  "212": [
+   {
+    "k": "label",
+    "name": "label_2314"
+   }
+  ],
+  "216": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "218": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "220": [
+   {
+    "k": "label",
+    "name": "label_2323"
+   }
+  ],
+  "250": [
+   {
+    "k": "resistmodh",
+    "elem": 60,
+    "val": 50
+   }
+  ],
+  "267": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "276": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "275": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "268": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "277": [
+   {
+    "k": "label",
+    "name": "label_2308"
+   }
+  ],
+  "318": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "323": [
+   {
+    "k": "label",
+    "name": "label_2331"
+   },
+   {
+    "k": "skillexp",
+    "skill": 15,
+    "exp": 250
+   }
+  ],
+  "324": [
+   {
+    "k": "label",
+    "name": "label_2332"
+   }
+  ],
+  "325": [
+   {
+    "k": "label",
+    "name": "label_2332"
+   }
+  ],
+  "328": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "329": [
+   {
+    "k": "label",
+    "name": "label_2305"
+   }
+  ],
+  "330": [
+   {
+    "k": "label",
+    "name": "label_2335"
+   }
+  ]
+ },
+ "text": {
+  "2302_noeffect": "但是，{name}毫发无伤。",
+  "2334_decomposed": "但是立刻就分解了。",
+  "2334_flower": "但是立刻被花吸收了。",
+  "2334_pushed": "但是立刻被弹了出来。",
+  "2336_decomposed": "但是立刻就分解了。",
+  "2336_flower": "但是立刻被花吸收了。",
+  "2336_puked": "但是立刻吐了出来。"
+ }
+}

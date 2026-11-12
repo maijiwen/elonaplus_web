@@ -1116,6 +1116,18 @@
 
     openNPC(game, npc) {
       if (!Elona.NPC || !npc) return;
+      // A404：道场（地图 67）的师范（物种 519）→ 387244-387738 的入門/特訓菜单
+      if (Elona.School && Elona.School.isTeacher && Elona.School.isTeacher(game, npc)
+        && Elona.Panels && Elona.Panels.openSchool) {
+        Elona.Panels.openSchool(game);
+        return;
+      }
+      // A404：寄放在道场/廃モンスター牧場的同伴（cbit 960）→ 收回队伍窗口
+      if (Elona.School && Elona.School.isStayerAt && Elona.School.isStayerAt(game, npc)
+        && Elona.Panels && Elona.Panels.openStayer) {
+        Elona.Panels.openStayer(game, npc);
+        return;
+      }
       // 0-FO：牧场里的家畜（cbit 960）走 289600-289616 的干涉菜单，
       // 不是普通 NPC 对话；梳理/榨奶/挖残骸/带出来/献祭都在那个窗口里。
       if (Elona.Ranch && Elona.Ranch.isRanch && Elona.Ranch.isRanch(game)
@@ -1209,8 +1221,15 @@
       // 0-GB：*label_4358 的收尾要消耗一个回合；*label_2459 是剧情场景切换
       if (ev.endTurn && game && game.endTurn) game.endTurn();
       if (ev.exitScene) this.pushMessage('（剧情推进：场景切换）');
+      // A49：诺恩等剧情 NPC 通过改写 var_65(850) 切换世界地图
+      const destWorld = s.worldChanged | 0;
       this.npcDialog = null;
       this.npcSession = null;
+      if (destWorld && game && game.travelToWorld) {
+        game.travelToWorld(destWorld).catch(() => { });
+        this.closeNPC();
+        return;
+      }
       if (!this.npcText || !this.npcText.trim()) {
         this.npcText = Elona.NPC.talk(game, this.npcTarget);
       }

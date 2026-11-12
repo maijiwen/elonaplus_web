@@ -16,13 +16,33 @@
   let cells = null;             // 原版地块（渲染用）
   let grid = null;              // 通行网格（1 = 可走）
   let promise = null;
+  let curWorld = 0;
 
-  /** 载入 ntyris 地图并构建通行网格 */
-  async function load() {
-    if (promise) return promise;
+  /**
+   * A49：世界地图 id → 提取产物文件名，统一由 world_sites.worldMapFile 提供
+   *   （4→ntyris / 44→styris / 70→lost / 91→ether；原版 237578-237593）。
+   */
+  function worldFile(wid) {
+    if (Elona.Sites && Elona.Sites.worldMapFile) return Elona.Sites.worldMapFile(wid);
+    return 'ntyris';
+  }
+
+  /**
+   * 载入指定世界的地图并构建通行网格。
+   * @param {number} [worldId] 省略时沿用当前载入的世界（首次为 4 北ティリス）
+   */
+  async function load(worldId) {
+    const wid = (worldId === undefined || worldId === null || worldId === 0)
+      ? (curWorld || 4) : (worldId | 0);
+    if (promise && curWorld === wid) return promise;
+    curWorld = wid;
+    // 确保 world_sites 表已就绪（worldMapFile 依赖它，同步读取失败会退回 ntyris）
+    if (Elona.Sites && Elona.Sites.load) {
+      try { await Elona.Sites.load(); } catch (e) { /* 保持默认 */ }
+    }
     promise = (async () => {
       try {
-        const json = await Elona.Data.map('ntyris');
+        const json = await Elona.Data.map(worldFile(wid));
         width = json.width | 0;
         height = json.height | 0;
         tileset = json.tileset | 0;
@@ -91,6 +111,8 @@
     walkable,
     turnCost,
     tileAt,
+    /** A49：当前载入的世界 id（var_65(850)：4 北ティリス / 44 南 / 70 ロスト / 91 エーテル） */
+    get world() { return curWorld; },
     get width() { return width; },
     get height() { return height; },
     get tileset() { return tileset; },

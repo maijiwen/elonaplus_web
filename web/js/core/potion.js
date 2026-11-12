@@ -105,6 +105,8 @@
     const p = power | 0;
     const dmg = idiv((g.rng.rnd(idiv(p, 10) + 5) + idiv(p, 10)) * fix(ctx.curse, 50, 100, 200, 300), 100) + 1;
     const r = dealDamage(target, dmg);
+    // A177 / 319331 一带：原版在目标处播放酸液特效（*label_2111）
+    if (g.addParticles) g.addParticles(target.x | 0, target.y | 0);
     return { ok: true, messages, killed: r.killed, dmg: r.dmg };
   };
 
@@ -125,6 +127,8 @@
     const dmg2 = a * b + g.rng.rnd((power | 0) + 1)
       + idiv((l1 + l2) * 4 * Math.sqrt(l3 * 3), 1) + 30;
     const r = dealDamage(target, dmg2);
+    // A177 / 319360-319364：原版在此播放冲击特效（*label_2111 var_1117 = 2）
+    if (g.addParticles) g.addParticles(target.x | 0, target.y | 0);
     return { ok: true, messages, killed: r.killed, dmg: r.dmg };
   };
 
@@ -223,6 +227,8 @@
     if (Elona.Stats) {
       Elona.Stats.skillExp(target, sk, target.index | 0, fix(ctx.curse, -2000, -2000, -1000, -250), undefined, 0, g);
     }
+    // A177 / 321082：原版播放血液特效（*label_2111 var_1117 = 6），随后 gosub *label_2174 重算属性
+    if (g.addParticles) g.addParticles(target.x | 0, target.y | 0);
     return { ok: true, messages, skill: sk };
   };
 
@@ -455,7 +461,10 @@
     if (Elona.Mef && Elona.Mef.add) {
       Elona.Mef.add(g, target.x, target.y, 5, 24, g.rng.rnd(15) + 25, p, (ctx.caster ? ctx.caster.index : 0) | 0);
     }
-    // mapitem_fire（引燃地面物品）：未移植（A177）
+    // 340226：mapitem_fire(var_58(1,var_244), var_58(2,var_244)) —— 引燃目标脚下的地面物品
+    if (Elona.ItemDB && Elona.ItemDB.mapitemFire) {
+      Elona.ItemDB.mapitemFire(g, target.x | 0, target.y | 0, ctx.caster || target);
+    }
     return { ok: true, messages, killed: r.killed, dmg: r.dmg };
   };
 

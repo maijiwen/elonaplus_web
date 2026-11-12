@@ -88,7 +88,7 @@
     }
     const S = Elona.Sites;
     if (S && S.fileOf) {
-      const f = S.fileOf(id);
+      const f = S.fileOf(id, sub);   // 地图 49 的第 114 层要用 sub 选 chaos
       if (f && f !== '_default') return f;
     }
     if (MAP_FILES[id | 0]) return MAP_FILES[id | 0];

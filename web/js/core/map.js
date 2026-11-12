@@ -42,10 +42,77 @@
       this.cells = (json.cells || []).map((row) => row.map((c) => c.slice()));
       this.objects = json.objects || [];// var_469 解出的对象列表
       this.attrs = tileAttrs || {};
+
+      // ---- 迷雾 / 视野状态（对应原版 var_105 / var_704(x,y,2) / var_812）----
+      //   fogTile  : var_812，未探索格的记忆图块（map_setfog 228461 写入）
+      //   open     : 「整图已揭示」的地图（城镇/野外/自家等，228475 的分支）
+      //   seen/vis : 0-DW 新增的布尔表；原版用
+      //              「记忆图块 != 雾图块」判已探索、用 var_105==var_104 判当前可见
+      this.fogTile = 531;
+      this.open = false;
+      this.seen = null;
+      this.vis = null;
+      this._fovReady = false;
     }
 
     inBounds(x, y) {
       return x >= 0 && x < this.width && y >= 0 && y < this.height;
+    }
+
+    // ==================== 迷雾 / 视野（0-DW） ====================
+    /**
+     * 初始化迷雾 —— 对应原版 map_setfog（228461-228521）。
+     *   · 所有格子的记忆图块（var_704(x,y,2)）先写 fogTile（var_812）
+     *   · open 地图（城镇/野外/自家…）再把记忆图块写成真实图块，等于「全图已探索」
+     * @param {number} fogTile var_812
+     * @param {boolean} open 是否整图揭示
+     */
+    initFog(fogTile, open) {
+      const n = this.width * this.height;
+      this.fogTile = fogTile | 0;
+      this.open = !!open;
+      this.seen = new Uint8Array(n);
+      this.vis = new Uint8Array(n);
+      for (let y = 0; y < this.height; y++) {
+        const row = this.cells[y];
+        for (let x = 0; x < this.width; x++) {
+          const c = row[x];
+          // 原版：记忆图块 = var_812；open 地图随后 = 真实图块
+          if (c[2] !== undefined) c[2] = this.open ? (c[0] | 0) : this.fogTile;
+          if (this.open) this.seen[y * this.width + x] = 1;
+        }
+      }
+      this._fovReady = true;
+    }
+
+    /** 该格是否曾经进入过视野（已探索） */
+    isSeen(x, y) {
+      if (!this.inBounds(x, y) || !this.seen) return false;
+      return this.seen[y * this.width + x] === 1;
+    }
+
+    /** 该格本帧是否在玩家视野内 */
+    isVisible(x, y) {
+      if (!this.inBounds(x, y) || !this.vis) return false;
+      return this.vis[y * this.width + x] === 1;
+    }
+
+    /** 标记「当前可见」：写 var_105 等价状态，并把记忆图块更新为真实图块（*label_2115） */
+    setVisible(x, y) {
+      if (!this.inBounds(x, y) || !this.vis) return;
+      const idx = y * this.width + x;
+      this.vis[idx] = 1;
+      this.seen[idx] = 1;
+      const c = this.cells[y][x];
+      if (c[2] !== undefined) c[2] = c[0] | 0;
+    }
+
+    /** 只标记「已探索」（魔法地图 / 物质感知）：不进入当前可见 */
+    markSeen(x, y) {
+      if (!this.inBounds(x, y) || !this.seen) return;
+      this.seen[y * this.width + x] = 1;
+      const c = this.cells[y][x];
+      if (c[2] !== undefined) c[2] = c[0] | 0;
     }
 
     cell(x, y) {

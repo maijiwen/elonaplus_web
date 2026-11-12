@@ -1,0 +1,3398 @@
+{
+ "species": {
+  "1162": {
+   "src": 472607,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "1133": {
+   "src": 475494,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "1093": {
+   "src": 479074,
+   "stmts": [
+    "gosub *label_2307",
+    "return -1"
+   ]
+  },
+  "1053": {
+   "src": 482318,
+   "stmts": [
+    "gosub *label_2328",
+    "skillexp 11, var_243, 800",
+    "return -1"
+   ]
+  },
+  "1051": {
+   "src": 482522,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "1050": {
+   "src": 482604,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "1049": {
+   "src": 482686,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "1029": {
+   "src": 484933,
+   "stmts": [
+    "gosub *label_2330",
+    "skillexp 10, var_243, 400",
+    "return -1"
+   ]
+  },
+  "1025": {
+   "src": 485293,
+   "stmts": [
+    "gosub *label_2330",
+    "skillexp 10, var_243, 400",
+    "return -1"
+   ]
+  },
+  "1021": {
+   "src": 485651,
+   "stmts": [
+    "gosub *label_2306",
+    "return -1"
+   ]
+  },
+  "1019": {
+   "src": 485811,
+   "stmts": [
+    "gosub *label_2325",
+    "resistmodh var_243, 58, 50",
+    "return -1"
+   ]
+  },
+  "1017": {
+   "src": 485972,
+   "stmts": [
+    "resistmodh var_243, 59, 50",
+    "return -1"
+   ]
+  },
+  "1007": {
+   "src": 486929,
+   "stmts": [
+    "gosub *label_2313",
+    "return -1"
+   ]
+  },
+  "1000": {
+   "src": 487526,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "999": {
+   "src": 487646,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "998": {
+   "src": 487726,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "997": {
+   "src": 487807,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "996": {
+   "src": 487892,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "975": {
+   "src": 489561,
+   "stmts": [
+    "gosub *label_2316",
+    "return -1"
+   ]
+  },
+  "972": {
+   "src": 489805,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "937": {
+   "src": 493307,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "936": {
+   "src": 493398,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "934": {
+   "src": 493620,
+   "stmts": [
+    "resistmodh var_243, 59, 50",
+    "return -1"
+   ]
+  },
+  "933": {
+   "src": 493714,
+   "stmts": [
+    "resistmodh var_243, 56, 50",
+    "return -1"
+   ]
+  },
+  "932": {
+   "src": 493791,
+   "stmts": [
+    "resistmodh var_243, 56, 50",
+    "return -1"
+   ]
+  },
+  "929": {
+   "src": 494015,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "928": {
+   "src": 494099,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "927": {
+   "src": 494182,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "926": {
+   "src": 494288,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "923": {
+   "src": 494638,
+   "stmts": [
+    "resistmodh var_243, 59, 50",
+    "return -1"
+   ]
+  },
+  "885": {
+   "src": 498167,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "884": {
+   "src": 498251,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "883": {
+   "src": 498332,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "882": {
+   "src": 498426,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "881": {
+   "src": 498510,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "880": {
+   "src": 498652,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "878": {
+   "src": 498861,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "877": {
+   "src": 499022,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "875": {
+   "src": 499230,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "867": {
+   "src": 499955,
+   "stmts": [
+    "gosub *label_2332",
+    "return -1"
+   ]
+  },
+  "866": {
+   "src": 500045,
+   "stmts": [
+    "gosub *label_2332",
+    "return -1"
+   ]
+  },
+  "851": {
+   "src": 501574,
+   "stmts": [
+    "gosub *label_2322",
+    "return -1"
+   ]
+  },
+  "840": {
+   "src": 502568,
+   "stmts": [
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "831": {
+   "src": 503489,
+   "stmts": [
+    "gosub *label_2329",
+    "skillexp 16, var_243, 500",
+    "return -1"
+   ]
+  },
+  "830": {
+   "src": 503575,
+   "stmts": [
+    "resistmodh var_243, 54, 50",
+    "return -1"
+   ]
+  },
+  "826": {
+   "src": 504038,
+   "stmts": [
+    "gosub *label_2320",
+    "return -1"
+   ]
+  },
+  "810": {
+   "src": 505532,
+   "stmts": [
+    "resistmodh var_243, 60, 50",
+    "return -1"
+   ]
+  },
+  "808": {
+   "src": 505685,
+   "stmts": [
+    "resistmodh var_243, 60, 50",
+    "return -1"
+   ]
+  },
+  "798": {
+   "src": 506613,
+   "stmts": [
+    "resistmodh var_243, 57, 50",
+    "return -1"
+   ]
+  },
+  "797": {
+   "src": 506721,
+   "stmts": [
+    "gosub *label_2316",
+    "return -1"
+   ]
+  },
+  "795": {
+   "src": 506952,
+   "stmts": [
+    "gosub *label_2331",
+    "skillexp 15, var_243, 400",
+    "return -1"
+   ]
+  },
+  "794": {
+   "src": 507040,
+   "stmts": [
+    "gosub *label_2321",
+    "return -1"
+   ]
+  },
+  "207": {
+   "src": 507341,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "791": {
+   "src": 507437,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "771": {
+   "src": 509221,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "770": {
+   "src": 509362,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "769": {
+   "src": 509466,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "768": {
+   "src": 509605,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "767": {
+   "src": 509713,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "766": {
+   "src": 509822,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "765": {
+   "src": 509910,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "764": {
+   "src": 509988,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "762": {
+   "src": 510148,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "761": {
+   "src": 510229,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "760": {
+   "src": 510307,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "758": {
+   "src": 510468,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "757": {
+   "src": 510551,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "751": {
+   "src": 511204,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "750": {
+   "src": 511312,
+   "stmts": [
+    "resistmodh var_243, 60, 50",
+    "return -1"
+   ]
+  },
+  "749": {
+   "src": 511412,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "748": {
+   "src": 511492,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "747": {
+   "src": 511572,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "746": {
+   "src": 511658,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "745": {
+   "src": 511744,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "737": {
+   "src": 512493,
+   "stmts": [
+    "resistmodh var_243, 53, 50",
+    "return -1"
+   ]
+  },
+  "726": {
+   "src": 513496,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "725": {
+   "src": 513596,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "716": {
+   "src": 514482,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "707": {
+   "src": 515383,
+   "stmts": [
+    "gosub *label_2314",
+    "return -1"
+   ]
+  },
+  "701": {
+   "src": 515853,
+   "stmts": [
+    "gosub *label_2317",
+    "return -1"
+   ]
+  },
+  "693": {
+   "src": 516681,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "692": {
+   "src": 516766,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "691": {
+   "src": 516844,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "686": {
+   "src": 517359,
+   "stmts": [
+    "gosub *label_2316",
+    "return -1"
+   ]
+  },
+  "683": {
+   "src": 517733,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "682": {
+   "src": 517836,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "681": {
+   "src": 517955,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "680": {
+   "src": 518083,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "672": {
+   "src": 518953,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "671": {
+   "src": 519101,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "664": {
+   "src": 519974,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "661": {
+   "src": 520272,
+   "stmts": [
+    "gosub *label_2330",
+    "skillexp 10, var_243, 400",
+    "return -1"
+   ]
+  },
+  "659": {
+   "src": 520430,
+   "stmts": [
+    "gosub *label_2312",
+    "return -1"
+   ]
+  },
+  "658": {
+   "src": 520522,
+   "stmts": [
+    "resistmodh var_243, 50, 50",
+    "return -1"
+   ]
+  },
+  "630": {
+   "src": 523540,
+   "stmts": [
+    "resistmodh var_243, 53, 50",
+    "return -1"
+   ]
+  },
+  "613": {
+   "src": 525617,
+   "stmts": [
+    "gosub *label_2322",
+    "resistmodh var_243, 56, 50",
+    "return -1"
+   ]
+  },
+  "606": {
+   "src": 526297,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "601": {
+   "src": 526770,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "596": {
+   "src": 527174,
+   "stmts": [
+    "gosub *label_2322",
+    "return -1"
+   ]
+  },
+  "593": {
+   "src": 527411,
+   "stmts": [
+    "gosub *label_2305",
+    "resistmodh var_243, 57, 50",
+    "return -1"
+   ]
+  },
+  "584": {
+   "src": 528151,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "582": {
+   "src": 528309,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "581": {
+   "src": 528391,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "579": {
+   "src": 528554,
+   "stmts": [
+    "resistmodh var_243, 56, 50",
+    "return -1"
+   ]
+  },
+  "568": {
+   "src": 529681,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "564": {
+   "src": 530036,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "563": {
+   "src": 530114,
+   "stmts": [
+    "resistmodh var_243, 53, 50",
+    "return -1"
+   ]
+  },
+  "561": {
+   "src": 530280,
+   "stmts": [
+    "gosub *label_2325",
+    "resistmodh var_243, 59, 50",
+    "return -1"
+   ]
+  },
+  "560": {
+   "src": 530367,
+   "stmts": [
+    "resistmodh var_243, 52, 50",
+    "return -1"
+   ]
+  },
+  "559": {
+   "src": 530447,
+   "stmts": [
+    "gosub *label_2332",
+    "return -1"
+   ]
+  },
+  "557": {
+   "src": 530604,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "553": {
+   "src": 530977,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "551": {
+   "src": 531147,
+   "stmts": [
+    "gosub *label_2316",
+    "return -1"
+   ]
+  },
+  "549": {
+   "src": 531337,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "545": {
+   "src": 531679,
+   "stmts": [
+    "gosub *label_2325",
+    "resistmodh var_243, 58, 50",
+    "return -1"
+   ]
+  },
+  "541": {
+   "src": 532092,
+   "stmts": [
+    "gosub *label_2319",
+    "return -1"
+   ]
+  },
+  "532": {
+   "src": 533215,
+   "stmts": [
+    "gosub *label_2319",
+    "return -1"
+   ]
+  },
+  "530": {
+   "src": 533375,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "529": {
+   "src": 533497,
+   "stmts": [
+    "resistmodh var_243, 60, 50",
+    "return -1"
+   ]
+  },
+  "525": {
+   "src": 533904,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "524": {
+   "src": 534021,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "523": {
+   "src": 534140,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "516": {
+   "src": 534773,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "515": {
+   "src": 534902,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "514": {
+   "src": 535036,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "513": {
+   "src": 535170,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "511": {
+   "src": 535330,
+   "stmts": [
+    "gosub *label_2329",
+    "skillexp 16, var_243, 500",
+    "return -1"
+   ]
+  },
+  "510": {
+   "src": 535412,
+   "stmts": [
+    "gosub *label_2329",
+    "skillexp 16, var_243, 500",
+    "return -1"
+   ]
+  },
+  "509": {
+   "src": 535494,
+   "stmts": [
+    "gosub *label_2329",
+    "skillexp 16, var_243, 500",
+    "return -1"
+   ]
+  },
+  "506": {
+   "src": 535812,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 58, 50",
+    "return -1"
+   ]
+  },
+  "502": {
+   "src": 536204,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "501": {
+   "src": 536289,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "498": {
+   "src": 536620,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "488": {
+   "src": 537667,
+   "stmts": [
+    "resistmodh var_243, 56, 50",
+    "return -1"
+   ]
+  },
+  "469": {
+   "src": 539871,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "465": {
+   "src": 540404,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "464": {
+   "src": 540490,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "460": {
+   "src": 540878,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "458": {
+   "src": 541126,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "454": {
+   "src": 541550,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "453": {
+   "src": 541648,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "452": {
+   "src": 541746,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "451": {
+   "src": 541824,
+   "stmts": [
+    "resistmodh var_243, 50, 50",
+    "return -1"
+   ]
+  },
+  "450": {
+   "src": 541968,
+   "stmts": [
+    "resistmodh var_243, 50, 50",
+    "return -1"
+   ]
+  },
+  "448": {
+   "src": 542188,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "447": {
+   "src": 542310,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "444": {
+   "src": 542579,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "439": {
+   "src": 543190,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "435": {
+   "src": 543697,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "433": {
+   "src": 543874,
+   "stmts": [
+    "gosub *label_2333",
+    "return -1"
+   ]
+  },
+  "427": {
+   "src": 544420,
+   "stmts": [
+    "gosub *label_2317",
+    "return -1"
+   ]
+  },
+  "426": {
+   "src": 544502,
+   "stmts": [
+    "gosub *label_2322",
+    "return -1"
+   ]
+  },
+  "424": {
+   "src": 544658,
+   "stmts": [
+    "resistmodh var_243, 60, 50",
+    "return -1"
+   ]
+  },
+  "423": {
+   "src": 544737,
+   "stmts": [
+    "gosub *label_2316",
+    "return -1"
+   ]
+  },
+  "422": {
+   "src": 544827,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  },
+  "420": {
+   "src": 545006,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "419": {
+   "src": 545100,
+   "stmts": [
+    "gosub *label_2313",
+    "return -1"
+   ]
+  },
+  "418": {
+   "src": 545205,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "417": {
+   "src": 545325,
+   "stmts": [
+    "resistmod var_243, 56, 50",
+    "return -1"
+   ]
+  },
+  "416": {
+   "src": 545414,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "415": {
+   "src": 545592,
+   "stmts": [
+    "gosub *label_2332",
+    "return -1"
+   ]
+  },
+  "411": {
+   "src": 545980,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "409": {
+   "src": 546202,
+   "stmts": [
+    "resistmodh var_243, 52, 50",
+    "return -1"
+   ]
+  },
+  "406": {
+   "src": 546581,
+   "stmts": [
+    "gosub *label_2328",
+    "skillexp 11, var_243, 800",
+    "return -1"
+   ]
+  },
+  "404": {
+   "src": 546745,
+   "stmts": [
+    "gosub *label_2319",
+    "return -1"
+   ]
+  },
+  "402": {
+   "src": 546898,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "400": {
+   "src": 547083,
+   "stmts": [
+    "gosub *label_2329",
+    "skillexp 16, var_243, 500",
+    "return -1"
+   ]
+  },
+  "398": {
+   "src": 547245,
+   "stmts": [
+    "gosub *label_2315",
+    "return -1"
+   ]
+  },
+  "391": {
+   "src": 547819,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "390": {
+   "src": 547903,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "389": {
+   "src": 547988,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "385": {
+   "src": 548405,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "382": {
+   "src": 548827,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "378": {
+   "src": 549346,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "377": {
+   "src": 549446,
+   "stmts": [
+    "gosub *label_2313",
+    "return -1"
+   ]
+  },
+  "372": {
+   "src": 550042,
+   "stmts": [
+    "gosub *label_2314",
+    "return -1"
+   ]
+  },
+  "74": {
+   "src": 552394,
+   "stmts": [
+    "gosub *label_2309",
+    "return -1"
+   ]
+  },
+  "206": {
+   "src": 552575,
+   "stmts": [
+    "gosub *label_2309",
+    "return -1"
+   ]
+  },
+  "76": {
+   "src": 553025,
+   "stmts": [
+    "gosub *label_2311",
+    "return -1"
+   ]
+  },
+  "77": {
+   "src": 553149,
+   "stmts": [
+    "gosub *label_2311",
+    "return -1"
+   ]
+  },
+  "37": {
+   "src": 553603,
+   "stmts": [
+    "gosub *label_2310",
+    "return -1"
+   ]
+  },
+  "140": {
+   "src": 554304,
+   "stmts": [
+    "gosub *label_2312",
+    "return -1"
+   ]
+  },
+  "141": {
+   "src": 555878,
+   "stmts": [
+    "gosub *label_2313",
+    "return -1"
+   ]
+  },
+  "3": {
+   "src": 557577,
+   "stmts": [
+    "gosub *label_2314",
+    "return -1"
+   ]
+  },
+  "4": {
+   "src": 557682,
+   "stmts": [
+    "gosub *label_2314",
+    "return -1"
+   ]
+  },
+  "13": {
+   "src": 561414,
+   "stmts": [
+    "gosub *label_2316",
+    "return -1"
+   ]
+  },
+  "14": {
+   "src": 562450,
+   "stmts": [
+    "gosub *label_2316",
+    "return -1"
+   ]
+  },
+  "283": {
+   "src": 562594,
+   "stmts": [
+    "gosub *label_2316",
+    "return -1"
+   ]
+  },
+  "251": {
+   "src": 564349,
+   "stmts": [
+    "gosub *label_2317",
+    "return -1"
+   ]
+  },
+  "19": {
+   "src": 564976,
+   "stmts": [
+    "gosub *label_2320",
+    "return -1"
+   ]
+  },
+  "22": {
+   "src": 565051,
+   "stmts": [
+    "gosub *label_2319",
+    "return -1"
+   ]
+  },
+  "21": {
+   "src": 565286,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "45": {
+   "src": 565586,
+   "stmts": [
+    "resistmodh var_243, 50, 50",
+    "return -1"
+   ]
+  },
+  "46": {
+   "src": 565678,
+   "stmts": [
+    "resistmodh var_243, 51, 50",
+    "return -1"
+   ]
+  },
+  "47": {
+   "src": 565770,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "48": {
+   "src": 565847,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "49": {
+   "src": 565925,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "61": {
+   "src": 567062,
+   "stmts": [
+    "gosub *label_2322",
+    "return -1"
+   ]
+  },
+  "62": {
+   "src": 567139,
+   "stmts": [
+    "gosub *label_2322",
+    "return -1"
+   ]
+  },
+  "63": {
+   "src": 567216,
+   "stmts": [
+    "gosub *label_2321",
+    "return -1"
+   ]
+  },
+  "64": {
+   "src": 567291,
+   "stmts": [
+    "gosub *label_2321",
+    "return -1"
+   ]
+  },
+  "65": {
+   "src": 567513,
+   "stmts": [
+    "resistmodh var_243, 52, 50",
+    "return -1"
+   ]
+  },
+  "66": {
+   "src": 567594,
+   "stmts": [
+    "gosub *label_2324",
+    "resistmodh var_243, 59, 50",
+    "return -1"
+   ]
+  },
+  "67": {
+   "src": 567677,
+   "stmts": [
+    "gosub *label_2325",
+    "resistmodh var_243, 58, 50",
+    "return -1"
+   ]
+  },
+  "315": {
+   "src": 567760,
+   "stmts": [
+    "gosub *label_2325",
+    "resistmodh var_243, 59, 50",
+    "return -1"
+   ]
+  },
+  "316": {
+   "src": 567847,
+   "stmts": [
+    "gosub *label_2325",
+    "resistmodh var_243, 54, 50",
+    "return -1"
+   ]
+  },
+  "314": {
+   "src": 567931,
+   "stmts": [
+    "gosub *label_2325",
+    "resistmodh var_243, 58, 50",
+    "return -1"
+   ]
+  },
+  "83": {
+   "src": 568315,
+   "stmts": [
+    "gosub *label_2328",
+    "skillexp 11, var_243, 500",
+    "return -1"
+   ]
+  },
+  "84": {
+   "src": 568419,
+   "stmts": [
+    "gosub *label_2328",
+    "skillexp 11, var_243, 800",
+    "return -1"
+   ]
+  },
+  "85": {
+   "src": 568505,
+   "stmts": [
+    "gosub *label_2329",
+    "skillexp 16, var_243, 500",
+    "return -1"
+   ]
+  },
+  "86": {
+   "src": 568581,
+   "stmts": [
+    "gosub *label_2329",
+    "skillexp 16, var_243, 500",
+    "return -1"
+   ]
+  },
+  "87": {
+   "src": 568657,
+   "stmts": [
+    "gosub *label_2329",
+    "skillexp 16, var_243, 500",
+    "return -1"
+   ]
+  },
+  "88": {
+   "src": 568733,
+   "stmts": [
+    "gosub *label_2330",
+    "skillexp 10, var_243, 400",
+    "return -1"
+   ]
+  },
+  "89": {
+   "src": 568810,
+   "stmts": [
+    "gosub *label_2330",
+    "skillexp 10, var_243, 400",
+    "return -1"
+   ]
+  },
+  "90": {
+   "src": 568887,
+   "stmts": [
+    "gosub *label_2330",
+    "skillexp 10, var_243, 400",
+    "return -1"
+   ]
+  },
+  "91": {
+   "src": 568971,
+   "stmts": [
+    "gosub *label_2331",
+    "skillexp 15, var_243, 250",
+    "return -1"
+   ]
+  },
+  "92": {
+   "src": 569048,
+   "stmts": [
+    "gosub *label_2331",
+    "skillexp 15, var_243, 400",
+    "return -1"
+   ]
+  },
+  "95": {
+   "src": 569274,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "96": {
+   "src": 569350,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "99": {
+   "src": 569582,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "100": {
+   "src": 569657,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "101": {
+   "src": 569740,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "257": {
+   "src": 569823,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "254": {
+   "src": 569908,
+   "stmts": [
+    "gosub *label_2318",
+    "return -1"
+   ]
+  },
+  "344": {
+   "src": 570615,
+   "stmts": [
+    "gosub *label_2330",
+    "return -1"
+   ]
+  },
+  "110": {
+   "src": 570689,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "111": {
+   "src": 570772,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "112": {
+   "src": 570854,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "113": {
+   "src": 570937,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "117": {
+   "src": 571245,
+   "stmts": [
+    "gosub *label_2315",
+    "return -1"
+   ]
+  },
+  "255": {
+   "src": 572095,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "256": {
+   "src": 572178,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "128": {
+   "src": 572364,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "129": {
+   "src": 572461,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "130": {
+   "src": 572558,
+   "stmts": [
+    "gosub *label_2316",
+    "resistmodh var_243, 55, 50",
+    "return -1"
+   ]
+  },
+  "132": {
+   "src": 572747,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "133": {
+   "src": 572834,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "134": {
+   "src": 572921,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "135": {
+   "src": 573011,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "136": {
+   "src": 573101,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "137": {
+   "src": 573191,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "138": {
+   "src": 573281,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "147": {
+   "src": 573359,
+   "stmts": [
+    "gosub *label_2322",
+    "resistmodh var_243, 50, 50",
+    "return -1"
+   ]
+  },
+  "148": {
+   "src": 573442,
+   "stmts": [
+    "resistmodh var_243, 50, 50",
+    "return -1"
+   ]
+  },
+  "153": {
+   "src": 573861,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "154": {
+   "src": 573943,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "155": {
+   "src": 574020,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "156": {
+   "src": 574098,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "157": {
+   "src": 574180,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "158": {
+   "src": 574259,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "164": {
+   "src": 575990,
+   "stmts": [
+    "gosub *label_2326",
+    "return -1"
+   ]
+  },
+  "246": {
+   "src": 576165,
+   "stmts": [
+    "gosub *label_2326",
+    "return -1"
+   ]
+  },
+  "332": {
+   "src": 576325,
+   "stmts": [
+    "gosub *label_2326",
+    "return -1"
+   ]
+  },
+  "168": {
+   "src": 577586,
+   "stmts": [
+    "gosub *label_2322",
+    "return -1"
+   ]
+  },
+  "178": {
+   "src": 578520,
+   "stmts": [
+    "gosub *label_2313",
+    "return -1"
+   ]
+  },
+  "186": {
+   "src": 579752,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "187": {
+   "src": 579827,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "188": {
+   "src": 579905,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "345": {
+   "src": 580063,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "346": {
+   "src": 580226,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "341": {
+   "src": 580307,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "258": {
+   "src": 580383,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "189": {
+   "src": 580460,
+   "stmts": [
+    "gosub *label_2306",
+    "return -1"
+   ]
+  },
+  "190": {
+   "src": 580535,
+   "stmts": [
+    "gosub *label_2306",
+    "return -1"
+   ]
+  },
+  "191": {
+   "src": 580610,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "193": {
+   "src": 580763,
+   "stmts": [
+    "gosub *label_2327",
+    "return -1"
+   ]
+  },
+  "196": {
+   "src": 580945,
+   "stmts": [
+    "resistmodh var_243, 54, 50",
+    "return -1"
+   ]
+  },
+  "201": {
+   "src": 581021,
+   "stmts": [
+    "resistmodh var_243, 54, 50",
+    "return -1"
+   ]
+  },
+  "197": {
+   "src": 581097,
+   "stmts": [
+    "resistmodh var_243, 54, 50",
+    "return -1"
+   ]
+  },
+  "198": {
+   "src": 581173,
+   "stmts": [
+    "resistmodh var_243, 54, 50",
+    "return -1"
+   ]
+  },
+  "199": {
+   "src": 581249,
+   "stmts": [
+    "resistmodh var_243, 53, 50",
+    "return -1"
+   ]
+  },
+  "200": {
+   "src": 581326,
+   "stmts": [
+    "resistmodh var_243, 53, 50",
+    "return -1"
+   ]
+  },
+  "212": {
+   "src": 581787,
+   "stmts": [
+    "gosub *label_2314",
+    "return -1"
+   ]
+  },
+  "216": {
+   "src": 583702,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "218": {
+   "src": 583786,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "220": {
+   "src": 583950,
+   "stmts": [
+    "gosub *label_2323",
+    "return -1"
+   ]
+  },
+  "250": {
+   "src": 584035,
+   "stmts": [
+    "resistmodh var_243, 60, 50",
+    "return -1"
+   ]
+  },
+  "267": {
+   "src": 585033,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "276": {
+   "src": 585168,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "275": {
+   "src": 585306,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "268": {
+   "src": 585444,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "277": {
+   "src": 585582,
+   "stmts": [
+    "gosub *label_2308",
+    "return -1"
+   ]
+  },
+  "318": {
+   "src": 586753,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "323": {
+   "src": 587215,
+   "stmts": [
+    "gosub *label_2331",
+    "skillexp 15, var_243, 250",
+    "return -1"
+   ]
+  },
+  "324": {
+   "src": 587291,
+   "stmts": [
+    "gosub *label_2332",
+    "return -1"
+   ]
+  },
+  "325": {
+   "src": 587365,
+   "stmts": [
+    "gosub *label_2332",
+    "return -1"
+   ]
+  },
+  "328": {
+   "src": 587483,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "329": {
+   "src": 587600,
+   "stmts": [
+    "gosub *label_2305",
+    "return -1"
+   ]
+  },
+  "330": {
+   "src": 587677,
+   "stmts": [
+    "gosub *label_2335",
+    "return -1"
+   ]
+  }
+ },
+ "labels": {
+  "label_2305": [
+   {
+    "line": 226859,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226860,
+    "code": "txtef 8"
+   },
+   {
+    "line": 226861,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226862,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226863,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226864,
+    "code": "txt_select lang(\"まるで鉄のように硬い！\" + name(var_243) + \"の胃は悲鳴をあげた。\", \"It's too hard! \" + name(var_243) + your(var_243) + \" stomach screams.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226865,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226866,
+    "code": "}"
+   },
+   {
+    "line": 226867,
+    "code": "dmgcon var_243, 7, 200"
+   },
+   {
+    "line": 226868,
+    "code": "return"
+   }
+  ],
+  "label_2306": [
+   {
+    "line": 226870,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226871,
+    "code": "txtef 8"
+   },
+   {
+    "line": 226872,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226873,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226874,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226875,
+    "code": "txt_select lang(\"気が変になりそうな味だ。\", \"It tastes really, really strange.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226876,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226877,
+    "code": "}"
+   },
+   {
+    "line": 226878,
+    "code": "dmgsan var_243, 25"
+   },
+   {
+    "line": 226879,
+    "code": "dmgcon var_243, 11, 500"
+   },
+   {
+    "line": 226880,
+    "code": "return"
+   }
+  ],
+  "label_2307": [
+   {
+    "line": 226882,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226883,
+    "code": "txtef 2"
+   },
+   {
+    "line": 226884,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226885,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226886,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226887,
+    "code": "txt_select lang(name(var_243) + \"の病気は軽くなった。\", name(var_243) + \" feel\" + _s(var_243) + \" less sick.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226888,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226889,
+    "code": "}"
+   },
+   {
+    "line": 226890,
+    "code": "healcon var_243, 12, 10"
+   },
+   {
+    "line": 226891,
+    "code": "return"
+   }
+  ],
+  "label_2308": [
+   {
+    "line": 226893,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226894,
+    "code": "txtef 2"
+   },
+   {
+    "line": 226895,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226896,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226897,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226898,
+    "code": "txt_select lang(\"馬肉だ！これは精がつきそうだ。\", \"A horsemeat! It's nourishing\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226899,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226900,
+    "code": "}"
+   },
+   {
+    "line": 226901,
+    "code": "skillexp 11, var_243, 100"
+   },
+   {
+    "line": 226902,
+    "code": "return"
+   }
+  ],
+  "label_2309": [
+   {
+    "line": 226904,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226905,
+    "code": "txtef 2"
+   },
+   {
+    "line": 226906,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226907,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226908,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226909,
+    "code": "txt_select lang(name(var_243) + \"は神聖なものを汚した気がした。\", name(var_243) + \" feel\" + _s(var_243) + \" as \" + he(var_243) + \" \" + have(var_243) + \" been corrupted.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226910,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226911,
+    "code": "}"
+   },
+   {
+    "line": 226912,
+    "code": "resistmodh var_243, 53, 50"
+   },
+   {
+    "line": 226913,
+    "code": "return"
+   }
+  ],
+  "label_2310": [
+   {
+    "line": 226915,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226916,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226917,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226918,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226919,
+    "code": "txt_select lang(\"＠を食べるなんて…\", \"You dare to eat @...\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226920,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226921,
+    "code": "}"
+   },
+   {
+    "line": 226922,
+    "code": "return"
+   }
+  ],
+  "label_2311": [
+   {
+    "line": 226924,
+    "code": "if ( var_243 != 0 ) {"
+   },
+   {
+    "line": 226925,
+    "code": "return"
+   },
+   {
+    "line": 226926,
+    "code": "}"
+   },
+   {
+    "line": 226927,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226928,
+    "code": "txtef 8"
+   },
+   {
+    "line": 226929,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226930,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226931,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226932,
+    "code": "txt_select lang(\"ガード達はあなたを憎悪した。\", \"Guards hate you.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226933,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226934,
+    "code": "}"
+   },
+   {
+    "line": 226935,
+    "code": "modkarma var_243, -15"
+   },
+   {
+    "line": 226936,
+    "code": "return"
+   }
+  ],
+  "label_2312": [
+   {
+    "line": 226938,
+    "code": "if ( var_99(31, var_579) != 1 ) {"
+   },
+   {
+    "line": 226939,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226940,
+    "code": "txtef 2"
+   },
+   {
+    "line": 226941,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226942,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226943,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226944,
+    "code": "txt_select lang(name(var_243) + \"の体は一瞬燃え上がった。\", name(var_243) + your(var_243) + \" body burns up for a second.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226945,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226946,
+    "code": "}"
+   },
+   {
+    "line": 226947,
+    "code": "resistmodh var_243, 50, 50"
+   },
+   {
+    "line": 226948,
+    "code": "}"
+   },
+   {
+    "line": 226949,
+    "code": "return"
+   }
+  ],
+  "label_2313": [
+   {
+    "line": 226951,
+    "code": "if ( var_99(31, var_579) != 1 ) {"
+   },
+   {
+    "line": 226952,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226953,
+    "code": "txtef 8"
+   },
+   {
+    "line": 226954,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226955,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226956,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226957,
+    "code": "txt_select lang(name(var_243) + \"の胃は狂気で満たされた。\", \"Sheer madness!\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226958,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226959,
+    "code": "}"
+   },
+   {
+    "line": 226960,
+    "code": "resistmodh var_243, 54, 50"
+   },
+   {
+    "line": 226961,
+    "code": "dmgsan var_243, 200"
+   },
+   {
+    "line": 226962,
+    "code": "dmgcon var_243, 11, 1000"
+   },
+   {
+    "line": 226963,
+    "code": "}"
+   },
+   {
+    "line": 226964,
+    "code": "return"
+   }
+  ],
+  "label_2314": [
+   {
+    "line": 226966,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226967,
+    "code": "txtef 2"
+   },
+   {
+    "line": 226968,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226969,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226970,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226971,
+    "code": "txt_select lang(\"肌がつるつるになりそうだ。\", name(var_243) + your(var_243) + \" skin becomes smooth.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226972,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226973,
+    "code": "}"
+   },
+   {
+    "line": 226974,
+    "code": "skillexp 17, var_243, 150"
+   },
+   {
+    "line": 226975,
+    "code": "return"
+   }
+  ],
+  "label_2315": [
+   {
+    "line": 226977,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226978,
+    "code": "txtef 2"
+   },
+   {
+    "line": 226979,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226980,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226981,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226982,
+    "code": "txt_select lang(name(var_243) + \"は恋をしている気分になった！\", name(var_243) + \" feel\" + _s(var_243) + \" love!\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226983,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226984,
+    "code": "}"
+   },
+   {
+    "line": 226985,
+    "code": "skillexp 17, var_243, 400"
+   },
+   {
+    "line": 226986,
+    "code": "return"
+   }
+  ],
+  "label_2316": [
+   {
+    "line": 226988,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 226989,
+    "code": "txtef 8"
+   },
+   {
+    "line": 226990,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 226991,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 226992,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 226993,
+    "code": "txt_select lang(\"これは有毒だ！\", \"Argh! It's poisonous!\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 226994,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 226995,
+    "code": "}"
+   },
+   {
+    "line": 226996,
+    "code": "dmgcon var_243, 1, 100"
+   },
+   {
+    "line": 226997,
+    "code": "return"
+   }
+  ],
+  "label_2317": [
+   {
+    "line": 226999,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227000,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227001,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227002,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227003,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227004,
+    "code": "txt_select lang(\"血が沸き立つようだ。\", \"A troll meat. This must be good for your body.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227005,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227006,
+    "code": "}"
+   },
+   {
+    "line": 227007,
+    "code": "skillexp 154, var_243, 200"
+   },
+   {
+    "line": 227008,
+    "code": "return"
+   }
+  ],
+  "label_2318": [
+   {
+    "line": 227010,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227011,
+    "code": "txtef 8"
+   },
+   {
+    "line": 227012,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227013,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227014,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227015,
+    "code": "txt_select lang(\"腐ってるなんて分かりきっていたのに…うげぇ\", \"Of course, it's rotten! Urgh...\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227016,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227017,
+    "code": "}"
+   },
+   {
+    "line": 227018,
+    "code": "gosub *label_2302"
+   },
+   {
+    "line": 227019,
+    "code": "return"
+   }
+  ],
+  "label_2319": [
+   {
+    "line": 227021,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227022,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227023,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227024,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227025,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227026,
+    "code": "txt_select lang(\"力が湧いてくるようだ。\", \"Mighty taste!\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227027,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227028,
+    "code": "}"
+   },
+   {
+    "line": 227029,
+    "code": "skillexp 10, var_243, 250"
+   },
+   {
+    "line": 227030,
+    "code": "return"
+   }
+  ],
+  "label_2320": [
+   {
+    "line": 227032,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227033,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227034,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227035,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227036,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227037,
+    "code": "txt_select lang(\"微かな魔力の刺激を感じた。\", name(var_243) + \" \" + is(var_243) + \" magically stimulated.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227038,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227039,
+    "code": "}"
+   },
+   {
+    "line": 227040,
+    "code": "skillexp 155, var_243, 250"
+   },
+   {
+    "line": 227041,
+    "code": "resistmodh var_243, 57, 50"
+   },
+   {
+    "line": 227042,
+    "code": "return"
+   }
+  ],
+  "label_2321": [
+   {
+    "line": 227044,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227045,
+    "code": "txtef 8"
+   },
+   {
+    "line": 227046,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227047,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227048,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227049,
+    "code": "txt_select lang(\"胃の調子がおかしい…\", \"Something is wrong with \" + name(var_243) + your(var_243) + \" stomach...\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227050,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227051,
+    "code": "}"
+   },
+   {
+    "line": 227052,
+    "code": "dmgcon var_243, 5, 200"
+   },
+   {
+    "line": 227053,
+    "code": "return"
+   }
+  ],
+  "label_2322": [
+   {
+    "line": 227055,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227056,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227057,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227058,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227059,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227060,
+    "code": "txt_select lang(\"この肉は心を落ち着かせる効果があるようだ。\", \"Eating this brings \" + name(var_243) + \" inner peace.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227061,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227062,
+    "code": "}"
+   },
+   {
+    "line": 227063,
+    "code": "healsan var_243, 20"
+   },
+   {
+    "line": 227064,
+    "code": "return"
+   }
+  ],
+  "label_2323": [
+   {
+    "line": 227066,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227067,
+    "code": "txtef 8"
+   },
+   {
+    "line": 227068,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227069,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227070,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227071,
+    "code": "txt_select lang(name(var_243) + \"の胃は狂気で満たされた。\", \"Sheer madness!\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227072,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227073,
+    "code": "}"
+   },
+   {
+    "line": 227074,
+    "code": "dmgsan var_243, 50"
+   },
+   {
+    "line": 227075,
+    "code": "resistmodh var_243, 54, 50"
+   },
+   {
+    "line": 227076,
+    "code": "return"
+   }
+  ],
+  "label_2324": [
+   {
+    "line": 227078,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227079,
+    "code": "txtef 8"
+   },
+   {
+    "line": 227080,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227081,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227082,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227083,
+    "code": "txt_select lang(name(var_243) + \"の胃は混沌で満たされた。\", name(var_243) + \" \" + is(var_243) + \" shaken by a chaotic power.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227084,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227085,
+    "code": "}"
+   },
+   {
+    "line": 227086,
+    "code": "dmgcon var_243, 5, 300"
+   },
+   {
+    "line": 227087,
+    "code": "return"
+   }
+  ],
+  "label_2325": [
+   {
+    "line": 227089,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227090,
+    "code": "txtef 8"
+   },
+   {
+    "line": 227091,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227092,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227093,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227094,
+    "code": "txt_select lang(name(var_243) + \"の神経に電流が走った。\", name(var_243) + your(var_243) + \" nerve is damaged.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227095,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227096,
+    "code": "}"
+   },
+   {
+    "line": 227097,
+    "code": "dmgcon var_243, 3, 300"
+   },
+   {
+    "line": 227098,
+    "code": "return"
+   }
+  ],
+  "label_2326": [
+   {
+    "line": 227100,
+    "code": "if ( var_243 != 0 ) {"
+   },
+   {
+    "line": 227101,
+    "code": "return"
+   },
+   {
+    "line": 227102,
+    "code": "}"
+   },
+   {
+    "line": 227103,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227104,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227105,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227106,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227107,
+    "code": "txt_select lang(\"猫を食べるなんて！！\", \"How can you eat a cat!!\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227108,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227109,
+    "code": "}"
+   },
+   {
+    "line": 227110,
+    "code": "modkarma 0, -5"
+   },
+   {
+    "line": 227111,
+    "code": "return"
+   }
+  ],
+  "label_2327": [
+   {
+    "line": 227113,
+    "code": "if ( var_243 != 0 ) {"
+   },
+   {
+    "line": 227114,
+    "code": "return"
+   },
+   {
+    "line": 227115,
+    "code": "}"
+   },
+   {
+    "line": 227116,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227117,
+    "code": "txtef 8"
+   },
+   {
+    "line": 227118,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227119,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227120,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227121,
+    "code": "txt_select lang(name(var_243) + \"の体内はエーテルで満たされた。\", \"Ether corrupts your body.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227122,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227123,
+    "code": "}"
+   },
+   {
+    "line": 227124,
+    "code": "modcorrupt 1000"
+   },
+   {
+    "line": 227125,
+    "code": "return"
+   }
+  ],
+  "label_2328": [
+   {
+    "line": 227127,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227128,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227129,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227130,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227131,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227132,
+    "code": "txt_select lang(\"体力がつきそうだ。\", \"This food is good for your endurance.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227133,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227134,
+    "code": "}"
+   },
+   {
+    "line": 227135,
+    "code": "return"
+   }
+  ],
+  "label_2329": [
+   {
+    "line": 227137,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227138,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227139,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227140,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227141,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227142,
+    "code": "txt_select lang(\"魔力が鍛えられる。\", \"This food is good for your magic.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227143,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227144,
+    "code": "}"
+   },
+   {
+    "line": 227145,
+    "code": "return"
+   }
+  ],
+  "label_2330": [
+   {
+    "line": 227147,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227148,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227149,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227150,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227151,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227152,
+    "code": "txt_select lang(\"力がつきそうだ。\", \"This food is good for your strength.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227153,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227154,
+    "code": "}"
+   },
+   {
+    "line": 227155,
+    "code": "return"
+   }
+  ],
+  "label_2331": [
+   {
+    "line": 227157,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227158,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227159,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227160,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227161,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227162,
+    "code": "txt_select lang(\"精神が少しずぶとくなった。\", \"This food is good for your will power.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227163,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227164,
+    "code": "}"
+   },
+   {
+    "line": 227165,
+    "code": "return"
+   }
+  ],
+  "label_2332": [
+   {
+    "line": 227167,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227168,
+    "code": "txtef 2"
+   },
+   {
+    "line": 227169,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227170,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227171,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227172,
+    "code": "txt_select lang(\"ワアーォ、\" + name(var_243) + \"は速くなった気がする！\", \"Wow, \" + name(var_243) + \" speed\" + _s(var_243) + \" up!\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227173,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227174,
+    "code": "}"
+   },
+   {
+    "line": 227175,
+    "code": "if ( var_243 == 0 ) {"
+   },
+   {
+    "line": 227176,
+    "code": "skillexp 18, var_243, 2000"
+   },
+   {
+    "line": 227177,
+    "code": "}"
+   },
+   {
+    "line": 227178,
+    "code": "else {"
+   },
+   {
+    "line": 227179,
+    "code": "skillexp 18, var_243, 8000"
+   },
+   {
+    "line": 227180,
+    "code": "}"
+   },
+   {
+    "line": 227181,
+    "code": "return"
+   }
+  ],
+  "label_2333": [
+   {
+    "line": 227183,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227184,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227185,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227186,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227187,
+    "code": "txt_select lang(\"何かが\" + name(var_243) + \"の体内に入り込んだ。\", \"Something gets into \" + name(var_243) + your(var_243) + \" body.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227188,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227189,
+    "code": "}"
+   },
+   {
+    "line": 227190,
+    "code": "var_244 = var_243"
+   },
+   {
+    "line": 227191,
+    "code": "gosub *label_2334"
+   },
+   {
+    "line": 227192,
+    "code": "return"
+   }
+  ],
+  "label_2335": [
+   {
+    "line": 227243,
+    "code": "if ( synccheck(var_243, -1) ) {"
+   },
+   {
+    "line": 227244,
+    "code": "var_242 = 0"
+   },
+   {
+    "line": 227245,
+    "code": "var_246 = 1 + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\") + (\"\" != \"\")"
+   },
+   {
+    "line": 227246,
+    "code": "var_246 = rnd(var_246)"
+   },
+   {
+    "line": 227247,
+    "code": "txt_select lang(\"何かが\" + name(var_243) + \"の体内に入り込んだ。\", \"Something gets into \" + name(var_243) + your(var_243) + \" body.\"), \"\", \"\", \"\", \"\", \"\", \"\", \"\", \"\""
+   },
+   {
+    "line": 227248,
+    "code": "var_209 = 255, 255, 255"
+   },
+   {
+    "line": 227249,
+    "code": "}"
+   },
+   {
+    "line": 227250,
+    "code": "var_244 = var_243"
+   },
+   {
+    "line": 227251,
+    "code": "gosub *label_2336"
+   },
+   {
+    "line": 227252,
+    "code": "return"
+   }
+  ]
+ }
+}

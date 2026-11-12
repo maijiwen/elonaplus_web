@@ -48,7 +48,15 @@ public class ElonaServer {
     private static void handleApi(HttpExchange ex) throws IOException {
         String path = ex.getRequestURI().getPath();
         String method = ex.getRequestMethod();
+        // 允许页面由其它静态服务器（IDE 预览 / Live Server）打开时跨域调用本机存档服务
+        ex.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+        ex.getResponseHeaders().set("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
+        ex.getResponseHeaders().set("Access-Control-Allow-Headers", "Content-Type");
         try {
+            if (method.equals("OPTIONS")) {
+                ex.sendResponseHeaders(204, -1);
+                return;
+            }
             if (path.equals("/api/ping")) {
                 sendText(ex, 200, "{\"ok\":true,\"server\":\"elona-web\",\"version\":1}");
                 return;

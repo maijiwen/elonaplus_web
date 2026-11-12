@@ -154,7 +154,8 @@
     const cell = g.map.cell(x, y);
     if (!cell) return true;                                    // 越界视为遮挡
     if (g.map.attr(cell[0], 7) & 1) return true;
-    if (g.map.attr(idiv(cell[6], 1000), 7) & 1) return true;
+    // 注意：HSP 的 `\` 是取余，所以 feature 的图块号 = var_704(x,y,6) % 1000
+    if (g.map.attr((cell[6] | 0) % 1000, 7) & 1) return true;
     return false;
   }
   /** mef 槽内类型查询（优先 g.mef；兼容旧的 g.mefTypeOf 钩子；都没有则视为无 mef） */

@@ -11,7 +11,7 @@
  *   26 SPRING  泉   → 分类 13（水）   技能 185 釣り
  *   27 REMAINS 残骸 → 分类 16（遗传） 技能 151 生化学
  *   28 PLANT   植物 → 分类 15（草）   技能 180 栽培
- *   24 GATHER  采集点 → 分类由**地块编号**决定（var_126(6) 20..27）
+ *   24 GATHER  采集点 → 分类由**地图 header[6]** 决定（var_126(6) 20..27）
  *
  * 材料本身见 core/material.js。
  */
@@ -22,8 +22,13 @@
   /** 采集点类型 → 固定分类（305864-305875） */
   const FEAT_CAT = { 25: 14, 26: 13, 27: 16, 28: 15 };
 
-  /** 地块编号 → 分类（305795-305818，仅 24 号采集点会用到） */
-  const TILE_CAT = {
+  /**
+   * 地图 kind（var_126(6)，即 header[6]）→ 分类（305795-305818，仅 24 号采集点会用到）。
+   * 注意：源码判断的是地图 header[6]（ネフィア地形主题 20..27），
+   *   不是脚下地块 cell[0]。此前按 cell[0] 查表，地下城地面统一为 33 时落到 11 号
+   *   「无产出」分类，导致 A71 的 24 号采集点永远采不到东西。
+   */
+  const KIND_CAT = {
     20: 9, 21: 12, 22: 10, 23: 12, 24: 16, 25: 10, 26: 14, 27: 13,
   };
 
@@ -66,10 +71,9 @@
   function categoryOf(g, feat, x, y) {
     let cat = FEAT_CAT[feat.type] || 0;
     if (cat) return cat;
-    // 24 号采集点：分类由地块决定（305795-305818）
-    const cell = g.map && g.map.cell(x, y);
-    const tile = cell ? (cell[0] | 0) : 0;
-    return TILE_CAT[tile] || 11;
+    // 24 号采集点：分类由地图 header[6] 决定（305795-305818）
+    const kind = (g.map && g.map.header) ? (g.map.header[6] | 0) : 0;
+    return KIND_CAT[kind] || 11;
   }
 
   /**
@@ -188,8 +192,30 @@
     return { id: 238 + rnd(3), type: 24 };             // var_1610 = 238
   }
 
+  /**
+   * ネフィア热狂时的采集点放置 —— map_fever（228946-228980）。
+   *
+   * 与 map_randsite 的区别：
+   *   · 四种固定采集点各按 rnd(4)==0（25%）判定
+   *   · 兜底同样是 24 号采集点（var_1610 + rnd(3) = 238..240）
+   *   · 另外有 1% 概率直接放一个仪式用祭坛（item 172）
+   * 这里只返回「特性 / 物品」描述，具体落格由调用方决定。
+   *
+   * @returns {null|{kind?:'item', id:number, type?:number, featId?:number}}
+   */
+  function rollFever(rnd) {
+    // 228947-228954：var_126(3)==0（新生成的地图）时 1% 放祭坛 172
+    if (rnd(100) === 0) return { kind: 'item', id: 172 };
+    if (rnd(4) === 0) return { id: 243, type: 27, featId: 243 };   // 残骸
+    if (rnd(4) === 0) return { id: 244, type: 25, featId: 244 };   // 矿脉
+    if (rnd(4) === 0) return { id: 245, type: 26, featId: 245 };   // 泉
+    if (rnd(4) === 0) return { id: 246, type: 28, featId: 246 };   // 植物
+    const fid = 238 + rnd(3);                                  // var_1610 = 238
+    return { id: fid, type: 24, featId: fid };
+  }
+
   Elona.Gather = {
-    FEAT_CAT, TILE_CAT, CAT_ACT, ATTEMPTS, SPOT_TEXT,
-    isSpotType, spotAt, categoryOf, matLevel, gather, rollSite,
+    FEAT_CAT, KIND_CAT, CAT_ACT, ATTEMPTS, SPOT_TEXT,
+    isSpotType, spotAt, categoryOf, matLevel, gather, rollSite, rollFever,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

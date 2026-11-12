@@ -211,6 +211,18 @@
     const times = (id === 430) ? 2 : 1;                       // 321220-321223
     let marked = 0;
     const items = g.groundItems || [];
+    // 0-DW：揭示要同时更新迷雾的 seen 表（原版写 var_704(x,y,2)）
+    const mark = (x, y) => {
+      if (Elona.Fov && Elona.Fov.reveal) Elona.Fov.reveal(g, x, y);
+      else if (g.map.markSeen) g.map.markSeen(x, y);
+      else {
+        // 没有迷雾层（测试桩 / 极简地图）时直接写记忆图块：
+        //   321241 / 321245 `var_704(x,y,2) = var_704(x,y,0)`
+        const c = g.map.cell(x, y);
+        if (c) c[2] = c[0];
+      }
+      marked++;
+    };
     for (let pass = 0; pass < times; pass++) {
       for (let y = 0; y < h; y++) {
         for (let x = 0; x < w; x++) {
@@ -225,17 +237,74 @@
             continue;
           }
           if (!(d <= 7 || R(g, power + 1) > R(g, d * 8 + 1) || blessed)) continue;  // 321239
-          if (id === 429) { cell[2] = cell[0]; marked++; }
+          if (id === 429) mark(x, y);
           if (id === 430) {
+            // 321244：feat / 显示物品 / 角色 / 地面物品
             const hasThing = (cell[1] | 0) !== 0 || (cell[6] | 0) !== 0
-              || (cell[8] | 0) !== 0 || items.some((it) => it && it.x === x && it.y === y);
-            if (hasThing) { cell[2] = cell[0]; marked++; }
+              || (cell[4] | 0) !== 0
+              || items.some((it) => {
+                if (!it) return false;
+                const ix = it.f ? (it.f[5] | 0) : (it.x | 0);
+                const iy = it.f ? (it.f[6] | 0) : (it.y | 0);
+                return ix === x && iy === y && (!it.f || (it.f[0] | 0) > 0);
+              });
+            if (hasThing) mark(x, y);
           }
         }
       }
     }
     return marked;
   }
+  /**
+   * 430 物质感知的附带发现（321283-321332）：
+   *   循环范围是 -5..+7（13×13），其中 |dx|<=7 且 |dy|<=7 的部分才提示陷阱 / 隐藏通路；
+   *   小徽章（feat 32）在整圈范围内都会变成地面物品 622（地图 35 除外）。
+   */
+  function senseDiscover(g, caster) {
+    const M = Elona.MapFeat;
+    const map = g.map;
+    if (!M || !map || !g.groundItems) return [];
+    const msgs = [];
+    const mapId = g.getV65 ? (g.getV65(20) | 0) : 0;
+    const cx = caster.x | 0, cy = caster.y | 0;
+    for (let dy = -5; dy <= 7; dy++) {
+      const y = cy + dy;
+      if (y < 0 || y >= map.height) continue;
+      for (let dx = -5; dx <= 7; dx++) {
+        const x = cx + dx;
+        if (x < 0 || x >= map.width) continue;
+        const f = M.read(g, x, y);
+        if (!f.raw) continue;
+        if (Math.abs(cy - y) <= 7 && Math.abs(cx - x) <= 7) {
+          if (f.type === 14 && f.sub === 0) {
+            M.reveal(g, x, y);                                  // *label_3010
+            msgs.push('你感知到了陷阱。');
+          }
+          if (f.type === 22) {                                  // *label_3011
+            const cell = map.cell(x, y);
+            if (cell) cell[0] = Elona.MapTileset ? Elona.MapTileset.hiddenGround(g) : 33;
+            M.clear(g, x, y);
+            if (Elona.Fov && Elona.Fov.reveal) Elona.Fov.reveal(g, x, y);
+            msgs.push('你感知到了隐藏的通路。');
+          }
+        }
+        if (f.type === 32 && mapId !== 35) {                    // 321317：小徽章
+          M.clear(g, x, y);
+          if (Elona.ItemDB) {
+            const it = Elona.ItemDB.createItem(622, 1);
+            if (it) {
+              it.f[5] = x; it.f[6] = y; it.f[21] = -1;
+              g.groundItems.push(it);
+              if (g.refreshGroundCell) g.refreshGroundCell(x, y);
+            }
+          }
+          msgs.push('你找到了一枚小徽章！');
+        }
+      }
+    }
+    return msgs;
+  }
+
   H[429] = function (g, caster, id, tg, power) {
     if (tg && (tg.index | 0) >= 16) {
       return { ok: true, implemented: true, message: '什么也没有发生……' };
@@ -251,10 +320,13 @@
       return { ok: true, implemented: true, message: '什么也没有发生……' };
     }
     const n = senseCells(g, caster, 430, power);
-    sv(g, 173, 10);                                            // 321276
+    // 321283-321332：感知范围（循环 -5..+7）内的陷阱 / 隐藏通路 / 小徽章
+    const extra = senseDiscover(g, caster).join('');
+    // 原版 321276 会临时把 var_65(173) 设为 10（关闭遮挡）并 msg_halt，随后 321341 归 0。
+    // 网页版没有阻塞式等待，记忆图块已经在 senseCells 里写好，这里不再改 var_65(173)。
     return {
       ok: true, implemented: true, sensed: n,
-      message: (g.var2362 | 0) <= -1 ? '咦……？你出现了轻微的失忆。' : '你感知到了周围的物质。',
+      message: ((g.var2362 | 0) <= -1 ? '咦……？你出现了轻微的失忆。' : '你感知到了周围的物质。') + extra,
     };
   };
 
@@ -397,15 +469,33 @@
       return { ok: true, implemented: true, message: '同伴已经满员，无法唤回。' };
     }
     if ((g.var2362 | 0) <= -1) {
-      // 320517-320529：诅咒的卷轴/药水反而唤来亡灵（4+rnd(4) 只 undead）。
-      // 本项目没有「按标签随机取物种」的召唤入口，这里只如实播报（登记 A399）。
-      return { ok: true, implemented: true, cursed: true,
+      // 320517-320529：诅咒的卷轴/药水反而唤来亡灵 ——
+      //   repeat 4+rnd(4)：flt calcobjlv(玩家等级), calcfixlv(3); fltn "undead";
+      //   characreate -1, 0（在玩家脚下随机生成不死系怪物）。
+      const p = g.player;
+      const px = p ? (p.x | 0) : 0, py = p ? (p.y | 0) : 0;
+      const lv = (Elona.ItemDB && Elona.ItemDB.calcObjLv)
+        ? Elona.ItemDB.calcObjLv(p ? (p.get(38) | 0) : 1, g) : 1;
+      const fix = (Elona.ItemDB && Elona.ItemDB.calcFixLv) ? Elona.ItemDB.calcFixLv(3, g) : 3;
+      const n = 4 + R(g, 4);
+      let made = 0;
+      for (let i = 0; i < n; i++) {
+        if (Elona.CharaFactory && Elona.CharaFactory.create) {
+          const c = Elona.CharaFactory.create(g, 0, lv, px, py, { tagName: 'undead', var641: fix });
+          if (c) made++;
+        }
+      }
+      return { ok: true, implemented: true, cursed: true, summoned: made,
         message: '冥界的亡灵被唤了出来！' };
     }
     const dead = (g.charas || []).filter((c) => c && (c.get(0) | 0) === 6 && (c.index | 0) !== 0);
+    if (!dead.length) {
+      return { ok: true, implemented: true, message: '什么也没有发生……' };
+    }
     const pool = dead.filter((c) => (c.get(166) | 0) > 0);
     if (!pool.length) {
-      return { ok: true, implemented: true, message: '没有可以复活的同伴。' };
+      // 320542-320547：选中了但「切换地图前不能复活」
+      return { ok: true, implemented: true, message: '切换地图之前无法复活。' };
     }
     // var_91 = limit((关联属性*5 + 法强)/20 + 40, 40, 100)（wiki 461 行公式）
     const sk = caster.skill(field(id, 0)) | 0;

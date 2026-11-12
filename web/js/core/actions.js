@@ -359,9 +359,12 @@
             }
           } else if (f.type === M.TYPE.HIDDEN) {
             if (M.detect(g, p)) {
-              // *label_3011：把隐藏通路改成普通地板（图块 33）
+              // *label_3011：把隐藏通路改成默认地面 var_1471（按地图类型取，见 core/maptileset.js）
               const cell = g.map.cell(x, y);
-              if (cell) { cell[0] = 33; cell[6] = 0; }
+              if (cell) {
+                cell[0] = Elona.MapTileset ? Elona.MapTileset.hiddenGround(g) : 33;
+                cell[6] = 0;
+              }
               found.push({ kind: 'hidden', x, y });
               g.log('你发现了隐藏的通路。');                 // 348166
             }
@@ -1168,8 +1171,8 @@
       if (!g.map.inBounds(tx, ty)) return { ok: false };
       const cell = g.map.cell(tx, ty);
       if ((g.map.attr(cell[0], 7) & 4) === 0) return { ok: false };
-      // 挖穿：改成地板图块（推断值 33，与 generateDungeon 的地板一致）
-      cell[0] = 33;
+      // 挖穿：改成默认地面 var_1471（313424：var_704(x,y,0) = var_1471）
+      cell[0] = Elona.MapTileset ? Elona.MapTileset.hiddenGround(g) : 33;
       g.refreshGroundCell(tx, ty);
       g.log('你挖穿了墙壁。');
       // 313483 `gosub *label_2152` → `skillexp 163, 0, 100`（163 = 採掘；

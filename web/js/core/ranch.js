@@ -225,7 +225,8 @@
         const t = S.typeOf(g.getV65 ? (g.getV65(20) | 0) : 0, { mapName: g.map.name }, g);
         if (t) return t;
       }
-      return /^ranch/i.test(g.map.name || '') ? MAP_TYPE_RANCH : 0;
+      return /^ranch/i.test(g.map.name || '') ? MAP_TYPE_RANCH
+        : (/^2nouti/i.test(g.map.name || '') ? 100 : 0);   // 廃モンスター牧場（var_132(16)==100）
     },
 
     /**
@@ -1011,6 +1012,13 @@
 
     /** 233266-233291：牧场收款机（レジスター 562）菜单 */
     registerMenu(g) {
+      // 233300-233320：廃モンスター牧場（地图类型 100）只有「放す」与「移動」
+      if (this.mapType(g) === 100) {
+        return [
+          { id: 8, label: '放走同伴（ペットを放す）' },
+          { id: 3, label: '移动寄放者' },
+        ];
+      }
       if (!this.isRanch(g)) return [];
       const f = this.preventFlags(g);
       const out = [
@@ -1030,6 +1038,8 @@
     runRegister(g, id, opts) {
       const o = opts || {};
       switch (id | 0) {
+        case 8: return (Elona.School && Elona.School.releasePet)
+          ? Elona.School.releasePet(g, o.chara) : { ok: false, reason: 'not-ready' };
         case 3: return this.moveLivestock(g, o.chara, o.x, o.y);
         case 4: return this.assignBreeder(g, o.chara);
         case 17: return this.scatterFeed(g, o.item);

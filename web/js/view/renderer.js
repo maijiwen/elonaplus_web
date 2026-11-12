@@ -237,17 +237,27 @@
       ctx.beginPath();
       ctx.rect(0, 0, UI_W, UI_TOP);          // 地图只占 0..511，下方是消息窗
       ctx.clip();
+      // 0-DW：绘制前重算视野（原版在 *label_2114 里逐帧计算，见 core/fov.js）
+      if (Elona.Fov && Elona.Fov.compute) Elona.Fov.compute(game);
+      const fogTile = map.fogTile || 531;
       for (let vy = 0; vy < this.viewH; vy++) {
         for (let vx = 0; vx < this.viewW; vx++) {
           const mx = startX + vx, my = startY + vy;
           const dx = vx * TILE, dy = vy * TILE;
           if (mx < 0 || my < 0 || mx >= map.width || my >= map.height) {
-            // 越界：原版用默认图块 var_812 (=531) 填充
-            this.drawTile(sheet, 531, dx, dy);
+            // 越界：原版用默认图块 var_812 填充
+            this.drawTile(sheet, fogTile, dx, dy);
             continue;
           }
           const cell = map.cells[my][mx];
-          this.drawTile(sheet, cell[0], dx, dy);
+          // 0-DW：未探索 → 只画雾图块（map_setfog 写入的记忆图块）；
+          //   已探索 → 画记忆图块 var_704(x,y,2)（可见时 == 真实图块）。
+          const visible = map.isVisible ? map.isVisible(mx, my) : true;
+          if (!visible && map.isSeen && !map.isSeen(mx, my)) {
+            this.drawTile(sheet, (cell[2] !== undefined && cell[2]) ? cell[2] : fogTile, dx, dy);
+            continue;
+          }
+          this.drawTile(sheet, (cell[2] !== undefined && cell[2]) ? cell[2] : cell[0], dx, dy);
           // 地形特性图块（cell_featread 的 id = field6 \ 1000）：门/楼梯/告示板等
           // 原版在地图对象绘制段 229643 另绘 kind==2 的图块，这里用 feat id 直接绘制。
           // 陷阱(type 14)不绘制，避免暴露未发现的陷阱。
@@ -255,20 +265,26 @@
           //   （打开的门 236、告示板 727、街告示板 732 的黑底占 6 成以上）。
           //   直接 drawImage 会盖出黑方块，所以改走「边缘连通的纯黑→透明」的副本；
           //   门板内部的黑色纹路不连边，仍保留。
+          // 0-DW：feat / deco 只在本帧可见时绘制（原版 33676：field2 == field0 才画）
           const featTile = cell[6] % 1000;
           const featType = Math.floor(cell[6] / 1000) % 100;
-          if (featTile && featType !== 14) {
+          if (visible && featTile && featType !== 14) {
             this.drawTileKeyed(sheet, map.tileset, featTile, dx, dy);
           }
           // 装饰图层 field[7]: 高 16 位为图块ID、低 16 位为参数（33677: f7\10, f7/10）
           const deco = cell[7];
-          if (deco) {
+          if (visible && deco) {
             const decoTile = Math.floor(deco / 10);
             if (decoTile) {
               ctx.globalAlpha = 0.55;   // 装饰半透明，避免完全遮住底层
               this.drawTileKeyed(sheet, map.tileset, decoTile, dx, dy);
               ctx.globalAlpha = 1;
             }
+          }
+          // 0-DW：已探索但不在视野内 → 压暗（原版记忆图块本身偏暗，网页版再叠一层）
+          if (!visible) {
+            ctx.fillStyle = 'rgba(0,0,0,0.45)';
+            ctx.fillRect(dx, dy, TILE, TILE);
           }
         }
       }
@@ -312,6 +328,8 @@
         const x = it.f[5] | 0, y = it.f[6] | 0;
         const vx = x - startX, vy = y - startY;
         if (vx < 0 || vy < -1 || vx >= this.viewW || vy >= this.viewH + 1) continue;
+        // 0-DW：视野外的地面物品不画（原版 var_704(x,y,5) 只在可见时同步）
+        if (game.map && game.map.isVisible && !game.map.isVisible(x, y)) continue;
         // 同格有角色 → 不画（角色图层优先）
         if (game.map && game.map.cell) {
           const c = game.map.cell(x, y);
@@ -355,6 +373,8 @@
       for (let vy = 0; vy < this.viewH; vy++) {
         for (let vx = 0; vx < this.viewW; vx++) {
           const mx = startX + vx, my = startY + vy;
+          // 0-DW：视野外的地面魔法效果不画
+          if (game.map.isVisible && !game.map.isVisible(mx, my)) continue;
           const cell = game.map.cell(mx, my);
           if (!cell || !cell[8]) continue;
           const m = game.mef.s[cell[8] - 1];
@@ -1432,6 +1452,8 @@
         if (mountIdx !== 0 && (c.index | 0) === mountIdx && (c.get(196) | 0) === 0) continue;
         const vx = c.x - startX, vy = c.y - startY;
         if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
+        // 0-DW：视野外的角色不画（原版 var_58(6,c)=var_104 只在可见时更新）
+        if (game.map.isVisible && !game.map.isVisible(c.x, c.y)) continue;
         // 只有具备 PCC 外观的角色（玩家 / cbit(967)）才走合成图；
         // 其余 NPC 一律使用 character.bmp 中各自的 var_58(7) 贴图。
         if (Elona.PCC && c.pcc) {

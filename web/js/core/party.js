@@ -209,6 +209,8 @@
       g.charas[slot] = c;
       c.index = slot;
     }
+    // 589974-589990：从道场/廃モンスター牧場收回寄放者时，先回收 821/822 计数并清 cbit 960
+    if (Elona.School && Elona.School.onJoin) Elona.School.onJoin(g, c);
     c.__ally = true;
     c.__pet = true;
     addToParty(g, c);

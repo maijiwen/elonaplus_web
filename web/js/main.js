@@ -56,12 +56,19 @@
   function startLoop() {
     if (animationHandle) return;
     const tick = () => {
-      if (game.state === STATE.PLAY && game.map) {
+      // 死亡后仍要画一帧，让「你倒下了……」留在消息窗里；
+      // 随后由 handleDeath 自动读档 / 回标题（0-HD）。
+      if ((game.state === STATE.PLAY || game.state === STATE.DEAD) && game.map) {
         game.updateEffects(performance.now());
         renderer.clear();
         if (game.worldMap) renderer.drawWorldMap(game);
         else renderer.drawMap(game);   // 地图 + HUD + 消息窗
-        maybeRowactTurn(performance.now());
+        if (game.state === STATE.PLAY) {
+          maybeRowactTurn(performance.now());
+        } else if (!deathHandled) {
+          deathHandled = true;
+          handleDeath().catch(() => { deathHandled = false; });
+        }
       }
       animationHandle = requestAnimationFrame(tick);
     };
@@ -518,6 +525,27 @@
     }
     if (Elona.Keys.shiftAsEsc) dispatchAction('esc');
   });
+
+  /**
+   * 0-HD：F1 快速存档 / F2 快速读档。
+   *   单独用「捕获阶段」注册，避免被其它窗口的 keydown（stopPropagation）吞掉；
+   *   同时判断 e.key 与 e.code（个别键盘 / 输入法只给其中一个）。
+   *   注：笔记本若把 F1/F2 设成媒体键，需要按 Fn+F1 / Fn+F2，浏览器收不到 F1/F2。
+   */
+  const isFnKey = (e, name) => e.key === name || e.code === name;
+  window.addEventListener('keydown', (e) => {
+    if (!isFnKey(e, 'F1') && !isFnKey(e, 'F2')) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.repeat) return;
+    const t = e.target;
+    if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+    if (isFnKey(e, 'F1')) {
+      if (game.state === STATE.PLAY) doSave('quick');
+    } else if (game.state === STATE.PLAY || game.state === STATE.DEAD) {
+      doLoad('quick', true);
+    }
+  }, true);
 
   window.addEventListener('keydown', (e) => {
     if (game.state !== STATE.PLAY) return;
@@ -1005,33 +1033,80 @@
 
   // ---------- 存档 ----------
   async function doSave(slot) {
+    const id = slot || 'slot1';
     try {
-      await Elona.Save.save(slot || 'slot1', game.serialize());
-      UI.pushMessage(`已保存到存档槽 ${slot || 'slot1'}。`);
+      await Elona.Save.save(id, game.serialize());
+      if (Elona.Save.mode === 'server') {
+        UI.pushMessage(`已保存到存档槽 ${id}（saves/${id}.json）。`);
+      } else {
+        UI.pushMessage(`已保存到存档槽 ${id}（浏览器缓存；未连接本地服务，无法写入 saves/ 目录）。`);
+      }
+      return true;
     } catch (err) {
       UI.pushMessage('保存失败: ' + err.message);
+      return false;
     }
   }
 
-  async function doLoad(slot) {
+  /**
+   * 读档。
+   * @param {string} slot 槽位
+   * @param {boolean} quiet true = 失败时写进消息窗（用于快捷键 / 自动读档），不弹 alert
+   */
+  async function doLoad(slot, quiet) {
+    const id = slot || 'slot1';
     if (titleScreen) titleScreen.stop();
     UI.setLoading(true);
     try {
-      const data = await Elona.Save.load(slot || 'slot1');
+      const data = await Elona.Save.load(id);
+      // 读档会替换整份游戏状态，先把上一个存档留下的窗口全部关掉
+      UI.closeInventory();
+      if (Elona.Panels) Elona.Panels.close();
       await game.deserialize(data);
       await renderer.loadSheet(game.map.tileset);
       await renderer.loadCharacterSheet();
       UI.clearMessages();
       UI.rebuildMessages(game.messages);
       UI.show('game');
+      renderer.lastMove = performance.now();
+      // 读档后把 BGM 切到存档所在地图（与 onMapChange 一致）
+      if (Elona.Audio) Elona.Audio.bgm((game.dungeonDepth | 0) > 0 ? 'field' : 'town');
+      deathHandled = false;
+      deathToken++;          // 取消尚未执行的死亡自动读档
       startLoop();
+      return true;
     } catch (err) {
-      alert('读档失败: ' + err.message);
+      if (quiet) UI.pushMessage('读档失败: ' + err.message);
+      else alert('读档失败: ' + err.message);
+      return false;
     } finally {
       UI.setLoading(false);
     }
   }
   Elona.loadGame = doLoad;
+  Elona.saveGame = doSave;
+
+  // 0-HD：玩家死亡 —— 有存档自动读最新的一份，没有存档回标题画面
+  let deathHandled = false;
+  let deathToken = 0;
+  async function handleDeath() {
+    const my = ++deathToken;
+    // 先让死亡消息留在消息窗里，再读档，避免瞬间闪回
+    await new Promise((r) => setTimeout(r, 1200));
+    // 期间玩家自己按 F2 / 读档了 → 放弃这次自动读档
+    if (my !== deathToken) return;
+    if (!Elona.Save) { toMenu(); return; }
+    const slot = await Elona.Save.latest().catch(() => null);
+    if (my !== deathToken) return;
+    if (!slot) {
+      UI.pushMessage('没有可读取的存档，返回标题画面。');
+      toMenu();
+      return;
+    }
+    UI.pushMessage(`自动读取最新存档（${slot}）……`);
+    const ok = await doLoad(slot, true);
+    if (!ok || game.state !== STATE.PLAY) toMenu();
+  }
 
   // ---------- 界面流程 ----------
   function toMenu() {

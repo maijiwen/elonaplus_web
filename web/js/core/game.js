@@ -290,6 +290,11 @@
           if (rr.born && rr.born.length) this.log(`牧场里新增了 ${rr.born.length} 只家畜。`);
         }
       }
+      // 跨日：道场的每日修行（248849-248898，var_65(20)==67 且 var_65(188)>=100）
+      if (Elona.School && this.player) {
+        const sc = Elona.School.tickDay(this);
+        if (sc) for (const m of (sc.messages || [])) this.log(m);
+      }
       // 收容所的劳动产出（248971-249017，renew_major；收容所地图每 120 小时 = 5 天一次）
       if (Elona.Camp && this.player) {
         const cp = Elona.Camp.producePeriodically(this);
@@ -737,6 +742,51 @@
       this.log(`${this.townName(town)} 的街道上可以看到店主、市民和服务区 NPC。`);
     }
 
+    /**
+     * A49：map_init 里直接用 `characreate` 放置、且不在 town_npcs 表里的固定 NPC。
+     *   源码依据：
+     *     238647-238660  地图 25（拉娜）：`var_65(250+273)==1` 时放诺恩（605）@(23,4)
+     *     244275-244288  地图 79（中央神殿）：665 @(20,13)、诺恩（605）@(15,10)
+     *   诺恩的对话分支（389022-389094）负责世界地图切换（见 Game.travelToWorld）。
+     * @returns {number} 实际生成数量
+     */
+    spawnMapInitNpcs(mapId) {
+      if (!Elona.CharaFactory || !this.map) return 0;
+      const id = mapId | 0;
+      const list = [];
+      if (id === 25 && (this.getV65(250 + 273) | 0) === 1) list.push([605, 23, 4]);
+      if (id === 79) {
+        list.push([665, 20, 13]);
+        list.push([605, 15, 10]);
+      }
+      if (!list.length) return 0;
+      const used = new Set();
+      for (const c of this.charas) {
+        if (c && (c.get(0) | 0) === 1) used.add(`${c.x},${c.y}`);
+      }
+      let spawned = 0;
+      for (const [sp, x, y] of list) {
+        if (!this.map.walkable(x, y) || used.has(`${x},${y}`)) continue;
+        let slot = -1;
+        for (let i = 57; i <= 131; i++) {
+          const old = this.charas[i];
+          if (!old || (old.get(0) | 0) !== 1) { slot = i; break; }
+        }
+        if (slot < 0) break;
+        const c = Elona.CharaFactory.create(this, sp, 1, x, y, { index: slot });
+        if (!c) continue;
+        c.set(9, 0);        // 中立
+        c.set(69, 0);
+        c.set(150, 3);      // var_58(150)=3：固定居民
+        c.set(202, 3);
+        this.charas[slot] = c;
+        used.add(`${x},${y}`);
+        spawned++;
+      }
+      if (spawned) this.syncCharaCells();
+      return spawned;
+    }
+
     /** 载入游戏运行所需的全部数据表（原 newGame 内的初始化段） */
     async loadAllTables() {
       await Elona.ItemDB.load();
@@ -750,6 +800,7 @@
       await Elona.Battle.loadWeaponSpells();
       await Elona.Battle.loadWeaponRange();
       await Elona.ItemUse.loadTable();
+      if (Elona.EatFX) await Elona.EatFX.load();   // 0-GX：被吃时的物种特殊效果（var_59=12）
       await Elona.Resist.loadTable();   // 0-BS：resist_msgs（resistmod/resistmodh 提示文本）
       if (Elona.Relation && Elona.Relation.loadWords) await Elona.Relation.loadWords();  // 0-BV：关系阶段名表
       await Elona.CharaFactory.loadTables();
@@ -1346,20 +1397,11 @@
         return { ok: true, action: 'offer', altar };
       }
 
-      // 2) 采集点（type 24..28）—— *label_2941（312985）：
-      //    原版是 40 回合的持续行动「採取」，期间玩家留在原地、移动即中断，
-      //    结束后才由 *label_2909（305786）结算材料。0-FX 之前本项目是「按一下立刻产出」。
+      // 2) 采集点（type 24..28）—— *label_2941 / *label_2942 / *label_2943：
+      //    玩家在采集点上按键时走 var_1296 != 0 的分支（348214-348230），
+      //    直接 gosub *label_2909；305876 的 `repeat 12` 全部在同一次调用内结算，
+      //    也就是「按一次采集键 = 1 回合」出素材，没有 40 回合的持续行动。
       if (Elona.Gather && Elona.Gather.spotAt(this, p.x, p.y)) {
-        const A = Elona.Actions;
-        if (A && (p.get(140) | 0) === 0) {
-          const st = A.begin(this, 8, 40, { x: p.x, y: p.y, turns: 40 });
-          if (st.ok) {
-            this.log('你开始在这里采集……（约 40 回合，移动会中断）');
-            this.endTurn();
-            return { ok: true, action: 'gather-rowact', turns: 40 };
-          }
-        }
-        // 没有动作层（或已在别的行动中）时退回即时结算，不卡住交互
         const r = Elona.Gather.gather(this);
         for (const msg of r.messages) this.log(msg);
         if (r.ok) this.endTurn();
@@ -1666,17 +1708,49 @@
         }
       }
 
-      // 采集点 —— map_randsite（228777-228842）的放置概率。
-      // 注意：原版只在「地块 20..27 且室外」的格子放，24 号采集点的分类由地块决定；
-      // 本项目地下城地面统一是 33 号地块，24 号在那里没有分类可判，故只放 25..28。
+      // 采集点 —— map_randsite（228777-228842）/ map_fever（228920-228980）。
+      //   放置次数 var_400 见 249150-249170：默认 rnd(W*H/400 + 3)，
+      //   随机地城且 var_65(603)==100（ネフィア热狂）时改为 var_400+10 次 map_fever。
+      //   A71：24 号采集点的材料分类在 gather.js 里按 map.header[6] 判定，不再按地块 33 判。
       const spots = [];
-      const nSpots = 3 + this.rng.rnd(3);
-      for (let i = 0; i < nSpots; i++) {
-        const spot = this.randomFloorCell(cells, W, H, up, down);
-        if (!spot) break;
-        const site = Elona.Gather ? Elona.Gather.rollSite((n) => this.rng.rnd(n)) : null;
-        if (!site || site.type === 24) continue;
-        spots.push({ x: spot.x, y: spot.y, id: site.id, type: site.type });
+      const kind6 = this.dungeonKind | 0;
+      let nSpots = this.rng.rnd(idiv(W * H, 400) + 3);
+      if (kind6 === 1) nSpots = this.rng.rnd(40);
+      else if (kind6 === 3) nSpots = this.rng.rnd(this.rng.rnd(this.rng.rnd(12) + 1) + 1);
+      else if (kind6 === 2) nSpots = this.rng.rnd(nSpots + 1);
+      const fever = (this.getV65 ? (this.getV65(603) | 0) : 0) === 100;
+      const rolls = fever ? nSpots + 10 : nSpots;
+      const tattrs = (this.tileAttrs || {})[String(1)] || {};
+      const attr7 = (tid) => { const v = tattrs[String(tid)]; return v ? (v[7] || 0) : 0; };
+      for (let i = 0; i < rolls; i++) {
+        // 落格条件（228922-228936）：20 次尝试，属性 7 的第 2 位为 0（非可挖墙）、无 feat、无物品
+        let pos = null;
+        for (let t = 0; t < 20; t++) {
+          const x = 2 + this.rng.rnd(Math.max(1, W - 5));
+          const y = 2 + this.rng.rnd(Math.max(1, H - 5));
+          const c = cells[y] && cells[y][x];
+          if (!c) continue;
+          if (attr7(c[0]) & 4) continue;
+          if (c[6] !== 0 || c[4] !== 0) continue;
+          pos = { x, y };
+          break;
+        }
+        if (!pos) continue;
+        const site = fever
+          ? (Elona.Gather ? Elona.Gather.rollFever((n) => this.rng.rnd(n)) : null)
+          : (Elona.Gather ? Elona.Gather.rollSite((n) => this.rng.rnd(n)) : null);
+        if (!site) continue;
+        if (site.kind === 'item') {
+          // 228947-228954：仪式用祭坛（item 172），直接落在地面
+          const it = Elona.ItemDB ? Elona.ItemDB.createItem(site.id, 1) : null;
+          if (it) {
+            it.f[5] = pos.x; it.f[6] = pos.y;
+            cells[pos.y][pos.x][4] = 1;
+            items.push(it);
+          }
+          continue;
+        }
+        spots.push({ x: pos.x, y: pos.y, id: site.id, type: site.type });
       }
 
       const header = new Array(100).fill(0);
@@ -1689,6 +1763,8 @@
       // 0-FB：地城地图的 var_126(6) 就是 kind（20..27）——种族分布（236719）与
       //   挖墙掉落表（313183-313266）都按它分派，0-FA 之前一直是 0。
       header[6] = this.dungeonKind | 0;
+      // var_126(7) = var_132(11, mapId)：是否允许放地图采集点（228820）
+      header[7] = 1;
       // 0-FB：230989-231013 —— 陷阱 / 网 / 木桶（生成阶段直接写 cells）
       let hazards = null;
       if (Elona.DungeonFx && Elona.DungeonFx.placeFloorHazards) {
@@ -2143,21 +2219,21 @@
       // 0-FS：自宅也能出门（原版从家里上楼 = var_126(6)==5 → var_65(20)=var_65(850)）
       const home = (Elona.Home && Elona.Home.inHome(this)) ? Elona.Home.site(this) : null;
       if (!town && !home) return false;
-      if (Elona.WorldMap) await Elona.WorldMap.load();
+      // A49：世界地图按 var_65(850) 切换（4 北ティリス / 44 南 / 70 ロスト / 91 エーテル）
+      const wid = (home ? (home.world | 0) : 0) || (this.getV65(850) | 0) || 4;
+      if (Elona.WorldMap) await Elona.WorldMap.load(wid);
       // 0-FA：*label_2469 / *label_2470 —— 进入大地图时补足 / 刷新随机地城入口
       if (Elona.Sites) {
         await Elona.Sites.load();
         Elona.Sites.bindGame(this);
       }
       if (Elona.RandDungeon) {
-        const wid = (home ? (home.world | 0) : 0) || (this.getV65(850) | 0) || 4;
         Elona.RandDungeon.onEnterWorld(this, wid);
       }
       // 【A138】249758：进入世界地图时把各 site 落成格子特性
       //   `cell_featset(x, y, var_132(15,cnt), 15, cnt\100, cnt/100)`。
       //   本项目世界地图不是逐格 GameMap，特性表挂在 g.worldFeats。
       if (Elona.Sites && Elona.Sites.buildWorldFeats) {
-        const wid = (home ? (home.world | 0) : 0) || (this.getV65(850) | 0) || 4;
         Elona.Sites.buildWorldFeats(this, wid);
         Elona.Sites.buildWorldFeats(this, 4);
       }
@@ -2173,6 +2249,44 @@
       this.setV65(5, this.worldMap.x);
       this.setV65(6, this.worldMap.y);
       this.log('你来到了世界地图。');
+      return true;
+    }
+
+    /**
+     * A49：剧情对话触发的世界移动（诺恩「ロストイルヴァへ移動する？」等，
+     *   源码 389022-389094）。
+     *   原版脚本只写 `var_65(850) = 目标世界`、`var_65(5)/(6) = 目标坐标`、
+     *   `var_65(79) = 1`，由 249618 `world_update` 重新载入世界地图。
+     *   网页版世界地图是独立模式，所以这里直接切世界并落到脚本给的坐标。
+     */
+    async travelToWorld(worldId) {
+      const wid = (worldId | 0) || 4;
+      const from = this.getV65(20) | 0;
+      // 落点对应源码 `var_65(5) = var_132(1, site), var_132(2, site)`：
+      //   25→70 中央神殿(79)、79→4 拉娜(25)、71→44 メルガスト(55)、65→70 ウルム・レソン(71)
+      //   记忆之灯：91→エーテル(92)、946→ヴェルニース(5)
+      const ARRIVE = { '25>70': 79, '79>4': 25, '71>44': 55, '65>70': 71 };
+      const DEFAULT_ARRIVAL = { 4: 5, 44: 55, 70: 79, 91: 92 };
+      const siteId = ARRIVE[`${from}>${wid}`] || DEFAULT_ARRIVAL[wid] || 0;
+      const st = (siteId && Elona.Sites && Elona.Sites.get) ? Elona.Sites.get(siteId) : null;
+      let x = st && st.fields ? (st.fields[1] | 0) : (this.getV65(5) | 0);
+      let y = st && st.fields ? (st.fields[2] | 0) : (this.getV65(6) | 0);
+      // 脚本里的多值赋值（`var_65(5) = var_132(1,n), var_132(2,n)`）网页版解析不完整，
+      //   这里以 site 表为准重新写回，保证落点与原版一致。
+      this.setV65(5, x);
+      this.setV65(6, y);
+      this.setV65(850, wid);
+      if (Elona.WorldMap) await Elona.WorldMap.load(wid);
+      if (Elona.Sites) { await Elona.Sites.load(); Elona.Sites.bindGame(this); }
+      if (Elona.RandDungeon) Elona.RandDungeon.onEnterWorld(this, wid);
+      if (Elona.Sites && Elona.Sites.buildWorldFeats) {
+        Elona.Sites.buildWorldFeats(this, wid);
+      }
+      this.worldMap = { x, y };
+      this.worldLook = null;
+      this.questMap = null;
+      this.dungeonDepth = 0;
+      this.log('你来到了新的世界。');
       return true;
     }
 
@@ -2556,11 +2670,12 @@
         this.setV65(20, 0);
         this.setV65(22, 0);
         this.dungeonDepth = 0;
-        if (Elona.WorldMap && typeof Elona.WorldMap.load === 'function') await Elona.WorldMap.load();
+        // A49：按 var_65(850) 载入对应世界地图（野外可能属于非北ティリス的世界）
+        const wid = (this.getV65(850) | 0) || trip.worldId || 4;
+        if (Elona.WorldMap && typeof Elona.WorldMap.load === 'function') await Elona.WorldMap.load(wid);
         if (Elona.Sites) { await Elona.Sites.load(); Elona.Sites.bindGame(this); }
         // 0-FA：*label_2469 / *label_2470 —— 回到大地图时刷新随机地城入口
         if (Elona.RandDungeon) {
-          const wid = (this.getV65(850) | 0) || trip.worldId || 4;
           Elona.RandDungeon.onEnterWorld(this, wid);
         }
         this.worldMap = { x: trip.wx | 0, y: trip.wy | 0 };
@@ -2714,7 +2829,7 @@
       // 之前误用 Sites.fileOf(151) → 落到 _default('vernis')，导致「进自己的博物馆却进了 Vernis」。
       const file = (site.player && site.map)
         ? ((S && S.estateFile(site.type)) || (S ? S.fileOf(site.map) : 'vernis'))
-        : (S ? S.fileOf(site.id) : 'vernis');
+        : (S ? S.fileOf(site.id, this.getV65(22)) : 'vernis');
       await S.mapNames();
       if (!S.hasMapSync(file)) {
         this.log(`${siteLabel} 的地图（${file}）尚未提取，无法进入。`);
@@ -2729,6 +2844,10 @@
       this.charas = [this.player];
       this.syncCharaCells();
       this.restoreParty();            // 0-DG：同伴随行
+      // A49：map_init 里不走城镇表的固定 NPC（拉娜的诺恩 / 中央神殿的守卫）
+      this.spawnMapInitNpcs(site.id);
+      // 245601-245609：道场（地图 67）生成师范；寄放者显隐已由 restoreParty 处理
+      if (Elona.School) Elona.School.onMapEnter(this);
       this.onEnterFarmMap();           // 0-FE：农田刷新（堆肥箱 / 野兽灾害）
       this.checkStoryEvents();         // 0-DG：进图剧情
       // 0-DB：建筑内部布置（家具 / 容量）与访客生成（238053-238145 / 236834-236875）
@@ -2839,6 +2958,13 @@
       // 0-FZ / A27：*label_2647 的配方窗口由「使用錬金術の道具」(127) 进入；
       //   m 键只负责 *label_2582 的素材查看窗口（此前由素材窗按 r 进调合）。
       if ((it.id | 0) === 127 && Elona.Panels && Elona.Panels.openCraft) {
+        Elona.Panels.openCraft(this);
+        return { ok: true, action: 'craft' };
+      }
+      // 0-GZ / A66：348814-348815 —— refitem(id,9)==59500（合成の壺 789 / 賢者の錬金釜 790）
+      //   原版同样跳到 *label_2646 → *label_2647 的调合窗口，而不是走普通物品效果。
+      if (Elona.ItemDB && (Elona.ItemDB.ref(it.id, 9) | 0) === 59500
+        && Elona.Panels && Elona.Panels.openCraft) {
         Elona.Panels.openCraft(this);
         return { ok: true, action: 'craft' };
       }
@@ -2993,6 +3119,35 @@
         const jr = Elona.Farm.reviveOrGrow(this, undefined, undefined, it);
         if (jr.ok) this.endTurn();
         return jr;
+      }
+      // 0-GX：赤/青ガシャポン（413/414）—— 源码 300916-300964（*label_2848）。
+      //   消耗 40/41 号材料各 1 个，在脚下排出 415（普通）/416（稀有）扭蛋球；
+      //   机器本身不消耗（道具说明：何度でも使用することができる）。
+      if ((it.id | 0) === 413 || (it.id | 0) === 414) {
+        const mid = (it.id | 0) === 413 ? 40 : 41;
+        const have = (Elona.Material && Elona.Material.get) ? Elona.Material.get(this, mid) : 0;
+        const mname = (Elona.Material && Elona.Material.name) ? Elona.Material.name(mid, 'jp') : `材料${mid}`;
+        if (have <= 0) {
+          this.log(`你没有${mname}……`);
+          return { ok: false, reason: 'no-material' };
+        }
+        const doGasha = () => {
+          Elona.Material.remove(this, mid, 1);
+          const outId = (it.id | 0) === 413 ? 415 : 416;
+          const made = Elona.ItemDB.createItem(outId, 1, this.rng);
+          made.f[5] = p.x | 0;
+          made.f[6] = p.y | 0;
+          this.groundItems.push(made);
+          this.refreshGroundCell(made.f[5], made.f[6]);
+          this.log('有什么东西滚到了脚边。');
+          this.endTurn();
+        };
+        if (Elona.Panels && Elona.Panels.openConfirm) {
+          Elona.Panels.openConfirm(`要使用${mname}扭一下吗？`, (yes) => { if (yes) doGasha(); }, { title: 'ガシャポン' });
+          return { ok: true, action: 'gasha', pending: true };
+        }
+        doGasha();
+        return { ok: true, action: 'gasha' };
       }
       // ヤカテクトの預金箱（1097）→ 银行窗口（358530-358661）
       if (Elona.Economy && (it.id | 0) === Elona.Economy.BANK_ITEM) {
@@ -3241,6 +3396,15 @@
       //   同一份食物两人分，満腹度增加量减半、经验两人各得一份（总 200%）。
       const shared = this._mealShare && this._mealShare.ally;
       if (shared) gain = idiv(gain, 2);
+      // 0-GX / 226061-226065：非腐烂尸体的「物种被吃效果」（var_59 = 12 → *label_3105）。
+      //   例：硬如铁的肉 dmgcon、有毒肉、马肉 / 巨魔肉技能经验、以太腐蚀、寄生等。
+      if (id === 204 && !rotten && Elona.EatFX && Elona.EatFX.ready()) {
+        const efx = Elona.EatFX.apply(this, p, it.f[23] | 0);
+        if (efx) {
+          if (efx.nutrition !== null && efx.nutrition !== undefined) gain = efx.nutrition | 0;
+          for (const m of efx.messages) this.log(m);
+        }
+      }
       p.set(22, (p.get(22) | 0) + gain);
 
       // 57000 类食物回复 SP（226112-226114）
@@ -3490,12 +3654,6 @@
         const it = (this.player.inv || [])[pl.idx] || null;
         if (!it || (it.f[0] | 0) <= 0) return { ok: false, reason: 'book-gone' };
         return this.settleReading(it, pl.spellId | 0);
-      }
-      if (type === 8 && Elona.Gather) {
-        // 采集点：40 回合后真正产出（*label_2941 → *label_2909）
-        const r = Elona.Gather.gather(this);
-        for (const m of (r.messages || [])) this.log(m);
-        return r;
       }
       if (type === 12 && Elona.Craft && Elona.Craft.finish) {
         // 0-FY：調合（*label_2659 → *label_2658）—— 回合数已在 rowact 里消耗完
@@ -4818,6 +4976,8 @@
       //   dmghp 198553-198560 用它做防连击减伤：>=50 开始递减，>=200 强制 1 点
       if (this.player && this.player.set) this.player.set(444, 0);
       if (this.state !== STATE.PLAY) return;
+      // 312702-312704：有门生时，道场修行计数器 var_65(188) 每回合 +1（上限 100000）
+      if (Elona.School) Elona.School.tickTurn(this);
       // 0-GM / 605015-605199：pc_turn_init 的每回合状态（808 清零、随从坐标同步等）
       this.turnStartInit();
       // 0-GU / 605349-605415：主循环尾部的常驻检查
@@ -5108,7 +5268,39 @@
     }
 
     // ---------- 存读档 ----------
+    /**
+     * 0-GZ：挑出需要跨存档保留的角色（原版是整个 `var_58` 一起存档）。
+     *   · 同伴 / 宠物：`__ally` / `__pet`，或仍在常驻同伴表 `g.party` 里
+     *   · 寄放者（道场门生、牧场家畜）：`var_58(80)` != 0 或 cbit 960，
+     *     以及 `var_58(150) == 3` 的门生
+     *   · 不存：城镇 NPC（槽 57..131，每次建图由 populateTown 重建）、
+     *     护送委托人（槽 236..240，由 Quest.restoreEscortFollowers 重建）、
+     *     地图上的临时怪物
+     */
+    collectSavedCharas() {
+      const out = [];
+      for (let i = 1; i < this.charas.length; i++) {
+        if (i >= 236 && i <= 240) continue;
+        const c = this.charas[i];
+        if (!c || typeof c.get !== 'function') continue;
+        const stay = !!(Elona.Status && Elona.Status.cbit && Elona.Status.cbit(c, 960) === 1);
+        const keep = !!(c.__ally || c.__pet || stay
+          || (this.party && this.party.indexOf(c) >= 0)
+          || (c.get(80) | 0) !== 0 || (c.get(150) | 0) === 3);
+        if (!keep) continue;
+        out.push({
+          i,
+          ally: c.__ally ? 1 : 0,
+          pet: c.__pet ? 1 : 0,
+          stay: stay ? 1 : 0,
+          c: c.toJSON(),
+        });
+      }
+      return out;
+    }
+
     serialize() {
+      const savedCharas = this.collectSavedCharas();
       return {
         version: 1,
         turn: this.turn,
@@ -5121,6 +5313,9 @@
         } : null,
         dungeonDepth: this.dungeonDepth,
         player: this.player ? this.player.toJSON() : null,
+        // 0-GZ：角色池里的常驻角色（同伴 / 寄放者）与常驻同伴表的槽位索引
+        charas: savedCharas,
+        party: (this.party || []).map((c) => (c && (c.index | 0)) || 0).filter((i) => i > 0),
         rng: this.rng.serialize(),
         mef: this.mef ? this.mef.toJSON() : null,
         v65: this.v65,
@@ -5141,6 +5336,8 @@
           wx: this.wildTrip.wx | 0, wy: this.wildTrip.wy | 0,
           worldId: this.wildTrip.worldId | 0, town: this.wildTrip.town || null,
         } : null,
+        // 0-HD：世界地图步行模式的光标（在世界地图上存档时读回来还在原处）
+        worldMap: this.worldMap ? { x: this.worldMap.x | 0, y: this.worldMap.y | 0 } : null,
         // 0-FB：kind / 随机地城标记 / 觉醒核心种子 / 小徽章骰
         dungeonKind: this.dungeonKind,
         isRandomDungeon: this.isRandomDungeon,
@@ -5159,6 +5356,14 @@
         cardDeck: this.cardDeck || {},
         learnedAbilities: this.learnedAbilities || {},
         groundItems: this.groundItems.map((it) => it.toJSON()),
+        // 0-GX：四次元ポケット（463）与神託用的黑星记录（413）必须进存档，
+        // 否则读档后口袋里的物品全部丢失、神託列表清空。
+        pocket: this.pocket ? {
+          items: this.pocket.items.map((it) => it.toJSON()),
+          cap: this.pocket.cap | 0,
+          weight: this.pocket.weight | 0,
+        } : null,
+        artifactLog: (Elona.ItemDB && Elona.ItemDB.artifactLog) ? Elona.ItemDB.artifactLog : [],
         events: this.events ? this.events.toJSON() : null,
         facing: this.facing,
         quests: this.quests,
@@ -5173,6 +5378,57 @@
       };
     }
 
+    /**
+     * 0-GZ：读档恢复角色池（collectSavedCharas 的逆过程）。
+     *   旧存档没有 `charas` 字段时按「只有玩家」处理，行为与之前一致。
+     *   槽位若已被当前地图的角色占用（城镇 NPC 57..131 等），改放到空槽，
+     *   避免覆盖；party 里的槽位索引通过「旧槽位 → 角色」映射重新绑定。
+     */
+    restoreCharasFromSave(data) {
+      const list = Array.isArray(data.charas) ? data.charas : [];
+      const bySlot = new Map();
+      for (const rec of list) {
+        if (!rec) continue;
+        let c;
+        try { c = Elona.Chara.fromJSON(rec.c || rec); } catch (e) { continue; }
+        const oldSlot = (rec.i | 0) || (c.index | 0);
+        if (oldSlot <= 0) continue;
+        let idx = oldSlot;
+        if (this.charas[idx] && this.charas[idx] !== c) idx = this.freeCharaSlot(idx);
+        c.index = idx;
+        if (rec.ally) c.__ally = true;
+        if (rec.pet) c.__pet = true;
+        if (rec.stay && Elona.Status && Elona.Status.cbitmod) {
+          Elona.Status.cbitmod(c, 960, true);
+        }
+        this.charas[idx] = c;
+        bySlot.set(oldSlot, c);
+      }
+      this.party = [];
+      if (Array.isArray(data.party)) {
+        for (const i of data.party) {
+          const c = bySlot.get(i | 0);
+          if (c && this.party.indexOf(c) < 0) this.party.push(c);
+        }
+      }
+      // 原版进图时按当前位置决定同伴/寄放者是否在场（var_58(0)=1/9）
+      this.restoreParty();
+      // 道场：师范（物种 519）不随存档保存，进图时按原版重新生成
+      if (Elona.School && Elona.School.onMapEnter) Elona.School.onMapEnter(this);
+    }
+
+    /** 0-GZ：找空闲角色槽 —— 优先 16..56，其次 132..235，最后 241..244 / 1..15 */
+    freeCharaSlot(preferred) {
+      const ranges = [[16, 56], [132, 235], [241, 244], [1, 15]];
+      for (const [a, b] of ranges) {
+        for (let i = a; i <= b; i++) {
+          const c = this.charas[i];
+          if (!c || (c.get(0) | 0) === 0) return i;
+        }
+      }
+      return preferred > 0 ? preferred : 1;
+    }
+
     async deserialize(data) {
       this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
       await Elona.ItemDB.load();
@@ -5185,6 +5441,7 @@
       await Elona.Spell.loadTable();
       await Elona.Battle.loadWeaponRange();
       await Elona.ItemUse.loadTable();
+      if (Elona.EatFX) await Elona.EatFX.load();   // 0-GX：被吃时的物种特殊效果（var_59=12）
       await Elona.Resist.loadTable();   // 0-BS：resist_msgs（resistmod/resistmodh 提示文本）
       if (Elona.Relation && Elona.Relation.loadWords) await Elona.Relation.loadWords();  // 0-BV：关系阶段名表
       await Elona.CharaFactory.loadTables();
@@ -5202,11 +5459,20 @@
       }
       this.player = Elona.Chara.fromJSON(data.player);
       this.charas = [this.player];
+      this.party = [];
       this.turn = data.turn || 0;
       this.messages = data.messages || [];
       this.rng.deserialize(data.rng);
       this.mef = data.mef ? Elona.Mef.fromJSON(data.mef) : new Elona.Mef();
       this.v65 = data.v65 || {};
+      // 0-HD：世界地图步行模式的光标（旧存档没有该字段时按「不在世界地图」处理）
+      this.worldMap = data.worldMap ? { x: data.worldMap.x | 0, y: data.worldMap.y | 0 } : null;
+      if (this.worldMap && Elona.WorldMap && Elona.WorldMap.load) {
+        // 存档在世界地图上：读档后要重新载入对应世界地图的位图/站点表
+        await Elona.WorldMap.load((this.getV65(850) | 0) || 4);
+      }
+      // 0-HD：恢复迷雾记忆 —— 必须在 v65 就位之后（MapTileset 的 fogTile/isOpen 要用地图 id）
+      if (Elona.Fov && Elona.Fov.restoreFromSave) Elona.Fov.restoreFromSave(this);
       // 0-EA：地产表与自建建筑（旧存档没有这两项时按「没有地产」处理）
       this.worldLook = null;                    // 0-FT：瞬态，不进存档
       this.v132 = data.v132 || {};
@@ -5246,6 +5512,13 @@
       if (Elona.Weather) Elona.Weather.init(this);   // 旧存档缺 var_65(17)/(18) 时补默认值
       this.groundItems = (data.groundItems || []).map((o) => Elona.Item.fromJSON(o));
       for (const it of this.groundItems) this.refreshGroundCell(it.f[5], it.f[6]);
+      // 0-GX：四次元ポケット / 黑星记录（旧存档没有时按空处理）
+      this.pocket = data.pocket ? {
+        items: (data.pocket.items || []).map((o) => Elona.Item.fromJSON(o)),
+        cap: data.pocket.cap | 0 || 10,
+        weight: data.pocket.weight | 0,
+      } : null;
+      if (Elona.ItemDB) Elona.ItemDB.artifactLog = Array.isArray(data.artifactLog) ? data.artifactLog : [];
       this.events = data.events && Elona.EventQueue ? Elona.EventQueue.fromJSON(data.events) : new Elona.EventQueue();
       this.facing = data.facing === undefined ? 2 : (data.facing | 0);
       // 委托表 var_434（旧存档只有 questBoard/activeQuest，做最小迁移）
@@ -5288,6 +5561,8 @@
         }
         Elona.Quest.ensure(this);
       }
+      // 0-GZ：恢复角色池里的同伴 / 寄放者（旧存档没有 charas 字段时为空操作）
+      this.restoreCharasFromSave(data);
       this.syncCharaCells();
       this.state = STATE.PLAY;
       return true;

@@ -462,6 +462,8 @@
     for (const c of (game.charas || [])) {
       if (!c || (c.get(0) | 0) !== 1) continue;
       if (!canInspect(game, c)) continue;
+      // 视野外的角色不画血条（原版 var_58(6,c)=var_104，未看见则不进入绘制）
+      if (game.map && game.map.isVisible && !game.map.isVisible(c.x, c.y)) continue;
       list.push(c);
     }
     for (const c of list) {
@@ -528,6 +530,8 @@
             tot++;
             if (onWorld) { if (WM.walkable(x, y)) walkCnt++; }
             else {
+              // 0-DW：未探索的格子不进入小地图（与原版迷雾一致）
+              if (map.isSeen && !map.isSeen(x, y)) { tot--; continue; }
               const cc = map.cell ? map.cell(x, y) : null;
               if (!cc) continue;
               let w = true;
@@ -536,7 +540,13 @@
             }
           }
         }
-        const ratio = tot ? walkCnt / tot : 1;
+        // 0-DW：整块都未探索 → 黑色迷雾
+        if (!tot) {
+          ctx.fillStyle = 'rgba(8,8,10,0.95)';
+          ctx.fillRect(ox + bx * px, oy + by * py, Math.ceil(px), Math.ceil(py));
+          continue;
+        }
+        const ratio = walkCnt / tot;
         ctx.fillStyle = ratio > 0.6 ? 'rgba(126,168,126,0.85)'
           : (ratio > 0.2 ? 'rgba(92,110,92,0.85)' : 'rgba(46,46,56,0.9)');
         ctx.fillRect(ox + bx * px, oy + by * py, Math.ceil(px), Math.ceil(py));
@@ -570,6 +580,8 @@
     } else {
       for (const c of (game.charas || [])) {
         if (!c || (c.get(0) | 0) !== 1) continue;
+        // 0-DW：NPC 点只在本帧视野内时显示（玩家自己恒显示）
+        if ((c.index | 0) !== 0 && map.isVisible && !map.isVisible(c.x, c.y)) continue;
         ctx.fillStyle = (c.index | 0) === 0 ? '#ffffff' : 'rgb(230,70,70)';
         ctx.fillRect(ox + c.x * sx, oy + c.y * sy, Math.max(2, Math.ceil(sx)), Math.max(2, Math.ceil(sy)));
       }

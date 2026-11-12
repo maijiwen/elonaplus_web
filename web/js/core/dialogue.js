@@ -310,6 +310,8 @@
       this.blocked = null;
       this.pending = null;         // 等待玩家在 pick_chara / pick_item 里选
       this.lastJoin = null;        // 4274 的结果（测试用）
+      this.startWorld = (g && g.getV65) ? (g.getV65(850) | 0) : 0;
+      this.worldChanged = 0;       // A49：对话结束时 var_65(850) 相对开场的变化
       this.steps = 0;
       this.log = [];
       this.trace = opts.trace ? [] : null;   // 调试用：记录走过的 pc
@@ -839,7 +841,12 @@
             else if (d.o === 'ginc') v = (this.g.getV65(n) | 0) + 1;
             else v = (this.g.getV65(n) | 0) - 1;
             this.pullScope();
+            // A49：世界移动脚本（389022-389094）通过 var_65(850) 切换世界地图。
+            //   只在结束时与开场值不同才切换（脚本可能中途临时改写再还原）。
             this.g.setV65(n, v);
+            if (n === 850) {
+              this.worldChanged = ((v | 0) !== this.startWorld) ? (v | 0) : 0;
+            }
             this.pc++;
             break;
           }

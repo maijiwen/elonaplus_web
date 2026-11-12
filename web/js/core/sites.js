@@ -210,6 +210,21 @@
 
     /** mapfile()：mapId + 层数 → 地图文件名 */
     fileOf(mapId, level) {
+      // 245601-245609：map_init 在 var_65(20)==67 时 map_initcustom "Doujyou"。
+      // world_sites 的 mapFile 表没有 67 的条目（会退回 site.mapFile='vernis'），这里补上。
+      if ((mapId | 0) === 67) return 'doujyou';
+      // 238647-238648：拉娜（地图 25，type 25）在 map_init 里显式
+      //   `map_initcustom "highmountain"`；mapfile(25) 没有分支会退回 vernis。
+      if ((mapId | 0) === 25) return 'highmountain';
+      // 以下类型同样不在 mapfile() 的分支里，但 map_init 有显式 map_initcustom：
+      //   240681 地图 3（レシマス）→ lesimas_1
+      //   240726 地图 49（レーメイド）→ 114 层 chaos / 其余 Rehmido_1
+      //   245610 地图 65（古代庭園）→ yamaniwa
+      //   241480 地图 92（ザイール）→ zaile
+      if ((mapId | 0) === 3) return 'lesimas_1';
+      if ((mapId | 0) === 49) return ((level | 0) === 114) ? 'chaos' : 'Rehmido_1';
+      if ((mapId | 0) === 65) return 'yamaniwa';
+      if ((mapId | 0) === 92) return 'zaile';
       const t = table();
       const type = this.rawType(mapId);
       const mf = t && t.mapFile;
