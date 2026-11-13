@@ -538,6 +538,8 @@
     if (isShop && Elona.Status && Elona.Status.cbitmod) {
       Elona.Status.cbitmod(keeper, 974, true);
     }
+    // 0-HO：新盘点的库存 → 允许玩家按 R 刷新（买入后禁用）
+    keeper._boughtSinceStock = false;
     return keeper.inv.length;
   }
 
@@ -547,6 +549,25 @@
     const next = keeper.get(154) | 0;
     if (!next) return true;
     return (g.nowHours ? g.nowHours() : 0) >= next;
+  }
+
+  /**
+   * 0-HO：R 键刷新是否可用 —— 本次库存还没有被买走过，或已到原版盘点时刻。
+   * 买过商品后只能用原版逻辑（过一段时间）刷新，届时这里会重新返回 true。
+   */
+  function canRefresh(g, keeper) {
+    if (!keeper) return false;
+    if (!keeper.inv || !keeper.inv.length) return true;
+    if (needsRestock(g, keeper)) return true;
+    return !keeper._boughtSinceStock;
+  }
+
+  /** 0-HO：立即重新盘点一次库存（快捷键 R；不消耗游戏时间） */
+  function refresh(g, keeper) {
+    if (!keeper) return { ok: false, reason: 'no-shop' };
+    if (!canRefresh(g, keeper)) return { ok: false, reason: 'bought' };
+    restock(g, keeper);
+    return { ok: true, count: keeper.inv.length };
   }
 
   /**
@@ -865,6 +886,8 @@
     const rankUp = autoInvestFromSales(g, s.keeper);
     const cargo = recordBuyPrice(g, got);
     const exp = negotiationExp(g, 0, total);
+    // 0-HO：买过东西 → 本次库存不能再按 R 刷新
+    s.keeper._boughtSinceStock = true;
     return { ok: true, price: total, item: got, rankUp, cargo, exp };
   }
 
@@ -947,7 +970,7 @@
 
   Elona.Shop = {
     ROLE_NAMES, SHOP_ROLES, roleOf, isShopkeeper, roleName, stockSize, stackCount,
-    restock, needsRestock, open, close, buy, sell, steal, unitPrice, cloneItem,
+    restock, needsRestock, canRefresh, refresh, open, close, buy, sell, steal, unitPrice, cloneItem,
     pickCategory, bookIdForSpell, CAT_645, POOL_1547, POOL_1543,
     investValue, invest, FURNITURE_PRICES, furniturePct, furnitureDrift, furniturePctLive,
     itemTag, sfCandidates,

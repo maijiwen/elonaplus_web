@@ -564,7 +564,7 @@
   // ========================================================================
   // 五、label_2216 的 214992-215017（repeat 循环体，本文件手写）
   // ========================================================================
-  function defaultSkillBase(ctx) {
+  function defaultSkillBase(ctx, opt) {
     const c = ctx.c, L = c.get(STATUS_ATTR.LEVEL);
     c.potential = ctx.pot;                     // skillGain/modGrowth 需要直接读写 var_82(id+600)
     for (let cnt = 50; cnt <= 60; cnt++) {
@@ -584,7 +584,10 @@
     }
     if (ctx.vars['var_1438'] === 1) ctx.mark('label_2216:var_1438-extras');
     // 215465-215467：repeat 492-400, 400 → skillgain var_691, cnt, 等级, 200
-    if (Elona.Stats.skillGain) {
+    // 【注意】这段在源码里位于 215420 `if (0 != 1) { return }` 之后，属不可达代码。
+    //   NPC 路径沿用历史行为；玩家创建（applyDefaultSkills）显式传 skipSpells 跳过，
+    //   否则新角色会一次性习得 400..491 的全部魔法。
+    if (!(opt && opt.skipSpells) && Elona.Stats.skillGain) {
       for (let sk = 400; sk < 492; sk++) Elona.Stats.skillGain(c, c.index, sk, L, 200, ctx.g);
     }
   }
@@ -706,6 +709,30 @@
         v121: ctx.v121,
         unimpl: ctx.unimpl.slice(),
       };
+    },
+
+    /**
+     * *label_2216 的通用初始技能段（215018-215043）。
+     *
+     * 源码 221704：玩家创建收尾 `gosub *label_2240` → `gosub *label_2216`，
+     * 因此**所有角色**创建时都会得到 长剑/斧/…/隐蔽(157) 等通用技能。
+     * 项目此前只执行了种族/职业初始化（label_3103/3104），漏掉这一段，
+     * 导致 157 隐蔽等技能缺失。
+     *
+     * @param {object} pot 种族/职业已累计的潜力（var_82(id+600)）
+     * @returns {object} 累加后的潜力
+     */
+    applyDefaultSkills(g, c, pot) {
+      const ctx = new Ctx(g, c);
+      ctx.mode = 3;
+      ctx.var60 = c.get(27) | 0;
+      ctx.var581 = c.index;
+      ctx.routines = CRA.data && CRA.data.routines;
+      ctx.pot = pot || {};
+      ctx.vars['var_691'] = c.index;
+      defaultSkillBase(ctx, { skipSpells: true });
+      runOps(ctx.routines && ctx.routines.skills, ctx);
+      return ctx.pot;
     },
 
     /**

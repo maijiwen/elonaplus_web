@@ -362,8 +362,11 @@
         case 'hostile': {
           if (attIdx !== rule.attacker) break;
           S(g, rule.v65, def.index | 0);
-          if (Elona.Relation && Elona.Relation.hostileAction) {
-            try { Elona.Relation.hostileAction(g, att, def); } catch (e) { /* noop */ }
+          // 194439 hostileaction：实际挂在 Elona.Intimacy 上（关系模块无此函数）
+          const HA = (Elona.Intimacy && Elona.Intimacy.hostileAction)
+            || (Elona.Relation && Elona.Relation.hostileAction);
+          if (HA) {
+            try { HA(g, att, def); } catch (e) { /* noop */ }
           }
           out.fields.anger = rule.anger;
           out.keys.push('hostile');

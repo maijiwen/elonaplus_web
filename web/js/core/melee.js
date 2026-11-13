@@ -197,7 +197,9 @@
     if (!tg) return { ok: true, type: 0, implemented: true, noTarget: true };
     log(g, `${caster.name}封住了${tg.name}的动作，全力挠痒！`);
     if ((caster.index | 0) < 16) {                          // 334888：会招致敌意
-      if (Elona.Relation && Elona.Relation.hostileAction) Elona.Relation.hostileAction(g, caster, tg);
+      const HA = (Elona.Intimacy && Elona.Intimacy.hostileAction)
+        || (Elona.Relation && Elona.Relation.hostileAction);
+      if (HA) HA(g, caster, tg);
       else if ((tg.get(F_REL) | 0) > -3) tg.set(F_REL, -3);
     }
     if ((tg.get(268) | 0) <= 0) tg.set(268, 1);             // 334897：束缚

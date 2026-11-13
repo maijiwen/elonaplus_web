@@ -1445,44 +1445,26 @@
 
     /**
      * 第 3 页 —— 原版 key_wipe(W) 的分派目标 label_2743。
-     * 该画面列出「广域能力」（var_83(3,id)/1000*1000 == 3000 的能力），
-     * 其数据来自 tables/abilities.json（tools/extract_abilities.py）。
+     * 该画面列出「广域能力」（var_83(3,id)/1000*1000 == 3000 + 746/667/693/740）。
+     * 0-HL：数据源从 abilities.json（只有 114 条觉醒条件）改为 Ability.wideList，
+     * 避免 656/671/680 等广域能力在 W 页缺失。
      */
     async openWideSkills(g) {
       const p = g.player;
-      let ab = null;
-      try { ab = await Elona.Data.table('abilities'); } catch (e) { ab = null; }
-      const list = (ab && (ab.abilities || ab.list)) || ab || [];
-      const rows = [];
-      const arr = Array.isArray(list) ? list : Object.keys(list).map((k) => Object.assign({ id: Number(k) }, list[k]));
-      const S = Elona.Spell;
-      for (const a of arr) {
-        if (!a) continue;
-        const id = a.id | 0;
-        const unlocked = Elona.Feat && Elona.Feat.flag ? !!Elona.Feat.flag(p, id - 600) : false;
-        // 名称/消耗/说明取自动作表 var_83（actions.json）
-        const nmObj = S && S.actionName ? S.actionName(id) : null;
-        const cost = S && S.field ? (S.field(id, 2) | 0) : (a.cost | 0);
-        // 288779 只把 3000 档排除在**主列表**外；炼成雨/液体操纵弹这类药水能力仍可发动
-        const passive = Elona.Ability ? Elona.Ability.isPassive(id) : false;
-        rows.push({
-          id, unlocked, cost, passive,
-          name: (nmObj && (nmObj.ch || nmObj.en || nmObj.jp)) || a.name || ('ability ' + id),
-        });
-      }
-      rows.sort((x, y) => (x.unlocked === y.unlocked ? x.id - y.id : (x.unlocked ? -1 : 1)));
+      const rows = Elona.Ability ? Elona.Ability.wideList(g, p) : [];
+      rows.sort((x, y) => (x.passive === y.passive ? x.id - y.id : (x.passive ? 1 : -1)));
       this.rows = rows;
       const html = rows.length
         ? rows.map((r, i) => `<div class="pui-row" data-i="${i}"><span class="pui-name">${esc(r.name)}</span>`
           + `<span class="pui-num">${r.cost} SP</span>`
-          + `<span class="pui-dim">${r.unlocked ? (r.passive ? '已习得（被动）' : '可发动') : '未习得'}</span></div>`).join('')
-        : '<div class="pui-dim">没有广域能力数据（abilities.json 缺失）。</div>';
+          + `<span class="pui-dim">${r.passive ? '效果未移植' : '可发动'}</span></div>`).join('')
+        : '<div class="pui-dim">还没有觉醒任何广域能力。</div>';
       // 288745 label_2738：能力发动窗口（Enter 发动）
-      this.open('wide', `能力发动（${rows.filter((r) => r.unlocked).length} / ${rows.length}）`, html, {
+      this.open('wide', `能力发动（${rows.filter((r) => !r.passive).length} / ${rows.length}）`, html, {
         wide: true, hint: '↑↓ 选择　Enter 发动　Esc 关闭',
         onPick: (row) => {
           if (!row || !row.unlocked) { Elona.UI.pushMessage('这个能力还没有觉醒。'); return; }
-          if (row.passive) { Elona.UI.pushMessage('这是被动能力，无需发动。'); return; }
+          if (row.passive) { Elona.UI.pushMessage('这个广域能力的效果还没有移植。'); return; }
           const r = g.useAbility(row.id);
           if (r && r.request && Elona.consumeSpellRequest) Elona.consumeSpellRequest(r);
           // 有 request 时不要关窗：request 可能刚打开了另一个窗口（选药水 / 选同伴）
@@ -1746,8 +1728,11 @@
         if (onDone) onDone(r);
       };
       inp.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { e.preventDefault(); e.stopPropagation(); submit(); }
-        else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); this.close(); }
+        // 输入框内的按键全部就地处理：不阻断冒泡的话，全局 keydown 会在
+        // modalOpen() 时 preventDefault，导致 Backspace 删不掉字符。
+        e.stopPropagation();
+        if (e.key === 'Enter') { e.preventDefault(); submit(); }
+        else if (e.key === 'Escape') { e.preventDefault(); this.close(); }
       });
     },
 
@@ -1904,13 +1889,14 @@
      */
     openAim(g) {
       const world = (g.map && g.map.header && (g.map.header[6] | 0) === 1);
-      const tab = world ? null : Elona.Aim.listFor(g);
-      const free = world || !tab || !tab.list.length;
-      const s = Elona.Aim.start(g, { free });
+      // 原版 `*label_2670`：方向键直接移动光标格（283685-283693），
+      //   `+`/`-`（var_2188）才在目标表里往上/下一个角色跳。
+      //   此前按「视野内有候选目标」误用了角色模式，导致光标只能在几个 NPC 之间跳。
+      const s = Elona.Aim.start(g, { free: true });
       if (this.kind) this.close();          // 能力窗等旧窗口不能挡住地图
-      if (!free && !s.list.length) g.log('视野内没有可以锁定的目标。');
-      if (free && world) g.log('环顾四周 —— 方向键移动光标，回车确认。');
-      else if (!free) g.log('方向键切换目标，回车锁定，Esc 取消。');
+      if (world) g.log('环顾四周 —— 方向键移动光标，回车确认。');
+      else g.log('方向键移动光标，回车锁定，Esc 取消。');
+      return s;
     },
 
     /**

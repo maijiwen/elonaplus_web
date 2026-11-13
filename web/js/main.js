@@ -135,6 +135,7 @@
     (Elona.Panels && Elona.Panels.isOpen && Elona.Panels.isOpen())
     || !!UI.invOpen
     || panelOpen('npc') || panelOpen('shop') || panelOpen('quest') || panelOpen('worldmap')
+    || (game.shopSession && !!UI.invInfo)   // 0-HP：商店收起后画布上的道具情报窗
     || !!game.throwState
     || (Elona.SceneView && Elona.SceneView.isActive && Elona.SceneView.isActive())
   );
@@ -528,13 +529,15 @@
 
   /**
    * 0-HD：F1 快速存档 / F2 快速读档。
+   * 0-HM：F3 打开许愿输入框（原版「願い事」窗口，由魔法/道具触发，
+   *   网页版给一个直接入口，便于调试与自由游玩）。
    *   单独用「捕获阶段」注册，避免被其它窗口的 keydown（stopPropagation）吞掉；
    *   同时判断 e.key 与 e.code（个别键盘 / 输入法只给其中一个）。
    *   注：笔记本若把 F1/F2 设成媒体键，需要按 Fn+F1 / Fn+F2，浏览器收不到 F1/F2。
    */
   const isFnKey = (e, name) => e.key === name || e.code === name;
   window.addEventListener('keydown', (e) => {
-    if (!isFnKey(e, 'F1') && !isFnKey(e, 'F2')) return;
+    if (!isFnKey(e, 'F1') && !isFnKey(e, 'F2') && !isFnKey(e, 'F3')) return;
     e.preventDefault();
     e.stopPropagation();
     if (e.repeat) return;
@@ -542,8 +545,10 @@
     if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
     if (isFnKey(e, 'F1')) {
       if (game.state === STATE.PLAY) doSave('quick');
-    } else if (game.state === STATE.PLAY || game.state === STATE.DEAD) {
-      doLoad('quick', true);
+    } else if (isFnKey(e, 'F2')) {
+      if (game.state === STATE.PLAY || game.state === STATE.DEAD) doLoad('quick', true);
+    } else if (game.state === STATE.PLAY && !modalOpen() && Elona.Panels) {
+      Elona.Panels.openWish(game, null);
     }
   }, true);
 
@@ -730,7 +735,9 @@
         if (!game.worldMap) UI.hideWorldDebug();
         return;
       }
-      if (e.key === 'M' || e.key === 'm' || e.key === 'Escape') {
+      // 0-HM：M 仍可离开世界地图（网页版直达入口的配套），
+      //   Esc 交给下面的通用动作分派（打开菜单），不再「退回上一张地图」。
+      if (e.key === 'M' || e.key === 'm') {
         e.preventDefault();
         game.leaveWorldMap();
         UI.hideWorldDebug();
@@ -739,7 +746,8 @@
       // 0-FF：世界地图上仍要能打开背包(x/X)与阅读窗(r) —— 产权书正是
       //   「站在世界地图的空格上按 r 读」（232703 的「只能在世界地图使用」）。
       //   其余按键照旧吞掉，避免误触地图上的其它动作。
-      if (!(e.key === 'x' || e.key === 'X' || e.key === 'r' || e.key === 'R')) return;
+      if (!(e.key === 'x' || e.key === 'X' || e.key === 'r' || e.key === 'R'
+        || e.key === 'Escape')) return;
     }
 
     // ---------- 3) 其它弹窗 ----------
@@ -778,10 +786,32 @@
       }
       return;
     }
-    if (panelOpen('shop')) {
+    if (panelOpen('shop') || (game.shopSession && UI.invInfo)) {
       // 0-EU：商店列表支持键盘操作（此前只有鼠标点击）
       //   ↑↓ 选择　←→ 翻页　Tab 切换买卖　Enter/空格 = 买/卖 1 个　T/Esc 关闭
       e.preventDefault();
+      // 0-HO：商品列表按 x 打开的道具知识窗（与主界面共用 invInfo）
+      //   打开时按键只用于翻页 / 关闭，不再移动商品光标。
+      if (UI.invInfo) {
+        if (e.key === 't' || e.key === 'T') {
+          UI.closeInvInfo();
+          UI.closeShop(game);
+          return;
+        }
+        if (e.key === 'Escape' || e.key === 'x' || e.key === 'X' || e.key === 'Enter'
+          || e.key === ' ' || e.key === '5') {
+          UI.closeInvInfo();
+          UI.el('shop').classList.remove('hidden');   // 回到商品列表
+          return;
+        }
+        if (e.key === '+' || e.key === 'PageDown' || e.key === 'ArrowDown' || e.key === '2') {
+          UI.turnInvInfoPage(1); return;
+        }
+        if (e.key === '-' || e.key === 'PageUp' || e.key === 'ArrowUp' || e.key === '8') {
+          UI.turnInvInfoPage(-1); return;
+        }
+        return;
+      }
       if (e.key === 'Escape' || e.key === 't' || e.key === 'T') { UI.closeShop(game); return; }
       if (e.key === 'ArrowUp' || e.key === '8') { UI.moveShopSel(game, -1); return; }
       if (e.key === 'ArrowDown' || e.key === '2') { UI.moveShopSel(game, 1); return; }
@@ -792,6 +822,9 @@
         UI.changeShopPage(game, 1); return;
       }
       if (e.key === 'Tab') { UI.toggleShopMode(game); return; }
+      // 0-HO：x = 查看当前商品详情　r = 刷新货架（只在商品列表打开时生效，不触发读书）
+      if (e.key === 'x' || e.key === 'X') { UI.toggleShopInfo(game); return; }
+      if (e.key === 'r' || e.key === 'R') { UI.shopRefresh(game); return; }
       if (e.key === 'Enter' || e.key === ' ' || e.key === '5') {
         UI.shopAct(game, UI.shopMode === 'buy' ? 'buy' : 'sell', 1);
         return;
@@ -892,7 +925,7 @@
       return;
     }
 
-    // ---------- 3.5) HUD 开关（F2 / F3，不影响原版键位） ----------
+    // ---------- 3.5) HUD 开关（F2 / F4，不影响原版键位；F3 已用作许愿） ----------
     if (e.key === 'F2') {
       e.preventDefault();
       if (Elona.Hud) {
@@ -901,7 +934,7 @@
       }
       return;
     }
-    if (e.key === 'F3') {
+    if (e.key === 'F4') {
       e.preventDefault();
       if (Elona.Hud) {
         const n = Elona.Hud.cycleMsgExpand();

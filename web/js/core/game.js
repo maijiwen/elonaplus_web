@@ -116,6 +116,9 @@
       this.dungeonCoreSeed = 0;        // var_132(35)：觉醒核心品质种子（>0 才掉 969）
       // 0-FC：野外地图（map id 2）的进入来源，返回世界地图时用
       this.wildTrip = null;             // { wx, wy, worldId, town }
+      // 0-HM：地城的进入来源是世界地图时记录落点 —— 上行楼梯应回到世界地图
+      //   （原版 237429-237435：var_126(6) >= 20 且深度低于入口层 → var_65(20) = var_65(850)）
+      this.dungeonFromWorld = null;     // { x, y, worldId }
       if (Elona.Sites && Elona.Sites.bindGame) Elona.Sites.bindGame(this);
     }
 
@@ -453,10 +456,17 @@
         for (const k in (race.skills || {})) S.skillInit(pot, parseInt(k, 10), race.skills[k], ctx);
         for (const k in (cls.skills || {})) S.skillInit(pot, parseInt(k, 10), cls.skills[k], ctx);
       }
+      // 2) *label_2216 通用初始技能（215018-215043）。
+      //    原版 221704：玩家创建收尾 `gosub *label_2240` → `gosub *label_2216`，
+      //    因此任何角色创建时都会获得 长剑/斧/…/隐蔽(157) 等通用技能。
+      //    此前只跑了种族/职业初始化，漏掉这一段 → 隐蔽等通用技能缺失。
+      if (Elona.CharaFactory && Elona.CharaFactory.applyDefaultSkills) {
+        pot = Elona.CharaFactory.applyDefaultSkills(this, p, pot) || pot;
+      }
       p.potential = pot;
       S.syncSkillValues(p, pot);   // 潜力 → 当前属性值
       p.bodySlots = body;          // 供 startGame 的 *label_2235 初始化
-      // 2) 计算 HP/MP/SP 上限（cnvbonus）
+      // 3) 计算 HP/MP/SP 上限（cnvbonus）
       const st = S.calcMaxStats(p, { creatureId: 0 });
       p.hpMax = st.hpMax; p.mpMax = st.mpMax; p.spMax = st.spMax;
       p.hp = st.hpMax; p.mp = st.mpMax; p.sp = st.spMax;   // 对应 220004-220006
@@ -548,8 +558,6 @@
       await this.loadAllTables();
       // 0-DD：buff 名称表（var_76）供「法术状态」面板显示
       if (Elona.Hud && Elona.Hud.loadNames) Elona.Hud.loadNames().catch(() => { });
-      // 0-DF：item.bmp 中 96 高的物品图标（大件家具/装饰）
-      if (Elona.ItemDB && Elona.ItemDB.loadIconTable) Elona.ItemDB.loadIconTable().catch(() => { });
       // PCC 调色板（var_223）与外观部件；保留创建页面已随机出的外观
       if (Elona.PCC) {
         await Elona.PCC.loadPalette();
@@ -790,6 +798,7 @@
     /** 载入游戏运行所需的全部数据表（原 newGame 内的初始化段） */
     async loadAllTables() {
       await Elona.ItemDB.load();
+      await Elona.ItemDB.loadIconTable();  // 0-HP：96 高的大件图标表（读档路径也必须加载）
       await Elona.ItemDB.loadCand();   // 物品候选轮盘 *label_0598
       await Elona.ItemDB.loadEnchant();// 附魔表 var_649/var_653/var_651
       this.dmgconTable = (await Elona.Data.table('dmgcon')).conditions;
@@ -988,6 +997,9 @@
         const hd = Elona.Home ? Elona.Home.def(this) : null;
         this.map.header[18] = hd ? hd.cap : (this.map.header[18] | 0);
       }
+      // 0-HM：剧情在城镇地图上留下的固定入口（原版 map 5 初始化时的
+      //   `if (var_65(250+201)) cell_featset 48, 5, var_1606, 11, 4`，239933-239940）
+      this.applyQuestMapFeats();
       this.setV65(20, mapId);
       this.setV65(22, subId);
       // 0-DI：武具店的矢弹充填「每张地图一次」（var_132(37, 地图) == 100）
@@ -1020,6 +1032,20 @@
         Elona.Story.onMapEnter(this).catch(() => { /* 剧情失败不阻塞移动 */ });
       }
       return this.map;
+    }
+
+    /**
+     * 0-HM：剧情固定的地图入口 —— 目前只有 Veris 的盗贼巢穴。
+     * 原版 239933-239940：地图 5（Vernis）初始化时若 var_65(250+201) != 0，
+     * 就在 (48,5) 放一个向下的楼梯（type 11，sub 4 = 通往 Vernis sub 4 的 sqrogue）。
+     * var_1606 = 231（楼梯向下的图块 id，227333）。
+     */
+    applyQuestMapFeats() {
+      const M = Elona.MapFeat;
+      if (!this.map || !M || !M.write) return;
+      if (this.map.name !== 'vernis') return;
+      if ((this.getV65(250 + 201) | 0) === 0) return;
+      M.write(this, 48, 5, 231, 11, 4, 0);
     }
 
     /**
@@ -1527,6 +1553,15 @@
         this.enterDungeon(target, true);
         return { ok: true, up, floor: target, map: `dungeon${target}` };
       }
+      // 0-HM：城镇地图里的固定下行入口 —— 原版 map 5 sub 4 的「盗贼的巢穴」
+      //   （Vernis 的 (48,5)，由 NPC 31 支线任务开启，239933-240100）。
+      const town = (Elona.Towns && this.map) ? Elona.Towns.byName(this.map.name) : null;
+      if (!up && sub > 0 && (this.dungeonDepth | 0) === 0 && town && (town.id | 0) === 5) {
+        this.setV65(26, 1);
+        const pr = this.enterTownSubMap(sub);
+        if (pr && pr.catch) pr.catch((e) => this.log('进入支线地图失败：' + e.message));
+        return { ok: true, up: false, floor: sub, map: 'townSub', pending: pr };
+      }
       const target = sub > 0 ? sub : this.dungeonDepth + 1;
       // 0-FA：228762 `map_placedownstairs` —— 到达 var_132(10) 最深层后不再放下行楼梯
       if (this.dungeonMaxDepth > 0 && target > this.dungeonMaxDepth) {
@@ -1834,6 +1869,87 @@
       return null;
     }
 
+    /**
+     * 0-HM：进入城镇地下的固定支线地图 —— 原版 map 5 的 sub 3/4/5（239933-240100）。
+     *   目前只接 sub 4 =「盗贼的巢穴」(sqRogue)，由 NPC 31（看板娘シーナ）支线开启：
+     *   接任务后 Vernis 的 (48,5) 出现下行楼梯（applyQuestMapFeats）。
+     *   地图角色来自地图对象 kind==1（原版 map_initcustom 的 characreate），
+     *   槽位 57..244 与 put_questtarget 的扫描范围一致。
+     */
+    async enterTownSubMap(sub) {
+      if (this.transitioning) return false;
+      const FILES = { 4: 'sqRogue' };
+      const file = FILES[sub | 0];
+      if (!file) return false;
+      this.transitioning = true;
+      try {
+        if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
+        if (!Elona.ItemDB.data) await this.loadAllTables();
+        const p = this.player;
+        if (!this.townSnapshot) {
+          this.townSnapshot = {
+            map: this.map ? this.map.name : 'vernis', x: p.x, y: p.y,
+            charas: this.charas.slice(), items: this.groundItems.slice(),
+          };
+        }
+        this.worldMap = null;
+        await this.loadMap(file);
+        this.mef = new Elona.Mef();
+        this.charas = [this.player];
+        this.groundItems = [];
+        // 上行楼梯 + 玩家落点（原版 map_placecharaonentrance 都放在入口楼梯格）
+        const spot = this.findStairCell();
+        if (spot) {
+          Elona.MapFeat.write(this, spot.x, spot.y, 232, Elona.MapFeat.TYPE.STAIRS_UP, 0, 0);
+          this.player.x = spot.x;
+          this.player.y = spot.y;
+          this.map.header[5] = spot.y * 1000 + spot.x;
+        }
+        this.syncCharaCells();
+        this.restoreParty();
+        // 地图对象 kind==1 = 角色（[id, x, y, 未知, 1]），槽位从 57 开始
+        let slot = 57;
+        const level = Math.max(1, this.player.level | 0);
+        for (const o of (this.map.objects || [])) {
+          if (!o || (o[4] | 0) !== 1) continue;
+          try {
+            const c = Elona.CharaFactory.create(this, o[0] | 0, level, o[1] | 0, o[2] | 0, { index: slot++ });
+            if (c) { c.set(9, -3); c.set(69, 0); }
+          } catch (err) { /* 单只失败不影响地图 */ }
+        }
+        this.dungeonDepth = sub | 0;
+        this.dungeonMinDepth = sub | 0;          // 上行楼梯直接回城镇
+        this.dungeonMaxDepth = sub | 0;
+        this.dungeonSiteId = 0;
+        this.questMap = null;
+        this.setV65(20, 5);
+        this.setV65(22, sub | 0);
+        this.syncCharaCells();
+        if (Elona.QuestCheck && Elona.QuestCheck.putTarget) Elona.QuestCheck.putTarget(this);
+        if (this.onMapChange) this.onMapChange(this.map);
+        this.log('你走进了盗贼的巢穴。');
+        return true;
+      } finally {
+        this.transitioning = false;
+      }
+    }
+
+    /** 找一格可站立、没有特性与角色的空格（支线地图的楼梯落点） */
+    findStairCell() {
+      const m = this.map;
+      if (!m) return null;
+      for (let y = 1; y < m.height - 1; y++) {
+        for (let x = 1; x < m.width - 1; x++) {
+          if (!m.walkable(x, y)) continue;
+          const cell = m.cell(x, y);
+          if (!cell || (cell[6] | 0) !== 0) continue;
+          if (this.charas.some((c) => c && (c.get(0) | 0) === 1 && c.x === x && c.y === y)) continue;
+          return { x, y };
+        }
+      }
+      return null;
+    }
+
     /** 进入/切换地下楼层（缓存已生成的地图） */
     async enterDungeon(depth, fromBelow) {
       if (this.transitioning) return;
@@ -1943,8 +2059,26 @@
         this.dungeonAwake = false;
         this.syncCharaCells();
         this.townSnapshot = null;
+        // 0-HM：地城是从世界地图进来的 → 回到世界地图的原入口格
+        //   （原版 237429-237435：旧地图类型 >= 20 且深度低于入口层 → var_65(20) = var_65(850)）
+        const fromWorld = this.dungeonFromWorld;
+        this.dungeonFromWorld = null;
+        if (fromWorld) {
+          const wid = (fromWorld.worldId | 0) || (this.getV65(850) | 0) || 4;
+          if (Elona.WorldMap) await Elona.WorldMap.load(wid);
+          if (Elona.Sites) { await Elona.Sites.load(); Elona.Sites.bindGame(this); }
+          if (Elona.RandDungeon) Elona.RandDungeon.onEnterWorld(this, wid);
+          if (Elona.Sites && Elona.Sites.buildWorldFeats) {
+            Elona.Sites.buildWorldFeats(this, wid);
+            Elona.Sites.buildWorldFeats(this, 4);
+          }
+          this.setV65(850, wid);
+          this.worldMap = { x: fromWorld.x | 0, y: fromWorld.y | 0 };
+          this.setV65(5, this.worldMap.x);
+          this.setV65(6, this.worldMap.y);
+        }
         if (this.onMapChange) this.onMapChange(this.map);
-        this.log('你回到了地面。');
+        this.log(fromWorld ? '你回到了世界地图。' : '你回到了地面。');
       } finally {
         this.transitioning = false;
       }
@@ -2380,9 +2514,9 @@
     }
 
     /**
-     * 世界地图遭遇 → 进入野外战斗地图（2nouti）。
+     * 世界地图遭遇 → 进入野外战斗地图（WildMap.build，与「世界地图按回车」完全一致）。
      *   原版 `var_1777 = 4; goto *label_2459`（重进地图）后在该地图上就地生成怪物；
-     *   网页版的世界地图没有角色层，因此改为载入「野外」地图（site 2）承载战斗，
+     *   网页版改为构建当前世界格子的野外地图承载战斗，
      *   退出时用 `leaveEncounter()` 回到原来的城镇与世界坐标。
      * @returns {Promise<boolean>}
      */
@@ -2400,23 +2534,40 @@
       if (parley === 'leave') return false;
       this.transitioning = true;
       const from = this.map ? this.map.name : null;
+      const w = this.worldMap;
       this.encounterTrip = {
-        town: from, wx: this.worldMap ? this.worldMap.x : 0,
-        wy: this.worldMap ? this.worldMap.y : 0, type: enc.type | 0,
+        town: from, wx: w ? w.x : 0,
+        wy: w ? w.y : 0, type: enc.type | 0,
         escortQuestId: enc.escortQuestId || null,
       };
+      // 需求：袭击事件进入的地图必须与「世界地图按回车」进入的野外地图一致。
+      //   两者都走 WildMap.build（240076-240572 的 var_65(20)==2 段），
+      //   地形取当前世界地图格子（var_65(62)），不再载入固定的 '2nouti'。
+      let tileId = 0;
+      if (w && Elona.WorldMap && typeof Elona.WorldMap.tileAt === 'function') {
+        tileId = Elona.WorldMap.tileAt(w.x, w.y) | 0;
+      }
+      const wid = (this.getV65(850) | 0) || 4;
+      const level = Math.max(1, this.getV65(189) | 0 || this.player.level | 0 || 1);
       this.worldMap = null;
       try {
-        await this.loadMap('2nouti');
-        this.charas = [this.player];
+        if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
+        if (!Elona.ItemDB.data) await this.loadAllTables();
+        const built = (Elona.WildMap && typeof Elona.WildMap.build === 'function')
+          ? Elona.WildMap.build(this, { tileId, level, worldId: wid }) : null;
+        if (built) {
+          this.applyWildernessMap(built, level);
+        } else {
+          // 数据缺失时的旧回退路径
+          await this.loadMap('2nouti');
+          this.charas = [this.player];
+          this.mef = new Elona.Mef();
+          this.dungeonDepth = 0;
+          this.questMap = null;
+        }
         this.restoreParty();
         // 0-FE：护送委托人随行（原版 var_1287==3 的袭击里委托人必须在场）
         if (Elona.Quest && Elona.Quest.restoreEscortFollowers) Elona.Quest.restoreEscortFollowers(this);
-        this.mef = new Elona.Mef();
-        this.dungeonDepth = 0;
-        this.questMap = null;
-        this.setV65(20, 2);            // 野外
-        this.setV65(22, 1);
         this.setV65(189, Math.max(this.getV65(189) | 0, 1));   // 609737：难度只升不降
         this.log(enc.message);
         if (Elona.Encounter) {
@@ -2568,6 +2719,10 @@
       if (!w) return false;
       if (this.transitioning) return true;          // 正在换图，忽略本次输入
       const site = this.siteUnderFoot();
+      // 0-HM：从世界地图进入地城（ネフィア）时记下世界落点，
+      //   出地城 / 上行到地表时要回到世界地图（原版 237429-237435 的
+      //   `var_126(6) >= 20` 分支 → `var_65(20) = var_65(850)`）。
+      this.dungeonFromWorld = null;
       if (!site) {
         const town = Elona.Towns && Elona.Towns.LIST.find((t) => t.wx === w.x && t.wy === w.y);
         // 0-FC：空白格 → 野外地图（原版 var_65(20)=2）
@@ -2578,6 +2733,10 @@
         return true;
       }
       const cur = Elona.Towns && Elona.Towns.byId(site.id);
+      const kind = site.fields ? (site.fields[0] | 0) : 0;
+      if (!cur && kind >= 20 && kind <= 27) {
+        this.dungeonFromWorld = { x: w.x | 0, y: w.y | 0, worldId: (this.getV65(850) | 0) || 4 };
+      }
       this.worldMap = null;                          // 进入 site = 离开世界地图
       if (cur && this.map && this.map.name === cur.name) {   // 就是当前所在地
         this.log(`你回到了 ${this.townName(cur)}。`);
@@ -2615,48 +2774,12 @@
           town: this.map ? this.map.name : null,
         };
         this.worldMap = null;
-        this.map = new Elona.GameMap(built.json, this.tileAttrs);
-        this.mef = new Elona.Mef();
-        this.groundItems = [];
-        this.charas = [this.player];
-        this.player.x = built.entry.x; this.player.y = built.entry.y;
-        this.syncCharaCells();
+        this.applyWildernessMap(built, level);
         this.restoreParty();
-
-        // 地面物品（随机落点）
-        for (const it of built.items) {
-          const spot = this.wildFloorCell(built.json.width, built.json.height, built.entry, built.exit);
-          if (!spot) continue;
-          const item = Elona.ItemDB.create(this, {
-            itemId: it.id === undefined ? -1 : it.id,
-            t638: it.t638 || 0,
-            level: level,
-            container: -1,
-          });
-          if (!item) continue;
-          item.f[5] = spot.x; item.f[6] = spot.y;
-          item.f[21] = 1;                 // var_99(21)=1：野外标记
-          this.groundItems.push(item);
-          this.refreshGroundCell(spot.x, spot.y);
-        }
-        // 怪物
-        for (const m of built.monsters) {
-          const spot = this.wildFloorCell(built.json.width, built.json.height, built.entry, built.exit);
-          if (!spot) continue;
-          try {
-            const c = Elona.CharaFactory.create(this, m.id, m.level, spot.x, spot.y);
-            if (c) { c.set(9, -3); c.set(69, 0); }
-          } catch (_) { /* 单只失败不影响地图 */ }
-        }
-        this.syncCharaCells();
 
         // 0-FC：野外地图没有出口楼梯 —— 原版 343336-343419 是「走到地图边缘再往外走」离图，
         //   由 movePlayer 的越界分支处理（confirmLeaveMap → leaveWilderness）。
 
-        this.setV65(20, Elona.WildMap.WORLD_MAP);   // var_65(20) = 2（野外）
-        this.setV65(22, 1);
-        this.dungeonDepth = 0;
-        this.questMap = null;
         if (this.onMapChange) this.onMapChange(this.map);
         this.log(`你走进了${built.name}。`);
         return true;
@@ -2667,6 +2790,54 @@
       } finally {
         this.transitioning = false;
       }
+    }
+
+    /**
+     * 0-FC：把 WildMap.build 的结果装载成当前地图。
+     *   世界地图按回车进入野外（enterWilderness）与世界地图遭遇（startWorldEncounter）
+     *   共用同一套地形/物品/怪物，保证「袭击事件进入的地图」与手动进入的野外一致。
+     * @param {object} built Elona.WildMap.build(...) 的返回值
+     * @param {number} level 生成等级
+     */
+    applyWildernessMap(built, level) {
+      this.map = new Elona.GameMap(built.json, this.tileAttrs);
+      this.mef = new Elona.Mef();
+      this.groundItems = [];
+      this.charas = [this.player];
+      this.player.x = built.entry.x; this.player.y = built.entry.y;
+      this.syncCharaCells();
+
+      // 地面物品（随机落点）
+      for (const it of built.items) {
+        const spot = this.wildFloorCell(built.json.width, built.json.height, built.entry, built.exit);
+        if (!spot) continue;
+        const item = Elona.ItemDB.create(this, {
+          itemId: it.id === undefined ? -1 : it.id,
+          t638: it.t638 || 0,
+          level: level,
+          container: -1,
+        });
+        if (!item) continue;
+        item.f[5] = spot.x; item.f[6] = spot.y;
+        item.f[21] = 1;                 // var_99(21)=1：野外标记
+        this.groundItems.push(item);
+        this.refreshGroundCell(spot.x, spot.y);
+      }
+      // 怪物
+      for (const m of built.monsters) {
+        const spot = this.wildFloorCell(built.json.width, built.json.height, built.entry, built.exit);
+        if (!spot) continue;
+        try {
+          const c = Elona.CharaFactory.create(this, m.id, m.level, spot.x, spot.y);
+          if (c) { c.set(9, -3); c.set(69, 0); }
+        } catch (_) { /* 单只失败不影响地图 */ }
+      }
+      this.syncCharaCells();
+
+      this.setV65(20, Elona.WildMap.WORLD_MAP);   // var_65(20) = 2（野外）
+      this.setV65(22, 1);
+      this.dungeonDepth = 0;
+      this.questMap = null;
     }
 
     /** 0-FC：从野外地图返回世界地图（走到地图边缘继续前进时调用，原版 343336-343419） */
@@ -3197,7 +3368,7 @@
         if (!list.length) { this.log('你身边没有同伴。'); return { ok: false, reason: 'no-ally' }; }
         const on = !list[0].__hpbar;
         for (const c of Elona.Party.members(this)) c.__hpbar = on;
-        this.log(on ? '你给同伴戴上了听诊器（显示 HP/MP/斗志）。' : '你取下了听诊器。');
+        this.log(on ? '你给同伴戴上了听诊器（显示 HP 条）。' : '你取下了听诊器。');
         return { ok: true, hpbar: on };
       }
       // 0-DG：指挥旗（865）→ 打开战术指示（全体同伴的战斗模式）
@@ -4752,6 +4923,36 @@
         if (it.f[5] !== c.x || it.f[6] !== c.y) { rest.push(it); continue; }
         // 0-CI：城镇预设物品（有主）不能白拿 → 留给 stealAt 处理
         if (it.townOwned) { rest.push(it); continue; }
+        // 341874-341935：金币（54）/白金币（55）**不进背包**，直接累加到
+        //   var_58(30)/var_58(31)（HUD 的 gp / pp 字段）；白金币另外累计 var_65(291)。
+        //   白金币持有 >=100 时无法再获得（var_65(250+23)==2/5 的地图除外）。
+        {
+          const iid = it.f[3] | 0;
+          if (iid === 54 || iid === 55) {
+            const n = it.f[0] | 0;
+            const map23 = this.getV65 ? (this.getV65(273) | 0) : 0;
+            const ppFull = iid === 55 && (c.get(31) | 0) >= 100 && map23 !== 2 && map23 !== 5;
+            if (ppFull) {
+              this.log('注意！白金币达到 100 枚以上时，无法再获得新的白金币。');
+              rest.push(it);
+              continue;
+            }
+            const nm = (Elona.ItemDB && Elona.ItemDB.instanceName)
+              ? Elona.ItemDB.instanceName(it) : (iid === 54 ? '金币' : '白金币');
+            it.f[0] = 0;
+            if (iid === 54) c.set(30, (c.get(30) | 0) + n);
+            else {
+              c.set(31, (c.get(31) | 0) + n);
+              if (this.setV65) this.setV65(291, (this.getV65(291) | 0) + n);
+            }
+            this.log(`你拾取了 ${nm}。`);
+            if (iid === 55 && (c.get(31) | 0) >= 100 && map23 !== 2 && map23 !== 5) {
+              this.log('注意！白金币达到 100 枚以上时，无法再获得新的白金币。');
+            }
+            picked++;
+            continue;
+          }
+        }
         // 0-FZ / 341990-342030：未收获作物（f[21]==4、类别 57000）不直接捡起，
         //   而是启动 103 采摘持续行动（回合数按重量 / 筋力·自然计算）。
         //   采集任务（1006）的田里作物就带这个标记（见 questmap.js:219）。
@@ -5465,6 +5666,7 @@
     async deserialize(data) {
       this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
       await Elona.ItemDB.load();
+      await Elona.ItemDB.loadIconTable();  // 0-HP：96 高的大件图标表（读档路径也必须加载）
       await Elona.ItemDB.loadCand();   // 物品候选轮盘 *label_0598（tools/extract_itemcand.py）
       await Elona.ItemDB.loadEnchant();// 附魔表 var_649/var_653/var_651
       this.dmgconTable = (await Elona.Data.table('dmgcon')).conditions;

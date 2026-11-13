@@ -127,7 +127,24 @@
       if (!this._decoPromise) {
         this._decoPromise = new Promise((resolve) => {
           const img = new Image();
-          img.onload = () => { this.decoInv = img; resolve(img); };
+          img.onload = () => {
+            // 原版 deco_inv 以 gmode 2（加算）绘制，黑底不可见；网页版 drawImage 会带黑框，
+            // 因此做一份「纯黑→透明」的副本（窗口四角装饰/右上角挂件共用）。
+            try {
+              const cv = document.createElement('canvas');
+              cv.width = img.width; cv.height = img.height;
+              const g = cv.getContext('2d');
+              g.drawImage(img, 0, 0);
+              const d = g.getImageData(0, 0, cv.width, cv.height);
+              const px = d.data;
+              for (let i = 0; i < px.length; i += 4) {
+                if (px[i] === 0 && px[i + 1] === 0 && px[i + 2] === 0) px[i + 3] = 0;
+              }
+              g.putImageData(d, 0, 0);
+              this.decoInv = cv;
+            } catch (e) { this.decoInv = img; }
+            resolve(this.decoInv);
+          };
           img.onerror = () => resolve(null);
           img.src = 'assets/graphic/deco_inv.bmp';
         });
@@ -305,6 +322,8 @@
       ctx.restore();
       this.drawHud(game);
       if (Elona.UI && Elona.UI.invOpen) this.drawInventory(game);
+      // 0-HO：商店列表按 x 打开的道具知识窗（与主界面共用 UI.invInfo）
+      else if (Elona.UI && Elona.UI.invInfo) this.drawItemKnowledge(game);
     }
 
     /**
@@ -462,7 +481,7 @@
      *   ② 光标格 `gfini` 后描白框（283552 / 283605）；
      *   ③ `txttargetnpc`（283056）在左下角 `x=100, y=var_217-45-行号*20` 打 3 行信息。
      * 本项目 0-GW 之前只画了光标、信息走 HTML 弹窗；现在按原版全部画到画布上：
-     *   · 路径：只要有「光标」或「已锁定目标」就画（射线/直线魔法的命中走向）；
+     *   · 路径：只在瞄准会话进行中画（确认锁定后就退出光标模式，不再残留覆盖层）；
      *   · 信息：瞄准会话进行中显示（锁定后由消息窗播报一次）。
      */
     drawTargetOverlay(game, startX, startY) {
@@ -470,10 +489,11 @@
       const Aim = Elona.Aim;
       if (!Aim || !game || !game.player) return;
       const cur = Aim.cursor || null;
-      const tgt = Aim.target ? Aim.target(game) : null;
+      // 确认锁定后（Aim.s = null）不再画任何覆盖层：原版锁定成功就退出光标模式，
+      //   只有绿色的「目标框」是旧实现的残留，会让玩家以为还在瞄准。
+      if (!cur) return;
       const me = game.player;
-      const dest = cur ? { x: cur.x | 0, y: cur.y | 0 }
-        : (tgt && tgt.tile ? { x: tgt.tile.x | 0, y: tgt.tile.y | 0 } : null);
+      const dest = { x: cur.x | 0, y: cur.y | 0 };
 
       // ① 半透明路径
       if (dest && Aim.pathCells) {
@@ -489,7 +509,7 @@
         }
       }
 
-      // ② 光标 / 已锁定目标
+      // ② 光标
       const box = (x, y, fill, stroke) => {
         const vx = x - startX, vy = y - startY;
         if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) return;
@@ -500,15 +520,10 @@
         ctx.lineWidth = 2;
         ctx.strokeRect(px + 1, py + 1, TILE - 2, TILE - 2);
       };
-      if (cur) {
-        const info = Aim.inspect(game);
-        // 看不见的格子用红色提示（283740 会拦下锁定）
-        box(cur.x, cur.y, info.inSight ? 'rgba(255,255,255,.42)' : 'rgba(255,80,80,.35)',
-          info.inSight ? '#ffffff' : '#ff9090');
-      } else if (tgt && tgt.tile && !tgt.ground) {
-        // 锁定的是角色才画绿框；锁定地面（var_2189）只画路径，免得整局都在闪
-        box(tgt.tile.x, tgt.tile.y, 'rgba(120,255,150,.20)', 'rgba(120,255,150,.85)');
-      }
+      const info = Aim.inspect(game);
+      // 看不见的格子用红色提示（283740 会拦下锁定）
+      box(cur.x, cur.y, info.inSight ? 'rgba(255,255,255,.42)' : 'rgba(255,80,80,.35)',
+        info.inSight ? '#ffffff' : '#ff9090');
 
       // ③ 左下角的目标信息（只在瞄准中显示）
       if (cur && Aim.describe) {
@@ -860,17 +875,18 @@
     // 物品选择窗口 —— 复刻 *label_2826 / *label_2825（297090-297366）
     // =====================================================================
 
-    /** 物品名颜色（cs_list 的 1 模式） */
+    /** 物品名颜色（cs_list 的 1 模式，31620-31634） */
     itemColor(it) {
       if (!it || typeof it === 'number') return '#0a0a0a';
       let color = '#0a0a0a';
       if ((it.f[8] | 0) >= 3) {
+        color = 'rgb(10,40,120)';                        // 已鉴定 = 蓝
         const b = it.f[17] | 0;
-        if (b === 1) color = 'rgb(10,110,30)';
-        else if (b === -1) color = 'rgb(150,10,10)';
-        else if (b === -2) color = 'rgb(100,10,100)';
+        if (b === 1) color = 'rgb(10,110,30)';           // 祝福 = 绿
+        else if (b === -1) color = 'rgb(150,10,10)';     // 诅咒 = 红
+        else if (b === -2) color = 'rgb(100,10,100)';    // 堕落 = 紫
       }
-      if (it.eqSlot >= 0) color = 'rgb(120,80,0)';
+      if (it.eqSlot >= 0) color = 'rgb(120,80,0)';       // 保持指定 = 棕
       return color;
     }
 
@@ -1171,13 +1187,18 @@
         } else {
           id = row.id;
           count = row.f[0] | 0;
-          name = Elona.ItemDB.name(id, 'en');
+          // 列表用实例名（含 ego/材质/称号/祝福前缀），与原版 itemname 一致
+          name = Elona.ItemDB.instanceName(row);
           // 0-DF：使用列表里脚下物品加标记（源码中它们来自 header -1）
           if (row._onGround && UI.invMode === 'use') name = '〔地面〕' + name;
           weight = (row.f[7] | 0) * count;
           right = K.cnvweight(weight);
         }
-        if (count > 1) name = count + ' ' + name;
+        // itemname 30332-30367：数量 > 1 时加「数字 + 量词」（7瓶…）
+        if (count > 1) {
+          const unit = (typeof row === 'object' && row) ? Elona.ItemDB.counterUnit(row) : ' ';
+          name = count + unit + name;
+        }
 
         // 选中行（cs_list：深色底 + 内框 + 右侧箭头）
         if (idx === sel) {
@@ -1190,13 +1211,13 @@
           this.gspr(48, 360, 16, 16, INV_X + 84 + tw - 20, rowY + 1, 16, 16);
         }
 
-        // 物品图标（item.bmp 的 48px 切片缩到行高附近）
+        // 物品图标（item.bmp 的 48px 切片，按原版比例略放大到 26px）
         if (id >= 0 && this.itemSheet) {
           const g = Elona.ItemDB.graphic(id);
           if (Number.isFinite(g) && g >= 0) {
             const sx = (g % COLS) * TILE, sy = Math.floor(g / COLS) * TILE;
             if (sx + TILE <= this.itemSheet.width && sy + TILE <= this.itemSheet.height) {
-              ctx.drawImage(this.itemSheet, sx, sy, TILE, TILE, INV_X + 37, rowY - 1, 20, 20);
+              ctx.drawImage(this.itemSheet, sx, sy, TILE, TILE, INV_X + 35, rowY - 4, 26, 26);
             }
           }
         }
@@ -1232,8 +1253,8 @@
       const cargo = game.getV65 ? (game.getV65(80) | 0) : 0;
       const cargoMax = game.getV65 ? (game.getV65(82) | 0) : 0;
       const cargoPart = cargoMax > 0
-        ? ` Cargo ${K.cnvweight(cargo)}/${K.cnvweight(cargoMax)}` : '';
-      const note = `${rows.length} items  (Weight ${K.cnvweight(total)}/${K.cnvweight(maxW)}${cargoPart})`;
+        ? ` 荷车 ${K.cnvweight(cargo)}/${K.cnvweight(cargoMax)}` : '';
+      const note = `${rows.length} 件（重量合计 ${K.cnvweight(total)}/${K.cnvweight(maxW)}${cargoPart}）`;
       ctx.font = K.FONT(10);
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
@@ -1387,7 +1408,7 @@
 
     /**
      * 消息窗文字（msg_write：x=var_204+6，y=var_208+6，行高 15）
-     * 0-DD：支持纵向展开到 5 倍高度（F3 循环 4 → 8 → 12 → 16 → 20 行），
+     * 0-DD：支持纵向展开到 5 倍高度（F4 循环 4 → 8 → 12 → 16 → 20 行），
      *       展开时窗口向视野方向长高，原版行为一致（不保留更早的消息）。
      */
     drawMessages() {
@@ -1403,7 +1424,7 @@
         ctx.fillStyle = 'rgba(0,0,0,0.86)';
         ctx.fillRect(0, top, UI_W, UI_BOTTOM - top);
         ctx.restore();
-        this.text(`▲ 消息栏 ${total} 行（F3 收起）`, UI_W - 168, top + 2, 'rgba(220,210,170,0.85)', FONT_UI(10));
+        this.text(`▲ 消息栏 ${total} 行（F4 收起）`, UI_W - 168, top + 2, 'rgba(220,210,170,0.85)', FONT_UI(10));
       }
       const startY = top + 6;
       for (let i = 0; i < shown.length; i++) {
@@ -1471,25 +1492,21 @@
     }
 
     /**
-     * 0-DG：同伴的 HP/MP/斗志 小条（听诊器 toggles c.__hpbar）。
-     * 原版在同伴贴图正下方画三条 3px 高的彩条（HP 蓝=可进食，见 wiki「对同伴使用的道具」）。
+     * 同伴贴图下方的 HP 条（听诊器 toggles c.__hpbar）。
+     * 原版 34662：`gcopy 3, 480-var_861, 517, var_861, 3` —— 单条 HP，无 MP/斗志。
      */
     drawAllyBars(c, dx, dy) {
       const ctx = this.ctx;
-      const w = TILE - 8, x = dx + 4, y = dy + TILE - 10;
-      const bars = [
-        { v: c.hpMax ? (c.hp / c.hpMax) : 0, col: (c.get(22) | 0) >= 9000 ? '#4a9cff' : '#3ad14a' },
-        { v: c.mpMax ? (c.mp / c.mpMax) : 0, col: '#4a9cff' },
-        { v: (c.get(182) | 0) / 200, col: '#ffb03a' },
-      ];
+      const w = TILE - 8, x = dx + 4, y = dy + TILE - 6;
+      const hpMax = Math.max(1, c.get(51) | 0);
+      const ratio = Math.max(0, Math.min(1, (c.get(50) | 0) / hpMax));
       ctx.save();
-      for (let i = 0; i < bars.length; i++) {
-        const by = y + i * 4;
-        ctx.fillStyle = 'rgba(0,0,0,0.75)';
-        ctx.fillRect(x - 1, by - 1, w + 2, 4);
-        ctx.fillStyle = bars[i].col;
-        const fw = Math.max(0, Math.min(1, bars[i].v || 0)) * w;
-        ctx.fillRect(x, by, fw, 2);
+      ctx.fillStyle = 'rgba(0,0,0,0.66)';
+      ctx.fillRect(x - 1, y - 1, w + 2, 5);
+      const fw = ratio * w;
+      if (fw > 0) {
+        ctx.fillStyle = 'rgb(196,32,32)';
+        ctx.fillRect(x, y, fw, 3);
       }
       ctx.restore();
     }

@@ -1733,6 +1733,487 @@
   }
 
   // ------------------------------------------------------------------
+  // 0-HL：广域（3000 档）能力的效果分支补齐。
+  //   源码：656@333157 / 666@326919 / 669@329288 / 671@329339 / 674@335526 /
+  //         680@331436 / 687-689@330591-330604 / 721@330654 / 733@335421 /
+  //         754@328112 / 766@331027 / 774@330686 / 805@329835。
+  //   范围统一为 var_83(3,656)\1000+1 = 4；项目没有逐格视线数据，沿用既有
+  //   handler 的做法省略 fov_los，只按距离筛选。
+  const AREA = 4;
+  function nearEach(g, c, includeSelf, fn) {
+    if (!c) return 0;
+    let n = 0;
+    if (includeSelf && (c.get(0) | 0) === 1) { fn(c); n++; }
+    for (const m of (g.charas || [])) {
+      if (!m || m === c || (m.get(0) | 0) !== 1) continue;
+      if (Elona.Battle.dist(c.x, c.y, m.x, m.y) > AREA) continue;
+      fn(m); n++;
+    }
+    return n;
+  }
+
+  // 687 緊急回避 / 688 魔装 / 689 超重装：按装备总重给同伴（含自己）加 buff
+  //   源码 330625-330634 先按 var_243 过滤阵营，所以只作用于同阵营。
+  T[687] = (g, c) => { nearEach(g, c, true, (m) => { if (!sameSide(c, m)) return; if ((m.get(64) | 0) < 15000) buff(g, m, 33, 15, 15); }); return {}; };
+  T[688] = (g, c) => { nearEach(g, c, true, (m) => { if (!sameSide(c, m)) return; const w = m.get(64) | 0; if (w >= 15000 && w < 35000) buff(g, m, 34, 15, 15); }); return {}; };
+  T[689] = (g, c) => { nearEach(g, c, true, (m) => { if (!sameSide(c, m)) return; if ((m.get(64) | 0) >= 35000) buff(g, m, 35, 20, 20); }); return {}; };
+  // 721 和声突击 / 774 炼成掌：广域 buff
+  T[721] = (g, c) => { nearEach(g, c, true, (m) => buff(g, m, 65, 50, 50)); return {}; };
+  T[774] = (g, c) => { nearEach(g, c, true, (m) => buff(g, m, 49, 50, 50)); return {}; };
+  // 656 鼓舞：除自己以外的同伴获得魅力×3 的士气/速度
+  T[656] = (g, c) => {
+    say(g, `${nm(c)}鼓舞了同伴。`);
+    const ch = c.get(17) | 0;
+    nearEach(g, c, false, (m) => {
+      if (!sameSide(c, m)) return;
+      buff(g, m, 5, ch * 3 + 50, 75);
+      buff(g, m, 7, ch * 3 + 100, 75);
+      say(g, `${nm(m)}兴奋了起来！`);
+    });
+    return {};
+  };
+  // 669 狂化术：同类进入狂暴（含自己）
+  T[669] = (g, c) => {
+    nearEach(g, c, true, (m) => {
+      if (!sameSide(c, m)) return;
+      if ((m.get(264) | 0) > 0) { say(g, `${nm(m)}已经处于狂暴状态。`); return; }
+      m.set(264, (m.get(264) | 0) + rndOf(g)(20) + 10);
+      say(g, `${nm(m)}狂暴化了。`);
+    });
+    return {};
+  };
+  // 671 灵魂同调：HP 低于 1/4 时与高魅力同伴共鸣，回血并加 buff
+  T[671] = (g, c) => {
+    if ((c.get(50) | 0) > ((c.get(51) | 0) / 4 | 0)) {
+      say(g, '不在濒死状态，无法发动。');
+      return {};
+    }
+    say(g, '与同伴的羁绊迸发出更强的力量！');
+    nearEach(g, c, true, (m) => {
+      if (!sameSide(c, m)) return;
+      const v = m.get(17) | 0;
+      if (v < 100) return;
+      buff(g, m, 17, v * 2, 50);
+      buff(g, m, 3, v * 2, 50);
+      healHp(m, (m.get(51) | 0) >> 1);
+      if ((m.get(269) | 0) > 1) m.set(269, 1);
+      healHp(c, (c.get(51) | 0) / 10 | 0);
+    });
+    return {};
+  };
+  // 674 压迫：消耗一半 MP，敌人士气 -50，概率恐惧
+  T[674] = (g, c) => {
+    dmgMp(c, (c.get(55) | 0) >> 1);
+    say(g, `${nm(c)}释放出令人窒息的压迫感。`);
+    nearEach(g, c, false, (m) => {
+      if (sameSide(c, m)) return;
+      subMorale(m, 50);
+      if (rndOf(g)(8) === 0 && (m.get(255) | 0) === 0) m.set(255, 1);
+    });
+    return {};
+  };
+  // 680 挑衅：让敌人锁定自己，并提升其狂暴计数
+  T[680] = (g, c) => {
+    say(g, `${nm(c)}开始挑衅敌人。`);
+    let hit = 0;
+    nearEach(g, c, false, (m) => {
+      if (sameSide(c, m)) return;
+      if (cbit(m, 985)) return;
+      m.set(201, (m.get(201) | 0) + 30);
+      m.set(29, c.index | 0);
+      if ((m.index | 0) !== 0) m.set(49, 3);
+      if ((m.get(264) | 0) === 0) m.set(264, (m.get(264) | 0) + rndOf(g)(10) + 10);
+      say(g, `${nm(m)}被挑衅了！`);
+      hit++;
+      if (hit <= 21) addMorale(c, 1);
+    });
+    return {};
+  };
+  // 733 空间控制：给目标加护盾并重置空间扭曲层数
+  T[733] = (g, c, t) => {
+    const m = t || c;
+    buff(g, m, 41, 30, 30);
+    const field = c.get(85) | 0;
+    if (field > 0) { c.set(85, 0); say(g, '你重新稳定了周围的空间。'); }
+    else if (field < 0) say(g, '空间已经安定，无法再控制。');
+    return {};
+  };
+  // 805 集体催眠：范围催眠；NPC 施放时还可能洗脑
+  T[805] = (g, c) => {
+    say(g, `${nm(c)}大范围释放了催眠术！`);
+    nearEach(g, c, false, (m) => {
+      if (sameSide(c, m)) return;
+      if (cbit(m, 985)) return;
+      con(g, m, 2, limit(c.get(54) | 0, 10, 2000));
+      buff(g, m, 11, 150, 10);
+      if ((c.index | 0) === 0) return;               // 玩家施放不进入洗脑分支
+      if ((m.get(251) | 0) === 0 && (m.index | 0) === 0) {
+        m.set(269, limit(idiv(c.get(54) | 0, 15), 10, 30));
+        m.set(201, 5);
+        m.set(29, c.index | 0);
+      }
+    });
+    return {};
+  };
+  // 666 土龙乱舞：把周围地面翻成泥土（图块 38），并提升土木技能
+  T[666] = (g, c) => {
+    const map = g.map;
+    if (!map || !map.cells) { say(g, '这里无法翻动地面。'); return {}; }
+    let n = 0;
+    for (let i = 0; i < 400; i++) {
+      const x = (c.x | 0) + rndOf(g)(31) - 15;
+      const y = (c.y | 0) + rndOf(g)(31) - 15;
+      if (!map.inBounds(x, y)) continue;
+      const cell = map.cell(x, y);
+      if (!cell || (cell[0] | 0) === 0) continue;
+      cell[0] = 38;                                   // 38 = 泥土
+      n++;
+    }
+    skillExp(c, 163, 500);
+    say(g, `大地被翻动了（${n} 格）。`);
+    return {};
+  };
+  // 754 读书会：项目简化 —— 直接取第一本可读的书开始阅读
+  T[754] = (g, c) => {
+    if ((c.index | 0) !== 0) return {};
+    let idx = -1;
+    (c.inv || []).forEach((it, i) => {
+      if (idx >= 0 || !it) return;
+      if (it.id === 687 || it.id === 783
+        || (Elona.ItemUse && Elona.ItemUse.entryOf(it.id, 13))) idx = i;
+    });
+    if (idx < 0) { say(g, '你没有可以朗读的书。'); return {}; }
+    const r = g.beginReading ? g.beginReading(idx) : null;
+    if (r && r.ok) say(g, '你与同伴开始了读书会。');
+    return { implemented: true };
+  };
+  // 766 亚空垂钓：在面前开一个水面，把附近的敌人钓过来（源码 331027 的简化）
+  T[766] = (g, c) => {
+    const map = g.map;
+    const aimed = (g._aimX !== undefined && g._aimX !== null);
+    const dx = aimed ? Math.sign(g._aimX - c.x) : 1;
+    const dy = aimed ? Math.sign(g._aimY - c.y) : 0;
+    const tx = (c.x | 0) + (dx || 1), ty = (c.y | 0) + dy;
+    if (!map || !map.inBounds || !map.inBounds(tx, ty)) { say(g, '这里无法垂钓。'); return {}; }
+    let foe = null;
+    for (const m of (g.charas || [])) {
+      if (!m || m === c || (m.get(0) | 0) !== 1 || (m.get(9) | 0) !== -3) continue;
+      if (Elona.Battle.dist(c.x, c.y, m.x, m.y) > AREA * 2) continue;
+      foe = m; break;
+    }
+    if (!foe) { say(g, '似乎没有能钓到的猎物……'); return {}; }
+    const cell = map.cell(tx, ty);
+    const old = cell ? (cell[0] | 0) : 0;
+    if (cell) cell[0] = 233;
+    say(g, '你开始了亚空垂钓。');
+    foe.x = tx; foe.y = ty;
+    say(g, `钓到了${nm(foe)}！`);
+    if (cell) cell[0] = old;
+    return {};
+  };
+
+  // ------------------------------------------------------------------
+  // 0-HN：NPC 专属（怪物固有）能力的最后 14 条
+  //   源码：657@327250 / 661@329737 / 679@331293 / 694@337135 / 695@329602 /
+  //         716@321344 / 727@336667 / 732@335504 / 759@330120 / 761@330028 /
+  //         762@330169 / 764@333577 / 765@331224 / 790@329677。
+  //   这些分支在 var_83 里都是 3000 档（W 页 / 怪物 AI 施放），
+  //   range 统一取 var_83(3,id)\1000+1 = 4；项目没有 fov_los，只按距离筛选。
+  // ------------------------------------------------------------------
+  function allAlive(g, fn) {
+    for (const m of (g.charas || [])) if (m && (m.get(0) | 0) === 1) fn(m);
+  }
+  /** var_243 < 16 或 var_243 == 0：施法者属于「玩家侧」 */
+  function playerSide(c) { return (c.index | 0) === 0 || (c.index | 0) < 16; }
+  /**
+   * 源码各分支使用的三种敌对过滤：
+   *   'rel'   caster<16 → 只打 rel==-3；caster>=16 → rel 不同
+   *   'side'  caster<16 → 只打 rel==-3；caster>=16 → 跳过同种族(69)/同 rel/双方 rel>=-1
+   *   'side2' 同 'side'，但 caster>=16 时只看同种族(69)/同 rel（762 少一条）
+   */
+  function isEnemy(c, m, mode) {
+    const cr = c.get(9) | 0, mr = m.get(9) | 0;
+    if (playerSide(c)) return mr === -3;                    // 玩家侧三种模式都只打 rel==-3
+    if (mode === 'rel') return mr !== cr;
+    if ((m.get(69) | 0) === (c.get(69) | 0)) return false;
+    if (mr === cr) return false;
+    if (mode !== 'side2' && mr >= -1 && cr >= -1) return false;
+    return true;
+  }
+  /** var_75(0, id) == 1（正面增益，非 debuff、非成长类） */
+  function isGoodBuff(id) {
+    if (!id) return false;
+    const B = Elona.BuffEffects;
+    if (B && B.isDebuff && B.isDebuff(id)) return false;
+    if ((id >= 20 && id <= 28) || id === 67) return false;
+    return true;
+  }
+
+  // 657 疯狂之喵（327250）：消耗全部斗志，秒杀场上除自己以外的所有角色
+  T[657] = (g, c) => {
+    const r = moraleReject(g, c, c, 657, 732);
+    if (r.recast) return r;
+    if ((c.index | 0) !== 0 && cbit(c, 960)) {
+      say(g, '什么也没发生……');
+      return { implemented: true, nothing: true };
+    }
+    say(g, '喵喵喵！');
+    subMorale(c, 100);
+    allAlive(g, (m) => {
+      if (m === c) return;
+      const god = (m.index | 0) >= 16 && m.raceName === 'god';
+      dmg(g, m, god ? 49999 : 99999, c);
+    });
+    return { implemented: true };
+  };
+  // 661 死亡宣告（329737）：斗志 -100，全场其他角色附加 11 号（死亡宣告）
+  T[661] = (g, c) => {
+    const r = moraleReject(g, c, c, 661, 732);
+    if (r.recast) return r;
+    if ((c.index | 0) !== 0 && cbit(c, 960)) {
+      say(g, '什么也没发生……');
+      return { implemented: true, nothing: true };
+    }
+    subMorale(c, 100);
+    say(g, '「呵呵呵……啊哈哈哈哈！绝对不会放你逃走……」');
+    allAlive(g, (m) => {
+      if (m === c) return;
+      const god = (m.index | 0) >= 16 && m.raceName === 'god';
+      con(g, m, 11, god ? 1000 : 2000);
+    });
+    return { implemented: true };
+  };
+  // 679 女神之歌（331293）：范围内同伴获得魅力系强化
+  T[679] = (g, c) => {
+    const p = g.player;
+    if (p && (p.get(30) | 0) > 100) p.set(30, (p.get(30) | 0) - 100);
+    say(g, '「瓦莫斯·坎塔尔！」');
+    const pw = (c.skill(17) | 0) * 3 + 100;
+    allAlive(g, (m) => {
+      if ((c.get(27) | 0) === 675 && m !== c) return;           // 675 只作用于自己
+      if (playerSide(c)) { if ((m.index | 0) >= 16) return; }
+      else if ((m.get(9) | 0) !== (c.get(9) | 0)) return;
+      if (Elona.Battle.dist(c.x, c.y, m.x, m.y) > AREA) return;
+      buff(g, m, 1, pw, 60);
+      buff(g, m, 12, pw, 60);
+      buff(g, m, 31, pw, 60);
+      if ((m.get(269) | 0) > 1) m.set(269, 1);
+    });
+    return { implemented: true };
+  };
+  // 694（337135）：给目标加 37 号 buff
+  T[694] = (g, c, t) => {
+    buff(g, t, 37, 50, 50);
+    return { implemented: true };
+  };
+  // 695 净化之炎（329602）：烧掉敌人的正面增益，同时附加 9 号
+  T[695] = (g, c) => {
+    say(g, `${nm(c)}释放出烧尽祝福的波动。`);
+    allAlive(g, (m) => {
+      if (m === c) return;
+      if (!isEnemy(c, m, 'rel')) return;
+      buff(g, m, 9, 150, 20);
+      for (let slot = 15; slot >= 0; slot--) {                  // repeat 16，倒序
+        const id = m.get(280 + slot * 3) | 0;
+        if (!isGoodBuff(id)) continue;
+        if (id === 13 || id === 0) continue;
+        if (Elona.Status && Elona.Status.delbuff) Elona.Status.delbuff(m, slot);
+        break;                                                  // continue cnt
+      }
+    });
+    return { implemented: true };
+  };
+  // 716 时间停止（321344）
+  T[716] = (g, c) => {
+    if (morale(c) < 100) return { implemented: true, nothing: true };
+    if (v65(g, 801) > 0 || v65(g, 663) > 0) {
+      say(g, '时间已经停止了。');
+      return { implemented: true, nothing: true };
+    }
+    subMorale(c, 100);
+    if ((c.index | 0) === 0) c.set(214, 0);
+    say(g, `${nm(c)}停止了时间。`);
+    setV65(g, 801, 8);
+    if (morale(c) >= 100) { c._v1636 = 100; setV65(g, 801, v65(g, 801) + 2); }
+    return { implemented: true };
+  };
+  // 727 孢子（336667）
+  T[727] = (g, c) => {
+    say(g, `${nm(c)}喷出了孢子！`);
+    allAlive(g, (m) => {
+      if (m === c) return;
+      if (!isEnemy(c, m, 'side')) return;
+      if (Elona.Battle.dist(c.x, c.y, m.x, m.y) > AREA) return;
+      buff(g, m, 6, 100 + (c.skill(16) | 0), 20);
+      con(g, m, 2, 100 + (c.skill(16) | 0));
+    });
+    return { implemented: true };
+  };
+  // 732 集气（335504）：恢复斗志与 HP/MP/SP
+  T[732] = (g, c) => {
+    say(g, `${nm(c)}正在凝聚力量！`);
+    const mo = morale(c);
+    if (mo > 100 && mo < 185) setMorale(c, mo + 16);
+    if (mo < 85) setMorale(c, morale(c) + 16);
+    healHp(c, idiv(c.get(51) | 0, 20) + 2);
+    healMp(c, idiv(c.get(56) | 0, 20) + 2);
+    if (Elona.Status && Elona.Status.healsp) Elona.Status.healsp(c, idiv(c.get(53) | 0, 20) + 1);
+    return { implemented: true };
+  };
+  // 759 风之刃（330120）
+  T[759] = (g, c) => {
+    say(g, `${nm(c)}放出了风之刃。`);
+    allAlive(g, (m) => {
+      if (m === c) return;
+      if (!isEnemy(c, m, 'side')) return;
+      if (Elona.Battle.dist(c.x, c.y, m.x, m.y) > AREA) return;
+      dmg(g, m, (c.skill(188) | 0) * 2 + 5, c, 61, 100);
+      con(g, m, 9, m.get(199) | 0);
+    });
+    return { implemented: true };
+  };
+  // 761 毁灭之歌（330028）：范围内其他角色被施加 16 号（死亡诅咒）
+  T[761] = (g, c) => {
+    say(g, `${nm(c)}高声唱起了毁灭之歌。`);
+    allAlive(g, (m) => {
+      if (cbit(m, 973)) return;
+      if (m === c) buff(g, c, 16, 70000000, 20);
+      if (Elona.Battle.dist(c.x, c.y, m.x, m.y) > AREA) return;
+      if ((m.skill(57) | 0) > 0) {
+        if (rndOf(g)((c.skill(16) | 0) + 1) > rndOf(g)(((m.skill(57) | 0)) + 1)) {
+          buff(g, m, 16, 70000000, 44);
+        } else {
+          say(g, `${nm(m)}抵抗住了。`);
+        }
+      } else {
+        buff(g, m, 16, 70000000, 20);
+      }
+    });
+    return { implemented: true };
+  };
+  // 762 箭雨（330169）：范围内敌人均摊总伤害
+  T[762] = (g, c) => {
+    const foes = [];
+    allAlive(g, (m) => {
+      if (m === c) return;
+      if (!isEnemy(c, m, 'side2')) return;
+      if (Elona.Battle.dist(c.x, c.y, m.x, m.y) > AREA) return;
+      foes.push(m);
+    });
+    if (!foes.length) return { implemented: true, nothing: true };
+    say(g, `${nm(c)}瞄准了周围的敌人。`);
+    const R = rndOf(g);
+    const sk13 = c.skill(13) | 0;
+    const lv = c.get(38) | 0;
+    const base = idiv(sk13, 5) + 5;
+    const mult = idiv((c.skill(189) | 0) + 1, 5) + 5;
+    const extra = (R(sk13 * 2 + 5)
+      + (limit(lv - 50, 1, 2000) + limit(lv - 100, 1, 2000)) * 4 * Math.sqrt(limit(lv, 1, 2000) * 3)
+      + 30) / foes.length;
+    const dmgVal = base * mult + (extra | 0);
+    for (const m of foes) dmg(g, m, dmgVal, c, 64, 1000);
+    return { implemented: true };
+  };
+  // 764 共鸣（333577）：同族之间互相强化
+  T[764] = (g, c) => {
+    say(g, `${nm(c)}向周围的同族发出了呼唤。`);
+    const kin = (m, withSelf) => {
+      if (!withSelf && m === c) return false;
+      if ((m.get(158) | 0) !== (c.get(158) | 0)) return false;
+      if (playerSide(c)) { if ((m.index | 0) >= 16) return false; }
+      else if ((m.get(9) | 0) !== (c.get(9) | 0)) return false;
+      if (Elona.Battle.dist(c.x, c.y, m.x, m.y) > AREA) return false;
+      return true;
+    };
+    const n = (g.charas || []).filter((m) => m && (m.get(0) | 0) === 1 && kin(m, false)).length;
+    if (n === 0) {
+      say(g, `${nm(c)}孤零零的……`);
+      return { implemented: true, nothing: true };
+    }
+    con(g, c, 9, 1000);
+    allAlive(g, (m) => {
+      if (!kin(m, true)) return;
+      say(g, `${nm(m)}下定了决心！`);
+      if ((m.get(182) | 0) < 50) m.set(182, (m.get(182) | 0) + limit((n + 1) * 2, 0, 30));
+      const pw = (m.skill(15) | 0) * 3;
+      buff(g, m, 5, pw + 50, 50);
+      buff(g, m, 7, pw + 100, 50);
+      buff(g, m, 4, pw + 100, 50);
+      if ((m.index | 0) === 0) buff(g, m, 18, 150, 5);
+      else buff(g, m, 18, 1500, 50);
+    });
+    return { implemented: true };
+  };
+  // 765 海洋与雾（331224）：把周围化成海，水中角色被浸湿
+  T[765] = (g, c) => {
+    const map = g.map;
+    if (!map || !map.cells) { say(g, '这里无法唤来海洋。'); return { implemented: true }; }
+    say(g, '雾与周围的海一起扩散开来。');
+    const R = rndOf(g);
+    const RAD = 6;
+    for (let i = 0; i < 1000; i++) {
+      const x = R(RAD) + (c.x | 0) - R(RAD);
+      const y = R(RAD) + (c.y | 0) - R(RAD);
+      if (!map.inBounds(x, y)) continue;
+      const cell = map.cell(x, y);
+      if (!cell) continue;
+      if ((map.attr(cell[0] | 0, 7) & 4)) continue;             // var_593(7) & 4 = 不可通行
+      if (Elona.Battle.dist(c.x, c.y, x, y) >= RAD) continue;
+      const occ = cell[1] | 0;
+      if (occ !== 0) {
+        const m = g.charas[occ - 1];
+        if (m) {
+          m.set(170, 400);
+          const rider = m.get(167) | 0;
+          if ((m.get(168) | 0) !== 0 && rider > 0) {
+            const r = g.charas[rider - 1];
+            if (r) r.set(170, 400);
+          }
+        }
+      }
+      if ((cell[0] | 0) < 363) cell[0] = 168;                     // 168 = 海水
+      const mefSlot = cell[8] | 0;
+      if (mefSlot !== 0 && g.mef) g.mef.del(g, mefSlot - 1);
+    }
+    allAlive(g, (m) => {
+      if ((m.get(170) | 0) === 400) {
+        m.set(170, 0);
+        buff(g, m, 2, 150, 20);
+        if (!cbit(m, 5) || (m.get(262) | 0) > 0 || hasBuff(m, 52)) {
+          if (Elona.Status && Elona.Status.wet) Elona.Status.wet(m, 25);
+        }
+      }
+      m.set(170, 0);
+    });
+    return { implemented: true };
+  };
+  // 790 领域支配（329677）：消耗斗志，给全地图铺 9 号 mef
+  T[790] = (g, c) => {
+    if ((c.index | 0) !== 0
+      && ((c.index | 0) < 16 || cbit(c, 960) || (c.get(58) | 0) === 100)) {
+      say(g, '什么也没发生……');
+      return { implemented: true, nothing: true };
+    }
+    subMorale(c, 50);
+    if (morale(c) >= 50) {
+      c._v1636 = 100;
+      if (v65(g, 801) === 0) setV65(g, 801, 2);
+    }
+    buff(g, c, 54, 300, 300);
+    const map = g.map;
+    if (!map || !map.cells || !g.mef) return { implemented: true };
+    for (let y = 0; y < map.height; y++) {
+      for (let x = 0; x < map.width; x++) {
+        const cell = map.cell(x, y);
+        if (!cell) continue;
+        if ((map.attr(cell[0] | 0, 7) & 4)) continue;
+        g.mef.add(g, x, y, 9, 963, 300, 300);
+      }
+    }
+    return { implemented: true };
+  };
+
+  // ------------------------------------------------------------------
   function has(id) { return !!T[id]; }
   function run(g, caster, id, tg, power) {
     const fn = T[id];

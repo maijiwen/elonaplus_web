@@ -1401,20 +1401,14 @@
 
   /**
    * 发射一次 —— *label_3005 的远程部分（345710-345829）：
-   *   读取特殊弹 var_1321 → 按类型执行连射/贯通/散弹/时停，再消耗 1 发弹药。
+   *   读取特殊弹 var_1321 → 按类型执行连射/贯通/散弹/时停。
+   *   注意：原版**不扣减**箭矢/子弹的堆叠数量（只扣特殊弹的发数）。
    */
   function rangedAttack(g, att, def) {
     const r = getRanged(g, att);
     if (!r.ok) return r;
-    if (r.ammo) {
-      const n = r.ammo.f[0] | 0;
-      if (n <= 0) return { ok: false, reason: 'no-ammo', weapon: r.weapon, ammo: r.ammo };
-      r.ammo.f[0] = n - 1;
-      if (r.ammo.f[0] <= 0 && r.ammoSlot >= 0) {
-        att.set(100 + r.ammoSlot, 11 * 10000); // 空弹药槽（保留槽类型）
-        if (r.ammo.eqSlot >= 0) r.ammo.eqSlot = -1;
-      }
-    }
+    // 345717-345734：原版**不消耗**箭矢/子弹的数量，箭束只作为装备件常驻；
+    //   这里只处理特殊弹的剩余发数（ammoSpecial），f[0] 保持原样。
     const sp = ammoSpecial(r.ammo);              // var_1321
     // var_1323=1（远程）/ var_1322=技能 / var_1368/1369（武器/弹药下标）
     const p1322 = g.var1322, p1323 = g.var1323, p1368 = g.var1368, p1369 = g.var1369;

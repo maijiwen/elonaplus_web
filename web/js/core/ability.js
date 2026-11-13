@@ -4,7 +4,7 @@
  *
  * 数据来源（全部已存在）：
  *   tables/actions.json   var_83(field, id)：[0] 训练属性/图标、[1] 效果类型、[2] SP 消耗、
- *                         [3] 类别×1000（3000/10000 = 被动）、[4] 威力基数；另含名称与说明
+ *                         [3] 类别×1000（3000 = 广域 / 10000 = 自身中心）、[4] 威力基数；另含名称与说明
  *   tables/abilities.json *label_2229 的觉醒条件（core/feat.js 的 unlockAbilities 求值）
  *   core/spell.js         *label_2959 前置检查 + calcspellpower + *label_2960 效果分派
  *
@@ -17,7 +17,7 @@
  *
  * 列表（*label_2739，288777-288784）：
  *   技能 300/301 + `var_98(cnt)==1` 的 600+cnt（cnt 0..279），
- *   排除 `var_83(3,id)/1000*1000 == 3000`（被动）与 746/667/693/740 四个特例。
+ *   排除 `var_83(3,id)/1000*1000 == 3000`（广域，走 W 页）与 746/667/693/740 四个特例。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -49,13 +49,19 @@
      * 该 id 是否是「被动」类。
      * 288779 只排除 `var_83(3,id)/1000*1000 == 3000`；
      * 10000 只是 315527 里「睡眠时也会失败」的例外，不表示被动。
+     *
+     * 0-HL：3000 档是 W 页（*label_2743）的广域技能，本身可发动。
+     * 只有「3000 档且效果分支尚未移植」（Ability0 里没有 handler）的才按
+     * 被动处理，避免出现「发动了但没有任何效果」的空转。
      */
     isPassive(id) {
       const S = Elona.Spell;
       if (!S || !S.field) return false;
       if (NECRO_ABILITIES.indexOf(id | 0) >= 0) return false;   // 见 NECRO_ABILITIES 注释
       if (POTION_ABILITIES.indexOf(id | 0) >= 0) return false;  // 见 POTION_ABILITIES 注释
-      return this.isWide(id);
+      if (!this.isWide(id)) return false;
+      const A0 = Elona.Ability0;
+      return !(A0 && A0.has && A0.has(id));
     },
 
     /** 广域能力（var_83(3,id)/1000*1000 == 3000）：不在主能力一览里，改由 W 页发动 */
@@ -112,6 +118,29 @@
     },
 
     /**
+     * 广域能力一览（*label_2743，289012）。
+     * 源码筛选：`var_83(3,id)/1000*1000 == 3000` 或 746/667/693/740。
+     * 0-HL：不再依赖 abilities.json（它只有 114 条觉醒条件），改为遍历动作表，
+     * 这样 656/671/680 等没有觉醒条件条目的广域能力也能出现在 W 页。
+     * @returns {{id:number,name:string,cost:number,unlocked:boolean,passive:boolean}[]}
+     */
+    wideList(g, c) {
+      const ch = c || (g && g.player);
+      if (!ch) return [];
+      if (Elona.Feat && Elona.Feat.unlockAbilities) Elona.Feat.unlockAbilities(ch, g);
+      const out = [];
+      for (let id = 600; id <= 879; id++) {
+        if (!this.isWide(id) && EXCLUDED.indexOf(id) < 0) continue;
+        if (Elona.Feat && Elona.Feat.flag && !Elona.Feat.flag(ch, id - 600)) continue;
+        out.push({
+          id, name: this.name(id), cost: this.cost(id),
+          unlocked: true, passive: this.isPassive(id),
+        });
+      }
+      return out;
+    },
+
+    /**
      * 发动。
      * @param {object} g 游戏
      * @param {number} id 600..879 能力 / 300、301 特殊技能
@@ -130,9 +159,9 @@
         g.log('这个能力还没有觉醒。');
         return { ok: false, reason: 'locked' };
       }
-      // 被动类（3000/10000）不进发动列表（288779），这里也直接拒绝（源码只把它们从列表剔除）
+      // 效果尚未移植的广域能力（3000 档）不开放发动，避免空转
       if (this.isPassive(aid)) {
-        g.log('这是被动能力，无法主动发动。');
+        g.log('这个广域能力的效果还没有移植。');
         return { ok: false, reason: 'passive' };
       }
       // 2. 睡眠/麻痹（315527-315539）

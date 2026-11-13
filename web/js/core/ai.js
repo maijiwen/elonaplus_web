@@ -246,6 +246,25 @@
     const it = g.groundItems[idx];
     const cat = (Elona.ItemDB && Elona.ItemDB.ref) ? Elona.ItemDB.ref(it.id, 5) : 0;
     const nm = (Elona.ItemDB && Elona.ItemDB.name) ? Elona.ItemDB.name(it.id, 'jp') : ('item ' + it.id);
+    // 341874-341935：同伴拾到金币(54)/白金币(55) 时同样不进背包，
+    //   累加到 var_58(30/31)；白金币另计 var_65(291)，持有 >=100 时不再拾取。
+    {
+      const iid = it.f[3] | 0;
+      if (iid === 54 || iid === 55) {
+        const n = it.f[0] | 0;
+        if (iid === 55 && (c.get(31) | 0) >= 100) return { used: false };
+        it.f[0] = 0;
+        if (iid === 54) c.set(30, (c.get(30) | 0) + n);
+        else {
+          c.set(31, (c.get(31) | 0) + n);
+          if (g.setV65) g.setV65(291, ((g.getV65 ? g.getV65(291) : 0) | 0) + n);
+        }
+        g.groundItems.splice(idx, 1);
+        if (g.refreshGroundCell) g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
+        if (g.log) g.log(`${c.name}捡起了${nm}。`);
+        return { used: true, kind: 'pick-ground' };
+      }
+    }
     // 拾い食い
     if (cat === 57000 && CB(1033) === 0 && (c.get(22) | 0) <= 10000) {
       it.f[0] = (it.f[0] | 0) - 1;

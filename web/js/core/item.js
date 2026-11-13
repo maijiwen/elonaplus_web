@@ -137,6 +137,17 @@
         // 只装了部分物品表的调用方（部分测试桩）可能查不到 id，退回 0 而不是抛错
         try { cat = this.ref(it.id | 0, 5) | 0; } catch (e) { cat = 0; }
       }
+      // 30910-30919：f23 >= 40000 是奇迹(4)/神器(5)的「称号种子」。
+      //   源码 `randomize var_99(23)-40000` → `random_title(1)`，
+      //   名称后缀为 『称号』（奇迹）/《称号》（神器）。
+      if (f23 >= 40000 && (it.f[8] | 0) >= 3 && cat < 50000 && Elona.TitleText) {
+        let rng = Elona.rng;
+        try { rng = new Elona.RNG(f23 - 40000); } catch (e) { rng = Elona.rng; }
+        const title = Elona.TitleText.one(rng);
+        if (title) {
+          body += ((it.f[4] | 0) === 5) ? `《${title}》` : `『${title}』`;
+        }
+      }
       if (cat === 92000 && (it.f[26] | 0) !== 0) {
         body += lang === 'jp'
           ? `(仕入れ値 ${it.f[26] | 0}g)`
@@ -147,7 +158,45 @@
         body = lang === 'jp' ? ('見本用の' + body) : ('sample ' + body);
       }
       if (!pre) return body;
-      return lang === 'jp' ? pre + body : `${body} ${pre}`;
+      const full = lang === 'jp' ? pre + body : `${body} ${pre}`;
+      // 30372-30382：已完全鉴定（var_99(8) >= 3）时给名称加祝福/诅咒/堕落前缀
+      const bless = this.blessPrefix(it, lang);
+      return bless ? bless + full : full;
+    },
+
+    /**
+     * 祝福 / 诅咒 / 堕落前缀（itemname 30372-30382 的 var_378 / var_377 / var_389）。
+     * 只在已鉴定（f[8] >= 3）时显示，与列表颜色判定同一条件。
+     */
+    blessPrefix(it, lang) {
+      if (!it || !it.f || (it.f[8] | 0) < 3) return '';
+      const st = it.f[17] | 0;
+      if (st === 1) return lang === 'jp' ? '祝福された' : '祝福的';
+      if (st === -1) return lang === 'jp' ? '呪われた' : '诅咒的';
+      if (st === -2) return lang === 'jp' ? '忌まわしい' : '憎恶的';
+      return '';
+    },
+
+    /**
+     * 叠加量词（itemname 30332-30367）。原版按物品类别给「個/着/冊/本/服/巻/対/枚/匹/通」，
+     * 这里换成对应的中文量词，列表里拼成「7瓶…」这种形式。
+     */
+    counterUnit(it) {
+      if (!it) return '个';
+      const id = it.id | 0;
+      let cat = it.field657 | 0;
+      if (!cat) { try { cat = this.ref(id, 5) | 0; } catch (e) { cat = 0; } }
+      if (cat === 16000) return '件';
+      if (cat === 54000 || cat === 55000) return id === 783 ? '张' : '本';
+      if (cat === 10000) return '把';
+      if (cat === 52000) return '瓶';
+      if (cat === 53000) return '卷';
+      if (cat === 22000 || cat === 18000 || id === 1248) return '双';
+      if (cat === 68000 || cat === 69000
+        || [622, 724, 730, 955, 633, 1084, 1085, 1041, 1093, 1197].indexOf(id) !== -1) return '枚';
+      if (id === 618) return '条';
+      if (id >= 1325 && id <= 1331) return '封';
+      return '个';
     },
 
     /** 去掉 ego/品质前缀后的本体名（原 instanceName 的逻辑） */
@@ -1079,6 +1128,11 @@
       it.f[0] = 1;
       it.genLevel = level;                                 // 生成等级（var_640）
       it.genFix = fix2;                                    // 品质（var_641）
+      // 224439：`var_99(4, 新物品) = var_641` —— itemcreate 末尾把生成品质写入 f[4]。
+      //   items.json 只有固定神器带 create.var_641=6（createItem 已写入），普通武器/防具
+      //   没有这个字段，此前 f[4] 恒为 0，于是许愿 fix=4 的奇迹武器也被当成普通品质。
+      //   按源码补写：未显式指定品质时用 fix2。
+      if (!(it.f[4] | 0)) it.f[4] = fix2;
       // 0-FB：224785-224806 —— 容器（宝箱/金库/钱包…）的内容编号 f[25]、锁等级 f[26]、随机种子 f[27]
       if (Elona.DungeonFx && Elona.DungeonFx.genContainerFields) {
         const dep = g && g.getV65 ? (g.getV65(22) | 0) : 0;
@@ -1197,6 +1251,10 @@
      *   · 物品类别 var_99(4) == 6 且 refitem(id,5) < 50000 → 不可堆叠
      *   · 同 id（622 钓点还需坐标相同）
      *   · 逐字段比较 1..69，跳过 4(类别)/30/5/6(坐标)/1/27(名称与显示)
+     *   · 跳过 21(所有者)：源码 342127 在调用 item_stack **之前**才把
+     *     `var_99(21) = 0`；本项目有些入口（地面拾取/同伴拾取）先比对后归一化，
+     *     不跳过就会因为 `-1(地面)` vs `0(玩家)` 而永远合并不了（水瓶不叠加的根因）。
+     *     同一 c.inv 内的物品所有者语义一致，比较它没有意义。
      * @returns {number} 合并到的下标，-1 = 未合并
      */
     stack(c, idx) {
@@ -1211,7 +1269,8 @@
         if (it.f[3] === 622 && (o.f[5] !== it.f[5] || o.f[6] !== it.f[6])) continue;
         let diff = false;
         for (let fld = 1; fld < 70; fld++) {
-          if (fld === 1 || fld === 4 || fld === 5 || fld === 6 || fld === 27 || fld === 30) continue;
+          if (fld === 1 || fld === 4 || fld === 5 || fld === 6 || fld === 21
+            || fld === 27 || fld === 30) continue;
           if ((o.f[fld] || 0) !== (it.f[fld] || 0)) { diff = true; break; }
         }
         if (diff) continue;

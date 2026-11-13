@@ -117,8 +117,8 @@
   const Keys = {
     ACTIONS,
     bindings: loadBindings(),
-    /** shift 当 Esc（config.txt: key_sCancel=1） */
-    shiftAsEsc: true,
+    /** shift 当 Esc（config.txt: key_sCancel=1）；本项目默认关闭，只有 Esc 打开菜单 */
+    shiftAsEsc: false,
 
     save() {
       try { localStorage.setItem(STORAGE, JSON.stringify(this.bindings)); } catch (e) { /* ignore */ }

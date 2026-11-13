@@ -285,8 +285,11 @@
     const fr = frame(c, 0, gg);
     if (!fr) return false;
     const t = tile || 48;
-    const h = Math.round(t * 1.5);          // 32×48 → 48×72
-    const w = Math.round(h * 32 / 48);
+    // 0-HM：原版地图上的 PCC 角色按素材原尺寸绘制（33367 `gmode 2, 32, 48`），
+    //   与普通 NPC 的 48×48 格对齐，不再放大成 48×72（此前会显得比 NPC 大一圈）。
+    const scale = t / 48;
+    const w = Math.round(32 * scale);
+    const h = Math.round(48 * scale);
     ctx.drawImage(fr, dx + Math.round((t - w) / 2), dy + t - h, w, h);
     return true;
   }

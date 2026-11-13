@@ -323,6 +323,11 @@
       const g = this.g;
       const VX = Object.create(null);
       const VXA = Object.create(null);
+      // 0-HM：源码的常量槽 var_1606 / var_1607（上下楼梯的图块 id，227333-227334）。
+      //   Vernis 的シーナ支线用 `featset 48, 5, VX(1606), 11, 4` 在城镇里开入口
+      //   （talkscripts 368673），此前 VX 全为 0 → 写进格子的是空图块，入口看不见。
+      VX[1606] = 231;
+      VX[1607] = 232;
       const rnd = (n) => ((g && g.rng) ? g.rng.rnd(n) : Math.floor(Math.random() * Math.max(1, n | 0)));
 
       const scope = {

@@ -1155,7 +1155,18 @@
     if (!dice) return { ok: true, type: 6, implemented: false, reason: 'calcskill 未移植该 id' };
     if (!tg || tg.get(0) !== 1) return { ok: true, type: 6, implemented: true, noTarget: true };
     const hits = [];
-    const hit = (t, d) => hits.push({ index: t.index, dmg: applyMagicDamage(g, caster, t, d, dice.elem, id) });
+    const hit = (t, d) => {
+      const applied = applyMagicDamage(g, caster, t, d, dice.elem, id);
+      // 317190 dmghp 的伤害播报：type 6 此前完全没有反馈，玩家会以为技能没生效
+      if (g.log && t && (t.get(0) | 0) === 1) {
+        const nm = actionName(id);
+        g.log(`${caster.name} 施放「${nm ? (nm.ch || nm.jp) : id}」命中${t.index === 0 ? '你' : t.name} —— `
+          + `${applied} 点伤害（剩余 HP ${t.hp}）。`);
+      }
+      hits.push({ index: t.index, dmg: applied });
+      return applied;
+    };
+
     if (id === 601) {                                                   // 317142-317194
       if (tg.sp > 0) Elona.Status.healsp(caster, 12);
       Elona.Status.dmgsp(tg, g.rng.rnd(6) + 5);

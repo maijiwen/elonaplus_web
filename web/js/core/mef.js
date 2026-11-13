@@ -173,9 +173,10 @@
             res.after = Elona.Potion.after(g, caster || c, c, itemId, { thrown: true });
           }
           // 604334：非玩家投出的水渍 → 记一次敌对行为
-          if (src !== 0 && (c.index | 0) !== 0 && Elona.Relation
-            && Elona.Relation.hostileAction && g.charas && g.charas[src]) {
-            Elona.Relation.hostileAction(g, g.charas[src], c);
+          const HA = (Elona.Intimacy && Elona.Intimacy.hostileAction)
+            || (Elona.Relation && Elona.Relation.hostileAction);
+          if (src !== 0 && (c.index | 0) !== 0 && HA && g.charas && g.charas[src]) {
+            HA(g, g.charas[src], c);
           }
           this.del(g, slot);                                    // 604339
         }

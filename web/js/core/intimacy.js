@@ -368,18 +368,99 @@
 
   // ---------------------------------------------------------------- 入口
   /**
-   * 194439 hostileaction 的近似：受击方的表情 / 嫌弃 / karma。
-   * 源码的 turn_aggro / 关系重写依赖完整的 npc 关系表，这里用项目字段近似。
+   * 194439 hostileaction —— 攻击（或敌对行为）之后的后续反应：
+   *   中立 → 瞪眼（relation -2）→ 再犯则勃然大怒（relation -3，锁定攻击者）；
+   *   中立目标每次被打先扣 karma -2；karma 跌破 -30 成为犯人 → gohostile。
+   *   源码 194439-194531：
+   *     194440  `if (prm_912 >= 16 | prm_913 == 0) return`
+   *     194448  `if (var_58(9,t) != -3) var_58(79,t) = 418`
+   *     194451  relation == 10 → 「glares at you」
+   *     194462  relation == 0 且攻击者是玩家/同伴 → modkarma -2
+   *     194478  relation > -2 → 瞪眼，relation = -2
+   *     194488  relation <= -2 → 「gets furious!」，relation = -3、201 = 80、29 = 攻击者
+   *     194511  cbit(960) 动物兴奋（地图 67 除外）
+   *     194528  结束目标正在进行的行动（rowactend）
    */
   function hostileAction(g, user, t) {
     if (!t || !user) return;
-    if ((user.index | 0) >= 16) return;
-    if ((user.get(58) | 0) === 0 && (user.index | 0) !== 0) return;
-    if ((t.get(9) | 0) !== -3) t.set(79, 18 + 100 * 4);
+    const uidx = user.index | 0, tidx = t.index | 0;
+    if (uidx >= 16 || tidx === 0) return;                    // 194440
+    if ((user.get(58) | 0) === 0 && uidx !== 0) return;      // 194443
+
+    if ((t.get(9) | 0) !== -3) t.set(79, 18 + 100 * 4);      // 194448-194450
     if ((t.get(9) | 0) === 10) {
-      if (g.log && seen(g, t)) g.log(`${t.name}露出了嫌弃的表情。`);
-    } else if ((user.index | 0) <= 16 && (t.get(9) | 0) === 0) {
-      if (g.player) g.player.set(49, (g.player.get(49) | 0) - 2);   // modkarma 0, -2
+      if (g.log) g.log(`${t.name}露出了嫌弃的表情。`);        // 194457
+    } else {
+      // 194461-194465：玩家（或同伴）打中关系 0 的中立者 → karma -2
+      if (uidx <= 16 && (t.get(9) | 0) === 0) modKarma(g, -2);
+      // 194466-194476：202 号职业（执法者）在未通缉时只警告不还手
+      const wanted = (g.getV65 ? (g.getV65(258) | 0) : 0);
+      if ((t.get(27) | 0) === 202 && wanted === 0) {
+        if (g.log) g.log(`${t.name}朝你瞪了过来。`);
+        return;
+      }
+      const rel = t.get(9) | 0;
+      if (rel > -2) {                                        // 194478-194487
+        if (g.log) g.log(`${t.name}朝你瞪了过来。`);
+        t.set(9, -2);
+      } else {
+        if (rel !== -3 && g.log) g.log(`${t.name}勃然大怒！`); // 194489-194497
+        t.set(9, -3);
+        t.set(201, 80);
+        t.set(29, uidx);                                     // 锁定攻击者
+      }
+    }
+    // 194511-194527：cbit 960 的动物群兴奋（地图 67 除外）
+    if (hasCbit(t, 960) && (g.getV65 ? (g.getV65(20) | 0) : 0) !== 67) {
+      if (rndOf(g)(50) === 0) {
+        if (g.log) g.log('动物们兴奋了起来！');
+        for (const c of (g.charas || [])) {
+          if (!c || !hasCbit(c, 960)) continue;
+          c.set(29, 0); c.set(201, 20); c.set(79, 18 + 100 * 3);
+        }
+      }
+    }
+    // 194528-194530：打断目标正在进行的行动
+    if ((t.get(140) | 0) !== 13 && (t.get(140) | 0) !== 0) {
+      t.set(140, 0); t.set(141, 0); t.set(142, 0);
+    }
+  }
+
+  /**
+   * 31689 modkarma 的移植子集：玩家 var_58(49) 增减 + 上下限 + 犯罪化。
+   *   var_767 = 20（上限）；[-100, 20]；跨过 -30 → 「你成了犯人」+ gohostile(31654)。
+   */
+  function modKarma(g, n) {
+    const p = g.player;
+    if (!p || !n) return;
+    modifyKarmaValue(p, n, g);
+  }
+
+  /** 31689-31757 modkarma：只处理 karma 值与犯罪门槛（缺 trait 162/169 的修正） */
+  function modifyKarmaValue(c, n, g) {
+    const before = c.get(49) | 0;
+    const delta = n | 0;
+    if (g && g.log) g.log(`业力(${delta})`);
+    if (delta < 0 && before >= -30 && before + delta < -30) {
+      if (g && g.log) g.log('你现在是犯人了。');              // 31737
+      goHostile(g);
+    }
+    let v = before + delta;
+    if (v > 20) v = 20;
+    if (v < -100) v = -100;
+    c.set(49, v);
+  }
+
+  /** 31654 gohostile：守卫职业（150 = 14/16/24/1010/1026）全部转为敌对 */
+  function goHostile(g) {
+    for (let i = 57; i < 245; i++) {
+      const c = (g.charas || [])[i];
+      if (!c || (c.get(0) | 0) !== 1) continue;
+      const job = c.get(150) | 0;
+      if (job !== 14 && job !== 16 && job !== 24 && job !== 1010 && job !== 1026) continue;
+      c.set(9, -3);
+      c.set(201, 80);
+      c.set(79, 18 + 100 * 2);
     }
   }
 

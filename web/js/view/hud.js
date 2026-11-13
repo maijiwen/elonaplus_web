@@ -8,8 +8,8 @@
  *     · 视野左侧：技能监视（主属性 / 速度 / DV·PV 的数值与变动）
  *     · 视野左下角：异常状态列表
  *     · 视野右下角：法术状态（buff 图标 + 剩余回合）
- *     · 角色贴图底部：HP / MP / 斗志 三条数据条（默认只显示最后攻击对象；
- *       持有「聴診器」(物品 478) 时友好角色也会显示）
+ *     · 角色贴图底部：HP 条（默认不显示；敌对目标受伤后、或被听诊器 (物品 478)
+ *       监视的角色才显示红色 HP 条，玩家自己不画）
  *     · 消息栏左侧：小地图（粗略显示地形的可通行情况）
  *     · 消息栏：可展开到 5 倍高度；每条角色行动的第一条消息前显示分钟数
  *
@@ -437,21 +437,21 @@
 
   // ---------------------------------------------------------------- 角色数据条
   /**
-   * 角色贴图下方的 HP / MP / 斗志 三条。
-   *   原版只显示「最后攻击过的对象」；持有「聴診器」(478) 时友好角色也可见。
+   * 角色贴图下方的 HP 条 —— 原版 34609 / 35456：
+   *   `if ( cbit(966,c)==1 | var_65(94)==c | … )`
+   *   即只有「被听诊器监视的角色」才会在贴图下画条。
+   * 本项目按用户要求再补一条：敌对目标受伤后（relation < 0 且 HP < 上限）也显示 HP 条。
+   *   玩家自己不画（底部 HUD 已有 HP/MP）；同伴听诊器条由 renderer.drawAllyBars 负责。
    */
   function canInspect(game, c) {
     const idx = (c.index | 0);
-    if (idx === 0) return true;
-    if ((game.lastAttacked | 0) === idx) return true;
-    const p = game.player;
-    if (!p) return false;
-    // 聴診器：var_657 == 59000 的器具类物品
-    for (const it of (p.inv || [])) {
-      if (!it || (it.id | 0) !== 478) continue;
-      const rel = c.get(9) | 0;
-      if (rel >= 0) return true;
-    }
+    if (idx === 0) return false;                 // 玩家：HUD 已有，不在贴图下重复
+    if (c.__hpbar) return false;                 // 听诊器同伴：交给 drawAllyBars
+    // 听诊器对敌人使用：var_65(94) 记录监视目标（354074）
+    if (game.getV65 && (game.getV65(94) | 0) === idx) return true;
+    // 敌对目标受伤后才显示 HP 条
+    const rel = c.get(9) | 0;
+    if (rel < 0 && (c.get(50) | 0) < (c.get(51) | 0)) return true;
     return false;
   }
 
@@ -471,25 +471,17 @@
       const vy = (c.y - startY) * TILE;
       if (vx < -TILE || vy < -TILE || vx > UI_W || vy > UI_TOP) continue;
       const hp = c.get(50) | 0, hpMax = Math.max(1, c.get(51) | 0);
-      const mp = c.get(55) | 0, mpMax = Math.max(1, c.get(56) | 0);
       const w = 34;
       const bx = vx + (TILE - w) / 2;
-      const by = vy + TILE - 9;
+      const by = vy + TILE - 6;
       ctx.save();
       ctx.fillStyle = 'rgba(0,0,0,0.66)';
-      ctx.fillRect(bx - 1, by - 1, w + 2, 9);
-      const bar = (yy, ratio, color) => {
-        const ww = Math.round(limit(ratio, 0, 1) * w);
-        if (ww <= 0) return;
-        ctx.fillStyle = color;
-        ctx.fillRect(bx, yy, ww, 2);
-      };
-      bar(by, hp / hpMax, COL.hp);
-      bar(by + 3, mp / mpMax, COL.mp);
-      // 斗志：var_58(182)，满值 100（変身/進化/高品质为 200）—— 203137-203151
-      const mg = (Elona.Morale && Elona.Morale.get) ? Elona.Morale.get(c) : 0;
-      const mgCap = (Elona.Morale && Elona.Morale.capOf) ? Elona.Morale.capOf(c) : 100;
-      bar(by + 6, mg / Math.max(1, mgCap), COL.mor);
+      ctx.fillRect(bx - 1, by - 1, w + 2, 5);
+      const ww = Math.round(limit(hp / hpMax, 0, 1) * w);
+      if (ww > 0) {
+        ctx.fillStyle = COL.hp;
+        ctx.fillRect(bx, by, ww, 3);
+      }
       ctx.restore();
     }
   }

@@ -293,8 +293,13 @@
       const rows = this.inventoryRows(game);
       if (!rows.length) { this.invSel = 0; return; }
       let i = (this.invSel | 0) + delta;
-      if (i < 0) i = 0;
-      if (i >= rows.length) i = rows.length - 1;
+      // 单项上下移动时首尾循环（PageUp/PageDown 的大步跳仍夹在两端）
+      if (Math.abs(delta) === 1) {
+        i = (i + rows.length) % rows.length;
+      } else {
+        if (i < 0) i = 0;
+        if (i >= rows.length) i = rows.length - 1;
+      }
       this.invSel = i;
     },
 
@@ -892,10 +897,11 @@
           : (r.reason === 'money' ? '金币不足。' : '投资失败。'));
         this.renderShop(game);
       };
-      el('shop-steal').onclick = () => this.shopSteal(game);
+      el('shop-refresh').onclick = () => this.shopRefresh(game);
     },
 
     closeShop(game) {
+      this.closeInvInfo();
       this.el('shop').classList.add('hidden');
       if (Elona.Shop) Elona.Shop.close(game);
     },
@@ -963,7 +969,10 @@
       this.el('shop-buy5').disabled = !buy || !slice.length;
       this.el('shop-sell1').disabled = buy || !slice.length;
       this.el('shop-sell5').disabled = buy || !slice.length;
-      this.el('shop-steal').disabled = !buy || !slice.length;
+      // 0-HO：刷新按钮只在「本次库存还没买过东西」时可用（与 R 键同一判定）
+      if (Elona.Shop && Elona.Shop.canRefresh) {
+        this.el('shop-refresh').disabled = !Elona.Shop.canRefresh(game, keeper);
+      }
       // 投资按钮：显示实时价格
       if (Elona.Shop && Elona.Shop.investValue) {
         const c1 = Elona.Shop.investValue(game, keeper, game.player, 1);
@@ -1011,34 +1020,62 @@
         this.esc(Elona.ItemDB.desc(it.id, 'en'));
     },
 
-    /** 键盘 ↑↓：页内移动，越过两端自动翻页（原版列表也是这样） */
+    /**
+     * 0-HO：商品列表按 x —— 打开「道具的知识」弹窗（与主界面调查道具共用
+     *   openInvInfo / closeInvInfo / UI.invInfo），再按一次 x 关闭。
+     */
+    toggleShopInfo(game) {
+      if (!game.shopSession) return;
+      if (this.invInfo) {
+        this.closeInvInfo();
+        this.el('shop').classList.remove('hidden');   // 关闭情报窗 → 回到商品列表
+        return;
+      }
+      if (this.shopSel < 0) { this.pushMessage('请先选择一件物品。'); return; }
+      const buy = this.shopMode === 'buy';
+      const keeper = game.shopSession && game.shopSession.keeper;
+      const it = buy ? (keeper ? keeper.inv[this.shopSel] : null) : game.player.inv[this.shopSel];
+      if (!it) return;
+      // 情报窗画在 canvas 上，暂时收起 HTML 商店面板，避免遮住窗口
+      this.el('shop').classList.add('hidden');
+      this.openInvInfo(game, it);
+    },
+
+    /** 0-HO：R 键刷新商店库存（本次库存未买过东西时可用） */
+    shopRefresh(game) {
+      const s = game.shopSession;
+      if (!s || !Elona.Shop) return;
+      const r = Elona.Shop.refresh(game, s.keeper);
+      if (!r.ok) {
+        this.pushMessage(r.reason === 'bought'
+          ? '这次进货的商品已经买过了，只能等店家下次进货。'
+          : '现在无法刷新商品。');
+        return;
+      }
+      this.shopPage = 0;
+      this.shopCursor = 0;
+      this.shopSel = -1;
+      this.pushMessage('店家重新整理了货架。');
+      this.renderShop(game);
+    },
+
+    /** 键盘 ↑↓：在整个商品表里循环移动（越过首尾会绕到另一端，并自动翻页） */
     moveShopSel(game, d) {
-      const slice = this.shopPageRows();
-      if (!slice.length) return;
-      const next = (this.shopCursor | 0) + (d | 0);
-      if (next < 0) {
-        if (this.shopPage > 0) {
-          this.shopPage--;
-          const prev = this.shopPageRows();
-          this.renderShop(game);
-          this.selectShopRow(game, Math.max(0, prev.length - 1));
-        } else {
-          this.selectShopRow(game, slice.length - 1);
-        }
+      const rows = this.shopRows || [];
+      const n = rows.length;
+      if (!n) return;
+      const per = this.SHOP_PAGE_SIZE;
+      let g = (this.shopPage | 0) * per + (this.shopCursor | 0) + (d | 0);
+      g = ((g % n) + n) % n;
+      const page = Math.floor(g / per);
+      const cursor = g % per;
+      if (page !== (this.shopPage | 0)) {
+        this.shopPage = page;
+        this.shopCursor = cursor;
+        this.renderShop(game);          // renderShop 末尾会按 shopCursor 选中该行
         return;
       }
-      if (next >= slice.length) {
-        const pages = Math.max(1, Math.ceil((this.shopRows || []).length / this.SHOP_PAGE_SIZE));
-        if (this.shopPage < pages - 1) {
-          this.shopPage++;
-          this.renderShop(game);
-          this.selectShopRow(game, 0);
-        } else {
-          this.selectShopRow(game, 0);
-        }
-        return;
-      }
-      this.selectShopRow(game, next);
+      this.selectShopRow(game, cursor);
     },
 
     /** 键盘 ←→：翻页（光标保持在首行） */
@@ -1077,28 +1114,6 @@
           ? `买入 ${Elona.ItemDB.name(r.item.id, 'en')} ×${r.item.f[0]}（${r.price} gp）。`
           : `卖出 ${Elona.ItemDB.name(r.item.id, 'en')} ×${r.item.f[0]}（${r.price} gp）。`);
       }
-      this.renderShop(game);
-    },
-
-    /** 偷窃：拿走选中的商品，目击者会转为敌对 */
-    shopSteal(game) {
-      if (!game.shopSession || this.shopSel < 0 || this.shopMode !== 'buy') {
-        this.pushMessage('请先在购买列表中选择一件商品。');
-        return;
-      }
-      const r = Elona.Shop.steal(game, this.shopSel);
-      if (!r.ok) {
-        this.pushMessage({ 'no-shop': '没有打开商店。', 'no-item': '商品不存在。' }[r.reason] || '偷窃失败。');
-        return;
-      }
-      const name = Elona.ItemDB ? Elona.ItemDB.name(r.item.id, 'en') : ('item ' + r.item.id);
-      this.pushMessage(`你偷走了 ${name}。`);
-      if (r.witnesses && r.witnesses.length) {
-        this.pushMessage(`有人看到了你的偷窃行为！(${r.witnesses.join('、')})`);
-      } else {
-        this.pushMessage('似乎没有人注意到。');
-      }
-      this.shopSel = -1;
       this.renderShop(game);
     },
 

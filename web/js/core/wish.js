@@ -154,7 +154,6 @@
   }
   function buildSkillRows() {
     if (SKILL_ROWS) return SKILL_ROWS;
-    const names = (Elona.Spell && Elona.Spell.field) ? null : null;
     const tbl = Elona.Skills && Elona.Skills.names ? Elona.Skills.names : null;
     const src = tbl || (Elona.Data && Elona.Data.tableSync ? Elona.Data.tableSync('skills') : null);
     const map = src && (src.skillNames || src) ? (src.skillNames || src) : {};
@@ -163,7 +162,7 @@
       const id = parseInt(k, 10);
       // 288486-288493：只允许 10..19（属性）与 100..399（技能）
       if (!((id >= 10 && id < 20) || (id >= 100 && id < 400))) continue;
-      // 汉化：ch 与 jp/en 同权重参与匹配
+      // 名称全部取自数据表：jp / en / ch（ch 就是 skills.json 的汉名字段，不额外写死别名）
       SKILL_ROWS.push({ id, jp: map[k].jp || '', en: map[k].en || '', ch: map[k].ch || '' });
     }
     return SKILL_ROWS;
@@ -209,14 +208,12 @@
     let best = null;
     for (const row of buildSkillRows()) {
       let score = 0;
-      // 汉化：ch（技能中文名）与 jp/en 同权重参与匹配，中文许愿输入也能命中
-      if (row.jp === text || row.ch === text || row.en === text) score = 10000;
+      // 汉化：ch（skills.json 的汉名字段）与 jp/en 同权重参与匹配
+      const names = [row.jp, row.ch, row.en].filter(Boolean);
+      if (names.indexOf(text) !== -1) score = 10000;
       for (let n = 0; n < text.length; n++) {
         const ch = text.charAt(n);
-        if ((row.jp && row.jp.indexOf(ch) !== -1) || (row.ch && row.ch.indexOf(ch) !== -1)
-          || (row.en && row.en.indexOf(ch) !== -1)) {
-          score += 50 + R(15);
-        }
+        if (names.some((nm) => nm.indexOf(ch) !== -1)) score += 50 + R(15);
       }
       if (score > 0 && (!best || score > best.score)) best = { id: row.id, score, name: row.ch || row.jp || row.en };
     }
@@ -538,8 +535,18 @@
       return wishFigure(g, text, out, 503);
     }
 
-    // 默认：按物品匹配（源码 label_2730 是 fall-through）
-    return wishItem(g, text, out);
+    // 默认：按物品匹配（源码 label_2730 是 fall-through）。
+    // 288288-288481：物品没有任何命中（或候选全被黑星/品质 6 丢弃）时，
+    //   源码不会提示「何もおきない」，而是自然落入 288481 的技能匹配（label_2731）。
+    //   例如输入「背诵」：物品表无命中 → 应改学「背诵」技能。
+    const n0 = out.messages.length;
+    const items0 = out.items.length;
+    const r = wishItem(g, text, out);
+    if (out.items.length === items0 && out.messages[n0] === T.nothing) {
+      out.messages.length = n0;
+      return wishSkill(g, text, out);
+    }
+    return r;
   }
 
   /** 288288-288480：物品许愿 */
