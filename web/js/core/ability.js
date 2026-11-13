@@ -223,7 +223,7 @@
       //     不走法术分派：rowact 17 的持续行动；派对会场里 41 回合
       if (aid === 767) {
         if (!Elona.Perform) { g.log('舞蹈模块未加载。'); return { ok: false, reason: 'no-perform' }; }
-        const r = Elona.Perform.startDance(g, c);
+        const r = Elona.Perform.startDance(g, p);
         if (!r.ok) { g.log(r.message || '现在无法跳舞。'); return r; }
         return { ok: true, action: 'dance', started: true };
       }
