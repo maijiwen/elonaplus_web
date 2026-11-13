@@ -261,7 +261,12 @@
         if (!pay.ok) return { ok: false, reason: pay.reason };
       }
       this.faceTo(g, can.target.dx, can.target.dy);
-      const h = limit(hours === undefined ? 1 : (hours | 0), 1, 24);
+      // 320011-320014：var_478 默认 "1"，*label_2892 输入后 `int(var_478)` 得小时数。
+      // 【A79】原版没有 1..24 的钳制：0 / 负数会让 deadline 早于当前时刻而立即收竿。
+      //   这里照抄 int() 语义，非法输入按 0 处理（HSP int("") == 0）。
+      let h = (hours === undefined || hours === null)
+        ? 1 : Number.parseInt(hours, 10);
+      if (!Number.isFinite(h)) h = 0;
       // 320011-320014：var_2412 = 现在 + 小时*60
       const run = { deadline: this.absTime(g) + h * 60, state: STATE.IDLE, fishIdx: -1, rodIdx: idx, hours: h };
       this.runs.set(p, run);

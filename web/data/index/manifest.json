@@ -18,6 +18,8 @@
   "dishimage.json",
   "dishnames.json",
   "dmgcon.json",
+  "eat_effects.json",
+  "eat_effects_norm.json",
   "ego.json",
   "enchant.json",
   "enchant_fx.json",
@@ -40,6 +42,7 @@
   "items.json",
   "itemuse.json",
   "journal.json",
+  "kimoti.json",
   "materials.json",
   "monster.json",
   "monster_tags.json",
@@ -85,5 +88,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 77
+ "count": 80
 }

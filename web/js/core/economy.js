@@ -101,9 +101,13 @@
       const act = action | 0;
 
       if (act === 0) {
-        // 358551：不做任何事就走 → 时间戳仍被刷新（原版如此）
+        // 358551-358558：取消分支**不阻止交易**，只刷新时间戳并显示一句防欺诈提示。
+        //   （差异报告 A126 旧描述「同一时刻再交易会被提示为欺诈」是口径误记，
+        //     回查源码该句属于 var_444==0 的取消分支，本轮按源码补齐这句台词。）
         box.f[9] = now;
-        return { ok: false, reason: 'cancel', balance: this.balance(box) };
+        return { ok: false, reason: 'cancel',
+          message: '「ウチウチ詐欺には気をつけんといかんよ！」（请注意转账欺诈）',
+          balance: this.balance(box) };
       }
 
       if (act === 1) {

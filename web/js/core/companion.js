@@ -4,7 +4,10 @@
  *
  * 【源码依据】（均以 hsp/start.hsp 为准）
  *   var_58(0, c)  角色状态：1 = 在地图上，6 = 死亡，7 = 待機（330749-330750 / 417513）
- *   var_58(166,c) 复活计数：>2 归零；<=0 时调酒师拒绝复活（417439-417443）
+ *   var_58(166,c) 复活额度（0-HF / A323 更正）：换图初始化时给 1（236918-236921），
+ *     每次复活 -1（417472 / 320577 / 314335）；<=0 时「マップ切替えるまで復活不能」
+ *     （284372-284374 / 286767-286770），调酒师拒绝（417439-417445）。
+ *     **阵亡本身不累加 166**（200377-200390 只写 var_58(0)=6）。
  *   var_58(433,c) 幸福度（0..10，evochat 用星星表示，426632-426636）
  *   var_58(433,0) 玩家的「行動力」（静止时为 10；睡眠起床时重置，311884）
  *   待機 / 呼び出し：技能 684（330718-330809）
@@ -299,19 +302,80 @@
   }
 
   /**
-   * 付费复活（NPC 动作 33）。
-   *   源码：var_58(166)>2 归零 → <=0 拒绝 → get_freeallyne 有空位 → 付钱 → var_58(166)-- → *label_2242
+   * 0-HF / A323：换图时重置复活额度（*label_2459，236918-236921）。
+   *   源码 `repeat 245 : if (cnt != 0) var_58(166, cnt) = 1`，即对整个角色池
+   *   （槽 0 玩家除外）都写 1；本项目阵亡同伴寄存在 g.party 而非 g.charas，
+   *   所以两张表都要扫，用 Set 去重避免同一个同伴被写两次。
+   *   注意：读档不经过 *label_2459（301992-301995 的旧存档迁移就是证据），
+   *   因此 Game.restoreCharasFromSave 会显式跳过这次重置。
+   * @returns {number} 实际写入的角色数
+   */
+  function resetReviveFlags(g) {
+    if (!g) return 0;
+    const seen = new Set();
+    let n = 0;
+    const apply = (list) => {
+      if (!Array.isArray(list)) return;
+      for (const c of list) {
+        if (!c || !c.get || !c.set || (c.index | 0) === 0 || seen.has(c)) continue;
+        seen.add(c);
+        c.set(REVIVE_FLAG, 1);
+        n++;
+      }
+    };
+    apply(g.charas);
+    apply(g.party);
+    return n;
+  }
+
+  /**
+   * get_freeallyne（194259-194286）：队伍是否还有空位。
+   *   统计槽 1..15 中 var_58(0)==1 的成员；特定神仆/随从 id 在
+   *   cbit 960 未置位且 cbit 992 置位时额外再占一个名额；>= 15 返回 0（满员）。
+   */
+  const ALLY_DOUBLE_IDS = [447, 21, 100, 150, 47, 578, 416, 579];
+  function hasFreeAllySlot(g) {
+    const cs = (g && Array.isArray(g.charas)) ? g.charas : [];
+    const cb = (Elona.Status && Elona.Status.cbit) ? Elona.Status.cbit : null;
+    let n = 0;
+    for (let i = 0; i < Math.min(cs.length, 245); i++) {
+      const c = cs[i];
+      if (!c || !c.get || (c.get(STATE) | 0) !== ACTIVE) continue;  // 194262
+      if (i === 0) continue;                                          // 194265：玩家不计
+      if (i < 16) n++;                                                // 194268-194270
+      if (cb && ALLY_DOUBLE_IDS.indexOf(c.get(27) | 0) >= 0
+        && cb(c, 960) !== 1 && cb(c, 992) === 1) n++;                 // 194271-194277
+    }
+    return n < 15;                                                    // 194279-194284
+  }
+
+  /**
+   * 付费复活（NPC 动作 33，417429-417482）。
+   *   顺序：var_58(0)==1 拒绝 → ==6 时 `>2 归零` + `<=0 拒绝`
+   *   → get_freeallyne 有空位 → 显示费用并二选一 → 付钱 → var_58(166)-- → *label_2242。
+   *   0-HF：旧实现在 <=0 时强行写回 1（注释写「简化：允许直接复活」），
+   *   并在 onDeath 里累加额度，两处都与源码相反，已一并纠正。
    */
   function revive(g, c) {
     if (!c || c.index === 0) return { ok: false, message: '没有对象。' };
-    if ((c.get(STATE) | 0) === ACTIVE) {
+    const state = c.get(STATE) | 0;
+    if (state === ACTIVE) {                                  // 417434-417437
       return { ok: false, reason: 'alive', message: '「那家伙不用叫回来。」' };
     }
-    if ((c.get(STATE) | 0) !== DEAD) {
-      return { ok: false, reason: 'not-dead', message: '「那家伙只是待命而已。」' };
+    // 417438-417446：只有 var_58(0)==6 才走复活额度判定。
+    // 源码对其它状态（如待機 7）没有这道门，这里也不擅自拦截。
+    if (state === DEAD) {
+      if ((c.get(REVIVE_FLAG) | 0) > 2) c.set(REVIVE_FLAG, 0);        // 417439-417441
+      if ((c.get(REVIVE_FLAG) | 0) <= 0) {                             // 417442-417445
+        return { ok: false, reason: 'switch-area',
+          message: '「まだこっちに来ていない。一度、野外の空気でも吸ってきたらどう？」'
+            + '（切换区域之前无法复活 / It can not be revived until the switch area.）' };
+      }
     }
-    if ((c.get(REVIVE_FLAG) | 0) > 2) c.set(REVIVE_FLAG, 0);
-    if ((c.get(REVIVE_FLAG) | 0) <= 0) c.set(REVIVE_FLAG, 1);   // 简化：允许直接复活（A323）
+    if (g && Array.isArray(g.charas) && !hasFreeAllySlot(g)) {          // 417447-417455
+      return { ok: false, reason: 'party-full',
+        message: '「仲間の最大数に達しているため、呼び戻せない。」（队伍人数已达上限，无法叫回。）' };
+    }
     const cost = reviveCost(c);
     const gold = g.player.get(30) | 0;
     if (gold < cost) {
@@ -319,7 +383,7 @@
         message: `「要把它叫回来的话需要 ${cost} gold。」（你只有 ${gold} gold）` };
     }
     g.player.set(30, gold - cost);
-    c.set(REVIVE_FLAG, Math.max(0, (c.get(REVIVE_FLAG) | 0) - 1));
+    c.set(REVIVE_FLAG, (c.get(REVIVE_FLAG) | 0) - 1);       // 417472：原版直接 --，无钳制
     // *label_2242：恢复 HP/MP 并放回玩家身边
     c.hp = Math.max(1, c.hpMax | 0);
     c.mp = Math.max(0, c.mpMax | 0);
@@ -355,7 +419,9 @@
     if ((c.get(STATE) | 0) === DEAD) return true;
     clearCell(g, c);
     c.set(STATE, DEAD);
-    c.set(REVIVE_FLAG, Math.max(1, (c.get(REVIVE_FLAG) | 0) + 1));
+    // 0-HF / A323：200377-200390 的 chara_vanquish 只把 var_58(0) 置 6，
+    // **不写 var_58(166)**。复活额度由换图初始化（236920）给 1、每次复活再 --；
+    // 旧实现「死亡 +1」会让额度永远用不完，等于取消了「切换区域前无法复活」机制。
     if (Elona.Riding && Elona.Riding.mountOf && Elona.Riding.mountOf(g) === (c.index | 0)) {
       Elona.Riding.end(g);
     }
@@ -742,7 +808,7 @@
     modeOf, modeName, setMode, setModeAll,
     AMMO_MODES, switchAmmo, ammoTypeOf, equippedAmmo,
     allies, activeAllies, waitingAllies, deadAllies, wait, call,
-    reviveCost, revive, onDeath,
+    reviveCost, revive, onDeath, resetReviveFlags, hasFreeAllySlot,
     ITEM, isBed,
     // 0-DH：evochat
     ROUTES, canChat, chatOptions, petOptions, chat, unlockRates, lockPicking,

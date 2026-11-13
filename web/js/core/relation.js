@@ -29,6 +29,9 @@
   const REL_TYPE = 441;          // var_58(441)：关系类型（-1..-13）
   const VIGOR = 14;
   const NEXT_TALK = 15;
+  // A128（0-HG）：var_58(58) 是「所属阵营」，不是独立的「可婚标志」。
+  //   0   = 野生 / 未加入我方 → 290335 求婚时被婉拒
+  //   100 = 玩家阵营的居民或队友（301962 旧存档迁移写入）
   const MARRY_FLAG = 58;
   const MARRY_DAY = [400, 401, 402];   // 年 / 月 / 日
 
@@ -38,6 +41,9 @@
   // 290179-290180
   const TALK_VIGOR_COST = 80;
   const TALK_COOLDOWN_HOURS = 12;
+  // 289584-289590：冷却到期时気力回满 100；「気持ちを伝える」要求 >= 80（A183）
+  const VIGOR_FULL = 100;
+  const FEELINGS_MIN_VIGOR = 80;
   // 290325 / 290182
   const NEED_PROPOSE = 200;
   const NEED_AFFECTION = 150;
@@ -64,6 +70,32 @@
     { id: 10, en: 'May I ask for your hand?', jp: '【結婚してほしい】', group: 'marry' },
   ];
   const MENU_MARRIED = 'Let\'s make a gene.';   // 11182
+
+  /**
+   * 【A134 / A149】心情菜单的三套文案（数据：web/data/tables/kimoti.json）。
+   *
+   * 源码 290141-290149：`var_65(12) \ 3`（HSP 的 `\` 是取余）按当前日期选
+   * txtselectkimoti0 / 1 / 2；三套都由 11140-11280 定义，各 11 项，
+   * 第 10 项在 cbit 961（已婚）时换成「遺伝子を残したい」（三套共用）。
+   *
+   * 选项只是文案不同：290181-290246 的结算按 choice 分组（1-3 表白 / 4-6 轻浮 /
+   * 7-9 侮辱 / 10 求婚），与套别无关，因此 talk() 不需要改动。
+   * 表未加载（例如纯 Node 单测）时回退到第 0 套，保持旧行为。
+   */
+  let KIMOTI = null;
+  function setKimoti(t) { KIMOTI = t; }
+  function kimotiTable() {
+    if (KIMOTI) return KIMOTI;
+    if (Elona.Data && Elona.Data.tableSync) {
+      try { KIMOTI = Elona.Data.tableSync('kimoti'); } catch (e) { KIMOTI = null; }
+    }
+    return KIMOTI;
+  }
+  /** 当前日期对 3 取余（290142 / 290145 / 290148）；负值也回绕到 0..2 */
+  function kimotiSetIndex(g) {
+    const day = (g && typeof g.getV65 === 'function') ? (g.getV65(12) | 0) : 0;
+    return ((day % 3) + 3) % 3;
+  }
 
   function idiv(a, b) { return Math.trunc((a | 0) / (b | 0)); }
   function limit(v, a, b) { return v < a ? a : (v > b ? b : v); }
@@ -160,7 +192,9 @@
     IMPRESSION, MASTER_RELATION, REL_TYPE, VIGOR, NEXT_TALK, MARRY_FLAG,
     implevel, implevel2, setWords, loadWords, relationWord, relationWordEn,
     CBIT_MARRIED, CBIT_PREGNANT, MENU,
+    setKimoti, kimotiTable, kimotiSetIndex,
     TALK_VIGOR_COST, TALK_COOLDOWN_HOURS, NEED_PROPOSE, NEED_AFFECTION,
+    VIGOR_FULL, FEELINGS_MIN_VIGOR,
 
     // ---------------- 状态 ----------------
     impression(c) { return c ? (c.get(IMPRESSION) | 0) : 0; },
@@ -292,6 +326,25 @@
         + (g.getV65(11) | 0) * 720 + (g.getV65(10) | 0) * 8640;
     },
 
+    /**
+     * A183 / 289584-289586：生成 NPC 对话菜单时，若已过冷却（now >= var_58(15)），
+     * 把 var_58(14) 気力回满 100。原版在追加任何菜单项之前无条件执行。
+     * @returns {number} 刷新后的気力
+     */
+    refreshVigor(g, c) {
+      if (!c) return 0;
+      if (g && typeof g.getV65 === 'function') {
+        if (this.nowHours(g) >= (c.get(NEXT_TALK) | 0)) c.set(VIGOR, VIGOR_FULL);
+      }
+      return c.get(VIGOR) | 0;
+    },
+
+    /** A183 / 289587-289590：var_58(14) >= 80 才追加「気持ちを伝える」 */
+    canShowFeelings(g, c) {
+      if (!c || (c.get(0) | 0) !== 1) return false;
+      return this.refreshVigor(g, c) >= FEELINGS_MIN_VIGOR;
+    },
+
     /** 290169-290177 / 290179-290180：说话的基础消耗与冷却 */
     canTalk(g, c) {
       if (!c) return { ok: false, reason: 'no-target' };
@@ -303,14 +356,27 @@
       return { ok: true };
     },
 
-    /** 心情菜单：已婚的人显示「遺伝子を残したい」（11177-11184） */
-    menu(c) {
+    /**
+     * 心情菜单（11000-11280）。
+     * 【A134 / A149】按 `var_65(12) \ 3` 选三套文案之一（290141-290149），
+     * 已婚时第 10 项替换为「遺伝子を残したい」；数据缺位时回退第 0 套。
+     * @param {object} c 对象 NPC
+     * @param {object} [g] Game 实例（提供 var_65(12) 日期；不传时按第 0 套）
+     */
+    menu(c, g) {
       const married = this.isMarried(c);
-      return MENU.map((m) => {
-        if (m.id !== 10) return Object.assign({}, m);
-        return Object.assign({}, m, married
-          ? { en: MENU_MARRIED, jp: '【遺伝子を残したい】' }
-          : { en: m.en, jp: m.jp });
+      const t = kimotiTable();
+      const set = t && t.sets ? t.sets[kimotiSetIndex(g)] : null;
+      const rows = (set && set.length === 11) ? set : MENU;
+      const marriedText = (t && t.married)
+        || { en: MENU_MARRIED, jp: '【遺伝子を残したい】' };
+      return rows.map((m) => {
+        const row = Object.assign({}, m);
+        if ((m.id | 0) === 10 && married) {
+          row.en = marriedText.en || row.en;
+          row.jp = marriedText.jp || row.jp;
+        }
+        return row;
       });
     },
 
@@ -330,8 +396,8 @@
       const res = { ok: true, messages: [], impression: this.impression(c), leveled: null };
       const p = g.player;
 
-      // 290179-290180：气力 -80，冷却 12 小时
-      if ((c.get(VIGOR) | 0) >= 0) c.set(VIGOR, (c.get(VIGOR) | 0) - TALK_VIGOR_COST);
+      // 290179-290180：気力 -80（源码 `var_58(14) -= 80` 无条件递减）、冷却 12 小时
+      c.set(VIGOR, (c.get(VIGOR) | 0) - TALK_VIGOR_COST);
       c.set(NEXT_TALK, this.nowHours(g) + TALK_COOLDOWN_HOURS);
 
       // 290161-290168：选了「やっぱりなんでもない」只是取消
@@ -434,7 +500,10 @@
         return this.finish(out, c);
       }
       if ((c.get(MARRY_FLAG) | 0) === 0) {
-        out.messages.push(`…${this.nameOf(c)} sadly shakes head.`);
+        // 290335-290343：源码台词是「嬉しいが、俺の立場も考えてくれ」/
+        // "...X sadly refuses your proposal."，不是单纯摇头。
+        out.messages.push(`…${this.nameOf(c)} sadly refuses your proposal.`
+          + '「嬉しいが、俺の立場も考えてくれ」');
         out.refused = 'unavailable';
         return this.finish(out, c);
       }

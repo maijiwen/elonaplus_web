@@ -126,9 +126,11 @@
   }
   function hostile(g, thrower, t) {
     if ((t.index | 0) < 16) return;
-    if (Elona.Relation && Elona.Relation.hostileAction) {
-      try { Elona.Relation.hostileAction(g, thrower, t); } catch (e) { /* noop */ }
-    }
+    // 2026-11 修正：hostileAction 实际挂在 Elona.Intimacy 上，旧代码只查 Elona.Relation，
+    //   导致 987/1008/1059/1061 等命中后的敌对化一直静默失效（保留 Relation 兜底以防别名）。
+    const H = (Elona.Intimacy && Elona.Intimacy.hostileAction)
+      || (Elona.Relation && Elona.Relation.hostileAction);
+    if (H) { try { H(g, thrower, t); } catch (e) { /* noop */ } }
   }
   /** 341514 / 341551 / 341515：投掷命中把非敌对的 NPC 转成敌对 */
   function enrage(t) {
@@ -415,14 +417,25 @@
    *   · 非 1181/1228 且看不到时「それは地面に落ちて砕けた。」
    *   · 578（貯金箱）在无主状态（`var_99(21) != 5`）被打碎 → 散落 f[25] 枚金币
    */
+  /**
+   * 341266-341345：落地文案按物品 id 区分（0-HG）。
+   *   587 溶けた / 1181 炸裂した / 1228 絶命した / 772 ぷちゅ /
+   *   1072·1073·1081 べちゃ / 其余「砕けた」。
+   */
+  const GROUND_TEXT = {
+    587: 'それは地面に落ちて溶けた。/ It falls on the ground and melts.',
+    1181: 'それは地面に落ちて炸裂した。/ It falls on the ground and explodes.',
+    1228: 'それは地面に落ちて絶命した。/ It falls on the ground and died.',
+    772: ' *ぷちゅ* ',
+    1072: ' *べちゃ* ', 1073: ' *べちゃ* ', 1081: ' *べちゃ* ',
+  };
   function ground(g, it, x, y) {
     if (!it) return { shatter: false, gold: 0, messages: [] };
     const id = it.id | 0;
     const out = { shatter: false, gold: 0, messages: [] };
-    if (id !== 1181 && id !== 1228) {
-      out.shatter = true;
-      out.messages.push(text(g, 'shatter'));
-    }
+    // 1181 / 1228 在源码里不播「砕けた」，而是各自的专文；587 是「溶けた」。
+    out.shatter = true;
+    out.messages.push(GROUND_TEXT[id] || text(g, 'shatter'));
     if (id === 578 && F(it, 21) !== 5) {
       const n = F(it, 25);
       if (n > 0) {

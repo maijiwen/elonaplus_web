@@ -9,6 +9,9 @@
  *   [2]   地图 Y 坐标                              —— cell_draw / map_placeplayer
  *   [9]   阵营关系（>=0 / -1 / <-1 用于魔法命中）  —— calcmagiccontrol
  *   [38]  等级 Lv                                  —— 存档 header.txt 拼接
+ *   [19]  身高 cm                                  —— 219715 / 301198 人物卡
+ *   [20]  体重 kg（卵/粪重量与价值、残骸重量的输入）—— 219716 / 222931 / 31289
+ *   [30]  所持金                                  —— 326968 通货风暴 / 307476 乞讨
  *   [50]  当前 HP   [51] 最大 HP                   —— healhp
  *   [52]  当前 SP(体力) [53] 最大 SP                —— healsp
  *   [55]  当前 MP   [56] 最大 MP                   —— healmp
@@ -28,6 +31,10 @@
     ACTIVE: 0, X: 1, Y: 2, RELATION: 9, LEVEL: 38,
     HP: 50, HP_MAX: 51, SP: 52, SP_MAX: 53, MP: 55, MP_MAX: 56,
     NUTRITION: 22, MAP: 80, RIDE: 167, IS_RIDING: 168, HOME_X: 171, HOME_Y: 172,
+    // A99（0-HG）：以下三槽在源码里语义明确，禁止互相混用。
+    HEIGHT: 19,   // var_58(19) 身高 cm
+    WEIGHT: 20,   // var_58(20) 体重 kg，不是金币
+    GOLD: 30,     // var_58(30) 所持金
   };
 
   const ATTR_COUNT = 500;   // 原版数组容量（var_58 第二维容量远大于此，这里取够用值）

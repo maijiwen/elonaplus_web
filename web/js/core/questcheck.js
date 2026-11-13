@@ -218,10 +218,13 @@
 
     if (type === 1008) {
       // findcharaaz(var_434(12, var_65(72))) == 0：目标怪物已经不存在
+      // A164（0-HG）：var_65(72) 是 var_434(字段, 槽位) 的**槽位下标**（22023 / 22093），
+      //   var_434(12, slot) 在 type 1008 里是目标种族 id（22093 用 refchara 显示）。
+      //   网页 g.quests 才是全槽位表；g.activeQuests 是按 status 过滤后的压缩数组，
+      //   拿它按 slot 取会错位，因此只从 g.quests[slot] 取，且不再用 targetData 兜底。
       const slot = g.getV65(72) | 0;
-      const q = (g.activeQuests && g.activeQuests[slot])
-        || (g.quests && g.quests[slot]) || null;
-      const race = q ? ((q.targetCreature | 0) || (q.targetData | 0)) : 0;
+      const q = (g.quests && g.quests[slot]) || null;
+      const race = q ? (q.targetCreature | 0) : 0;
       let alive = false;
       const charas = g.charas || [];
       for (let i = 0; i < charas.length; i++) {

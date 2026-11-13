@@ -418,10 +418,25 @@
     return { weight: cap, threshold: thr, tier };
   }
 
-  function name(id) {
+  /**
+   * 特性 / 病征名。
+   * 【A24】英文模式（var_205）按原版 lang() 显示英文名：等级名取
+   *   feats.json 的 levels[lv-1].en，没有等级名时回退条目原名（日文原文）。
+   *   日文模式返回日文原字段，中文模式仍是项目既有的汉化名。
+   * @param {number} id
+   * @param {number} [lv] 等级（默认 1）
+   * @param {string} [lang] 显式指定 'jp' / 'en' / 'ch'，不传时读 Options.language
+   */
+  function name(id, lv, lang) {
     const f = DATA && DATA.feats && DATA.feats[String(id)];
+    if (!f) return '';
+    const cur = lang || (Elona.Lang && Elona.Lang.current ? Elona.Lang.current() : 'ch');
+    const n = Math.max(0, ((lv | 0) || 1) - 1);
+    const byLevel = f.levels && f.levels[n];
+    if (cur === 'en') return (byLevel && byLevel.en) || f.name || '';
+    if (cur === 'jp') return (byLevel && byLevel.jp) || f.name || '';
     // 汉化：feats.json 的 nameCh 优先（缺条目回退日文原字段）
-    return f ? (f.nameCh || f.name) : '';
+    return f.nameCh || f.name || '';
   }
   function table() { return DATA; }
 

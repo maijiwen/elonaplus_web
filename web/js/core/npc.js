@@ -171,8 +171,10 @@
       for (const s of Elona.StoryWarp.services(g, npc)) out.push(s);
     }
     // 0-BV：说「気持ち」（原版对话动作 var_400 == 29 → txtselectkimoti0/1/2，11000-11186）
-    // 入口条件（原版按场景/关系限定）未逐条移植，此处对所有可对话 NPC 提供（登记 A183）
-    if (Elona.Relation && Elona.Relation.menu) {
+    // A183 / 0-HF：补回 289584-289590 的入口条件 —— 生成菜单时先按冷却把 var_58(14)
+    // 気力回满 100，只有 >= 80 才追加「気持ちを伝える」。旧实现对所有可对话 NPC 都提供。
+    if (g && Elona.Relation && Elona.Relation.canShowFeelings
+      && Elona.Relation.canShowFeelings(g, npc)) {
       out.push({ id: 'feelings', label: '说点心里话' });
     }
     // 0-CM：いちゃつく（原版同伴互动选项 12 → lovemiracle2 + customtalk 110，290448-290470）。

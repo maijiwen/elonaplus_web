@@ -41,8 +41,13 @@
   /** 当前地图 id（var_65(20)） */
   const V_MAP = 20;
 
-  /** 单次进图最多连续播放几段，防止规则互相触发形成死循环 */
-  const MAX_SCENES = 8;
+  /**
+   * 【A46】原版 246741-248481 是「按源码顺序扫描一次触发链」，命中几条就播几条，
+   * 没有单次播放段数上限。此前项目加了 8 段上限，会让排在后面的规则被吞掉。
+   * 这里改回无上限；run() 是单趟 for 遍历，本身有界，不会形成死循环。
+   * 常量保留为 Infinity 只为兼容外部诊断代码对 Story.MAX_SCENES 的读取。
+   */
+  const MAX_SCENES = Infinity;
 
   /**
    * 0-GI：触发链上 `var_232 = lang(...)` 的文本（链里只有 1 条，248121）。
@@ -220,7 +225,7 @@
     // 注意：每触发一条就重新构造上下文不必要（都是实时读 g），但规则间状态会变，
     // 所以每次判定都直接读 g（makeCtx 的闭包就是实时读），无需重建。
     for (const r of data.rules) {
-      if (fired.length >= MAX_SCENES) break;
+      // 【A46】不再按已触发段数提前 break：源码顺序扫描整条链，命中即播
       if (testRule(r, ctx) !== 'yes') continue;
 
       // 源码顺序：先播放（gosub *label_4295），再改状态

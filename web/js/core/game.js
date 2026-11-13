@@ -1036,9 +1036,16 @@
 
     /**
      * 0-DG：换图后把在场同伴放回角色池（原版同伴随身移动）。
+     * 0-HF / A323：换图同时执行 *label_2459 的 `var_58(166,cnt)=1`（236918-236921），
+     *   即「切换区域后重新获得一次复活额度」。读档不经过 *label_2459，
+     *   所以 restoreCharasFromSave 会传 skipReviveReset。
      * 只是 Elona.Party.restore 的入口，便于各处统一调用。
      */
-    restoreParty() {
+    restoreParty(opts) {
+      if (!(opts && opts.skipReviveReset) && Elona.Companion
+        && Elona.Companion.resetReviveFlags) {
+        Elona.Companion.resetReviveFlags(this);
+      }
       if (!Elona.Party || !Elona.Party.restore) return 0;
       return Elona.Party.restore(this);
     }
@@ -1076,6 +1083,9 @@
      */
     canSwapWith(target) {
       if (!target) return false;
+      // 343056：`cbit(985)` 置位的角色即使满足 343055 的五个条件也不交换。
+      //   这是 0-BW 实现里漏掉的一层门，补上后不影响普通 NPC 的既有行为。
+      if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(target, 985) === 1) return false;
       if ((target.get(9) | 0) <= -1) return false;          // 敌对 → 攻击，不交换
       // 0-EU：**剧情 NPC**（有固定对话脚本的种族）不参与交换 ——
       //   原版这类角色撞上去是走 `*label_3031` 的对话窗口，只有普通市民才 `cell_swap`。
@@ -4083,14 +4093,18 @@
         return r;
       }
       const nm = Elona.ItemDB ? Elona.ItemDB.name(r.itemId, 'en') : `#${r.itemId}`;
-      this.log(`你投出了 ${nm}${r.missed ? '（落点偏移）' : ''}。`);
+      // 340846-340864：投掷「X は Y を投げた」/ 自泼「X は Y を浴びた」（var_2518）
+      if (r.verb === 'pour') this.log(`你把 ${nm} 倒在了自己身上。`);
+      else this.log(`你投出了 ${nm}${r.missed ? '（落点偏移）' : ''}。`);
       if (r.captured) {
         const c = r.captured;
-        if (c.ok) this.log(`捕获成功！（生物 ${c.creatureId} / Lv ${c.level}）`);
+        if (c.ok) this.log(c.little ? '小妹妹成为了同伴。'
+          : `捕获成功！（生物 ${c.creatureId} / Lv ${c.level}）`);
         else {
-          const msg = {
+          const msg = c.message || {
             immune: '那个生物无法捕获。', 'ball-level': '怪物球的等级不足。',
             'too-strong': '需要先把它削弱到濒死。', area: '这里无法捕获。',
+            nothing: '什么也没有发生……', 'party-full': '同伴人数已达上限。',
           }[c.reason] || '捕获失败。';
           this.log(msg);
         }
@@ -5374,8 +5388,26 @@
         } : null,
         townPos: this.townPos,
         messages: this.messages.slice(-50),
+        // 0-HE：存档槽列表用的元数据（主角名 / 等级 / 所在地图 / 地下层数）。
+        //   写进存档文件本身，换浏览器打开时即使只有磁盘存档也能直接显示。
+        meta: {
+          name: this.player ? (this.player.name || '') : '',
+          level: this.player ? (this.player.level | 0) : 0,
+          map: this.map ? this.map.name : '',
+          mapLabel: this.mapLabel(),
+          depth: this.dungeonDepth | 0,
+        },
         savedAt: new Date().toISOString(),
       };
+    }
+
+    /** 0-HE：当前所在地图的显示名（城镇用中文名，其余用地图名；地下附层数） */
+    mapLabel() {
+      if (!this.map) return '';
+      const town = (Elona.Towns && Elona.Towns.byName) ? Elona.Towns.byName(this.map.name) : null;
+      const base = town ? this.townName(town) : (this.map.name || '');
+      const d = this.dungeonDepth | 0;
+      return d > 0 ? `${base} B${d}` : base;
     }
 
     /**
@@ -5412,7 +5444,8 @@
         }
       }
       // 原版进图时按当前位置决定同伴/寄放者是否在场（var_58(0)=1/9）
-      this.restoreParty();
+      // 0-HF：读档不经过 *label_2459，不能把 var_58(166) 复活额度重置成 1（301992-301995）
+      this.restoreParty({ skipReviveReset: true });
       // 道场：师范（物种 519）不随存档保存，进图时按原版重新生成
       if (Elona.School && Elona.School.onMapEnter) Elona.School.onMapEnter(this);
     }

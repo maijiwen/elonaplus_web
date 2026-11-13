@@ -1036,10 +1036,10 @@
     const id = slot || 'slot1';
     try {
       await Elona.Save.save(id, game.serialize());
-      if (Elona.Save.mode === 'server') {
-        UI.pushMessage(`已保存到存档槽 ${id}（saves/${id}.json）。`);
+      if (Elona.Save.mode === 'both') {
+        UI.pushMessage(`已保存到存档槽 ${id}（浏览器缓存 + 磁盘 saves/${id}.json）。`);
       } else {
-        UI.pushMessage(`已保存到存档槽 ${id}（浏览器缓存；未连接本地服务，无法写入 saves/ 目录）。`);
+        UI.pushMessage(`已保存到存档槽 ${id}（浏览器缓存；未连接 saves/ 文件夹）。`);
       }
       return true;
     } catch (err) {
@@ -1165,14 +1165,23 @@
     const f = featTable && featTable.feats[String(id)];
     if (!f) return '天赋 ' + id;
     const n = Math.max(0, ((lv | 0) || 1) - 1);
-    const byLevel = f.levels && f.levels[n] && f.levels[n].ch;
-    return byLevel || f.nameCh || (f.ranks && f.ranks[0] && f.ranks[0].ch)
+    const byLevel = f.levels && f.levels[n];
+    // 【A24】B4 语言切换：英文模式取原版英文名、日文模式取日文原名
+    const cur = (Elona.Lang && Elona.Lang.current) ? Elona.Lang.current() : 'ch';
+    if (cur === 'en') return (byLevel && byLevel.en) || f.name || f.nameCh || ('天赋 ' + id);
+    if (cur === 'jp') return (byLevel && byLevel.jp) || f.name || f.nameCh || ('天赋 ' + id);
+    const byLevelCh = byLevel && byLevel.ch;
+    return byLevelCh || f.nameCh || (f.ranks && f.ranks[0] && f.ranks[0].ch)
       || f.name || ('天赋 ' + id);
   }
   function featDesc(id) {
     const f = featTable && featTable.feats[String(id)];
     if (!f) return '';
     const r = (f.ranks && f.ranks[0]) || {};
+    // 【A24】英文 / 日文模式取原版对应字段，中文模式保持汉化名
+    const cur = (Elona.Lang && Elona.Lang.current) ? Elona.Lang.current() : 'ch';
+    if (cur === 'en') return r.en || f.name || f.nameCh || '';
+    if (cur === 'jp') return r.jp || f.name || f.nameCh || '';
     return r.ch || f.nameCh || r.jp || f.name || '';
   }
   /** var_92(2)：该天赋的最高等级（285809「これ以上取得できない」） */

@@ -956,12 +956,20 @@
     dmg(g, t, c.skill(16) | 0, c, 64, 1000);
     return { implemented: true, shot: true };
   };
-  T[782] = (g, c, t) => {                                   // 通货风暴 326966
+  T[782] = (g, c, t) => {                                   // 通货风暴 326966-327020
+    // A99（0-HG）：源码取的是 var_58(30) 所持金，var_58(20) 是体重，不能混用。
+    //   326968 不足 2000 金不发动；327019 每命中一个目标扣 200 金（不是一次扣光）。
+    const R = rndOf(g);
+    if ((c.get(30) | 0) < 2000) return { implemented: true, nothing: true, reason: 'gold' };
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
-    const gold = Math.min(c.get(20) | 0, 100000);
-    c.set(20, (c.get(20) | 0) - gold);
-    dmg(g, t, Math.max(1, idiv(gold, 100)), c, 0, 0);
-    return { implemented: true, gold };
+    // 327007：dmghp = 投擲111/5 * sqrt(160+1) * 3 + rnd(10) + 5，属性 64 / 强度 1000
+    const n = idiv(c.skill(111) | 0, 5) * Math.sqrt((c.skill(160) | 0) + 1) * 3 + R(10) + 5;
+    dmg(g, t, n, c, 64, 1000);
+    con(g, t, 4, 100 + v65(g, 22) * 2);                     // 327008 dmgcon 4（目眩）
+    if ((t.get(253) | 0) === 0 && R(20) === 0) t.set(253, 1); // 327009-327017
+    c.set(30, (c.get(30) | 0) - 200);
+    // 源码 326971 `repeat 10` 会打最多 10 个目标；本项目仍是单目标 handler，登记差异。
+    return { implemented: true, gold: 200 };
   };
   T[784] = (g, c, t) => {                                   // 超重压杀 331153
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
@@ -1297,9 +1305,10 @@
   T[830] = (g, c, t) => {                                   // 认真乞讨 330872
     if ((c.index | 0) !== 0) return { implemented: true, nothing: true };
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
-    const gold = Math.min(t.get(20) | 0, 50);
-    t.set(20, (t.get(20) | 0) - gold);
-    c.set(20, (c.get(20) | 0) + gold);
+    // A99（0-HG）：金币槽是 var_58(30)（307476），var_58(20) 是体重 kg。
+    const gold = Math.min(t.get(30) | 0, 50);
+    t.set(30, (t.get(30) | 0) - gold);
+    c.set(30, (c.get(30) | 0) + gold);
     return { implemented: true, gold };
   };
   T[832] = (g, c, t) => {                                   // 磁化 334838

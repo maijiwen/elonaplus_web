@@ -1,0 +1,252 @@
+{
+  "_meta": {
+    "source": "start.hsp 11140-11280 (#deffunc txtselectkimoti0/1/2)",
+    "selector": "start.hsp 290141-290149：var_65(12) \\ 3（日期取模 3）",
+    "note": "choice 的结算见 290181-290246；已婚时第 10 项替换为 married 文案",
+    "generatedBy": "tools/extract_kimoti.py（机械提取，勿手改）"
+  },
+  "married": {
+    "jp": "【遺伝子を残したい】",
+    "en": "Let's make a gene.",
+    "textId": "s02226"
+  },
+  "sets": [
+    [
+      {
+        "id": 0,
+        "jp": "やっぱりなんでもない",
+        "en": "After all nothing.",
+        "group": "cancel",
+        "textId": "s02215"
+      },
+      {
+        "id": 1,
+        "jp": "愛している",
+        "en": "I love you.",
+        "group": "love",
+        "textId": "s02216"
+      },
+      {
+        "id": 2,
+        "jp": "食べちゃいたい",
+        "en": "You are so cute I could eat you up.",
+        "group": "love",
+        "textId": "s02217"
+      },
+      {
+        "id": 3,
+        "jp": "大好き",
+        "en": "I like you very much.",
+        "group": "love",
+        "textId": "s02218"
+      },
+      {
+        "id": 4,
+        "jp": "頼りにしている",
+        "en": "I rely on you.",
+        "group": "flirt",
+        "textId": "s02219"
+      },
+      {
+        "id": 5,
+        "jp": "これからが楽しみ",
+        "en": "I look forward to your future.",
+        "group": "flirt",
+        "textId": "s02220"
+      },
+      {
+        "id": 6,
+        "jp": "嫌いじゃない",
+        "en": "I do not hate you.",
+        "group": "flirt",
+        "textId": "s02221"
+      },
+      {
+        "id": 7,
+        "jp": "役立たず",
+        "en": "You are useless.",
+        "group": "insult",
+        "textId": "s02222"
+      },
+      {
+        "id": 8,
+        "jp": "キモい",
+        "en": "I am you uncomfortable.",
+        "group": "insult",
+        "textId": "s02223"
+      },
+      {
+        "id": 9,
+        "jp": "大嫌い",
+        "en": "I hate you.",
+        "group": "insult",
+        "textId": "s02224"
+      },
+      {
+        "id": 10,
+        "jp": "【結婚してほしい】",
+        "en": "May I ask for your hand?",
+        "group": "marry",
+        "textId": "s02225"
+      }
+    ],
+    [
+      {
+        "id": 0,
+        "jp": "な、なんでもない！",
+        "en": "No, nothing!",
+        "group": "cancel",
+        "textId": "s02227"
+      },
+      {
+        "id": 1,
+        "jp": "最高に可愛い",
+        "en": "You are so cute.",
+        "group": "love",
+        "textId": "s02228"
+      },
+      {
+        "id": 2,
+        "jp": "心酔しています",
+        "en": "I am devoured by you.",
+        "group": "love",
+        "textId": "s02229"
+      },
+      {
+        "id": 3,
+        "jp": "すごく格好いい",
+        "en": "You are so cool.",
+        "group": "love",
+        "textId": "s02230"
+      },
+      {
+        "id": 4,
+        "jp": "心強い",
+        "en": "I am reassured that you are there.",
+        "group": "flirt",
+        "textId": "s02231"
+      },
+      {
+        "id": 5,
+        "jp": "期待している",
+        "en": "I am counting on you.",
+        "group": "flirt",
+        "textId": "s02232"
+      },
+      {
+        "id": 6,
+        "jp": "割と好き",
+        "en": "I like you a little.",
+        "group": "flirt",
+        "textId": "s02233"
+      },
+      {
+        "id": 7,
+        "jp": "興味ない",
+        "en": "I am not interested in you.",
+        "group": "insult",
+        "textId": "s02234"
+      },
+      {
+        "id": 8,
+        "jp": "邪魔",
+        "en": "You are disturbing.",
+        "group": "insult",
+        "textId": "s02235"
+      },
+      {
+        "id": 9,
+        "jp": "正直憎い",
+        "en": "I have hatred in you.",
+        "group": "insult",
+        "textId": "s02236"
+      },
+      {
+        "id": 10,
+        "jp": "【結婚してほしい】",
+        "en": "May I ask for your hand?",
+        "group": "marry",
+        "textId": "s02225"
+      }
+    ],
+    [
+      {
+        "id": 0,
+        "jp": "…うまく言葉に出来ない",
+        "en": "... I can't speak well.",
+        "group": "cancel",
+        "textId": "s02237"
+      },
+      {
+        "id": 1,
+        "jp": "ずっと傍にいて",
+        "en": "I want you to be with me forever.",
+        "group": "love",
+        "textId": "s02238"
+      },
+      {
+        "id": 2,
+        "jp": "本当に感謝している",
+        "en": "I am really grateful to you.",
+        "group": "love",
+        "textId": "s02239"
+      },
+      {
+        "id": 3,
+        "jp": "心から尊敬している",
+        "en": "I sincerely respect you.",
+        "group": "love",
+        "textId": "s02240"
+      },
+      {
+        "id": 4,
+        "jp": "羨ましい",
+        "en": "I'm envious of you.",
+        "group": "flirt",
+        "textId": "s02241"
+      },
+      {
+        "id": 5,
+        "jp": "癒される",
+        "en": "I am always healed by you.",
+        "group": "flirt",
+        "textId": "s02242"
+      },
+      {
+        "id": 6,
+        "jp": "仲良くしたい",
+        "en": "I want to get along with you.",
+        "group": "flirt",
+        "textId": "s02243"
+      },
+      {
+        "id": 7,
+        "jp": "期待していない",
+        "en": "I do not expect from you.",
+        "group": "insult",
+        "textId": "s02244"
+      },
+      {
+        "id": 8,
+        "jp": "うざい",
+        "en": "I'm fed up with you.",
+        "group": "insult",
+        "textId": "s02245"
+      },
+      {
+        "id": 9,
+        "jp": "恨んでいる",
+        "en": "I have a resentment against you.",
+        "group": "insult",
+        "textId": "s02246"
+      },
+      {
+        "id": 10,
+        "jp": "【結婚してほしい】",
+        "en": "May I ask for your hand?",
+        "group": "marry",
+        "textId": "s02225"
+      }
+    ]
+  ]
+}

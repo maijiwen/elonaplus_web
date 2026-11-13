@@ -2511,35 +2511,29 @@
     // 釣り（使用钓竿 → 320007-320014「钓几小时」）
     // ======================================================================
     /**
-     * 钓鱼时长选择窗 —— 对应 320007-320014。
-     * 原版用 `gosub *label_2892` 的数字输入框，提示「何時間釣ろうか？」；
-     * 这里改成固定档位列表（1/2/3/6/12 小时），选定后进入 rowact 7。
+     * 钓鱼时长输入窗（320007-320014）。
+     * 【A79】原版提示「何時間釣ろうか？」后 `gosub *label_2892` 开数字输入框
+     *   （var_478 默认 "1"，`int(var_478)` 可为任意整数，没有档位也没有 1..24 钳制）。
+     *   这里复用同一个通用输入窗，而不是项目早先自拟的 1/2/3/6/12 五档列表。
      * 收竿条件：时间到、鱼饵用完、背包满（见 core/fishing.js）。
      */
     openFishHours(g, rodIdx, spPaid) {
       const F = Elona.Fishing;
       if (!F) { Elona.UI.pushMessage('钓鱼模块未加载。'); return; }
-      const hours = [1, 2, 3, 6, 12];
-      const rows = hours.map((h) => ({ hours: h }));
-      this.rows = rows;
       const rod = g.player.inv[rodIdx];
       const bait = rod ? (rod.f[9] | 0) : 0;
       const rodName = rod ? Elona.ItemDB.name(rod, 'en') : '钓竿';
-      const head = `<div class="pui-note">《${esc(rodName)}》`
-        + `　剩余鱼饵 ${bait}　釣り技能 ${g.player.skill(F.SKILL) | 0}</div>`;
-      const body = rows.map((r, i) => `<div class="pui-row" data-i="${i}">`
-        + `<span class="pui-name">${r.hours} 小时</span>`
-        + `<span class="pui-dim">大约 ${r.hours * 60} 分钟游戏时间</span></div>`).join('');
-      this.open('fish', '釣り — 要钓几个小时？', head + body, {
-        hint: '↑↓ 选择　Enter 开始　Esc 取消',
-        onPick: (row) => {
-          const r = F.start(g, rodIdx, row.hours, { spPaid: !!spPaid });
-          if (r && r.ok) Elona.UI.pushMessage(r.immediate ? '用机械假饵立刻有鱼上钩。' : `你开始钓鱼（${row.hours} 小时）。`);
-          this.close();
-        },
-      });
-      this.sel = 0;
-      this.renderSel();
+      const note = `《${rodName}》　剩余鱼饵 ${bait}　釣り技能 ${g.player.skill(F.SKILL) | 0}`
+        + '　输入要钓的小时数（整数，默认 1）';
+      this.openTextInput('釣り — 何時間釣ろうか？', '1', (v) => {
+        if (v === null) return;                         // Esc 取消，不开始钓鱼
+        const r = F.start(g, rodIdx, v, { spPaid: !!spPaid });
+        if (r && r.ok) {
+          Elona.UI.pushMessage(r.immediate ? '用机械假饵立刻有鱼上钩。' : `你开始钓鱼（${r.hours} 小时）。`);
+        } else if (r && r.message) {
+          Elona.UI.pushMessage(r.message);
+        }
+      }, { note });
     },
 
     // ======================================================================
@@ -3506,21 +3500,39 @@
       const list = await Elona.Save.list().catch(() => []);
       const known = {};
       for (const s of list) known[s.slot] = s;
-      // 0-HD：时间统一格式化为本地时间（服务端给毫秒时间戳，localStorage 取 savedAt）
+      // 0-HD：时间统一格式化为本地时间（IndexedDB/磁盘给毫秒时间戳，旧存档取 savedAt）
       const fmtTime = (t) => {
         const n = Number(t) || 0;
         if (!n) return '有存档';
         try { return new Date(n).toLocaleString(); } catch (e) { return '有存档'; }
       };
+      // 0-HE：摘要「主角名 Lv.N · 地图 · 时间 · 缓存/磁盘」
+      const fmtMeta = (s) => {
+        if (!s) return '（空）';
+        const m = s.meta || null;
+        const parts = [];
+        if (m && m.name) parts.push(`${m.name} Lv.${m.level | 0}`);
+        if (m && (m.mapLabel || m.map)) parts.push(m.mapLabel || m.map);
+        const where = s.source === 'both' ? '缓存+磁盘' : (s.source === 'disk' ? '磁盘' : '缓存');
+        parts.push(where);
+        parts.push(fmtTime(s.time));
+        return parts.join(' · ');
+      };
       const slots = [];
       for (let i = 1; i <= 6; i++) {
         const id = 'slot' + i;
-        slots.push({ id, label: `${id}`, info: known[id] ? fmtTime(known[id].time) : '（空）' });
+        slots.push({ id, label: `${id}`, info: fmtMeta(known[id]) });
       }
       this.rows = slots;
       // 0-HD：F1 快速存档写在 quick 槽，读取列表里也列出来
-      const quickInfo = known.quick ? fmtTime(known.quick.time) : '（空）';
+      const quickInfo = fmtMeta(known.quick);
+      // 0-HE：磁盘存档目录授权状态（不参与方向键选择）
+      const folder = Elona.Save.folderName
+        ? `已连接：${Elona.Save.folderName}（点击切换）`
+        : '未连接（点击选择 saves/ 目录，换浏览器也能读到存档）';
       const html = (note ? `<div class="pui-note">${esc(note)}</div>` : '')
+        + `<div class="pui-note" data-connect="1" style="cursor:pointer">存档文件夹：${esc(folder)}</div>`
+        + '<div class="pui-sep">保存</div>'
         + slots.map((s, i) => `<div class="pui-row" data-i="${i}"><span class="pui-name">${esc(s.label)}</span>`
           + `<span class="pui-dim">${esc(s.info)}</span>`
           + `<span class="pui-num">点击 = 保存</span></div>`).join('')
@@ -3537,9 +3549,21 @@
         wide: true, hint: '点击槽位保存；下段为读取　Esc 关闭',
         onPick: () => { /* 由点击分支处理 */ },
       });
-      // 覆盖点击行为：区分保存 / 读取
+      // 覆盖点击行为：区分保存 / 读取 / 连接目录
       const body = this.root.querySelector('#pui-body');
       body.onclick = async (ev) => {
+        const link = ev.target.closest('[data-connect]');
+        if (link) {
+          try {
+            const name = await Elona.Save.connectFolder();
+            Elona.UI.pushMessage(`已连接存档文件夹 ${name}。`);
+            this.openSaveSlots(`已连接存档文件夹 ${name}。`);
+          } catch (err) {
+            if (err && err.name === 'AbortError') return;   // 用户取消选择
+            Elona.UI.pushMessage('连接存档文件夹失败：' + err.message);
+          }
+          return;
+        }
         const row = ev.target.closest('.pui-row');
         if (!row) return;
         const i = parseInt(row.dataset.i, 10) | 0;
@@ -3556,8 +3580,10 @@
         } else {
           try {
             await Elona.Save.save(slot.id, g.serialize());
-            const where = Elona.Save.mode === 'server'
-              ? `saves/${slot.id}.json` : '浏览器缓存';
+            // 0-HE：纯 Web 版落点 —— 磁盘未授权时只写浏览器缓存
+            const where = Elona.Save.mode === 'both'
+              ? `浏览器缓存 + 磁盘 saves/${slot.id}.json`
+              : '浏览器缓存（未连接 saves/ 文件夹）';
             Elona.UI.pushMessage(`已保存到 ${slot.id}（${where}）。`);
             this.openSaveSlots(`已保存到 ${slot.id}（${where}）。`);
           } catch (err) { Elona.UI.pushMessage('保存失败：' + err.message); }

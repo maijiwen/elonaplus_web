@@ -1470,7 +1470,7 @@
             const npc = this.npcTarget;
             if (!npc || !Elona.Relation) return;
             const sel = this.el('npc-feeling');
-            sel.innerHTML = Elona.Relation.menu(npc).map((m) =>
+            sel.innerHTML = Elona.Relation.menu(npc, game).map((m) =>
               `<option value="${m.id}">${this.esc(m.jp || m.en)}</option>`).join('');
             this.el('npc-feelings').classList.remove('hidden');
             this.el('npc-train').classList.add('hidden');
@@ -1667,10 +1667,25 @@
             if (Elona.Panels && r.list) {
               Elona.Panels.openAllySelect(game, '誰を呼び戻す？', r.list, (c) => {
                 const cost = Elona.Companion.reviveCost(c);
-                const rr = Elona.Companion.revive(game, c);
-                this.pushMessage(rr.message || '');
-                if (!rr.ok && rr.reason === 'money') this.pushMessage(`（复活 ${c.name} 需要 ${cost} gold）`);
-              }, 'a~p 选择　Esc 关闭');
+                // 417457-417465：先报费用，钱够才给「呼び戻す / やめる」二选一（*label_3068）。
+                // 项目里用已有的 y/n 确认窗承载这个二选一，保持「先确认再扣钱」的顺序。
+                const gold = game.player.get(30) | 0;
+                if (gold < cost) {
+                  this.pushMessage(`「要把它叫回来的话需要 ${cost} gold。」（你只有 ${gold} gold）`);
+                  return;
+                }
+                Elona.Panels.openConfirm(
+                  `「そいつを呼び戻すには、${cost} gold 必要だ。」\n要支付 ${cost} gold 叫回 ${c.name} 吗？`,
+                  (yes) => {
+                    if (!yes) { this.pushMessage('「冷やかし？」'); return; }   // 417476
+                    const rr = Elona.Companion.revive(game, c);
+                    this.pushMessage(rr.message || '');
+                  },
+                  { title: '調酒師', yes: `呼び戻す（${cost} gold）`, no: 'やめる' });
+              }, 'a~p 选择　Esc 关闭',
+              // 284372-284374 / 286767-286770：额度用尽时人物窗标注「切换地图前无法复活」
+              (c) => ((c.get(Elona.Companion.REVIVE_FLAG) | 0) <= 0
+                ? '(マップ切替えるまで復活不能)' : ''));
             }
             return;
           }
