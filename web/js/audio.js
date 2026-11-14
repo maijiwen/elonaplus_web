@@ -3,12 +3,14 @@
  * 音频层 —— 对应 config.txt 的 (Sound) 段：sound / music / heartbeat。
  *
  * 【资源】web/assets/sound/ 下是原版 sound 目录里可直接被浏览器播放的 .wav。
+ * 【音效编号】原版 `snd N` 的编号→文件名表在 `js/sndtable.js`（由 tools/gen_sndmap.js
+ *   从 start.hsp 的 sndload 表生成，307 项），本层直接查表，与源码一一对应。
  * 【重要差异】原版 BGM 是 .mid（MIDI），现代浏览器没有内建 MIDI 合成器，
  *   无法在不引入额外库的情况下播放。因此本实现：
- *     - 音效（原版 `snd N`）→ 按语义映射到同名 wav；
+ *     - 音效（原版 `snd N`）→ 查 sndtable.js 播放同名 wav；
  *     - BGM（原版 .mid）→ 用同目录的环境音 wav（bg_town / bg_wind / bg_rain …）代替，
  *       并在差异报告中登记「BGM 未还原为 MIDI 原曲」。
- * 【心跳音】Heart1.wav 对应 config.txt 的 heartbeat（低血量时播放）。
+ * 【心跳音】Heart1.wav 对应 config.txt 的 heartbeat（低血量时播放，源码 snd 32）。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -96,17 +98,25 @@
       } catch (e) { return null; }
     },
 
-    /** 原版 `snd N` 的近似映射（仅处理能确定语义的编号） */
+    /**
+     * 原版 `snd N` —— 直接查 `js/sndtable.js` 的编号表（由 start.hsp 的 sndload 生成）。
+     * 编号 75-80 是环境底噪（bg_*），按循环播放；其余一次性播放。
+     * se0-se99 原版安装目录就没有文件，这里静默返回（与 HSP 的 mmload 失败一致）。
+     */
     playIndex(n) {
-      const map = {
-        100: 'cursor', 101: 'cursor', 102: 'cursor',
-        20: 'cancel', 22: 'ok', 23: 'ok', 24: 'coin', 44: 'levelup',
-        47: 'drop', 73: 'bash',
-        32: 'Heart1',          // 0-FZ / B3：199739 snd 32（低血量心跳音）
-      };
-      const nm = map[n | 0];
-      if (nm) return this.play(nm);
-      return null;
+      const id = n | 0;
+      const table = Elona.SND_FILES || {};
+      const file = table[id];
+      if (!file) return null;
+      if ((Elona.SND_MISSING || []).indexOf(file + '.wav') >= 0) return null;
+      const amb = Elona.SND_AMBIENT || {};
+      if (amb[id]) { this.bgmFile(amb[id]); return null; }
+      return this.sfx(file);
+    },
+
+    /** 该编号对应哪个 wav（供测试与差异核对） */
+    fileNameOf(n) {
+      return (Elona.SND_FILES || {})[n | 0] || null;
     },
 
     /**
@@ -126,10 +136,14 @@
       } catch (e) { return null; }
     },
 
-    /** 环境音 / BGM（循环） */
+    /** 环境音 / BGM（循环）—— 语义名入口 */
     bgm(name) {
-      const file = BG[name] || BG.town;
-      if (!musicOn || volume <= 0) return;
+      this.bgmFile(BG[name] || BG.town);
+    },
+
+    /** 按**文件名**循环环境音（源码 snd 75-80 就是这种用法） */
+    bgmFile(file) {
+      if (!musicOn || volume <= 0 || !file) return;
       if (bgmName === file && bgmEl && !bgmEl.paused) return;
       this.stopBgm();
       try {

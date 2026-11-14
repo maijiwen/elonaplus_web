@@ -959,17 +959,42 @@
   T[782] = (g, c, t) => {                                   // 通货风暴 326966-327020
     // A99（0-HG）：源码取的是 var_58(30) 所持金，var_58(20) 是体重，不能混用。
     //   326968 不足 2000 金不发动；327019 每命中一个目标扣 200 金（不是一次扣光）。
+    // 0-HS：326971 的 `repeat 10` 已按源码补齐 —— 每轮重新 `gosub *label_2841`
+    //   （= Aim.candidates，射程 656/鼓舞 f3=3006 → 4 格）随机取一个目标，
+    //   最多打 10 个；只有真正命中才扣 200 金，因此一回合最多花 2000。
     const R = rndOf(g);
     if ((c.get(30) | 0) < 2000) return { implemented: true, nothing: true, reason: 'gold' };
-    if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
-    // 327007：dmghp = 投擲111/5 * sqrt(160+1) * 3 + rnd(10) + 5，属性 64 / 强度 1000
-    const n = idiv(c.skill(111) | 0, 5) * Math.sqrt((c.skill(160) | 0) + 1) * 3 + R(10) + 5;
-    dmg(g, t, n, c, 64, 1000);
-    con(g, t, 4, 100 + v65(g, 22) * 2);                     // 327008 dmgcon 4（目眩）
-    if ((t.get(253) | 0) === 0 && R(20) === 0) t.set(253, 1); // 327009-327017
-    c.set(30, (c.get(30) | 0) - 200);
-    // 源码 326971 `repeat 10` 会打最多 10 个目标；本项目仍是单目标 handler，登记差异。
-    return { implemented: true, gold: 200 };
+    if (!Elona.Aim || !Elona.Aim.candidates) return { implemented: true, nothing: true };
+    const selfRel = c.get(9) | 0;
+    const n111 = c.skill(111) | 0, n160 = c.skill(160) | 0;
+    let hits = 0, spent = 0;
+    for (let cnt = 0; cnt < 10; cnt++) {
+      const pool = Elona.Aim.candidates(g, c);              // 326972 gosub *label_2841
+      if (!pool.length) break;                              // 326973-326975
+      const tg = pool[R(pool.length)].chara;                // 326976 var_484(0, rnd(var_701))
+      const rel = tg.get(9) | 0;
+      // 326977-326993：非敌对目标一律跳过（两段 `>= 0` 合起来等于「不打中立/友善」）；
+      //   非玩家施法者在自己的阵营内部也互不攻击。
+      if ((c.index | 0) === 0 || selfRel >= 0) {
+        if (rel >= 0) continue;
+      } else if (rel === selfRel) continue;
+      // 326994-327003：第二次命中且施法者是 482/481 种族时的固定台词
+      if (cnt === 1 && ((c.get(27) | 0) === 482 || (c.get(27) | 0) === 481)) {
+        say(g, '「こぉぉんのっ！アホーーーーッ！！！」');
+      }
+      // 327005-327006：var_1117 = 30 → gosub *label_2111（特效层）
+      // 327007：dmghp = 投擲111/5 * sqrt(160+1) * 3 + rnd(10) + 5，属性 64 / 强度 1000
+      dmg(g, tg, idiv(n111, 5) * Math.sqrt(n160 + 1) * 3 + R(10) + 5, c, 64, 1000);
+      con(g, tg, 4, 100 + v65(g, 22) * 2);                  // 327008 dmgcon 4
+      if ((tg.get(253) | 0) === 0 && R(20) === 0) {         // 327009-327017 目眩
+        tg.set(253, 1);
+        say(g, `${nm(tg)}目眩了！`);
+      }
+      c.set(30, (c.get(30) | 0) - 200);                     // 327019
+      spent += 200; hits++;
+    }
+    if (!hits) return { implemented: true, nothing: true };
+    return { implemented: true, hits, spent };
   };
   T[784] = (g, c, t) => {                                   // 超重压杀 331153
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };

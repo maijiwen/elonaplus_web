@@ -1528,6 +1528,23 @@
             this.renderEquipList(game, s.id);
             return;
           }
+          // 0-HU（A201d）：护卫与宠物购买改为「先看报价 / 目录，再选一项结算」。
+          //   源码 421314-421331 只列付得起的期限；424921-424945 是 A/B/C 目录与「我付钱」。
+          if (s.id === 'hire-guard') {
+            const o = Elona.NPC.guardOptions(game, npc);
+            if (!o.entries.length) {
+              this.pushMessage(`雇佣 3 天需要 ${Math.floor(o.adv / 2)} gold，钱不够。`);
+              return;
+            }
+            this.renderPickList(game, 'hire-guard', o.header, o.entries);
+            return;
+          }
+          if (s.id === 'buy-slave' || s.id === 'buy-horse') {
+            const r = Elona.NPC.perform(game, npc, s.id);
+            if (r.reopenList) this.renderPickList(game, 'slave-offer', r.header, r.entries || []);
+            else this.pushMessage(r.message || '…');
+            return;
+          }
           if (s.id === 'reload') {
             const r = Elona.NPC.perform(game, npc, 'reload');
             this.pushMessage(r.message);
@@ -1596,8 +1613,16 @@
           }
           // 0-CC：需要先选目标的三项
           if (s.id === 'practice') {
-            this.renderPickList(game, 'practice', '选择实习种类（900 gold）',
-              Elona.NPC.PRACTICE.map((x) => ({ label: x.label, arg: x.id })));
+            // 0-HT：原版 422630 的费用随「已持有魔法的技能等级之和」变化，且单位是白金币，
+            //   所以列表里逐项显示报价，而不是写死 900 gold。
+            const P = Elona.NPC;
+            const entries = P.PRACTICE.map((x) => {
+              const q = P.practiceQuote ? P.practiceQuote(game.player, x.id) : null;
+              return { label: x.label,
+                meta: q ? `${q.cost} 白金币 · ${q.spells.length} 种` : '',
+                arg: x.id };
+            });
+            this.renderPickList(game, 'practice', '选择实习种类（按库存计费 · 白金币）', entries);
             return;
           }
           if (s.id === 'stock-exchange') {
@@ -1616,7 +1641,20 @@
             return;
           }
           if (s.id === 'barter') { this.renderBarterList(game); return; }
-          // 0-CD：宠物战 —— 先选出战宠物
+          // 0-HV：竞技场决斗 / 乱斗 —— 原版先报价再让玩家选「挑戦する / やめる」
+          if (s.id === 'arena-duel' || s.id === 'arena-rumble') {
+            const r = Elona.NPC.perform(game, npc, s.id);
+            if (r && r.reopenList) {
+              this.renderPickList(game, s.id, r.header, r.entries);
+              return;
+            }
+            this.pushMessage(r.message);
+            this.npcText = r.message;
+            this.renderNPC(game);
+            return;
+          }
+          // 0-CD：宠物战 —— 先选出战宠物（417214-417219 gosub *label_2683）
+          //   选完再走「报价 → 确认」，与决斗同一套 arenaStep。
           if (s.id === 'pet-duel' || s.id === 'pet-team' || s.id === 'pet-ex') {
             const pets = (Elona.Party && Elona.Party.pets) ? Elona.Party.pets(game) : [];
             if (!pets.length) {
@@ -1806,6 +1844,19 @@
           + (e.meta ? `<span class="inv-meta">${this.esc(e.meta)}</span>` : '');
         row.onclick = () => {
           const r = Elona.NPC.perform(game, this.npcTarget, action, e.arg);
+          // 0-HU：目录换档会返回新的报价列表，保持列表打开而不是关掉对话
+          if (r && r.reopenList) {
+            this.renderPickList(game, action, r.header || header, r.entries || []);
+            return;
+          }
+          // 0-HV：竞技场确认后换到 arena_1 / arena_2
+          if (r && r.enterMap && game.enterArenaMap) {
+            this.pushMessage(r.message || '');
+            box.classList.add('hidden');
+            this.closeNPC();
+            game.enterArenaMap(r.enterMap).catch(() => { });
+            return;
+          }
           this.pushMessage(r.message);
           this.npcText = r.message;
           box.classList.add('hidden');

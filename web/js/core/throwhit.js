@@ -42,9 +42,25 @@
   const EXCLUDE_FALLBACK = [1133, 988, 989, 1064, 1059, 1061,
     1304, 1305, 1306, 1307, 1309, 1312];
 
+  /**
+   * 源码 `snd N` —— 只把编号记进结果，由 game 层统一交给 `Elona.Audio.playIndex`。
+   * core 层不直接依赖音频实现，测试可断言编号序列。
+   * 编号含义见 `js/sndtable.js`（由 start.hsp 的 sndload 表生成），
+   * 例：91=throw2 / 73=bash1 / 47=crush2 / 14=get1 / 69=cheer / 118=enc / 18=eat1 / 33=heal1 / 299=crash14。
+   */
+  function snd(out, n) {
+    const id = n | 0;
+    if (id > 0 && out && out.sounds) out.sounds.push(id);
+  }
+
+  /** 源码 `animeload N, chara` —— 记录角色动画事件（前端按编号播放，缺贴图则忽略） */
+  function anim(out, n, who) {
+    if (!out || !out.anims) return;
+    out.anims.push({ id: n | 0, chara: (who && who.index != null) ? (who.index | 0) : -1 });
+  }
+
   let cached = null;
-  function table() {
-    if (!cached) {
+  function table() {    if (!cached) {
       cached = (Elona.ThrowHitData && Elona.ThrowHitData.groupA) ? Elona.ThrowHitData : null;
       if (!cached && Elona.Data && Elona.Data.tableSync) {
         try { cached = Elona.Data.tableSync('throwhit'); } catch (e) { cached = null; }
@@ -154,6 +170,8 @@
   // =========================================================================
   function branch906(g, thrower, t, it, out, R) {
     const skill = sk(thrower, 111);
+    // 341450 `snd var_2520`：该变量在 start.hsp 里从未赋值 → 等价 snd 0（未加载，静默），不入列。
+    //   （341422 的投出音 91 由 throwItem 统一处理，因为它在「落点是否有角色」判定之前。）
     dmg(g, t, R(skill * 2) + 1, thrower, 65, 1000);
     dmg(g, t, idiv(skill + 2, 2), thrower, 61, 500);
     if (G(t, 27) === 627) {
@@ -167,6 +185,9 @@
   }
 
   function branch1313(g, thrower, t, it, out) {
+    // 341499 snd 118（enc：卡片刻印）
+    snd(out, 118);
+    // 341487 的投出音 91 由 throwItem 统一处理（在命中判定之前）。
     // 341507-341508：在目标脚下生成 504（本身不带信息）
     dropAt(g, 504, 1, G(t, 1), G(t, 2));
     // 341505-341510：先 `var_99(0, var_579)--` 消耗一张，再把物种/等级写回
@@ -181,6 +202,7 @@
   }
 
   function branch984(g, thrower, t, it, out) {
+    // 341522 的投出音 91 由 throwItem 统一处理（在命中判定之前）。
     // 341534-341536：目标处于异常状态时一律不成立
     if (G(t, 251) || G(t, 252) || G(t, 253) || G(t, 255) || G(t, 256)) return out;
     const duel = V(g, 556);                                  // var_65(250+306)
@@ -188,6 +210,9 @@
       S(g, 556, t.index | 0);
       S(g, 309, V(g, 309) + 1);                              // var_65(250+59)
       out.messages.push(text(g, 'duel', { arg1: nm(t) }));
+      // 341540 snd 14（get1：捡起手套）→ 341548 snd 69（cheer：决斗开始）
+      snd(out, 14);
+      snd(out, 69);
       if ((it.f[0] | 0) > 0) it.f[0]--;
       enrage(t);
       out.effects.push('duel');
@@ -210,7 +235,13 @@
         if ((it.f[26] | 0) !== 0) it.f[26] = 0;
         if (G(t, 60) < 100) {
           SET(t, 60, G(t, 60) + 15);
-          if (G(t, 60) >= 100) SET(t, 60, 120);
+          if (G(t, 60) >= 100) {
+            SET(t, 60, 120);
+            // 341685-341691：激昂满 → `animeload 87, var_244` + `snd 299`（crash14）
+            //   源码临时把 var_1072（演出速度）抬到 50 再还原，属播放速率，前端不用。
+            anim(out, 87, t);
+            snd(out, 299);
+          }
         }
         const base = (idiv(s111, 5) + 5) * (idiv(s174 + 1, 5) + 5)
           + R(s174 * 2 + 5);
@@ -230,6 +261,8 @@
           if (Elona.Status && Elona.Status.delbuff) Elona.Status.delbuff(t, i);
           break;
         }
+        // 341719 `animeload 10, var_244`（御札被撕的动画，无音效）
+        anim(out, 10, t);
         dmg(g, t, limit(idiv(s111, 5), 1, 200) * limit(idiv(s174 + 1, 3), 1, 500)
           + R(s174 + s111 + 1), thrower, 60, 1000);
         out.effects.push('ohuda');
@@ -242,6 +275,8 @@
             + R(s15 + 1) + s174, thrower, 59, 3000);
           out.effects.push('present-hurt');
         } else {
+          // 341728 snd 33（heal1）
+          snd(out, 33);
           const heal = Math.floor(Math.sqrt(sk(t, 15))) * limit(idiv(s15, 4), 1, 500)
             + s15 + R(sk(t, 15) + 1);
           t.hp = Math.min(G(t, 51), (t.hp | 0) + heal);
@@ -282,7 +317,8 @@
     const T = table();
     const id = it.id | 0;
     const cat = ref(id, 5);
-    const out = { handled: true, itemId: id, cat, messages: [], effects: [], food: null };
+    const out = { handled: true, itemId: id, cat, messages: [], effects: [], food: null,
+      sounds: [], anims: [] };
 
     const inA = (T ? T.groupA.map((x) => x.id) : GROUP_A_FALLBACK).indexOf(id) >= 0;
     const inCat = (T ? T.cats : CATS_FALLBACK).indexOf(cat) >= 0;
@@ -314,6 +350,8 @@
             else dmg(g, t, R(20000), thrower, 0, 0);
           }
         } else {
+          // 341599 snd 73（bash1）
+          snd(out, 73);
           dmg(g, t, skill * F(it, 20) + R(skill + 10) + 1, thrower, 67, 1000);
         }
         out.effects.push(id === 1079 ? 'soybean' : 'tofu');
@@ -334,6 +372,8 @@
     if (cat !== 57000) out.messages.push(text(g, 'hit', { arg1: nm(t) }));
     gainThrowExp(g, thrower, t);
     interrupt(g, t);
+    // 341634-341636：`if (id != 1064) snd 73`（bash1）—— 御札不播
+    if (id !== 1064) snd(out, 73);
     hostile(g, thrower, t);
 
     // ---- 341640-341672：57000 食物 → 瞬间进食 / 噎住 ----
@@ -347,7 +387,7 @@
         out.food = res;
         if (res.eaten) {
           out.messages.push(text(g, 'bite', { arg1: nm(t), item: itemName(it) }));
-          if (res.choked) out.messages.push(text(g, 'choke', { arg1: nm(t) }));
+          if (res.choked) { out.messages.push(text(g, 'choke', { arg1: nm(t) })); snd(out, 18); }
         }
         if (res.special || res.eaten) { out.consumed = true; return out; }
         // 没吃掉：foodleft 已经结算过 341674-341676 的无属性伤害
@@ -367,22 +407,41 @@
     if (special(g, thrower, t, it, id, out, R)) return out;
 
     // ---- 341740-341837：法术型专例（`var_396` + `gosub *label_2960`）----
-    const spells = { 1133: 432, 1309: 479, 1307: 431, 1312: 473,
-      1306: 469, 1305: 470, 1304: 478, 988: 460, 989: 460 };
-    if (spells[id]) {
+    //   A497 修正：源码把 `var_578`（= `(var_82(a,0) + var_82(b,0) + var_58(38,0))*6+5`，
+    //   其中 `var_82(x, 0)` 的 0 号角色就是**玩家**，与投掷者无关）当强度传进 `*label_2960`。
+    //   此前这里调 `Spell.cast`，强度被咏唱公式重算 —— 现在改用 `Spell.dispatchEffect`
+    //   直接传源码强度，效果类型仍由法术数据决定。
+    const SPELL_SPEC = {
+      1133: { id: 432, a: 176, b: 151 },   // 341741-341744
+      1309: { id: 479, a: 184, b: 151 },   // 341749-341752
+      1307: { id: 431, a: 179, b: 155 },   // 341760-341763
+      1312: { id: 473, a: 179, b: 151 },   // 341771-341774
+      1306: { id: 469, a: 152, b: 189 },   // 341782-341786
+      1305: { id: 470, a: 164, b: 188 },   // 341792-341795
+      1304: { id: 478, a: 175, b: 151 },   // 341803-341806
+      988: { id: 460, a: 174, b: 188 },    // 341819-341822
+      989: { id: 460, a: 174, b: 188 },    // 341828-341832
+    };
+    const sp = SPELL_SPEC[id];
+    if (sp) {
+      const pw = spellPower(g, thrower, sp.a, sp.b);   // var_578 / var_2422
       const times = id === 989 ? 3 : 1;
       for (let n = 0; n < times; n++) {
-        if (Elona.Spell && Elona.Spell.cast) {
-          try { Elona.Spell.cast(g, thrower, spells[id], t); } catch (e) { /* noop */ }
+        const SP = Elona.Spell;
+        if (SP && SP.dispatchEffect) {
+          try { SP.dispatchEffect(g, thrower, sp.id, t, pw); } catch (e) { /* noop */ }
+        } else if (SP && SP.cast) {
+          try { SP.cast(g, thrower, sp.id, t); } catch (e) { /* noop */ }
         }
       }
+      // 341755-341757：1309 → `dmgcon var_244, 7, limit(rnd(var_2422/2+1),1,5000)`
       if (id === 1309 && (t.get(0) | 0) === 1 && Elona.Spell && Elona.Spell.dmgconOf) {
-        const p2 = idiv(power(g, thrower, 184), 2) + 1;
-        Elona.Spell.dmgconOf(g, t, 7, limit(R(p2), 1, 5000));
+        Elona.Spell.dmgconOf(g, t, 7, limit(R(idiv(pw, 2) + 1), 1, 5000));
       }
-      if ((id === 1307 || id === 1312) && (t.get(0) | 0) === 1 && Elona.Status && Elona.Status.addbuff) {
-        Elona.Status.addbuff(g, t, id === 1307 ? 9 : 11,
-          idiv(power(g, thrower, id === 1307 ? 179 : 179), 3), 30);
+      // 341766-341768 / 341777-341779：1307 → buff 9、1312 → buff 11，强度 var_2422/3、30 回合
+      if ((id === 1307 || id === 1312) && (t.get(0) | 0) === 1
+        && Elona.Status && Elona.Status.addbuff) {
+        Elona.Status.addbuff(g, t, id === 1307 ? 9 : 11, idiv(pw, 3), 30);
       }
       if (id === 1305 && (t.get(0) | 0) === 1) {
         const s164 = sk(thrower, 164), s188 = sk(thrower, 188), lv = G(thrower, 38);
@@ -392,8 +451,17 @@
           + R(s188 * 2 + 5) + idiv(lvTerm, 2), thrower, 64, 1000);
       }
       if (id === 1304 && (t.get(0) | 0) === 1) {
+        // 341809-341816：「の脳で何かがうごめきだした！」→ `gosub *label_2334`
         out.messages.push(text(g, 'parasite', { arg1: nm(t) }));
-        if (cbit(t, 1045) === 0 && Elona.Status && Elona.Status.cbitmod) {
+        // A500 0-HS：改由 core/parasite.js 的 brain() 承接 `*label_2334`（227193-227241），
+        //   三条前置（胎儿化 / 花肥 / encfind(48) 弹开）与「已寄生」判定都在里面，
+        //   此前只有 cbit 1045 置位、缺三条前置与 animeload 8。
+        if (Elona.Parasite && Elona.Parasite.brain) {
+          const pr = Elona.Parasite.brain(g, t);
+          if (pr && pr.message) out.messages.push(pr.message);
+          // 227233-227235：`if (var_1082 == 0) animeload 8, var_244`
+          if (pr && pr.ok) anim(out, 8, t);
+        } else if (cbit(t, 1045) === 0 && Elona.Status && Elona.Status.cbitmod) {
           Elona.Status.cbitmod(t, 1045, 1);
         }
       }
@@ -402,10 +470,14 @@
     return out;
   }
 
-  /** `var_2422 = (var_82(a,0) + var_82(b,0) + var_58(38,0)) * 6 + 5` 的近似（取首个技能项） */
-  function power(g, who, id) {
+  /**
+   * `var_2422 = (var_82(a,0) + var_82(b,0) + var_58(38,0)) * 6 + 5`。
+   * 0-HS（A497）起每个法术专例都有自己的一对技能 id（见 `SPELL_SPEC`），
+   * 所以这里必须把两项都传进来；只传一个技能的旧近似已删除。
+   */
+  function spellPower(g, who, a, b) {
     const c = (g && g.player) || who;
-    return (sk(c, id) + sk(c, 151) + G(c, 38)) * 6 + 5;
+    return (sk(c, a) + sk(c, b) + G(c, 38)) * 6 + 5;
   }
   function itemName(it) {
     if (!Elona.ItemDB) return '那个';
@@ -430,12 +502,24 @@
     1072: ' *べちゃ* ', 1073: ' *べちゃ* ', 1081: ' *べちゃ* ',
   };
   function ground(g, it, x, y) {
-    if (!it) return { shatter: false, gold: 0, messages: [] };
+    if (!it) return { shatter: false, gold: 0, messages: [], sounds: [] };
     const id = it.id | 0;
-    const out = { shatter: false, gold: 0, messages: [] };
-    // 1181 / 1228 在源码里不播「砕けた」，而是各自的专文；587 是「溶けた」。
-    out.shatter = true;
-    out.messages.push(GROUND_TEXT[id] || text(g, 'shatter'));
+    const out = { shatter: false, gold: 0, messages: [], sounds: [] };
+    // 341846：整段包在 `if (synccheck(var_1311, var_1312))` 里 —— 落点看不见时
+    //   既没有「砕けた」提示也没有 snd 47。578 的散落金币在判定之外，照常结算。
+    let visible = true;
+    try {
+      if (g && g.map && typeof g.map.isVisible === 'function') visible = !!g.map.isVisible(x, y);
+    } catch (e) { /* noop */ }
+    if (visible) {
+      // 1181 / 1228 在源码里不播「砕けた」，而是各自的专文；587 是「溶けた」。
+      out.shatter = true;
+      out.messages.push(GROUND_TEXT[id] || text(g, 'shatter'));
+      // 341852 snd 47（crush2）—— 只属于走到 341846 的**普通物品**。
+      //   587/772/1072/1073/1081/1181/1228 在 341266-341384 各有专文并直接
+      //   `goto *label_4358`，不会落到这里，所以不播。
+      if (!GROUND_TEXT[id]) snd(out, 47);
+    }
     if (id === 578 && F(it, 21) !== 5) {
       const n = F(it, 25);
       if (n > 0) {

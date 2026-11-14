@@ -1525,6 +1525,16 @@
           return { ok: false, reason: 'escort' };
         }
       }
+      // 竞技场（map 6 / 40）：中央的上行楼梯 → 回到 var_65(66..69) 记录的原地图
+      if (this.questMap && this.questMap.arena) {
+        if (!up) {
+          this.log('竞技场里没有向下的路。');
+          return { ok: false, reason: 'no-stairs' };
+        }
+        const pr = this.leaveArenaMap();
+        if (pr && pr.catch) pr.catch((e) => this.log('离开竞技场失败：' + e.message));
+        return { ok: true, up, arena: true, map: 'town', pending: pr };
+      }
       // 委托地图：入口/出口楼梯 → 返回城镇
       if (this.questMap && up) {
         this.leaveQuestMap();
@@ -1914,7 +1924,7 @@
           if (!o || (o[4] | 0) !== 1) continue;
           try {
             const c = Elona.CharaFactory.create(this, o[0] | 0, level, o[1] | 0, o[2] | 0, { index: slot++ });
-            if (c) { c.set(9, -3); c.set(69, 0); }
+            if (c) { c.set(9, -3); c.set(69, -3); }
           } catch (err) { /* 单只失败不影响地图 */ }
         }
         this.dungeonDepth = sub | 0;
@@ -2145,8 +2155,10 @@
               const spot = this.randWalkableCell();
               if (spot) { mx = spot.x; my = spot.y; }
             }
+            // 0-HU（A161）：委托地图生成的敌人是「天生敌对」，9 与 69 同写 -3
+            // （源码 231123 / 197510 / 418902），使 check_quest 193769 只判 69 即可。
             const c = Elona.CharaFactory.create(this, m.id, m.level, mx, my);
-            if (c) { c.set(9, -3); c.set(69, 0); }
+            if (c) { c.set(9, -3); c.set(69, -3); }
           } catch (_) { /* 单只失败不影响地图 */ }
         }
         // NPC（派对客人 / 护送委托人）
@@ -2257,6 +2269,115 @@
         this.townSnapshot = null;
         if (this.onMapChange) this.onMapChange(this.map);
         this.log('你回到了城镇。');
+      } finally {
+        this.transitioning = false;
+      }
+    }
+
+    /**
+     * 进入竞技场地图 —— 417103-417107（人）/ 417226-417230（宠物）。
+     *   `var_65(64) = 6（arena_1）/ 40（arena_2）`、`var_65(65) = 1`、
+     *   `var_1777 = 2`、`var_2208 = 1`；来源地图与坐标早已由 Arena.start 写进 66..69。
+     * 地图初始化见 238712-238757（arena_1）与 238759-238816（arena_2）。
+     * @param {string} arenaMap 'arena_1' | 'arena_2'
+     */
+    async enterArenaMap(arenaMap) {
+      if (this.transitioning || !this.arena || !arenaMap) return false;
+      const A = Elona.Arena;
+      if (!A || !A.beginBattle) return false;
+      this.transitioning = true;
+      try {
+        const a = this.arena;
+        // 记录本场参赛者的槽位，离场时清掉（对手是临时生成的）
+        this.arenaSlots = {
+          opponents: (a.opponents || []).slice(),
+          pets: (a.petSlots || []).slice(),
+        };
+        const p = this.player;
+        // 417103：`var_65(66) = var_65(20), var_65(22), var_58(1,0), var_58(2,0)`
+        this.arenaReturn = {
+          map: this.map ? this.map.name : null,
+          x: this.getV65(68) | 0,
+          y: this.getV65(69) | 0,
+        };
+        this.worldMap = null;
+        await this.loadMap(arenaMap);
+        // 238714 / 238760 `map_placeplayer`：竞技场没有入口标记，放底边中央
+        const w = this.map.width | 0, h = this.map.height | 0;
+        let px = Math.floor(w / 2), py = Math.max(1, h - 3);
+        if (!this.map.walkable(px, py)) {
+          const spot = this.randWalkableCell();
+          if (spot) { px = spot.x; py = spot.y; }
+        }
+        p.x = px; p.y = py;
+        this.mef = new Elona.Mef();
+        this.dungeonDepth = 0;
+        this.questMap = { arena: true, mapName: arenaMap, mode: a.mode, petMode: !!a.petMode };
+        this.setV65(20, arenaMap === 'arena_2' ? 40 : 6);   // 417104 / 417227
+        this.setV65(22, 1);                                 // 417105 / 417228
+        this.setV65(64, arenaMap === 'arena_2' ? 40 : 6);
+        this.setV65(65, 1);
+        const placed = A.beginBattle(this);
+        this.syncCharaCells();
+        if (this.onMapChange) this.onMapChange(this.map);
+        this.log(a.petMode ? '你被带进了宠物竞技场。' : '你走进了竞技场。');
+        if (placed && placed.placed === 0) this.log('对手没能进场……（地图空间不足）');
+        return true;
+      } finally {
+        this.transitioning = false;
+      }
+    }
+
+    /**
+     * 离开竞技场 —— 237483-237491 / 591395 走楼梯，或 605176 `var_1777 = 4` 直接离场。
+     *   回到 `var_65(66)/(67)` 记录的原地图与 `var_65(68)/(69)` 记录的坐标，
+     *   清掉本场临时生成的对手，并把竞技场地上的奖励一并带回（原版 246633-246718 的
+     *   `itemcreate ... var_58(1,0), var_58(2,0)` 是落在**玩家脚下**的，宠物竞技场
+     *   因为立刻离场所以实际落在回来的那张图上）。
+     */
+    async leaveArenaMap() {
+      if (this.transitioning) return;
+      const ret = this.arenaReturn;
+      if (!ret || !ret.map) { this.questMap = null; return; }
+      this.transitioning = true;
+      try {
+        const carried = (this.groundItems || []).filter((it) => it && (it.f[0] | 0) > 0);
+        const slots = this.arenaSlots || { opponents: [], pets: [] };
+        // 清掉临时生成的对手（原版换图时 57..244 的临时角色随地图一起消失）
+        for (const k of slots.opponents) {
+          const c = this.charas && this.charas[k];
+          if (!c) continue;
+          c.set(0, 0);
+          this.charas[k] = null;
+        }
+        this.questMap = null;
+        await this.loadMap(ret.map);
+        this.groundItems = [];
+        const p = this.player;
+        const bx = ret.x | 0, by = ret.y | 0;
+        if (bx > 0 && by > 0 && this.map.walkable(bx, by)) { p.x = bx; p.y = by; }
+        else {
+          const spot = this.randWalkableCell();
+          if (spot) { p.x = spot.x; p.y = spot.y; }
+        }
+        // 奖励落到回来的位置上（每人一件，重叠也照放）
+        for (const it of carried) {
+          it.f[5] = p.x; it.f[6] = p.y;
+          this.groundItems.push(it);
+          if (this.refreshGroundCell) this.refreshGroundCell(p.x, p.y);
+        }
+        if (Elona.Arena) {
+          Elona.Arena.setArenaMode(this, false, false);     // var_65(70) = 0,0,0,0
+          this.arena = null;
+        }
+        // 417103 记录的 var_65(67)（原子地图号）由 loadMap 的地图注册表
+        //   （game.js 1003-1004 `setV65(20/22)`）在 loadMap(ret.map) 时自动写回，
+        //   这里不需要也不能再手动改（enterArenaMap 把 22 覆盖成 1 的值已随换图失效）。
+        this.syncCharaCells();
+        this.arenaSlots = null;
+        this.arenaReturn = null;
+        if (this.onMapChange) this.onMapChange(this.map);
+        this.log('你离开了竞技场。');
       } finally {
         this.transitioning = false;
       }
@@ -2829,7 +2950,7 @@
         if (!spot) continue;
         try {
           const c = Elona.CharaFactory.create(this, m.id, m.level, spot.x, spot.y);
-          if (c) { c.set(9, -3); c.set(69, 0); }
+          if (c) { c.set(9, -3); c.set(69, -3); }
         } catch (_) { /* 单只失败不影响地图 */ }
       }
       this.syncCharaCells();
@@ -3125,6 +3246,36 @@
      * @param {number} idx 背包下标
      * @param {number} [modeHint] 13=使用/读 14=吃 15=饮
      */
+    /**
+     * 348762-348764：把药水倒在自己身上。
+     * 源码在这里只是 `var_2518 = 100; goto *label_2975` —— 与「对自己投掷」是同一条例程，
+     * 所以这里也直接复用 `Throw.throwItem(..., { selfPour: true })`：
+     *   · 340846-340864 播「X は Y を浴びた」而不是「投げた」
+     *   · 341041 自泼时不播「命中した」
+     *   · 341051 淋湿 25 回合（一般药水不在 NO_WET 排除列表里）
+     *   · 341227-341237 命中自己 → `gosub *label_0598` 施加效果 + 士气 +5
+     *   · 340904 消耗 1 个、340869 贴图 354 的瓶子瓶塞 +1
+     * 命中自己后源码直接 `goto *label_4358`，所以**不会**在脚下留下水渍。
+     */
+    pourOnSelf(idx) {
+      const p = this.player;
+      const it = p.inv && p.inv[idx];
+      if (!it || (it.f[0] | 0) <= 0) { this.log('没有这件物品。'); return { ok: false, reason: 'no-item' }; }
+      const nm = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'en') : `#${it.id}`;
+      const r = Elona.Throw.throwItem(this, p, idx, p.x, p.y, { selfPour: true });
+      this.playSndList(r && r.sounds);
+      if (!r.ok) {
+        this.log(r.reason === 'blocked' ? '那里倒不下去。' : '没法使用。');
+        return r;
+      }
+      // 340864「X は Y を自分にかけた。」
+      this.log(`你把 ${nm} 倒在了自己身上。`);
+      for (const a of (r.anims || [])) this.playCharaAnim(a);
+      for (const m of (r.messages || [])) this.log(m);
+      this.endTurn();
+      return r;
+    }
+
     useItem(idx, modeHint, opts) {
       const p = this.player;
       const it = p.inv && p.inv[idx];
@@ -3148,6 +3299,15 @@
         && Elona.Panels && Elona.Panels.openCraft) {
         Elona.Panels.openCraft(this);
         return { ok: true, action: 'craft' };
+      }
+      // 348762-348764：52000 类别（药水）——**除了 1120 与 587 雪**——原版不是直接结算，
+      //   而是把药水「倒在自己身上」：`var_2518 = 100; goto *label_2975`，走完整投掷例程。
+      //   于是喝药水必然命中自己（命中即施加效果）、按 341051 淋湿 25 回合、瓶塞 +1
+      //   （340869），并按投掷流程消耗 1 个（340904）；命中自己后 341237 直接
+      //   `goto *label_4358`，因此**不会**在脚下留下水渍。
+      if (Elona.ItemDB && (Elona.ItemDB.ref(it.id, 5) | 0) === 52000
+        && (it.id | 0) !== 1120 && (it.id | 0) !== 587) {
+        return this.pourOnSelf(idx);
       }
       // 物品使用效果（*label_3016，349962-364788）：按 var_99(19) 分派。
       // 目前覆盖「坐具」(44)、「人偶/小魔像」(61)、「书架」(74)、「烟」(90)、「调味料」(93)；
@@ -4259,10 +4419,16 @@
       const idx = this.throwState.itemIndex;
       this.throwState = null;
       const r = Elona.Throw.throwItem(this, this.player, idx, tx, ty);
+      // 表现层：源码在该例程里穿插的 `snd N` 全部按编号回放（340797/340812/340817 的失败音也在此列）
+      this.playSndList(r && r.sounds);
       if (!r.ok) {
         this.log(r.reason === 'blocked' ? '那里投不过去。' : '投掷失败。');
         return r;
       }
+      // 340898：投掷物飞行动画（var_1117 = 15 → *label_2111）
+      this.throwFlyFx(r, r.itemId);
+      // animeload（命中专例 87/10 等）→ 角色格上的动画
+      for (const a of (r.anims || [])) this.playCharaAnim(a);
       const nm = Elona.ItemDB ? Elona.ItemDB.name(r.itemId, 'en') : `#${r.itemId}`;
       // 340846-340864：投掷「X は Y を投げた」/ 自泼「X は Y を浴びた」（var_2518）
       if (r.verb === 'pour') this.log(`你把 ${nm} 倒在了自己身上。`);
@@ -4331,6 +4497,60 @@
       const t = now || (typeof performance !== 'undefined' ? performance.now() : Date.now());
       // 0-GW：光束动画有自己的时长（e.dur），不能一律按 900ms 清掉
       this.effects = this.effects.filter((e) => t - e.t < Math.max(900, (e.dur | 0) + 600));
+    }
+
+    // ---------- 表现层：音效 / 角色动画 / 投掷轨迹 ----------
+
+    /**
+     * 播放原版 `snd N`。
+     * 编号→文件名见 `js/sndtable.js`（由 start.hsp 的 sndload 表生成，307 项）。
+     * 纯表现：没有音频层、浏览器未解锁自动播放、素材缺失都只静默返回，不影响逻辑。
+     */
+    playSnd(n) {
+      const id = n | 0;
+      if (!id) return;
+      if (!Elona.Audio || typeof Elona.Audio.playIndex !== 'function') return;
+      try { Elona.Audio.playIndex(id); } catch (e) { /* 无声卡 */ }
+    }
+
+    /** 批量播放（投掷结果里的 sounds 序列，按源码出现顺序） */
+    playSndList(list) {
+      if (!list || !list.length) return;
+      for (const n of list) this.playSnd(n);
+    }
+
+    /**
+     * 原版 `animeload N, chara` —— 在角色所在格播放第 N 号动画。
+     * 素材是 `assets/graphic/anime{N}.bmp`：96×96 一帧、从左到右（多行时先行后列），
+     * 原版以 gmode 2（加算）绘制，所以黑色即透明；渲染层用 `lighter` 复现。
+     * 帧间隔按源码 `var_1072`（毫秒/帧，源码多处临时抬到 50），这里取 50ms。
+     */
+    playCharaAnim(a) {
+      if (!a || !(a.id | 0)) return;
+      const idx = a.chara | 0;
+      if (idx < 0) return;
+      let ch = null;
+      for (const o of (this.charas || [])) {
+        if (o && (o.index | 0) === idx) { ch = o; break; }
+      }
+      if (!ch || (ch.get(0) | 0) !== 1) return;
+      const now = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+      this.effects.push({ kind: 'anime', t: now, id: a.id | 0, x: ch.x, y: ch.y,
+        dur: 50 * 12 });
+    }
+
+    /**
+     * 340898-340902：`var_1117 = 15`（投掷物飞行特效编号）+ `gosub *label_2111`。
+     * 网页用「物品图标从投掷者抛物线飞向落点」表现（*label_2111 是原版的
+     * gcopy/gzoom 逐帧叠加，无法搬过来）。
+     */
+    throwFlyFx(r, itemId) {
+      if (!r || !r.from) return;
+      const now = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+      this.effects.push({ kind: 'throwfly', t: now, dur: 260, itemId: itemId | 0,
+        x0: r.from.x | 0, y0: r.from.y | 0,
+        x1: r.target ? (r.target.x | 0) : (r.from.x | 0),
+        y1: r.target ? (r.target.y | 0) : (r.from.y | 0) });
     }
 
     // ---------- 地面物品 ----------
@@ -5323,14 +5543,22 @@
           const gm = Elona.GameMode.onPlayerDeath(this);
           if (gm && gm.deleteSave) this.log('【失落模式】存档已作废，本次冒险到此结束。');
         }
+        // 0-HV：竞技场里倒下**没有**死亡惩罚（220442 `var_65(70) == 0` 才 `evadd 6`）
+        const inArena1 = !!(Elona.Arena && Elona.Arena.inArena && Elona.Arena.inArena(this));
         // 0-CQ：死亡惩罚（var_1302==6，609826-609905）
-        if (this.deathPenalty) {
+        if (!inArena1 && this.deathPenalty) {
           for (const m of this.deathPenalty().messages) this.log(m);
         }
-        // 0-CC：竞技场中倒下 → 记败场
+        // 0-CC：竞技场中倒下 → 记败场（不扣金币/装备，只掉排名，宠物战额外扣名声）
         if (Elona.Arena && Elona.Arena.onPlayerDown) {
           const ar = Elona.Arena.onPlayerDown(this);
           if (ar && ar.message) this.log(ar.message);
+          if (ar && ar.leaveMap) {
+            const pr = this.leaveArenaMap();
+            if (pr && pr.catch) pr.catch((e) => this.log('离开竞技场失败：' + e.message));
+            if (this.onTurn) this.onTurn(this.turn);
+            return;
+          }
         }
         this.log('你被异常状态击倒了……');
         if (this.onTurn) this.onTurn(this.turn);
@@ -5355,13 +5583,19 @@
         Elona.AI.runAll(this, budgets);
         if (this.player.hp <= 0) {
           this.state = STATE.DEAD;
+          // 0-HV：竞技场里倒下没有死亡惩罚（见上一条分支）
+          const inArena2 = !!(Elona.Arena && Elona.Arena.inArena && Elona.Arena.inArena(this));
           // 0-CQ：死亡惩罚（var_1302==6，609826-609905）
-          if (this.deathPenalty) {
+          if (!inArena2 && this.deathPenalty) {
             for (const m of this.deathPenalty().messages) this.log(m);
           }
           if (Elona.Arena && Elona.Arena.onPlayerDown) {
             const ar = Elona.Arena.onPlayerDown(this);
             if (ar && ar.message) this.log(ar.message);
+            if (ar && ar.leaveMap) {
+              const pr = this.leaveArenaMap();
+              if (pr && pr.catch) pr.catch((e) => this.log('离开竞技场失败：' + e.message));
+            }
           }
           this.log('你倒下了……');
         }
@@ -5587,6 +5821,14 @@
           questId: this.questMap.questId, type: this.questMap.type,
           turns: this.questMap.turns,
         } : null,
+        // 0-HV：竞技场里存的档 —— 记下 var_65(66..69) 的返回点，
+        //   读档后补一段上行楼梯，玩家自己走上去就能出图（原版 605109 禁的是宠物竞技场存盘）
+        arena: (this.questMap && this.questMap.arena && this.arenaReturn) ? {
+          map: this.arenaReturn.map,
+          x: this.arenaReturn.x | 0, y: this.arenaReturn.y | 0,
+          mode: this.questMap.mode || 'duel',
+          petMode: !!this.questMap.petMode,
+        } : null,
         townPos: this.townPos,
         messages: this.messages.slice(-50),
         // 0-HE：存档槽列表用的元数据（主角名 / 等级 / 所在地图 / 地下层数）。
@@ -5785,6 +6027,24 @@
       if (data.questMap && Elona.QuestMap) {
         const qq = this.quests.find((x) => x && x.id === data.questMap.questId && x.status === 1);
         if (qq) await this.enterQuestMap(qq, { fromLoad: true });
+      }
+      // 0-HV：在竞技场里存的档 —— 恢复返回点并补一段上行楼梯
+      if (data.arena && data.arena.map) {
+        this.questMap = {
+          arena: true, mapName: data.map,
+          mode: data.arena.mode || 'duel', petMode: !!data.arena.petMode,
+        };
+        this.arenaReturn = {
+          map: data.arena.map, x: data.arena.x | 0, y: data.arena.y | 0,
+        };
+        this.arenaSlots = { opponents: [], pets: [] };
+        this.arena = null;
+        const M = Elona.MapFeat;
+        const cx = Math.floor((this.map.width | 0) / 2);
+        const cy = Math.floor((this.map.height | 0) / 2);
+        if (M && M.write && this.map.walkable(cx, cy)) {
+          M.write(this, cx, cy, 232, M.TYPE.STAIRS_UP, 0, 0);
+        }
       }
       this.townPos = data.townPos || {};
       const savedTown = Elona.Towns && Elona.Towns.byName(this.map.name);

@@ -114,7 +114,7 @@
       out.push({ id: 'identify-one', label: '鉴定一件' });     // 原版 14
       out.push({ id: 'identify', label: '全部鉴定' });         // 原版 15
       out.push({ id: 'investigate', label: '调查（5000 gold）' });  // 原版 16
-      out.push({ id: 'practice', label: '魔法实习（900 gold）' });     // 原版 75
+      out.push({ id: 'practice', label: '魔法实习（按库存计费 · 白金币）' });     // 原版 75
       out.push({ id: 'stock-exchange', label: '魔法库存交换' });        // 原版 158
       out.push({ id: 'stock-exchange-all', label: '全部库存交换' });    // 原版 159
     }
@@ -152,14 +152,16 @@
       out.push({ id: 'arena-score', label: '询问成绩' });            // 原版 42
     }
     // 商人：以物易物 / 护卫委托 / 邀请入伙
+    // 0-HU（A201d）：护卫改成 421314-421331 的三档动态报价，菜单文字不再写死 2000 gold
     if (r === 13) {
       out.push({ id: 'barter', label: '以物易物' });                  // 原版 20
-      out.push({ id: 'hire-guard', label: '雇佣护卫（7 天 / 2000 gold）' });  // 原版 50
+      out.push({ id: 'hire-guard', label: '雇佣护卫（3 / 7 / 30 天）' }); // 原版 50
       out.push({ id: 'recruit', label: '邀请入伙' });                  // 原版 51
     }
     // 奴隶商：买奴隶（36）；马屋：买马（57）
-    if (r === 17) out.push({ id: 'buy-slave', label: '买奴隶（3000 gold）' });
-    if (r === 22) out.push({ id: 'buy-horse', label: '买马（5000 gold）' });
+    // 0-HU（A201d）：改为 *label_3062 的「看目录 → 生成候选 → 按候选算价 → 付钱」
+    if (r === 17) out.push({ id: 'buy-slave', label: '买奴隶（看目录议价）' });
+    if (r === 22) out.push({ id: 'buy-horse', label: '买马（看目录议价）' });
     // 委托（掲示板 *label_2704 / 委托人对话 *label_3031 / 415663-415745）
     if (g && Elona.Quest) {
       for (const s of Elona.Quest.npcServices(g, npc)) out.push(s);
@@ -553,7 +555,9 @@
 
   /**
    * 学习新技能（原版菜单 30）。
-   * 费用：固定 5 枚白金币（原版按技能种类/等级算价的公式未逐行考证，登记 A194）。
+   * 费用 calclearncost（214748-214753）：**固定 5 白金币**（第三参数非 0 时才是 5*2/3=3）。
+   *   0-HT 考证：原版并没有「按技能种类/等级算价」的公式，旧 A194 的描述有误；
+   *   425194/425218 走两参数调用（prm_1060=0），本实现的 5 白金币与源码一致。
    */
   function learnSkill(g, player, skillId, npc) {
     if (!skillId) return { ok: false, reason: 'no-skill', message: '没有可以学的技能。' };
@@ -574,14 +578,16 @@
 
   /**
    * 装备解咒（原版菜单 62「装備中のアイテム解呪」）—— 421726-421747。
-   * 费用 calcrestorecostc（214781-214786）：limit((名声+1)/100×200, 300, 3000)，战士公会半价。
+   * 费用 calcrestorecostc（214781-214786）：limit((名声+1)/100*200, 300, 3000)，战士公会半价。
+   *   0-HT：HSP 的整数除法是**先 (名声+1)/100 再 ×200**（阶梯式），不是 (名声+1)*200/100；
+   *   旧实现把两步合成一步，fame=150 时会算出 302 而原版是 300，故按源码拆开。
    * 效果 *label_2960 的 412 分支（320622-320657）：强度 5000；
    *   诅咒 -1 需 rnd(200)+1、-2 需 rnd(1000)+1，强度 ≥ 需求即解咒。
    * 原版对**全队**成员的装备生效。
    */
   function uncurseEquip(g, npc, player) {
     const fame = player.get(34) | 0;
-    let cost = limit(idiv((fame + 1) * 200, 100), 300, 3000);
+    let cost = limit(idiv(fame + 1, 100) * 200, 300, 3000);
     if (v65(g, 264)) cost = idiv(cost, 2);
     const cursed = [];
     for (const c of (g.charas || [])) {
@@ -668,9 +674,27 @@
   }
 
   /**
-   * 魔法实习（原版 75，422572-422640）：6 种实习，花金币提升对应魔法方向的潜力。
-   *   1 攻击 / 2 上位攻击 / 3 付与 / 4 回复 / 5 特殊 / 6 探索
-   * 本实现：900 gold → 魔力(16) 与咏唱(172) 的潜力提升；具体分系加成未逐条移植（A198）。
+   * 魔法实习（原版菜单 75，422572-422703）—— 0-HT 按源码逐行移植，替换旧的
+   * 「900 gold + 魔力/咏唱潜力」近似（A198b）。
+   *
+   * 源码流程：
+   *   ① 422572-422596 列出 6 种实习，选中结果存 var_2732；
+   *   ② 422600-422635 扫 400..491，只处理**库存 > 0**（var_495(cnt-400)）且
+   *      满足该实习筛选条件的法术，累计 var_2614 += var_82(cnt, 0)（玩家法术技能等级）；
+   *   ③ 422636 `var_2614 = limit((var_2614+1)/150 + 3, 4, 10) / 2` —— 单位是**白金币**
+   *      （var_58(31,0)），不是 gold；HSP 整数除法分两步，故 4..10 → 2..5 枚；
+   *   ④ 422597 `var_65(175) = 11111111`（结束时 422702 清 0）—— 这个开关会关掉
+   *      skillExp 里「玩家持天赋 428 时法术经验 ×3」的加成，必须一并复现；
+   *   ⑤ 422648-422683 确认后对每个入围法术 `skillexp cnt, 0, 1000 + var_82(14,0)*2`；
+   *   ⑥ 422684 扣白金币、422685 `snd 61`。
+   *
+   * 筛选条件里的 `&` / `|` 是 HSP 的 AND / OR（`&` 优先），逐条翻成布尔式：
+   *   1 (攻击)      type ∈ {1, 2}
+   *   2 (上位攻击)  (type == 3 或 id == 465) 且 id != 404
+   *   3 (付与)      type/1000 == 1
+   *   4 (回复)      type == 4 或 id ∈ {406,407,412,404,439,440,461}
+   *   5 (特殊)      type == 7 或 id ∈ {454,456,455,437,472,436,413,435}
+   *   6 (探索)      type ∈ {5, 0} 且 id 不在下面 K6 的排除表
    */
   const PRACTICE = [
     { id: 1, label: 'ソーサラー実習（攻击魔法）' },
@@ -680,21 +704,75 @@
     { id: 5, label: 'シャーマン実習（特殊魔法）' },
     { id: 6, label: 'メイジ実習（探索魔法）' },
   ];
+  const PRACTICE_K4 = [406, 407, 412, 404, 439, 440, 461];
+  const PRACTICE_K5 = [454, 456, 455, 437, 472, 436, 413, 435];
+  const PRACTICE_K6 = [464, 441, 406, 407, 412, 439, 440, 461, 465,
+    454, 456, 455, 437, 472, 436, 413, 435];
+
+  /** var_83(1, id) —— 法术动作类型码，来自 actions.json（core/spell.js 的 field） */
+  function spellType(id) {
+    return (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(id, 1) | 0) : 0;
+  }
+  function practiceMatch(kind, id) {
+    const t = spellType(id);
+    switch (kind | 0) {
+      case 1: return t === 1 || t === 2;
+      case 2: return (t === 3 || id === 465) && id !== 404;
+      case 3: return idiv(t, 1000) === 1;
+      case 4: return t === 4 || PRACTICE_K4.indexOf(id) >= 0;
+      case 5: return t === 7 || PRACTICE_K5.indexOf(id) >= 0;
+      case 6: return (t === 5 || t === 0) && PRACTICE_K6.indexOf(id) < 0;
+      default: return false;
+    }
+  }
+  /** 422600-422635：本实习覆盖的法术（库存 > 0 才算） */
+  function practiceSpells(player, kind) {
+    const out = [];
+    if (!player || !player.spellStock) return out;
+    for (let id = 400; id < 492; id++) {
+      if ((player.spellStock[id - 400] | 0) <= 0) continue;
+      if (practiceMatch(kind, id)) out.push(id);
+    }
+    return out;
+  }
+  /** 422636：费用 = limit((Σ技能+1)/150+3, 4, 10)/2（白金币） */
+  function practiceCost(player, ids) {
+    let sum = 0;
+    for (const id of ids) sum += player.skill(id) | 0;
+    return idiv(limit(idiv(sum + 1, 150) + 3, 4, 10), 2);
+  }
+  /** 给 UI 的报价（原版 422645 会先显示「这次实习要 N 枚白金币」再确认） */
+  function practiceQuote(player, kind) {
+    const ids = practiceSpells(player, kind);
+    return { kind: kind | 0, spells: ids.slice(), cost: practiceCost(player, ids) };
+  }
   function magicPractice(g, npc, player, kind) {
     const k = kind | 0;
     if (k < 1 || k > 6) return { ok: false, message: '没有这种实习。' };
-    const cost = 900;
-    if ((player.get(30) | 0) < cost) {
-      return { ok: false, reason: 'money', cost, message: `实习需要 ${cost} gold。` };
+    const ids = practiceSpells(player, k);
+    const cost = practiceCost(player, ids);
+    if ((player.get(31) | 0) < cost) {
+      return { ok: false, reason: 'platinum', cost,
+        message: `这次实习需要 ${cost} 枚白金币。` };
     }
-    player.set(30, player.get(30) - cost);
-    if (Elona.Stats && Elona.Stats.modGrowth) {
-      Elona.Stats.modGrowth(player, 16, player, 120, g);    // 魔力
-      Elona.Stats.modGrowth(player, 172, player, 60, g);    // 咏唱
+    player.set(31, (player.get(31) | 0) - cost);
+    const exp = 1000 + (player.skill(14) | 0) * 2;        // 422682
+    let trained = 0;
+    setV65(g, 175, 11111111);                              // 422597：关掉法术经验 ×3
+    try {
+      if (Elona.Stats && Elona.Stats.skillExp) {
+        for (const id of ids) {
+          Elona.Stats.skillExp(player, id, 0, exp, 0, 0, g);  // skillexp cnt, 0, exp
+          trained++;
+        }
+      }
+    } finally {
+      setV65(g, 175, 0);                                  // 422702
     }
     const label = (PRACTICE.find((x) => x.id === k) || {}).label || '实习';
-    return { ok: true, cost, kind: k,
-      message: `接受了${label}，魔力与咏唱的潜力提升了（-${cost} gold）。` };
+    return { ok: true, cost, kind: k, spells: ids.slice(), trained,
+      sounds: [61],                                          // 422685 snd 61
+      message: `接受了${label}（-${cost} 白金币，${trained} 种魔法得到练习）。` };
   }
 
   /** 情报屋：委托攻略（原版 98，422767）—— 300 gold 查看进行中委托的详细攻略 */
@@ -1269,7 +1347,159 @@
     return { ok: false, message: '周围没有能站的空位。' };
   }
 
-  function perform(g, npc, id, arg) {
+  // ======================================================================
+  // 0-HU（A201d，用户裁定 b）：护卫 / 奴隶·马的报价与目录交互
+  //   421311-421362  动作 50：calchireadv 三档、钱不够不显示
+  //   424897-424975  *label_3062：A/B/C 目录、槽 56 生成候选、calcslavevalue 算价
+  // ======================================================================
+
+  /** 对话动作 50 的选项（只列付得起的档位，421316-421331） */
+  function guardOptions(g, npc) {
+    const P = Elona.Party;
+    if (!P || !P.hireQuote) return { header: '雇佣护卫', entries: [], adv: 0 };
+    const q = P.hireQuote(g, npc);
+    const entries = q.options.map((o) => ({
+      label: `雇佣 ${o.days} 天`, meta: `${o.cost} gold`, arg: { days: o.days },
+    }));
+    return { adv: q.adv, entries,
+      header: `雇佣 ${npc ? npc.name : '这位冒险者'}（7 天报价 ${q.adv} gold）` };
+  }
+
+  /**
+   * *label_3062 的「看货」：在临时槽 56 生成一只候选并算出价格。
+   * 原版 `fltn "man" / "horse"` 是按标签随机选物种；本项目沿用既有的
+   * 固定物种 id（奴隶 16 / 駄馬 267），并按目录档位给等级，此处如实登记为近似。
+   */
+  function slaveOffer(g, npc, tierArg) {
+    const P = Elona.Party;
+    if (!P) return { header: '目录', entries: [], ok: false };
+    const role = roleOf(npc);
+    const kind = role === 22 ? 'horse' : 'slave';
+    const species = kind === 'horse' ? 267 : 16;
+    const tier = tierArg === undefined || tierArg === null ? 0 : (tierArg | 0);
+    const lv = P.slaveCatalogLevel(g, tier);
+    const CF = Elona.CharaFactory;
+    let cand = null;
+    if (CF && CF.create) {
+      // 424908-424920：repeat 10 直到 var_58(38,56) != 0；这里重试 10 次生成
+      for (let i = 0; i < 10 && !cand; i++) {
+        try {
+          const c = CF.create(g, species, lv, -3, 0, { index: 56, var641: 2 });
+          if (c && ((c.get(38) | 0) !== 0)) cand = c;
+        } catch (e) { /* 生成失败则重试 */ }
+      }
+    }
+    if (!cand) return { ok: false, header: '马厩里现在没有合适的货。', entries: [] };
+    cand.set(9, 10);                                  // 待售对象不是敌人
+    cand.set(69, 10);
+    const cost = P.slaveValue(cand);
+    const gold = (player30(g) | 0);
+    g.slaveOffer = { npcIndex: npc ? (npc.index | 0) : -1, kind, tier, pet: cand, cost };
+    const plv = (g.player.get(38) | 0);
+    const catLabel = (t) => t === 2 ? `A（等级 ≤ ${P.slaveCatalogLevel(g, 2)}）`
+      : (t === 1 ? `B（等级 ≤ ${P.slaveCatalogLevel(g, 1)}）` : 'C（等级 ≤ 5）');
+    const entries = [];
+    if (gold >= cost) entries.push({ label: `买下 ${cand.name}`, meta: `${cost} gold`, arg: { buy: true } });
+    else entries.push({ label: `钱不够（需要 ${cost} gold）`, meta: '无法购买', arg: { buy: true } });
+    // 424927-424936：玩家等级 >= 4 才给 A / B 目录
+    if (plv >= 4) {
+      if (tier !== 2) entries.push({ label: `看目录 ${catLabel(2)}`, arg: { tier: 2 } });
+      if (tier !== 1) entries.push({ label: `看目录 ${catLabel(1)}`, arg: { tier: 1 } });
+    }
+    if (tier !== 0) entries.push({ label: `看目录 ${catLabel(0)}`, arg: { tier: 0 } });
+    const header = `【${kind === 'horse' ? '马屋' : '奴隶商'}·目录 ${catLabel(tier)}】`
+      + `${cand.name} Lv${cand.get(38) | 0} · ${cost} gold`;
+    return { ok: true, tier, pet: cand, cost, header, entries };
+  }
+
+  function player30(g) { return (g && g.player) ? (g.player.get(30) | 0) : 0; }
+
+  /**
+   * 目录菜单的点选：换档 → 重新看货（reopenList 让 UI 重绘列表）；
+   * 付钱 → 扣款、snd 12、把槽 56 的候选正式收入队伍（424948-424960）。
+   */
+  function slavePurchase(g, npc, arg) {
+    const a = arg || {};
+    if (a.tier !== undefined) {
+      const o = slaveOffer(g, npc, a.tier | 0);
+      return { ok: o.ok, reopenList: true, header: o.header, entries: o.entries,
+        message: `翻到了目录 ${['C', 'B', 'A'][a.tier | 0] || 'C'}。` };
+    }
+    const offer = g.slaveOffer;
+    if (!offer || !offer.pet) return { ok: false, message: '先看看目录里的货吧。' };
+    if (offer.npcIndex >= 0 && npc && (npc.index | 0) !== offer.npcIndex) {
+      return { ok: false, message: '请找刚才那位商人结账。' };
+    }
+    const cost = offer.cost | 0;
+    if ((player30(g) | 0) < cost) {
+      return { ok: false, reason: 'money', cost, message: `需要 ${cost} gold。` };
+    }
+    const P = Elona.Party;
+    if (!P || (P.members(g).length >= P.maxSize(g))) {
+      return { ok: false, reason: 'full', message: '队伍已经满了。' };
+    }
+    g.player.set(30, (player30(g) | 0) - cost);
+    const r = P.adoptOffer(g, offer.pet);
+    if (!r.ok) {
+      g.player.set(30, (player30(g) | 0) + cost);
+      return r;
+    }
+    g.slaveOffer = null;
+    return { ok: true, cost, slot: r.slot, sounds: [12],
+      message: `买下了 ${offer.pet.name}（-${cost} gold）。${r.message}` };
+  }
+
+  /** 宠物竞技场标题（417137 / 417169） */
+  const PET_KING_TEXT = '「欢迎你，宠物之王！为了和你的宠物对战，今天也有挑战者来了。」';
+  const CHAMPION_TEXT = '「欢迎你，竞技场的冠军！为了和你对战，今天也有挑战者来了。」';
+
+  /**
+   * 0-HV：竞技场的一步交互。
+   *   arg 为数字 = 「选好了出战宠物」→ 回到报价；
+   *   arg 为 { confirm: true } = 玩家点了「Alright.」→ 真正开赛（`Elona.Arena.start`）；
+   *   arg 为 { confirm: false } = 「I'll pass.」→ 416983 / 417083 的 `goto *label_3059`。
+   * 返回 `reopenList` 时 UI 会保持列表打开（renderPickList）。
+   */
+  function arenaStep(g, npc, mode, arg) {
+    const A = Elona.Arena;
+    if (!A || !A.quote) return { ok: false, message: '竞技场尚未开放。' };
+    const isObj = !!(arg && typeof arg === 'object');
+    if (isObj && arg.confirm === false) {
+      return { ok: true, cancel: true, message: '「改变主意的话随时来找我。」' };
+    }
+    if (isObj && arg.confirm === true) {
+      const r = A.start(g, npc, mode, { petIndex: arg.petIndex, petCount: arg.petCount });
+      if (!r || !r.ok) return r || { ok: false, message: '无法开赛。' };
+      // 换到 arena_1 / arena_2（417103-417107 / 417226-417230）
+      if (g.enterArenaMap) r.enterMap = r.arenaMap;
+      return r;
+    }
+    const petIndex = isObj ? arg.petIndex : ((typeof arg === 'number') ? arg : undefined);
+    const q = A.quote(g, npc, mode, { petIndex });
+    if (!q.ok) return q;
+    // 416977-417082：报价文本 —— 决斗报单个等级、乱斗报「複数」、团队战报人数
+    let header;
+    if (mode === 'pet-team' || mode === 'pet-ex') {
+      header = q.count + ' 对 ' + q.count + ' 的团队战，对手是等级约 ' + q.level + ' 的多只宠物。要挑战吗？';
+    } else if (mode === 'rumble') {
+      header = '对手是等级约 ' + q.level + ' 的多名战士。要挑战吗？';
+    } else {
+      header = '今天的对手是等级约 ' + q.level + ' 的战士。要挑战吗？';
+    }
+    if (q.champion) header = (q.petMode ? PET_KING_TEXT : CHAMPION_TEXT) + header;
+    const label = q.petMode ? "I'll send my pet." : 'Alright.';
+    return {
+      ok: true, reopenList: true, header,
+      entries: [
+        { label: label, meta: '胜利可获得 ' + q.fame + ' 名声',
+          arg: { confirm: true, mode: mode, petIndex: q.petIndex, petCount: q.count } },
+        { label: "I'll pass.", meta: '算了', arg: { confirm: false, mode: mode } },
+      ],
+    };
+  }
+
+  /** 0-HT：把服务结算里的 `sounds`（snd N）交给 Game 的表现层统一回放 */
+  function performDispatch(g, npc, id, arg) {
     const player = g.player;
     if (!npc || !player) return { ok: false, message: '没有可交互的对象。' };
     switch (id) {
@@ -1368,42 +1598,43 @@
       case 'popularity': return popularity(g, npc, player);
       case 'town-info': return townInfo(g, npc, player);
       case 'barter': return barter(g, npc, player, arg);
+      // 0-HV：竞技场（416977-417082 / 417123-417231）—— 原版是**两步**：
+      //   先 `var_122 = "相手はレベル N だ。挑むか？"`，再 `txt_select` 出
+      //   「挑戦する / やめる」；选「やめる」→ `goto *label_3059` 什么都不做。
       case 'arena-duel':
-      case 'arena-rumble': {
-        if (!Elona.Arena) return { ok: false, message: '竞技场尚未开放。' };
-        const mode = id === 'arena-rumble' ? 'rumble' : 'duel';
-        return Elona.Arena.start(g, npc, mode);
-      }
-      case 'arena-score': return { ok: true, message: Elona.Arena ? Elona.Arena.scoreText(g) : '（无记录）' };
+      case 'arena-rumble':
+        return arenaStep(g, npc, id === 'arena-rumble' ? 'rumble' : 'duel', arg);
+      case 'arena-score':
+        // 417237（人 var_506=23）/ 417233（宠物 var_506=42）—— 名次槽 120 / 121
+        return { ok: true,
+          message: Elona.Arena ? Elona.Arena.scoreText(g, roleOf(npc) === 11 ? 1 : 0) : '（无记录）' };
       case 'pet-duel':
       case 'pet-team':
       case 'pet-ex': {
-        if (!Elona.Arena) return { ok: false, message: '竞技场尚未就绪。' };
         const mode = id === 'pet-team' ? 'pet-team' : (id === 'pet-ex' ? 'pet-ex' : 'pet-duel');
-        // 0-CF：宠物战进入地图实打（对手按出战宠物等级生成）
-        return Elona.Arena.start(g, npc, mode, { petIndex: arg });
+        return arenaStep(g, npc, mode, arg);
       }
       case 'recruit':
         return Elona.Party ? Elona.Party.recruit(g, npc) : { ok: false, message: '队伍系统尚未就绪。' };
-      case 'hire-guard':
-        return Elona.Party ? Elona.Party.hireGuard(g, npc, 7, 2000) : { ok: false, message: '队伍系统尚未就绪。' };
-      case 'buy-slave': {
+      case 'hire-guard': {
+        // 0-HU（A201d）：三档动态报价（421314-421331），不再写死「7 天 / 2000 gold」
         if (!Elona.Party) return { ok: false, message: '队伍系统尚未就绪。' };
-        const costS = 3000;
-        if ((player.get(30) | 0) < costS) return { ok: false, reason: 'money', message: `需要 ${costS} gold。` };
-        player.set(30, player.get(30) - costS);
-        const rS = Elona.Party.addPet(g, 16, Math.max(1, player.level | 0), '奴隶');
-        if (!rS.ok) { player.set(30, player.get(30) + costS); return rS; }
-        return { ok: true, message: `买下了奴隶（-${costS} gold）。${rS.message}` };
+        const days = (arg && typeof arg === 'object') ? (arg.days | 0) : (arg | 0);
+        const q = Elona.Party.hireQuote(g, npc);
+        const opt = q.all.find((o) => o.days === days);
+        if (!opt) return { ok: false, message: '没有这种契约期限。' };
+        if ((player.get(30) | 0) < opt.cost) {
+          return { ok: false, reason: 'money', cost: opt.cost, message: `需要 ${opt.cost} gold。` };
+        }
+        return Elona.Party.hireGuard(g, npc, days, opt.cost);
       }
+      // 0-HU（A201d）：目录 / 结算统一走 *label_3062 的候选报价流程
+      case 'slave-offer': return slavePurchase(g, npc, arg);
+      case 'buy-slave':
       case 'buy-horse': {
-        if (!Elona.Party) return { ok: false, message: '队伍系统尚未就绪。' };
-        const costH = 5000;
-        if ((player.get(30) | 0) < costH) return { ok: false, reason: 'money', message: `需要 ${costH} gold。` };
-        player.set(30, player.get(30) - costH);
-        const rH = Elona.Party.addPet(g, 267, Math.max(1, player.level | 0), '駄馬');
-        if (!rH.ok) { player.set(30, player.get(30) + costH); return rH; }
-        return { ok: true, message: `买下了一匹马（-${costH} gold）。${rH.message}` };
+        const o = slaveOffer(g, npc, 0);
+        return { ok: o.ok, reopenList: true, header: o.header, entries: o.entries,
+          message: '「来看看马厩里的货吧。」' };
       }
       case 'heal': return heal(g, player, npc);
       case 'companion-menu': return { ok: true, action: 'companion-menu', target: npc, message: '' };
@@ -1438,6 +1669,11 @@
       default: return { ok: false, message: '什么也没有发生。' };
     }
   }
+  function perform(g, npc, id, arg) {
+    const r = performDispatch(g, npc, id, arg);
+    if (r && r.sounds && g && typeof g.playSndList === 'function') g.playSndList(r.sounds);
+    return r;
+  }
 
   Elona.NPC = {
     ROLE_NAMES, SHOP_ROLES, loadTable, setSkillNames, setSkillShop, skillName,
@@ -1445,12 +1681,17 @@
     implevel, modImp, give, intel,
     trainableSkills, trainCost, train, heal, infoText, perform, aside,
     calcIdentifyValue, unknownItems, identifyOne, identifyAll, investigate,
-    magicStockExchange, magicPractice, PRACTICE, questGuide, rumor, popularity,
+    magicStockExchange, magicPractice, PRACTICE, practiceQuote, practiceSpells, practiceCost,
+    questGuide, rumor, popularity,
     townInfo, barter,
     learnableSkills, learnSkill, uncurseEquip,
     enhanceCost, enhance, ammoSlots, reloadPlan, reload, AMMO_MAX, AMMO_NAMES,
     lighten, heavify, specialMeal, specialDrink, mealTargets,
     birthday, setBirthday, adventurers, adventurerInfo, sendMessage, applyMessage,
     ADV_MESSAGES, reserveBook, findItemSlot, consumeItem,
+    // 0-HU / A201d：护卫动态报价与奴隶·马目录
+    guardOptions, slaveOffer, slavePurchase,
+    // 0-HV / A200：竞技场的「报价 → 确认」
+    arenaStep,
   };
 })(window);

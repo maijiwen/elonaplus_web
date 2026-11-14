@@ -566,6 +566,9 @@
       const sy = (startY === undefined) ? (py - oy) : startY;
       for (const e of game.effects) {
         if (e.kind === 'beam') { this.drawBeam(e, now, sx, sy); continue; }
+        // 0-HS：`animeload N`（角色动画）与 `var_1117 = 15`（投掷飞行）
+        if (e.kind === 'anime') { this.drawCharaAnime(e, now, sx, sy); continue; }
+        if (e.kind === 'throwfly') { this.drawThrowFly(e, now, sx, sy); continue; }
         if (e.kind !== 'particles') continue;
         const age = (now - e.t) / 900;                 // 0 → 1
         if (age < 0 || age > 1) continue;
@@ -579,6 +582,77 @@
           ctx.fillRect(cx + Math.cos(a) * r, cy + Math.sin(a) * r - age * 24, s, s);
         }
       }
+    }
+
+    /** `animeload N` 用的动画贴图（`assets/graphic/anime{N}.bmp`），按编号缓存 */
+    animeSheet(id) {
+      if (!this._animeCache) this._animeCache = {};
+      const k = id | 0;
+      if (this._animeCache[k] === undefined) {
+        const im = new Image();
+        im.src = 'assets/graphic/anime' + k + '.bmp';
+        this._animeCache[k] = im;
+      }
+      return this._animeCache[k];
+    }
+
+    /**
+     * 角色动画（源码 `animeload N, chara`）。
+     * 贴图是 96×96 一帧、从左到右排（多行时先行后列），原版 `gmode 2` 加算绘制，
+     * 黑色即透明 —— 这里用 `lighter` 复现，所以不需要抠图。
+     * 帧间隔按源码 `var_1072`（毫秒/帧，投掷路径里源码会临时抬到 50），取 50ms。
+     */
+    drawCharaAnime(e, now, startX, startY) {
+      const img = this.animeSheet(e.id);
+      if (!img || !img.complete || !img.naturalWidth) return;
+      const F = 96;
+      const cols = Math.max(1, Math.floor(img.naturalWidth / F));
+      const rows = Math.max(1, Math.floor(img.naturalHeight / F));
+      const total = cols * rows;
+      const age = now - e.t;
+      if (age < 0) return;
+      const fi = Math.floor(age / 50);
+      if (fi >= total) return;
+      const sx0 = (fi % cols) * F;
+      const sy0 = Math.floor(fi / cols) * F;
+      const dx = (e.x - startX + 0.5) * TILE - F / 2;
+      const dy = (e.y - startY + 0.5) * TILE - F / 2;
+      const ctx = this.ctx;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.drawImage(img, sx0, sy0, F, F, dx, dy, F, F);
+      ctx.restore();
+    }
+
+    /**
+     * 投掷物飞行（源码 340898 `var_1117 = 15` + `gosub *label_2111`）。
+     * 原版是逐帧 gcopy/gzoom 叠加，网页用「物品图标沿抛物线飞过」等价表现。
+     */
+    drawThrowFly(e, now, startX, startY) {
+      const dur = (e.dur | 0) || 260;
+      const age = now - e.t;
+      if (age < 0 || age > dur) return;
+      const t = age / dur;
+      const x0 = (e.x0 - startX + 0.5) * TILE;
+      const y0 = (e.y0 - startY + 0.5) * TILE;
+      const x1 = (e.x1 - startX + 0.5) * TILE;
+      const y1 = (e.y1 - startY + 0.5) * TILE;
+      const cx = x0 + (x1 - x0) * t;
+      const cy = y0 + (y1 - y0) * t - Math.sin(t * Math.PI) * TILE * 1.2;
+      const ctx = this.ctx;
+      if (this.itemSheet && Elona.ItemDB) {
+        const gid = Elona.ItemDB.graphic(e.itemId);
+        if (Number.isFinite(gid) && gid >= 0) {
+          const sx = (gid % COLS) * TILE, sy = Math.floor(gid / COLS) * TILE;
+          if (sx + TILE <= this.itemSheet.width && sy + TILE <= this.itemSheet.height) {
+            ctx.drawImage(this.itemSheet, sx, sy, TILE, TILE,
+              cx - TILE / 2, cy - TILE / 2, TILE, TILE);
+            return;
+          }
+        }
+      }
+      ctx.fillStyle = '#ffe8a0';
+      ctx.fillRect(cx - 3, cy - 3, 6, 6);
     }
 
     /**

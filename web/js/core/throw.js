@@ -240,19 +240,33 @@
    *   341222-341237  其余物品 → var_59=15 / var_60=物品id → `gosub *label_0598`
    *                  （实际只对 52000 药剂有效果）+ 目标敌对化 + 投掷者士气
    */
-  function specialHit(g, c, it, target, R, skill) {
+  function specialHit(g, c, it, target, R, skill, selfPour) {
     const id = it.id | 0;
     const cat = ref(id, 5);
     // 341015：601 空き瓶 跳过整段角色处理（不播命中、不湿身、不施药），
     //   但 341386 的落地液体照常生成 —— 因此返回 handled=false。
-    if (id === 601) return { handled: false, skipMef: false, messages: [], effects: [] };
+    if (id === 601) return { handled: false, skipMef: false, messages: [], effects: [], sounds: [] };
     const isPotion = cat === 52000;
     // 1048 吸い殻在源码 341393-341419 单独处理（命中角色 → 当作 1133 ボムタル 引爆）
     const specialIds = [772, 1073, 1072, 1081, 1181, 1228, 587, 577, 1048];
     if (!isPotion && specialIds.indexOf(id) < 0) return null;
     if (!target) return null;
-    const out = { handled: false, skipMef: false, messages: [], effects: [] };
+    const out = { handled: false, skipMef: false, messages: [], effects: [], sounds: [], anims: [] };
     const nm = target.name || '对方';
+
+    // 341016-341033：落点在画面内时的命中音效（`synccheck(var_1311, var_1312)`）
+    //   587 → 86（snow）；1081 → 46（water2）；1181 → 65（offer1）；1228 → 170（crack）；
+    //   其余 → 47（crush2）。注意 1081/1181/1228 是「互斥」的：源码先排除它们再播 47。
+    //   1048 不在 341014 的列表里（它走 341393 的 snd 91+6），因此不参与这一段。
+    if (id !== 1048 && inSight(g, target.x, target.y)) {
+      if (id === 587) out.sounds.push(86);
+      else {
+        if (id !== 1081 && id !== 1181 && id !== 1228) out.sounds.push(47);
+        if (id === 1081) out.sounds.push(46);
+        if (id === 1181) out.sounds.push(65);
+        if (id === 1228) out.sounds.push(170);
+      }
+    }
 
     // 341030-341299：1181 煙玉不处理角色命中，只播落地「炸裂」并照常生成烟幕
     if (id === 1181) {
@@ -278,8 +292,9 @@
       return out;
     }
 
-    // 341040-341047
-    out.messages.push(`${nm}に狙いを過たず命中した！`);
+    // 341040-341047：命中播报。`var_2518 == 100`（自泼）时源码不播这句，
+    //   因为「把自己淋湿」本身没有「命中」可言。
+    if (!selfPour) out.messages.push(`${nm}に狙いを過たず命中した！`);
     // 341051：湿身 25 回合
     if (NO_WET.indexOf(id) < 0 && Elona.Status && Elona.Status.wet) {
       Elona.Status.wet(target, 25);
@@ -466,7 +481,11 @@
    */
   function throwItem(g, c, idx, tx, ty, opts) {
     const chk = canThrow(c, idx);
-    if (!chk.ok) return chk;
+    if (!chk.ok) {
+      // 340797 / 340812 / 340817：所有权不符 / 太重 / 不可丢弃(ibit 13) → snd 27（fail1）
+      const s27 = (chk.reason === 'too-heavy' || chk.reason === 'no-drop') ? [27] : [];
+      return { ok: false, reason: chk.reason, sounds: s27 };
+    }
     const selfPour = !!(opts && opts.selfPour);
     const it = c.inv[idx];
     const R = (n) => (g.rng || Elona.rng).rnd(n);
@@ -516,8 +535,10 @@
         const cap = (itemId === 685)
           ? capture(g, c, aimed, ballCopy || it)
           : captureLittle(g, c, aimed);
+        // 340922：685 / 699 投出 → snd 91（throw2）
         return { ok: true, missed, itemId, count, target: { x: lx, y: ly },
-          placed: ballCopy, captured: cap, effect: [], messages: guardOut.messages };
+          placed: ballCopy, captured: cap, effect: [], messages: guardOut.messages,
+          sounds: [91], fx: [15] };
       }
     }
 
@@ -529,7 +550,13 @@
       preMessages.push('「うにーっ！」');
     }
 
-    // ---- 340898-340913：消耗 1 个 ----
+    // ---- 340898-340902：投掷飞行动画 ----
+    //   源码 `var_1117 = 15; var_1116 = 物品贴图; var_1118/1119 = 落点; gosub *label_2111`
+    //   （*label_2111 是通用特效绘制例程，var_1117 是特效编号，15 = 投掷物飞行）。
+    //   网页把编号记进结果，由渲染层画一条从投掷者到落点的抛物轨迹。
+    const fx = [15];
+
+    // ---- 340904：消耗 1 个 ----
     it.f[0] = count - 1;
     if (it.f[0] <= 0) c.inv[idx] = null;
     // 340869-340871：玩家投出「贴图 354」的药水 → 瓶塞 +1（`var_65(250+439)++`）。
@@ -537,6 +564,17 @@
     if ((c.index | 0) === 0 && Elona.Potion && Elona.Potion.addPlug) {
       Elona.Potion.addPlug(g, it, 1);
     }
+
+    // ---- 投出音 snd 91（throw2）----
+    // 这三处都在「落点有没有角色」判定之前，所以落空也播：
+    //   340922 685/699、341422 906、341471 1098、341487 1313、341522 984、341567 1079/1080
+    //   341393 1048 额外再播 snd 6（fire1，引信/燃烧）
+    const sounds = [];
+    const SND91_IDS = [685, 699, 906, 1098, 1313, 984, 1079, 1080];
+    if (SND91_IDS.indexOf(itemId) >= 0 && !(itemId === 906 && (it.f[26] | 0) !== 0)) {
+      sounds.push(91);
+    }
+    if (itemId === 1048) { sounds.push(91); sounds.push(6); }
 
     // 可放置类 → 地面副本
     const placeable = [685, 906, 984, 1313, 1098].includes(itemId)
@@ -559,12 +597,18 @@
     let hit = null;
     const hitChara = charaAt(g, lx, ly);
     // 0-HG：341014-341154 命中专例、341240-341318 落地专例（都在 341421 之前判定）
-    const spec = specialHit(g, c, placed || it, hitChara, R, skill);
+    const spec = specialHit(g, c, placed || it, hitChara, R, skill, selfPour);
     const groundSpec = !hitChara ? specialGround(g, placed || it, lx, ly, R, c) : null;
     if (hitChara && Elona.ThrowHit && !(spec && spec.handled)) {
       hit = Elona.ThrowHit.hit(g, c, hitChara, placed || it, { skill });
       if (hit && hit.food) food = hit.food;
       if (hit && hit.consumed && placed && (placed.f[0] | 0) <= 0) placed = null;
+    }
+    // 341841：类别物品（57000/60000/64000/80000）落到空地 → `else { snd 91 }`
+    //   1048 已在 341393 提前 goto（音效在 snd 91+6 里给了），这里排除。
+    if (!hitChara && itemId !== 1048
+      && [57000, 60000, 64000, 80000].indexOf(cat) >= 0) {
+      sounds.push(91);
     }
 
     // ---- 341347-341390：落地效果 ----
@@ -610,6 +654,14 @@
     if (hit && hit.messages) messages.push(...hit.messages);
     if (ground && ground.messages) messages.push(...ground.messages);
 
+    // 音效 / 角色动画：按源码出现顺序合并（投出音 → 命中音 → 命中专例 → 落地音）
+    if (spec && spec.sounds) sounds.push(...spec.sounds);
+    if (hit && hit.sounds) sounds.push(...hit.sounds);
+    if (ground && ground.sounds) sounds.push(...ground.sounds);
+    const anims = [];
+    if (spec && spec.anims) anims.push(...spec.anims);
+    if (hit && hit.anims) anims.push(...hit.anims);
+
     // ---- 341321-341345 / 341311-341318：落地即销毁的地面副本 ----
     //   772 トマト / 1072 ヨーグルト / 1073 バター / 1081 納豆 落地后源码 `var_99(0)--`
     //   直接销毁（只播 ぷちゅ / べちゃ），1228 喪蝉落地则销毁并换成鱼饵。
@@ -626,6 +678,9 @@
       verb: selfPour ? 'pour' : 'throw',
       placed, effect, skill, food, hit, ground, special: spec,
       groundSpecial: groundSpec, messages,
+      // 表现层：音效编号（sndtable.js）、角色动画（animeload）、特效编号（var_1117）
+      sounds, anims, fx,
+      from: { x: c.x, y: c.y },
     };
   }
 

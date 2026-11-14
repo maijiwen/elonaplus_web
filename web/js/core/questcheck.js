@@ -35,6 +35,8 @@
  *
  * `put_questtarget`（193509-193516）有 21 个调用点，全在剧情脚本区（238469-245501），
  * 作用是「把 57..244 号存活角色全部标成目标（cbit 970）并设为敌对（var_58(9) = -3）」。
+ * 0-HU：网页把「目标标记」与「生成时写 var_58(69) = -3」（231123 / 197510 /
+ * 418902）合并到 putTarget 一处，使 193769 只判 69 即可（A161 用户裁定 a）。
  */
 (function (global) {
   'use strict';
@@ -80,6 +82,11 @@
 
   /**
    * put_questtarget（193509-193516）—— 把剧情地图里的角色全部标成目标。
+   *
+   * 0-HU（A161，用户裁定 a）：原版这里只写 `var_58(9) = -3`；而 193769 判的
+   * `var_58(69) == -3`（原始关系）是由**敌人生成点**写的（231123 / 197510 /
+   * 418902 等处 `var_58(9)=-3; var_58(69)=-3`）。网页把这些标记路径合并在
+   * 本函数里，因此一并写 69，让 193769 只按 69 判定即可，不再回退到 9。
    * @returns {number} 被标记的数量
    */
   function putTarget(g) {
@@ -89,10 +96,19 @@
       const c = g.charas[i];
       if (!isAlive(c)) continue;
       setBit(c, CBIT_QUEST_TARGET, true);
-      c.set(9, REL_HOSTILE);            // var_58(9) = -3
+      c.set(9, REL_HOSTILE);            // var_58(9) = -3（当前关系）
+      c.set(69, REL_HOSTILE);           // var_58(69) = -3（原始关系）
       n++;
     }
     return n;
+  }
+
+  /** 把「委托地图里生成的敌人」按 231123 / 197510 写成天生敌对（9 与 69 都置 -3） */
+  function markQuestEnemy(c) {
+    if (!c) return false;
+    c.set(9, REL_HOSTILE);
+    c.set(69, REL_HOSTILE);
+    return true;
   }
 
   /**
@@ -110,17 +126,37 @@
     return n;
   }
 
-  /** 该角色算不算「委托地图里还要清掉的敌人」（193769-193774） */
+  /**
+   * 该角色算不算「委托地图里还要清掉的敌人」（193769-193774）。
+   * 0-HU（A161）：删掉「当前关系 9 也为 -3」的回退，严格只判 `var_58(69) == -3`；
+   * 所有委托目标生成点已统一写 69（见 putTarget / markQuestEnemy）。
+   */
   function isQuestEnemy(c) {
     if (!isAlive(c)) return false;
-    // var_58(69) 是「原始关系」，-3 = 一开始就是敌对；
-    // 本项目没有写 69 的路径，所以回退到当前关系 9
-    const orig = c.get(69) | 0;
-    const cur = c.get(9) | 0;
-    if (!(orig === REL_HOSTILE || cur === REL_HOSTILE)) return false;
+    if ((c.get(69) | 0) !== REL_HOSTILE) return false;   // 193769 只判原始关系
     if (bit(c, 964) === 1) return false;      // 被魅惑的不算
     if (bit(c, 992) === 1) return false;      // 被驯服的不算
     return true;
+  }
+
+  /**
+   * findcharaaz（193209-193224，A162）—— 找「该种族是否还有活着的对象」。
+   * 原版：`repeat 245 - 57, 57`，只接受 `var_58(0)` 为 1 或 2 的槽位，
+   * 排除 cbit 964（魅惑）/ cbit 992（驯服），第一个 `var_58(27) == 种族` 即为结果；
+   * 找不到返回 0。注意 193806 只关心 0 / 非 0，不是「统计数量」。
+   */
+  function findcharaaz(g, race) {
+    const charas = (g && g.charas) || [];
+    for (let i = RANGE_FROM; i <= RANGE_TO; i++) {
+      const c = charas[i];
+      if (!c) continue;
+      const state = c.get(0) | 0;
+      if (state !== 1 && state !== 2) continue;        // 193211-193215
+      if (bit(c, 964) === 1) continue;                 // 193216-193218
+      if (bit(c, 992) === 1) continue;                 // 193219-193221
+      if ((c.get(27) | 0) === (race | 0)) return i;    // 193222-193224
+    }
+    return 0;
   }
 
   /**
@@ -180,8 +216,12 @@
       if (g.setV65) g.setV65(84, 0);
       messages.push('讨伐成功！');
     }
-    // var_434(8, var_65(72)) = 3：把当前地图上的委托标记为完成
-    if (Elona.Quest && Elona.Quest.activeQuests && Elona.Quest.markComplete) {
+    // var_434(8, var_65(72)) = 3：把当前地图上的委托标记为完成。
+    // 0-HU（A200）：源码 591432/591450/591459 只在 1001 / 1010 / 1008 三种
+    //   委托地图里写这一句；竞技场 var_65(70)=1（417075）也会触发事件 8，
+    //   若不收窄会把玩家身上所有进行中的委托误标为完成。
+    const markable = (type === 1001 || type === 1010 || type === 1008);
+    if (markable && Elona.Quest && Elona.Quest.activeQuests && Elona.Quest.markComplete) {
       try {
         for (const q of Elona.Quest.activeQuests(g)) {
           if (q && (q.status | 0) === 1) Elona.Quest.markComplete(q);
@@ -225,18 +265,14 @@
       const slot = g.getV65(72) | 0;
       const q = (g.quests && g.quests[slot]) || null;
       const race = q ? (q.targetCreature | 0) : 0;
-      let alive = false;
-      const charas = g.charas || [];
-      for (let i = 0; i < charas.length; i++) {
-        const c = charas[i];
-        if (!c || !isAlive(c)) continue;
-        if ((c.get(27) | 0) === race) { alive = true; break; }
-      }
-      if (!alive) {
+      // A162（0-HU）：改调 193209 的 findcharaaz 原语义（范围 57..244 /
+      //   状态 1 或 2 / 排除 964·992），不再遍历整张 charas 表按 hp 近似。
+      const found = findcharaaz(g, race);
+      if (found === 0) {
         completeQuestMap(g);
         return { type, completed: true, race };
       }
-      return { type, completed: false, race };
+      return { type, completed: false, race, found };
     }
 
     return { type, completed: false };
@@ -263,7 +299,7 @@
   Elona.QuestCheck = {
     CBIT_QUEST_TARGET, RANGE_FROM, RANGE_TO, REL_HOSTILE,
     load, ready, rules, rulesAt,
-    putTarget, existTarget, isQuestEnemy,
+    putTarget, markQuestEnemy, existTarget, isQuestEnemy, findcharaaz,
     checkProgress, checkQuestMap, check, completeQuestMap, onMapCleared,
     get table() { return table; },
   };

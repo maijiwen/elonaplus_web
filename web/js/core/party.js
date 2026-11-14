@@ -12,16 +12,18 @@
  *        get_freeally() 找空槽 → *label_4274 → var_58(150)=0（清角色类型）、
  *        var_58(80)=0（清地图归属）、var_58(17)=100（好感重置）→ *label_4276（加入队伍）
  *     ③ var_58(85)==0 → 「先雇我一次试试」；否则「感觉合不来」
- *   护卫委托（421312，动作 50）：花钱临时雇佣
+ *   护卫委托（421311-421362，动作 50）：calchireadv 三档报价（3/7/30 天），
+ *     var_58(84) 存到期绝对时间、cbit 969、modimp +10（0-HU / A201d）
  *   宠物战（417113/417152/417184，动作 40/41/49）：宠物决斗 / 团队战 / EX 战
- *   宠物获得：捕获玉（items 685 monster ball / 699 little ball）、马屋(57)、奴隶商(36)
+ *   宠物获得：捕获玉（items 685 monster ball / 699 little ball）、
+ *     马屋(57) / 奴隶商(36) 的 *label_3062 目录与 calcslavevalue（424897-424975）
  *
  * 【本实现的近似】（登记 A201）
  *   · 同伴标记用 `c.__ally = true`（不占用 var_58(167/168)，那两个字段在本项目已用于坐骑/被载）
  *   · 跟随：每回合朝玩家移动一格（复用 quest.js 的 followToward 思路）
- *   · 好感 >= 200 即视为满足「好感 + 共事经历」两个条件（var_58(85) 的共事次数未移植）
  *   · 宠物战用「战力比」快速结算，不进入地图战斗（原版是进入竞技场实打）
- *   · 临时护卫按「剩余天数」到期自动离队
+ *   · 0-HU：护卫到期同时按 var_58(84) 绝对时间与原有的 __tempDays 每回合递减判定；
+ *     目录 `fltn "man"/"horse"` 的物种随机选择用固定物种 id（16 / 267）近似。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -29,6 +31,105 @@
   const limit = (v, a, b) => (v < a ? a : (v > b ? b : v));
 
   const MAX_SLOT = 15;
+
+  // ======================================================================
+  // 0-HU（A201d，用户裁定 b）：护卫 / 奴隶·马的价格与交互按源码重构
+  //   214462-214466  calchireadv
+  //   421311-421362  对话动作 50（三档天数 / 钱不够不显示 / 到期时间 var_58(84)）
+  //   214760-214772  calcslavevalue
+  //   424897-424975  *label_3062（A/B/C 目录 + 生成候选 + 按候选算价）
+  // ======================================================================
+
+  /** 绝对游戏时间（小时），源码 `var_65(13)+12*24+11*24*30+10*24*30*12` */
+  function absHours(g) {
+    if (Elona.Adventurer && Elona.Adventurer.absHours) return Elona.Adventurer.absHours(g) | 0;
+    const v = (n) => (g && g.getV65 ? (g.getV65(n) | 0) : 0);
+    return v(13) + v(12) * 24 + v(11) * 24 * 30 + v(10) * 24 * 30 * 12;
+  }
+
+  /**
+   * calchireadv（214462-214466）：
+   *   `limit(250 + (400 - 好感)/10 * Lv * sqrt(Lv+1), 3000, 50000)`
+   *   其中 Lv = limit(var_58(38), 1, 300)，且源码先把 var_58(17) 夹到 350（副作用）。
+   *   `(400-好感)/10` 是 HSP 整数除法；sqrt 后整体按整数返回。
+   */
+  function hireAdv(c) {
+    if (!c) return 3000;
+    if ((c.get(17) | 0) > 350) c.set(17, 350);          // 214464-214465
+    const imp = c.get(17) | 0;
+    const lv = limit(c.get(38) | 0, 1, 300);            // 214463
+    const raw = 250 + idiv(400 - imp, 10) * lv * Math.sqrt(lv + 1);
+    return limit(Math.floor(raw), 3000, 50000);
+  }
+
+  /**
+   * 对话动作 50 的三档报价（421314-421331）：
+   *   3 天 = adv/2、7 天 = adv、30 天 = adv*4；钱不够的档位**不出现在菜单里**。
+   */
+  function hireQuote(g, npc) {
+    const adv = hireAdv(npc);
+    const gold = (g && g.player) ? (g.player.get(30) | 0) : 0;
+    const all = [
+      { days: 3, cost: idiv(adv, 2) },
+      { days: 7, cost: adv },
+      { days: 30, cost: adv * 4 },
+    ];
+    return { adv, options: all.filter((o) => gold >= o.cost), all };
+  }
+
+  /**
+   * calcslavevalue（214760-214772）：
+   *   `var_82(10)*var_82(11) + Lv² + 1000`，封顶 50000；
+   *   var_58(177)>0 时乘 `(177+10)²/100`（整数除）；
+   *   再加 `limit(好感-50,0,300) * limit(var_58(169)-50,0,300)`；
+   *   cbit(23) 或 cbit(27) → 固定 10。
+   */
+  function slaveValue(c) {
+    if (!c) return 0;
+    const cb = (n) => (Elona.Status && Elona.Status.cbit ? (Elona.Status.cbit(c, n) | 0) : 0);
+    if (cb(23) === 1 || cb(27) === 1) return 10;        // 214770-214771
+    const lv = (c.get(38) | 0) || (c.level | 0) || 0;
+    const s10 = typeof c.skill === 'function' ? (c.skill(10) | 0) : 0;
+    const s11 = typeof c.skill === 'function' ? (c.skill(11) | 0) : 0;
+    let v = Math.min(s10 * s11 + lv * lv + 1000, 50000); // 214761-214764
+    const breed = c.get(177) | 0;
+    if (breed > 0) v = idiv(v * (breed + 10) * (breed + 10), 100);  // 214765-214767
+    v += limit((c.get(17) | 0) - 50, 0, 300) * limit((c.get(169) | 0) - 50, 0, 300); // 214768
+    return v | 0;
+  }
+
+  /**
+   * *label_3062（424898-424907）的目录等级上限 var_1477：
+   *   A(2) = limit(Lv/2+5, 6, 130)、B(1) = limit(Lv/4+5, 6, 50)、C(0) = 5。
+   */
+  function slaveCatalogLevel(g, tier) {
+    const lv = (g && g.player) ? (g.player.get(38) | 0) : 0;
+    if ((tier | 0) === 2) return limit(idiv(lv, 2) + 5, 6, 130);
+    if ((tier | 0) === 1) return limit(idiv(lv, 4) + 5, 6, 50);
+    return 5;
+  }
+
+  /** `characreate 56` 生成的候选正式入队（424956-424960 → *label_4274） */
+  function adoptOffer(g, c) {
+    if (!c) return { ok: false, message: '没有可收下的对象。' };
+    if (members(g).length >= maxSize(g)) return { ok: false, reason: 'full', message: '队伍已经满了。' };
+    const slot = freeSlot(g);
+    if (slot < 0) return { ok: false, reason: 'full', message: '没有空的队伍槽位。' };
+    const oldIdx = c.index | 0;
+    if (g.charas && g.charas[oldIdx] === c) g.charas[oldIdx] = null;  // 腾出临时槽 56
+    c.index = slot;
+    g.charas[slot] = c;
+    c.set(0, 1);
+    c.__ally = true;
+    c.__pet = true;
+    c.set(150, 0);
+    c.set(9, 0);
+    if (!(c.hp > 0)) c.hp = Math.max(1, c.hpMax | 0);
+    addToParty(g, c);
+    if (g.syncCharaCells) g.syncCharaCells();
+    return { ok: true, slot, pet: c,
+      message: `${c.name} 成为了你的宠物（${members(g).length}/${maxSize(g)}）。` };
+  }
 
   /** 魅力技能（var_82(17, 玩家)） */
   function charisma(g) {
@@ -351,12 +452,21 @@
       message: `${c.name} 成为了你的宠物（${members(g).length}/${maxSize(g)}）。` };
   }
 
-  /** 临时护卫（对话动作 50）：花 gold 雇 X 天，到期离队 */
+  /**
+   * 临时护卫（对话动作 50，421311-421362）：花 gold 雇 X 天，到期离队。
+   * 0-HU（A201d）：价格改由 `calchireadv` 的三档报价给出；雇佣时按源码补
+   *   `var_58(9)=10`、`cbit 969`、`var_58(84)=绝对时间+days*24`、
+   *   `var_58(85)++`、`modimp +10`、`snd 12 / snd 64`。
+   */
   function hireGuard(g, npc, days, cost) {
     if (isAlly(npc)) return { ok: false, message: `${npc.name} 已经在队伍里了。` };
     const p = g.player;
     const d = Math.max(1, days | 0);
-    const price = Math.max(1, cost | 0);
+    // 未显式给价时按源码重算（兼容旧调用方直接传 days）
+    const quote = hireQuote(g, npc);
+    const byDays = quote.all.find((o) => o.days === d);
+    const price = Math.max(1, cost === undefined || cost === null
+      ? (byDays ? byDays.cost : quote.adv) : (cost | 0));
     if ((p.get(30) | 0) < price) {
       return { ok: false, reason: 'money', message: `护卫需要 ${price} gold。` };
     }
@@ -371,10 +481,13 @@
     addToParty(g, npc);
     npc.__tempDays = d;
     npc.set(150, 0);
-    npc.set(9, 0);
-    npc.set(85, (npc.get(85) | 0) + 1);      // 421402：共事经历 +1 → 之后可邀请入伙
+    npc.set(9, 10);                                   // 421338：关系 = 盟友
+    if (Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(npc, 969, true); // 421339
+    npc.set(84, absHours(g) + d * 24);               // 421342/421347/421352：到期绝对时间
+    npc.set(85, (npc.get(85) | 0) + 1);              // 421402：共事经历 +1 → 之后可邀请入伙
+    npc.set(17, (npc.get(17) | 0) + 10);             // 421356：modimp var_244, 10
     if (g.syncCharaCells) g.syncCharaCells();
-    return { ok: true, days: d, cost: price,
+    return { ok: true, days: d, cost: price, sounds: [12, 64], deadline: npc.get(84) | 0,
       message: `雇佣了 ${npc.name} 作为护卫（${d} 天，-${price} gold）。` };
   }
 
@@ -411,9 +524,15 @@
       if ((c.get(0) | 0) !== 1) continue;
       if (c.__tempDays !== undefined && c.__tempDays !== null) {
         c.__tempDays = (c.__tempDays | 0) - 1;
-        if (c.__tempDays <= 0) {
+        // 0-HU（A201d）：源码 421342/421347/421352 把到期写成 var_58(84) 的
+        // 「绝对小时」，所以时钟跨过契约期也应立刻离队；__tempDays 的每回合
+        // 递减是本项目原有的兼容字段，两者取先到者。
+        const deadline = c.get(84) | 0;
+        const expiredByClock = deadline > 0 && absHours(g) >= deadline;
+        if (c.__tempDays <= 0 || expiredByClock) {
           c.__ally = false;
           c.__tempDays = 0;
+          c.set(84, 0);
           if (g.log) g.log(`${c.name} 的护卫契约到期了。`);
           continue;
         }
@@ -607,6 +726,8 @@
     MAX_SLOT, maxSize, charisma, isAlly, members, pets, servants, freeSlot, freeAlly,
     recruit, dismiss, addPet, hireGuard, tick, followToward, petPower, petBattle, summary,
     capture, findCaptureTarget, dominate, joinChara,
+    // 0-HU / A201d：护卫与奴隶·马按源码计费、报价与交互
+    absHours, hireAdv, hireQuote, slaveValue, slaveCatalogLevel, adoptOffer,
     nearSpot, addToParty, removeFromParty, restore,   // 0-DG
   };
 })(window);

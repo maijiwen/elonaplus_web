@@ -4,7 +4,11 @@
  *
  * 【源码依据】
  *   28015-28070  var_671(egoId) = 名前缀（烈火の / 氷結の …，19 个）
- *                var_672(0, egoId) = {适用类型, 附魔类别限制}
+ *                `var_672(0, egoId) = kind, encClass` —— HSP 的连续赋值一次写
+ *                两维：var_672(0,id) = 适用类型（0..3），var_672(1,id) = **物品
+ *                类别过滤条件**（不是「附魔类别」）。28107-28111 把它作为
+ *                `encflt(var_657, var_672(1,cnt))` 的第二参数，var_657 是
+ *                `refitem(物品id, 5)`（物品类别）；encflt 定义见 26218-26241。
  *                var_670(0, egoId) = 附魔 (id, power) 对列表
  *   28091-28093  var_674(0..9) = 品质前缀（唄う / 輝く / 強力な …，10 个）
  *   28095-28100  *label_0348：加随机附魔，`var_99(23) = 20000 + rnd(10)`
@@ -111,6 +115,8 @@
         if ((e.kind | 0) !== k) continue;                // 28104
         const encClass = e.encClass | 0;
         if (encClass !== 0) {                            // 28107-28111
+          // encflt(物品类别, 过滤条件)：1 → 30000..49999、2 → 12000..23999、
+          // 3 → 12000..23999 或 10000、10000 → 精确等于 10000（26218-26241）。
           if (Elona.ItemDB && Elona.ItemDB.encflt && !Elona.ItemDB.encflt(category | 0, encClass)) continue;
         }
         cands.push(e);
