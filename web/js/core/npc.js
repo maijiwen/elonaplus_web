@@ -368,8 +368,41 @@
     // 0-DG：同伴 → 同伴指示（待機/呼び出し/戦術指示；原版 i 干涉菜单的子集）
     if (Elona.Companion && Elona.Party && Elona.Party.isAlly(npc)) {
       out.push({ id: 'companion-menu', label: '同伴指示（待命 / 战术）' });
-      // 0-DH：evochat（原版 var_1294 == 1 的同伴对话菜单，415000-415035）
-      out.push({ id: 'evochat', label: '说说话（心情 / 心の開錠）' });
+      // 0-W0：把操作弹窗的同伴系统项（289641-289660 的 37/38/39）也放进对话窗。
+      //   用户提供的原版截图里这三项就在对话窗内（omake 衍生版把两边合并了），
+      //   动作与 i 键操作弹窗共用 runActionAct 的 case 37/38/39。
+      {
+        const b1053 = (Elona.Status && Elona.Status.cbit) ? (Elona.Status.cbit(npc, 1053) | 0) : 0;
+        const b1032 = (Elona.Status && Elona.Status.cbit) ? (Elona.Status.cbit(npc, 1032) | 0) : 0;
+        out.push({ id: 'act-37', act: 37, label: b1053 ? '解除重要的伙伴' : '设为重要的伙伴' });
+        out.push({ id: 'act-38', act: 38, label: b1032 ? '解除脚下道具限制' : '限制脚下道具' });
+        out.push({ id: 'act-39', act: 39, label: '在城里等着' });
+      }
+      // 0-DH / 0-W0：evochat 三项按源码条件拆开（415238-415258）：
+      //   77 【evochat】= 玩家興味 433(0)>0 且对方 433<10 且好感 >= 100
+      //   109 【组合evochat】= 对方有搭档 167 且搭档 433<10 且好感 >= 100
+      //   110 听听组合间的对话 = 对方有搭档 167（搭档编号非 0）
+      {
+        const pl = g && g.player;
+        const myChat = pl ? (pl.get(433) | 0) : 0;
+        const npcChat = npc.get(433) | 0;
+        const fav = npc.get(17) | 0;
+        const tagIdx = npc.get(167) | 0;
+        let tagChara = null;
+        if (tagIdx && g && Array.isArray(g.charas)) {
+          tagChara = g.charas.find((c) => c && (c.index | 0) === tagIdx) || null;
+        }
+        if (myChat > 0 && npcChat < 10 && fav >= 100) {
+          out.push({ id: 'evochat', label: '【evochat】' });
+        }
+        if (tagIdx && tagChara && (tagChara.get(433) | 0) < 10
+          && (tagChara.get(17) | 0) >= 100 && myChat > 0) {
+          out.push({ id: 'evochat-tag', label: '【组合evochat】' });
+        }
+        if (tagIdx && tagChara) {
+          out.push({ id: 'evochat-watch', label: '听听组合间的对话' });
+        }
+      }
       // 0-DH：一緒に食事（动作 84，415103 的四个条件：
       //   var_58(22) 双方 <= 10000、好感 >= 100、双方都没有 cbit 986）
       const pl = g && g.player;
@@ -1439,6 +1472,114 @@
     return 8;
   }
 
+  /**
+   * 0-W0：对话窗左侧信息栏的「好感 / 興味」标签（8729-8740 的 var_258..269）。
+   *
+   * 原版按关系类型 var_58(441) 选表：
+   *   >= 0  → var_258（通用）        ；-1 战友 → var_259；-2 挚友 → var_260；
+   *   -3 对手 → var_261；-4 恋人 → var_262；-5 弟子 → var_263；-6 师父 → var_264；
+   *   -7 家人 → var_265；-11 契约 → var_267；-12 宠物 → var_268；-13 仆从 → var_269。
+   * 好感行用 implevel(var_58(17))（9 档），興味行用 implevel2(var_58(169))（8 档，
+   * var_266 通用表；441 = -11/-12/-13 时换 var_267/268/269）。
+   * 索引与源码逐项对齐：243 → implevel 7 → var_260[7]「盟友」（用户截图 #1 的衍生版
+   * 把 243 写成「魂之友」，按 start.hsp 那是 300+ 的档 8，本项目按源码，见 17 册 0-W0 S1）；
+   * 125 → implevel2 3 → var_266[3]「素直」，中译「坦诚」。
+   * 泛用 NPC（441 >= 0）走 var_258，同数值 243 显示「伙伴」，不是档位算错。
+   */
+  const IMP_LABELS = {
+    imp: {
+      0: ['深恶痛绝', '讨厌', '烦人', '普通', '友好', '信任', '信赖', '伙伴', '★伙伴★'],
+      '-1': ['深恶痛绝', '讨厌', '烦人', '普通', '友好', '信赖', '伙伴', '战友', '战士之绊'],
+      '-2': ['深恶痛绝', '讨厌', '烦人', '普通', '友好', '朋友', '挚友', '盟友', '魂之友'],
+      '-3': ['深恶痛绝', '讨厌', '烦人', '普通', '友好', '竞争对手', '切磋琢磨', '劲敌', '宿命之敌'],
+      '-4': ['深恶痛绝', '讨厌', '烦人', '普通', '友好', '恋心', '两情相悦', '热恋', '深爱'],
+      '-5': ['深恶痛绝', '讨厌', '烦人', '普通', '友好', '学生', '继承人', '比肩者', '爱徒'],
+      '-6': ['深恶痛绝', '讨厌', '烦人', '普通', '友好', '老师', '师父', '敬爱', '一生之师'],
+      '-7': ['深恶痛绝', '讨厌', '烦人', '普通', '友好', '家人', '亲爱的', '疼爱', '深爱'],
+    },
+    it: {
+      0: ['（猫）', '奔放', '对等', '坦诚', '★坦诚★', '顺从', '★顺从★', '遵守'],
+      '-11': ['（猫）', '奔放', '对等', '坦诚', '契约者', '专属契约', '伙伴', '命运与共'],
+      '-12': ['（猫）', '奔放', '对等', '坦诚', '顺从', '主人', '服从', '依赖'],
+      '-13': ['（猫）', '奔放', '对等', '坦诚', '忠诚', '恭顺', '倾心', '忠义'],
+    },
+  };
+
+  /** implevel2（193395-193417）：興味/主从关系等级 0..7 */
+  function implevel2(v) {
+    if (v < -100) return 0;
+    if (v < 0) return 1;
+    if (v < 100) return 2;
+    if (v < 150) return 3;
+    if (v < 200) return 4;
+    if (v < 250) return 5;
+    if (v < 300) return 6;
+    return 7;
+  }
+
+  /**
+   * 对话窗信息栏的两行标签（426553-426591）。
+   * @returns {{imp:{v:number,label:string}, it:{v:number,label:string}}}
+   */
+  function impLabel(npc) {
+    const rel = npc.get(441) | 0;
+    const imp = npc.get(17) | 0;
+    const it = npc.get(169) | 0;
+    const tImp = IMP_LABELS.imp[String(rel)] || IMP_LABELS.imp[0];
+    let tIt = IMP_LABELS.it[0];
+    if (rel <= -11 && rel >= -13) tIt = IMP_LABELS.it[String(rel)] || tIt;
+    return {
+      imp: { v: imp, label: tImp[implevel(imp)] || tImp[tImp.length - 1] },
+      it: { v: it, label: tIt[implevel2(it)] || tIt[tIt.length - 1] },
+    };
+  }
+
+  /**
+   * 0-W0：对话窗左栏的全部字段（426462-426647 的绘制段），按用户提供的原版截图重排。
+   *
+   * 源码逐项：
+   *   426462-426500 标题 = var_63(0) 名字 + var_63(1) 称号 + var_63(8) 性别
+   *                 （本项目无 var_63(1) 称号，故为「名字 性别」）
+   *   426553-426561 好感行 "(var_58(17))" + var_258..265[implevel(var_58(17))]
+   *   426580-426591 兴致行 "(var_58(169))" + var_266..269[implevel2(var_58(169))]
+   *   426618-426638 興趣条：repeat var_58(433, var_244) 颗蓝色小图（每颗 8px）
+   *   426593-426595 cbit 969 → cnvdate(var_58(84), 2)（記念日）
+   *   426597-426610 否则 var_58(400)/var_58(401)（月/日），为 0 时用
+   *                 var_65(11)/var_65(12)（当前月/日）初始化
+   *
+   * @returns {{title,face:{img,x,y},impLine,itLine,interest,anniversary}}
+   */
+  function dialogInfo(npc, g) {
+    const sex = npc.get(8) | 0;
+    const gender = (sex === 0) ? '男性' : '女性';
+    const portrait = npc.get(13) | 0;
+    const face = (Elona.CharCreate && Elona.CharCreate.faceTileOf)
+      ? Elona.CharCreate.faceTileOf(sex, portrait < 0 ? 0 : portrait)
+      : { img: 'face1.bmp', x: 0, y: 0 };
+    const lab = impLabel(npc);
+    const own = Math.max(0, npc.get(433) | 0);
+    const pl = g && g.player;
+    const interest = own || (pl ? Math.max(0, pl.get(433) | 0) : 0);
+    const monthOf = () => (g && typeof g.getV65 === 'function') ? (g.getV65(11) | 0) : 0;
+    const dayOf = () => (g && typeof g.getV65 === 'function') ? (g.getV65(12) | 0) : 0;
+    let anniversary;
+    const st = Elona.Status;
+    if (st && st.cbit && st.cbit(npc, 969) && Elona.ResidualTables
+      && Elona.ResidualTables.formatDate) {
+      anniversary = Elona.ResidualTables.formatDate(npc.get(84) | 0, 2, 'jp');
+    } else {
+      anniversary = `${(npc.get(400) | 0) || monthOf()}/${(npc.get(401) | 0) || dayOf()}`;
+    }
+    return {
+      title: `${npc.name || ''} ${gender}`,
+      face,
+      impLine: `(${lab.imp.v})${lab.imp.label}`,
+      itLine: `(${lab.it.v})${lab.it.label}`,
+      interest,
+      anniversary,
+    };
+  }
+
   /** modimp（193311-193348）：好感度 var_58(17)，按等级衰减，上限 400 */
   function modImp(npc, amount, g) {
     const lvl = implevel(npc.get(17) | 0);
@@ -1869,7 +2010,7 @@
   Elona.NPC = {
     ROLE_NAMES, SHOP_ROLES, loadTable, setSkillNames, setSkillShop, skillName,
     roleOf, roleName, isShop, services, actionMenu, talk, meal, drink, identify,
-    implevel, modImp, give, intel,
+    implevel, implevel2, impLabel, dialogInfo, IMP_LABELS, modImp, give, intel,
     trainableSkills, trainCost, train, heal, infoText, perform, aside,
     calcIdentifyValue, unknownItems, identifyOne, identifyAll, investigate,
     magicStockExchange, magicPractice, PRACTICE, practiceQuote, practiceSpells, practiceCost,

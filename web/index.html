@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <title>ElonaPlus 2.33R — Web 重制版</title>
 <link rel="icon" href="data:," />
-<link rel="stylesheet" href="css/style.css?v=0v1" />
+<link rel="stylesheet" href="css/style.css?v=0x0" />
 <link rel="stylesheet" href="css/charcreate.css?v=0i0" />
 </head>
 <body>
@@ -75,23 +75,37 @@
           <button id="shop-refresh">刷新(R)</button>
         </div>
       </div>
-      <!-- NPC 交互 -->
+      <!-- NPC 交互（0-W0：对话窗按原版截图改成「左头像 + 信息栏 / 右正文 + 选项」两栏） -->
       <div id="npc" class="panel hidden">
         <div class="panel-head">
           <span id="npc-title">NPC</span>
-          <span class="panel-hint">Esc 关闭</span>
+          <span class="panel-hint" id="npc-hint">Esc 关闭</span>
         </div>
-        <div id="npc-text" class="npc-text"></div>
-        <div id="npc-actions" class="npc-actions"></div>
-        <div id="npc-feelings" class="npc-train hidden">
-          <select id="npc-feeling"></select>
-          <button id="npc-feeling-ok">说</button>
+        <div class="npc-body">
+          <div id="npc-side" class="npc-side">
+            <div id="npc-face" class="npc-face"></div>
+            <div class="npc-imp-topic">◆ 好感</div>
+            <div id="npc-imp-1" class="npc-imp-line"></div>
+            <div id="npc-imp-2" class="npc-imp-line"></div>
+            <div class="npc-imp-topic">◆ 兴趣</div>
+            <div id="npc-interest" class="npc-interest"></div>
+            <div class="npc-imp-topic">◆ 纪念日</div>
+            <div id="npc-anniversary" class="npc-imp-line"></div>
+          </div>
+          <div class="npc-main">
+            <div id="npc-text" class="npc-text"></div>
+            <div id="npc-actions" class="npc-actions"></div>
+            <div id="npc-feelings" class="npc-train hidden">
+              <select id="npc-feeling"></select>
+              <button id="npc-feeling-ok">说</button>
+            </div>
+            <div id="npc-train" class="npc-train hidden">
+              <select id="npc-skill"></select>
+              <button id="npc-train-ok">训练</button>
+            </div>
+            <div id="npc-give" class="npc-give hidden"></div>
+          </div>
         </div>
-        <div id="npc-train" class="npc-train hidden">
-          <select id="npc-skill"></select>
-          <button id="npc-train-ok">训练</button>
-        </div>
-        <div id="npc-give" class="npc-give hidden"></div>
       </div>
       <!-- 掲示板 / 委托 -->
       <div id="quest" class="panel hidden">
@@ -153,7 +167,7 @@
   <script src="js/core/well.js"></script>
   <script src="js/core/home.js"></script>
   <script src="js/core/shopsale.js"></script>
-  <script src="js/core/riding.js"></script>
+  <script src="js/core/riding.js?v=0x0"></script>
   <script src="js/core/vehicle.js"></script>
   <script src="js/core/rank.js"></script>
   <script src="js/core/camp.js"></script>
@@ -165,7 +179,7 @@
   <script src="js/core/loot.js"></script>
   <script src="js/core/mapfeat.js"></script>
   <script src="js/core/weather.js"></script>
-  <script src="js/core/chara.js?v=0v0"></script>
+  <script src="js/core/chara.js?v=0x0"></script>
   <script src="js/core/racename.js"></script>
   <script src="js/core/profiletext.js"></script>
   <script src="js/core/titletext.js"></script>
@@ -174,13 +188,13 @@
   <script src="js/core/item.js?v=0v1"></script>
   <script src="js/core/itemmaterial.js?v=0v0"></script>
   <script src="js/core/itemnamex.js?v=0v0"></script>
-  <script src="js/core/adventurer.js"></script>
+  <script src="js/core/adventurer.js?v=0x0"></script>
   <script src="js/core/iteminfo.js"></script>
   <script src="js/core/equipment.js?v=0hz"></script>
   <script src="js/core/foodname.js"></script>
   <script src="js/core/freshdoll.js"></script>
   <script src="js/core/itemfx.js"></script>
-  <script src="js/core/itemfx_use.js"></script>
+  <script src="js/core/itemfx_use.js?v=0w0"></script>
   <script src="js/core/work.js"></script>
   <script src="js/core/social.js?v=0q0"></script>
   <script src="js/core/intimacy.js?v=0hp"></script>
@@ -215,7 +229,7 @@
   <script src="js/core/storywarp.js"></script>
   <script src="js/core/shop.js?v=0ho"></script>
   <script src="js/core/shopmanage.js"></script>
-  <script src="js/core/npc.js?v=0v0"></script>
+  <script src="js/core/npc.js?v=0w0"></script>
   <script src="js/core/towns.js"></script>
   <script src="js/core/worldmap.js?v=0l0"></script>
   <script src="js/core/wildmap.js"></script>
@@ -236,18 +250,18 @@
   <script src="js/core/event.js"></script>
   <script src="js/core/randomevent.js"></script>
   <script src="js/core/throw.js?v=0hs"></script>
-  <script src="js/core/monster.js?v=0hq"></script>
+  <script src="js/core/monster.js?v=0x0"></script>
   <script src="js/core/encounter.js"></script>
   <script src="js/core/arena.js?v=0hv"></script>
   <script src="js/core/party.js?v=0hu"></script>
   <script src="js/core/companion.js"></script>
-  <script src="js/core/love.js"></script>
+  <script src="js/core/love.js?v=0w0"></script>
   <script src="js/core/festival.js"></script>
   <script src="js/core/giftpack.js"></script>
   <script src="js/core/mapdig.js"></script>
   <script src="js/core/mapdoor.js"></script>
   <script src="js/core/mapmake.js"></script>
-  <script src="js/core/randname.js"></script>
+  <script src="js/core/randname.js?v=0x0"></script>
   <script src="js/core/smallfns.js"></script>
   <script src="js/core/feat.js"></script>
   <script src="js/core/traits.js?v=0v0"></script>
@@ -255,7 +269,7 @@
   <script src="js/core/spell.js?v=0q0"></script>
   <script src="js/core/fov.js?v=0hd"></script>
   <script src="js/core/spellutil.js?v=0j0"></script>
-  <script src="js/core/ability.js?v=0k0"></script>
+  <script src="js/core/ability.js?v=0x0"></script>
   <script src="js/core/melee.js?v=0q0"></script>
   <script src="js/core/buffact.js?v=0q0"></script>
   <script src="js/core/summon.js"></script>
@@ -282,10 +296,10 @@
   <script src="js/core/source_fragments.js"></script>
   <script src="js/core/deathmsg.js"></script>
   <script src="js/core/ai.js?v=0q0"></script>
-  <script src="js/core/game.js?v=0s0"></script>
+  <script src="js/core/game.js?v=0w0"></script>
   <script src="js/core/actions.js"></script>
   <script src="js/core/aim.js?v=0q0"></script>
-  <script src="js/core/dirsel.js?v=0q0"></script>
+  <script src="js/core/dirsel.js?v=0x0"></script>
   <script src="js/core/interact.js?v=0t0"></script>
   <script src="js/core/keys.js?v=0hr"></script>
   <script src="js/core/save.js?v=0he"></script>
@@ -296,9 +310,10 @@
   <script src="js/view/uikit.js"></script>
   <script src="js/view/hud.js?v=0hp"></script>
   <script src="js/view/title.js"></script>
-  <script src="js/view/renderer.js?v=0v0"></script>
-  <script src="js/view/ui.js?v=0v1"></script>
-  <script src="js/view/panels.js?v=0v0"></script>
+  <script src="js/view/renderer.js?v=0x0"></script>
+  <script src="js/view/ui.js?v=0w0"></script>
+  <script src="js/view/panels.js?v=0x0"></script>
+  <script src="js/view/npcedit.js?v=0x0"></script>
   <script src="js/view/altar.js"></script>
   <script src="js/view/sceneview.js?v=0s0"></script>
   <script src="js/view/consoleview.js"></script>

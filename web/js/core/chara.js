@@ -124,6 +124,11 @@
       }
       // 物品实例需要还原为 Item 对象（否则读档后失去方法）
       c.inv = (o.inv || []).map((x) => (global.Elona.Item ? global.Elona.Item.fromJSON(x) : x));
+      // 0-X0：旧存档把日文名持久化了，按 creature.json 的中文名刷新一次。
+      // 数据表未加载 / 名字已是中文时 localizeChara 会自行跳过。
+      if (global.Elona.CharaFactory && global.Elona.CharaFactory.localizeChara) {
+        try { global.Elona.CharaFactory.localizeChara(c); } catch (e) { /* 表未就绪 */ }
+      }
       return c;
     }
   }

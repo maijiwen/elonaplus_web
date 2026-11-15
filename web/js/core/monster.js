@@ -216,21 +216,24 @@
     // 源码依据：`*label_0316`（25901-26007）—— data/name.csv 音节表的随机抽取
     //（加载在 *label_0315 的 25843 `noteload "data\name.csv"`），对应
     // tools/extract_names.py → names.json + 本函数。
+    // 0-X0：names.json 的音节已由用户音译成中文。原版那套「假名长度阈值 +
+    // 注入长音符 ー / 排除 ーッ」的过滤会让中文名几乎全部落空并返回日文「名無し」，
+    // 故按中文字数重设阈值、去掉日文装饰、兜底也改成中文。
     const tab = NAMES.data;
-    if (!tab || !tab.prefixJp || !tab.prefixJp.length) return '名無し';
+    if (!tab || !tab.prefixJp || !tab.prefixJp.length) return '无名者';
     const rng = ctx.rng || Elona.rng;
     for (let tries = 0; tries < 100; tries++) {
       let s = tab.prefixJp[rng.rnd(tab.prefixJp.length)] || '';
       if (!s) continue;
-      if (rng.rnd(8) === 0) s += 'ー';
       if (rng.rnd(5) !== 0) s += tab.suffixJp[rng.rnd(tab.suffixJp.length)] || '';
-      if (s.length < 4) continue;
-      if (s.length < 6 && rng.rnd(3) !== 0) continue;
-      if (s.length < 8 && rng.rnd(2) !== 0) continue;
-      if (s.charAt(0) === 'ー' || s.indexOf('ーッ') >= 0) continue;
+      // 原版阈值 4/6/8 是按假名长度定的；中文音译多为 1~3 字，等比缩到 2/3/4，
+      // 保留「短名有概率被丢弃」的手感。
+      if (s.length < 2) continue;
+      if (s.length < 3 && rng.rnd(3) !== 0) continue;
+      if (s.length < 4 && rng.rnd(2) !== 0) continue;
       return s.charAt(0).toUpperCase() + s.slice(1);
     }
-    return '名無し';
+    return '无名者';
   }
 
   /**
@@ -774,6 +777,11 @@
       c.level = c.get(STATUS_ATTR.LEVEL) || (level | 0);
       if (Elona.Stats && Elona.Stats.expNeeded) c.set(36, Elona.Stats.expNeeded(c));   // *label_2151
       c.raceName = c.raceName || (rec.race || 'creature');
+      // 0-X0：固定 NPC 的日文专名由 ops 的 `var_63(0) = "…"` 直接写进 c.name，
+      // 绕过了下面 nameCh 的兜底；creature.json 里 1163 条都已配好中文 nameCh。
+      // 只在名字与原版日文字面量完全一致时替换，不影响 randomname() 生成的中文音译名，
+      // 也不影响玩家自定义名 / 别名 / 品质称号「『』《》」补正。
+      if (rec.nameCh && rec.nameJp && c.name === rec.nameJp) c.name = rec.nameCh;
       c.name = c.name || (rec.nameCh || rec.nameJp || ('creature#' + ctx.var60));
       c.x = x; c.y = y;
       // var_58(27) = 物种 id —— 原版 characreate 写入；dmghp 的种族 668 减免、附魔的
@@ -822,6 +830,30 @@
     applyPartList(c, text) {
       return (Elona.CharaParts && Elona.CharaParts.apply)
         ? Elona.CharaParts.apply(c, text) : 0;
+    },
+
+    /**
+     * 0-X0：读档时把旧存档里持久化的日文名换成 creature.json 的中文名。
+     * `chara.js Chara.fromJSON` 直接恢复 o.name，会绕过所有数据表；这里只在
+     * 「名字仍含假名」且「按 var_58(27) 能查到中文名」时替换，
+     * 不动玩家自定义名、别名和中文音译随机名。
+     */
+    localizeChara(c) {
+      if (!c || !c.name || !CRE.data) return false;
+      if (!/[ぁ-んァ-ヶ]/.test(c.name)) return false;
+      const rec = CRE.data[String(c.get(27) | 0)] || null;
+      if (rec && rec.nameCh) {
+        c.name = rec.nameCh;
+        return true;
+      }
+      // 0-X0：查不到 creature 记录的，多半是 randname 生成的冒险者称号
+      // （旧存档持久化了「僧侶を止める僧侶」这类日文名），交给 RandName 本地化。
+      const RN = global.Elona && global.Elona.RandName;
+      if (RN && typeof RN.localize === 'function') {
+        const cn = RN.localize(c.name);
+        if (cn && cn !== c.name) { c.name = cn; return true; }
+      }
+      return false;
     },
 
     /** 供测试直接调用内部函数 */

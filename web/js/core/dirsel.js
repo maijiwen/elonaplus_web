@@ -161,14 +161,16 @@
      *   关门 c（`*label_3004`，345579-345592「何を閉める？」）
      * 回调 cb(g, dx, dy) 自行结算。
      */
-    startCmd(g, label, cb) {
+    startCmd(g, label, cb, opts) {
+      const o = opts || {};
       this.active = true;
       this.kind = 'cmd';
       this.cmdLabel = label || '';
       this.cmdCb = cb || null;
       this.itemIdx = -1;
       this.groundItem = null;
-      this.allowSelf = false;
+      // 0-X0：骑乘方向层允许「回车 = 自己」（319616 `var_244 == var_243` → 下马）
+      this.allowSelf = !!o.allowSelf;
       this.allowEmpty = false;
       this.aid = 0;
       this.range = 1;
@@ -228,6 +230,14 @@
         const ra = g.useAbility(aid0, { target: g.player, resume: true });
         this.lastResult = ra || null;
         return ra || { ok: false };
+      }
+      if (kind === 'cmd') {
+        // 0-X0：骑乘方向层按回车 = 选自己（源码 319616 的下马分支）
+        const fn = this.cmdCb;
+        this.cmdCb = null;
+        const rc = fn ? (fn(g, 0, 0) || { ok: true }) : { ok: false };
+        this.lastResult = rc || null;
+        return rc || { ok: false };
       }
       if (kind !== 'item') return { ok: false, reason: 'no-self' };
       const r = this.groundItem

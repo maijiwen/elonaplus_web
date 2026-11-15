@@ -366,16 +366,18 @@
       }
 
       // 4.6 乗馬（301，319598-319810）
-      //     已在骑乘 → 下马；否则先选一个可骑乘的同伴（槽 1..15）
+      //     0-X0：已骑乘 → 直接下马（用户要求的「再按 a 解散」）；
+      //     否则交给 UI 开「8 方向箭头」选邻格同伴，再弹 txtsetride 3 项菜单。
+      //     原先的 request:'ride-pick' 没有任何消费者，是死链，已删除。
       if (aid === 301) {
         if (!Elona.Riding) { g.log('骑乘模块未加载。'); return { ok: false, reason: 'no-riding' }; }
         if (Elona.Riding.mountOf(g)) {
           const r = Elona.Riding.dismount(g);
           if (r && r.message) g.log(r.message);
-          if (g.endTurn) g.endTurn();
+          if (r && r.ok && g.endTurn) g.endTurn();
           return r || { ok: false };
         }
-        return { ok: true, request: 'ride-pick' };
+        return { ok: false, reason: 'need-ride-direction', dirs: true };
       }
 
       // 4.7 斗志门槛（var_58(182)，见 Morale.COST 的源码逐分支提取）

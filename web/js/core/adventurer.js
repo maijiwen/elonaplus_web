@@ -69,8 +69,12 @@
   }
 
   function randName(g) {
+    // 0-X0：界面显示走中文词表（RandName.randname 保留源码日文原表供回归核对）
+    if (Elona.RandName && typeof Elona.RandName.randnameCh === 'function') {
+      try { return Elona.RandName.randnameCh(g && g.rng); } catch (e) { /* 忽略 */ }
+    }
     if (Elona.RandName && typeof Elona.RandName.randname === 'function') {
-      try { return Elona.RandName.randname(g && g.rng); } catch (e) { /* 忽略 */ }
+      try { return Elona.RandName.localize(Elona.RandName.randname(g && g.rng)); } catch (e) { /* 忽略 */ }
     }
     return '旅行者';
   }

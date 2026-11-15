@@ -1666,20 +1666,75 @@
         if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
         // 0-DW：视野外的角色不画（原版 var_58(6,c)=var_104 只在可见时更新）
         if (game.map.isVisible && !game.map.isVisible(c.x, c.y)) continue;
+        const dx = vx * TILE, dy = vy * TILE;
+        // 0-W0：脚下道具图像（34275-34347）。cbit 1025 = 画在角色之后（后层）
+        const markId = c.get(447) | 0;
+        const behind = markId > 0 && !!(Elona.Status && Elona.Status.cbit(c, 1025));
+        if (behind) this.drawItemMark(ctx, c, dx, dy);
         // 只有具备 PCC 外观的角色（玩家 / cbit(967)）才走合成图；
         // 其余 NPC 一律使用 character.bmp 中各自的 var_58(7) 贴图。
+        let drawn = false;
         if (Elona.PCC && c.pcc) {
-          if (Elona.PCC.ready(c, game) && Elona.PCC.draw(ctx, c, vx * TILE, vy * TILE, TILE, game)) continue;
-          Elona.PCC.preload(c, game).catch(() => { });
+          if (Elona.PCC.ready(c, game) && Elona.PCC.draw(ctx, c, dx, dy, TILE, game)) drawn = true;
+          else Elona.PCC.preload(c, game).catch(() => { });
         }
-        const idx = this.charaSpriteIndex(c);
-        if (idx < 0) continue;
-        const sx = (idx % COLS) * TILE, sy = Math.floor(idx / COLS) * TILE;
-        if (sx + TILE > ch.width || sy + TILE > ch.height) continue;
-        ctx.drawImage(ch, sx, sy, TILE, TILE, vx * TILE, vy * TILE, TILE, TILE);
+        if (!drawn) {
+          const idx = this.charaSpriteIndex(c);
+          if (idx >= 0) {
+            const sx = (idx % COLS) * TILE, sy = Math.floor(idx / COLS) * TILE;
+            if (sx + TILE <= ch.width && sy + TILE <= ch.height) {
+              ctx.drawImage(ch, sx, sy, TILE, TILE, dx, dy, TILE, TILE);
+            }
+          }
+        }
+        if (markId > 0 && !behind) this.drawItemMark(ctx, c, dx, dy);
+        // 0-X0：A201 / 289359-289405 / 35104-35222 —— 167/168「双立绘」。
+        //   var_58(168,c) != 0 时 var_58(167,c) 指向同格的另一名角色，
+        //   源码用对方的 var_58(83)*48 图像行（grotate 10+var_859）画在旁边。
+        //   这里等价地用该角色的 character.bmp 网格序号叠加一层。
+        const pair = (Elona.Riding && Elona.Riding.doubleSpriteOf)
+          ? Elona.Riding.doubleSpriteOf(game, c) : null;
+        if (pair && pair.mount) {
+          const mi = this.charaSpriteIndex(pair.mount);
+          if (mi >= 0) {
+            const sx2 = (mi % COLS) * TILE, sy2 = Math.floor(mi / COLS) * TILE;
+            if (sx2 + TILE <= ch.width && sy2 + TILE <= ch.height) {
+              ctx.drawImage(ch, sx2, sy2, TILE, TILE, dx + pair.offset, dy, TILE, TILE);
+            }
+          }
+        }
         // 0-DG：听诊器（478）→ 贴图下方显示 HP / MP / 斗志 三条
-        if (c.__hpbar) this.drawAllyBars(c, vx * TILE, vy * TILE);
+        if (c.__hpbar) this.drawAllyBars(c, dx, dy);
       }
+    }
+
+    /**
+     * 0-W0：脚下道具图像（var_58(447)）。源码 34275-34347 的
+     *   pos (x+12+448, y+18+449) + grotate(角度=47*6.545°, 宽=W/2+46*2,
+     *   高=H/2+99*2, cbit 1052 时水平镜像)。参数由 NPCEdit.markGeometry
+     *   统一给出，编辑器 canvas 与地图用同一套，拖动时地图实时跟着变。
+     */
+    drawItemMark(ctx, c, dx, dy) {
+      const id = c.get(447) | 0;
+      if (id <= 0 || !this.itemSheet || !Elona.ItemDB || !Elona.ItemDB.graphic) return;
+      const gid = Elona.ItemDB.graphic(id);
+      if (!Number.isFinite(gid) || gid < 0) return;
+      const h = (Elona.ItemDB.iconHeight ? (Elona.ItemDB.iconHeight(gid) | 0) : TILE) || TILE;
+      const m = (Elona.NPCEdit && Elona.NPCEdit.markGeometry)
+        ? Elona.NPCEdit.markGeometry(c, TILE, h)
+        : {
+          x: 12 + (c.get(448) | 0), y: (h > 48 ? 14 : 18) + (c.get(449) | 0),
+          w: TILE / 2 + (c.get(46) | 0) * 2, h: h / 2 + (c.get(99) | 0) * 2,
+          flip: 1, angle: 0,
+        };
+      const sx = (gid % COLS) * TILE, sy = Math.floor(gid / COLS) * TILE;
+      if (sx + TILE > this.itemSheet.width || sy + h > this.itemSheet.height) return;
+      ctx.save();
+      ctx.translate(dx + m.x + m.w / 2, dy + m.y + m.h / 2);
+      ctx.rotate(m.angle);
+      ctx.scale(m.flip, 1);
+      ctx.drawImage(this.itemSheet, sx, sy, TILE, h, -m.w / 2, -m.h / 2, m.w, m.h);
+      ctx.restore();
     }
 
     /**
@@ -1795,18 +1850,25 @@
       const ctx = this.ctx;
       const ch = this.sheets.character;
       const dx = ox * TILE, dy = oy * TILE;
+      const p = game.player;
+      // 0-W0：玩家自己的脚下道具图像（33164-33221 / 33557-33614）
+      const markId = p ? (p.get(447) | 0) : 0;
+      const behind = markId > 0 && !!(Elona.Status && Elona.Status.cbit(p, 1025));
+      if (behind) this.drawItemMark(ctx, p, dx, dy);
+      let drawn = false;
       if (Elona.PCC) {
-        if (Elona.PCC.ready(game.player, game) && Elona.PCC.draw(ctx, game.player, dx, dy, TILE, game)) return;
-        Elona.PCC.preload(game.player, game).catch(() => { });
+        if (Elona.PCC.ready(p, game) && Elona.PCC.draw(ctx, p, dx, dy, TILE, game)) drawn = true;
+        else Elona.PCC.preload(p, game).catch(() => { });
       }
-      if (ch) {
-        let idx = this.charaSpriteIndex(game.player);
+      if (!drawn && ch) {
+        let idx = this.charaSpriteIndex(p);
         if (idx < 0) idx = 16;   // 第 0 行第 16 号（冒险者外观）作为 PCC 未就绪时的占位
         ctx.drawImage(ch, (idx % COLS) * TILE, Math.floor(idx / COLS) * TILE, TILE, TILE, dx, dy, TILE, TILE);
-      } else {
+      } else if (!drawn) {
         ctx.fillStyle = '#ffd700';
         ctx.fillRect(dx + 8, dy + 8, TILE - 16, TILE - 16);
       }
+      if (markId > 0 && !behind) this.drawItemMark(ctx, p, dx, dy);
     }
 
     /**

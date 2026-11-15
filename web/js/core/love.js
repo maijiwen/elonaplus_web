@@ -68,7 +68,10 @@
    */
   function loveMiracle2(g, c) {
     if (!c) return {};
-    const it = dropAtFeet(g, c, 889);
+    // 224953 `itemcreate -1, 889, var_58(1, 0), var_58(2, 0), 0`：
+    // 落点是**玩家（index 0）脚下**，c 只是提供者（决定 f[23] / f[27]）。
+    const at = (g && g.player) ? g.player : c;
+    const it = dropAtFeet(g, at, 889);
     let f27 = 0;
     if (it) {
       it.f[23] = c.get(27) | 0;                 // var_99(23) = var_58(27)
@@ -162,5 +165,92 @@
     return !!(Elona.ItemDB && Elona.ItemDB.ibit && Elona.ItemDB.ibit(6, it) === 1);
   }
 
-  Elona.Love = { loveMiracle, loveMiracle2, lovePotionGiven, cuddle, isAphrodisiac, dropAtFeet };
+  // ==========================================================================
+  // 情人节（2 月，var_65(11)==2）的两个操作弹窗动作 —— 289744-289753 入口
+  // ==========================================================================
+  /**
+   * 动作 12「チョコをねだる」（290452-290482）。
+   * 入口条件：2 月、好感 >= 200、非玩家自己、var_65(505)==1（当天还没讨过）。
+   * 结算：lovemiracle2 在玩家脚下生成手作りチョコ(889) → 季节台词 →
+   *       「何かが足元に転がってきた。」→ var_65(505)=0 关掉当天的入口。
+   */
+  function begChocolate(g, npc) {
+    if (!npc) return { ok: false, message: '没有对象。' };
+    const r = loveMiracle2(g, npc);
+    const name = npc.name || '对方';
+    const lines = [
+      `「收下吧…这是${name}的心意。」`,
+      `${name}扭扭捏捏地从怀里掏出了一个小包裹。`,
+      `${name}红着脸慌忙把巧克力塞给了你。`,
+      `${name}微笑着展示了藏在身后的巧克力。`,
+      `「…真的可以送给我这样的人吗？」`,
+    ];
+    const rng = (g && g.rng) || Elona.rng;
+    const pick = (rng && typeof rng.rnd === 'function') ? rng.rnd(lines.length) : 0;
+    // 290458-290477：`customtalk var_244, 110` 会把 var_65(191) 置 100，
+    // 只有 NPC 配了台词文件时才有这一组日文多选台词；否则是固定的 "Here you are."。
+    // 汉化口径：两种都给中文（有台词文件 → 5 选 1 演出，没有 → 固定一句）。
+    const hasTalk = !!(npc.talkFile || (Elona.Status && Elona.Status.cbit
+      && Elona.Status.cbit(npc, 989)));
+    let message = hasTalk ? lines[pick] : '「给你。」';
+    message += ' 有什么东西滚到了脚边。';
+    if (g && typeof g.setV65 === 'function') g.setV65(505, 0);   // 290481
+    return { ok: true, message, item: r.item, f27: r.f27 };
+  }
+
+  /**
+   * 动作 15「自分をプレゼント」（290579-290683）。
+   * 按好感 var_58(17) 分 6 档给出反应；< 100 时 modimp 扣分
+   * （290597 -20 / 290614 -10 / 290631 -10），>= 100 只演出不扣分。
+   * 入口条件：2 月、非玩家自己、var_65(515)!=0（活动开启）。
+   */
+  function giftSelf(g, npc) {
+    if (!npc) return { ok: false, message: '没有对象。' };
+    const imp = npc.get(17) | 0;
+    const name = npc.name || '对方';
+    let delta = 0;
+    let message;
+    if (imp < 0) {
+      delta = -20;
+      message = `${name}露骨地露出嫌恶的表情！「好恶心」「离我远点！这个变态！」`;
+    } else if (imp < 50) {
+      delta = -10;
+      message = `${name}是真心觉得你恶心！「别再靠过来了」「护卫！护卫！！」`;
+    } else if (imp < 100) {
+      delta = -10;
+      message = `${name}后退了一步，明显被吓到了。「呜、哇啊…」／${name}决定当作什么都没看见。`;
+    } else if (imp < 150) {
+      message = `${name}的脸僵住了。「诶？」又看了你一眼之后就呆住了…。`;
+    } else if (imp < 200) {
+      message = `${name}苦笑着…。困惑地劝你还是快点去把身体洗干净。`;
+    } else {
+      message = `${name}是真心在担心你的脑袋…。「快去把那些巧克力洗掉吧」`;
+    }
+    if (delta) {
+      if (Elona.Relation && Elona.Relation.modimp) Elona.Relation.modimp(npc, delta, g);
+      else if (Elona.NPC && Elona.NPC.modImp) Elona.NPC.modImp(npc, delta, g);
+      else npc.set(17, Math.max(-100, imp + delta));
+    }
+    return { ok: true, message, delta, friendship: npc.get(17) | 0 };
+  }
+
+  /**
+   * 357146-357151：手工巧克力失败 → 「你弄得浑身都是巧克力」，
+   * var_65(515)=1 打开动作 15「把自己当作礼物」的入口。
+   * 343570-343578：洗澡冲掉巧克力 → var_65(515)=0。
+   */
+  function chocoSplash(g) {
+    if (g && typeof g.setV65 === 'function') g.setV65(515, 1);
+    return { ok: true, message: '你弄得浑身都是巧克力。' };
+  }
+  function washOffChoco(g) {
+    const on = !!(g && typeof g.getV65 === 'function' && (g.getV65(515) | 0) !== 0);
+    if (on && g && typeof g.setV65 === 'function') g.setV65(515, 0);
+    return { ok: true, washed: on, message: on ? '沾在身上的巧克力被冲掉了。' : '' };
+  }
+
+  Elona.Love = {
+    loveMiracle, loveMiracle2, lovePotionGiven, cuddle, isAphrodisiac, dropAtFeet,
+    begChocolate, giftSelf, chocoSplash, washOffChoco,
+  };
 })(window);

@@ -2305,7 +2305,14 @@
       g.log('好烫！');
       gaDamage(g, p, idiv(G(p, 51), 10), -23, p);
       if (sel === 1) { g.log('…又甜又好吃！'); p.set(22, (G(p, 22) + 750) | 0); }
-      else g.log('你弄得浑身都是巧克力。');
+      else {
+        g.log('你弄得浑身都是巧克力。');
+        // 0-W0 / 357146-357151：全身沾满巧克力 → var_65(515)=1，
+        // 打开操作弹窗动作 15「自分をプレゼント」的入口（290749）。
+        // 洗澡时由 Elona.Love.washOffChoco(g) 按 343570-343578 清 0。
+        if (Elona.Love && Elona.Love.chocoSplash) Elona.Love.chocoSplash(g);
+        else if (g.setV65) g.setV65(515, 1);
+      }
       if (g.setV65) g.setV65(13, (g.getV65(13) | 0) + 1);
       return { end: 'turnWeight', made: true, burnt: true };
     }

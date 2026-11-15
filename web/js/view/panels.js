@@ -1196,8 +1196,21 @@
           const target = slice[k];
           // 0-CW：ネクロフォース(743) 需要二次菜单（txtsetnecro 6，332789-332795）
           if (target.id === 743) { this.openNecroMenu(g); return true; }
-          // 0-DC：乗馬(301) 需要先选一个同伴（319690-319760）
-          if (target.id === 301) { this.openRidePick(g); return true; }
+          // 0-X0：乗馬(301) 走 useAbility → 已骑乘直接解散；未骑乘则开 8 方向箭头
+          //   选邻格同伴（319598-319760），再弹 txtsetride 3 项菜单（319749）。
+          //   旧的 this.openRidePick(g) 是全队列表，不画箭头，已不再由 a 键调用。
+          if (target.id === 301) {
+            const r = g.useAbility(301);
+            if (r && r.reason === 'need-ride-direction' && Elona.Riding && Elona.Riding.startDirection) {
+              this.close();
+              const s = Elona.Riding.startDirection(g);
+              this.pushMessage(s.prompt || '骑乘哪个方向？（方向键，Esc 取消）');
+              return true;
+            }
+            if (r && r.message) this.pushMessage(r.message);
+            for (const m of ((r && r.messages) || [])) this.pushMessage(m);
+            return true;
+          }
           // 0-DH：窃盗(300) 先弹物品选择窗（var_486 = 27 → *label_3026，319566-319596）
           if (target.id === 300 && g.stealTargets && g.stealTargets(g.player).length) {
             this.openStealSelect(g);
@@ -1346,24 +1359,25 @@
 
     /**
      * 骑乘对象选择（能力 301「乗馬」，319690-319760）。
-     * 列出槽 1..15 的同伴；选定后进入 3 项菜单（取る / 乗せる / 取消）。
+     * 0-X0：a 键链路改走「8 方向箭头」（Riding.startDirection），本面板保留给
+     * 其它入口作为全队列表兜底；选定后同样进入 3 项菜单。
      */
     openRidePick(g) {
       const R = Elona.Riding;
       if (!R) return;
       const list = R.candidates(g);
       if (!list.length) {
-        this.open('ride-pick', '騎乗', '<div class="pui-note">这里没有可以骑乘的同伴。</div>', {});
+        this.open('ride-pick', '骑乘', '<div class="pui-note">这里没有可以骑乘的同伴。</div>', {});
         return;
       }
       const letters = 'abcdefghijklmnop';
-      let html = '<table class="pui-table"><tr><th>No.</th><th>名前</th><th>速度</th></tr>';
+      let html = '<table class="pui-table"><tr><th>No.</th><th>名字</th><th>速度</th></tr>';
       list.forEach((c, i) => {
         html += `<tr class="pui-row" data-i="${i}"><td>${letters[i] || ''}</td>`
           + `<td>${esc(c.name || '')}</td><td>${c.get(11) | 0}</td></tr>`;
       });
       html += '</table>';
-      this.open('ride-pick', '騎乗', html, { hint: '↑↓ 选择　Enter 确定　a~p 選択　Esc 閉じる' });
+      this.open('ride-pick', '骑乘', html, { hint: '↑↓ 选择　Enter 确定　a~p 选择　Esc 关闭' });
       const act = (k) => {
         if (k < 0 || k >= list.length) return false;
         this.openRide(g, list[k]);
@@ -1379,24 +1393,24 @@
 
     /**
      * 骑乘面板（319749-319767 + txtsetride 11104-11121）。
-     * 3 项：キャンセル / 乗る（你骑它）/ 乗せる（它骑你）。
+     * 3 项：取消 / 骑上它（你骑它）/ 载上它（它骑你）。
      */
     openRide(g, npc) {
       const R = Elona.Riding;
       if (!R || !npc) return;
       const chk = R.canRide(g, npc);
       if (!chk.ok) {
-        this.open('ride', '騎乗', `<div class="pui-note">${esc(chk.message || '')}</div>`, {});
+        this.open('ride', '骑乘', `<div class="pui-note">${esc(chk.message || '')}</div>`, {});
         return;
       }
       const items = R.menu();
       let html = `<div class="pui-note">${esc(npc.name || '')}</div>`;
-      html += '<table class="pui-table"><tr><th>No.</th><th>選択肢</th></tr>';
+      html += '<table class="pui-table"><tr><th>No.</th><th>选项</th></tr>';
       items.forEach((it, i) => {
         html += `<tr class="pui-row" data-i="${it.mode}"><td>${'abc'[i]}</td><td>${esc(it.label)}</td></tr>`;
       });
       html += '</table>';
-      this.open('ride', '騎乗', html, { hint: '↑↓ 选择　Enter 确定　a~c 選択　Esc 閉じる' });
+      this.open('ride', '骑乘', html, { hint: '↑↓ 选择　Enter 确定　a~c 选择　Esc 关闭' });
       const act = (k) => {
         if (k < 0 || k >= items.length) return false;
         const mode = items[k].mode;

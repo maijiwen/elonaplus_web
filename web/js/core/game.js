@@ -289,6 +289,12 @@
       if (day > 30) { day -= 30; this.setV65(11, (this.getV65(11) | 0) + 1); newMonth = true; }
       this.setV65(12, day);
       if ((this.getV65(11) | 0) > 12) { this.setV65(11, 1); this.year++; }
+      // 0-W0 / 603780-603784：2 月 1 日开启情人节的「チョコをねだる」(505=1)，
+      // 同时把当年手工巧克力制作次数 (514) 清零；case 12 讨过之后清 505。
+      if ((this.getV65(11) | 0) === 2 && (this.getV65(12) | 0) === 1) {
+        this.setV65(505, 1);
+        this.setV65(514, 0);
+      }
       // 0-GS / 603560-603612：跨日的播报、心情档位重掷与日记提示
       if (Elona.Hourly) {
         const nd = Elona.Hourly.newDay(this);

@@ -189,10 +189,48 @@ html, body {
 
 /* ---------- NPC 交互 ---------- */
 #npc { width: 460px; }
+/* 0-W0：和同伴「对话」时的窗口按原版截图重排（宽窗、左头像 + 信息栏、右正文 + 选项）。
+   i 键的「操作弹窗」不加这个类，仍是 460px 的单列竖排菜单。 */
+#npc.npc-dialog {
+  /* 0-X0：按用户裁定收窄到 0-W0 的 75%（760 × 0.75 = 570） */
+  width: 570px; max-height: 620px; background-color: #cdb278;
+}
+#npc.npc-dialog::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  background: rgba(184, 142, 52, 0.22); pointer-events: none;
+}
+#npc.npc-dialog > * { position: relative; z-index: 1; }
+#npc.npc-dialog .panel-head { justify-content: center; }
+#npc.npc-dialog #npc-title { font-size: 15px; font-weight: bold; letter-spacing: 2px; }
+#npc.npc-dialog #npc-hint { position: absolute; right: 2px; }
+.npc-body { display: flex; gap: 16px; align-items: flex-start; min-height: 0; }
+.npc-main { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
+.npc-side { display: none; flex: 0 0 172px; width: 172px; }
+#npc.npc-dialog .npc-side { display: block; }
+/* 头像：graphic/face1.bmp / face2.bmp，每格 48×72×2 = 96×144（与 charcreate 同一图集） */
+.npc-face {
+  width: 96px; height: 144px; margin: 2px 0 10px 2px; overflow: hidden;
+  background-repeat: no-repeat; background-size: 1600px 1488px;
+  background-color: #2a1409; border: 3px ridge #7b633f;
+  image-rendering: auto;
+}
+.npc-imp-topic {
+  font-size: 13px; font-weight: bold; color: #1b3f8f;
+  margin: 7px 0 2px; padding-bottom: 1px; border-bottom: 1px solid rgba(27, 63, 143, .35);
+}
+.npc-imp-line { font-size: 13px; color: #2c1f0e; padding-left: 4px; line-height: 1.5; }
+.npc-interest { display: flex; flex-wrap: wrap; gap: 2px; max-width: 166px; padding: 3px 0 2px 4px; }
+.npc-interest i {
+  display: block; width: 14px; height: 10px; border-radius: 5px;
+  background: linear-gradient(#79b9ec 0%, #2b6fc4 55%, #17438c 100%);
+  border: 1px solid #173f7e; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .65);
+}
+.npc-interest span { font-size: 11px; color: #2c1f0e; padding-left: 3px; }
 .npc-text {
   white-space: pre-wrap; line-height: 1.6; color: #2c1f0e;
   min-height: 60px; padding: 6px 2px 10px;
 }
+#npc.npc-dialog .npc-text { min-height: 96px; font-size: 15px; padding: 6px 4px 14px; }
 .npc-text:empty { min-height: 0; padding: 0; }
 /* 0-BW：NPC 互动菜单 —— 原版为竖排列表，左侧是快捷键字母方块
    （原版 display_key / 36940 绘制，字母表 var_446 / 597716） */
@@ -219,6 +257,23 @@ html, body {
 }
 .npc-label { font-size: 14px; }
 .npc-close .npc-label { color: #5a482c; }
+/* 0-W0：原版对话窗的键帽是深色梯形（display_key 的 a/b/c…），
+   选中行铺一条浅色底并在末尾带两个小菱形。操作弹窗仍用上面的方块键帽。 */
+#npc.npc-dialog .npc-action { gap: 10px; padding: 0 6px 0 0; line-height: 1.5; }
+#npc.npc-dialog .npc-action:hover { background: rgba(255, 250, 220, .35); }
+#npc.npc-dialog .npc-action.sel {
+  background: rgba(255, 250, 222, .78); border-color: rgba(90, 70, 40, .55);
+}
+#npc.npc-dialog .npc-action.sel::after {
+  content: '◆ ◆'; margin-left: 6px; font-size: 10px; letter-spacing: 1px;
+  color: #1b3f8f; white-space: nowrap;
+}
+#npc.npc-dialog .npc-key {
+  min-width: 22px; padding: 2px 6px 3px; border: 0; border-radius: 0;
+  background: #3b3124; color: #f2e8cf; font-size: 13px; font-weight: bold;
+  clip-path: polygon(0 0, 100% 0, 86% 100%, 12% 100%);
+}
+#npc.npc-dialog .npc-label { font-size: 15px; }
 .npc-train { display: flex; gap: 6px; margin-top: 8px; }
 .npc-train select {
   flex: 1; background: #e6dcc0; color: #241608; border: 1px solid #6b5a3a; padding: 3px 4px;
@@ -234,6 +289,32 @@ html, body {
 .npc-give button {
   padding: 3px 10px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
 }
+
+/* ---------- NPC 外观编辑器（0-W0：换装 / 改变外形 / 道具图像拖拽） ---------- */
+.ne-wrap { display: flex; gap: 14px; align-items: flex-start; min-height: 300px; }
+.ne-list { flex: 0 0 250px; display: flex; flex-direction: column; gap: 2px; }
+.ne-row { display: flex; align-items: center; gap: 8px; }
+.ne-val { margin-left: auto; color: #1b3f8f; font-family: monospace; font-size: 12px; }
+.ne-preview { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.ne-face {
+  width: 96px; height: 144px; flex: 0 0 auto; overflow: hidden;
+  background-repeat: no-repeat; background-size: 1600px 1488px;
+  background-color: #2a1409; border: 3px ridge #7b633f;
+}
+#ne-pcc {
+  width: 128px; height: 192px; image-rendering: pixelated;
+  border: 1px solid #8a7752; background: rgba(255, 255, 255, .15);
+}
+.ne-note { font-size: 11px; color: #5a482c; text-align: center; line-height: 1.5; }
+#ne-shape { border: 2px ridge #7b633f; image-rendering: pixelated; }
+.ne-canvas-box { border: 2px ridge #7b633f; background: rgba(255, 255, 255, .12); }
+#ne-mark { display: block; cursor: move; }
+.ne-side { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.ne-readout {
+  white-space: pre-line; font-family: monospace; font-size: 13px;
+  color: #241608; line-height: 1.7;
+}
+.ne-hint { font-size: 11.5px; color: #5a482c; line-height: 1.6; }
 
 /* ---------- 掲示板 / 委托 ---------- */
 #quest { width: 620px; }

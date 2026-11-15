@@ -1332,18 +1332,49 @@
       };
     },
 
+    /**
+     * 0-W0：对话窗的两栏排版（用户提供的原版截图）。
+     *   · 标题「名字 性别」、左侧头像 + 好感两行 + 興趣蓝条 + 記念日
+     *   · i 键操作弹窗（npcMode === 'action'）不加 .npc-dialog，仍是单列竖排菜单
+     * 字段由 core/npc.js 的 dialogInfo() 按 426462-426647 组装，本方法只负责写 DOM。
+     */
+    renderNPCSide(game, npc) {
+      const root = this.el('npc');
+      if (!root) return null;
+      const isDialog = this.npcMode !== 'action';
+      root.classList.toggle('npc-dialog', isDialog);
+      if (!isDialog) return null;
+      const info = (Elona.NPC && Elona.NPC.dialogInfo)
+        ? Elona.NPC.dialogInfo(npc, game) : null;
+      if (!info) return null;
+      const title = this.el('npc-title');
+      if (title) title.textContent = info.title;
+      const face = this.el('npc-face');
+      if (face) {
+        face.style.backgroundImage = `url('assets/graphic/${info.face.img}')`;
+        face.style.backgroundPosition = `-${info.face.x | 0}px -${info.face.y | 0}px`;
+      }
+      const l1 = this.el('npc-imp-1'), l2 = this.el('npc-imp-2');
+      const anniv = this.el('npc-anniversary');
+      if (l1) l1.textContent = info.impLine;
+      if (l2) l2.textContent = info.itLine;
+      if (anniv) anniv.textContent = info.anniversary;
+      const bar = this.el('npc-interest');
+      if (bar) {
+        const total = Math.max(0, info.interest | 0);
+        const n = Math.min(total, 22);        // 426619 repeat 每颗 8px，左栏宽 172px
+        bar.innerHTML = (n ? '<i></i>'.repeat(n) : '<span>—</span>')
+          + (total > 22 ? `<span>+${total - 22}</span>` : '');
+      }
+      return info;
+    },
+
     renderNPC(game) {
       const npc = this.npcTarget;
       if (!npc) return;
+      this.renderNPCSide(game, npc);
       if (this.npcMode === 'action') { this.renderActionMenu(game); return; }
-      if (this.npcSelf) {
-        // 原版自身菜单没有标题栏文字，这里用「角色名（自己）」代替
-        this.el('npc-title').textContent = `${npc.name}（自己）`;
-      } else {
-        const role = Elona.NPC.roleOf(npc);
-        const title = Elona.NPC.roleName(role);
-        this.el('npc-title').textContent = title ? `${npc.name} — ${title}` : npc.name;
-      }
+      // 0-W0：标题由 dialogInfo 写成「名字 性别」（426462-426500），不再挂职业名。
       this.el('npc-text').textContent = this.npcText || '';
       if (this.npcDialog) { this.renderTalkActions(game); return; }
       const wrap = this.el('npc-actions');
@@ -1426,6 +1457,7 @@
       const npc = this.npcTarget;
       if (!npc) return;
       const self = (npc.index | 0) === 0;
+      this.el('npc').classList.remove('npc-dialog');   // 0-W0：操作弹窗保持单列窄窗
       this.el('npc-title').textContent = self ? `${npc.name}（自己）` : npc.name;
       // 289481：`name + "に何をする？"`；结算后 npcText 里是这一手的播报，优先显示
       this.el('npc-text').textContent = this.npcText
@@ -1579,10 +1611,11 @@
           return;
         }
 
-        // 8 着替えさせる（*label_2803）
+        // 8 着替えさせる（*label_2803，294968-295245）：PCC 部件 / 肖像编辑器
         case 8:
-          pending('换装', '原版是打开肖像（着替え）编辑器 *label_2803，'
-            + '本项目只有创建角色时的编辑器，还没接到 NPC 身上。');
+          if (!P || !P.openDress) { pending('换装'); return; }
+          P.openDress(game, npc);
+          afterPanel();
           return;
 
         // 9 縄を解く（290030-290039）：清 cbit 985 并在地上留下绳子(733)
@@ -1613,11 +1646,21 @@
           return;
         }
 
-        // 12 / 15 巧克力的两个季节事件
-        case 12:
-        case 15:
-          pending('巧克力事件', 'lovemiracle2 + txtChoco 的季节演出还没接。');
+        // 12 / 15 巧克力的两个季节事件（289744-289753 入口 / 290452、290579 分派）
+        case 12: {
+          const r = (Elona.Love && Elona.Love.begChocolate)
+            ? Elona.Love.begChocolate(game, npc) : null;
+          if (!r || !r.ok) { pending('讨要巧克力'); return; }
+          say(r.message);                 // 已生成手作りチョコ(889) 并清 var_65(505)
           return;
+        }
+        case 15: {
+          const r = (Elona.Love && Elona.Love.giftSelf)
+            ? Elona.Love.giftSelf(game, npc) : null;
+          if (!r || !r.ok) { pending('把自己当作礼物'); return; }
+          say(r.message);                 // 好感 < 100 时按源码 modimp 扣分
+          return;
+        }
 
         // 13 棺に戻す（290483-290544）：死灵使役体 → 暗之棺，落到脚下
         case 13: {
@@ -1627,10 +1670,11 @@
           return;
         }
 
-        // 14 姿を変える
+        // 14 姿を変える（*label_2800，294768-294965）：全屏外形选择器
         case 14:
-          pending('改变外形', '原版 *label_2800 要在全屏里从 user/graphic/Pic_*.bmp 挑外形，'
-            + '素材与选择器都还没做。');
+          if (!P || !P.openShape) { pending('改变外形'); return; }
+          P.openShape(game, npc);
+          afterPanel();
           return;
 
         // 16 タッグ編成（290686+）：把当前对象编成搭档
@@ -1687,8 +1731,8 @@
 
         // 23-26 アイテム画像（脚下道具图标）
         //   23 付与（290111-290115 → label_2824 模式 32）／24 削除（290117-290124）
-        //   25 移動（label_2791）／26 サイズ調整（label_2794）—— 后两个要在画面上
-        //   边看边调，本项目还没有那套全屏拖动光标，保留如实提示。
+        //   25 移動（label_2791）／26 サイズ調整（label_2794）—— 0-W0 起接到
+        //   Panels.openItemMark 的画布内拖拽编辑器，字段改了主循环每帧实时重画。
         case 24:
           npc.set(447, 0);
           say(`删除了${npc.name}的道具图像。`);
@@ -1702,12 +1746,14 @@
           return;
         }
         case 25:
-          pending('移动道具图像', '原版 *label_2791 要在画面上边看边挪（var_58(448/449) + cbit 1025/1052），'
-            + '这层「拖动时实时重画」还没做。');
+          if (!P || !P.openItemMark) { pending('移动道具图像'); return; }
+          P.openItemMark(game, npc, 'move');
+          afterPanel();
           return;
         case 26:
-          pending('调整道具图像', '原版 *label_2794 要在画面上边看边拉伸（var_58(99/46/47)），'
-            + '这层「拖动时实时重画」还没做。');
+          if (!P || !P.openItemMark) { pending('调整道具图像'); return; }
+          P.openItemMark(game, npc, 'adjust');
+          afterPanel();
           return;
 
         // 27 立ち姿を変える → *label_2797
