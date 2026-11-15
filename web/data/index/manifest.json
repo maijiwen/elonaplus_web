@@ -31,6 +31,7 @@
   "feats_mutation.json",
   "fish.json",
   "giftpacks.json",
+  "ingredient_fx.json",
   "item_icons.json",
   "item_materials.json",
   "item_tags.json",
@@ -88,5 +89,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 80
+ "count": 81
 }

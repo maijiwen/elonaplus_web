@@ -161,6 +161,25 @@
    *   英文档仍优先 `en`，缺译回退 `ch` → `jp`。
    * @param {object} [S] 求值作用域（缺失时占位符原样保留）
    */
+  /**
+   * 0-HY：`var_126(n)` 是**当前地图头**（core/map.js 的 `map.header`，100 个 int）。
+   *
+   * 指令表里有三条访问路径，必须同源，否则「写进去」和「读出来」不是一块内存：
+   *   - 条件保留原文 `var_126(27) != 1000`  → scope.var_126
+   *   - 表达式编译成 `VXA(126, 30)`         → scope.VXA
+   *   - 赋值 `var_126(27) = 1000`           → lseta（n=126, i=27）；`+=` 则落到 raw
+   * 街长 74 的政策效果（发言力 26 / 维持费 27·30 / 观光收入 25 / 预算 32）全靠它。
+   */
+  function hdrRead(g, i) {
+    const h = (g && g.map && g.map.header) || null;
+    return h ? (h[i | 0] | 0) : 0;
+  }
+  function hdrWrite(g, i, v) {
+    const h = (g && g.map && g.map.header) || null;
+    if (h) h[i | 0] = v | 0;
+    return v | 0;
+  }
+
   function pick(t, lang, S) {
     if (!t) return '';
     if (typeof t === 'string') return t;
@@ -172,6 +191,10 @@
       str = str.replace(/\{(\d+)\}/g, (m, k) => {
         const ex = t.a[k | 0];
         if (ex === undefined) return '';
+        // 0-HY：`_da(3)` / `_yo(3)` 这些是日文句末助词（だよ/だな…），
+        //   中文里没有对应成分，求值会得到 0 并显示成「每次收300gold0。」。
+        //   汉化串里它们就是 `{0}` 占位，这里直接吞掉。
+        if (/^_[a-z]+\(\s*\d*\s*\)$/i.test(String(ex).trim())) return '';
         const v = ev(ex, S);
         return (v === undefined || v === null) ? '' : String(v);
       });
@@ -333,6 +356,12 @@
       const scope = {
         // ---- 跨模块访问器 ----
         V: (n) => (g && g.getV65 ? (g.getV65(n | 0) | 0) : 0),
+        /**
+         * 0-HY：`var_126(n)` = 当前地图头（见上面的 hdrRead）。
+         *   源码里 381451-381493（街长的 27/26/32 判定）与 4220xx（74 的政策菜单）
+         *   都读它；此前 scope 里没有这个名字，条件一律算成 0，分支恒走「否」。
+         */
+        var_126: (n) => hdrRead(g, n),
         F: (n) => (self.var244 ? (self.var244.get(n | 0) | 0) : 0),
         // 通用带下标访问：CF(下标, 字段) / CN(下标, 名字槽) / CI(背包槽, 字段)
         CF: (i, n) => {
@@ -373,7 +402,7 @@
         SK: (n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
         SKI: (a, n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
         VX: (n) => (VX[n | 0] | 0),
-        VXA: (n, i) => (VXA[(n | 0) * 1000 + (i | 0)] | 0),
+        VXA: (n, i) => ((n | 0) === 126 ? hdrRead(g, i) : (VXA[(n | 0) * 1000 + (i | 0)] | 0)),
         // ---- 具名局部量 ----
         var1302: this.var1302,
         var1303: 0,
@@ -453,6 +482,22 @@
       const p = this.player;
       const inv = (p && p.inv) || [];
       return i >= 0 ? (inv[i | 0] || null) : null;
+    }
+
+    /**
+     * 角色槽 n 指向的角色（0-HY）。
+     *   0   → 玩家；244 → 对话对象；其余按 `_VX[n]` 到 g.charas 里取
+     *   （var_581 的「临时角色」优先用 opts.target，与 scope.F581 一致）
+     */
+    charaOf(n) {
+      const k = n | 0;
+      if (k === 0) return this.player;
+      if (k === 244) return this.var244;
+      if (k === 581 && this.target) return this.target;
+      const VX = this._VX || {};
+      const idx = VX[k] | 0;
+      const list = (this.g && this.g.charas) || [];
+      return list[idx] || null;
     }
 
     /** 同步局部量到 scope（进入每条指令前调用） */
@@ -799,6 +844,12 @@
           case 'show': {
             const items = this.menu.filter((x) => x && x.label);
             this.pc++;
+            // 0-HY：`*label_3068` 收尾有 `var_701 = 0`（425451），菜单显示完计数器归零。
+            //   不归零时，同一段脚本连弹两次菜单（街长 74：管理 → 政策）会把上一份
+            //   选项也带进第二份，菜单里出现「取消/实施政策/…」+「取消/吉祥物/…」。
+            this.var701 = 0;
+            this._scope.var701 = 0;
+            this.menu = [];
             return {
               kind: 'menu',
               text: this.pickText(),
@@ -875,6 +926,16 @@
             this.syncScope();
             const n = d.n | 0;
             const i = ev(d.i, S) | 0;
+            // 0-HY：n == 126 是地图头（`var_126(27) = 1000` 之类），写 map.header
+            if (n === 126) {
+              const cur = hdrRead(this.g, i);
+              const nv = d.o === 'lseta' ? (ev(d.e, S) | 0)
+                : (d.o === 'lsuba' ? cur - (ev(d.e, S) | 0) : cur + 1);
+              hdrWrite(this.g, i, nv);
+              this.pullScope();
+              this.pc++;
+              break;
+            }
             const k = n * 1000 + i;
             if (d.o === 'lseta') this._VXA[k] = ev(d.e, S) | 0;
             else if (d.o === 'lsuba') this._VXA[k] = (this._VXA[k] | 0) - (ev(d.e, S) | 0);
@@ -886,7 +947,13 @@
           case 'cset':
           case 'cadd':
           case 'csub': {
-            const c = (d.tgt === 'player') ? this.player : this.var244;
+            // 0-HY：tgt 三种取值 —— self(var_244) / player(0) / target(var_581)。
+            //   此前 target 与缺省都落到 var_244，导致 `var_58(30, 0) -= 300`
+            //   这类「玩家付钱」改在了 NPC 身上。
+            let c;
+            if (d.tgt === 'player') c = this.player;
+            else if (d.tgt === 'target') c = this.charaOf(581);
+            else c = this.var244;
             if (!c || !c.set) { this.pc++; break; }
             this.syncScope();
             const n = d.n | 0;
@@ -1380,13 +1447,29 @@
           case 'evadd':
           case 'msg_halt':
           case 'raw':
-          default:
+          default: {
+            // 0-HY：地图头写入（`var_126(27) = 1000` / `var_126(25) += 20`）在指令表里
+            //   是 raw。这些是「街长 74 政策 / 法律整备」的实际效果，金额与开关全靠它，
+            //   所以就地按 var_126 = map.header 执行；其余 raw 仍如实记账。
+            const mh = /^var_126\(\s*(\d+)\s*\)\s*(=|\+=|-=)\s*(.+)$/.exec(String(d.s || ''));
+            const hdr = (this.g && this.g.map && this.g.map.header) || null;
+            if (mh && hdr) {
+              this.syncScope();
+              const idx = mh[1] | 0;
+              const v = ev(mh[3], S) | 0;
+              this.pullScope();
+              const old = hdr[idx] | 0;
+              hdr[idx] = mh[2] === '=' ? v : (mh[2] === '+=' ? (old + v) : (old - v));
+              this.pc++;
+              break;
+            }
             this.unsupported = this.unsupported || [];
             if (this.unsupported.length < 8) {
               this.unsupported.push({ l: d.l, o: d.o, src: d.s || '' });
             }
             this.pc++;
             break;
+          }
         }
       }
       this.blocked = 'step-limit';
@@ -1412,9 +1495,26 @@
       this.syncScope();
       const a = (d.a || []).map((x) => ev(x, this.S) | 0);
       this.pullScope();
-      // itemcreate id, x, y, ...（-1 = 放在背包/地面）
-      const id = a[0] | 0;
+      // 29234 `#deffunc itemcreate int prm_558, int prm_559, int prm_560, int prm_561, int prm_562`
+      //   var_428 = prm_558, prm_560, prm_561；var_60 = prm_559 ← **物品 id**；var_694 = prm_562。
+      // 旧实现把 a[0]（prm_558）当物品 id 并 `if (id <= 0) return`，
+      // 而 373 条 itemcreate 里 371 条首参是 -1、2 条是 0 —— 全部被静默跳过。
+      // 最直接的后果就是 A403：光玉分支只写了 var_65(250+N)=1000，物品根本没给玩家。
+      const id = a.length > 1 ? (a[1] | 0) : 0;
       if (id <= 0) return;
+      // 0-L0 / A403：8 位神的光玉收口到 Faith.lightOrb（378792-386247）。
+      // 脚本条件 `P(61)==神 && P(62)>=4000 && V(250+N)==0` 与 lightOrb 的判定同源，
+      // 命中后由它投递到玩家脚边、写旗标与领取记录，不再走通用 itemcreate。
+      const F = Elona.Faith;
+      const orbGod = (F && F.godByOrb) ? F.godByOrb(id) : 0;
+      if (orbGod) {
+        const r = F.lightOrb(this.g, this.player, orbGod);
+        if (r && r.ok) {
+          if (r.message && this.g && this.g.log) this.g.log(r.message);
+          this.pushLog('faith:light-orb:' + id);
+        }
+        return;
+      }
       try {
         const it = DB.createItem(id, 1, this.g && this.g.rng);
         if (!it) return;
@@ -1534,6 +1634,39 @@
       if (!PROG) return null;
       if (!npc) return null;
       return new Session(g, npc, opts);
+    },
+
+    /** 源码行 → 指令下标（找不到返回 -1） */
+    pcOfLine(line) {
+      if (!PROG) return -1;
+      const ins = PROG.instrs || [];
+      for (let i = 0; i < ins.length; i++) {
+        if ((ins[i].l | 0) === (line | 0)) return i;
+      }
+      return -1;
+    },
+
+    /**
+     * 从**指定源码行**起跑一段脚本（0-HY）。
+     *
+     * 用途：NPC 互动菜单里 `var_506 == N` 的分支（410743-425316，已由
+     * tools/extract_talk_scripts.py 的 EXTRA_RANGES 编进指令表）没有独立标签，
+     * 而是一长串顺序 `if ( var_506 == N )`。原版的进入方式是「选完菜单项 →
+     * var_506 = N → 顺序落到对应 if」。这里直接定位那一行的 `jf` 指令、把
+     * var_506 预置成 N，等价于原版进入方式，脚本内部的菜单/扣钱/旗标全按源码跑。
+     *
+     * @param {number} line 源码行号（例：422767 = `if ( var_506 == 98 )`）
+     * @param {object} opts 同 start()，另加 { var506 }
+     */
+    startAtLine(g, npc, line, opts) {
+      if (!PROG || !npc) return null;
+      const pc = Dialogue.pcOfLine(line);
+      if (pc < 0) return null;
+      const o = Object.assign({}, opts);
+      const s = new Session(g, npc, o);
+      s.pc = pc;
+      s.var506 = o.var506 | 0;
+      return s;
     },
 
     get ready() { return !!PROG; },

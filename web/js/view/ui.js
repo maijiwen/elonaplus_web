@@ -349,7 +349,12 @@
 
     /** 装备变化后的数值重算（*label_2174 / label_2225） */
     afterEquipChange(game) {
-      if (Elona.Stats) {
+      // 0-HZ：装备变化后走完整的 *label_2174 重算（先「基础值 → 当前值」复位，再叠装备/天赋/增益）。
+      //   原来分别调用 applyEquipment + applySkillCorrections，**缺了复位那一步**，
+      //   于是每换一次装备，附魔提供的技能加成会再叠一次。
+      if (Elona.Stats && Elona.Stats.recalcStats) {
+        try { Elona.Stats.recalcStats(game.player, game); } catch (e) { /* 未就绪 */ }
+      } else if (Elona.Stats) {
         Elona.Stats.applyEquipment(game.player, game);
         Elona.Stats.applySkillCorrections(game.player, game);
         Elona.Stats.refreshSpeed(game.player, game);
@@ -1680,9 +1685,9 @@
             this.openShop(game, r.keeper, r.shopMode);
             return;
           }
-          if (r.action === 'aside') {                 // 0-BX：「让开」
-            this.pushMessage(r.message);
-            this.npcText = r.message;
+          if (r.action === 'aside') {                 // 0-BX / 0-HX：动作 106（换位）
+            if (r.message) this.pushMessage(r.message);
+            this.npcText = r.message || '';
             this.closeNPC();
             return;
           }
@@ -1763,6 +1768,16 @@
             if (Elona.Panels && Elona.Panels.openCharaInfo) {
               Elona.Panels.openCharaInfo(game, r.target || npc);
             }
+            return;
+          }
+          // 0-HY：脚本驱动的服务项（98 Boss 情报 / 74 街道管理）。
+          //   perform() 返回 { session }，交给对话解释器跑源码那一段，
+          //   菜单、收费、参数改动都由 talkscripts.json 承载。
+          if (r && r.session) {
+            this.npcSession = r.session;
+            this.npcDialog = null;
+            this.npcText = '';
+            this.advanceTalk(game);
             return;
           }
           if (r.message) {

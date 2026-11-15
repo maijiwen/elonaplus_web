@@ -64,7 +64,9 @@
    */
   function refresh(c, g) {
     try {
-      if (Elona.Stats && Elona.Stats.applyEquipment) Elona.Stats.applyEquipment(c, g);
+      // 0-HZ：源码 320397 是 `gosub *label_2174` → 走完整重算（含基础值复位）
+      if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(c, g);
+      else if (Elona.Stats && Elona.Stats.applyEquipment) Elona.Stats.applyEquipment(c, g);
     } catch (e) { /* 测试环境可能没有完整 g */ }
   }
 

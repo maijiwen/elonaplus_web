@@ -811,7 +811,7 @@
     return { implemented: true, melee: true };
   };
   // 炼成雨 328514-328596：消耗一瓶药水，对视野内**自己与同伴**按 90% 强度各用一次
-  //   （射程 var_83(3,656)/1000+1、要有视线、非精油/挥发油则濡湿 25）。
+  //   （射程 var_83(3,656)\1000+1 = 7、要有视线、非精油/挥发油则濡湿 25）。
   //   药水由 `g.potionChoice` 指定；未指定时取背包里第一瓶可用药水（见 core/potion.js 的差异说明）。
   T[751] = (g, c) => {
     const P = Elona.Potion;
@@ -960,7 +960,7 @@
     // A99（0-HG）：源码取的是 var_58(30) 所持金，var_58(20) 是体重，不能混用。
     //   326968 不足 2000 金不发动；327019 每命中一个目标扣 200 金（不是一次扣光）。
     // 0-HS：326971 的 `repeat 10` 已按源码补齐 —— 每轮重新 `gosub *label_2841`
-    //   （= Aim.candidates，射程 656/鼓舞 f3=3006 → 4 格）随机取一个目标，
+    //   （= Aim.candidates，射程 656/鼓舞 f3=3006 取余 → 7 格，0-Q0 / Q-N1）随机取一个目标，
     //   最多打 10 个；只有真正命中才扣 200 金，因此一回合最多花 2000。
     const R = rndOf(g);
     if ((c.get(30) | 0) < 2000) return { implemented: true, nothing: true, reason: 'gold' };
@@ -2236,6 +2236,82 @@
       }
     }
     return { implemented: true };
+  };
+
+  // ------------------------------------------------------------------
+  // 0-K0 / A375：3000 档（W 页广域技能）里此前没有任何效果分支的 9 条。
+  // 全部按 hsp/start.hsp 的 `*label_2965` / `*label_2960` 逐条落地。
+  // 原版依赖逐格视线 fov_los 与逐帧动画，项目统一沿用既有的 nearEach（半径 4，
+  // 即 var_83(3,656)\1000+1）与「日志代替动画」，与 0-HL 的 15 条广域能力口径一致。
+  // ------------------------------------------------------------------
+
+  /** 627 空间扭曲 317949-317955：`var_2449 == 410 | 627` 时把目标随机位移 */
+  T[627] = (g, c, t) => {
+    const R = rndOf(g);
+    const dx = (3 + R(5)) * (R(2) ? 1 : -1);
+    const dy = (3 + R(5)) * (R(2) ? 1 : -1);
+    const x = (t.x | 0) + dx, y = (t.y | 0) + dy;
+    if (!g.map || !g.map.inBounds || !g.map.inBounds(x, y)) return { implemented: true, moved: false };
+    t.x = x; t.y = y;
+    if (visible(g, t)) say(g, `${nm(t)}的身影扭曲了一下。`);
+    return { implemented: true, moved: true, x, y };
+  };
+
+  /** 637 狂气治愈之雨 316320 / 316437-316450：动画 46，同阵营范围治疗 */
+  T[637] = (g, c) => {
+    const R = rndOf(g);
+    let n = 0;
+    nearEach(g, c, true, (m) => {
+      if (!sameSide(c, m)) return;
+      const amt = idiv(m.get(51) | 0, 5) + R(10) + 5;
+      if (Elona.Status && Elona.Status.healhp) Elona.Status.healhp(m, amt);
+      n++;
+    });
+    say(g, `${nm(c)}唤来了一阵治愈之雨。`);
+    return { implemented: true, healed: n };
+  };
+
+  /** 779 盾牌架挡 330564-330613：同阵营、持盾者（96==1 且 32&1）得 buff 51 40/40 */
+  T[779] = (g, c) => {
+    let n = 0;
+    nearEach(g, c, true, (m) => {
+      if (!sameSide(c, m)) return;
+      if ((m.get(96) | 0) !== 1 || ((m.get(32) | 0) & 1) === 0) return;
+      buff(g, m, 51, 40, 40); n++;
+    });
+    say(g, `${nm(c)}架起了盾阵。`);
+    return { implemented: true, guarded: n };
+  };
+
+  /** 783 重力偏转 330617-330650：buff 52 强度 = limit(262+20, 20, sorg(18)/2) 上限 300 */
+  T[783] = (g, c) => {
+    let n = 0;
+    nearEach(g, c, true, (m) => {
+      if (!sameSide(c, m)) return;
+      const spd = (Elona.Stats && Elona.Stats.sorg) ? (Elona.Stats.sorg(m, 18) | 0) : 0;
+      let pw = limit((m.get(262) | 0) + 20, 20, idiv(spd, 2));
+      if (pw > 300) pw = 300;
+      buff(g, m, 52, pw, 40);
+      m.set(262, (m.get(262) | 0) + 20);
+      n++;
+    });
+    say(g, `${nm(c)}偏转了重力。`);
+    return { implemented: true, deflected: n };
+  };
+
+  /** 803 *Purge* 333546-333575：仅 `var_65(250+23)==5` 生效，范围内敌人 HP/MP 归零 */
+  T[803] = (g, c) => {
+    const flag = g.getV65 ? (g.getV65(250 + 23) | 0) : 0;
+    if (flag !== 5) return { implemented: true, nothing: true };
+    let n = 0;
+    nearEach(g, c, false, (m) => {
+      if ((m.get(9) | 0) !== -3) return;
+      m.set(50, 0);   // var_58(50) 当前 HP
+      m.set(55, 0);   // var_58(55) 当前 MP
+      n++;
+    });
+    say(g, `${nm(c)}净化了四周。`);
+    return { implemented: true, purged: n };
   };
 
   // ------------------------------------------------------------------

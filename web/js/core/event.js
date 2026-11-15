@@ -77,6 +77,60 @@
 
     // ---- 0-GI：地图事件批次（警报 / 固定 NPC / 消失 / BGM） ----
     /**
+     * 18（611783-611874）：诸神黄昏（Ragnarok）/ 谢幕演出（Curtain Call）
+     *   - 611785：大地图（var_126(6) == 1）直接跳过
+     *   - 611788-611790：var_65(250+35)++，天气设为 1（var_65(17)=1），切 BGM
+     *   - 611792-611802：若 var_65(623) < 9999 && var_65(623) >= 0（道具/武器特技触发的 Ragnarok）：
+     *       txt_select「終末の時が訪れた。」/ "Let's Ragnarok!"，主角 var_58(85,0) = -1
+     *   - 611803-611810：若 var_65(623) >= 9999 || var_65(623) < 0（Curtain Call）：
+     *       txt_select「*カーテンコール*」/ " *Curtain Call* "
+     *   - 611813-611872：引发火雨与骚乱（repeat 200）：
+     *       随机格生成火 mef（type 5）并点燃地面物品，随机生成巨龙/巨人或 973，伴随爆炸音效
+     *   - 611873：var_65(250+380) = 0
+     */
+    18(g, a, b) {
+      if (!g) return { handled: false };
+      const isWorld = (g.getV65 && (g.getV65(20) | 0) === 2) || (g.isWorldMap && g.isWorldMap());
+      if (isWorld) return { handled: true, skipped: 'world_map' };
+
+      if (g.setV65 && g.getV65) {
+        g.setV65(285, (g.getV65(285) | 0) + 1); // var_65(250+35) 终末次数
+        g.setV65(17, 1); // 阴天/天气恶化
+      }
+
+      const heat = g.getV65 ? (g.getV65(623) | 0) : 0;
+      const isCurtainCall = heat >= 9999 || heat < 0;
+
+      if (isCurtainCall) {
+        if (g.log) g.log(' *谢幕演出* （*カーテンコール*）！');
+      } else {
+        if (g.log) g.log('终末之时降临了。（Let\'s Ragnarok!）');
+        if (g.player && g.player.set) g.player.set(85, -1);
+      }
+
+      // 地图火雨与骚乱
+      if (g.map && g.map.width && g.map.height) {
+        const w = g.map.width, h = g.map.height;
+        const rng = g.rng || Math;
+        const rnd = (n) => typeof rng.rnd === 'function' ? rng.rnd(n) : Math.floor(Math.random() * n);
+        const count = Math.min(20, Math.floor((w * h) / 30) + 5);
+        for (let i = 0; i < count; i++) {
+          const rx = rnd(w), ry = rnd(h);
+          if (g.map.inBounds && g.map.inBounds(rx, ry)) {
+            if (g.mef && typeof g.mef.add === 'function') {
+              g.mef.add(g, rx, ry, 5, 24, rnd(15) + 20, 50, a | 0);
+            }
+            if (g.mapitemFire && typeof g.mapitemFire === 'function') {
+              g.mapitemFire(rx, ry);
+            }
+          }
+        }
+      }
+      if (g.playSnd) g.playSnd(6);
+      if (g.setV65) g.setV65(630, 0); // var_65(250+380) = 0
+      return { handled: true, curtainCall: isCurtainCall };
+    },
+    /**
      * 22（611877-611902）：警报 —— 除 606 号与任务目标外，全场 NPC 转为敌对。
      *   611879 事件参数 x == 0 时触发
      *   611884 `var_58(9) = -3`（敌对）、`var_58(29) = 0`、`var_58(201) = 250`（行动延迟）

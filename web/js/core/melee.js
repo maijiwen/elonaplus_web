@@ -60,7 +60,9 @@
   /** 631 群击（327081-327134） */
   function swarm(g, caster) {
     log(g, '群击！');
-    const range = idiv(field(631, 3), 1000) + 1;
+    // 323152 / 327050 / 327121 / 327179：`var_83(3,631) \ 1000 + 1`
+    //   0-Q0 / Q-N1：HSP `\` 取余 → 10000 → 1 格（源码「隣接対象通常近接攻撃」）
+    const range = (field(631, 3) % 1000) + 1;
     const berserk = findbuff(caster, 40) !== -1;             // 暴走 buff 40
     const dragon = (caster.get(27) | 0) === 599;             // 599 无视敌我
     let hits = 0;
@@ -75,7 +77,7 @@
           continue;
         }
       }
-      if (dist(caster, t) > range) continue;                 // var_83(3,631)\1000+1
+      if (dist(caster, t) > range) continue;                 // var_83(3,631)\1000+1（0-Q0 取余）
       if (!los(g, caster, t)) continue;
       melee(g, caster, t);
       hits++;

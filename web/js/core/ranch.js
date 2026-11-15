@@ -238,13 +238,22 @@
     },
 
     /**
-     * getworker（32233-32249）：在 1..15 号角色里找 var_58(80)==mapId。
-     * 原版 1..15 是「店员/家畜」专用槽；本项目没有槽位约定（NPC 分散在任意下标），
-     * 所以先按原版顺序找 1..15，找不到再放宽到全表（见差异报告）。
+     * getworker（32233-32249）：`repeat 16` 跳过 cnt==0 → 只查 1..15 号角色里
+     *   `var_58(80) == prm_680` 的那个，返回槽位号，找不到返回 -1。
+     *   第二参 `prm_681 != 0` 时**只查该槽位**（233749 用它判定指定店员是否还在）。
+     * 0-Q0 / A95：本项目 charas 是动态数组（NPC 从 57 起），严格 1..15 会永远找不到
+     *   种畜，故保留「1..15 优先 + 全表兜底」；但补上第二参的限定槽位语义，
+     *   让 233749 这类调用能按源码口径判定。
      */
-    getWorker(g, mapId) {
+    getWorker(g, mapId, slot) {
       const id = (mapId === undefined) ? this.workerKey(g) : (mapId | 0);
       if (id <= 0) return null;
+      const only = slot | 0;
+      if (only > 0) {
+        const c = g.charas[only];
+        if (!c || (c.get(0) | 0) !== 1 || (c.get(80) | 0) !== id) return null;
+        return c;
+      }
       let fallback = null;
       for (let i = 0; i < g.charas.length; i++) {
         const c = g.charas[i];

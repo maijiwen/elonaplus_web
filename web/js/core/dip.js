@@ -75,9 +75,14 @@
     it.f[0] = (it.f[0] | 0) - 1;
     return it.f[0] | 0;
   }
-  /** 装备变化后重算（label_2174 → 项目 Stats） */
+  /** 装备变化后重算（label_2174 → 项目 Stats.recalcStats） */
   function recalcEquip(g, owner) {
     if (!owner || !Elona.Stats) return;
+    // 0-HZ：必须走 recalcStats（含「基础值 → 当前值」复位），否则附魔技能会累加
+    if (Elona.Stats.recalcStats) {
+      try { Elona.Stats.recalcStats(owner, g); } catch (e) { /* 未就绪 */ }
+      return;
+    }
     if (Elona.Stats.applyEquipment) Elona.Stats.applyEquipment(owner, g);
     if (Elona.Stats.applySkillCorrections) Elona.Stats.applySkillCorrections(owner, g);
     if (Elona.Stats.refreshSpeed) Elona.Stats.refreshSpeed(owner, g);

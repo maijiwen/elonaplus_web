@@ -175,8 +175,9 @@
       else resist++;
     }
     if (okCount) {
-      if (Elona.Stats && Elona.Stats.applyEquipment) Elona.Stats.applyEquipment(target, g);
+      // 0-HZ：解咒后重算一次即可（recalcStats 内部已含 applyEquipment）
       if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+      else if (Elona.Stats && Elona.Stats.applyEquipment) Elona.Stats.applyEquipment(target, g);
     }
     return {
       ok: true, implemented: true, target, uncursed: okCount, resisted: resist,
@@ -503,8 +504,17 @@
     if (chance < R(g, 100)) {
       return { ok: true, implemented: true, revived: false, message: '你的力量没能抵达冥界。' };
     }
-    // 320531-320561：原版 `gosub *label_2707` 让玩家选人；本项目取第一个
-    // 「还有复活次数」的死者（登记 A398）。
+    // 320531-320561：原版 `gosub *label_2707` 让玩家选人（队伍列表 + 邻格箭头）。
+    // 本项目把候选交给视图层的同伴选择窗（Panels.openAllySelect），
+    // 由 main.js 的 consumeSpellRequest 消费 'revive-select' 后再 finishRevive；
+    // 只有一名候选时不弹窗，直接复活（与「选人窗里只有一项」等价）。
+    if (pool.length > 1) {
+      return {
+        ok: true, implemented: true, revived: false,
+        request: 'revive-select', candidates: pool,
+        message: '要复活谁？',
+      };
+    }
     const c = pool[0];
     const fin = finishRevive(g, caster, c);
     return {

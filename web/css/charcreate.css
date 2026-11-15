@@ -535,8 +535,9 @@
 .cc-bless-grid i { width: 34px; height: 30px; }
 
 /* 0-FI：c 键人物信息第 1 页复用创建总览的同一段 HTML */
+/* 0-HZ：第 1 页整窗缩到 75%，弹窗宽度随之从 880px 收到 640px（624 + 余量） */
 .pui-box.ci-sheet {
-  width: 880px; max-height: 94%;
+  width: 640px; max-height: 94%;
   background: transparent; border: 0; outline: 0; box-shadow: none;
 }
 .pui-box.ci-sheet .pui-head { display: none; }   /* DOM 保留，供回归脚本读标题 */
@@ -558,3 +559,16 @@
 }
 .ci-sheet-wrap .cc-sum-portrait { right: 24px; }
 .ci-sheet-wrap .cc-summary { left: 84px; right: 52px; }
+
+/* 0-HZ：用户要求整窗缩到原来的 75%。
+   外框 .ci-zoom 占 624×420（= 832×560 的 75%）承担布局与滚动尺寸，
+   内层 .ci-sheet-wrap 用 transform 等比缩放 —— 里面的绝对定位（.cc-summary 等）
+   一并跟着缩，不必逐个改 px。 */
+.ci-zoom {
+  width: 624px; height: 420px; margin: 0 auto; overflow: hidden;
+}
+.ci-zoom .ci-sheet-wrap {
+  transform: scale(.75);
+  transform-origin: top left;
+  margin: 0;
+}

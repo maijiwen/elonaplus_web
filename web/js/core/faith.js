@@ -121,6 +121,23 @@
   ];
 
   function godOf(id) { return GODS[id | 0] || GODS[0]; }
+
+  /**
+   * 0-L0 / A403：光玉物品 id / 神降临 NPC 种族 id → 神 id。
+   * 源码 378792-386247 的 8 条分支一一对应：
+   *   NPC 306/331/338/339/342/359/482/484 → 神 2/4/5/7/1/6/8/3
+   *   光玉 819/820/821/822/823/824/828/829 → 旗标 var_65(485..492)
+   * 对话脚本里是 `itemcreate -1, <光玉>, x, y, 0`，用物品 id 反查即可把
+   * 投递收口到 lightOrb()，不必在 8 个分支里各写一遍。
+   */
+  const GOD_BY_ORB = Object.create(null);
+  const GOD_BY_NPC = Object.create(null);
+  for (const gd of GODS) {
+    if (gd.orb) GOD_BY_ORB[gd.orb] = gd.id;
+    if (gd.npc) GOD_BY_NPC[gd.npc] = gd.id;
+  }
+  function godByOrb(id) { return GOD_BY_ORB[id | 0] | 0; }
+  function godByNpc(id) { return GOD_BY_NPC[id | 0] | 0; }
   function nameOf(id, lang) {
     const g0 = godOf(id);
     return lang === 'en' ? g0.en : g0.name;
@@ -792,7 +809,7 @@
     V_STAGE, V_SUMMONED, V_RESERVED, V_NO_DECAY,
     ITEM_SEAL, ITEM_MAP, ITEM_WATER, ITEM_ETHER_ANTIDOTE,
     BUFF_PUNISH, BUFF_HOLY_VEIL,
-    godOf, name: nameOf, altarAt, altarScene, assignNpcFaith, SPECIES_GOD,
+    godOf, godByOrb, godByNpc, GOD_BY_ORB, GOD_BY_NPC, name: nameOf, altarAt, altarScene, assignNpcFaith, SPECIES_GOD,
     pietyOf: (c) => (c.get(F_PIETY) | 0),
     chargeOf: (c) => (c.get(F_CHARGE) | 0),
     capOf: pietyCap,

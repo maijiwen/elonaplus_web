@@ -558,8 +558,12 @@
       return this._skillDesc;
     },
 
-    /** 潜力 → 评价（原版 233091-233130 的七档） */
+    /**
+     * 潜力 → 评价（原版 293783-293830 的七档）
+     * 入参是**成长率**（`var_82(id+600)` 打包值的低三位），不是经验值。
+     */
     attrRank(pot) {
+      if (Elona.CharCreate && Elona.CharCreate.rankOf) return Elona.CharCreate.rankOf(pot);
       const v = pot | 0;
       if (v >= 400) return 'Supreme';
       if (v >= 300) return 'Amazing';
@@ -568,6 +572,11 @@
       if (v >= 100) return 'Good';
       if (v >= 50) return 'Bad';
       return 'Hopeless';
+    },
+
+    /** 打包潜力值的低三位 = 成长率 sgrowth（HSP 的 `\` 是取余，见 skillRows） */
+    growthOf(p, id) {
+      return ((p.potential && p.potential[id]) | 0) % 1000;
     },
 
     /** 技能列表：100..399 中已习得的技能，按 id 升序（原版按此顺序列出） */
@@ -622,7 +631,9 @@
         items: RESIST_ROWS.map(([id, label]) => {
           const v = p.skill ? (p.skill(id) | 0) : 0;
           const raw = (p.potential && p.potential[id]) | 0;
-          const potv = idiv(raw % 1000000, 1000);
+          // 成长率 = 打包值低三位（sgrowth）。原来取 `%1e6/1000` 是经验值，
+          // 对耐性/属性这类「没有经验」的键恒为 0，于是永远显示 Hopeless。
+          const potv = raw % 1000;
           const act = descs[String(id)] || {};
           // 原版耐性是 var_82(50..60)：0 = 完全没有，100 = 普通，>100 = 有耐性。
           // 显示成「数值 + 档位」，一眼能看出是「真的没数据」还是「本来就没有耐性」。
@@ -787,17 +798,30 @@
         { ch: '学习', icon: '◆', color: '#2b5fa8' }, { ch: '意志', icon: '◆', color: '#8e8a1e' },
         { ch: '魔力', icon: '◆', color: '#128ca0' }, { ch: '魅力', icon: '◆', color: '#bb2020' },
       ];
+      // 293776-293783：左「当前值 var_82(10+n)」、右「(基础值 var_82(10+n+600)/1e6)」，
+      //   末尾的 `*` = 该属性上有装备附魔（encfind(c, 60000 + 属性id)）。
       const attrs = ATTR.map((a, i) => {
         const id = 10 + i;
         const v = p.skill ? (p.skill(id) | 0) : 0;
-        const potv = idiv(((p.potential && p.potential[id]) | 0) % 1000000, 1000);
-        return { icon: a.icon, color: a.color, ch: a.ch, value: v, rank: this.attrRank(potv) };
+        const base = (Elona.Stats && Elona.Stats.sorg) ? (Elona.Stats.sorg(p, id) | 0) : v;
+        const star = (Elona.ItemDB && Elona.ItemDB.encfind
+          && Elona.ItemDB.encfind(p, 60000 + id) !== -1) ? '*' : '';
+        return {
+          icon: a.icon, color: a.color, ch: a.ch,
+          value: v, base, star,
+          rank: this.attrRank(this.growthOf(p, id)),
+        };
       });
       const timeText = `${g.getV65(11) | 0}/${g.getV65(12) | 0} ${(g.getV65(13) | 0)}:00`;
-      const weight = (Elona.Feat && Elona.Feat.invWeight) ? Elona.Feat.invWeight(p) : 0;
+      // 293898-293905：荷车重量 var_65(80) / 荷车界限 var_65(82) / 装备重量 var_58(64)
+      //   原来「上限」读的是 var_58(53)（= 最大 SP），装备重量与荷车重量读的是同一个值。
+      const wt = (v) => `${(Math.round(((v | 0) / 1000) * 10) / 10).toFixed(1)}s`;
+      const cargo = (Elona.Feat && Elona.Feat.invWeight)
+        ? Elona.Feat.invWeight(p, g) : (p.get(64) | 0);
+      const cargoCap = (g.getV65(82) | 0) || (p.get(43) | 0);
       const misc = [
-        `荷车重量 ${weight} / 上限 ${(p.get(53) | 0) || 140} s`,
-        `装备重量 ${weight}`,
+        `荷车重量 ${wt(cargo)} / 上限 ${wt(cargoCap)}`,
+        `装备重量 ${wt(p.get(64) | 0)}`,
         `回合 ${g.turn | 0} / 总时间 ${timeText}`,
         '证明：无持续效果',
       ];
@@ -823,23 +847,61 @@
         attrs, misc,
         modeName: mode.zh,
         essential: [
-          `HP/MP　${p.hp | 0}/${p.hpMax | 0}　${p.mp | 0}/${p.mpMax | 0}`,
-          `生命力　${p.get(2) | 0}(${p.get(52) | 0})`,
-          `魔力　${p.get(3) | 0}(${p.get(53) | 0})`,
+          // 293845-293850：var_121(0..) 依次是
+          //   var_58(50)/var_58(55)（当前 HP / 当前 MP，**不是**上限）
+          //   var_82(2)(sorg(2))   生命力：当前值（基础值）
+          //   var_82(3)(sorg(3))   魔力
+          //   var_58(86)           疯狂度
+          //   var_58(11)(sorg(18)) 速度
+          //   var_2235             名声（负值按 0 显示）
+          //   var_58(49, 0)        业力（只读玩家槽 0）
+          `HP/MP　${p.hp | 0}/${p.mp | 0}`,
+          `生命力　${p.skill(2) | 0}(${(Elona.Stats ? Elona.Stats.sorg(p, 2) : 0) | 0})`,
+          `魔力　${p.skill(3) | 0}(${(Elona.Stats ? Elona.Stats.sorg(p, 3) : 0) | 0})`,
           `疯狂度　${p.get(86) | 0}%`,
-          `速度　${p.get(11) | 0}`,
-          `名声　${p.get(34) | 0}　业力　${p.get(49) | 0}`,
+          `速度　${p.get(11) | 0}(${(Elona.Stats ? Elona.Stats.sorg(p, 18) : 0) | 0})`,
+          `名声　${Math.max(0, p.get(34) | 0)}　业力　${(g.player ? (g.player.get(49) | 0) : (p.get(49) | 0))}`,
           `战力评价　${this.combatRating(p) | 0} 阶相当`,
         ],
         profile: this.profileLines(p, g).length ? this.profileLines(p, g) : ['（还没有记录）'],
         bless: 15,
-        fix: [
-          [`格斗　${this.meleeText(p)}`, `减轻　${p.get(48) | 0}%`],
-          [`魔法威力　${this.magicPowerText(p)}`, `命中　${this.hitText(p)}`,
-            `回避　${this.evadeText(p)}`],
-        ],
+        // 293853-293900 + *label_2811/2813：全部由 battle.js 的正式公式算出
+        fix: this.correctionFix(g, p),
       });
-      return `<div class="ci-sheet-wrap">${html}</div>`;
+      // 0-HZ：整窗按 75% 缩放（外框 .ci-zoom 保持布局尺寸，内层用 transform 缩）
+      return `<div class="ci-zoom"><div class="ci-sheet-wrap">${html}</div></div>`;
+    },
+
+    /**
+     * 「各种修正」两列（源码 293853-293900 的布局）：
+     *   左列 格斗 NdM+B x倍率 ／ 减轻 P% + NdM
+     *   右列 魔法威力 % ／ 命中 % ／ 回避 %
+     * 数据全部来自 Elona.Battle.infoCorrection —— 换装备、加 buff、升技能后立刻反映。
+     */
+    correctionFix(g, p) {
+      const empty = [['格斗　—'], ['魔法威力　—', '命中　—', '回避　—']];
+      if (!Elona.Battle || !Elona.Battle.infoCorrection) return empty;
+      let r;
+      try { r = Elona.Battle.infoCorrection(g, p); } catch (e) { return empty; }
+      if (!r || !r.ok) return empty;
+      // cnvfix(var_1386)：正数带 +，0 省略
+      const b = r.meleeB | 0;
+      const melee = `${r.meleeN}d${r.meleeS}${b > 0 ? '+' + b : (b < 0 ? b : '')}`
+        + ` x${this.hsp3(r.meleeX)}`;   // 源码 strmid(var_1387, 0, 3) —— 倍率取 3 字符，如 "1.1"
+      return [
+        [`格斗　${melee}`, `减轻　${r.protPct}% + ${r.protN}d${r.protS}`],
+        [`魔法威力　${r.spell}%`, `命中　${r.hit}%`, `回避　${r.evade}%`],
+      ];
+    },
+
+    /**
+     * HSP 的 `"" + 実数` 至少带一位小数，再经 `strmid(s, 0, 3)` 截 3 字符：
+     *   1.14 → "1.1"、1 → "1.0"、0.85 → "0.8"。
+     */
+    hsp3(v) {
+      let s = String(Math.round((v || 0) * 100) / 100);
+      if (s.indexOf('.') < 0) s += '.0';
+      return s.slice(0, 3);
     },
 
     /** 瞄准确认后要继续发动的能力 id（openAbilities → openAim → 确认） */
@@ -1324,28 +1386,33 @@
       const sum = p.skill ? ((p.skill(10) + p.skill(11) + p.skill(12) + p.skill(13)) | 0) : 0;
       return lv * 10 + idiv(sum, 4);
     },
-    /** 打撃修正（展示用：按戦術技能换算的 NdM 形式） */
-    meleeText(p) {
-      const s = Elona.Stats ? (Elona.Stats.sorg(p, 104) | 0) : 0;
-      return `${2 + idiv(s, 20)}d${10 + s}+${s * 3}`;
+    // 0-HZ：以下四个旧实现是「按 sorg 换算的近似值」，与源码公式无关，
+    //   曾让「各种修正」看起来是写死的。现在统一由 Elona.Battle.infoCorrection
+    //   （infoCorrection / magicPowerOf，293853-293900）提供，这里只保留薄封装，
+    //   避免外部调用点（若有）拿到两套口径。
+    meleeText(g, p) {
+      const r = (Elona.Battle && Elona.Battle.infoCorrection && g)
+        ? Elona.Battle.infoCorrection(g, p) : null;
+      if (!r || !r.ok) return '—';
+      const b = r.meleeB | 0;
+      return `${r.meleeN}d${r.meleeS}${b > 0 ? '+' + b : (b < 0 ? b : '')}`;
     },
-    /** 魔法威力（293863-293869）：附魔 34 的 var_58(98) + 魔力，含变异壳/var_65(428) 修正 */
-    magicPowerText(p) {
-      const idiv = (a, b) => Math.trunc(a / b);
-      const limit = (v, a, b) => (v < a ? a : (v > b ? b : v));
-      let v = idiv(limit(idiv((p.get(98) | 0) * 2, 3), 0, 1000), 10)
-        + limit(idiv(p.skill(16), 10), 0, 150) + 100;
-      if ((p.get(64) | 0) >= 15000 && (p.get(64) | 0) < 35000
-        && Elona.Status && Elona.Status.findbuff(p, 34) !== -1) v = idiv(v * 6, 5);
-      return `${v}%`;
+    /** 魔法威力（293863-293869）：var_58(98) 附魔 + 魔力，含重量/变异壳修正 */
+    magicPowerText(g, p) {
+      if (Elona.Battle && Elona.Battle.magicPowerOf) {
+        return `${Elona.Battle.magicPowerOf(g || Elona.__game, p)}%`;
+      }
+      return '—';
     },
-    hitText(p) {
-      const s = Elona.Stats ? (Elona.Stats.sorg(p, 104) | 0) : 0;
-      return `${100 + s}%`;
+    hitText(g, p) {
+      const r = (Elona.Battle && Elona.Battle.infoCorrection && g)
+        ? Elona.Battle.infoCorrection(g, p) : null;
+      return r && r.ok ? `${r.hit}%` : '—';
     },
-    evadeText(p) {
-      const s = Elona.Stats ? (Elona.Stats.sorg(p, 187) | 0) : 0;
-      return `${100 + s}%`;
+    evadeText(g, p) {
+      const r = (Elona.Battle && Elona.Battle.infoCorrection && g)
+        ? Elona.Battle.infoCorrection(g, p) : null;
+      return r && r.ok ? `${r.evade}%` : '—';
     },
 
     /**

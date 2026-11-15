@@ -78,8 +78,10 @@
    *         var_58(140) == 30/31                  → 跳过（正在被搬运/寄生）
    *       最后按「离自己最近」做插入排序
    *
-   * 射程 `var_83(3, 656)`：656 号是「鼓舞」，`f3 = 3000+6 = 3006`
-   *   → `3006 \ 1000 + 1 = 4` 格。这就是角色锁定模式的射程上限。
+   * 射程 `var_83(3, 656)`：656 号是「鼓舞」，`f3 = 3000 + 6 = 3006`。
+   *   0-Q0 / Q-N1：HSP 的 `\` 是**取余**不是整数除（铁证 6896 判偶数、
+   *   21636 取个位、605016 环形缓冲），故 `3006 \ 1000 + 1 = 7` 格。
+   *   `f3 / 1000 * 1000`（整除）才是取目标类别，两者不可混用。
    *   （自由模式没有这个限制，可以走遍全图。）
    *
    * @returns {Array<{chara:object, v:number, x:number, y:number, dist:number}>}
@@ -88,7 +90,7 @@
     const p = me || g.player;
     const out = [];
     const rangeSkill = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
-    const maxDist = idiv(rangeSkill, 1000) + 1;
+    const maxDist = (rangeSkill % 1000) + 1;   // 0-Q0 / Q-N1：`\1000` = 取余
     const los = (x, y) => ((Elona.Spell && Elona.Spell.fovLos)
       ? (Elona.Spell.fovLos(g, p.x, p.y, x, y) | 0) : 1);
 
@@ -259,7 +261,7 @@
      * @param {object} [opt]
      *   opt.free   true = 自由锁定（可以在全图移动光标）
      *   opt.me     使用者（默认玩家）
-     *   opt.range  角色模式的射程覆盖（默认按 656 号能力的 4 格）
+     *   opt.range  角色模式的射程覆盖（默认按 `var_83(3,656)\1000+1` = 7 格）
      */
     start(g, opt) {
       const o = opt || {};

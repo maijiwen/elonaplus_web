@@ -279,7 +279,47 @@
       const ratio = idiv(def.get(51), (def.get(50) | 0) + 1);    // maxHP/(HP+1)
       r1378 = idiv(r1378 * (100 + limit((ratio - 1) * 10, 0, 50)), 100);
     }
-    // * 跳过：地形/魔法控制(var_58(259))、骑乘与乘骑者加成
+    // ---- 212395-212405：水域中的回避修正 ----
+    //   var_58(259) 是「正在游泳」标记；脚下格是水（var_593(0,tile)==3）或
+    //   水下地图（var_65(850)==47 且 var_65(20)==2）才结算水泳(190)：
+    //     水泳 < 50 → 回避 -= (50 - 水泳) * 2（不会游泳的人在水里更笨拙）
+    //     水泳 >= 50 → 回避 += 水泳 / 2
+    if ((def.get(259) | 0) > 0) {
+      const cell = (g.map && g.map.cell) ? g.map.cell(def.x, def.y) : null;
+      const tile = cell ? (cell[0] | 0) : -1;
+      const inWater = (g.map && g.map.attr && tile >= 0)
+        ? (g.map.attr(tile, 0) === 3)
+        : false;
+      const underwater = (g.getV65(850) | 0) === 47 && (g.getV65(20) | 0) === 2;
+      if (inWater || underwater) {
+        const swim = sx(def, 190);
+        if (swim < 50) r1378 -= (50 - swim) * 2;
+        else r1378 += idiv(swim, 2);
+      }
+    }
+    // ---- 212407-212420：背诵（var_58(31) = 记忆中的法术数）的命中修正 ----
+    //   只在普通攻击（prm_1036 == 0）里结算，且双方都不能是玩家（index 0）：
+    //     · 攻击者带记忆法术 → 防守方回避 += (limit(防守方背诵/3,1,300)+15) * (攻击者记忆数/10+1)
+    //     · 防守方带记忆法术 → 回避 -= (limit(攻击者背诵/3,1,300)+15) * (防守方记忆数/10+1)
+    //   每次结算给「因背诵而受益/受损」的一方 skillexp 165,4,0,1000。
+    if (mode === 0) {
+      const mem = (c2) => (c2 && typeof c2.get === 'function' ? (c2.get(31) | 0) : 0);
+      const noteMemorize = (who, base) => {
+        if (Elona.Stats && Elona.Stats.skillExp && Elona.Stats.sorg
+          && Elona.Stats.sorg(who, 165) > 0) {
+          try { Elona.Stats.skillExp(who, 165, who.index | 0, 4, 0, 1000, g); } catch (e) { /* 无对局时静默 */ }
+        }
+        return base;
+      };
+      if (mem(att) > 0 && (att.index | 0) !== 0) {
+        r1378 = noteMemorize(def, r1378
+          + (limit(idiv(sx(def, 165), 3), 1, 300) + 15) * (idiv(mem(att), 10) + 1));
+      }
+      if (mem(def) > 0 && (def.index | 0) !== 0) {
+        r1378 = noteMemorize(att, r1378
+          - (limit(idiv(sx(att, 165), 3), 1, 300) + 15) * (idiv(mem(def), 10) + 1));
+      }
+    }
     if (r1378 <= 0) r1378 = 1;
     if (mode === 2) return { result: 0, hit: r1370, eva: r1378, pierce, critical: false };
 
@@ -504,6 +544,14 @@
     // ---- 护甲(PV) ----
     const armor = calcArmor(def);
     const r1391 = armor.pvArmor;
+    // mode 3：人物信息窗的「各种修正」用 —— 只要骰子/固定加值/倍率，
+    //   在 role() 之前返回，**不消耗随机数**（源码 label_2813 读的是 var_89/90/1386/1387）。
+    if (mode === 3) {
+      return {
+        dmg: 0, armor: r1391, critical: false,
+        dice: { n: r89, s: r90, b: (r1386 < -100 ? -100 : r1386), x: r1387 },
+      };
+    }
     if (mode === 2) return { dmg: 0, armor: r1391, critical: !!critical };
 
     if (r1386 < -100) r1386 = -100;
@@ -1099,6 +1147,16 @@
     try {
       if (att.get(0) !== 1 || def.get(0) !== 1) return null;      // 346018-346023
 
+      // ---- 346024：观众兴奋度 / 战斗热度 var_65(250+373) ----
+      if (g && g.setV65) {
+        const cur623 = (g.getV65(623) | 0) + 1;
+        g.setV65(623, cur623);
+        // 205228：var_65(250+373) > 6666 && <= 9999 预警
+        if (cur623 > 6666 && cur623 <= 9999 && (cur623 === 6667 || cur623 % 500 === 0)) {
+          if (g.log) g.log('最好离开这里……（この場を離れたほうがいい…）');
+        }
+      }
+
       // ---- 346025-346047：体力 / 饱食 / 気力 ----
       if (att.get(178) === 0) {
         if (att.get(52) > -50) att.set(52, att.get(52) - 1);
@@ -1457,6 +1515,84 @@
       result: shots[0] ? shots[0].result : null, weapon: r.weapon, ammo: r.ammo, skill: r.skill };
   }
 
+  // ==========================================================================
+  // 人物信息窗「各种修正」 —— 293853-293900 + *label_2811 / *label_2813
+  // ==========================================================================
+  /**
+   * 原版这段是「先把 var_1322 设成 106，再调三个计算函数」：
+   *   var_2248 = calcattackhit(1)   → 命中（label_2813 里显示 var_1370）
+   *   var_1588 = calcattackdmg(1)   → 打撃骰 NdM+固定值 ×倍率（var_89/90/1386/1387）
+   *   var_1378 = calcattackhit(2)   → 回避（返回 var_1378）
+   *   var_1391 = calcattackdmg(2)   → 护甲 PV（返回 var_1391，同时写 var_1393 d var_1394）
+   *   var_2236                      → 魔法威力（293863-293870）
+   * 全部走 battle.js 的正式公式，因此换装备 / 加 buff / 升技能后会立刻变化。
+   *
+   * 纯读：所有调用的 mode 都在随机数之前返回，不会消耗 rng、不改角色状态。
+   *
+   * @param {object} g  当前对局（可为 null —— 创建画面预览时）
+   * @param {object} ch 被查看的角色
+   * @returns {{meleeN:number,meleeS:number,meleeB:number,meleeX:number,
+   *            armor:number,protPct:number,protN:number,protS:number,
+   *            spell:number,hit:number,evade:number,ok:boolean}}
+   */
+  function infoCorrection(g, ch) {
+    const out = {
+      ok: false, meleeN: 0, meleeS: 0, meleeB: 0, meleeX: 1,
+      armor: 0, protPct: 0, protN: 1, protS: 1, spell: 0, hit: 0, evade: 0,
+    };
+    if (!g || !ch || !ch.get) return out;
+
+    // *label_2811：逐件「有伤害骰」的武器各占一行；一件都没有就用空手（Unarmed）
+    let w = null;
+    if (Elona.Equipment && Elona.Equipment.slots) {
+      for (const s of Elona.Equipment.slots(ch)) {
+        if (s.item && s.item.f && (s.item.f[10] | 0) > 0) { w = s.item; break; }
+      }
+    }
+    const skillId = (w && w.f[16]) ? (w.f[16] | 0) : 106;
+
+    // 打撃骰 + 倍率（mode 3：不掷骰）
+    const dmg = calcAttackDmg(g, ch, ch, w, null, skillId, 0, false, 0, 3);
+    if (dmg && dmg.dice) {
+      out.meleeN = dmg.dice.n | 0;
+      out.meleeS = dmg.dice.s | 0;
+      out.meleeB = dmg.dice.b | 0;
+      out.meleeX = dmg.dice.x;
+    }
+    // 护甲 PV + 减免率（mode 2；源码 213090-213100 的 var_1392/1393/1394）
+    const pv = calcAttackDmg(g, ch, ch, null, null, 106, 0, false, 0, 2);
+    out.armor = (pv && pv.armor) | 0;
+    if (out.armor > 0) {
+      const arm = calcArmor(ch);
+      out.protPct = 100 - idiv(10000, out.armor + 100);
+      out.protN = arm.dice | 0;
+      out.protS = arm.sides | 0;
+    } else {
+      out.protPct = 0; out.protN = 1; out.protS = 1;
+    }
+    // 命中 / 回避（mode 1 / 2，源码 293871、212232 的 prm 分支）
+    const h = calcAttackHit(g, ch, ch, null, null, 106, 0, 1);
+    out.hit = (h && h.hit) | 0;
+    const e = calcAttackHit(g, ch, ch, null, null, 106, 0, 2);
+    out.evade = (e && e.eva) | 0;
+    // 魔法威力（293863-293870）
+    out.spell = magicPowerOf(g, ch);
+    out.ok = true;
+    return out;
+  }
+
+  /** 魔法威力 var_2236：limit(var_58(98)*2/3,0,1000)/10 + limit(魔力/10,0,150) + 100 */
+  function magicPowerOf(g, ch) {
+    let v = idiv(limit(idiv((ch.get(98) | 0) * 2, 3), 0, 1000), 10)
+      + limit(idiv(ch.skill(16), 10), 0, 150) + 100;
+    const eqw = ch.get(64) | 0;
+    if (eqw >= 15000 && eqw < 35000 && findbuff(ch, 34) !== -1) v = idiv(v * 6, 5);
+    // var_58(428, 0)：变异壳一类的「魔法威力上升」，只认玩家槽 0
+    const v428 = (g && g.player && g.player.get) ? (g.player.get(428) | 0) : 0;
+    if (v428 === 1 && ((ch.get(58) | 0) === 100 || (ch.index | 0) === 0)) v = idiv(v * 6, 5);
+    return v;
+  }
+
   Elona.Battle = {
     role, rolemax, dist, carmor, calcArmor, calcAttackHit, calcAttackDmg, attack, applyDamage,
     onDeath, checkDeath,
@@ -1465,5 +1601,6 @@
     findbuff, cbit, idiv, limit,
     getRanged, rangedAttack,
     loadWeaponRange, setWeaponRange,
+    infoCorrection, magicPowerOf,
   };
 })(window);

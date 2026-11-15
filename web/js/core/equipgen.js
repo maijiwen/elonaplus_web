@@ -106,7 +106,13 @@
       case 'var_60': case 'var_639': case 'var_400': case 'var_579':
       case 'var_691': case 'var_1090': case 'stat':
         return this.vars[name] !== undefined ? this.vars[name] : 0;
-      case 'var_132': case 'var_126': case 'cbit': case 'getworker':
+      // 0-L0 / A43：var_132(col,row) 接真实运行时表。此前恒返回 0，
+      // 导致 386 行的 `var_132(16,当前地图)==102`（打工奖金）、386 行的
+      // `var_132(0,当前地图)>=20`（ネフィア附魔）等源码条件永远不成立。
+      case 'var_132':
+        return (Elona.Sites && Elona.Sites.field)
+          ? (Elona.Sites.field(A[0] | 0, A[1] | 0, this.g) | 0) : 0;
+      case 'var_126': case 'cbit': case 'getworker':
         this.mark('func:' + name);
         return 0;
       default: break;

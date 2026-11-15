@@ -130,6 +130,83 @@
     return t.sites[String(mapId | 0)] || null;
   }
 
+  /**
+   * 0-L0 / A43：`var_132(col, row)` 运行时表（`dim var_132, 40, 500`，start.hsp 237966-237972）。
+   *
+   * 原版在 `map_init` 里把这张表逐列抄进地图头：
+   *   var_126(2)=var_132(4)、var_126(12)=var_132(18)、var_126(6)=var_132(0)、
+   *   var_126(9)=var_132(9)、var_126(7)=var_132(11)、var_126(8)=var_132(12)、
+   *   var_126(14)=var_132(21)；另有 249783 起的 93 条静态 site 定义、
+   *   *label_2469 的 450..499 随机地城、300..449 玩家地产共用同一张表。
+   *
+   * 项目此前只暴露了 col=16（`g.v132[row]`），其余列散落在 g.arenaData /
+   * g.dungeon* 等专用字段里，按 col 读取的源码规则（如 7005-7017 的 kind 判定、
+   * 237970 的回合消耗）没有统一入口。这里补上 40×500 的读写接口，优先级：
+   *   ① 运行时覆盖 `g.v132Fields[row][col]`（本批次新增，随存档一起保存）
+   *   ② 旧覆盖 `g.v132[row]`（只代表 col=16，保持兼容）
+   *   ③ 动态站点 / 玩家地产 / 静态 site 表的 `fields[col]`
+   *   ④ 0
+   */
+  // 列数按源码 40；行数原版是 500，但本项目把玩家地产、动态地城之外的
+  // 临时地图 id（曾出现 700+）也存在同一张表里，故不对 row 设硬上限。
+  const MAX_COL = 40, MAX_ROW = 500;
+
+  function runtimeRows(g, create) {
+    const gg = g || Elona.game;
+    if (!gg) return null;
+    if (!gg.v132Fields) {
+      if (!create) return null;
+      gg.v132Fields = Object.create(null);
+    }
+    return gg.v132Fields;
+  }
+
+  /** 该 (col,row) 是否有显式的运行时覆盖（值为 0 也算「有」，用于屏蔽静态表） */
+  function hasRuntime(col, row, g) {
+    const gg = g || Elona.game;
+    const rows = runtimeRows(gg, false);
+    const slot = rows && rows[String(row | 0)];
+    if (slot && Object.prototype.hasOwnProperty.call(slot, String(col | 0))) return true;
+    return (col | 0) === 16 && !!(gg && gg.v132
+      && gg.v132[String(row | 0)] !== undefined);
+  }
+
+  /** var_132(col,row) 通用读取 */
+  function field(col, row, g) {
+    const c = col | 0, r = row | 0;
+    if (c < 0 || c >= MAX_COL || r < 0) return 0;
+    const gg = g || Elona.game;
+    const rows = runtimeRows(gg, false);
+    const slot = rows && rows[String(r)];
+    if (slot && Object.prototype.hasOwnProperty.call(slot, String(c))) {
+      return slot[String(c)] | 0;
+    }
+    if (c === 16 && gg && gg.v132 && gg.v132[String(r)] !== undefined) {
+      return gg.v132[String(r)] | 0;
+    }
+    const rec = record(r, gg);
+    if (rec && rec.fields && rec.fields[String(c)] !== undefined) {
+      return rec.fields[String(c)] | 0;
+    }
+    return 0;
+  }
+
+  /** var_132(col,row) = value；col=16 时同步旧覆盖，保证既有模块仍看得见 */
+  function setField(col, row, value, g) {
+    const c = col | 0, r = row | 0, v = value | 0;
+    const gg = g || Elona.game;
+    if (!gg || c < 0 || c >= MAX_COL || r < 0) return 0;
+    const rows = runtimeRows(gg, true);
+    const key = String(r);
+    if (!rows[key]) rows[key] = Object.create(null);
+    rows[key][String(c)] = v;
+    if (c === 16) {
+      gg.v132 = gg.v132 || {};
+      gg.v132[key] = v;
+    }
+    return v;
+  }
+
   function table() {
     if (data) return data;
     if (Elona.Data && Elona.Data.tableSync) {
@@ -165,11 +242,11 @@
       return record(mapId | 0, g);
     },
 
-    /** var_132(16, mapId)：site 表 → 0 */
-    rawType(mapId, g) {
-      const s = this.get(mapId, g);
-      return s ? (s.fields[16] | 0) : 0;
-    },
+    /** var_132(16, mapId)：0-L0 起走统一运行时表（含动态站点与显式覆盖） */
+    rawType(mapId, g) { return field(16, mapId, g); },
+
+    /** var_132(col,row) 通用读写（A43 / 0-L0） */
+    field, setField, hasRuntime, MAX_COL, MAX_ROW,
 
     /**
      * 地图类型。优先运行时覆盖（玩家地产），其次 site 表，最后按名字兜底。
@@ -180,11 +257,10 @@
     typeOf(mapId, opts, g) {
       const o = opts || {};
       if (o.mapType) return o.mapType | 0;
-      if (g && g.v132) {
-        const rt = g.v132[String(mapId | 0)];
-        if (rt !== undefined) return rt | 0;
-      }
-      const t = this.get(mapId);
+      // 0-L0：运行时覆盖（含显式 0）优先于 site 表，等价于 var_132(16,mapId) 被改写后
+      // 原版后续读到的值；旧代码只认 g.v132，动态站点/地产的覆盖会漏掉。
+      if (hasRuntime(16, mapId, g)) return field(16, mapId, g) | 0;
+      const t = this.get(mapId, g);
       if (t && (t.fields[16] | 0)) return t.fields[16] | 0;
       // site 表里没有（或该条 type 为 0，如 site 0 这个占位）→ 按地图名兜底
       if (o.mapName) {
@@ -275,10 +351,7 @@
     },
 
     /** var_132(30)：所属世界地图 id */
-    worldOf(mapId) {
-      const s = this.get(mapId);
-      return s ? (s.fields[30] | 0) : 0;
-    },
+    worldOf(mapId, g) { return field(30, mapId, g); },
 
     /** 世界地图本体文件（249618-249649）；未知世界按北ティリス处理 */
     worldMapFile(worldId) {
@@ -445,30 +518,23 @@
     isShop(t) { return (t | 0) === MAP_TYPE_SHOP; },
     isStorage(t) { return (t | 0) === MAP_TYPE_STORAGE; },
 
-    kindOf(mapId) {
-      const s = this.get(mapId);
-      return s ? (s.fields[0] | 0) : 0;
-    },
-    kindName(mapId) { return KIND[this.kindOf(mapId)] || 'none'; },
-    isTown(mapId) {
-      const k = this.kindOf(mapId);
+    kindOf(mapId, g) { return field(0, mapId, g); },
+    kindName(mapId, g) { return KIND[this.kindOf(mapId, g)] || 'none'; },
+    isTown(mapId, g) {
+      const k = this.kindOf(mapId, g);
       return k === 1 || k === 3;
     },
     /** 迷宫：kind 20..27（ネフィア）或 2/6/7（关所/谷间/据点） */
-    isDungeon(mapId) {
-      const k = this.kindOf(mapId);
+    isDungeon(mapId, g) {
+      const k = this.kindOf(mapId, g);
       return (k >= 20 && k <= 27) || k === 2 || k === 6 || k === 7;
     },
 
-    minLevel(mapId) { const s = this.get(mapId); return s ? (s.fields[17] | 0) : 0; },
-    maxLevel(mapId) { const s = this.get(mapId); return s ? (s.fields[10] | 0) : 0; },
+    minLevel(mapId, g) { return field(17, mapId, g); },
+    maxLevel(mapId, g) { return field(10, mapId, g); },
 
     /** 写运行时类型（玩家买地/建博物馆时用，等价于 var_132(16, newId)） */
-    setRuntimeType(g, mapId, type) {
-      if (!g) return;
-      g.v132 = g.v132 || {};
-      g.v132[String(mapId | 0)] = type | 0;
-    },
+    setRuntimeType(g, mapId, type) { if (g) setField(16, mapId, type, g); },
 
     /** 已提取的地图文件名集合（data/index/maps.json），用于判断能否直接加载 */
     async mapNames() {

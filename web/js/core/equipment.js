@@ -36,6 +36,16 @@
   const idiv = (a, b) => (b === 0 ? 0 : Math.trunc(a / b));
   const limit = (v, lo, hi) => (v < lo ? lo : (v > hi ? hi : v));
 
+  /**
+   * 装备变化后的重算 —— `gosub *label_2174`（213373-213983）。
+   * 必须先复位（基础值 → 当前值）再叠加成，所以只能走 recalcStats；
+   * 单调用 applyEquipment 会把这次和上次的附魔技能叠加起来。
+   */
+  function recalcOwner(c, g) {
+    if (!c || !Elona.Stats || !Elona.Stats.recalcStats) return;
+    try { Elona.Stats.recalcStats(c, g); } catch (e) { /* 未就绪时静默 */ }
+  }
+
   function typeName(type, lang) {
     const t = type | 0;
     if (lang === 'jp') return TYPE_JP[t] || '';
@@ -260,6 +270,9 @@
     c.set(100 + (n | 0), type * 10000 + (idx | 0) + 1);
     it.eqSlot = n | 0;
     if (g && g.setV65) g.setV65(808, 1);                                         // 297845
+    // 0-HZ：装备变了就要按 *label_2174 重算（原版在穿戴菜单退出时 gosub 2174，220002）。
+    //   不重算的话：附魔加的技能/力量要等下次別的操作才生效，而且**卸下也不会掉**。
+    recalcOwner(c, g);
     const nm = Elona.ItemDB.name(it) || '物品';
     return { ok: true, message: `装备了${nm}。` };
   }
@@ -289,6 +302,7 @@
     }
     c.set(100 + (n | 0), type * 10000);
     it.eqSlot = -1;
+    recalcOwner(c, g);                                    // 0-HZ：同上，卸下后重算
     const nm = Elona.ItemDB.name(it) || '物品';
     return { ok: true, message: `卸下了${nm}。` };
   }

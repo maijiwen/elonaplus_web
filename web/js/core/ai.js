@@ -201,8 +201,8 @@
 
     // id∈{619,714,23,760}：超程或不可见则走位（593010-593014 → *label_4309）
     if (id === 619 || id === 714 || id === 23 || id === 760) {
-      // 射程 = `var_83(3, 656) \ 1000 + 1`（656 = 3006 → 4 格；与 core/aim.js 一致）
-      const r656 = (((Elona.Spell.field(656, 3) | 0) / 1000) | 0) + 1;
+      // 射程 = `var_83(3, 656) \ 1000 + 1`（0-Q0 / Q-N1 取余：3006 → 7 格）
+      const r656 = sightRange();
       const d = Elona.Battle.dist(c.x, c.y, target.x, target.y);
       if (d > r656 || Elona.Spell.fovLos(g, c.x, c.y, target.x, target.y) === 0) {
         return { cast: false, reposition: true, target };
@@ -285,6 +285,27 @@
       return { used: true, kind: 'pick-ground' };
     }
     return { used: false };
+  }
+
+  /**
+   * 0-N0 / A328：PC 视野半径 —— 源码 594073 / 594080 / 594539 的
+   * `var_83(3, 656) \ 1000 + 1`（656 = 鼓舞，f3 = 3006）。
+   *
+   * HSP 的 `\` 是**取余**而非整数除，铁证：
+   *   6896  `var_65(12) \ 2 == 0`      判「日」为偶数
+   *   21636 `var_65(250+274) \ 10 == 0` 取个位
+   *   605016 `(var_123 + 1) \ 4`       日志环形缓冲下标 0..3
+   * 故 3006 \ 1000 + 1 = 7 格。
+   *
+   * 【0-Q0 / Q-N1 全局纠正】0-N0 只在 `sightRange()` 按源码取余，其余模块仍按
+   *   `floor(f3/1000)+1` 实现成 4 格。本批已把 `dirsel / aim / spell / buffact /
+   *   gauge / melee / potion / social / teach` 等全部改为取余，并同步
+   *   `verify_spell_range.js` 等验证基准；`f3 / 1000 * 1000`（整除）的**类别判定**不变。
+   */
+  function sightRange() {
+    const f3 = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 0;
+    const base = f3 || 3006;                       // 表未加载时用源码值兜底
+    return (base % 1000) + 1;
   }
 
   /**
@@ -459,6 +480,54 @@
         return Object.assign({}, nr, { mercy, mounted });
       }
     }
+    // ②-c 0-J0 / 0-K0：被绳索拴住（cbit 968）—— 源码 592583-592625。
+    //   逐行前置（592583-592591）：
+    //     synccheck(var_243,-1) == 0    ← 角色与主角「不同步」（不在主角所在地图）
+    //     var_58(253,0) == 0           ← 玩家未在特殊状态
+    //     rnd(4) == 0                  ← 每回合 1/4 才挣扎
+    //     var_126(6) != 1              ← 非世界地图
+    //     cbit(968, var_243)           ← 被绳索拴住
+    //     var_65(20) != 40             ← 非竞技场
+    //   `synccheck` 的定义在 6432-6443：`var_58(6,c) == var_104 | c == var_65(183)`，
+    //   项目里「与主角同侧」由 BuffEffects.syncCheck 等价给出；源码要求「不同步」，
+    //   故此处取反。HSP 的 AI 循环遍历全部 245 个角色槽（含不在本地图者），
+    //   这条分支本来就是给离队/异地图随从用的；项目 charas 只含本地图角色，
+    //   对非同伴（syncCheck 为假）仍会照常挣扎。
+    //   挣扎命中后：同伴（index<16）或 cbit 960 → 清行动/目标；其它角色
+    //   1/2 出声抗议 + hostileaction(0, var_243)，再 1/4 自行解开绳索。
+    //   分支末尾固定 `var_244=0; var_396=619; gosub *label_2960`（待机动作）
+    //   并 `goto *label_4358` 结束本回合。
+    const leashOutOfSync = !(Elona.BuffEffects && Elona.BuffEffects.syncCheck
+      && Elona.BuffEffects.syncCheck(g, c));
+    if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(c, 968)
+      && leashOutOfSync
+      && (g.getV65(20) | 0) !== 40
+      && (!g.player || (g.player.get(253) | 0) === 0)
+      && (!g.map || !g.map.header || (g.map.header[6] | 0) !== 1)) {
+      const rnd = (n) => (g.rng ? g.rng.rnd(n) : 0);
+      if (rnd(4) === 0) {
+        if ((c.index | 0) < 16 || Elona.Status.cbit(c, 960)) {
+          c.set(201, 0);
+          c.set(29, 0);
+        } else {
+          if (rnd(2)) {
+            if (g.log) g.log(`${c.name}「住手！」`);
+            // 592602 `hostileaction 0, var_243`：prm_912=玩家(0)、prm_913=该 NPC。
+            // 0-J0 曾把两参数传反（NPC, 玩家），会撞上 194440 的 `prm_912>=16`
+            // 直接 return，敌对反应完全没生效 —— 0-K0 按源码改正。
+            if (Elona.Intimacy && Elona.Intimacy.hostileAction) {
+              Elona.Intimacy.hostileAction(g, g.player, c);
+            }
+          }
+          if (rnd(4) === 0) {
+            Elona.Status.cbitmod(c, 968, false);
+            if (g.log) g.log(`${c.name}解开了绳索。`);
+          }
+        }
+        // 592616-592618：固定以 619（待机）收尾并结束回合。
+        return { acted: true, leashed: true, ability: 619, mercy, mounted };
+      }
+    }
     // ③-a 治疗药（*label_4303 592970-593004）
     const healR = tryHealPotion(g, c);
     if (healR.used) return { acted: true, used: healR.kind, mercy, mounted };
@@ -520,11 +589,36 @@
     }
     // ④ 扫描失败则退化为「最近敌对」
     if (tIdx < 0) tIdx = findNearestHostile(g, c);
-    if (tIdx < 0) return { acted: false, mercy, mounted };
+    if (tIdx < 0) {
+      // 0-L0 / A342：没有敌对目标 = 原版 *label_4306 的「别行动时」路径，
+      // 此时才由調教鞭写入的 f[202] 决定同伴是跟随、待机、游走还是发动本职动作。
+      const idleR = tamerIdle(g, c, { mercy, mounted });
+      if (idleR) return idleR;
+      return { acted: false, mercy, mounted };
+    }
 
     c.set(29, tIdx);
     const target = g.charas[tIdx];
     const d = Elona.Battle.dist(c.x, c.y, target.x, target.y);
+
+    // 0-N0 / A328：迎撃態勢（var_58(266) == 2）—— 源码 594073-594085 / 594539-594541。
+    //   `var_243 < 16`（同伴）且满足
+    //     `var_58(29, 我) == 0 | (mode == 2 | mode == 3 & dist(目标, PC) > sightRange)`
+    //   时，594073-594085 把 `var_58(205/206)`（移动目标）改写成 PC 坐标；
+    //   594539 同样条件则 `goto *label_4309`，跳过本次攻击结算、转为跟随移动。
+    //   语义：迎撃的同伴只拦截进入 PC 视野的敌人，不追出视野；自己已跑出视野的折返。
+    //   交渉（mode 3）有独立分支（596606-596657，见上），此处不重复处理。
+    //   此前项目完全没有 mode==2 分支，迎撃等同突撃（会一路追到地图另一端）。
+    if (mode === 2 && (c.index | 0) < 16 && g.player) {
+      const pc = g.player;
+      const R = sightRange();
+      const farTarget = Elona.Battle.dist(target.x, target.y, pc.x, pc.y) > R;
+      const farSelf = Elona.Battle.dist(c.x, c.y, pc.x, pc.y) > R;
+      if (farTarget || farSelf) {
+        const step = stepToward(g, c, pc);
+        return { acted: !!step, moved: !!step, intercept: true, target, mercy, mounted };
+      }
+    }
 
     // 0-DC：远程射击决策（596733-596758）
     //   cbit 1001（遠隔好）→ var_2773 = -2
@@ -680,6 +774,129 @@
   }
 
   /**
+   * 0-L0 / A342：調教鞭的「别行动时」12 项指令（var_58(202)）。
+   *
+   * 源码 355640 `var_58(202, var_244) = var_444 - 4`（菜单第 5..16 项 → 1..12），
+   * 消费在 *label_4306（593433 / 593693-593871）：
+   *   4 → 以玩家为目标走 *label_4309（593433）
+   *   5 → 按种族改成本职：326/675→6、320/280→9、335/352→10、9→12（593693-593705）
+   *   6/7/8/12 → 1/10 概率分别发动 183 / 713 / 767 / 830（593709-593736）
+   *   9 → 视野内找 snail（普通 4 格、种族 320/280 是 8 格）→ 攻击（593737-593787）
+   *   10 → 40..56 槽位里 6 格内、有视线、rnd(2) 命中的角色 → 接近（593788-593845）
+   *   11 → 「不在城里训练」：跳过随机游走（593708 / 593953 的 `!= 11`）
+   *   5..12（除 11）→ 随机走一格 rnd(3)-1（593848-593852）
+   *   1 → 随机走一格（593846-593853）；2 → var_126(8)==1 且离 (171,172)>2 时朝该点走，
+   *       否则随机走（593854-593867）；3 → 源码没有任何分支 = 原地待机。
+   *
+   * 项目里 183/713/767/830 由 Perform / Preach / Work 以**玩家**为主体实现，
+   * 把玩家状态机套到 NPC 身上会污染玩家状态，故这里按源码登记动作 id
+   * （与 cbit 968 分支返回 `ability: 619` 同一惯例），宿主可用 `g.__npcAbility`
+   * 注入实际表现；10 的另一半已由 Intimacy.aiTry 在 runAll 开头承接。
+   */
+  const TAMER_ABILITY = { 6: 183, 7: 713, 8: 767, 12: 830 };
+  const TAMER_SPECIES = { 326: 6, 675: 6, 320: 9, 280: 9, 335: 10, 352: 10, 9: 12 };
+
+  function tamerIdle(g, c, base) {
+    const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    const isAlly = (c.index | 0) < 16 || (c.get(9) | 0) === 10;
+    let v = c.get(202) | 0;
+    if (!isAlly || v === 0) return null;                 // 0 = 默认战斗行为，交回主流程
+    const out = { acted: false, mercy: base && base.mercy, mounted: base && base.mounted };
+
+    // 593693-593705：做本职工作 → 按 var_58(27) 种族 id 改成本职指令（写回，与本一致）
+    if (v === 5) {
+      const nv = TAMER_SPECIES[c.get(27) | 0] | 0;
+      if (nv) { c.set(202, nv); v = nv; }
+    }
+    out.tamer = v;
+
+    // 593433：4「跟着我」
+    if (v === 4) {
+      const p = g.player;
+      if (!p) return Object.assign(out, { idle: true, follow: true });
+      if (Elona.Battle.dist(c.x, c.y, p.x, p.y) > 1) {
+        const moved = !!stepToward(g, c, { x: p.x, y: p.y });
+        return Object.assign(out, { acted: moved, moved, follow: true });
+      }
+      return Object.assign(out, { idle: true, follow: true });
+    }
+
+    // 593709-593736：本职动作 1/10
+    if (v >= 5 && v <= 12 && v !== 11) {
+      const ab = TAMER_ABILITY[v] | 0;
+      if (ab && R(10) === 0) {
+        if (typeof g.__npcAbility === 'function') {
+          try { g.__npcAbility(g, c, ab); } catch (e) { /* 表现层可选 */ }
+        }
+        return Object.assign(out, { acted: true, ability: ab });
+      }
+    }
+
+    // 593737-593787：9「驱除蜗牛」
+    if (v === 9) {
+      const race = c.get(27) | 0;
+      const reach = (race === 320 || race === 280) ? 8 : 4;
+      let snail = null;
+      for (const o of g.charas) {
+        if (!o || o.index === c.index || (o.get(0) | 0) !== 1) continue;
+        if (o.raceName !== 'snail' && (o.get(27) | 0) !== 382) continue;
+        if ((c.get(58) | 0) === 100 && (o.index | 0) < 16) continue;
+        if (Elona.Battle.dist(c.x, c.y, o.x, o.y) > reach) continue;
+        if (!hasLos(g, c, o)) continue;
+        if (R(2) === 0) continue;
+        snail = o;
+      }
+      if (snail) {
+        c.set(29, snail.index);
+        if (Elona.Battle.dist(c.x, c.y, snail.x, snail.y) === 1) {
+          const r = attackTarget(g, c, snail);
+          return Object.assign(out, { acted: true, attacked: true, target: snail, result: r });
+        }
+        const moved = !!stepToward(g, c, snail);
+        return Object.assign(out, { acted: moved, moved, target: snail });
+      }
+    }
+
+    // 593788-593845：10「行为」——Intimacy.aiTry 未接住时的接近兜底
+    if (v === 10) {
+      let tgt = null;
+      for (let i = 40; i <= 56; i++) {
+        const o = g.charas[i];
+        if (!o || (o.get(0) | 0) !== 1 || o.index === c.index) continue;
+        if (R(2) === 0) continue;
+        if (Elona.Battle.dist(c.x, c.y, o.x, o.y) >= 6) continue;
+        if (!hasLos(g, c, o)) continue;
+        tgt = o; break;
+      }
+      if (tgt) {
+        c.set(29, tgt.index);
+        if (Elona.Battle.dist(c.x, c.y, tgt.x, tgt.y) === 1) {
+          const r = attackTarget(g, c, tgt);
+          return Object.assign(out, { acted: true, attacked: true, target: tgt, result: r });
+        }
+        const moved = !!stepToward(g, c, tgt);
+        return Object.assign(out, { acted: moved, moved, target: tgt });
+      }
+    }
+
+    // 3「原地待机」/ 11「不在城里训练」：不随机游走
+    if (v === 3 || v === 11) return Object.assign(out, { idle: true });
+
+    // 593854-593867：2 的归位判定（var_126(8) 存于 map.header[8]）
+    if (v === 2 && g.map && g.map.header && (g.map.header[8] | 0) === 1) {
+      const hx = c.get(171) | 0, hy = c.get(172) | 0;
+      if (Elona.Battle.dist(c.x, c.y, hx, hy) > 2) {
+        const moved = !!stepToward(g, c, { x: hx, y: hy });
+        return Object.assign(out, { acted: moved, moved, homing: true });
+      }
+    }
+
+    // 593846-593852：1 与 5..12（除 11）随机走一格
+    const moved = !!randomStep(g, c);
+    return Object.assign(out, { acted: moved, moved, roam: true });
+  }
+
+  /**
    * 推进所有 NPC 的一个回合：先做异常状态结算（对应每角色回合开始的 label_2224），
    * 再执行行动。
    */
@@ -742,8 +959,8 @@
 
   Elona.AI = {
     adjacentCheck, npcTurn, runAll, findNearestHostile, castBranch,
-    tryHealPotion, tryIdle, tryUseItem, findInvItem,
-    mercyCheck, mountSync,
+    tryHealPotion, tryIdle, tryUseItem, findInvItem, sightRange,
+    mercyCheck, mountSync, tamerIdle, TAMER_ABILITY, TAMER_SPECIES,
     isHostile, hostileTowards, stepToward, stepAway, randomStep, combatMove,
     preferredDistance, DIRS8, DIR,
   };

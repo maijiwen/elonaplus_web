@@ -43,6 +43,9 @@
 
   class Game {
     constructor() {
+      // 0-HZ：让 core/status.js、core/stats.js 在没有显式传 g 的调用点
+      //   （delbuff(c, slot)、skillexp(c, …)）也能拿到当前对局 —— 重算需要 var_65。
+      Elona.__game = this;
       this.state = STATE.MENU;
       this.map = null;
       this.player = null;
@@ -66,6 +69,9 @@
       this.v65 = { 11: 10, 12: 12, 13: 16, 14: 10 };
       // 地产表 var_132（300..449）与自建建筑表（0-EA：随存档一起保存）
       this.v132 = {};
+      // 0-L0 / A43：var_132(col,row) 的运行时覆盖层（40 列 × 500 行），
+      // 与 v132（旧版只存 col=16）分开保存，读档时一并恢复。
+      this.v132Fields = Object.create(null);
       this.propertySites = {};
       // 0-FS：自宅（site 7）的楼层状态 —— 每层的地面物品与人物分开存
       this.homeFloor = 1;
@@ -988,6 +994,17 @@
         const town = Elona.Towns.byName(this.map.name);
         if (town) { mapId = town.id; subId = 1; }
       }
+      // 0-K0 / A42·A48：静态表没注册的地图，按源码 237464 / 237573-237594 /
+      // 237457 从「换图前的 var_65(850)」与地图类型推导 var_65(20)，不再恒为 0。
+      // 此前约 60 条按地图 id 判定的剧情/事件规则（A42 登记的缺口）因此不触发。
+      if (!mapId && !isHomeMap && Elona.MapIds && Elona.MapIds.dynamicId) {
+        const h6 = (this.map && this.map.header) ? (this.map.header[6] | 0) : 0;
+        const inferred = Elona.MapIds.dynamicId(this.map.name, this.getV65(850) | 0, h6);
+        if (inferred !== null && inferred !== undefined) {
+          mapId = inferred | 0;
+          if (!subId) subId = 1;
+        }
+      }
       // 自宅（home0..home6）：var_65(20) = 7，层数由 g.homeFloor 决定（core/home.js）
       if (isHomeMap) {
         mapId = 7;
@@ -1002,6 +1019,34 @@
       this.applyQuestMapFeats();
       this.setV65(20, mapId);
       this.setV65(22, subId);
+      // 0-L0 / A43：`map_init` 的 var_126(9) = var_132(9, var_65(20))（237970）。
+      // 此前只有 WorldMap.turnCost 单独查静态表，地图头里这一格一直是空的；
+      // 现在统一从运行时表取，动态地城 / 覆盖写的 col=9 也能生效。
+      if (Elona.Sites && Elona.Sites.field && this.map && this.map.header) {
+        const H = this.map.header;
+        const turnBase = Elona.Sites.field(9, mapId, this) | 0;
+        if (turnBase > 0) H[9] = turnBase;
+        // 0-M0 / A69：map_init 237966-237972 把 var_132 的一整组列抄进 var_126：
+        //   6=col0（地图种类）、7=col11（可放采集点）、8=col12（归位判定）、
+        //   9=col9（回合消耗）、14=col21（室内/室外）。
+        //   本项目的 181 张静态地图 json 里 header[6] 全是 0，于是按地图种类判定的
+        //   天气 / 每小时 / 采集 / 道具效果 / AI 等 20 多处规则在静态图上恒不触发。
+        //   「仅当原值为 0 时回填」保留生成器显式写好的值：地城 kind(20..27)、
+        //   野外 4、自宅 5 —— 这些本就等于 var_132(0, 对应地图 id)。
+        if (Elona.Sites.ready && Elona.Sites.ready()) {
+          const slots = [[6, 0], [7, 11], [8, 12], [14, 21]];
+          for (const [slot, col] of slots) {
+            if ((H[slot] | 0) !== 0) continue;
+            const v = Elona.Sites.field(col, mapId, this) | 0;
+            if (v) H[slot] = v;
+          }
+        }
+      }
+      // 0-Q0 / Q-O1：228859-228870 + 249174 —— `var_126(6)==3` 的城镇 / 任务图
+      //   在 8/9 月会放喪蝉 1228。原版由 map_init 的 `repeat var_400: map_randsite`
+      //   完成；本项目静态城镇图直接载入 json，不跑该生成循环（17 册 Q-O1 登记的架构差异），
+      //   故在载入后按同一规则补一次。读档走 deserialize（不调 loadMap），不会重复放置。
+      if (this.state === STATE.PLAY) this.applyTownRandsite(mapId);
       // 0-DI：武具店的矢弹充填「每张地图一次」（var_132(37, 地图) == 100）
       // 换图即重置（原版由 map_init 重建 var_132 表）
       this.shopReloadMap = -1;
@@ -1032,6 +1077,55 @@
         Elona.Story.onMapEnter(this).catch(() => { /* 剧情失败不阻塞移动 */ });
       }
       return this.map;
+    }
+
+    /**
+     * 0-Q0 / Q-O1：静态地图上的 `map_randsite`（228777-228919）。
+     *
+     * 源码在 `map_init` 里 `repeat var_400: map_randsite`（249193），
+     * 249174 对 `var_126(6)==3` 给出 `var_400 = rnd(rnd(rnd(12)+1)+1)`；
+     * 228859-228870 在 `var_126(6)==3 & var_65(20)!=33` 时按 8/9 月放 1228 后直接 return。
+     * 本项目 181 张静态图由 `loadMap` 直接载入，不跑该循环，所以这里补这一段：
+     * 只有类型 3、非 33 号、且月份为 8/9 时才生效，其余地图零开销、零随机数消耗。
+     *
+     * @param {number} mapId var_65(20)
+     * @returns {number} 本次放下的喪蝉数量
+     */
+    applyTownRandsite(mapId) {
+      const RS = Elona.RandSite;
+      if (!RS || !this.map || !Elona.ItemDB || !Elona.ItemDB.data) return 0;
+      const id = mapId | 0;
+      const H = this.map.header || [];
+      // 0-M0 / A69：`header[6]` 已从 `Sites.field(0, mapId)` 回填，等价于 var_126(6)
+      const mapType = (H[6] | 0) || ((Elona.Sites && Elona.Sites.field)
+        ? (Elona.Sites.field(0, id, this) | 0) : 0);
+      if (mapType !== 3 || id === 33) return 0;        // 228859：排除诺耶尔
+      const month = this.getV65(11) | 0;
+      if (month !== 8 && month !== 9) return 0;        // 228862 / 228867
+      const W = this.map.width | 0, Hh = this.map.height | 0;
+      const R = (n) => this.rng.rnd(n);
+      const n = RS.countOf(3, W, Hh, R);               // 249174
+      const ctx = { month, mapId: id };
+      // 228780-228793：`(var_593(7, tile) & 4) == 0` → 项目 `attr(tile,7)&4`
+      const canStand = (tile) => (this.map.attr(tile, 7) & 4) === 0;
+      let placed = 0;
+      for (let i = 0; i < n; i++) {
+        const pos = RS.pickCell(this.map.cells, W, Hh, R, canStand);
+        if (!pos) break;
+        const cell = this.map.cells[pos.y][pos.x];
+        if (RS.worldExcluded(mapType, cell[0])) continue;   // 228795-228802
+        const what = RS.roll(R, mapType, ctx);
+        if (!what || what.kind !== 'item') continue;
+        let it = null;
+        try { it = Elona.ItemDB.createItem(what.id, 1); } catch (_) { it = null; }
+        if (!it) continue;
+        if ((it.f[0] | 0) <= 0) it.f[0] = 1;
+        it.f[5] = pos.x; it.f[6] = pos.y;
+        cell[4] = 1;
+        this.groundItems.push(it);
+        placed++;
+      }
+      return placed;
     }
 
     /**
@@ -1337,6 +1431,8 @@
       }
       p.x = nx; p.y = ny;
       this.syncCharaCells();
+      // 343455：玩家移动时清零观众兴奋度 / 战斗热度 var_65(250+373)
+      if (this.setV65) this.setV65(623, 0);
       // 343587-343604：回避遇敌的剩余距离（var_65(625)，每走一格 -1，1 格 = 4 英里）
       this.tickEncounterCancel();
       // 进入格子的地形特性 / 陷阱（*label_2911 的 306076+）
@@ -1726,6 +1822,16 @@
       // 本项目的地下城生成器同时代表这两类地图，故两条分支都跑（见差异报告 A68）。
       const items = [];
       const R = (n) => this.rng.rnd(n);
+      // 0-O0 / A59：228795-228802 的落格排除按 `var_126(6)` 判定。
+      //   237969 `var_126(6) = var_132(0, var_65(20))`，项目等价源值是 `Sites.field(0, 地图 id)`。
+      //   0-Q0 / Q-O1：`enterSite` 的顺序是「先 `enterDungeon` 再 `setV65(20, site.id)`」
+      //   （3203-3204），生成楼层时 `getV65(20)` 还是**换图前**的地图（多为世界地图 col0=1）。
+      //   旧写法因此把世界地图的落格排除套到迷宫地板 33 上（33 落在 33..56 区间且 != 44），
+      //   从世界地图进ネフィア时所有地面物品都会被跳过。现优先取本次要进的 `dungeonSiteId`。
+      const mapIdRS = (this.dungeonSiteId | 0) || (this.getV65(20) | 0);
+      const mapTypeRS = (Elona.Sites && Elona.Sites.field)
+        ? (Elona.Sites.field(0, mapIdRS, this) | 0)
+        : (this.dungeonKind | 0);
       if (Elona.RandSite) {
         const ctx = {
           month: this.getV65(11) | 0,
@@ -1733,11 +1839,21 @@
           playerLevel: (this.player && this.player.level) | 0,
           v850: this.getV65(850) | 0,
         };
-        const nSite = Elona.RandSite.countOf(2, W, H, R);
+        // 0-Q0 / Q-O1：A68 架构差异 —— 项目把源码「一次 `repeat var_400: map_randsite`」
+        //   拆成下面「地面物品」与「采集点」两条循环：本条代表 228872-228915 的 2/3 迷宫掉落，
+        //   后一条代表 228803-228842 的 20..27 分支。故这里只在真实 `var_126(6)` 为 2/3
+        //   时透传给 roll（喪蝉 1228 分支才不会被写成死代码）；ネフィア 20..27 仍按 2
+        //   走迷宫掉落，20..27 的噴水 / 祭壇 / 采集点由后一条循环负责，不重复。
+        const dropType = (mapTypeRS === 2 || mapTypeRS === 3) ? mapTypeRS : 2;
+        const nSite = Elona.RandSite.countOf(dropType, W, H, R);
         for (let i = 0; i < nSite; i++) {
           const pos = Elona.RandSite.pickCell(cells, W, H, R, (tile) => tile === FLOOR);
           if (!pos) break;
-          const what = Elona.RandSite.roll(R, 2, ctx);
+          // 0-O0 / A59：228795-228802 —— 世界地图选中格落在海岸/水面等图块时
+          //   源码把 var_1668 清零后直接 return，等价于本次调用什么都不放。
+          if (Elona.RandSite.worldExcluded
+            && Elona.RandSite.worldExcluded(mapTypeRS, cells[pos.y][pos.x][0])) continue;
+          const what = Elona.RandSite.roll(R, dropType, ctx);
           if (!what) continue;
           if (what.kind === 'feat') {
             cells[pos.y][pos.x][6] = (what.id | 0) + (what.type | 0) * 1000;
@@ -1752,6 +1868,10 @@
               it = Elona.ItemDB.create(this, {
                 level: Math.max(1, what.level | 0),
                 fix: what.fix ? what.fix : undefined,
+                // 0-O0 / A70：228906 `var_638 = var_645(rnd(length(var_645)))`。
+                //   29237：`itemcreate` 在 `var_639 != 0` 时强制 `var_638 = 0`，
+                //   所以 228911 分支（t639=64100）不能同时带 t638。
+                t638: what.cat ? 0 : (what.t638 || 0),
                 t639: what.cat || 0,
               });
             }
@@ -1791,14 +1911,36 @@
           break;
         }
         if (!pos) continue;
+        // 0-O0 / A59：228795-228802 世界地图落格排除（与上面的地面物品循环同一规则）
+        if (Elona.RandSite && Elona.RandSite.worldExcluded
+          && Elona.RandSite.worldExcluded(mapTypeRS, cells[pos.y][pos.x][0])) continue;
+        // 0-M0 / A59·A54：非热狂时改走 RandSite.roll 的 20..27 分支，把
+        //   228803-228818 的噴水 / 祭壇和 228820-228842 的采集点串成一次调用。
+        //   此前这里只调 Gather.rollSite，所以祭壇 / 噴水 / 95·96 三选一全没落地，
+        //   而且 map_randsite 的两个 20..27 if 块被合成了一个（少放采集点）。
+        //   kind 不在 20..27（任务图 / 测试桩）时沿用旧的 rollSite，避免采集点消失。
+        const useNefia = kind6 >= 20 && kind6 <= 27 && !!(Elona.RandSite && Elona.Gather);
         const site = fever
-          ? (Elona.Gather ? Elona.Gather.rollFever((n) => this.rng.rnd(n)) : null)
-          : (Elona.Gather ? Elona.Gather.rollSite((n) => this.rng.rnd(n)) : null);
+          ? (Elona.Gather ? Elona.Gather.rollFever(R) : null)
+          : useNefia
+            ? Elona.RandSite.roll(R, kind6, {
+                mapId: this.getV65(20) | 0,
+                // 228803：`var_126(3)==0` 表示这张图是本次新生成的。项目每次
+                // generateDungeon 都会重建地图，故恒为 true。
+                fresh: true,
+                // 228820：`var_126(7) = var_132(11, 地图 id)` 为 0 时不放采集点。
+                allowSpots: (Elona.Sites && Elona.Sites.field && this.dungeonSiteId)
+                  ? (Elona.Sites.field(11, this.dungeonSiteId, this) | 0) !== 0
+                  : true,
+                rollSite: (rr) => Elona.Gather.rollSite(rr),
+              })
+            : (Elona.Gather ? Elona.Gather.rollSite(R) : null);
         if (!site) continue;
         if (site.kind === 'item') {
           // 228947-228954：仪式用祭坛（item 172），直接落在地面
           const it = Elona.ItemDB ? Elona.ItemDB.createItem(site.id, 1) : null;
           if (it) {
+            if (site.god !== undefined) it.f[25] = site.god;   // 228812：祭壇所属神
             it.f[5] = pos.x; it.f[6] = pos.y;
             cells[pos.y][pos.x][4] = 1;
             items.push(it);
@@ -2370,6 +2512,8 @@
           Elona.Arena.setArenaMode(this, false, false);     // var_65(70) = 0,0,0,0
           this.arena = null;
         }
+        // 605197：离开竞技场时 var_65(250+373) = 0
+        if (this.setV65) this.setV65(623, 0);
         // 417103 记录的 var_65(67)（原子地图号）由 loadMap 的地图注册表
         //   （game.js 1003-1004 `setV65(20/22)`）在 loadMap(ret.map) 时自动写回，
         //   这里不需要也不能再手动改（enterArenaMap 把 22 覆盖成 1 的值已随换图失效）。
@@ -3232,9 +3376,13 @@
         this.log(`装备了 ${Elona.ItemDB.name(it.id, 'en')}。`);
       }
       if (Elona.Stats) {
-        Elona.Stats.applyEquipment(p, this);
-        Elona.Stats.applySkillCorrections(p, this);
-        Elona.Stats.refreshSpeed(p, this);
+        // 0-HZ：装备变化 → 完整 *label_2174 重算（先复位再叠加，避免附魔技能累加）
+        if (Elona.Stats.recalcStats) Elona.Stats.recalcStats(p, this);
+        else {
+          Elona.Stats.applyEquipment(p, this);
+          Elona.Stats.applySkillCorrections(p, this);
+          Elona.Stats.refreshSpeed(p, this);
+        }
       }
       if (Elona.Feat) Elona.Feat.applyWeight(p, this);
       this.endTurn();
@@ -3727,7 +3875,11 @@
       const rotten = (it.f[24] | 0) === 35 && (it.f[27] | 0) < 0;   // 225511-225519
 
       // 营养：默认 2500；带饮料 +2500；1128/1129 大幅减少；味道 f26>0 时 ×175%
+      // 225759-226004: 草药 422/423/424/426 为 500，427 为 20000，738 为 750
       let gain = 2500;
+      if (id === 422 || id === 423 || id === 424 || id === 426) gain = 500;
+      else if (id === 427) gain = 20000;
+      else if (id === 738) gain = 750;
       if (Elona.ItemDB.ref(id, 10) === 1) gain += 2500;
       if (id === 1128) gain = idiv(gain, 20);
       if (id === 1129) gain = idiv(gain, 25);
@@ -3866,6 +4018,14 @@
       }
       if (rotten) this.log(`${who}吃下了腐烂的食物……`);
 
+      // 0-HW / 226178-226708: 食材/食品固有效果（耐性、混乱、SAN、经验、以太病减轻等）
+      if (Elona.IngredientFX && Elona.IngredientFX.apply) {
+        const ifx = Elona.IngredientFX.apply(this, p, it);
+        if (ifx && ifx.messages) {
+          for (const m of ifx.messages) this.log(m);
+        }
+      }
+
       // 226709-226804：食物附魔的食用效果（体力/魔力吸取、属性与技能经验、
       //   潜力回复、属性维持 buff、终结、时停）
       if (Elona.EnchantFX && Elona.EnchantFX.applyFood) {
@@ -3915,11 +4075,36 @@
       return res;
     }
 
-    /** 食物 → 技能经验表（225170-225380 的分支简化） */
+    /** 食物 → 技能经验表（225170-225380、225710-226000） */
     foodSkillGrowth(it, f20, f26) {
       const type = idiv(it.f[25] | 0, 1000);
       let list;
-      if (type === 1 || it.id === 571) {
+      // 225710-226000: 草药固有成长（422..427）
+      if (it.id === 425) {
+        // 225710: 胃石草（ストマフィリア）全属性 130
+        list = [[10, 130], [11, 130], [17, 130], [16, 130], [12, 130],
+          [13, 130], [14, 130], [15, 130], [18, 130]];
+      } else if (it.id === 422) {
+        // 225759: 力量耐久草（キュラリア）：筋力・体质各 600、速度 20、其他各 10
+        list = [[10, 600], [11, 600], [17, 10], [16, 10], [12, 10],
+          [13, 10], [14, 10], [15, 10], [18, 20]];
+      } else if (it.id === 423) {
+        // 225810: 魔力意志草（モージア）：魔力・意志各 600、速度 20、其他各 10
+        list = [[10, 10], [11, 10], [17, 10], [16, 600], [12, 10],
+          [13, 10], [14, 10], [15, 600], [18, 20]];
+      } else if (it.id === 424) {
+        // 225861: 灵巧感知草（マグラ）：灵巧・感知各 600、速度 20、其他各 10
+        list = [[10, 10], [11, 10], [17, 10], [16, 10], [12, 600],
+          [13, 600], [14, 10], [15, 10], [18, 20]];
+      } else if (it.id === 426) {
+        // 225912: 魅力学习草（アルラウネ）：魅力・学习各 600、速度 20、其他各 10
+        list = [[10, 10], [11, 10], [17, 600], [16, 10], [12, 10],
+          [13, 10], [14, 600], [15, 10], [18, 20]];
+      } else if (it.id === 427) {
+        // 225963: 梦境草/原种（夢の絵の具）：全属性各 50、速度 300
+        list = [[10, 50], [11, 50], [17, 50], [16, 50], [12, 50],
+          [13, 50], [14, 50], [15, 50], [18, 300]];
+      } else if (type === 1 || it.id === 571) {
         list = [[10, 30], [11, 40], [17, 10]];
       } else if (type === 8) {
         list = [[17, 20], [13, 20], [15, 20]];
@@ -5241,6 +5426,11 @@
         && !this.groundItems.some((o) => o && (o.f[0] | 0) > 0 && (o.f[3] | 0) === 255)) {
         this.campfireFlag = false;
       }
+      // 0-N0 / A519：342386-342395 玩家拾取后的地产排名刷新，
+      //   位于 342398 的负重重算之前（保持源码顺序）。
+      if (picked > 0 && (c.index | 0) === 0) {
+        this.refreshPropertyRank();
+      }
       // 0-GW / 342398：`gosub *label_2225` 重算负重（feat.js 的 applyWeight，
       //   var_58(43/44/45)）；endTurn 里还有一份，这里保持源码顺序
       if (picked > 0 && Elona.Feat && Elona.Feat.applyWeight) {
@@ -5253,6 +5443,64 @@
       }
       this.pendingHarvest = harvest;    // 0-FZ：通知 Actions.get 本回合已转入采摘
       return picked;
+    }
+
+    /**
+     * 0-N0 / A519：342386-342395 玩家拾取后的地产排名刷新。
+     *
+     * 原版在 `*label_2978` 收尾（`var_243 == 0` 且 `var_577 == 0`）按地图类型重算：
+     *   `var_132(16, var_65(20)) == 101` → `*label_2450`（235700-235760，博物馆）
+     *   `var_65(20) == 7`               → `*label_2452`（235890-235940，自宅）
+     * 两者都会写回排名分（var_65(123) / var_65(124)）并在位次变化时提示。
+     *
+     * 本项目已分别有 `Property.museumScore`（503 标本 / 504 卡片、去重、
+     * `10000 - sqrt(总价)*70`、下限 100）与 `Home.recalcValue`（家具/家宝/地基
+     * 三项、上限 10000），但**只在 depositMuseum / 家菜单里调用**，拾取地面藏品
+     * 或家具后排名不会变。这里把地面物品纳入后复用这两个函数。
+     *
+     * @returns {object|null} 刷新结果；地图类型不匹配时返回 null
+     */
+    refreshPropertyRank() {
+      const mapId = this.getV65 ? (this.getV65(20) | 0) : 0;
+      // var_132(16, mapId)：0-L0 起由 Sites.field 统一提供；自建建筑的 type
+      // 记在 g.propertySites，地图 id 151（博物馆）/150（店）作兜底。
+      let estateType = (Elona.Sites && Elona.Sites.field)
+        ? (Elona.Sites.field(16, mapId, this) | 0) : 0;
+      if (estateType !== 101 && mapId === 151) estateType = 101;
+      if (estateType !== 102 && mapId === 150) estateType = 102;
+
+      if (estateType === 101 && Elona.Property && Elona.Property.museumScore) {
+        // 235706-235717：只统计地面上的标本 503 / 卡片 504，且卡片要 var_99(22)!=0。
+        const ground = (this.groundItems || []).filter((it) => it && (it.f[0] | 0) > 0
+          && ((it.id | 0) === 503 || (it.id | 0) === 504)
+          && ((it.id | 0) !== 504 || (it.f[22] | 0) !== 0));
+        // 项目自有的博物馆库存（depositMuseum 写入）与地面藏品一起评分，
+        // 避免拾取后把已有收藏的排名覆盖成空馆分数。
+        let stored = [];
+        const sites = this.propertySites || {};
+        for (const k in sites) {
+          const s = sites[k];
+          if (s && (s.type | 0) === 101 && Array.isArray(s.items)) stored = stored.concat(s.items);
+        }
+        const items = ground.concat(stored);
+        const before = this.getV65 ? (this.getV65(123) | 0) : 0;
+        const score = Elona.Property.museumScore(items);
+        if (this.setV65) this.setV65(123, score);                    // 235738
+        // 235740-235750：位次变动提示（ranktitle(3)）
+        if (before !== score && Elona.Rank && Elona.Rank.changeText) {
+          const txt = Elona.Rank.changeText(before, score, 3, 'jp');
+          if (txt) this.log(txt);
+        }
+        return { kind: 'museum', before, score, count: items.length };
+      }
+
+      // 235890-235936：自宅（地图 7）且 var_65(22)==1 → 家具/家宝/地基评分
+      if (mapId === 7 && this.getV65 && (this.getV65(22) | 0) === 1
+        && Elona.Home && Elona.Home.recalcValue) {
+        const r = Elona.Home.recalcValue(this);
+        return r ? Object.assign({ kind: 'home' }, r) : null;
+      }
+      return null;
     }
 
     /** 移除一件地面物品（被烧毁/冻碎后） */
@@ -5278,6 +5526,20 @@
      * 未知字段（var_17 / var_126(6)）与原本就由 NPC AI 处理的动画延迟用保守近似，
      * 详见 docs/02 A492。
      */
+    /**
+     * 0-N0 / A200：605002 的 `var_126(6) != 1` —— 当前地图是不是世界地图。
+     *   0-M0 起 `header[6]` 由 `Sites.field(0, mapId)` 抄表（等价 var_126(6)），
+     *   世界地图 site 4 的 col0 = 1；col0 直接查表作为兜底。
+     *   旧写法 `getV65(20) === 2` 指的是地图 id 2（野外，col0 = 4），不是世界地图。
+     */
+    isWorldMapType() {
+      const mapId = this.getV65 ? (this.getV65(20) | 0) : 0;
+      const h6 = (this.map && this.map.header) ? (this.map.header[6] | 0) : 0;
+      const col0 = (Elona.Sites && Elona.Sites.field)
+        ? (Elona.Sites.field(0, mapId, this) | 0) : 0;
+      return h6 === 1 || col0 === 1 || !!(this.isWorldMap && this.isWorldMap());
+    }
+
     turnEndTail(actor) {
       const pc = actor || this.player;
       if (!pc || typeof pc.get !== 'function') return null;
@@ -5338,13 +5600,27 @@
         out.timer801 = left;
       }
 
-      // 604991-605010：var_65(623) > 9999 → evadd 18 + 生成 4 个 945 伏兵
-      if ((this.getV65(623) | 0) > 9999) {
+      // 605000-605013：var_65(623) > 9999 且 `var_126(6) != 1`（非世界地图）
+      //   → evadd 18 + 生成 4 个 1800 级 945 观众冲场。
+      //   0-N0：旧写法按 `getV65(20) === 2` 判定「世界地图」，但地图 id 2 是野外
+      //   （site 2 的 var_132(0) = 4），世界地图是 id 4 系（var_132(0) = 1）；
+      //   `this.isWorldMap` 在本项目也不存在。该条件因此几乎恒为真，
+      //   站在世界地图上也会冲场。0-M0 起 `header[6]` 已由 `Sites.field(0, mapId)`
+      //   抄表（等价 var_126(6)），这里按源码直接判它，并保留 col0 兜底。
+      const isWorld = this.isWorldMapType();
+      if ((this.getV65(623) | 0) > 9999 && !isWorld) {
         if (this.events && typeof this.events.add === 'function') this.events.add(18, 0, 0);
         if (Elona.CharaFactory && typeof Elona.CharaFactory.create === 'function') {
           for (let i = 0; i < 4; i++) {
-            const c = Elona.CharaFactory.create(this, 945, 5, pc.x, pc.y);
-            if (c && typeof c.set === 'function') { c.set(201, 300); c.set(29, 0); }
+            // 0-HX：randWalkableCell 在没有地图桩/无空格时返回 null，退到玩家脚下
+            const spot = (this.randWalkableCell && typeof this.randWalkableCell === 'function')
+              ? (this.randWalkableCell() || { x: pc.x, y: pc.y }) : { x: pc.x, y: pc.y };
+            const c = Elona.CharaFactory.create(this, 945, 1800, spot.x, spot.y);
+            if (c && typeof c.set === 'function') {
+              c.set(201, 300); // 行动延迟 300
+              c.set(29, 0);   // 目标清 0
+              if (Elona.Status && Elona.Status.setCbit) Elona.Status.setCbit(c, 964, 1);
+            }
           }
         }
         this.setV65(623, -9999);
@@ -5770,6 +6046,8 @@
         v65: this.v65,
         // 0-EA：地产表 var_132（300..449 的建筑类型）与 site 表（含 site.stock）
         v132: this.v132,
+        // 0-L0 / A43：全列运行时覆盖（col → 值）
+        v132Fields: this.v132Fields || {},
         propertySites: this.propertySites,
         // 0-FF：renew_major 的间隔计时（农田野兽灾害 / 堆肥箱按 120 小时刷新）
         farmRenew: this.farmRenew || {},
@@ -5953,6 +6231,8 @@
       // 0-EA：地产表与自建建筑（旧存档没有这两项时按「没有地产」处理）
       this.worldLook = null;                    // 0-FT：瞬态，不进存档
       this.v132 = data.v132 || {};
+      // 0-L0 / A43：旧存档没有 v132Fields，按「无覆盖」处理（静态表照常生效）
+      this.v132Fields = data.v132Fields || Object.create(null);
       this.propertySites = data.propertySites || {};
       this.farmRenew = data.farmRenew || {};
       // 0-FS：自宅的楼层状态（旧存档缺字段时按「还没进过家」处理）

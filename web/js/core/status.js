@@ -64,6 +64,20 @@
     c.set(idx, on ? (word | mask) : (word & ~mask));
   }
 
+  /**
+   * `gosub *label_2174` —— buff 增删后立刻重算。
+   *
+   * buff 的实际效果（`calcbuff` 里那些 `var_82(id) += …` / `var_58(70) += …`）不是
+   * 加在 buff 槽上的，而是每次重算时**从槽位重新算一遍**；所以 addbuff / delbuff
+   * 之后不重算，效果就要等到下一次别的操作碰巧重算才出现（到期也不会消失）。
+   * 源码在 194796 / 194837 两处都 gosub 了 2174。
+   */
+  function recalcOwner(c, g) {
+    if (!c || !Elona.Stats || !Elona.Stats.recalcStats) return;
+    const gm = g || c.__game || Elona.__game || null;
+    try { Elona.Stats.recalcStats(c, gm); } catch (e) { /* 缺道具表/未就绪时静默 */ }
+  }
+
   // ================= findbuff / addbuff（194668-）=================
   function buffSlotId(c, slot) { return c.get(280 + slot * 3); }
   function findbuff(c, id) {
@@ -77,6 +91,10 @@
   /**
    * 添加增益/减益。返回 1 = 已写入；0 = 无效（原版会给出提示文本，此处省略）。
    * 【未移植】原版对 var_75(0,id)==2 等类型会改写 p1/p2，且“已有同强度”时提示。
+   *
+   * 【0-HZ】194796 `gosub *label_2174`：buff 的效果（`calcbuff` 里的 `var_82(id) += …`）
+   *   只在重算里生效，写完槽位必须立刻重算，否则加速/加力量这类 buff 要等到
+   *   下一次别的操作碰巧触发重算才“显灵”。
    */
   function addbuff(g, c, id, p1, p2) {
     if (p2 <= 0) return 0;
@@ -93,6 +111,7 @@
     c.set(280 + slot * 3, id);
     c.set(280 + slot * 3 + 1, p1);
     c.set(280 + slot * 3 + 2, p2);
+    recalcOwner(c, g);                                  // 194796
     return 1;
   }
   /**
@@ -100,8 +119,10 @@
    * 副作用：id 16 → 清 cbit(973)；18 → 清 cbit(980)；36 → var_58(174)=0；63 → var_65(250+419)=0。
    * 【未移植】id 15 的 incognitoend（UI）、prm_930==0 时的提示文本。
    * 【近似】var_65(250+419) 为全局值，此处写入角色字段 var_58(250+419) 近似（未确认）。
+   *
+   * 【0-HZ】194837 `gosub *label_2174`：buff 到期时同样要重算，把它的技能加成摘掉。
    */
-  function delbuff(c, slot) {
+  function delbuff(c, slot, g) {
     const id = c.get(280 + slot * 3);
     if (id === 16) cbitmod(c, 973, false);
     if (id === 18) cbitmod(c, 980, false);
@@ -116,6 +137,7 @@
         }
       }
     }
+    recalcOwner(c, g);                                     // 194837
   }
 
   // ================= healcon（196316-196628）=================

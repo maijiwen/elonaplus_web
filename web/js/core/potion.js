@@ -738,10 +738,10 @@
     return best;
   }
 
-  /** 技能 656 的射程（`var_83(3, 656) \ 1000 + 1`，328584） */
+  /** 技能 656 的射程（`var_83(3, 656) \ 1000 + 1`，328584）—— 0-Q0 / Q-N1：取余 → 7 */
   function rainRange() {
-    const f = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 0;
-    return ((f / 1000) | 0) + 1;
+    const f = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
+    return (f % 1000) + 1;
   }
 
   function distOf(g, a, b) {
@@ -757,7 +757,7 @@
   /**
    * 炼成雨（751，328514-328596）—— 向视野内的队友投掷药水（强度 90%）。
    *   只对**自己与同伴**生效（玩家：index < 16；NPC：同种族 var_58(9) 相同）
-   *   射程 = var_83(3,656)/1000+1，且要有视线
+   *   射程 = var_83(3,656)\1000+1 = 7（0-Q0 / Q-N1），且要有视线
    *   非精油/挥发油 → 濡湿 25 回合
    *   每命中一个单位都给炼金术 +5 经验（在 after 里按 rain 档处理）
    *

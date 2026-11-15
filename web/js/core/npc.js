@@ -129,7 +129,7 @@
     if (r === 8) {
       out.push({ id: 'intel', label: '冒险者的情报（100 gold）' });      // 原版 18
       out.push({ id: 'adventurer-message', label: '给冒险者传话（2000 gold）' }); // 原版 105
-      out.push({ id: 'quest-guide', label: '委托攻略（300 gold）' });     // 原版 98
+      out.push({ id: 'boss-info', label: 'Boss 情报（每次 300 gold）' }); // 原版 98
       out.push({ id: 'birthday', label: '告诉他生日' });                 // 原版 82
       out.push({ id: 'rumor', label: '打听传闻（2000 gold）' });
     }
@@ -231,7 +231,17 @@
         out.push({ id: 'share-meal', label: '一起吃饭（经验 200% / 满腹度减半）' });
       }
     }
-    out.push({ id: 'aside', label: '让开' });        // 原版：让 NPC 挪开（0-BX）
+    // 415555-415568：让开的出现条件（0-HX 按源码补齐）
+    //   `var_58(25) != 6`（状态 6 = 睡眠/dormant）且 `var_58(9) == 0`（中立关系）
+    //   且地图不是 35 且槽位 >= 16（1..15 是同伴槽，原版不给「让开」）。
+    {
+      const st25 = npc.get(25) | 0;
+      const rel9 = npc.get(9) | 0;
+      const mapId = (g && g.v65 && typeof g.getV65 === 'function') ? (g.getV65(20) | 0) : 0;
+      if (st25 !== 6 && rel9 === 0 && mapId !== 35 && (npc.index | 0) >= 16) {
+        out.push({ id: 'aside', label: '让开' });
+      }
+    }
     out.push({ id: 'give', label: '给予物品' });    // 本项目扩展（登记 A189）
     out.push({ id: 'info', label: '查看状态' });    // 本项目扩展（登记 A189）
     return out;
@@ -775,21 +785,24 @@
       message: `接受了${label}（-${cost} 白金币，${trained} 种魔法得到练习）。` };
   }
 
-  /** 情报屋：委托攻略（原版 98，422767）—— 300 gold 查看进行中委托的详细攻略 */
-  function questGuide(g, npc, player) {
-    const cost = 300;
-    const list = (Elona.Quest && Elona.Quest.activeQuests) ? Elona.Quest.activeQuests(g) : [];
-    if (!list.length) {
-      return { ok: false, message: '「你现在没有进行中的委托。」' };
+  /**
+   * 情报屋：Boss 情报（原版菜单 98，422767-424970，0-HY 改为跑源码脚本）
+   *
+   * 这一段在源码里是一串顺序 `if ( var_506 == N )` 的菜单处理器（410743-425316），
+   * 已由 tools/extract_talk_scripts.py 的 EXTRA_RANGES 编进 talkscripts.json。
+   * 原版进入方式就是「选完菜单项 → var_506 = 98 → 顺序落到对应 if」，
+   * 所以这里用 `Dialogue.startAtLine(422767)` + `var506 = 98` 起跑，
+   * 收费（`var_58(30,0) -= 300`）、`var_65(250+2)` 进度闸门、40 个情报分支
+   * 与「（继续）」翻页全按源码执行，不再自己造一份文案。
+   */
+  function bossInfo(g, npc, player) {
+    const D = Elona.Dialogue;
+    if (!D || typeof D.startAtLine !== 'function') {
+      return { ok: false, message: '（对话表还没准备好。）' };
     }
-    if ((player.get(30) | 0) < cost) {
-      return { ok: false, reason: 'money', cost, message: `情报需要 ${cost} gold。` };
-    }
-    player.set(30, player.get(30) - cost);
-    const lines = list.slice(0, 3).map((q) =>
-      `${Elona.Quest.describe(q)}（${Elona.Quest.progressText(g, q)}，${Elona.Quest.daysText(q)}）`);
-    return { ok: true, cost,
-      message: `（支付 ${cost} gold）\n` + lines.join('\n') };
+    const s = D.startAtLine(g, npc, 422767, { player, lang: 'jp', var506: 98 });
+    if (!s) return { ok: false, message: '（找不到 422767 的脚本。）' };
+    return { ok: true, action: 'boss-info', session: s };
   }
 
   /** 情报屋：传闻（原版 105「冒险者への伝言」，2000 gold）—— 单机实现为随机传闻 */
@@ -812,32 +825,55 @@
     return { ok: true, cost, message: `（支付 ${cost} gold）` + pool[pickIdx] };
   }
 
-  /** 街长：管理代行者的人气（原版 141，419633）—— 用店铺投资总额推算 */
+  /**
+   * 街长：管理代行者的人气（原版动作 141，419633-419664）。
+   *
+   * 源码：`repeat 245` 求和 `var_58(17)`（好感/人气度），跳过
+   *   cnt < 16、`var_58(150)==0`（空槽/无角色类型）、`cbit(992)`（已消失）、
+   *   `var_58(150)==13`（商人）、`cbit(971)`（店主？）。
+   * 【0-HX 更正】旧实现用「店铺投资 / 1000 + 名声 / 100」推算，属自拟；现在逐槽求和。
+   */
   function popularity(g, npc, player) {
-    let invest = 0, shops = 0;
-    for (let i = 0; i < 8; i++) {
-      const v = g.getV65(120 + i) | 0;
-      if (v > 0 && v < 10000) { invest += v; shops++; }
+    const list = (g && g.charas) || [];
+    const cb = (c, bit) => !!(Elona.Status && Elona.Status.cbit && Elona.Status.cbit(c, bit));
+    let pop = 0;
+    for (let i = 16; i < 245; i++) {
+      const c = list[i];
+      if (!c) continue;
+      if ((c.get(150) | 0) === 0) continue;
+      if (cb(c, 992)) continue;
+      if ((c.get(150) | 0) === 13) continue;
+      if (cb(c, 971)) continue;
+      pop += c.get(17) | 0;
     }
-    const fame = player.get(34) | 0;
-    const pop = idiv(invest, 1000) + idiv(fame, 100);
-    return { ok: true, popularity: pop, shops, invest,
-      message: `「你在本镇的店铺投资 ${invest} gold（${shops} 家），名声 ${fame}——综合评价：人气 ${pop}。」` };
+    return { ok: true, popularity: pop,
+      message: `「现在的人气度大概是 ${pop} 的样子。只要做让大家高兴的事就会上升，`
+        + '不过有时也得做讨人厌的事……」' };
   }
 
-  /** 街长：街道管理一览（原版 74，422086）—— 本实现为只读信息页（A198） */
-  function townInfo(g, npc, player) {
-    const town = (g.map && g.map.name) || '?';
-    let invest = 0, shops = 0;
-    for (let i = 0; i < 8; i++) {
-      const v = g.getV65(120 + i) | 0;
-      if (v > 0 && v < 10000) { invest += v; shops++; }
+  /**
+   * 街长：街道管理（原版菜单 74，422086-422500，0-HY 改为跑源码脚本）
+   *
+   * 源码这一段是完整的三级菜单：
+   *   1 政策实施（选民追加投票权 发言力50 / 当地吉祥物 运营预算200 / 定期维持的停止·再开）
+   *   2 法律整备（狼人防止法 发言力500 / 狼人共生法 750 / 准备中）
+   *   3 周边设施的建设（开发中）
+   * 效果全落在**地图头** `var_126(...)`（发言力 26 / 维持费 27·30 / 观光收入 25 / 运营预算 32），
+   * 与 towns.js 的城镇参数同源。旧实现是自己凑的一页只读信息（投资/店铺/委托/日期），
+   * 与源码无关，已删除。
+   *
+   * 仍缺（如实登记 A198d）：`var_126(22/23/24/28)` 的城镇初始值
+   * （246254-246358 按 var_132(28) 分档）与「每日维护结算」（350954 每日 +200 …）——
+   * 没有它们，政策能开关但收益/维护不随时间滚动。
+   */
+  function townManage(g, npc, player) {
+    const D = Elona.Dialogue;
+    if (!D || typeof D.startAtLine !== 'function') {
+      return { ok: false, message: '（对话表还没准备好。）' };
     }
-    const qn = (Elona.Quest && Elona.Quest.activeQuests)
-      ? Elona.Quest.activeQuests(g).length : 0;
-    const day = Elona.Arena ? Elona.Arena.curDay(g) : 0;
-    return { ok: true,
-      message: `「${town}」\n店铺投资：${invest} gold（${shops} 家营业中）\n进行中的委托：${qn} 件\n第 ${day} 日` };
+    const s = D.startAtLine(g, npc, 422086, { player, lang: 'jp', var506: 74 });
+    if (!s) return { ok: false, message: '（找不到 422086 的脚本。）' };
+    return { ok: true, action: 'town-manage', session: s };
   }
 
   /**
@@ -1322,29 +1358,36 @@
   }
 
   /**
-   * 执行一个服务。
-   * @returns {{ok:boolean, message:string, action?:string, keeper?:object}}
-   */
-  /**
-   * 「让开」（原版对话菜单项，截图里的 e）：让 NPC 挪到旁边的空位。
-   * 原版是 NPC 主动移开（cell_findspace 一类）；本实现把 NPC 挪到相邻可通行格。
+   * 「让开」（原版对话动作 106，419597-419630）。
+   *
+   * 源码：
+   *   419598  `if (var_58(14, var_244) <= 0)` → `snd 27` +「<name>はやんわりと断った。」
+   *   419609  `var_58(14, var_244) -= 20`（気力）
+   *   419610  `var_58(15, var_244) = 絶対小时 + 12`（12 小时冷却）
+   *   419621  `cell_swap 0, var_244` —— **玩家与 NPC 交换位置**（不是 NPC 自己挪开）
+   *   419624  「<name>と入れ替わった。」/「You displace <name>.」
+   *
+   * 【0-HX 更正】旧实现把 NPC 挪到相邻空格（报告 A190 记为近似）；源码是换位。
    */
   function aside(g, npc) {
-    const dirs = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [-1, 1], [1, -1], [-1, -1]];
-    for (const [dx, dy] of dirs) {
-      const nx = npc.x + dx, ny = npc.y + dy;
-      if (!g.map || !g.map.inBounds(nx, ny)) continue;
-      const cell = g.map.check(nx, ny);
-      if (!cell.walkable) continue;
-      const old = g.map.cell(npc.x, npc.y);
-      if (old) old[1] = 0;
-      npc.x = nx; npc.y = ny;
-      const nc = g.map.cell(nx, ny);
-      if (nc) nc[1] = npc.index + 1;
-      if (g.syncCharaCells) g.syncCharaCells();
-      return { ok: true, action: 'aside', message: `${npc.name} 让开了路。` };
+    const R = Elona.Relation;
+    const has65 = !!(g && g.v65);
+    const absHour = () => (has65
+      ? ((g.getV65(13) | 0) + (g.getV65(12) | 0) * 24
+        + (g.getV65(11) | 0) * 24 * 30 + (g.getV65(10) | 0) * 24 * 30 * 12)
+      : 0);
+    const now = (has65 && R && typeof R.nowHours === 'function') ? R.nowHours(g) : absHour();
+    if (now >= (npc.get(15) | 0)) npc.set(14, 100);        // 気力回满（同 Relation.refreshVigor）
+    const vigor = npc.get(14) | 0;
+    if (vigor <= 0) {                                      // 419598-419606
+      if (typeof g.playSnd === 'function') g.playSnd(27);
+      return { ok: false, action: 'aside', reason: 'refuse',
+        message: `${npc.name} 委婉地拒绝了。` };
     }
-    return { ok: false, message: '周围没有能站的空位。' };
+    npc.set(14, vigor - 20);                               // 419609
+    npc.set(15, now + 12);                                 // 419610
+    if (typeof g.swapWith === 'function') g.swapWith(npc);  // 419621 cell_swap 0, var_244
+    return { ok: true, action: 'aside', message: '' };      // 提示由 swapWith 输出（419624）
   }
 
   // ======================================================================
@@ -1593,10 +1636,10 @@
       case 'practice': return magicPractice(g, npc, player, arg);
       case 'stock-exchange': return magicStockExchange(g, npc, player, arg, false);
       case 'stock-exchange-all': return magicStockExchange(g, npc, player, 0, true);
-      case 'quest-guide': return questGuide(g, npc, player);
+      case 'boss-info': return bossInfo(g, npc, player);
       case 'rumor': return rumor(g, npc, player);
       case 'popularity': return popularity(g, npc, player);
-      case 'town-info': return townInfo(g, npc, player);
+      case 'town-info': return townManage(g, npc, player);
       case 'barter': return barter(g, npc, player, arg);
       // 0-HV：竞技场（416977-417082 / 417123-417231）—— 原版是**两步**：
       //   先 `var_122 = "相手はレベル N だ。挑むか？"`，再 `txt_select` 出
@@ -1682,8 +1725,8 @@
     trainableSkills, trainCost, train, heal, infoText, perform, aside,
     calcIdentifyValue, unknownItems, identifyOne, identifyAll, investigate,
     magicStockExchange, magicPractice, PRACTICE, practiceQuote, practiceSpells, practiceCost,
-    questGuide, rumor, popularity,
-    townInfo, barter,
+    bossInfo, rumor, popularity,
+    townManage, barter,
     learnableSkills, learnSkill, uncurseEquip,
     enhanceCost, enhance, ammoSlots, reloadPlan, reload, AMMO_MAX, AMMO_NAMES,
     lighten, heavify, specialMeal, specialDrink, mealTargets,

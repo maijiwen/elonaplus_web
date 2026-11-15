@@ -7,7 +7,7 @@
  *    返回 `request:'teach'`，此前没有消费方，等于空转）
  *
  *   340472        gosub *label_2707 —— 选目标（本项目用同伴选择窗）
- *   340480-340499 距离与视线：超出 `var_83(3, 656) \ 1000 + 1` 或没有 fov_los
+ *   340480-340499 距离与视线：超出 `var_83(3, 656) \ 1000 + 1`（取余 → 7 格）或没有 fov_los
  *                 →「範囲外だ。」
  *   340500-340507 目标 `var_58(60) >= 100` →「手遅れだ。」
  *   340509-340516 目标 `var_58(60) <= 0` →「指導の必要はなさそうだ。」
@@ -26,10 +26,10 @@
   const G = (c, n) => (c && typeof c.get === 'function' ? (c.get(n) | 0) : 0);
   const F60 = 60;                       // var_58(60) 指导点数
 
-  /** 340482：射程 = `var_83(3, 656) \ 1000 + 1`（656 = 3006 → 4 格） */
+  /** 340482：射程 = `var_83(3, 656) \ 1000 + 1`（0-Q0 / Q-N1 取余：3006 → 7 格） */
   function range() {
     const f = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
-    return idiv(f, 1000) + 1;
+    return (f % 1000) + 1;
   }
   function dist(a, b) {
     return Math.max(Math.abs((a.x | 0) - (b.x | 0)), Math.abs((a.y | 0) - (b.y | 0)));

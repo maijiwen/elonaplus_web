@@ -37,6 +37,12 @@
 
   const TAX_CAP = 1000000000;  // 貯金箱上限（358614）
 
+  // 随机类别表（222062 / 222064，*label_2286）：自营店日结按 var_1512 抽主类别，
+  // 1/10 换成 var_645 的杂项类别；NPC 商店的同类表在 core/shop.js。
+  const CAT_1512 = [52000, 53000, 53000, 56000, 54000, 77000, 57000, 57000];
+  const CAT_645 = [10000, 10000, 24000, 24000, 25000, 12000, 16000,
+    20000, 19000, 18000, 22000, 14000, 32000, 34000];
+
   // 交通工具维护费（214570-214598）
   const VEHICLE_LAND = { 1: 500, 2: 2000, 3: 10000, 4: 200000 };
   const VEHICLE_SEA = { 1: 100, 2: 3000, 3: 10000, 4: 50000, 5: 100000, 6: 150000 };
@@ -389,8 +395,8 @@
     shopOpen(g, slot) { return (g.getV65(120 + (slot | 0)) | 0) < 10000; },
 
     /**
-     * 每日店铺结算（279026-279100）。
-     * 原版还会按 var_1512/var_645 生成商品；这里保留收入与「是否补货」的骨架，
+     * 每日店铺结算（279026-279100）。收入 / 进货件数 / 等级 / 品质 / 类别表
+     * （var_1512、var_645）/ 559 抗体 / var_99(17) 标记均按源码，
      * 商品抽取走 ItemDB.create（与原版 itemcreate 同一条链路）。
      * @returns {object} { gold, shops:[], goods:[] }
      */
@@ -432,19 +438,31 @@
           const fix = Elona.ItemDB.calcFixLv
             ? Elona.ItemDB.calcFixLv(3 + (R(arrears <= 1 ? 4 : 6) < supply ? 1 : 0), g)
             : 3;
+          // 279061-279068：var_638 = var_1512[rnd(8)]；1/10 换成 var_645[rnd(14)]；
+          //   类别 57000（魔法具）且見習い補給係生效时 var_639 = 58005。
+          //   0-M0 之前这里只传 level/fix，类别交给 ItemDB 的默认轮盘，
+          //   等于把两张类别表和「魔法具换高品质」的过滤都丢了。
+          let t638 = CAT_1512[R(CAT_1512.length)];
+          if (R(10) === 0) t638 = CAT_645[R(CAT_645.length)];
+          let t639 = 0;
+          if (t638 === 57000 && R(5) < supply) t639 = 58005;
+          // 279070-279072：`rnd(100 + var_65(120+槽)/5) < 2` → 强制成 559
+          let itemId = -1;
+          if (R(100 + idiv(g.getV65(120 + slot) | 0, 5)) < 2) itemId = 559;
+          // 279074-279089：var_2115 → 生成后写 var_99(17, 商品)
+          let flag17 = 0;
+          const pool = (g.getV65(170) | 0) + this.calcBuilding(g) + this.calcTax(g);
+          if (arrears <= 1) {
+            if (t638 !== 57000 && R(pool) > R(50000)) flag17 = 1;
+          } else if (arrears > 5) flag17 = -1;
           let it = null;
           try {
-            it = Elona.ItemDB.create(g, { level: lv, fix });
+            it = Elona.ItemDB.create(g, {
+              level: lv, fix, t638, t639, itemId,
+            });
           } catch (e) { it = null; }
           if (it) {
-            // 279065-279068：`var_638 == 57000`（魔法具）且 `rnd(5) < var_97(39)`
-            //   → `var_639 = 58005`，即换成高品质魔法具。
-            if ((Elona.ItemDB.ref(it.id, 5) | 0) === 57000 && R(5) < supply) {
-              try {
-                const hi = Elona.ItemDB.create(g, { level: lv, fix, t638: 58005 });
-                if (hi && hi.id) it = hi;
-              } catch (e) { /* 没有该小类时保留原物 */ }
-            }
+            it.f[17] = flag17;                          // 279098：var_99(17)
             it.f[5] = -1; it.f[6] = -1;
             res.goods.push(it);
           }

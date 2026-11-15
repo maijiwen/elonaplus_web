@@ -55,11 +55,25 @@
   }
 
   /**
-   * 地图类型（var_126(6)）—— 只用来判断「是否世界地图（==1）」。
-   * 本项目没有 var_132 的完整表，按地图名近似：world → 1、dungeon* → 3、其余按城镇 20。
+   * 地图类型（var_126(6)）—— 201664 `if ( var_126(6) != 1 )` 只判是否世界地图。
+   *
+   * 0-Q0 / A77：此前按地图名近似（world→1、dungeon*→3、其余 20），会把城镇误当成
+   *   ネフィア、把静态图误当成迷宫。237969 `var_126(6) = var_132(0, var_65(20))`，
+   *   0-M0 / A69 起 `loadMap` 已把 `Sites.field(0, mapId)` 回填进 `header[6]`，
+   *   生成器也显式写地城 kind(20..27)，故优先读真值；静态表与地图头都没有时
+   *   才退回名称近似（兼容测试桩）。
    */
   function mapTypeOf(g) {
-    const n = (g.map && g.map.name) || '';
+    const m = g && g.map;
+    if (!m) return 0;
+    const h6 = (m.header && (m.header[6] | 0)) || 0;
+    if (h6) return h6;
+    const S = Elona.Sites;
+    if (S && S.field && S.ready && S.ready() && g.getV65) {
+      const v = S.field(0, g.getV65(20) | 0, g) | 0;
+      if (v) return v;
+    }
+    const n = m.name || '';
     if (n === 'world' || n.indexOf('world') === 0) return 1;
     if (n.indexOf('dungeon') === 0) return 3;
     return 20;

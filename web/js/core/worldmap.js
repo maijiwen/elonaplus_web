@@ -78,7 +78,12 @@
   function turnCost(g) {
     const S = Elona.Sites;
     const id = (g && g.getV65) ? (g.getV65(20) | 0) : 0;
-    if (S && S.get) {
+    // 0-L0 / A43：改走统一的 var_132(col,row) 运行时表 —— 静态 site 表之外，
+    // 动态地城 / 玩家地产 / 运行时覆盖写的 col=9 也应生效（237970）。
+    if (S && S.field) {
+      const v = S.field(9, id, g) | 0;
+      if (v > 0) return v;
+    } else if (S && S.get) {
       const s = S.get(id);
       if (s && s.fields && (s.fields[9] | 0) > 0) return s.fields[9] | 0;
     }

@@ -1,0 +1,411 @@
+[
+  {
+    "ids": [
+      422
+    ],
+    "actions": [
+      {
+        "op": "modgrowth",
+        "stat": 10,
+        "delta": 40
+      },
+      {
+        "op": "modgrowth",
+        "stat": 11,
+        "delta": 40
+      }
+    ]
+  },
+  {
+    "ids": [
+      423
+    ],
+    "actions": [
+      {
+        "op": "modgrowth",
+        "stat": 16,
+        "delta": 40
+      },
+      {
+        "op": "modgrowth",
+        "stat": 15,
+        "delta": 40
+      }
+    ]
+  },
+  {
+    "ids": [
+      424
+    ],
+    "actions": [
+      {
+        "op": "modgrowth",
+        "stat": 12,
+        "delta": 40
+      },
+      {
+        "op": "modgrowth",
+        "stat": 13,
+        "delta": 40
+      }
+    ]
+  },
+  {
+    "ids": [
+      426
+    ],
+    "actions": [
+      {
+        "op": "modgrowth",
+        "stat": 17,
+        "delta": 40
+      },
+      {
+        "op": "modgrowth",
+        "stat": 14,
+        "delta": 40
+      }
+    ]
+  },
+  {
+    "ids": [
+      204
+    ],
+    "actions": [
+      {
+        "op": "queststate",
+        "field": 30,
+        "delta": 1
+      },
+      {
+        "op": "dmgsan",
+        "delta": "15"
+      },
+      {
+        "op": "dmgcon",
+        "con": 11,
+        "delta": 150
+      }
+    ]
+  },
+  {
+    "ids": [
+      1082
+    ],
+    "actions": [
+      {
+        "op": "var58set",
+        "slot": 79,
+        "value": 17
+      },
+      {
+        "op": "var58add",
+        "slot": 433,
+        "delta": 5
+      }
+    ]
+  },
+  {
+    "ids": [
+      204
+    ],
+    "actions": [
+      {
+        "op": "queststate",
+        "field": 394,
+        "delta": 1
+      },
+      {
+        "op": "skillmod",
+        "skill": 3,
+        "delta": 1000
+      },
+      {
+        "op": "skillmod",
+        "skill": 2,
+        "delta": 1000
+      }
+    ]
+  },
+  {
+    "ids": [
+      889
+    ],
+    "actions": [
+      {
+        "op": "anime",
+        "n": 14
+      },
+      {
+        "op": "dmgcon",
+        "con": 12,
+        "delta": 200
+      },
+      {
+        "op": "anime",
+        "n": 30
+      },
+      {
+        "op": "dmgcon",
+        "con": 11,
+        "delta": 200
+      },
+      {
+        "op": "dmgcon",
+        "con": 9,
+        "delta": 200
+      }
+    ]
+  },
+  {
+    "ids": [
+      1315
+    ],
+    "actions": [
+      {
+        "op": "skillexp",
+        "skill": 19,
+        "delta": 2200
+      }
+    ]
+  },
+  {
+    "ids": [
+      755
+    ],
+    "actions": [
+      {
+        "op": "skillmod",
+        "skill": 19,
+        "delta": 3000
+      }
+    ]
+  },
+  {
+    "ids": [
+      1107,
+      1108
+    ],
+    "actions": [
+      {
+        "op": "skillmod",
+        "skill": 19,
+        "delta": 2000
+      }
+    ]
+  },
+  {
+    "ids": [
+      702
+    ],
+    "actions": [
+      {
+        "op": "skillmod",
+        "skill": 19,
+        "delta": 1000
+      }
+    ]
+  },
+  {
+    "ids": [
+      639
+    ],
+    "actions": [
+      {
+        "op": "skillmod",
+        "skill": 19,
+        "delta": 20000
+      }
+    ]
+  },
+  {
+    "ids": [
+      655
+    ],
+    "actions": [
+      {
+        "op": "skillmod",
+        "skill": 2,
+        "delta": 3000
+      }
+    ]
+  },
+  {
+    "ids": [
+      662
+    ],
+    "actions": [
+      {
+        "op": "skillmod",
+        "skill": 3,
+        "delta": 3000
+      }
+    ]
+  },
+  {
+    "ids": [
+      867
+    ],
+    "actions": [
+      {
+        "op": "resistmodh",
+        "ele": 54,
+        "delta": 50
+      },
+      {
+        "op": "dmgcon",
+        "con": 11,
+        "delta": 80
+      },
+      {
+        "op": "dmgsan",
+        "delta": "rnd(10) + 50"
+      }
+    ]
+  },
+  {
+    "ids": [
+      932
+    ],
+    "actions": [
+      {
+        "op": "dmgsan",
+        "delta": "rnd(10) + 1"
+      }
+    ]
+  },
+  {
+    "ids": [
+      667
+    ],
+    "actions": [
+      {
+        "op": "healsan",
+        "delta": 30
+      }
+    ]
+  },
+  {
+    "ids": [
+      952
+    ],
+    "actions": [
+      {
+        "op": "addbuff",
+        "id": 30,
+        "power": 2500,
+        "turn": 15
+      },
+      {
+        "op": "addbuff",
+        "id": 3,
+        "power": 500,
+        "turn": 15
+      },
+      {
+        "op": "healhp",
+        "expr": "var_58(51, var_243) / 8 + 1"
+      },
+      {
+        "op": "var58add",
+        "slot": 259,
+        "delta": 50
+      }
+    ]
+  },
+  {
+    "ids": [
+      848
+    ],
+    "actions": [
+      {
+        "op": "anime",
+        "n": 8
+      }
+    ]
+  },
+  {
+    "ids": [
+      849
+    ],
+    "actions": [
+      {
+        "op": "anime",
+        "n": 8
+      },
+      {
+        "op": "var58add",
+        "slot": 21,
+        "delta": 9999999
+      },
+      {
+        "op": "var58add",
+        "slot": 21,
+        "delta": 9999999
+      },
+      {
+        "op": "var58add",
+        "slot": 21,
+        "delta": 9999999
+      }
+    ]
+  },
+  {
+    "ids": [
+      1040
+    ],
+    "actions": [
+      {
+        "op": "anime",
+        "n": 8
+      }
+    ]
+  },
+  {
+    "ids": [
+      852
+    ],
+    "actions": [
+      {
+        "op": "anime",
+        "n": 8
+      },
+      {
+        "op": "var58set",
+        "slot": 8,
+        "value": 1
+      },
+      {
+        "op": "var58set",
+        "slot": 8,
+        "value": 0
+      }
+    ]
+  },
+  {
+    "ids": [
+      260,
+      258,
+      787
+    ],
+    "actions": [
+      {
+        "op": "queststate",
+        "field": 42,
+        "delta": 1
+      }
+    ]
+  },
+  {
+    "ids": [
+      633
+    ],
+    "actions": [
+      {
+        "op": "queststate",
+        "field": 43,
+        "delta": 1
+      }
+    ]
+  }
+]

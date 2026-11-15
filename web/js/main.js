@@ -233,6 +233,19 @@
       });
       return true;
     }
+    // A398 / 320531：復活（461）的选人窗。核心（core/spellutil.js）在候选 > 1 时
+    // 返回 'revive-select'，只有一名候选时已直接复活；这里补上原版 *label_2707 的选人。
+    if (r.request === 'revive-select' && Elona.Panels && Elona.SpellUtil) {
+      const list = (r.candidates || []).filter((c) => c && (c.get(0) | 0) === 6);
+      Elona.Panels.openAllySelect(game, '復活させるのは誰？', list, (c) => {
+        const fin = Elona.SpellUtil.finishRevive(game, game.player, c);
+        if (fin) {
+          UI.pushMessage(`${c.name || '同伴'}复活了！`);
+          if (game.endTurn) game.endTurn();
+        }
+      }, 'a~p 选择　Esc 关闭');
+      return true;
+    }
     return false;
   }
   Elona.consumeSpellRequest = consumeSpellRequest;

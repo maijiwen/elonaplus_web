@@ -218,7 +218,13 @@
 
       // 台词里的 {player} / {ある} / {Angry} / {seOk} 由 *label_0258 替换（16243-17992）。
       // 原来这里直接 stripMarks 把标记删掉，导致称呼与语气词丢失。
+      // 0-Q0 / A150：*label_0258 把 `{seXxx}` 逐条映射到**确切的 `snd N`**
+      //   （16431 `{seChangePage}`→snd 1 … 17365 `{se0}`→snd 188），
+      //   把 `{Angry}` / `{Question}` 写成 `var_58(79,c)=18+100*3 / 21+100*3`
+      //   （289359-289405 用 `\100` 取表情 id 换立绘）。此前 onSound 只按语义名
+      //   近似播放、onEmote 未接；现按编号查 sndtable，并把帧号随结果交给视图层。
       let text = this.stripMarks(pick);
+      const effects = { sounds: [], emotes: [] };
       if (Elona.TextVar && Elona.TextVar.loaded) {
         text = Elona.TextVar.expand(pick, {
           player: (g && g.player) || null,
@@ -227,7 +233,19 @@
           punct: 3,
           rnd: (n) => ((g && g.rng && g.rng.rnd) ? g.rng.rnd(n) : Math.floor(Math.random() * n)),
           onSound: (info) => {
-            if (Elona.Audio && info.semantic) { try { Elona.Audio.play(info.semantic); } catch (e) { /* 忽略 */ } }
+            effects.sounds.push(info);
+            let played = null;
+            if (Elona.Audio && Elona.Audio.playIndex && (info.snd | 0) > 0) {
+              try { played = Elona.Audio.playIndex(info.snd | 0); } catch (e) { played = null; }
+            }
+            // 编号无效（音频关闭 / se0 系列原版就没有 wav）时退回语义名近似
+            if (!played && Elona.Audio && info.semantic) {
+              try { Elona.Audio.play(info.semantic); } catch (e) { /* 忽略 */ }
+            }
+          },
+          onEmote: (frame, ch) => {
+            effects.emotes.push(frame | 0);
+            if (ch && typeof ch.set === 'function') ch.set(79, frame | 0);
           },
         });
       }
@@ -237,6 +255,7 @@
         raw: pick,
         tag,
         quiet: QUIET_TYPES.indexOf(t) >= 0,
+        effects,
       };
     },
 

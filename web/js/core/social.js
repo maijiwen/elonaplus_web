@@ -81,11 +81,11 @@
 
   /**
    * 308530 的索敌半径：`var_83(3, 656) \ 1000 + 1`
-   * 能力 656「鼓舞」的类别是 3006 → 3 + 1 = 4 格。
+   * 0-Q0 / Q-N1：HSP `\` 取余 → 3006 % 1000 + 1 = 7 格（旧口径按整除写成 4）。
    */
   function rangeOf() {
     const f = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
-    return Math.max(1, idiv(f, 1000) + 1);
+    return Math.max(1, (f % 1000) + 1);
   }
 
   /** 以某角色为中心的索敌（不依赖 g.player，NPC 施放时同样正确） */

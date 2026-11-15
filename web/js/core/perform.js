@@ -147,8 +147,11 @@
       let sum = 0;
       const actor = p.index | 0;
       const actorIsParty = actor === 0 || (actor >= 1 && actor <= 15);
-      // 307046：reach = var_83(3, 656)\1000 + 1（技能 656 未在 skills.json 中 → 通常为 1）
-      const reach = idiv(p.skill(656) | 0, 1000) + 1;
+      // 307046 / 330907：reach = var_83(3, 656)\1000 + 1
+      //   0-Q0 / Q-N1：源码取**能力表** var_83(3,656)=3006，不是技能 656 等级；
+      //   HSP `\` 取余 → 7 格。表未加载时用源码值兜底。
+      const f656 = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
+      const reach = (f656 % 1000) + 1;
       for (const c of g.charas) {
         if (!c || (c.get(0) | 0) !== 1 || c === p) continue;
         const ci = c.index | 0;

@@ -44,6 +44,28 @@
    */
   const POTION_ABILITIES = [751, 826];
 
+  /**
+   * 0-K0：走 `use()` 专门子例程、不进 Ability0 handler 表的广域能力。
+   * 源码 `*label_2965` 里这四条都有明确的效果分支，只是 `gosub` 到别的标签：
+   *   767 魅惑之舞 330860-330864 → *label_2914（307090-307247）→ `Perform.startDance`
+   *   713 传教     330866-330869 → *label_2916（307623-308011）→ `Preach.start`
+   *   830 本気物乞い 330871-330875 → *label_2915（307377-307634）→ `Work.startBeg`
+   *   676 合奏     330878-330931 → `Perform.ensemble`
+   * 0-HL 把 `isPassive` 收紧成「3000 档且 Ability0 无 handler」时，把这四条
+   * 一起误判成「效果未移植」并在 `use()` 开头 `return {reason:'passive'}`，
+   * 导致已有完整实现的能力根本发动不了。按源码 288779（3000 只是从 a 键
+   * 列表排除、改走 W 页，并非被动）在此放行。
+   */
+  const SPECIAL_ABILITIES = [767, 713, 830, 676];
+
+  /**
+   * 0-K0：由 `core/spell.js` 直接承接、`Ability0` 故意不登记的 7 条
+   * （632 变异 / 653·654 寄生 / 723 弱化 / 787·788·789 弱化与起雾）。
+   * 见 `tools/verify_ability0.js` 的 IN_SPELL 与 `spell.js` 的 FOG_IDS（1396）。
+   * 它们同样因为「Ability0 无 handler」被 `isPassive` 误拦；按 288779 放行。
+   */
+  const SPELL_ABILITIES = [632, 653, 654, 723, 787, 788, 789];
+
   const Ability = {
     /**
      * 该 id 是否是「被动」类。
@@ -59,6 +81,8 @@
       if (!S || !S.field) return false;
       if (NECRO_ABILITIES.indexOf(id | 0) >= 0) return false;   // 见 NECRO_ABILITIES 注释
       if (POTION_ABILITIES.indexOf(id | 0) >= 0) return false;  // 见 POTION_ABILITIES 注释
+      if (SPECIAL_ABILITIES.indexOf(id | 0) >= 0) return false; // 0-K0：走专门子例程
+      if (SPELL_ABILITIES.indexOf(id | 0) >= 0) return false;   // 0-K0：走 spell.js
       if (!this.isWide(id)) return false;
       const A0 = Elona.Ability0;
       return !(A0 && A0.has && A0.has(id));

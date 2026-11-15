@@ -12,7 +12,9 @@
  *   1. 源码在每页淡入后**自动续行**（无 waitkey），按键(bit128)直接结束整段。
  *      网页默认改为「按键推进」，并可用选项 sceneAuto 恢复自动推进，Esc 跳过整段。
  *   2. `{mc}` 的音乐是 MIDI，浏览器无法播放，改为语义相近的环境音循环。
- *   3. `{actor_N}` 的第二个字段（头像编号）没有对应素材，面板只显示名字。
+ *   3. `{actor_N}` 的头像（第二个字段）在 0-J0 按 425500 的 gzoom 补齐：
+ *      graphic/face1.bmp / face2.bmp 每格 48×72、16 列，放大到 80×112 画在对话框左侧
+ *      （pic >= 160 用 face2 并减 160）；图集未就绪时退回「只显示名字」。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -69,6 +71,45 @@
     if (!active) return;
     advanceFlag = true;
     if (keyResolve) { const r = keyResolve; keyResolve = null; r(); }
+  }
+
+  // ---------------------------------------------------------------- 头像图集（A39）
+  // 源码 591995-592003 把 `{actor_N}` 存成 "名字,pic"；台词页在 425500 一带用
+  // `gzoom 80, 112, 4, pic \ 16 * 48, pic / 16 * 72, 48, 72` 从头像图集里取一格。
+  // 图集就是 graphic/face1.bmp / face2.bmp（每格 48×72、16 列），pic >= 160 用 face2。
+  // 本项目此前只显示名字（见文件头偏差 3），这里补上头像。
+  const FACE_CELL_W = 48, FACE_CELL_H = 72, FACE_COLS = 16;
+  const FACE_DRAW_W = 80, FACE_DRAW_H = 112;
+  const faceImgs = {};
+
+  function faceSheet(pic) {
+    const n = pic | 0;
+    const sheet = n >= 160 ? 2 : 1;
+    const key = 'face' + sheet;
+    let img = faceImgs[key];
+    if (!img) {
+      img = new Image();
+      img.src = 'assets/graphic/' + key + '.bmp';
+      faceImgs[key] = img;
+    }
+    return { img, idx: sheet === 2 ? n - 160 : n };
+  }
+
+  /** 预载本区块里出场的头像（播放时就不必等 onload） */
+  function preloadFaces(actors) {
+    for (const k of Object.keys(actors || {})) {
+      const a = actors[k];
+      if (a && a.pic) faceSheet(a.pic);      // 构造 Image 即开始下载
+    }
+  }
+
+  /** 能不能画出该角色的头像（图集已就绪 + 编号有效） */
+  function faceReady(page) {
+    if (!page || !page.actor || !page.actor.pic) return null;
+    const { img, idx } = faceSheet(page.actor.pic);
+    if (!img || !img.complete || !img.naturalWidth) return null;
+    if (idx < 0 || idx >= FACE_COLS * 99) return null;
+    return { img, idx };
   }
 
   /** 等一页看完（按键 / 点击 / 自动倒计时 / 跳过） */
@@ -172,10 +213,21 @@
 
       ctx.font = FONT;
       ctx.textAlign = 'left';
-      const vis = wrap(text, W - 130);
+      // A39：有头像时把正文右移，避免压在图上去（源码窗口里脸在 +42,+42、文字在 +120）
+      const face = faceReady(page);
+      let textX = 60;
+      if (face) {
+        ctx.drawImage(face.img,
+          (face.idx % FACE_COLS) * FACE_CELL_W,
+          Math.floor(face.idx / FACE_COLS) * FACE_CELL_H,
+          FACE_CELL_W, FACE_CELL_H,
+          40 + 42, boxY + 30, FACE_DRAW_W, FACE_DRAW_H);
+        textX = 40 + 42 + FACE_DRAW_W + 14;
+      }
+      const vis = wrap(text, W - textX - 26);
       vis.slice(0, 5).forEach((line, i) => {
         ctx.fillStyle = 'rgb(235,235,235)';
-        ctx.fillText(line, 60, boxY + 34 + i * 24);
+        ctx.fillText(line, textX, boxY + 34 + i * 24);
       });
     }
     ctx.restore();
@@ -242,6 +294,8 @@
 
     const seq = Elona.Scene.sequence(id);
     if (!seq.length) return false;
+    // A39：先把本区块出场的头像发起加载，播到台词页时通常已解码完成
+    preloadFaces(Elona.Scene.actorsOf(id));
 
     active = true;
     skipFlag = false;
@@ -323,5 +377,7 @@
     /** 已结束的剧情段数（含被跳过的）。测试用它判断「这一段确实播完了」 */
     playedCount: () => playCount,
     _drawForTest: { wrap, drawPage },
+    /** A39：头像图集的格位换算（测试用） */
+    _faceForTest: { faceSheet, faceReady, preloadFaces },
   };
 })(window);

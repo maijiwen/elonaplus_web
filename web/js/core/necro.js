@@ -305,7 +305,7 @@
     };
   }
 
-  /** 视野内的死灵（355284-355296：距离 limit(65536/1000,1)=... → 约 5 格 + 视线） */
+  /** 视野内的死灵（355284-355296：距离 var_83(3,656)\1000+1 = 7 格 + 视线） */
   function necrosInSight(g, radius) {
     const p = g.player;
     const r = radius || 6;
@@ -548,12 +548,19 @@
     if ((p.get(182) | 0) < 25) {
       return { ok: false, reason: 'no-power', message: 'パワーゲージが25％必要だ。' };
     }
+    // 355292-355297：`dist > var_83(3,656)\1000+1` 或 `fov_los == 0` 则跳过。
+    //   0-Q0 / Q-N1：HSP `\` 取余 → 3006 % 1000 + 1 = 7 格（旧实现硬编码 20 格近似）。
+    const f656 = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
+    const reach = (f656 % 1000) + 1;
     const inSight = (c) => {
       if (!c || (c.get(0) | 0) !== 1) return false;
       if ((c.index | 0) < 16) return false;
       if (cbitOf(c, CG_HOST) !== 1) return false;       // 355296 只认死灵
       const d = Math.max(Math.abs((c.x | 0) - (p.x | 0)), Math.abs((c.y | 0) - (p.y | 0)));
-      return d <= 20;                                   // var_83(3,656)/1000 + 1 的近似
+      if (d > reach) return false;
+      if (Elona.Spell && Elona.Spell.fovLos
+        && !Elona.Spell.fovLos(g, p.x | 0, p.y | 0, c.x | 0, c.y | 0)) return false;
+      return true;
     };
     const alive = [];
     for (let i = 0; i < 245; i++) {

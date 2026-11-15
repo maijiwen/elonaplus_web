@@ -221,7 +221,10 @@
     if (sp && (sp(victim, 23) || sp(victim, 27) || sp(victim, 964))) return [];
 
     // 199931：dist <= var_83(3,656)\1000 + 1
-    const reach = idiv((killer.skill ? (killer.skill(656) | 0) : 0), 1000) + 1;
+    //   0-Q0 / Q-N1：源码取的是**能力表** var_83(3,656)=3006，不是技能 656 的等级；
+    //   HSP `\` 是取余 → 7 格。旧实现读 skill(656)/1000+1（恒为 1 格）。
+    const f656 = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
+    const reach = (f656 % 1000) + 1;
     const align = killer.get(9) | 0;
     const gained = [];
     for (const c of (g.charas || [])) {

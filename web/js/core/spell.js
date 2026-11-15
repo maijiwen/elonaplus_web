@@ -14,7 +14,8 @@
  *
  * var_83 字段语义（依 calcspell* 与 *label_2960 用法）：
  *   f0 = 关联技能 id（skillexp var_83(0,id)）  f1 = 动作类型码（2960 据此分派）
- *   f2 = SP 消耗（dmgsp var_83(2,id)/2+1）      f3 = 射程打包值（\1000 + 1）
+ *   f2 = SP 消耗（dmgsp var_83(2,id)/2+1）      f3 = 打包值：高位 `/1000*1000` 是目标类别、
+ *                                                   低位 `\1000+1` 是射程（HSP `\` 取余，0-Q0 / Q-N1）
  *   f4 = 元素/属性 id（calcspellfail 用到）
  *
  * 不确定项（按项目原则标注，不臆测）：
@@ -368,10 +369,11 @@
         }
       }
     }
-    // 315701 / 315758 / 315787 / 316029：射程 = `var_83(3,id) \ 1000 + 1`
-    //   （HSP 的 `\` 是整数除）。原先写成 `% 1000 + 1` 是错的：
-    //   656 = 3000+6 → 4 格（aim.js 的准星射程也是这么算的），414 = 2000+6 → 3 格。
-    const range = idiv(f3, 1000) + 1;
+    // 315701 / 315758 / 315787 / 316029：射程 = `var_83(3,id) \ 1000 + 1`。
+    //   0-Q0 / Q-N1：HSP 的 `\` 是取余（6896 判偶数 / 21636 取个位 / 605016 环形缓冲），
+    //   `f3 / 1000 * 1000`（整除）才是目标类别；低位 + 1 才是射程。
+    //   656 = 3000+6 → 7 格、414 = 2000+6 → 7 格、方向系 8000 → 1 格。
+    const range = (f3 % 1000) + 1;
     const tg = target;
     const dist2 = (a, b) => Elona.Battle.dist(a.x, a.y, b.x, b.y);
 
@@ -1552,8 +1554,9 @@
           message: w.ok ? `${tg.name || '相手'}の動きが鈍った。` : '' };
       }
 
-      // 788 芳香：范围（var_83(3,656)/1000 + 1 格，需 LOS）
-      const range = idiv((Elona.Spell && Elona.Spell.field ? Elona.Spell.field(656, 3) : 0), 1000) + 1;
+      // 788 芳香：范围（var_83(3,656)\1000 + 1 格，0-Q0 / Q-N1 取余 → 7，需 LOS）
+      const f656 = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
+      const range = (f656 % 1000) + 1;
       const hits = [];
       for (const t of (g.charas || [])) {
         if (!t || t.get(0) !== 1) continue;

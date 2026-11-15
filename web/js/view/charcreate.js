@@ -499,13 +499,35 @@
   function faceTileHtml() { return faceTileOf(S.gender, S.portrait); }
 
   /**
-   * 0-FI：总览的共享渲染。创建向导第 11 步与游戏内 c 键人物信息第 1 页
+   * 潜力 → 七档评价（原版 293783-293830 的 var_400 判定）
+   *
+   * 源码：`var_400 = var_82(10 + cnt + 600, var_243) \ 1000`
+   *   HSP 的 `\` 是取余（同 `var_58(100+i) \ 10000` 取背包下标用法的对照可证），
+   *   所以这里拿到的是**成长率**（`var_82(id+600)` 打包值 lv*1e6 + exp*1e3 + 成长 的低三位），
+   *   不是 `lv*1000 + exp`。此前项目按 `打包值 % 1e6 / 1000`（= 经验值）取，
+   *   属性与耐性的成长率恒为 0，于是全部显示成 Hopeless。
+   *
+   * @param {number} gv 成长率（0..400+）
+   */
+  function rankOf(gv) {
+    const v = gv | 0;
+    if (v >= 400) return 'Supreme';
+    if (v >= 300) return 'Amazing';
+    if (v >= 200) return 'Superb';
+    if (v >= 150) return 'Great';
+    if (v >= 100) return 'Good';
+    if (v >= 50) return 'Bad';
+    return 'Hopeless';
+  }
+
+  /**
+   * 总览的共享渲染。创建向导第 11 步与游戏内 c 键人物信息第 1 页
    * 都调用它，保证两个窗口「一样」。
    *
    * @param {object} d {
    *   face:{img,x,y}, name:string, nameInput:boolean,
    *   head:[[cls,[[k,v],...]],...]   顶部三组键值
-   *   attrs:[{icon,color,ch,value,rank}]  8 项能力
+   *   attrs:[{icon,color,ch,value,base,star,rank}]  8 项能力
    *   misc:[string] 其它信息（每行）
    *   modeName:string, essential:[string], profile:[string]
    *   bless:number, fix:[[string],[string]]
@@ -515,9 +537,12 @@
     const topic = (t) => `<div class="cc-topic cc-topic-light cc-sum-topic">${esc(t)}</div>`;
     const kv = (k, v) => `<span class="k">${esc(k)}</span><span class="v">${v}</span>`;
     const group = (cls, pairs) => `<div class="cc-sum-kv ${cls}">${pairs.map(([k, v]) => kv(k, v)).join('')}</div>`;
+    // 原版 293776-293783：「当前值」+「(基础值)」+ 装备附魔标记（*）。
+    //   value 是 var_82(10+n)（受装备/buff 影响），base 是 var_82(10+n+600)/1e6。
     const attrRows = d.attrs.map(a =>
       `<div class="r"><span class="cc-attr-icon" style="color:${a.color};font-size:13px">${a.icon}</span>`
-      + `<span>${esc(a.ch)}</span><span>${a.value} (${a.value})</span>`
+      + `<span>${esc(a.ch)}</span>`
+      + `<span>${a.value} (${a.base === undefined ? a.value : a.base})${a.star || ''}</span>`
       + `<span class="pot">${esc(a.rank)}</span></div>`).join('');
     const face = d.face || { img: 'face1.bmp', x: 0, y: 0 };
     const nameCell = d.nameInput
@@ -561,12 +586,34 @@
     const gd = GENDERS[S.genderIndex | 0] || GENDERS[0];
     const pot = p ? (p.potential || {}) : {};
     const mode = cfg.api.modeByValue(S.mode);
+    // 与游戏内一致：value = var_82(10+n)、base = var_82(10+n+600)/1e6、
+    //   评价 = 成长率（打包值低三位）的七档。
     const attrRows = ATTRS.map(a => {
       const v = p ? (p.skill(a.id) | 0) : 0;
-      const pv = pot[String(a.id)] | 0;
-      const rank = pv > 40000000 ? 'Superb' : (pv > 25000000 ? 'Great' : 'Good');
-      return { icon: a.icon, color: a.color, ch: a.ch, value: v, rank };
+      const raw = pot[String(a.id)] | 0;
+      const base = Math.trunc(raw / 1000000);
+      const star = (Elona.ItemDB && Elona.ItemDB.encfind && p
+        && Elona.ItemDB.encfind(p, 60000 + a.id) !== -1) ? '*' : '';
+      return { icon: a.icon, color: a.color, ch: a.ch, value: v, base, star, rank: rankOf(raw % 1000) };
     });
+    // 「各种修正」也走正式公式（创建预览没有对局对象，用 null 时退化成 '—'）
+    const fixLines = (() => {
+      const g = cfg.api.game ? cfg.api.game() : (Elona.__game || null);
+      if (!p || !Elona.Battle || !Elona.Battle.infoCorrection) return null;
+      let r;
+      try { r = Elona.Battle.infoCorrection(g, p); } catch (e) { return null; }
+      if (!r || !r.ok) return null;
+      const b = r.meleeB | 0;
+      // 倍率按 HSP 的 `"" + 実数` 再 strmid(…,0,3) 取 3 字符（1.14 → "1.1"）
+      let xs = String(Math.round((r.meleeX || 0) * 100) / 100);
+      if (xs.indexOf('.') < 0) xs += '.0';
+      const melee = `${r.meleeN}d${r.meleeS}${b > 0 ? '+' + b : (b < 0 ? b : '')}`
+        + ` x${xs.slice(0, 3)}`;
+      return [
+        [`格斗　${melee}`, `减轻　${r.protPct}% + ${r.protN}d${r.protS}`],
+        [`魔法威力　${r.spell}%`, `命中　${r.hit}%`, `回避　${r.evade}%`],
+      ];
+    })();
     return summaryHtml({
       face: faceTileHtml(), name: S.name, nameInput: true,
       head: [
@@ -583,15 +630,18 @@
         '回合 0 / 总时间 0月5分17秒', '证明：无持续效果'],
       modeName: mode.zh,
       essential: [
-        `HP/MP　${p ? p.hpMax : 0}/${p ? p.mpMax : 0}`,
-        `生命力　${p ? p.hpMax : 0}(${p ? p.hpMax : 0})`, '魔力　130(130)',
-        '疯狂度　0%', `速度　${S.speed | 0}(120)`, '名声　0', '业力　0', '战力评价　0阶相当',
+        // 与游戏内第 1 页同口径：HP/MP 只显示当前值；生命力/魔力/速度显示「当前(基础)」
+        `HP/MP　${p ? (p.hp | 0) : 0}/${p ? (p.mp | 0) : 0}`,
+        `生命力　${p ? (p.skill(2) | 0) : 0}(${p ? ((Elona.Stats ? Elona.Stats.sorg(p, 2) : 0) | 0) : 0})`,
+        `魔力　${p ? (p.skill(3) | 0) : 0}(${p ? ((Elona.Stats ? Elona.Stats.sorg(p, 3) : 0) | 0) : 0})`,
+        '疯狂度　0%',
+        `速度　${p ? (p.get(11) | 0) : (S.speed | 0)}(${p ? ((Elona.Stats ? Elona.Stats.sorg(p, 18) : 0) | 0) : 0})`,
+        '名声　0　业力　0', '战力评价　0 阶相当',
       ],
       profile: cfg.api.profileText(S.profile).length
         ? cfg.api.profileText(S.profile) : ['（保密）'],
       bless: 15,
-      fix: [['格斗　2d11+0 x1.0', '射击　1d12+1 x0.9', '减轻　5% +1d3'],
-        ['魔法威力　100%', '命中　95%', '命中　56%', '回避　1004%']],
+      fix: fixLines || [['格斗　—'], ['魔法威力　—', '命中　—', '回避　—']],
     });
   }
 
@@ -1175,7 +1225,7 @@
   Elona.CharCreate = {
     start, render, setStep, confirm, finish,
     featLevel, featMaxOf, featPointsLeft, takeFeat, dropFeatLevel, faceTileOf,
-    summaryHtml, IDX, BIRTH_SKILLS, ATTRS,
+    summaryHtml, IDX, BIRTH_SKILLS, ATTRS, rankOf,
     get state() { return S; },
     STEPS, TIPS, ATTRS, BONUS, SKILL_DESC, GENDERS, LOOK_PAGES,
   };

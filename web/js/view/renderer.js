@@ -24,6 +24,23 @@
   const FONT_HP = FONT_UI(10);      // 12 - var_205*2（英文）
   const FONT_STAT = FONT_UI(11);    // 13 - var_205*2
   const FONT_MAP = FONT_UI(10);     // 12 + var_892 - var_205*2
+
+  /**
+   * A21：天气粒子的静态表（位置/相位/速度）。只用于表现层，与游戏随机数无关，
+   * 所以直接用 Math.random 生成一次即可（不消耗 g.rng 的序列）。
+   */
+  function makeParticles(n) {
+    const out = [];
+    for (let i = 0; i < n; i++) {
+      out.push({
+        x: Math.random() * UI_W,
+        y: Math.random() * (UI_TOP + 40),
+        s: Math.random(),
+        ph: Math.random() * Math.PI * 2,
+      });
+    }
+    return out;
+  }
   const FONT_MSG = FONT_UI(12);     // var_203(14) - var_205*2
 
   const idiv = (a, b) => (b === 0 ? 0 : ((a / b) | 0));
@@ -743,8 +760,8 @@
 
     /**
      * 天气滤镜 —— 原版用独立的雨/雪图层（cell_draw 的天气段），
-     * 本项目没有对应素材，改为在整张地图上叠一层半透明色。
-     * 以太风用紫色调，与原版 `envEffect` 的氛围一致（属表现层简化，见差异报告）。
+     * 本项目没有对应素材，改为在整张地图上叠一层半透明色 + 程序化雨/雪粒子（A21）。
+     * 以太风用紫色调，与原版 `envEffect` 的氛围一致。
      */
     drawWeatherOverlay(game) {
       if (!Elona.Weather || !game) return;
@@ -761,7 +778,48 @@
       ctx.save();
       ctx.fillStyle = tint;
       ctx.fillRect(0, 0, UI_W, UI_TOP);
+      // A21：程序化雨/雪（原版是独立的雨滴/雪花图层，没有位图素材）
+      this.drawWeatherParticles(w);
       ctx.restore();
+    }
+
+    /** 雨/雪粒子的绘制（只在天气 2/3/4 生效；坐标按时间推进，不消耗游戏随机数） */
+    drawWeatherParticles(w) {
+      if (w !== 2 && w !== 3 && w !== 4) return;
+      const ctx = this.ctx;
+      const now = (typeof performance !== 'undefined' && performance.now)
+        ? performance.now() : Date.now();
+      const t = now / 1000;
+      ctx.beginPath();
+      ctx.rect(0, 0, UI_W, UI_TOP);
+      ctx.clip();
+      if (w === 2) {
+        // 雪：白色小点，缓慢下落 + 横向摆动
+        const P = this._snowP || (this._snowP = makeParticles(90));
+        ctx.fillStyle = 'rgba(255,255,255,0.75)';
+        for (const p of P) {
+          const y = (p.y + t * (14 + p.s * 10)) % (UI_TOP + 20) - 10;
+          const x = (p.x + Math.sin(t * 0.8 + p.ph) * 12 + UI_W) % UI_W;
+          const r = 1 + p.s * 1.2;
+          ctx.fillRect(x, y, r, r);
+        }
+      } else {
+        // 雨：斜线；暴雨（4）更多更长更快
+        const heavy = w === 4;
+        const P = this._rainP || (this._rainP = makeParticles(heavy ? 260 : 150));
+        ctx.strokeStyle = heavy ? 'rgba(185,205,235,0.55)' : 'rgba(190,210,240,0.42)';
+        ctx.lineWidth = 1;
+        const speed = heavy ? 900 : 620;
+        const len = heavy ? 18 : 12;
+        for (const p of P) {
+          const y = (p.y + t * (speed * (0.8 + p.s * 0.4))) % (UI_TOP + 40) - 20;
+          const x = (p.x - t * (heavy ? 160 : 110) + p.ph * 3) % UI_W;
+          const xx = x < 0 ? x + UI_W : x;
+          ctx.moveTo(xx, y);
+          ctx.lineTo(xx - len * 0.28, y + len);
+        }
+        ctx.stroke();
+      }
     }
 
     /**

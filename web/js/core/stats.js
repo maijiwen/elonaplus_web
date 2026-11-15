@@ -158,14 +158,30 @@
   /**
    * 对应 label_2174 行 213385-213387：
    *   repeat 600 : var_82(cnt) = var_82(cnt + 600) / 1000000
-   * 即把「潜力」变为当前属性/技能值。
-   * 同时保留潜力表（sorg(id) = var_82(id+600)/1000000 需要它）。
+   * 即把「**基础值**」写回「**当前值**」—— 这一步是「当前等级 = 基础等级 + 加成 - 减成」
+   * 的复位动作，后面 applyEquipment / applySkillCorrections 再把加成逐层叠上去。
+   *
+   * 【0-HZ】源码是**全量 600 格复位**，所以「潜力表里没有的技能」也应当被归零：
+   *   此前只遍历潜力表的键，凡是被 `setSkill` 直接写过、但没进潜力的技能
+   *   （种族抗性、装备技能附魔打到的未习得技能）都不会复位，于是每重算一次
+   *   就再叠一次加成 —— 技能等级会无上限地往上爬。
+   *   这里取「潜力表 ∪ 当前值表」的并集，语义等价于 600 格全扫，又不会把 600 个
+   *   键全部塞进存档。
+   * 潜力表本身保留（sorg(id) = var_82(id+600)/1000000 需要它）。
    */
   function syncSkillValues(c, pot) {
-    for (const k in pot) {
-      c.setSkill(parseInt(k, 10), idiv(pot[k], 1000000));
-    }
-    c.potential = pot;
+    const base = pot || {};
+    // 完全没有潜力数据（未建成的角色 / 单元测试直接 setSkill 的桩）→ 不做复位。
+    //   建成后的角色一定带潜力表（skillinit / skillGain / 种族初始化都会写），
+    //   这条只挡住「空表」这一种情况，不会漏掉真实角色的复位。
+    let hasBase = false;
+    for (const k in base) { hasBase = true; break; }
+    if (!hasBase) { c.potential = base; return c; }
+    const keys = Object.create(null);
+    for (const k in base) keys[k] = 1;
+    if (c.skillVals) for (const k in c.skillVals) keys[k] = 1;
+    for (const k in keys) c.setSkill(parseInt(k, 10), idiv(base[k] || 0, 1000000));
+    c.potential = base;
     return c;
   }
 
@@ -531,7 +547,20 @@
 
   const cbitOf = (c, bit) => (Elona.Status ? Elona.Status.cbit(c, bit) : 0);
 
-  /** 完整属性重算（label_2174 的玩家/NPC 通用路径） */
+  /**
+   * 完整属性重算 —— `*label_2174`（213373-213983）的逐段对应：
+   *
+   *   213385-213387  var_82(cnt) = var_82(cnt+600)/1e6       ← syncSkillValues（基础 → 当前）
+   *   213388-213458  固有 cbit 基表                          ← applyInnateBits
+   *   213461-213793  装备（含附魔的技能加减）                 ← applyEquipment
+   *   213795-213906  属性加成 var_58(240..) / 负重衰减 / feat ← applySkillCorrections
+   *   213908-213957  HP/MP/SP 上限                           ← calcMaxStats
+   *   213979         `gosub *label_2225`（负重上限/档位）     ← Feat.applyWeight
+   *   213980         `refreshspeed var_691`                  ← refreshSpeed
+   *
+   * 这是「装备/天赋/药水/增益发生变动后」唯一应该调用的入口：
+   * 单独调用 applyEquipment 会把技能加成叠在上一次的结果上（不会先复位）。
+   */
   function recalcStats(c, g) {
     if (!c.potential) c.potential = {};
     syncSkillValues(c, c.potential);
@@ -539,10 +568,11 @@
     applyEquipment(c, g);
     applySkillCorrections(c, g);
     const st = calcMaxStats(c, { creatureId: c.get(27) });
+    // 213908-213957 只写「上限」；源码**不**把当前值钳到上限（钳制在 healhp/dmghp 里做）。
     c.set(51, st.hpMax); c.set(56, st.mpMax); c.set(53, st.spMax);
-    if (c.get(50) > st.hpMax) c.set(50, st.hpMax);
-    if (c.get(55) > st.mpMax) c.set(55, st.mpMax);
-    if (c.get(52) > st.spMax) c.set(52, st.spMax);
+    if (Elona.Feat && Elona.Feat.applyWeight) {
+      try { Elona.Feat.applyWeight(c, g); } catch (e) { /* label_2225 的 invWeight 依赖道具表 */ }
+    }
     refreshSpeed(c, g);
     return st;
   }
@@ -799,6 +829,22 @@
     return gr;
   }
 
+  /**
+   * 等级变化后的重算（`gosub *label_2174`）。
+   *
+   * 源码在 skillgain(31855) / skillmod(31886, 31921) / skillexp(32176, 32212)
+   * 的**升级分支**里都会把 `var_691` 设成目标角色再 gosub 2174。漏掉这一步的后果是：
+   * 潜力涨了、当前等级却还是旧值，所有读 `var_82` 的公式（伤害/命中/HP 上限…）
+   * 都继续用旧等级，直到下次别的什么操作碰巧触发重算。
+   *
+   * 只在真正发生等级变化时调用（与源码一致），平时加经验不会进这里。
+   */
+  function recalcForSkill(c, g) {
+    if (!c || typeof c.setSkill !== 'function') return;
+    const gm = g || (c && c.__game) || Elona.__game || null;
+    try { recalcStats(c, gm); } catch (e) { /* 缺道具表等异常不应打断升级 */ }
+  }
+
   /** skillgain（31831-31856）：已有潜力则只加成长率；否则「习得」技能 */
   function skillGain(c, chara, skillId, level, exp, g) {
     // 31832-31836：技能 400+ 且角色 0 → 魔力库存（var_495）
@@ -815,6 +861,8 @@
     if (skillId >= 400) modGrowth(c, skillId, chara, 200, g);   // 31847-31852
     else modGrowth(c, skillId, chara, 50, g);
     storeRaw(c, skillId, limit(pot, 0, 2000) * 1000000 + sexp(c, skillId) * 1000 + sgrowth(c, skillId));
+    // 31855：`var_691 = prm_664 ; gosub *label_2174` —— 新学会技能后立刻重算
+    recalcForSkill(c, g);
     return 1;
   }
 
@@ -829,6 +877,7 @@
       pot += lv;
       e = e % 1000;
       storeRaw(c, skillId, limit(pot, 0, 2000) * 1000000 + e * 1000 + gr);
+      recalcForSkill(c, g);          // 31886：等级上升 → label_2174
       return 1;
     }
     if (e < 0) {
@@ -847,6 +896,7 @@
         if (gr > 400) gr = 400;
       }
       storeRaw(c, skillId, limit(pot, 0, 2000) * 1000000 + e * 1000 + gr);
+      recalcForSkill(c, g);          // 31921：等级下降 → label_2174
       return 1;
     }
     storeRaw(c, skillId, limit(pot, 0, 2000) * 1000000 + e * 1000 + gr);
@@ -973,6 +1023,7 @@
         if (gr <= 1) { gr = 0; if (V65(g, 273) === 5) gr = 1; }
       }
       storeRaw(c, skillId, limit(pot, 0, 2000) * 1000000 + v * 1000 + gr);
+      recalcForSkill(c, g);          // 32176：升级 → label_2174
       return 1;
     }
     if (v < 0) {
@@ -988,6 +1039,7 @@
         if (gr > 400) gr = 400;
       }
       storeRaw(c, skillId, limit(pot, 0, 2000) * 1000000 + v * 1000 + gr);
+      recalcForSkill(c, g);          // 32212：降级 → label_2174
       return 1;
     }
     storeRaw(c, skillId, limit(pot, 0, 2000) * 1000000 + v * 1000 + gr);
