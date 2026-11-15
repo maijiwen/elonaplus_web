@@ -55,16 +55,28 @@
     return DATA ? (DATA[String(id)] || null) : null;
   }
 
+  /**
+   * 材料名 —— 0-U0：`nameJp` 这一侧已经是汉化文本（原版 `lang("…", "…")` 的日文侧被译成中文），
+   * 所以**只有显式要 'en' 时才给英文**，其余（'jp' / 'ch' / 省略）一律返回汉化名。
+   */
   function name(id, lang) {
     const d = def(id);
     if (!d) return `材料 ${id}`;
-    return (lang === 'jp' ? d.nameJp : d.nameEn) || d.nameJp || d.nameEn || `材料 ${id}`;
+    if (lang === 'en') return d.nameEn || d.nameJp || `材料 ${id}`;
+    return d.nameJp || d.nameEn || `材料 ${id}`;
   }
 
+  /** 材料说明 —— 同上，默认汉化侧 */
   function desc(id, lang) {
     const d = def(id);
     if (!d) return '';
-    return (lang === 'jp' ? d.descJp : d.descEn) || d.descJp || '';
+    if (lang === 'en') return d.descEn || d.descJp || '';
+    return d.descJp || d.descEn || '';
+  }
+
+  /** 当前语言键（'jp' | 'en' | 'ch'），取不到时按中文 */
+  function langKey() {
+    return (Elona.Lang && Elona.Lang.current) ? Elona.Lang.current() : 'ch';
   }
 
   /** 该材料是否属于某分类（var_1000 的 5 个槽） */
@@ -112,14 +124,17 @@
     const inv = ensure(g);
     if (id < 0 || id >= SLOTS) return { id, n: 0, name: '', message: null, silent: true };
     inv[id] = (inv[id] | 0) + cnt;
-    const nm = name(id, 'en');
+    // 0-U0：材料名默认给汉化名（nameJp 侧），只有 'en' 才是英文
+    const nm = name(id);
     // reason 6（受け取った）在原版里也不打印消息（270331 直接 return）
     const silent = reason === 6;
     let message = null;
     if (!silent) {
-      const tail = (Elona.Options && Elona.Options.values && Elona.Options.values.lang === 'jp')
-        ? 'マテリアル:' + name(id, 'jp') + 'を' + cnt + '個' + (GAIN_TEXT[reason] || GAIN_TEXT[0])
-        : `You get ${cnt} ${nm}. `;
+      const lang = langKey();
+      let tail;
+      if (lang === 'en') tail = `You get ${cnt} ${name(id, 'en')}. `;
+      else if (lang === 'jp') tail = 'マテリアル:' + name(id, 'jp') + 'を' + cnt + '個' + (GAIN_TEXT[reason] || GAIN_TEXT[0]);
+      else tail = `获得了 ${cnt} 个「${nm}」（${(GAIN_TEXT[reason] || '入手した。').replace(/した。$/, '')}）。`;
       message = `${tail}(${inv[id]})`;
     }
     return { id, n: cnt, name: nm, message, silent };
@@ -136,12 +151,14 @@
     const inv = ensure(g);
     if (id < 0 || id >= SLOTS) return { ok: false, id, removed: 0, left: 0, message: '无效的材料编号。' };
     if ((inv[id] | 0) < cnt) {
-      return { ok: false, id, removed: 0, left: inv[id] | 0, message: `材料不足（${name(id, 'en')} ${inv[id] | 0}/${cnt}）。` };
+      return { ok: false, id, removed: 0, left: inv[id] | 0, message: `材料不足（${name(id)} ${inv[id] | 0}/${cnt}）。` };
     }
     inv[id] = (inv[id] | 0) - cnt;
     return {
       ok: true, id, removed: cnt, left: inv[id] | 0,
-      message: `マテリアル:${name(id, 'en')}を${cnt}個失った(残り ${inv[id] | 0})`,
+      message: (langKey() === 'en')
+        ? `You lose ${cnt} ${name(id, 'en')}. (${inv[id] | 0} left)`
+        : `失去了 ${cnt} 个「${name(id)}」（剩 ${inv[id] | 0}）。`,
     };
   }
 

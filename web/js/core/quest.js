@@ -742,7 +742,7 @@
 
   function itemName(id) {
     if (!id) return '物品';
-    return Elona.ItemDB ? Elona.ItemDB.name(id, 'en') : ('item ' + id);
+    return Elona.ItemDB ? Elona.ItemDB.name(id) : ('item ' + id);
   }
   function isFood(id) {
     return Elona.ItemDB ? Elona.ItemDB.ref(id, 5) === 57000 : false;

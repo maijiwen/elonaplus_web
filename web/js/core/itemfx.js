@@ -527,7 +527,7 @@
         g.log('要放在地上才能使用。');
         return { ok: false, effect: E.SIT, reason: 'not-on-ground', message: '要放在地上才能使用。' };
       }
-      const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : '椅子';
+      const name = Elona.ItemDB ? Elona.ItemDB.name(it) : '椅子';
       g.log(`你坐在${name}上。`);
       return {
         ok: true, effect: E.SIT, action: 'sit', item: it,
@@ -551,7 +551,7 @@
      */
     sitApply(g, it, choice) {
       const v = choice | 0;
-      const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : '椅子';
+      const name = Elona.ItemDB ? Elona.ItemDB.name(it) : '椅子';
       if (v === 0) {                                   // 350036-350040
         g.log('你尽情地放松了一会儿。');
         return { ok: true, message: '你尽情地放松了一会儿。' };
@@ -703,7 +703,7 @@
       }
       const slot = SHELF_SLOT[it.id | 0];
       if (slot) it.f[9] = slot;
-      const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : '书架';
+      const name = Elona.ItemDB ? Elona.ItemDB.name(it) : '书架';
       g.log(`你翻看书架《${name}》。`);
       return { ok: true, effect: E.SHELF, action: 'container', item: it };
     },
@@ -740,7 +740,7 @@
         g.log('「不行」');
         return { ok: false, effect: E.SMOKE, reason: 'npc', message: '「不行」' };
       }
-      const nm = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : '烟';
+      const nm = Elona.ItemDB ? Elona.ItemDB.name(it) : '烟';
       const who = c.name || '你';
       // 352875
       const line = `${who}吸了${nm}。`;
@@ -1607,7 +1607,7 @@
       const eff = this.effectOf(it);
       if (!eff || this.isImplemented(eff)) return null;
       const ent = this.entryOf(eff);
-      const nm = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : '该物品';
+      const nm = Elona.ItemDB ? Elona.ItemDB.name(it) : '该物品';
       if (!ent) return `《${nm}》的使用效果（类别 ${eff}）尚未移植。`;
       if (ent.owner && ent.owner !== 'itemfx.js') return null;   // 由别的模块实现，不报未移植
       const where = ent.items && ent.items.length

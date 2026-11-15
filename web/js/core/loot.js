@@ -913,7 +913,7 @@
 
       const licked = catLick(g, dead, killer, it);       // 222393-222473
       if (licked) {
-        out.messages.push(`${licked.name} 把 ${Elona.ItemDB.name(it.id, 'en')} 舔了舔。`);
+        out.messages.push(`${licked.name} 把 ${Elona.ItemDB.name(it.id)} 舔了舔。`);
       }
       // 222474-222477：清装备槽（保留槽类型）
       if ((it.eqSlot | 0) >= 0) {

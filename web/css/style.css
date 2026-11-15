@@ -196,7 +196,14 @@ html, body {
 .npc-text:empty { min-height: 0; padding: 0; }
 /* 0-BW：NPC 互动菜单 —— 原版为竖排列表，左侧是快捷键字母方块
    （原版 display_key / 36940 绘制，字母表 var_446 / 597716） */
-.npc-actions { display: flex; flex-direction: column; gap: 3px; align-items: flex-start; }
+/* 原版 289766 的列表是「高 225、可滚动」的窗口（var_1238 条数 / var_1240 光标），
+   同伴凑满时操作弹窗能有 20 项上下，这里同样给它一个滚动区，避免溢出到消息栏上。 */
+.npc-actions {
+  display: flex; flex-direction: column; gap: 3px; align-items: flex-start;
+  max-height: 430px; overflow-y: auto; overflow-x: hidden;
+}
+.npc-actions::-webkit-scrollbar { width: 8px; }
+.npc-actions::-webkit-scrollbar-thumb { background: #b5a681; border-radius: 4px; }
 .npc-action {
   display: flex; align-items: center; gap: 8px; cursor: pointer;
   padding: 1px 4px 1px 0; border-radius: 2px; color: #241608;
@@ -332,8 +339,102 @@ html, body {
 }
 .pui-row:hover { background: rgba(120, 96, 48, 0.16); }
 .pui-row.sel { background: rgba(126, 96, 30, 0.34); border-color: #6b5a3a; }
+/* 0-U0：表格行的光标记（awaken / abilities 等 <tr> 列表，不套用 flex 布局） */
+.pui-opt { cursor: pointer; }
+.pui-opt.sel { background: rgba(126, 96, 30, 0.34); }
+/* 0-U0：<tr> 当选项行时恢复表格布局（.pui-row 的 flex 只适用于 div 行） */
+table tr.pui-row, table tr.pui-opt { display: table-row; padding: 0; border: 0; }
+table tr.pui-row > td, table tr.pui-opt > td { padding: 1px 6px; }
+table tr.pui-row:hover > td, table tr.pui-opt:hover > td { background: rgba(120, 96, 48, 0.16); }
 .pui-row .pui-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pui-line { padding: 1px 0; border-bottom: 1px solid rgba(90, 70, 40, 0.28); white-space: pre-wrap; }
+/* ---------- A60：材料面板行首的 item.bmp 图标（48px 切片缩到 20px） ---------- */
+.pui-icon {
+  width: 20px; height: 20px; flex: 0 0 auto; align-self: center;
+  image-rendering: pixelated;
+}
+/* ---------- 0-U0：材料窗口（*label_2582，270703-270900） ----------
+ * 版式照原版 600×430 窗口：列头「◆ 所持材料 / ◆ 说明」+ 每行 图标 / 键帽 /
+ * 「名称 × 数量」/ 说明，隔行浅底纹，光标行给「名称」一块浅底 + 右端小光标。
+ * 底栏左「＋, － [页面切换]　Shift, Esc [关闭]」右「Page. n/m」。
+ */
+.pui-box.mat-sheet { width: 660px; }
+.pui-box.mat-sheet .pui-body { padding: 6px 12px 4px; overflow-y: auto; overflow-x: hidden; }
+.mat-topics {
+  display: grid; grid-template-columns: 236px 1fr; align-items: end;
+  padding: 0 2px 3px 4px;
+}
+.mat-topic {
+  position: relative; padding-left: 15px; padding-bottom: 2px;
+  font-size: 13px; color: #241608; letter-spacing: 1px;
+}
+.mat-topic::before {
+  content: ''; position: absolute; left: 1px; top: 2px; width: 9px; height: 9px;
+  background: linear-gradient(135deg, #cfe4f7 0%, #5a93cf 45%, #1e3f74 100%);
+  transform: rotate(45deg);
+  box-shadow: inset 0 0 0 1px rgba(20, 35, 65, 0.55);
+}
+.mat-topic::after {
+  content: ''; position: absolute; left: 14px; right: 6px; bottom: 0;
+  border-bottom: 1px solid #4a3a22;
+}
+.mat-topic-desc { margin-left: 8px; }
+.pui-row.mat-row {
+  display: grid; grid-template-columns: 24px 20px 236px 1fr;
+  align-items: center; gap: 6px; padding: 1px 2px; min-height: 26px;
+  border: 1px solid transparent; border-radius: 0;
+}
+/* 270760-270764：偶数行（a / c / e …）叠一层 `gfdec2 12,14,16` 的压暗底纹 */
+.pui-row.mat-row.odd { background: rgba(60, 40, 10, 0.07); }
+.pui-row.mat-row:hover { background: rgba(150, 125, 75, 0.22); }
+.pui-row.mat-row.sel { background: transparent; border-color: transparent; }
+/* 光标行也要保留自己的隔行底纹（选中效果只加在「名称」那一块上） */
+.pui-row.mat-row.odd.sel { background: rgba(60, 40, 10, 0.07); }
+.mat-icon { width: 24px; height: 24px; image-rendering: pixelated; display: block; }
+.mat-key {
+  width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;
+  background: #35291c; color: #ece2c6; border-radius: 3px;
+  font-family: "MS Gothic", monospace; font-size: 12px; line-height: 1;
+  box-shadow: inset 0 0 0 1px #17100a;
+}
+.mat-item {
+  display: flex; align-items: center; gap: 5px; padding: 1px 6px; min-width: 0;
+  border: 1px solid transparent; border-radius: 2px;
+}
+.pui-row.mat-row.sel .mat-item { background: #efe7cf; border-color: #b9a882; }
+.mat-name { color: #241608; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mat-cur {
+  width: 9px; height: 9px; flex: 0 0 auto; opacity: 0;
+  background: linear-gradient(135deg, #f2f7ff 0%, #6aa6de 40%, #21447c 100%);
+  transform: rotate(45deg);
+}
+.pui-row.mat-row.sel .mat-cur { opacity: 1; }
+.mat-desc {
+  color: #3b2b16; font-size: 12px; min-width: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.mat-empty { color: #5a482c; font-size: 12px; padding: 12px 6px; }
+.mat-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  margin-top: 6px; padding: 4px 4px 2px;
+  border-top: 1px solid rgba(90, 70, 40, 0.45);
+  font-size: 11px; color: #4d3c22;
+}
+.mat-foot span:last-child { font-weight: bold; color: #241608; letter-spacing: 0.5px; }
+
+/* ---------- A395：口調（立绘）选择窗 294664-294780 ---------- */
+.tatie-wrap { display: flex; gap: 12px; align-items: flex-start; padding: 4px 2px; }
+.tatie-shot {
+  width: 240px; height: 400px; flex: 0 0 auto;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(30, 22, 12, 0.28); border: 1px solid #6b5a3a;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+.tatie-shot img { max-width: 100%; max-height: 100%; image-rendering: pixelated; }
+.tatie-canvas { width: 100%; height: 100%; image-rendering: pixelated; }
+.tatie-side { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.tatie-now { font-size: 14px; color: #241608; }
+.tatie-none { color: #5a482c; font-size: 12px; padding: 12px; text-align: center; }
 /* ---------- 0-FS：装修用的地砖一览（33 个 / 页） ---------- */
 .pui-tiles {
   display: grid; grid-template-columns: repeat(11, 1fr); gap: 4px;

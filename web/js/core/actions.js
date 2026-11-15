@@ -262,7 +262,7 @@
         const d = Math.max(Math.abs(it.f[5] - p.x), Math.abs(it.f[6] - p.y));
         if (d > 20) continue;
         targets.push({
-          kind: 'item', name: Elona.ItemDB.name(it.id, 'en'), dist: d,
+          kind: 'item', name: Elona.ItemDB.name(it.id), dist: d,
           x: it.f[5], y: it.f[6], count: it.f[0] | 0,
         });
       }
@@ -532,7 +532,7 @@
       const ground = g.groundItems.filter((it) => it && (it.f[0] | 0) > 0 && it.f[5] === tx && it.f[6] === ty);
       const tree = ground.find((it) => it.id === 526);
       if (tree) {
-        g.log(`你撞向了 ${Elona.ItemDB.name(tree.id, 'en')}。`);
+        g.log(`你撞向了 ${Elona.ItemDB.name(tree.id)}。`);
         if ((tree.f[25] | 0) <= 0) { g.log('树上似乎已经没有果实了。'); g.endTurn(); return { ok: true }; }
         tree.f[25] = (tree.f[25] | 0) - 1;
         if ((tree.f[25] | 0) <= 0) {
@@ -548,7 +548,7 @@
           fruit.f[21] = -1;
           g.groundItems.push(fruit);
           g.refreshGroundCell(fruit.f[5], fruit.f[6]);
-          g.log(`${Elona.ItemDB.name(fruit.id, 'en')} 掉了下来。`);
+          g.log(`${Elona.ItemDB.name(fruit.id)} 掉了下来。`);
         }
         g.endTurn();
         return { ok: true, action: 'tree' };
@@ -556,7 +556,7 @@
       const tree2 = ground.find((it) => it.id === 578);
       if (tree2) {
         const n = tree2.f[25] | 0;
-        g.log(`你撞向了 ${Elona.ItemDB.name(tree2.id, 'en')}。`);
+        g.log(`你撞向了 ${Elona.ItemDB.name(tree2.id)}。`);
         // 342674-342679：只有无主（var_99(21) != 5）的貯金箱才会碎，
         //   碎后数量 -1、在**该格**散落 f[25] 枚金币（f[25] 本身不递减）
         if ((tree2.f[21] | 0) !== 5) {
@@ -566,7 +566,7 @@
             gold.f[5] = tx; gold.f[6] = ty; gold.f[21] = -1;
             g.groundItems.push(gold);
             g.refreshGroundCell(tx, ty);
-            g.log(`${Elona.ItemDB.name(gold.id, 'en')} 散落了一地。`);
+            g.log(`${Elona.ItemDB.name(gold.id)} 散落了一地。`);
           }
         }
         if ((tree2.f[0] | 0) <= 0) g.removeGroundItem(tree2);
@@ -930,7 +930,7 @@
             && Elona.ItemDB && Elona.ItemDB.ref(it.f[3] | 0, 5) === 91000);   // 312484
           if (idx >= 0) {
             const it = p.inv[idx];
-            const nm = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : '食物';
+            const nm = Elona.ItemDB ? Elona.ItemDB.name(it) : '食物';
             it.f[0] = (it.f[0] | 0) - 1;
             if ((it.f[0] | 0) <= 0) p.inv[idx] = null;
             g.log(`你在睡梦中吃掉了${nm}。`);                        // 312495
@@ -1007,7 +1007,7 @@
       p.set(F_ROWACT, 3);
       p.set(F_ROWLEFT, turns);
       p.set(F_ROWARG, 0);
-      g.log(`你躺在${bedItem ? Elona.ItemDB.name(bedItem, 'en') : '地上'}打了个盹。`);
+      g.log(`你躺在${bedItem ? Elona.ItemDB.name(bedItem) : '地上'}打了个盹。`);
       return { ok: true, turns, rnd };
     },
 

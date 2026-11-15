@@ -467,7 +467,7 @@
 
   function itemName(id) {
     if (!id) return 'item';
-    return Elona.ItemDB ? Elona.ItemDB.name(id | 0, 'en') : ('item ' + id);
+    return Elona.ItemDB ? Elona.ItemDB.name(id | 0) : ('item ' + id);
   }
 
   function creatureOf(id) {
@@ -477,7 +477,7 @@
 
   function mapNameOf(id) {
     if (Elona.Sites && Elona.Sites.nameOf) {
-      const n = Elona.Sites.nameOf(id | 0, 'en');
+      const n = Elona.Sites.nameOf(id | 0);
       if (n) return n;
     }
     return '';

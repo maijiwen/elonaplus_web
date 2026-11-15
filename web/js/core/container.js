@@ -151,7 +151,7 @@
     if (FL && FL.isFreezer(it) && FL.freezerConvert) FL.freezerConvert(g, x, 'out'); // 342161-342166
     list.splice(idx, 1);
     placeIntoInventory(g.player, x);
-    return { ok: true, message: `取出了 ${Elona.ItemDB.name(x.id, 'en')} ×${x.f[0] | 0}。` };
+    return { ok: true, message: `取出了 ${Elona.ItemDB.name(x.id)} ×${x.f[0] | 0}。` };
   }
 
   /**
@@ -177,7 +177,7 @@
     if (FL && FL.isFreezer(it) && FL.freezerConvert) FL.freezerConvert(g, x, 'in');  // 342177
     inv.splice(idx, 1);
     contents(it).push(x);
-    return { ok: true, message: `放入了 ${Elona.ItemDB.name(x.id, 'en')} ×${x.f[0] | 0}。` };
+    return { ok: true, message: `放入了 ${Elona.ItemDB.name(x.id)} ×${x.f[0] | 0}。` };
   }
 
   /** 放进背包第一个空格，没有就追加（与 pickupAt / craft 一致） */

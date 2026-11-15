@@ -939,7 +939,7 @@
       if (it) remainFields(it, target);
       let nm = '残骸';
       if (Elona.ItemDB && Elona.ItemDB.name) {
-        try { nm = Elona.ItemDB.name(id, 'en') || nm; } catch (e) { /* 名称表未加载 */ }
+        try { nm = Elona.ItemDB.name(id) || nm; } catch (e) { /* 名称表未加载 */ }
       }
       const msg = `从${nameOfC(target)}身上取出了${nm}。`;
       logMsg(g, msg);

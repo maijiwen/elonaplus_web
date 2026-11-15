@@ -50,14 +50,16 @@
     if (!m) return '';
     if (lang === 'jp') return (m.jp && m.jp.name) || (m.en && m.en.name) || '';
     if (lang === 'en') return (m.en && m.en.name) || (m.jp && m.jp.name) || '';
-    return ZH[n | 0] || (m.en && m.en.name) || (m.jp && m.jp.name) || '';
+    // 中文材质名有表；缺号时按「日文优先」回退（英文只在 en 模式用）
+    if (lang === 'en') return (m.en && m.en.name) || (m.jp && m.jp.name) || ZH[n | 0] || '';
+    return ZH[n | 0] || (m.jp && m.jp.name) || (m.en && m.en.name) || '';
   }
 
   /** 形容词前缀（`var_679(1, n)`，用于随机品质名 `*label_0348`） */
   function adjOf(n, lang) {
     const m = ref(n);
     if (!m) return '';
-    const x = lang === 'jp' ? m.jp : m.en;
+    const x = (lang === 'en') ? m.en : (m.jp || m.en);
     return (x && x.adj) || '';
   }
 

@@ -63,7 +63,7 @@
     return Elona.ItemDB && Elona.ItemDB.ref ? (Elona.ItemDB.ref(id | 0, f) | 0) : 0;
   }
   function name(it) {
-    return Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('#' + (it && it.id));
+    return Elona.ItemDB ? Elona.ItemDB.name(it) : ('#' + (it && it.id));
   }
   function refresh(g, it) {
     if (!it) return;

@@ -58,6 +58,30 @@
     16: ['魔族角饰', 'magic heart'],
   };
 
+  /**
+   * 名称显示用的语言（0-※）：只有「游戏语言确实是英文」时才返回 'en'。
+   *   explicit 'en' 在旧调用点里是想强制英文，但那会让中文/日文界面出现英文，
+   *   这里统一改成「跟随当前语言」；显式 'jp' 沿用历史语义（默认给汉化侧）。
+   * 取不到语言层时按中文。
+   */
+  /**
+   * 语言归口（0-V0）：显式传 'ch' / 'jp' / 'en' 就照它取；只有没传（null / undefined / 非法值）
+   * 才跟随 `Elona.Lang.current()`。这样界面调用点（都不传）自然跟随语言层，
+   * 而工具函数 / 测试显式要某档时不会被当前语言悄悄改写 —— 后者会和
+   * `ItemNameExtra.prefix(it, 'en')` 这类自己解析 lang 的模块行为不一致（0-V0 回归发现）。
+   */
+  function normLang(lang) {
+    if (lang === 'en' || lang === 'jp' || lang === 'ch') return lang;
+    const cur = (Elona.Lang && Elona.Lang.current) ? Elona.Lang.current() : 'ch';
+    return (cur === 'en' || cur === 'jp') ? cur : 'ch';
+  }
+  /** 三语取值：中文优先，没有汉化时用日文，英文只在英文模式 */
+  function pick3(ch, jp, en, L) {
+    if (L === 'en') return en || jp || ch || '';
+    if (L === 'jp') return jp || ch || en || '';
+    return ch || jp || en || '';
+  }
+
   const ItemDB = {
     data: null,
 
@@ -88,19 +112,10 @@
       if (idOrItem && typeof idOrItem === 'object') return this.instanceName(idOrItem, lang);
       const e = this.eq(idOrItem);
       if (!e) return '(未知物品)';
-      if (e.prefixEn) return e.prefixEn + ' of ' + (e.nameCh || e.nameEn || '');
-      // 【B4】未显式指定语言时按 config 的 `language` 取（默认中文）。
-      //   注意：显式传 'jp' 的调用点沿用的是历史语义（返回汉化名），
-      //   这些是播报串联用的名称，不动它们以免把中文播报换成日文。
-      if (!lang && Elona.Lang && Elona.Lang.current) {
-        const cur = Elona.Lang.current();
-        if (cur === 'jp') return e.nameJp || e.nameCh || e.nameEn || '';
-        if (cur === 'en') return e.nameEn || e.nameCh || e.nameJp || '';
-      }
-      // 约定：显式传 'jp' / 'en' 的调用点在本项目里都取**汉化名**
-      //   （历史语义，播报串联用；verify_i18n 也断言这一点），不要改。
-      if (lang === 'jp') return e.nameCh || e.nameJp || e.nameEn || '';
-      return e.nameCh || e.nameEn || e.nameJp || '';
+      const L = normLang(lang);
+      // 英文模式才用「scroll of identify」这种前置词，中文/日文用名称表里的名字
+      if (L === 'en' && e.prefixEn) return e.prefixEn + ' of ' + (e.nameEn || e.nameJp || '');
+      return pick3(e.nameCh, e.nameJp, e.nameEn, L);
     },
 
     /**
@@ -110,6 +125,7 @@
      */
     instanceName(it, lang) {
       if (!it) return '';
+      lang = normLang(lang);
       // 字段 23 >= 10000 时是「エゴ / 品质前缀」（*label_0348/0349），前缀 + 基础名
       const f23 = (it.f && it.f[23]) | 0;
       const pre = (Elona.Ego && f23 >= 10000 && Elona.Ego.prefixOf) ? Elona.Ego.prefixOf(it, lang) : '';
@@ -149,16 +165,17 @@
         }
       }
       if (cat === 92000 && (it.f[26] | 0) !== 0) {
-        body += lang === 'jp'
-          ? `(仕入れ値 ${it.f[26] | 0}g)`
-          : ` (Buying price: ${it.f[26] | 0}g)`;
+        body += lang === 'en'
+          ? ` (Buying price: ${it.f[26] | 0}g)`
+          : (lang === 'jp' ? `(仕入れ値 ${it.f[26] | 0}g)` : `（进货价 ${it.f[26] | 0}g）`);
       }
       // 30458-30465：样柜台（ibit 21）→ 前缀「見本用の / sample 」
       if (this.ibit(21, it) === 1) {
-        body = lang === 'jp' ? ('見本用の' + body) : ('sample ' + body);
+        body = lang === 'en' ? ('sample ' + body)
+          : (lang === 'jp' ? ('見本用の' + body) : ('样品 ' + body));
       }
       if (!pre) return body;
-      const full = lang === 'jp' ? pre + body : `${body} ${pre}`;
+      const full = lang === 'en' ? `${body} ${pre}` : pre + body;
       // 30372-30382：已完全鉴定（var_99(8) >= 3）时给名称加祝福/诅咒/堕落前缀
       const bless = this.blessPrefix(it, lang);
       return bless ? bless + full : full;
@@ -171,9 +188,9 @@
     blessPrefix(it, lang) {
       if (!it || !it.f || (it.f[8] | 0) < 3) return '';
       const st = it.f[17] | 0;
-      if (st === 1) return lang === 'jp' ? '祝福された' : '祝福的';
-      if (st === -1) return lang === 'jp' ? '呪われた' : '诅咒的';
-      if (st === -2) return lang === 'jp' ? '忌まわしい' : '憎恶的';
+      if (st === 1) return pick3('祝福的', '祝福された', 'blessed', lang);
+      if (st === -1) return pick3('诅咒的', '呪われた', 'cursed', lang);
+      if (st === -2) return pick3('憎恶的', '忌まわしい', 'doomed', lang);
       return '';
     },
 
@@ -208,8 +225,11 @@
         const base = this.name(it.id, lang);
         if (cid > 0 && Elona.CharaFactory && Elona.CharaFactory.ref) {
           const rec = Elona.CharaFactory.ref(cid);
-          const nm = rec ? ((rec.nameCh || '') || (lang === 'jp' ? (rec.nameJp || '') : (rec.nameEn || ''))) : '';
-          if (nm) return lang === 'jp' ? `${nm}の${base}` : `${base} of ${nm.toLowerCase()}`;
+          const nm = rec ? pick3(rec.nameCh, rec.nameJp, rec.nameEn, lang) : '';
+          if (nm) {
+            if (lang === 'en') return `${base} of ${nm.toLowerCase()}`;
+            return lang === 'jp' ? `${nm}の${base}` : `${nm}的${base}`;
+          }
         }
         return base;
       }
@@ -219,7 +239,7 @@
         const cn = Elona.Necro.coffinName(it, lang);
         if (cn) {
           const base = this.name(it.id, lang);
-          return lang === 'jp' ? `${base}${cn.suffix}` : `${base} ${cn.suffix}`;
+          return lang === 'en' ? `${base} ${cn.suffix}` : `${base}${cn.suffix}`;
         }
       }
       // 进化道具（869）：物品本体名为空，显示名 = `var_722(f[25])`（29929-29931）。
@@ -236,7 +256,7 @@
         const list = (F && F.entries) ? F.entries() : null;
         if (list && idx >= 0 && idx < list.length) {
           const e = list[idx];
-          return lang === 'jp' ? (e.nameJp || e.nameEn || '') : (e.nameEn || e.nameJp || '');
+          return pick3(e.nameCh, e.nameJp, e.nameEn, lang);
         }
         return '(钓获物)';
       }
@@ -256,10 +276,11 @@
       const e = this.eq(id);
       if (!e) return '';
       const d = e.desc || {};
-      // 汉化：desc 的 ch0..ch3 优先（items.json 汉化版），缺条目回退 jp/en
-      return lang === 'jp'
-        ? ((d.ch3 || d.jp3 || d.en3) || '')
-        : ((d.ch3 || d.en3 || d.jp3) || '');
+      // 汉化：desc 的 ch0..ch3 优先（items.json 汉化版）；缺条目回退日文，英文只在英文模式
+      const L = normLang(lang);
+      if (L === 'en') return d.en3 || d.ch3 || d.jp3 || '';
+      if (L === 'jp') return d.jp3 || d.ch3 || d.en3 || '';
+      return d.ch3 || d.jp3 || d.en3 || '';
     },
 
     /** 基础价值 var_438 */

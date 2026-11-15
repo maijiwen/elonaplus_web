@@ -107,7 +107,7 @@
       if (lv + 3 < (r.req | 0)) continue;                 // 270422
       out.push({
         id: r.id, skill: r.skill, req: r.req, mats: r.mats,
-        name: Elona.ItemDB.name(r.id, 'en'),
+        name: Elona.ItemDB.name(r.id),
         ok: canProduce(g, r),
         missing: missingMats(g, r),
       });
@@ -191,7 +191,7 @@
 
     return {
       ok: true, item: it, id: r.id, fix, level, used,
-      message: `制作了 ${Elona.ItemDB.name(r.id, 'en')}。`,
+      message: `制作了 ${Elona.ItemDB.name(r.id)}。`,
     };
   }
 

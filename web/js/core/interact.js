@@ -40,6 +40,58 @@
     { key: 9, dx: 1, dy: -1, label: '↗' },
   ];
 
+  // ----------------------------------------------------------------------
+  // A395：互动对象的立绘层（289359-289421）
+  //
+  // 原版在「方向确定之后、互动菜单之前」画两张 300×500 的立绘：
+  //   289363-289380  被选中者的立绘，`pos var_216 - 300, var_217 - 588`
+  //                   （168 == 0 → 右半边；否则左半边）
+  //   289390-289408  若被选中者有坐骑（167 > 0），坐骑的立绘固定画在左半边
+  // 素材路径 `\user\graphic2\face<431>_<表情>.bmp`（用户自定义立绘）。
+  // `var_58(431)` 由互动菜单「口調を変える」(27) → *label_2797 设置，
+  // 默认 0 表示没有立绘（原版全程不画）。
+  // ----------------------------------------------------------------------
+  /** 立绘目录（300×500 BMP） */
+  const FACE_DIR = 'assets/user/graphic2/';
+  const FACE_W = 300;
+  const FACE_H = 500;
+  /** 800×600 画面里 `var_217 - 588` = 12 */
+  const FACE_Y = 12;
+  /** `var_216 - 300` */
+  const FACE_RIGHT_X = 500;
+
+  /**
+   * 表情后缀 —— 289363-289380 的六个 if **依次覆盖**，顺序不能换：
+   *   `var_58(79)` = 动作编号 + 100 × 类别，源码用取余 `\ 100` 取动作编号；
+   *   `var_58(264) > 0`（睡眠/倒下）与 HP < 最大 HP 的一半 → _E。
+   * @returns {string|null} 例如 face1_B.bmp
+   */
+  function faceFile(c) {
+    const id = c.get(431) | 0;
+    if (id <= 0) return null;
+    const act = (c.get(79) | 0) % 100;
+    let suf = 'B';
+    if (act === 18 || (c.get(264) | 0) > 0) suf = 'A';
+    if (act === 21) suf = 'Q';
+    if (act === 6) suf = 'F';
+    if (act === 17) suf = 'H';
+    if ((c.get(50) | 0) < (c.get(51) | 0) / 2 || act === 26) suf = 'E';
+    return `face${id}_${suf}.bmp`;
+  }
+
+  /** 一张立绘的位置；没有立绘（431 == 0）时返回 null */
+  function faceAt(c) {
+    const file = faceFile(c);
+    if (!file) return null;
+    return {
+      file,
+      x: (c.get(168) | 0) === 0 ? FACE_RIGHT_X : 0,
+      y: FACE_Y,
+      w: FACE_W,
+      h: FACE_H,
+    };
+  }
+
   /** 该格的角色（原版 `var_704(x, y, 1)`：0 = 空；只认活着的） */
   function charaAt(g, x, y) {
     const cell = (g.map && g.map.cell) ? g.map.cell(x, y) : null;
@@ -53,6 +105,11 @@
     /** 原版 289334 的提示语 */
     prompt: '要操作哪个方向？',
     DIRS,
+    /** A395：当前要画的立绘（renderer.drawFaceLayer 读取） */
+    faces: [],
+
+    /** 立绘文件名（供立绘选择界面预览；见 faceFile） */
+    faceFile,
 
     dirOfKey(key) {
       // 键位表与能力的「どの方向？」保持一致（core/dirsel.js）
@@ -74,14 +131,42 @@
     /** 进入方向选择（原版 289334-289337） */
     start(g) {
       this.active = true;
+      this.faces = [];
       this._g = g || null;
       if (g) g.interactSel = true;
       return { ok: true, prompt: this.prompt, dirs: DIRS.slice() };
     },
 
+    /**
+     * A395：计算要显示的两张立绘（289363-289421）。
+     * 只在 `var_58(431) > 0` 时才有内容 —— 原版同样是「用户放了立绘素材
+     * 并用互动菜单设过编号」才画得出来。
+     * @param {object} g
+     * @param {object} c 被选中的角色
+     */
+    showFaces(g, c) {
+      const list = [];
+      const own = c ? faceAt(c) : null;
+      if (own) list.push(own);
+      // 289390-289408：有坐骑时，坐骑的立绘固定画在左半边
+      const mi = c ? (c.get(167) | 0) : 0;
+      const mount = (mi && g && g.charas) ? (g.charas[mi] || null) : null;
+      if (mount) {
+        const f = faceAt(mount);
+        if (f) list.push({ file: f.file, x: 0, y: FACE_Y, w: FACE_W, h: FACE_H });
+      }
+      this.faces = list;
+      return list;
+    },
+
+    clearFaces() {
+      this.faces = [];
+    },
+
     cancel() {
       const was = this.active;
       this.active = false;
+      this.faces = [];
       if (this._g) this._g.interactSel = false;
       this._g = null;
       return { ok: was, reason: was ? 'cancelled' : 'inactive' };
@@ -89,7 +174,7 @@
 
     /**
      * 选一个方向并结算（原版 305215-305228 + 289347-289357）。
-     * @returns {{ok:boolean, action?:string, npc?:object, message?:string}}
+     * @returns {{ok:boolean, action?:string, npc?:object, mount?:object, message?:string}}
      */
     pick(g, key) {
       const d = this.dirOfKey(key);
@@ -107,9 +192,13 @@
 
       const c = charaAt(g, x, y);
       if (!c) return empty;
-      // 289359-289461：骑乘者 / 被骑乘者二选一。本项目把「骑」的双方都当作可操作对象，
-      // 直接作用于该格角色（不弹二选一，登记 A395）。
-      return { ok: true, action: 'chara', npc: c, dir: d };
+      // 289359-289421：双立绘 + 骑乘二选一。有坐骑（167 > 0）时由
+      //   panels.openRideChoice 弹出「坐骑（左）/ 骑乘者（右）」二选一，
+      //   对应源码 289443 的 `txtselecttc 2`（选 1 → var_244 = 坐骑）。
+      this.showFaces(g, c);
+      const mi = c.get(167) | 0;
+      const mount = (mi && g.charas) ? (g.charas[mi] || null) : null;
+      return { ok: true, action: 'chara', npc: c, dir: d, mount };
     },
 
     /** 289342 / 289352：空格的提示（var_364） */
@@ -125,6 +214,7 @@
     confirm(g) {
       const was = this.active;
       this.active = false;
+      this.faces = [];
       if (g) g.interactSel = false;
       this._g = null;
       return { ok: was, action: 'self' };

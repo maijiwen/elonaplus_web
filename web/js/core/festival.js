@@ -89,7 +89,7 @@
     for (let k = 10; k >= 3; k--) {
       if (found[k] === undefined) continue;
       const it = g.player.inv[found[k]];
-      const name = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'en') : ('item ' + it.id);
+      const name = Elona.ItemDB ? Elona.ItemDB.name(it.id) : ('item ' + it.id);
       options.push({ label: `${name} をあげる`, arg: { choice: +k, idx: found[k] } });
     }
     options.push({ label: 'イタズラされる', arg: { choice: 2 } });
@@ -121,7 +121,7 @@
       if (Elona.Love && Elona.Love.dropAtFeet) {
         const gift = Elona.Love.dropAtFeet(g, g.player, 979);
         if (!gift) msg.push('（放不下了…）');
-        else if (Elona.ItemDB) msg.push(`获得了 ${Elona.ItemDB.name(979, 'en')}！`);
+        else if (Elona.ItemDB) msg.push(`获得了 ${Elona.ItemDB.name(979)}！`);
       }
     } else if (choice === 2) {
       // イタズラされる → 28 次火炎瓶（366897-366928）

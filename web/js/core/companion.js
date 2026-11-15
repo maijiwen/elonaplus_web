@@ -444,7 +444,7 @@
   const BED_RE = /\bbed\b|futon|sleeping bag|hammock/i;
 
   function isBed(id) {
-    const nm = (Elona.ItemDB && Elona.ItemDB.name) ? (Elona.ItemDB.name(id, 'en') || '') : '';
+    const nm = (Elona.ItemDB && Elona.ItemDB.name) ? (Elona.ItemDB.name(id) || '') : '';
     return BED_RE.test(nm);
   }
 

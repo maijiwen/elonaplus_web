@@ -48,6 +48,7 @@
   const NO_FALLBACK = [106, 137, 138, 139, 140, 141, 146];
 
   const cache = new Map();       // key → { tags }
+  let fileList = [];             // data/talk/index.json 里的文件名（口調一覧用）
 
   /** 台词里的 {Question} {Angry} {se0} 等是对话特效标记 */
   const MARK_RE = /\{[A-Za-z0-9_]+\}/g;
@@ -120,9 +121,16 @@
         return { count: 0, files: [] };
       }
       const files = (idx && idx.files) || [];
+      fileList = files.map((r) => r.key);
       for (const row of files) await this.load(row.key);
-      return { count: files.length, files: files.map((r) => r.key) };
+      return { count: files.length, files: fileList.slice() };
     },
+
+    /**
+     * 已收录的台词文件名 —— 对应 `*label_2751`（291110-291121）的
+     * `dirlist user/talk/*.txt`：口調一覧里的「デフォルト」之外的每一行。
+     */
+    fileNames() { return fileList.slice(); },
 
     /** 同步取（表已进缓存时） */
     cached(key) {

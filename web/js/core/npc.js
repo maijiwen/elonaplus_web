@@ -70,6 +70,154 @@
   function roleName(role) { return ROLE_NAMES[role] || ''; }
   function isShop(role) { return SHOP_ROLES.indexOf(role) >= 0; }
 
+  // ----------------------------------------------------------------------
+  // 0-※：i 键「操作弹窗」的选项表
+  //   源码 *label_2749（289551-289766）用 var_487 逐条追加，顺序与条件全部照搬。
+  //   与下面的 services() 不同：这张表是「对这个人做什么」，
+  //   选「交谈」之后才进入 services()/对话脚本（*label_3031）。
+  // ----------------------------------------------------------------------
+  /** cbit 的安全读取（测试桩可能没有状态模块） */
+  function cbOf(c, n) {
+    return (Elona.Status && Elona.Status.cbit) ? (Elona.Status.cbit(c, n) | 0) : 0;
+  }
+
+  /** var_58(80) 是用「第几回合」的日期比较気力回复，这里照 289584 算天数 */
+  function gameDate(g) {
+    const d = v65(g, 13) | 0, h = v65(g, 12) | 0, m = v65(g, 11) | 0, y = v65(g, 10) | 0;
+    return d + h * 24 + m * 24 * 30 + y * 24 * 30 * 12;
+  }
+
+  /**
+   * @param {object} npc 操作对象（玩家自己时 index 为 0）
+   * @param {object} g
+   * @returns {Array<{act:number,id:string,label:string}>} 按源码顺序
+   */
+  function actionMenu(npc, g) {
+    const out = [];
+    if (!npc) return out;
+    const idx = npc.index | 0;
+    const f = (n) => (npc.get(n) | 0);
+    const has = (n) => cbOf(npc, n) === 1;
+    const push = (act, id, label) => out.push({ act, id, label });
+    const mapId = v65(g, 20) | 0;
+    const mapType = (() => {
+      try { return (Elona.Sites && Elona.Sites.rawType) ? (Elona.Sites.rawType(mapId, g) | 0) : 0; } catch (e) { return 0; }
+    })();
+    const player = g && g.player;
+    // 源码的 `var_244 < 16` = 队伍槽位（0..15）。本项目的同伴可能放在 57+ 的槽位，
+    // 所以「是不是同伴」以 Party.isAlly 为准，玩家自己（0）也算队伍侧。
+    const party = (idx < 16)
+      || !!(Elona.Party && Elona.Party.isAlly && Elona.Party.isAlly(npc));
+    // 289574：玩家处于混乱（var_58(254) > 0）时只剩「教说话 / 口吻 / 外观」这些
+    const confused = player ? ((player.get(254) | 0) > 0) : false;
+    // 289591 / 289604 / 289706 用到的「无法正常交涉」状态
+    const noTalk = has(963) || has(971) || has(1040);
+
+    if (idx !== 0) {
+      // 289552-289573：卡片精灵（外观 1173）的花色变更
+      if (f(7) === 1173 && f(58) === 0) {
+        push(31, 'card-rank', '【变更等级】');
+        if (f(27) !== 1127) push(32, 'card-spade', '[黑桃变更]');
+        if (f(27) !== 1128) push(33, 'card-club', '[梅花变更]');
+        if (f(27) !== 1129) push(34, 'card-diamond', '[方块变更]');
+        if (f(27) !== 1130) push(35, 'card-heart', '[红心变更]');
+      }
+      // 289574-289583：交谈 / 攻击
+      if (!confused) {
+        push(0, 'talk', '交谈');
+        if (!party) push(1, 'attack', '攻击');
+      }
+      // 289584-289590：気力（var_58(14)）冷却回满后 >= 80 才能表达心意
+      const qi = (gameDate(g) >= f(15)) ? 100 : f(14);
+      if (qi >= 80) push(29, 'feelings', '表达心意');
+      // 289591-289624：给予 / 带出 / 采集身体部位 / 攻击（同伴）
+      if (!noTalk) {
+        if (party || (has(960) && mapId === 67)) push(4, 'give-take', '交出/收下物品');
+        else push(2, 'give', '交出物品');
+        if (has(960)) push(5, 'bring-out', '带出去');
+        let isWorker = false;
+        try {
+          const w = (Elona.Ranch && Elona.Ranch.getWorker) ? Elona.Ranch.getWorker(g, mapId) : null;
+          isWorker = !!(w && (w.index | 0) === idx);
+        } catch (e) { isWorker = false; }
+        if ((has(960) || (isWorker && mapType === 31)) && f(50) === f(51)) {
+          push(18, 'take-bone', '抽出骨头');
+          push(19, 'take-heart', '取出心脏');
+          push(20, 'take-eye', '挖出眼球');
+          push(21, 'take-blood', '榨取体液');
+          push(22, 'take-skin', '剥下皮');
+        }
+        if (party) push(1, 'attack', '攻击');
+      }
+      // 289625-289628：教说话 / 改变口吻
+      push(7, 'teach-word', '教它说话');
+      push(10, 'tone', '改变口吻');
+      // 289629-289666：同伴专属的几个开关
+      if (party) {
+        if (f(23) !== 0) push(36, 'silence', has(965) ? '让它说话' : '让它闭嘴');
+        push(37, 'precious', has(1053) ? '取消重要伙伴' : '指定为重要伙伴');
+        push(38, 'endure', has(1032) ? '解除忍耐脚下物品' : '忍耐脚下物品');
+        if (!has(963) && !has(971) && !has(992) && !has(960)) push(39, 'wait-town', '在城里待命');
+      }
+      // 289667-289680：解开绳子 / 从牢笼释放
+      if (mapId !== 35 && has(985)) push(9, 'untie', '解开绳子');
+      if (mapId !== 105 && f(34) <= -90 && has(1040)) push(30, 'release-cage', '从牢笼中释放');
+    }
+
+    // 289682-289693：换装 / 改变外形 / 站起来的样子 / 道具图像
+    if (party) {
+      push(8, 'appearance', '换装');
+      push(14, 'shape', '改变外形');
+    }
+    push(27, 'tatie', '改变站姿');
+    push(23, 'item-mark', '赋予道具图像');
+    if (f(447) > 0) {
+      push(26, 'item-mark-adjust', '调整道具图像');
+      push(25, 'item-mark-move', '移动道具图像');
+      push(24, 'item-mark-delete', '删除道具图像');
+    }
+    // 289706-289723：搭档编成 / 解散
+    if (!noTalk) {
+      if (party && f(168) !== 1 && (f(80) === 0 || idx === 0)) {
+        if (f(168) === 0) push(16, 'tag', '编成搭档');
+        if (f(167) > 0) {
+          const mount = g && g.charas ? g.charas[f(167)] : null;
+          if (mount && (mount.get(0) | 0) === 1) push(17, 'tag-dissolve', '解散搭档');
+        }
+      }
+    }
+    // 289724-289733：起名 / 能力公开 / 信息
+    push(3, 'name', '起名');
+    if ((idx !== 0 && f(9) === 10) || (mapId === 67 && has(960)) || (idx !== 0 && f(31) === 100)) {
+      push(28, 'ability-info', '能力公开');
+    }
+    if (v65(g, 828)) push(6, 'info', '信息');
+    // 289734-289743：让神仆/特定角色回去
+    if ([484, 482, 359, 306, 331, 338, 339, 342, 461, 462, 463, 487].indexOf(f(27)) >= 0) {
+      if (!has(960) && !party) {
+        let owner = -1;
+        try {
+          const who = (Elona.Ranch && Elona.Ranch.getWorker) ? Elona.Ranch.getWorker(g, mapId) : null;
+          owner = who ? (who.index | 0) : -1;
+        } catch (e) { owner = -1; }
+        if (owner !== idx) push(11, 'remand', '让它回去');
+      }
+    }
+    // 289744-289753：2 月（var_65(11) == 2）的巧克力事件
+    //   289744 用 `var_65(250 + 255)`（= 505）与 `var_65(250 + 265)`（= 515）两个
+    //   事件计数器，不是 255 / 265 本身。
+    if (v65(g, 11) === 2 && f(17) >= 200 && idx !== 0 && v65(g, 505) === 1) {
+      push(12, 'choco-beg', '讨要巧克力');
+    }
+    if (idx !== 0 && v65(g, 11) === 2 && v65(g, 515) !== 0) push(15, 'choco-gift', '把自己当作礼物');
+    // 289754-289765：把不死者放回棺材
+    if ([447, 21, 100, 150, 47, 578, 416, 579].indexOf(f(27)) >= 0) {
+      if (!has(960) && !has(1035) && !party && has(992)) push(13, 'to-casket', '放回棺材');
+    }
+    return out;
+  }
+
+
   /**
    * 当前 NPC 可用的服务（0-BX：按原版对话菜单的选项集合与顺序）
    *
@@ -886,7 +1034,7 @@
     if (!it || (it.f[0] | 0) <= 0) return { ok: false, message: '没有这件物品。' };
     if (it.eqSlot >= 0) return { ok: false, message: '装备中的物品不能交换。' };
     const cat = Elona.ItemDB ? Elona.ItemDB.ref(it.id, 5) : 0;
-    const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('item ' + it.id);
+    const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
     // 优先拿商人背包里的物品交换；没有库存时才用 ItemDB.create 兜底
     let got = null;
     const kInv = npc.inv || [];
@@ -908,7 +1056,7 @@
     const slot = inv.indexOf(it);
     if (slot >= 0) inv[slot] = got; else inv.push(got);
     if (Elona.ItemDB.stack) Elona.ItemDB.stack(player, slot >= 0 ? slot : inv.length - 1);
-    const gotName = Elona.ItemDB.name(got, 'en');
+    const gotName = Elona.ItemDB.name(got);
     return { ok: true, gave: name, got: gotName, cat,
       message: `你用 ${name} 换到了 ${gotName}。` };
   }
@@ -966,7 +1114,7 @@
     }
     player.set(30, player.get(30) - cost);
     it.f[20] = (it.f[20] | 0) + 1;
-    const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('item ' + it.id);
+    const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
     return { ok: true, cost, level: it.f[20],
       message: `${name} 被强化了（+${it.f[20]}，-${cost} gold）。` };
   }
@@ -1063,7 +1211,7 @@
     }
     player.set(30, player.get(30) - cost);
     it.f[7] = Math.max(10, (it.f[7] | 0) - 100 * u);
-    const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('item ' + it.id);
+    const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
     return { ok: true, cost, weight: it.f[7],
       message: `${name} 变轻了 ${(u / 10).toFixed(1)}s（现在 ${((it.f[7] | 0) / 1000).toFixed(1)}s，-${cost} gold）。` };
   }
@@ -1080,7 +1228,7 @@
     }
     player.set(30, player.get(30) - cost);
     it.f[7] = (it.f[7] | 0) + 100 * u;
-    const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('item ' + it.id);
+    const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
     return { ok: true, cost, weight: it.f[7],
       message: `${name} 变重了 ${(u / 10).toFixed(1)}s（现在 ${((it.f[7] | 0) / 1000).toFixed(1)}s，-${cost} gold）。` };
   }
@@ -1333,7 +1481,7 @@
     modImp(npc, amount, g);
     it.f[0] = (it.f[0] | 0) - 1;
     if (it.f[0] <= 0) player.inv[idx] = null;
-    const name = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'en') : ('item ' + it.id);
+    const name = Elona.ItemDB ? Elona.ItemDB.name(it.id) : ('item ' + it.id);
     return { ok: true, item: name, friendship: npc.get(17) | 0,
       message: `你把 ${name} 交给了 ${npc.name}（好感度 ${npc.get(17) | 0}）。` };
   }
@@ -1720,7 +1868,7 @@
 
   Elona.NPC = {
     ROLE_NAMES, SHOP_ROLES, loadTable, setSkillNames, setSkillShop, skillName,
-    roleOf, roleName, isShop, services, talk, meal, drink, identify,
+    roleOf, roleName, isShop, services, actionMenu, talk, meal, drink, identify,
     implevel, modImp, give, intel,
     trainableSkills, trainCost, train, heal, infoText, perform, aside,
     calcIdentifyValue, unknownItems, identifyOne, identifyAll, investigate,

@@ -643,7 +643,24 @@
       if (Elona.Interact.dirOfKey(e.key)) {
         const r = Elona.Interact.pick(game, e.key);
         if (r && r.ok && r.npc) {
-          UI.openNPC(game, r.npc);
+          // A395：289443 —— 该格角色有坐骑（var_58(167) > 0）时先二选一。
+          //   源码 `txtselecttc 2` 的两项就是搭档/骑乘的左与右；选 1 换到坐骑。
+          if (r.mount && Elona.Panels && Elona.Panels.openTagPick) {
+            const nm = (c) => (c && (c.name || c.cname)) || '？';
+            Elona.Panels.openTagPick(game, [
+              { label: `${nm(r.npc)}（当前）`, chara: r.npc },
+              { label: `${nm(r.mount)}（坐骑）`, chara: r.mount },
+            ], (chara) => {
+              // 0-※：方向确定后先开「操作弹窗」（289481），选「交谈」才进入对话
+              UI.openActionMenu(game, chara);
+            }, {
+              title: '骑乘选择',
+              note: '这一格有两名角色（源码 289443 的 txtselecttc 2）。要操作哪一位？',
+              onCancel: () => Elona.Interact.clearFaces(),
+            });
+          } else {
+            UI.openActionMenu(game, r.npc);
+          }
           renderer.lastMove = performance.now();
         } else if (r && r.message) {
           UI.pushMessage(r.message);

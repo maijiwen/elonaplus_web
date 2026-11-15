@@ -168,7 +168,7 @@
       if ((it.f[0] | 0) <= 0 && Elona.ItemDB && Elona.ItemDB.stack) {
         // 数量归零的物品由调用方清理
       }
-      const nm = Elona.ItemDB.name(it, 'en');
+      const nm = Elona.ItemDB.name(it);
       g.log(field ? `你把 ${nm} 种在了田里。` : `你埋下了 ${nm}。`);   // 364945
       return { ok: true, feat: { id: st.id, type: TYPE_PLANT, sub: species, arg3: st.care }, species, care: st.care };
     },
@@ -583,7 +583,7 @@
           Elona.ItemDB.stack(p, p.inv.length - 1);
         }
         items.push(it);
-        const nm = Elona.ItemDB.instanceName(it, 'en');
+        const nm = Elona.ItemDB.instanceName(it);
         g.log(`${TEXT.harvested} ${nm}${value ? `（加值 +${value}）` : ''}。`);   // 365087
       }
       // 365092：收获经验

@@ -128,7 +128,8 @@
    * @returns {{groups: Array<{key:string, title:string, items:Array<object>}>}}
    */
   function build(g, c, lang) {
-    const L = (lang === 'jp') ? 'jp' : 'en';
+    // 0-※：中文优先（表里 ch 字段），缺译文时用日文；英文只在 en 模式
+    const L = (lang === 'en') ? 'en' : (lang === 'jp' ? 'jp' : 'ch');
     const ch = c || (g && g.player);
     if (!ch) return { groups: [] };
     const points = (g && g.getV65) ? (g.getV65(93) | 0) : 0;
@@ -166,14 +167,14 @@
     if (available.length) {
       groups.push({
         key: 'available',
-        title: L === 'jp' ? '◆ 取得できるフィート' : '[Available feats]',
+        title: L === 'en' ? '[Available feats]' : '◆ 可取得的特质',
         items: available,
       });
     }
     if (owned.length) {
       groups.push({
         key: 'feats',
-        title: L === 'jp' ? '◆ 特徴と体質' : '[Feats and traits]',
+        title: L === 'en' ? '[Feats and traits]' : '◆ 特征与体质',
         items: owned,
       });
     }

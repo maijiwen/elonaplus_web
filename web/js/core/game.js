@@ -17,6 +17,38 @@
   /** 旧存档迁移用：地图名 → var_65(20) 地图编号 */
   const MAP_IDS_SAVE = { vernis: 5 };
 
+  /**
+   * 0-R0 / A519：地面物品槽上限。
+   *
+   * `inv_getheader(-1)`（29261-29266）把 `var_99` 的地面区间定在
+   * **5080..5479 共 400 槽**（角色背包是 200..5079，每个角色 20 格）。
+   * 原版同一时刻只保留当前地图，所以这 400 槽实际就是「当前地图能放的物品堆数」。
+   * 两个触发点：
+   *   - 丢弃（*label_2979 342413-342421）：`inv_getfreeid(-1)` 返回 -1 →
+   *     「The place is too crowded. You can't drop stuff anymore.」，物品留在背包。
+   *   - 生成（itemcreate → 29726-29736）：同样取不到槽 →
+   *     「Too many item data! Some items in this area are destroyed.」并 item_compress。
+   */
+  const GROUND_SLOTS = 5480 - 5080;
+
+  /**
+   * 0-S0：**持久地图**清单 —— `var_132(11, mapId) == 1`（`*label_2474` 249783-250645）。
+   *
+   * 原版离图时 `*label_2461`（237806-237832）先写 `mdata_<mapId>_<100+子层>.s2`、
+   * 再写 `inv_<mapId>_<100+子层>.s2`（`var_99(0,1320)` 起，含地面槽 5080..5479）；
+   * 回图时 237941-237965 若 `mdata` 存在且 `var_126(7) == var_132(11, var_65(20)) != 0`
+   * 就直接读 `inv_*.s2` 还原地面物品，**不再跑 `map_randsite`**；否则 goto `*label_2463`
+   * 重新生成（2579 行起清空 `var_99` 的 1320..5480）。
+   *
+   * 所以「换图就清空地面物品」只对非持久图成立：城镇（5 / 15 / 33 …）是持久图，
+   * 在里面丢掉的东西离开再回来仍在原地。表里 52 张静态图只有 2 号（野外）是 0。
+   */
+  const PERSIST_MAP_IDS = new Set([
+    4, 5, 7, 11, 12, 14, 15, 33, 36, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
+    54, 55, 56, 57, 58, 59, 60, 61, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79,
+    80, 81, 82, 83, 85, 86, 88, 89, 90, 91, 92, 94, 95, 96,
+  ]);
+
   // 八方向偏移（与原版小键盘方向一致：1..9，5 为等待）
   const DIRS = {
     1: [-1, 1], 2: [0, 1], 3: [1, 1],
@@ -52,6 +84,9 @@
       this.charas = [];       // 对应原版 var_58 的角色池，索引与原版一致
       this.party = [];        // 0-DG：常驻同伴表（换图不丢；待機/阵亡也留着）
       this.groundItems = [];  // 地面物品（var_99 中 owner=-1 的实例；f[5]/f[6] = 坐标）
+      // 0-S0：持久图的地面物品暂存区 —— 等价原版 `tmp\inv_<mapId>_<100+子层>.s2`。
+      //   键 = `${mapId}_${subId}`，值 = `Item#toJSON()` 数组（空数组也算「已访问」）。
+      this.mapGround = Object.create(null);
       this.mef = new Elona.Mef();  // 地面魔法效果（原版 var_490）；见 core/mef.js
       // type 7 召唤所需的宿主钩子：由 spell.js 的 effectType7 调用（见下方定义）
       this.summonMonster = (gg, caster, id, level, target) => this.doSummon(caster, level, target);
@@ -745,8 +780,7 @@
             if (well) {
               well.f[5] = spot.x; well.f[6] = spot.y;
               const wcell = this.map.cell(spot.x, spot.y);
-              if (wcell) wcell[4] = 1;
-              this.groundItems.push(well);
+              if (wcell && this.pushGroundItem(well)) wcell[4] = 1;
             }
           } catch (e) { /* 生成失败不阻塞建城 */ }
         }
@@ -921,8 +955,7 @@
       //   map_initcustom 写入。本项目统一在 loadMap 应用两者，否则城镇的门/楼梯不存在。
       // 【0-CJ / A210】原版 227753 在 map_reload 前把「地上且 owner==1 的食物」清掉
       //   （`var_99(21)==1` 且 `refitem(id,5)==57000`），城镇地上没吃完的食物会腐坏消失。
-      //   本项目换图时地面物品整体重置（下面这行），食物自然随之消失，语义等价；
-      //   这里保留显式清理，是为了与原版行为一一对应、便于将来做「保留地面物品」时衔接。
+      //   这里在暂存之前先过滤，等于「离图时坏掉的食物不会写进 inv_*.s2」（0-S0 / A520）。
       {
         const kept = [];
         for (const it of (this.groundItems || [])) {
@@ -935,7 +968,11 @@
         }
         this.groundItems = kept;
       }
-      this.groundItems = [];                      // 原版换图 = 全新地图（地面物品不保留）
+      // 0-S0：换图前先把**当前**这张（若是持久图）的地面物品存进 mapGround，
+      //   等价 `*label_2461` 的 `var_541=4 → 写 inv_<mapId>_<100+子层>.s2`。
+      this.stashGroundItems();
+      this.groundItems = [];                      // 回到新图，地面先清空
+      this.groundOverflowWarned = false;          // 0-R0 / A519：新地图重新允许提示一次
       if (Elona.MapFeat && Elona.MapFeat.applyObjects) {
         Elona.MapFeat.applyObjects(this, json.objects);
       }
@@ -953,8 +990,8 @@
           it.f[5] = o[1] | 0; it.f[6] = o[2] | 0; it.f[21] = o[3] | 0;
           // 城镇预设物品（obj 第 4 字段 >= 0 = 有主）单独标记，避免与「未收获作物 f[21]=4」混淆
           if ((o[3] | 0) >= 0) it.townOwned = true;
-          this.groundItems.push(it);
-          cell[4] = 1;
+          // 0-R0 / A519：地图物件也是 itemcreate，地面槽满时同样会丢（29726-29736）
+          if (this.pushGroundItem(it)) cell[4] = 1;
         }
       }
       // 放置玩家：优先使用 header[5]（入口坐标，编码为 y*1000+x），
@@ -1042,11 +1079,15 @@
           }
         }
       }
-      // 0-Q0 / Q-O1：228859-228870 + 249174 —— `var_126(6)==3` 的城镇 / 任务图
-      //   在 8/9 月会放喪蝉 1228。原版由 map_init 的 `repeat var_400: map_randsite`
-      //   完成；本项目静态城镇图直接载入 json，不跑该生成循环（17 册 Q-O1 登记的架构差异），
-      //   故在载入后按同一规则补一次。读档走 deserialize（不调 loadMap），不会重复放置。
-      if (this.state === STATE.PLAY) this.applyTownRandsite(mapId);
+      // 0-Q0 / Q-O1：249174 + 228777-228919 —— 类型 3（城镇 / 任务图）在 `map_init`
+      //   末尾会跑 `repeat var_400: map_randsite`。本项目静态城镇图直接载入 json，
+      //   不跑该生成循环（17 册 Q-O1 登记的架构差异），故在载入后按同一规则补一次。
+      //   读档走 deserialize（不调 loadMap），不会重复放置。
+      //
+      // 0-S0：237941-237965 —— 持久图回访时源码直接读 `inv_*.s2`、**跳过 `map_randsite`**；
+      //   这里有快照就还原、不再重铺，否则会把玩家上次丢的东西冲掉、还会多出一批随机物。
+      const groundRestored = this.restoreGroundItems(mapId, subId);
+      if (!groundRestored && this.state === STATE.PLAY) this.applyTownRandsite(mapId);
       // 0-DI：武具店的矢弹充填「每张地图一次」（var_132(37, 地图) == 100）
       // 换图即重置（原版由 map_init 重建 var_132 表）
       this.shopReloadMap = -1;
@@ -1080,16 +1121,74 @@
     }
 
     /**
+     * 0-S0：离图时把当前地面物品暂存到 `mapGround`（= 写 `inv_<mapId>_<100+子层>.s2`）。
+     *
+     * 源码 `*label_2461`（237806-237832）在换图前依次做：
+     *   `gosub *label_2460`（收招 / 解除跟随）→ `map_initialize` 清记忆 →
+     *   `var_541=2` 写 mdata → `var_541=4` 写 inv（`zWrite var_99(0,1320)`，含地面槽）。
+     * 这里只搬「地面物品」这一部分：NPC 背包与地图物件在项目里本来就是随机生成 / 由 json 重建。
+     *
+     * 只对**持久图**暂存（`var_132(11,mapId)==1`，见 PERSIST_MAP_IDS）；非持久图
+     * （2 号野外、随机迷宫、委托图、竞技场）离开即销毁，回图重生成 —— 与源码
+     * 237944 `if (var_126(7) == 0) goto *label_2463` 一致。
+     *
+     * 自宅（mapId 7）按楼层存在 `g.homeFloors`（core/home.js，源码 `inv_<7>_<100+层>.s2`）、
+     * 玩家地产按 `site.stock`（core/property.js）—— 这两处已在先，跳过避免互相覆盖。
+     *
+     * @returns {number} 暂存的物品堆数（未暂存返回 0）
+     */
+    stashGroundItems() {
+      if (!this.map) return 0;
+      const mapId = this.getV65(20) | 0;
+      if (!PERSIST_MAP_IDS.has(mapId)) return 0;
+      if (mapId === 7) return 0;                       // 自宅：core/home.js 按层存
+      if (Elona.Property && Elona.Property.currentSite
+        && Elona.Property.currentSite(this)) return 0;  // 玩家地产：core/property.js site.stock
+      const key = mapId + '_' + (this.getV65(22) | 0);
+      const kept = [];
+      for (const it of (this.groundItems || [])) {
+        if (!it || (it.f[0] | 0) <= 0) continue;
+        kept.push(it.toJSON());
+      }
+      // 空数组也要记：它表示「这张图已经生成过」，回图时不能再跑 map_randsite 重铺一遍
+      this.mapGround[key] = kept;
+      return kept.length;
+    }
+
+    /**
+     * 0-S0：回图时还原地面物品（= 237941-237965 读 `inv_*.s2`）。
+     *
+     * 还原后**整个替换** `groundItems`：离图存下的快照已经包含地图自带的固定物件
+     * （城镇货架/家具），而 `loadMap` 刚按 json 又生成了一份，不替换会出现两份。
+     *
+     * @returns {boolean} 是否命中快照（false = 首次进入，应走生成流程）
+     */
+    restoreGroundItems(mapId, subId) {
+      if (!this.mapGround) return false;
+      const key = (mapId | 0) + '_' + (subId | 0);
+      if (!Object.prototype.hasOwnProperty.call(this.mapGround, key)) return false;
+      const list = this.mapGround[key];
+      if (!Array.isArray(list)) return false;
+      this.groundItems = list.map((o) => Elona.Item.fromJSON(o));
+      for (const it of this.groundItems) this.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
+      return true;
+    }
+
+    /**
      * 0-Q0 / Q-O1：静态地图上的 `map_randsite`（228777-228919）。
      *
      * 源码在 `map_init` 里 `repeat var_400: map_randsite`（249193），
-     * 249174 对 `var_126(6)==3` 给出 `var_400 = rnd(rnd(rnd(12)+1)+1)`；
-     * 228859-228870 在 `var_126(6)==3 & var_65(20)!=33` 时按 8/9 月放 1228 后直接 return。
-     * 本项目 181 张静态图由 `loadMap` 直接载入，不跑该循环，所以这里补这一段：
-     * 只有类型 3、非 33 号、且月份为 8/9 时才生效，其余地图零开销、零随机数消耗。
+     * 249174 对 `var_126(6)==3` 给出 `var_400 = rnd(rnd(rnd(12)+1)+1)`。
+     * 本项目 181 张静态图由 `loadMap` 直接载入，不跑该循环，所以这里补这一段。
+     *
+     * 0-R0：不再自己判「8/9 月 + 非 33 号」，改为**完整跑 `var_400` 次**，
+     * 让 `RandSite.roll` 按源码顺序决定结果：
+     *   - 类型 3 且地图 != 33 → 8 月 `rnd(2)==0` / 9 月放 1228，其余月份 `return`（什么都不放）；
+     *   - 33 号诺耶尔被 228859 排除后落到 228872 的迷宫掉落分支（631/1041/55/284/283/随机物品）。
+     * 这样诺耶尔不再漏掉这批随机掉落（0-Q0 时按「只在 8/9 月生效」少算了这一支）。
      *
      * @param {number} mapId var_65(20)
-     * @returns {number} 本次放下的喪蝉数量
+     * @returns {number} 本次放到地上的物品数
      */
     applyTownRandsite(mapId) {
       const RS = Elona.RandSite;
@@ -1099,13 +1198,16 @@
       // 0-M0 / A69：`header[6]` 已从 `Sites.field(0, mapId)` 回填，等价于 var_126(6)
       const mapType = (H[6] | 0) || ((Elona.Sites && Elona.Sites.field)
         ? (Elona.Sites.field(0, id, this) | 0) : 0);
-      if (mapType !== 3 || id === 33) return 0;        // 228859：排除诺耶尔
-      const month = this.getV65(11) | 0;
-      if (month !== 8 && month !== 9) return 0;        // 228862 / 228867
+      if (mapType !== 3) return 0;                     // 249174 只对类型 3 给这个次数
       const W = this.map.width | 0, Hh = this.map.height | 0;
       const R = (n) => this.rng.rnd(n);
       const n = RS.countOf(3, W, Hh, R);               // 249174
-      const ctx = { month, mapId: id };
+      const ctx = {
+        month: this.getV65(11) | 0,
+        mapId: id,
+        playerLevel: (this.player && this.player.level) | 0,
+        v850: this.getV65(850) | 0,
+      };
       // 228780-228793：`(var_593(7, tile) & 4) == 0` → 项目 `attr(tile,7)&4`
       const canStand = (tile) => (this.map.attr(tile, 7) & 4) === 0;
       let placed = 0;
@@ -1115,15 +1217,29 @@
         const cell = this.map.cells[pos.y][pos.x];
         if (RS.worldExcluded(mapType, cell[0])) continue;   // 228795-228802
         const what = RS.roll(R, mapType, ctx);
-        if (!what || what.kind !== 'item') continue;
+        if (!what) continue;                                // 8/9 月以外的城镇：源码直接 return
         let it = null;
-        try { it = Elona.ItemDB.createItem(what.id, 1); } catch (_) { it = null; }
+        try {
+          if (what.kind === 'item') {
+            it = Elona.ItemDB.createItem(what.id, 1);
+            if (it && what.god !== undefined) it.f[25] = what.god;
+          } else if (what.kind === 'random') {
+            // 228889-228914：calcobjlv / calcfixlv 之后的随机物品（含 64100 类）
+            it = Elona.ItemDB.create(this, {
+              level: Math.max(1, what.level | 0),
+              fix: what.fix ? what.fix : undefined,
+              t638: what.cat ? 0 : (what.t638 || 0),
+              t639: what.cat || 0,
+            });
+          } else {
+            it = null;                                      // feat 只出现在 20..27 类型
+          }
+        } catch (_) { it = null; }
         if (!it) continue;
         if ((it.f[0] | 0) <= 0) it.f[0] = 1;
         it.f[5] = pos.x; it.f[6] = pos.y;
-        cell[4] = 1;
-        this.groundItems.push(it);
-        placed++;
+        // 0-R0 / A519：itemcreate 的地面槽上限同样适用
+        if (this.pushGroundItem(it)) { cell[4] = 1; placed++; }
       }
       return placed;
     }
@@ -2261,6 +2377,8 @@
         this.worldMap = null;          // 进入委托地图 = 离开世界地图
         const built = await this.buildQuestMapFor(q);
         if (!built) { this.transitioning = false; return false; }
+        // 0-S0：委托图是非持久图，进图前先把来源城镇的地面物品暂存（同 *label_2461）
+        this.stashGroundItems();
         this.map = new Elona.GameMap(built.json, this.tileAttrs);
         this.mef = new Elona.Mef();
         // 0-FC 修正：1001 / 1013 的 builder 只给 `{ t638 }` 这类**描述符**（原版是
@@ -2281,8 +2399,8 @@
             item.f[5] = spot.x; item.f[6] = spot.y;
             item.f[21] = 1;                    // var_99(21)=1（野外/任务图标记）
           }
-          this.groundItems.push(item);
-          this.refreshGroundCell(item.f[5], item.f[6]);
+          // 0-R0 / A519：生成路径同样受 400 地面槽限制
+          if (this.pushGroundItem(item)) this.refreshGroundCell(item.f[5], item.f[6]);
         }
         this.charas = [this.player];
         this.player.x = built.entry.x; this.player.y = built.entry.y;
@@ -2494,7 +2612,8 @@
         }
         this.questMap = null;
         await this.loadMap(ret.map);
-        this.groundItems = [];
+        // 0-S0：不能再无条件清空 —— 持久图（城镇）刚由 loadMap 从 mapGround 还原，
+        //   清掉就等于把玩家上次丢的东西冲了；奖励物品在下面追加即可。
         const p = this.player;
         const bx = ret.x | 0, by = ret.y | 0;
         if (bx > 0 && by > 0 && this.map.walkable(bx, by)) { p.x = bx; p.y = by; }
@@ -2505,8 +2624,8 @@
         // 奖励落到回来的位置上（每人一件，重叠也照放）
         for (const it of carried) {
           it.f[5] = p.x; it.f[6] = p.y;
-          this.groundItems.push(it);
-          if (this.refreshGroundCell) this.refreshGroundCell(p.x, p.y);
+          // 0-R0 / A519：itemcreate 的地面槽上限（400）
+          if (this.pushGroundItem(it) && this.refreshGroundCell) this.refreshGroundCell(p.x, p.y);
         }
         if (Elona.Arena) {
           Elona.Arena.setArenaMode(this, false, false);     // var_65(70) = 0,0,0,0
@@ -3065,6 +3184,9 @@
      * @param {number} level 生成等级
      */
     applyWildernessMap(built, level) {
+      // 0-S0：野外（2 号）是非持久图，但**进来之前**那张图可能是持久城镇，
+      //   要先按 `*label_2461` 把它的地面物品存进 mapGround，否则回城时找不到快照。
+      this.stashGroundItems();
       this.map = new Elona.GameMap(built.json, this.tileAttrs);
       this.mef = new Elona.Mef();
       this.groundItems = [];
@@ -3085,8 +3207,8 @@
         if (!item) continue;
         item.f[5] = spot.x; item.f[6] = spot.y;
         item.f[21] = 1;                 // var_99(21)=1：野外标记
-        this.groundItems.push(item);
-        this.refreshGroundCell(spot.x, spot.y);
+        // 0-R0 / A519：生成路径同样受 400 地面槽限制
+        if (this.pushGroundItem(item)) this.refreshGroundCell(spot.x, spot.y);
       }
       // 怪物
       for (const m of built.monsters) {
@@ -3359,7 +3481,7 @@
       if (!it || (it.f[0] | 0) <= 0) { this.log('没有这件物品。'); return { ok: false, reason: 'no-item' }; }
       if (it.eqSlot >= 0) {
         Elona.ItemDB.unequipItem(p, idx);
-        this.log(`卸下了 ${Elona.ItemDB.name(it.id, 'en')}。`);
+        this.log(`卸下了 ${Elona.ItemDB.name(it.id)}。`);
       } else {
         // 595523-595543：feat 161（妖精「无法装备 2s 以上的物品」）
         //   `if ( var_97(161) != 0 ) { if ( var_99(7, var_579) > 2000 ) 拒绝 }`
@@ -3373,7 +3495,7 @@
         }
         const n = Elona.ItemDB.equipSlot(p, idx);
         if (n < 0) { this.log('没有合适的空装备槽。'); return { ok: false, reason: 'no-slot' }; }
-        this.log(`装备了 ${Elona.ItemDB.name(it.id, 'en')}。`);
+        this.log(`装备了 ${Elona.ItemDB.name(it.id)}。`);
       }
       if (Elona.Stats) {
         // 0-HZ：装备变化 → 完整 *label_2174 重算（先复位再叠加，避免附魔技能累加）
@@ -3409,7 +3531,7 @@
       const p = this.player;
       const it = p.inv && p.inv[idx];
       if (!it || (it.f[0] | 0) <= 0) { this.log('没有这件物品。'); return { ok: false, reason: 'no-item' }; }
-      const nm = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'en') : `#${it.id}`;
+      const nm = Elona.ItemDB ? Elona.ItemDB.name(it.id) : `#${it.id}`;
       const r = Elona.Throw.throwItem(this, p, idx, p.x, p.y, { selfPour: true });
       this.playSndList(r && r.sounds);
       if (!r.ok) {
@@ -3479,7 +3601,7 @@
           return {
             ok: true, action: 'produce', kit,
             skill: Elona.Produce.kitSkill(kit),
-            item: Elona.ItemDB.name(it.id, 'en'),
+            item: Elona.ItemDB.name(it.id),
           };
         }
       }
@@ -3626,8 +3748,8 @@
           const made = Elona.ItemDB.createItem(outId, 1, this.rng);
           made.f[5] = p.x | 0;
           made.f[6] = p.y | 0;
-          this.groundItems.push(made);
-          this.refreshGroundCell(made.f[5], made.f[6]);
+          // 0-R0 / A519：itemcreate 的地面槽上限（400），满则销毁这一个
+          if (this.pushGroundItem(made)) this.refreshGroundCell(made.f[5], made.f[6]);
           this.log('有什么东西滚到了脚边。');
           this.endTurn();
         };
@@ -3738,7 +3860,7 @@
         this.log(msg);
         return Object.assign({ ok: false, hint: hint || undefined }, r);
       }
-      this.log(`使用了 ${Elona.ItemDB.name(it.id, 'en')}。`);
+      this.log(`使用了 ${Elona.ItemDB.name(it.id)}。`);
       // 0-BT：药水专例消息（Potion.dispatch 的 messages）
       if (r.messages && r.messages.length) {
         for (const m of r.messages) this.log(m);
@@ -3806,7 +3928,7 @@
       p.set(140, 1);
       p.set(141, turns);
       p.set(142, p.inv.indexOf(it));
-      this.log(`你开始进食 ${Elona.ItemDB.name(it.id, 'en')}（${turns} 回合）。`);
+      this.log(`你开始进食 ${Elona.ItemDB.name(it.id)}（${turns} 回合）。`);
       this.endTurn();
       return { ok: true, started: true, turns };
     }
@@ -4041,7 +4163,7 @@
 
       it.f[0] = (it.f[0] | 0) - 1;
       if (it.f[0] <= 0) it.f[0] = 0;
-      this.log(`${who}吃完了 ${Elona.ItemDB.name(id, 'en')}（营养 +${gain}）。`);
+      this.log(`${who}吃完了 ${Elona.ItemDB.name(id)}（营养 +${gain}）。`);
       // 226079 chara_anorexia：患拒食症（cbit 986）时进食必定呕吐（201928-201933）。
       let vomited = null;
       if (Elona.Vomit && Elona.Status && Elona.Status.cbit(p, 986)) {
@@ -4164,7 +4286,7 @@
       const started = A.begin(this, 2, turns, { idx, id: eid, spellId, diff });
       if (!started.ok) { this.log(started.message || '现在不能读书。'); return started; }
       const verb = eid === 687 ? '解读' : (eid === 783 ? '研究' : '读');
-      this.log(`你开始${verb}${Elona.ItemDB.name(eid, 'en')}。（约 ${turns} 回合）`);
+      this.log(`你开始${verb}${Elona.ItemDB.name(eid)}。（约 ${turns} 回合）`);
       this.endTurn();
       return { ok: true, action: 'reading', spellId, turns, reading: true };
     }
@@ -4281,7 +4403,7 @@
         this.log('魔力之涡发生了异变，阅读被迫中断。');
       }
       const gone = consumeBookPage(it, false);
-      if (gone) this.log(`${Elona.ItemDB.name(it.id, 'en')}化作了尘土。`);
+      if (gone) this.log(`${Elona.ItemDB.name(it.id)}化作了尘土。`);
       return { failed: true, reason: 'vortex', consumed: gone };
     }
 
@@ -4300,7 +4422,7 @@
     settleReading(it, spellId) {
       const p = this.player;
       const eid = it.id | 0;
-      const bname = Elona.ItemDB.name(eid, 'en');
+      const bname = Elona.ItemDB.name(eid);
 
       // 313802-313827：レシピ（教材）
       if (eid === 783) {
@@ -4614,7 +4736,7 @@
       this.throwFlyFx(r, r.itemId);
       // animeload（命中专例 87/10 等）→ 角色格上的动画
       for (const a of (r.anims || [])) this.playCharaAnim(a);
-      const nm = Elona.ItemDB ? Elona.ItemDB.name(r.itemId, 'en') : `#${r.itemId}`;
+      const nm = Elona.ItemDB ? Elona.ItemDB.name(r.itemId) : `#${r.itemId}`;
       // 340846-340864：投掷「X は Y を投げた」/ 自泼「X は Y を浴びた」（var_2518）
       if (r.verb === 'pour') this.log(`你把 ${nm} 倒在了自己身上。`);
       else this.log(`你投出了 ${nm}${r.missed ? '（落点偏移）' : ''}。`);
@@ -4662,7 +4784,7 @@
         if (!v) break;
         if (Math.floor(v / 10000) === 9) types.push(n);
       }
-      if (!types.length) { this.log(`${Elona.ItemDB.name(ammo.id, 'en')}：通常弹（无限）。`); return { ok: true, type: -1 }; }
+      if (!types.length) { this.log(`${Elona.ItemDB.name(ammo.id)}：通常弹（无限）。`); return { ok: true, type: -1 }; }
       const next = types.indexOf(cur) + 1;
       const sel = next >= types.length ? -1 : types[next];
       ammo.f[9] = sel;
@@ -4755,14 +4877,53 @@
     }
 
     /**
+     * 0-R0 / A519：已占用的地面槽数（`var_99(0, 5080..5479)` 中非空的堆）。
+     * 上限见模块常量 `GROUND_SLOTS`（400）。
+     */
+    groundStackCount() {
+      let n = 0;
+      for (const it of (this.groundItems || [])) if (it && (it.f[0] | 0) > 0) n++;
+      return n;
+    }
+
+    /**
+     * 0-R0 / A519：**生成路径**的落格（对应 `itemcreate` 里的 `inv_getfreeid(-1)`）。
+     *
+     * 源码 29726-29736：地面槽满时提示
+     * 「Too many item data! Some items in this area are destroyed.」并调 `item_compress`
+     * 销毁若干低价值堆来腾位置。本项目 `groundItems` 不是定长槽表，无法给某一堆
+     * 「腾位置」而不丢玩家东西，所以取最小惊讶的做法：**销毁这一个新物品**，
+     * 同一次生成只提示一次（`groundOverflowWarned`）。
+     *
+     * @param {object} it   新生成的地面物品
+     * @param {object} [opt] { warn: false } 静默（不给提示）
+     * @returns {boolean} 是否真的放到地上
+     */
+    pushGroundItem(it, opt) {
+      if (!it || (it.f[0] | 0) <= 0) return false;
+      if (this.groundStackCount() >= GROUND_SLOTS) {
+        it.f[0] = 0;
+        if (!opt || opt.warn !== false) {
+          if (!this.groundOverflowWarned) {
+            this.groundOverflowWarned = true;
+            this.log('物品太多了！附近的一些物品被破坏了。');
+          }
+        }
+        return false;
+      }
+      this.groundItems.push(it);
+      return true;
+    }
+
+    /**
      * 把背包第 idx 件物品放到地面 —— 0-GW 按 *label_2979（342404-342451）补齐：
      *   - opt.silent（var_2264 == 1，偷窃/收纳路径，311723）：先尝试与脚下同类堆
      *     合并（342410-342412 的 item_stack，516「水」不合并）；没合并成则
      *     写入状态 3（var_99(21)=3）、序号 var_99(9) = var_65(27)+5 并 var_65(27)++、
      *     序号 > 50 时 var_99(26)=10（342426-342433）。
      *   - 非静默：原版不做地面合并、总是新堆（342413-342425）；地面槽满时
-     *     「もう周りに物を置くスペースがない！」（本项目 groundItems 无槽上限，
-     *     见 docs/02 A517 的近似口径）。
+     *     「The place is too crowded. You can't drop stuff anymore.」拒绝放置
+     *     （0-R0 / A519：400 槽上限见 `GROUND_SLOTS` / `groundStackCount()`）。
      *   - 营火 255 落地 → var_126(20)=1 的等价标志（342482）。
      * 342452-342470：放在**自己信仰的神**的祭坛上的水 → 祝福的水。
      */
@@ -4785,6 +4946,17 @@
             return true;
           }
         }
+      }
+      // 0-R0 / A519：342413-342421 —— 合并失败后取地面空槽 `inv_getfreeid(-1)`，
+      //   400 槽全满则拒绝放置（物品留在背包），提示
+      //   「The place is too crowded. You can't drop stuff anymore.」。
+      //   源码顺序：先试 item_stack，再判空槽，最后才写状态 3 / 序号（342427-342432），
+      //   所以这里必须在下面的 silent 状态写入之前判。
+      if (this.groundStackCount() >= GROUND_SLOTS) {
+        this.log('这里已经没有空间再放东西了！');
+        return false;
+      }
+      if (opt.silent) {
         it.f[21] = 3;                                   // 342427
         const serial = (this.getV65 ? (this.getV65(27) | 0) : 0) + 5;   // 342428
         it.f[9] = serial;
@@ -4904,7 +5076,7 @@
       c.set(141, 2 + limit(idiv(it.f[7] | 0, 500), 0, 50));
       c.set(142, 0);
       this._steal = { item: it, owner: ownerIdx, stolen: 0, discovered: false, by: null, shout: '' };
-      const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('item ' + it.id);
+      const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
       return { ok: true, action: 'steal', item: name,
         message: `${name}に目星をつけた。（你盯上了 ${name}，开始行窃……）` };
     }
@@ -5009,7 +5181,7 @@
         return { keep: true, message: 'バックパックには、もうアイテムを入れる余裕がない。（背包满了。）' };
       }
       // 311626-311660：金钱(54) 转 gold；其余整件入包（ibit 9 赃物、f[21]=0）
-      const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('item ' + it.id);
+      const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
       if ((it.id | 0) === 54) {
         c.set(30, (c.get(30) | 0) + (it.f[0] | 0));
         it.f[0] = 0;
@@ -5112,7 +5284,7 @@
         if (!it || (it.f[0] | 0) <= 0) continue;
         if ((it.id | 0) === 333) continue;
         if (Elona.ItemDB && Elona.ItemDB.ref && Elona.ItemDB.ref(it.id, 10) === 1) {
-          const nm = Elona.ItemDB.name(it, 'en');
+          const nm = Elona.ItemDB.name(it);
           msgs.push(`${nm}を失った。（你失去了 ${nm}。）`);
           it.f[0] = 0;
         }
@@ -6083,6 +6255,9 @@
         cardDeck: this.cardDeck || {},
         learnedAbilities: this.learnedAbilities || {},
         groundItems: this.groundItems.map((it) => it.toJSON()),
+        // 0-S0：持久图的地面物品快照（= 原版 tmp\inv_<mapId>_<100+子层>.s2）。
+        //   不进存档的话，读档后回城镇会重新生成、把玩家丢的东西冲掉。
+        mapGround: this.mapGround || {},
         // 0-GX：四次元ポケット（463）与神託用的黑星记录（413）必须进存档，
         // 否则读档后口袋里的物品全部丢失、神託列表清空。
         pocket: this.pocket ? {
@@ -6269,6 +6444,13 @@
       if (Elona.Weather) Elona.Weather.init(this);   // 旧存档缺 var_65(17)/(18) 时补默认值
       this.groundItems = (data.groundItems || []).map((o) => Elona.Item.fromJSON(o));
       for (const it of this.groundItems) this.refreshGroundCell(it.f[5], it.f[6]);
+      // 0-S0：持久图的地面物品快照（旧存档没有该字段 → 空表，回图时按首次进入生成）
+      this.mapGround = Object.create(null);
+      if (data.mapGround && typeof data.mapGround === 'object') {
+        for (const k of Object.keys(data.mapGround)) {
+          if (Array.isArray(data.mapGround[k])) this.mapGround[k] = data.mapGround[k];
+        }
+      }
       // 0-GX：四次元ポケット / 黑星记录（旧存档没有时按空处理）
       this.pocket = data.pocket ? {
         items: (data.pocket.items || []).map((o) => Elona.Item.fromJSON(o)),

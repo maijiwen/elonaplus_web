@@ -213,7 +213,9 @@
   function itemList(g, mode, sub, opt) {
     mode = mode | 0; sub = sub | 0;
     opt = opt || {};
-    if (mode !== 23) return null;            // 22 临时背包 / 其它模式未实现
+    // 23 = 分类过滤（var_486(1) 子模式）；32 = 道具图像（296202 里没有分类行，
+    //   等价于「全部物品」—— 只有 296236-296246 的通用门槛）
+    if (mode !== 23 && mode !== 32) return null;   // 22 临时背包 / 其它模式未实现
     const p = (g && g.player) || null;
     const inv = (p && p.inv) || [];
     const out = [];
@@ -227,7 +229,7 @@
       const id = fv(it, 3);
       if (id >= 1499 || id < 0) continue;                  // 296246
       const cat = ref(id, 5);                              // var_657
-      if (!itemFilter23(sub, it, cat, baseCat)) continue;
+      if (mode === 23 && !itemFilter23(sub, it, cat, baseCat)) continue;
       out.push({ v: cnt, label: itemLabel(it, cnt) });
     }
     return out;
@@ -351,8 +353,9 @@
 
   function itemLabel(it, cnt) {
     const id = fv(it, 3);
-    let name = (it.name && typeof it.name === 'function') ? (it.name('en') || '')
-      : ((Elona.ItemDB && Elona.ItemDB.name) ? Elona.ItemDB.name(id, 'en') : ('#' + id));
+    // 语言跟随全局（中文优先 → 日文 → 英文），不再强制英文
+    let name = (it.name && typeof it.name === 'function') ? (it.name() || '')
+      : ((Elona.ItemDB && Elona.ItemDB.name) ? Elona.ItemDB.name(id) : ('#' + id));
     const n = fv(it, 0);
     if (n > 1) name += ' x' + n;
     if (fv(it, 18) !== 0) name += ' (装備中)';

@@ -284,9 +284,14 @@
       if (this.invMode === 'equip') {
         const eq = this.equipmentRows(game);
         if (!eq.length) { this.equipSel = 0; return; }
+        const n = eq.length;
         let i = (this.equipSel | 0) + delta;
-        if (i < 0) i = 0;
-        if (i >= eq.length) i = eq.length - 1;
+        // 0-U0：单项上下移动首尾循环（与背包页一致），大步跳仍夹在两端
+        if (Math.abs(delta) === 1) i = ((i % n) + n) % n;
+        else {
+          if (i < 0) i = 0;
+          if (i >= n) i = n - 1;
+        }
         this.equipSel = i;
         return;
       }
@@ -629,7 +634,7 @@
         if (r && r.ok) {
           if (r.contested) this.pushMessage(`${r.name} 守护住了祭坛。`);
           else if (r.takenOver) this.pushMessage(`你夺取了祭坛，${r.name} 的虔诚提升了。`);
-          else this.pushMessage(`你把 ${Elona.ItemDB.name(row.id, 'en')} 献给了 ${r.name}。`);
+          else this.pushMessage(`你把 ${Elona.ItemDB.name(row.id)} 献给了 ${r.name}。`);
           game.endTurn();
         } else if (r && r.reason === 'no-faith') {
           this.pushMessage('你没有信仰任何神。');
@@ -646,8 +651,8 @@
         return;
       }
       const id = (typeof row === 'number') ? row : row.id;
-      const desc = Elona.ItemDB.desc(id, 'en');
-      this.pushMessage(`${Elona.ItemDB.name(id, 'en')}${desc ? ' — ' + desc : ''}`);
+      const desc = Elona.ItemDB.desc(id);
+      this.pushMessage(`${Elona.ItemDB.name(id)}${desc ? ' — ' + desc : ''}`);
     },
 
     /**
@@ -761,7 +766,7 @@
         this.pushMessage('鉴定失败：需要更高的鉴定等级。');
         return;
       }
-      this.pushMessage(`鉴定成功：${Elona.ItemDB.name(it.id, 'en')}（等级 ${lv}）。`);
+      this.pushMessage(`鉴定成功：${Elona.ItemDB.name(it.id)}（等级 ${lv}）。`);
       this.invalidateInventory();
       // 鉴定是一次行动
       if (game.endTurn) game.endTurn();
@@ -1021,8 +1026,8 @@
       if (!it) { this.el('shop-detail').textContent = '选择一件物品。'; this.shopSel = -1; return; }
       const price = Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
       this.el('shop-detail').innerHTML =
-        `<b>${this.esc(Elona.ItemDB.name(it.id, 'en'))}</b>　单价 ${price} gp<br>` +
-        this.esc(Elona.ItemDB.desc(it.id, 'en'));
+        `<b>${this.esc(Elona.ItemDB.name(it.id))}</b>　单价 ${price} gp<br>` +
+        this.esc(Elona.ItemDB.desc(it.id));
     },
 
     /**
@@ -1116,8 +1121,8 @@
         this.pushMessage(msg);
       } else {
         this.pushMessage(kind === 'buy'
-          ? `买入 ${Elona.ItemDB.name(r.item.id, 'en')} ×${r.item.f[0]}（${r.price} gp）。`
-          : `卖出 ${Elona.ItemDB.name(r.item.id, 'en')} ×${r.item.f[0]}（${r.price} gp）。`);
+          ? `买入 ${Elona.ItemDB.name(r.item.id)} ×${r.item.f[0]}（${r.price} gp）。`
+          : `卖出 ${Elona.ItemDB.name(r.item.id)} ×${r.item.f[0]}（${r.price} gp）。`);
       }
       this.renderShop(game);
     },
@@ -1130,6 +1135,8 @@
     npcSel: 0,
     /** 自身互动菜单（`var_244 == 0`，289682-289733） */
     npcSelf: false,
+    /** 窗口种类：'action' = i 键的操作弹窗（var_487 菜单）；null = 对话/服务菜单 */
+    npcMode: null,
     /* 固定 NPC 对话脚本会话（core/dialogue.js，源 367818-410727） */
     npcSession: null,
     npcDialog: null,
@@ -1161,6 +1168,7 @@
       this.npcTarget = npc;
       this.npcGame = game;          // 0-BW：快捷键触发时需要 game 上下文
       this.npcSelf = false;
+      this.npcMode = null;          // 交谈之后回到「对话/服务」菜单
       this.npcSel = 0;
       // 固定 NPC（种族在 talkscripts 表里）→ 走原版脚本，而不是通用问候
       // 0-DT：NPC 有一次性服务对话（`cbit 982` + `var_58(150)`）时走服务链 *label_3033
@@ -1274,10 +1282,13 @@
 
     closeNPC() {
       this.npcOpen = false;
+      // A395：立绘属于这一次互动的演出，互动窗关掉就不再画
+      if (Elona.Interact && Elona.Interact.clearFaces) Elona.Interact.clearFaces();
       this.npcTarget = null;
       this.npcGame = null;
       this.npcActions = null;
       this.npcSelf = false;
+      this.npcMode = null;
       this.npcSel = 0;
       this.npcSession = null;
       this.npcDialog = null;
@@ -1324,6 +1335,7 @@
     renderNPC(game) {
       const npc = this.npcTarget;
       if (!npc) return;
+      if (this.npcMode === 'action') { this.renderActionMenu(game); return; }
       if (this.npcSelf) {
         // 原版自身菜单没有标题栏文字，这里用「角色名（自己）」代替
         this.el('npc-title').textContent = `${npc.name}（自己）`;
@@ -1358,6 +1370,7 @@
       close.innerHTML = `<span class="npc-key">${closeKey}</span><span class="npc-label">再见</span>`;
       close.onclick = () => this.closeNPC();
       wrap.appendChild(close);
+      this.keepSelVisible();
     },
 
     /**
@@ -1378,13 +1391,23 @@
       ];
     },
 
-    /** 打开自身互动菜单（Interact.confirm → 这里） */
+    /** 打开自身互动菜单（Interact.confirm → 这里）：原版就是同一张 var_487 表 */
     openSelfMenu(game) {
       const p = game && game.player;
       if (!p) return;
-      this.npcTarget = p;
+      this.openActionMenu(game, p);
+    },
+
+    /**
+     * 0-※：i 键「操作弹窗」—— *label_2749（289481 的标题 + 289551-289766 的选项表）。
+     * 选项由 `Elona.NPC.actionMenu()` 按源码条件生成，玩家自己（index 0）也走同一张表。
+     */
+    openActionMenu(game, npc) {
+      if (!npc) return;
+      this.npcTarget = npc;
       this.npcGame = game;
-      this.npcSelf = true;
+      this.npcSelf = (npc.index | 0) === 0;
+      this.npcMode = 'action';
       this.npcSession = null;
       this.npcDialog = null;
       this.npcText = '';
@@ -1396,6 +1419,412 @@
       this.el('npc-feelings').classList.add('hidden');
       this.wireNPC(game);
       this.renderNPC(game);
+    },
+
+    /** 操作弹窗的排版（与对话菜单同一套 .npc-action 行） */
+    renderActionMenu(game) {
+      const npc = this.npcTarget;
+      if (!npc) return;
+      const self = (npc.index | 0) === 0;
+      this.el('npc-title').textContent = self ? `${npc.name}（自己）` : npc.name;
+      // 289481：`name + "に何をする？"`；结算后 npcText 里是这一手的播报，优先显示
+      this.el('npc-text').textContent = this.npcText
+        || (self ? '要做什么？' : `要对 ${npc.name} 做什么？`);
+      this.el('npc-train').classList.add('hidden');
+      this.el('npc-give').classList.add('hidden');
+      this.el('npc-feelings').classList.add('hidden');
+      const wrap = this.el('npc-actions');
+      wrap.innerHTML = '';
+      const list = (Elona.NPC && Elona.NPC.actionMenu) ? Elona.NPC.actionMenu(npc, game) : [];
+      this.npcActions = list;
+      this.npcCloseRow = true;                  // 最后一行固定是「取消」
+      const total = list.length + 1;
+      if (!(this.npcSel >= 0 && this.npcSel < total)) this.npcSel = 0;
+      list.forEach((s, i) => {
+        const row = document.createElement('div');
+        row.className = 'npc-action' + (i === this.npcSel ? ' sel' : '');
+        const key = KEY_LETTERS[i] || '';
+        row.innerHTML = `<span class="npc-key">${key}</span><span class="npc-label"></span>`;
+        row.querySelector('.npc-label').textContent = s.label;
+        row.onclick = () => { this.npcSel = i; this.runNPCAction(game, s); };
+        wrap.appendChild(row);
+      });
+      const close = document.createElement('div');
+      close.className = 'npc-action npc-close' + (this.npcSel === list.length ? ' sel' : '');
+      const closeKey = KEY_LETTERS[list.length] || '';
+      close.innerHTML = `<span class="npc-key">${closeKey}</span><span class="npc-label">取消</span>`;
+      close.onclick = () => this.closeNPC();
+      wrap.appendChild(close);
+      this.keepSelVisible();
+    },
+
+    /**
+     * 操作弹窗的结算 —— 289772-290760 的 `var_400 == n` 分派。
+     * 已接通的交给各自系统；依赖尚未移植子程序的项如实提示（不静默失败）。
+     */
+    runActionAct(game, s) {
+      const npc = this.npcTarget;
+      if (!npc) return;
+      const P = Elona.Panels;
+      const st = Elona.Status;
+      const act = s.act | 0;
+      // 从子面板（改名 / 人物卡 / 站姿…）回到操作弹窗：确定与取消都必须回来，
+      // 否则 Panels.open() 把 #npc 藏掉以后玩家就卡在没有窗口的状态里。
+      //   · 改名窗走 close() → onClose；文本/确认窗会先把 onClose 置空再 close()，
+      //     只靠 onClose 会漏。所以统一在宏任务里收尾：谁先跑都行，后一次带消息
+      //     的重建覆盖前一次的空重建（同一帧内完成，看不到闪动）。
+      const reopen = (msg) => setTimeout(() => {
+        if (!this.npcOpen) return;
+        this.openActionMenu(game, npc);          // 重建菜单（内部会清 npcText）
+        if (msg) { this.npcText = msg; this.renderActionMenu(game); }
+      }, 0);
+      /** 打开子面板后挂上「关闭即回操作弹窗」的收尾（需在 openXxx 之后调用） */
+      const afterPanel = () => {
+        if (!P) return;
+        const prev = P.onClose;
+        P.onClose = () => {
+          if (prev) prev();                      // 面板自己的收尾（如立绘还原）
+          reopen();
+        };
+      };
+      /** 在地面（x,y）生成一件物品 —— itemcreate -1, id, x, y 的等价 */
+      const dropAt = (x, y, id) => {
+        if (!Elona.ItemDB || !Elona.ItemDB.createItem) return null;
+        let it = null;
+        try { it = Elona.ItemDB.createItem(id, 1, game.rng); } catch (e) { it = null; }
+        if (!it) return null;
+        it.f[5] = x | 0; it.f[6] = y | 0;
+        if (!Array.isArray(game.groundItems)) game.groundItems = [];
+        game.groundItems.push(it);
+        if (game.refreshGroundCell) game.refreshGroundCell(x | 0, y | 0);
+        return it;
+      };
+      const say = (msg) => {
+        if (msg) this.pushMessage(msg);
+        this.npcText = msg || '';
+        this.renderNPC(game);
+      };
+      const cb = (n) => ((st && st.cbit) ? (st.cbit(npc, n) | 0) : 0);
+      const setCb = (n, v) => { if (st && st.cbitmod) st.cbitmod(npc, n, v ? 1 : 0); };
+      const pending = (what, why) => say(why
+        ? `「${what}」还没能移植：${why}`
+        : `「${what}」还没有移植到本项目（源码子程序未接）。`);
+
+      switch (act) {
+        // 0 話しかける → *label_3031（对话脚本 / 服务菜单）
+        case 0:
+          this.npcMode = null;
+          this.npcSel = 0;
+          this.openNPC(game, npc);
+          return;
+
+        // 1 攻撃する → *label_3006（Battle.attackSeq，由 attackTarget 负责播报与结束回合）
+        case 1:
+          this.closeNPC();
+          if (game.attackTarget) game.attackTarget(npc);
+          return;
+
+        // 2 / 4 何かを渡す（4 是「渡す/もらう」，本项目只有交出侧）
+        case 2:
+        case 4:
+          this.renderGiveList(game);
+          return;
+
+        // 3 名前をつける → *label_2750（改名窗关闭后回操作弹窗）
+        case 3:
+          if (!P || !P.openRename) { pending('起名'); return; }
+          P.openRename(game, npc, (r) => {
+            if (r && r.message) { this.pushMessage(r.message); reopen(r.message); }
+          });
+          afterPanel();
+          return;
+
+        // 5 連れ出す（289803-289825）：牧场/学校寄放的同伴带回队伍
+        case 5: {
+          // 289804：cbit 985（吊るされたまま）→ 不能带走
+          if (cb(985)) { say('吊在那里的状态是带不出去的。'); return; }
+          const slot = (Elona.Party && Elona.Party.freeAlly)
+            ? (Elona.Party.freeAlly(game) | 0) : -1;
+          if (slot === 0) { say('同伴人数已达上限，带不出去了。'); return; }
+          const r = (Elona.Party && Elona.Party.joinChara)
+            ? Elona.Party.joinChara(game, npc) : null;
+          if (!r || !r.ok) { say((r && r.message) || '带不出去。'); return; }
+          npc.set(80, 0);                        // 289823：var_58(80) = 0（不再寄放）
+          say(`${npc.name}跟着你一起走了。`);
+          return;
+        }
+
+        // 6 / 28 情報 / 能力の開示 → *label_2784（人物卡）
+        case 6:
+        case 28:
+          if (!P || !P.openCharaInfo) { pending('查看信息'); return; }
+          P.openCharaInfo(game, npc);
+          afterPanel();
+          return;
+
+        // 7 言葉を教える（289837-289860）：输入一句/一个台词文件名，写进 var_63(4)
+        case 7: {
+          if (!P || !P.openTextInput) { pending('教它说话'); return; }
+          P.openTextInput('教它说话', (npc.talkFile || ''), (v) => {
+            if (v === null) { reopen(); return; }
+            const key = String(v || '').trim();
+            // 289846：先清 cbit 989；Talk.bind 会按有无文件名重新置位
+            if (Elona.Talk && Elona.Talk.bind) Elona.Talk.bind(npc, key);
+            else { npc.talkFile = key || null; }
+            if (!key) { reopen(`${npc.name}不再说话了。`); return; }
+            if (game.log) game.log(`${npc.name}「${key}」`);
+            reopen(`${npc.name}学会了「${key}」。`);
+          }, { note: '原版这里是台词文件名（user/talk/<名字>.txt）。留空则清除。' });
+          afterPanel();
+          return;
+        }
+
+        // 8 着替えさせる（*label_2803）
+        case 8:
+          pending('换装', '原版是打开肖像（着替え）编辑器 *label_2803，'
+            + '本项目只有创建角色时的编辑器，还没接到 NPC 身上。');
+          return;
+
+        // 9 縄を解く（290030-290039）：清 cbit 985 并在地上留下绳子(733)
+        case 9: {
+          setCb(985, 0);
+          try {
+            const it = Elona.ItemDB.createItem(733, 1, game.rng);
+            if (it) { it.f[0] = 1; game.player.inv.push(it); }
+          } catch (e) { /* 物品表未加载时只清状态 */ }
+          say(`解开了${npc.name}的绳子。`);
+          return;
+        }
+
+        // 10 口調を変える（*label_2751，291097-291205）：从台词文件里挑一个
+        case 10: {
+          const files = (Elona.Talk && Elona.Talk.fileNames) ? Elona.Talk.fileNames() : [];
+          if (!files.length) { say('还没有可以使用的口吻（user/talk 里没有台词文件）。'); return; }
+          this.renderToneList(game, files);
+          return;
+        }
+
+        // 11 帰ってもらう（290365-290450）：离队并从地图上消失
+        case 11: {
+          if (Elona.Party && Elona.Party.dismiss) Elona.Party.dismiss(game, npc);
+          npc.set(0, 0);
+          if (game.syncCharaCells) game.syncCharaCells();
+          say(`${npc.name}回去了。`);
+          return;
+        }
+
+        // 12 / 15 巧克力的两个季节事件
+        case 12:
+        case 15:
+          pending('巧克力事件', 'lovemiracle2 + txtChoco 的季节演出还没接。');
+          return;
+
+        // 13 棺に戻す（290483-290544）：死灵使役体 → 暗之棺，落到脚下
+        case 13: {
+          if (!Elona.Necro || !Elona.Necro.recall) { pending('放回棺材'); return; }
+          const r = Elona.Necro.recall(game, npc);
+          say((r && r.message) || `${npc.name}回到了棺里。`);
+          return;
+        }
+
+        // 14 姿を変える
+        case 14:
+          pending('改变外形', '原版 *label_2800 要在全屏里从 user/graphic/Pic_*.bmp 挑外形，'
+            + '素材与选择器都还没做。');
+          return;
+
+        // 16 タッグ編成（290686+）：把当前对象编成搭档
+        case 16: {
+          if (!Elona.Companion || !Elona.Companion.tagBegin) { say('搭档功能没有加载。'); return; }
+          const r = Elona.Companion.tagBegin(game, game.player, npc);
+          say(r.message);
+          return;
+        }
+
+        // 17 タッグ解散
+        case 17: {
+          if (!Elona.Companion || !Elona.Companion.tagEnd) { say('搭档功能没有加载。'); return; }
+          const r = Elona.Companion.tagEnd(game, npc);
+          say(r.message);
+          return;
+        }
+
+        // 18-22 骨/心臓/目玉/体液/皮（290794-290919 ハーベスト）
+        case 18: case 19: case 20: case 21: case 22: {
+          const PART = { 18: 341, 19: 340, 20: 339, 21: 338, 22: 337 };   // 290818/28/38/48/58
+          const LABEL = { 18: '骨头', 19: '心脏', 20: '眼球', 21: '体液', 22: '皮' };
+          const harvest = (force) => {
+            const p = game.player;
+            const it = dropAt(p.x | 0, p.y | 0, PART[act]);
+            if (it && Elona.Loot && Elona.Loot.remainMake) Elona.Loot.remainMake(it, npc);
+            if (force) {
+              // 290916-290917：强行采集 → 按最大 HP 造成伤害（基本必死）+ 生命力(skill 2) 扣 3/4
+              if (Elona.Battle && Elona.Battle.applyDamage) {
+                Elona.Battle.applyDamage(npc, npc.get(51) | 0, game, null, 0, 0);
+              } else {
+                npc.set(50, 0);
+              }
+              if (Elona.Stats && Elona.Stats.skillMod) {
+                const lv = (Elona.Stats.sorg) ? (Elona.Stats.sorg(npc, 2) | 0) : 0;
+                Elona.Stats.skillMod(npc, 2, npc, -Math.trunc(lv * 3 / 4) * 1000, game);
+              }
+            }
+            say(force ? `强行取出了${npc.name}的${LABEL[act]}。`
+              : `取出了${npc.name}的${LABEL[act]}。`);
+          };
+          // 290795：`sorg(2)`（生命力，不是解剖学）< 4 → 先问「やめておこうか？」
+          const anat = (Elona.Stats && Elona.Stats.sorg) ? (Elona.Stats.sorg(npc, 2) | 0) : 0;
+          if (anat >= 4) { harvest(false); return; }
+          if (!P || !P.openConfirm) { pending('采集身体部位'); return; }
+          // 源码：y = 停手（var_444 == 0 → 直接返回），n = 继续强行采集
+          P.openConfirm('强行采集的话它可能会死。要停手吗？', (stop) => {
+            if (stop) { reopen(); return; }
+            harvest(true);
+          }, { yes: '停手', no: '强行采集', title: '采集身体部位' });
+          afterPanel();
+          return;
+        }
+
+        // 23-26 アイテム画像（脚下道具图标）
+        //   23 付与（290111-290115 → label_2824 模式 32）／24 削除（290117-290124）
+        //   25 移動（label_2791）／26 サイズ調整（label_2794）—— 后两个要在画面上
+        //   边看边调，本项目还没有那套全屏拖动光标，保留如实提示。
+        case 24:
+          npc.set(447, 0);
+          say(`删除了${npc.name}的道具图像。`);
+          return;
+        case 23: {
+          const list = (Elona.Select && Elona.Select.itemList)
+            ? Elona.Select.itemList(game, 32, 0, {}) : null;
+          if (!list) { pending('赋予道具图像'); return; }
+          if (!list.length) { say('背包里没有可以当作图像的东西。'); return; }
+          this.renderItemMarkList(game, list);
+          return;
+        }
+        case 25:
+          pending('移动道具图像', '原版 *label_2791 要在画面上边看边挪（var_58(448/449) + cbit 1025/1052），'
+            + '这层「拖动时实时重画」还没做。');
+          return;
+        case 26:
+          pending('调整道具图像', '原版 *label_2794 要在画面上边看边拉伸（var_58(99/46/47)），'
+            + '这层「拖动时实时重画」还没做。');
+          return;
+
+        // 27 立ち姿を変える → *label_2797
+        case 27:
+          if (!P || !P.openTatie) { pending('改变站姿'); return; }
+          P.openTatie(game, npc);
+          afterPanel();
+          return;
+
+        // 29 気持ちを伝える（txtselectkimoti0/1/2）
+        case 29:
+          this.npcMode = null;
+          this.runNPCAction(game, { id: 'feelings' });
+          return;
+
+        // 30 檻から解き放つ（290546-290577）
+        case 30: {
+          if (Elona.Camp && Elona.Camp.release) {
+            const r = Elona.Camp.release(game, npc);
+            say(r.message);
+            return;
+          }
+          pending('从牢笼中释放');
+          return;
+        }
+
+        // 31 変化後のランク（290044-290066，txtselect txt變化後rank）
+        case 31: {
+          if (!P || !P.openTextInput) { pending('变更卡片等级'); return; }
+          P.openTextInput('变化后的等级是？（0-13）', String(npc.get(214) | 0), (v) => {
+            if (v === null) { reopen(); return; }
+            let rank = parseInt(String(v).trim(), 10);
+            if (!(rank > 0)) { reopen(); return; }
+            if (rank > 13) rank = 13;
+            npc.set(214, rank);
+            reopen(`${npc.name}变成了等级 ${rank}。`);
+          }, { note: '输入 1-13 的数字（0 或取消则不变化）。' });
+          afterPanel();
+          return;
+        }
+        case 32: case 33: case 34: case 35: {
+          const ids = { 32: 1127, 33: 1128, 34: 1129, 35: 1130 };
+          const kinds = { 32: '黑桃・战士', 33: '梅花・羽毛', 34: '方块・眼', 35: '红心・魔女' };
+          npc.set(27, ids[act]);
+          say(`${npc.name}的效果发动。这张卡片精灵被当作「${kinds[act]}」。`);
+          return;
+        }
+
+        // 36 黙らせる / 喋らせる（289862-289883）
+        case 36: {
+          if (cb(965)) {
+            setCb(965, 0);
+            say(`${npc.name}抱住了你。`);
+          } else {
+            setCb(965, 1);
+            say(`${npc.name}沉默了……`);
+          }
+          return;
+        }
+
+        // 37 大事な仲間に指定 / 解除（289884-289917）
+        case 37: {
+          if (cb(1053)) {
+            setCb(1053, 0);
+            say(`${npc.name}显得有些绝望……`);
+          } else {
+            setCb(1053, 1);
+            const fav = npc.get(17) | 0;
+            if (fav >= 150) say(`${npc.name}得意地挺起了胸膛。`);
+            else if (fav >= 100) say(`${npc.name}有点不好意思。`);
+            else if (fav >= 0) say(`${npc.name}有点吃惊。`);
+            else say(`${npc.name}厌恶地咂了咂嘴。`);
+          }
+          return;
+        }
+
+        // 38 足元のアイテム我慢 / 解除（289954-289975）
+        case 38:
+          if (cb(1032)) { setCb(1032, 0); say(`告诉${npc.name}，不必再忍耐脚下的物品了。`); }
+          else { setCb(1032, 1); say(`指示${npc.name}忍耐脚下的物品。`); }
+          return;
+
+        // 39 街で待機させる（289976-290011）
+        case 39: {
+          if (Elona.Party && Elona.Party.dismiss && Elona.Party.isAlly && Elona.Party.isAlly(npc)) {
+            Elona.Party.dismiss(game, npc);
+          }
+          npc.set(80, game.getV65 ? (game.getV65(20) | 0) : 0);
+          setCb(960, 1);
+          npc.set(9, -1);
+          npc.set(69, -1);
+          npc.set(0, 7);                        // 离开当前地图（var_58(0) = 7）
+          if (game.syncCharaCells) game.syncCharaCells();
+          say(`你吩咐${npc.name}在城里待命。`);
+          return;
+        }
+
+        default:
+          pending(s.label || '这个操作');
+          return;
+      }
+    },
+
+    /**
+     * 0-V0：列表比面板高时把光标行滚进可视区。
+     * 原版 289766 的 `var_428 = var_1239, var_1240, 225, 1` 就是「条数、光标、高 225」的
+     * 滚动列表；同伴的各种开关全开时操作弹窗能到 20 项，不滚会顶到消息栏外面。
+     */
+    keepSelVisible() {
+      const wrap = this.el('npc-actions');
+      if (!wrap || wrap.scrollHeight <= wrap.clientHeight) return;
+      const sel = wrap.querySelector('.npc-action.sel');
+      if (!sel) return;
+      const wr = wrap.getBoundingClientRect();
+      const sr = sel.getBoundingClientRect();
+      if (sr.top < wr.top) wrap.scrollTop -= (wr.top - sr.top);
+      else if (sr.bottom > wr.bottom) wrap.scrollTop += (sr.bottom - wr.bottom);
     },
 
     /** 方向键移动菜单光标（原版 `*label_2896` 的选择行） */
@@ -1455,11 +1884,13 @@
         close.onclick = () => this.cancelTalk(game);
         wrap.appendChild(close);
       }
+      this.keepSelVisible();
     },
 
     async runNPCAction(game, s) {
       const npc = this.npcTarget;
       if (!npc || !s) return;
+      if (this.npcMode === 'action') { this.runActionAct(game, s); return; }
       if (selfAction(this, game, s)) return;
       // 对话脚本的选项（*label_3068 的 var_484/var_485）：字母键与回车都走这里
       if (s.id === 'dlg') { this.answerTalk(game, s.dlg || s); return; }
@@ -1810,7 +2241,7 @@
       for (let i = 0; i < inv.length; i++) {
         const it = inv[i];
         if (!it || (it.f[0] | 0) <= 0) continue;
-        const name = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'en') : ('item ' + it.id);
+        const name = Elona.ItemDB ? Elona.ItemDB.name(it.id) : ('item ' + it.id);
         const row = document.createElement('div');
         row.className = 'inv-row';
         const disabled = it.eqSlot >= 0;
@@ -1832,6 +2263,82 @@
       }
       if (!n) {
         box.innerHTML = '<div class="inv-row"><span class="inv-name">背包里没有可以给予的物品。</span></div>';
+      }
+      const cancel = document.createElement('button');
+      cancel.textContent = '取消';
+      cancel.style.marginTop = '6px';
+      cancel.onclick = () => box.classList.add('hidden');
+      box.appendChild(cancel);
+    },
+
+    /**
+     * 0-※：口調一覧 —— `*label_2751`（291110-291205）。
+     * 首行「デフォルトの口調」对应 var_484 = -999（清 cbit 989 与 var_63(4)），
+     * 其余行是 user/talk/*.txt 的文件名。
+     */
+    renderToneList(game, files) {
+      const box = this.el('npc-give');
+      this.el('npc-train').classList.add('hidden');
+      box.classList.remove('hidden');
+      box.innerHTML = '';
+      const head = document.createElement('div');
+      head.className = 'inv-row';
+      head.innerHTML = '<span class="inv-name">口吻一览</span>';
+      box.appendChild(head);
+      const rows = [{ key: null, label: '默认口吻' }]
+        .concat(files.map((k) => ({ key: k, label: k })));
+      for (const row of rows) {
+        const el = document.createElement('div');
+        el.className = 'inv-row';
+        el.innerHTML = `<span class="inv-name">${this.esc(row.label)}</span>`;
+        el.onclick = () => {
+          const npc = this.npcTarget;
+          box.classList.add('hidden');
+          if (!npc) return;
+          if (Elona.Talk && Elona.Talk.bind) Elona.Talk.bind(npc, row.key || '');
+          this.npcText = `${npc.name}的口吻好像变了。`;
+          this.pushMessage(this.npcText);
+          this.renderNPC(game);
+        };
+        box.appendChild(el);
+      }
+      const cancel = document.createElement('button');
+      cancel.textContent = '取消';
+      cancel.style.marginTop = '6px';
+      cancel.onclick = () => box.classList.add('hidden');
+      box.appendChild(cancel);
+    },
+
+    /**
+     * 0-※：道具图像（脚下图标）的物品选择 —— 297871-297881 的 `var_486 == 32`：
+     *   `var_58(447) = var_99(2)`（物品的图像号）、`var_58(54) = var_99(22)`。
+     */
+    renderItemMarkList(game, list) {
+      const box = this.el('npc-give');
+      this.el('npc-train').classList.add('hidden');
+      box.classList.remove('hidden');
+      box.innerHTML = '';
+      const head = document.createElement('div');
+      head.className = 'inv-row';
+      head.innerHTML = '<span class="inv-name">用哪件物品的图像？</span>';
+      box.appendChild(head);
+      for (const row of list) {
+        const it = game.player.inv[row.v | 0];
+        if (!it) continue;
+        const el = document.createElement('div');
+        el.className = 'inv-row';
+        el.innerHTML = `<span class="inv-name">${this.esc(row.label)}</span>`;
+        el.onclick = () => {
+          const npc = this.npcTarget;
+          box.classList.add('hidden');
+          if (!npc) return;
+          npc.set(447, it.f[2] | 0);
+          npc.set(54, it.f[22] | 0);
+          this.npcText = `给${npc.name}赋予了道具图像。`;
+          this.pushMessage(this.npcText);
+          this.renderNPC(game);
+        };
+        box.appendChild(el);
       }
       const cancel = document.createElement('button');
       cancel.textContent = '取消';
@@ -1918,7 +2425,7 @@
         box.appendChild(row);
       }
       for (const { it, idx } of entries) {
-        const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('item ' + it.id);
+        const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
         const wt = ((it.f[7] | 0) / 1000).toFixed(1);
         if (action === 'enhance') {
           const cost = Elona.NPC.enhanceCost(it);
@@ -2008,7 +2515,7 @@
         const it = inv[i];
         if (!it || (it.f[0] | 0) <= 0) continue;
         if (it.eqSlot >= 0) continue;
-        const name = Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : ('item ' + it.id);
+        const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
         entries.push({ label: name, meta: `×${it.f[0] | 0}`, arg: i });
       }
       if (!entries.length) { this.pushMessage('背包里没有可以交换的物品。'); return; }
@@ -2041,7 +2548,7 @@
         box.appendChild(row);
       }
       for (const { it, idx } of unknown) {
-        const name = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'en') : ('item ' + it.id);
+        const name = Elona.ItemDB ? Elona.ItemDB.name(it.id) : ('item ' + it.id);
         const row = document.createElement('div');
         row.className = 'inv-row';
         row.innerHTML = `<span class="inv-name">${this.esc(name)}</span>`
@@ -2081,7 +2588,9 @@
 
     /** 掲示板翻页（原版 var_341 / var_342） */
     changeQuestPage(game, delta) {
-      this.questPage = (this.questPage | 0) + delta;
+      // 0-U0：委托板翻页首尾循环
+      const pages = Math.max(1, this.questPages | 0);
+      this.questPage = ((((this.questPage | 0) + (delta | 0)) % pages) + pages) % pages;
       this.renderQuestBoard(game);
     },
 
@@ -2121,7 +2630,8 @@
       const all = Q.available(game);
       const pageSize = Q.PAGE_SIZE;
       const pages = Math.max(1, Math.ceil(all.length / pageSize));
-      this.questPage = Math.max(0, Math.min(this.questPage | 0, pages - 1));
+      this.questPages = pages;
+      this.questPage = (((this.questPage | 0) % pages) + pages) % pages;
       const start = this.questPage * pageSize;
       const rows = all.slice(start, start + pageSize);
 
@@ -2173,11 +2683,11 @@
       const prev = this.el('quest-prev');
       const next = this.el('quest-next');
       if (prev) {
-        prev.disabled = this.questPage <= 0;
+        prev.disabled = pages <= 1;          // 0-U0：多页时首尾循环，不再在两端禁用
         prev.onclick = () => this.changeQuestPage(game, -1);
       }
       if (next) {
-        next.disabled = this.questPage >= pages - 1;
+        next.disabled = pages <= 1;
         next.onclick = () => this.changeQuestPage(game, 1);
       }
     },
@@ -2279,9 +2789,11 @@
         selfTag(ui, game, p);
         return true;
       case 'self-tatie':
-        ui.npcText = '「站姿」对应原版的站立立绘（user/graphic 的 tatie 图）。'
-          + '本项目的对话窗口不显示立绘，选好站姿也没有可显示的地方。';
-        ui.renderNPC(game);
+        // A395：动作 27 是「口調を変える / Change Tatie」= 选角色的站立立绘，
+        //   原版 `gosub *label_2797`（294664-294780）在 0..40 之间左右切换。
+        if (Elona.Panels && Elona.Panels.openTatie) {
+          Elona.Panels.openTatie(game, p);
+        }
         return true;
       case 'self-itemimg':
         ui.npcText = '「赋予道具图像」要在角色脚下追加一个道具图标（原版 var_58(447)）。'

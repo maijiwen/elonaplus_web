@@ -71,13 +71,16 @@
     nameOf(id, lang) {
       const e = this.get(id);
       if (!e) return '';
-      return lang === 'jp' ? (e.nameJp || '') : (e.nameEn || '');
+      // 0-※：中文没有 ego 译名 → 按用户裁定回退日文；只有英文模式才用英文
+      if (lang === 'en') return e.nameEn || e.nameJp || '';
+      return e.nameJp || e.nameEn || '';
     },
 
     qualityName(idx, lang) {
       const q = this.qualities()[idx | 0];
       if (!q) return '';
-      return lang === 'jp' ? (q.jp || '') : (q.en || '');
+      if (lang === 'en') return q.en || q.jp || '';
+      return q.jp || q.en || '';
     },
 
     /**

@@ -181,7 +181,7 @@
     const actor = c || (g && g.player) || null;
     const rnd = R(g);
     const itemName = (Elona.ItemDB && Elona.ItemDB.name)
-      ? Elona.ItemDB.name(id, 'en') : (pack.nameEn || '');
+      ? Elona.ItemDB.name(id) : (pack.nameEn || '');
     const res = {
       ok: true, id, pack: pack.label, grade: '', branch: '', text: '',
       messages: [], items: [], npcs: [], monsters: 0, fires: 0, spells: 0,

@@ -248,7 +248,7 @@
     if (Elona.ItemDB && Elona.ItemDB.name) {
       const n = Elona.ItemDB.name(id, 'cn');
       if (n) return n;
-      const e = Elona.ItemDB.name(id, 'en');
+      const e = Elona.ItemDB.name(id);
       if (e) return e;
     }
     return `物品${id}`;

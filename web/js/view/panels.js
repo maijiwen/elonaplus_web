@@ -107,9 +107,13 @@
         + '<div class="pui-body" id="pui-body"></div></div>';
       stage.appendChild(el);
       el.addEventListener('click', (ev) => {
-        const row = ev.target.closest('.pui-row');
+        // 0-U0：键盘确认（confirm）里合成的 click 不再回灌，否则会无限递归
+        if (ev.__keyboard) return;
+        const rows = this.rowEls();
+        const row = ev.target.closest('.pui-row, .pui-opt');
         if (row) {
-          this.sel = parseInt(row.dataset.i, 10) | 0;
+          const i = rows.indexOf(row);
+          if (i >= 0) this.sel = i;
           this.renderSel();
           this.confirm();
         }
@@ -147,6 +151,7 @@
       this.kind = null;
       this.rows = [];
       this.onPick = null;
+      this.onActivate = null;
       this.keyCapture = null;
       const cb = this.onClose;
       this.onClose = null;
@@ -169,6 +174,7 @@
       if (opts && opts.rows) this.rows = opts.rows;
       this.sel = 0;
       this.onPick = (opts && opts.onPick) || null;
+      this.onActivate = null;                 // 面板自己的「回车确定」实现（见 confirm）
       el.querySelector('#pui-title').textContent = title;
       el.querySelector('#pui-hint').textContent = (opts && opts.hint) || 'Esc 关闭';
       const body = el.querySelector('#pui-body');
@@ -180,12 +186,23 @@
       el.querySelector('.pui-box').className = 'pui-box'
         + (opts && opts.wide ? ' wide' : '')
         + (opts && opts.cls ? ' ' + opts.cls : '');
+      // 0-U0：opts.bare —— 不画顶栏（材料窗口自己画「◆ 所持材料 / ◆ 说明」列头）
+      el.querySelector('.pui-head').style.display = (opts && opts.bare) ? 'none' : '';
       this.renderSel();
     },
 
+    /** 当前面板的可选行（DOM 顺序；`.pui-opt` 给表格行用，不带 flex 布局） */
+    rowEls() {
+      if (!this.root) return [];
+      return Array.prototype.slice.call(
+        this.root.querySelectorAll('.pui-row, .pui-opt'));
+    },
+
+    rowCount() { return this.rowEls().length; },
+
     renderSel() {
       if (!this.root) return;
-      const rows = this.root.querySelectorAll('.pui-row');
+      const rows = this.rowEls();
       rows.forEach((r, i) => r.classList.toggle('sel', i === this.sel));
       const cur = rows[this.sel];
       if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'nearest' });
@@ -354,30 +371,127 @@
      * @param {Array<{label:string,chara:object}>} options
      * @param {function(object)} onPick 收到选中的角色；取消时不会调用
      */
-    openTagPick(g, options, onPick) {
-      const opts = (options || []).filter(Boolean);
-      if (!opts.length) {
-        if (Elona.ItemFxUse) Elona.ItemFxUse.abort();
+    openTagPick(g, options, onPick, opts) {
+      const o = opts || {};
+      const opts2 = (options || []).filter(Boolean);
+      if (!opts2.length) {
+        if (o.onCancel) o.onCancel();
+        else if (Elona.ItemFxUse) Elona.ItemFxUse.abort();
         return;
       }
-      this.rows = opts.map((o, i) => ({ i, label: o.label }));
-      let html = '<div class="pui-note">这个对象处于搭档编成中。要把谁作为对象？</div>';
-      opts.forEach((o, i) => {
+      this.rows = opts2.map((x, i) => ({ i, label: x.label }));
+      let html = `<div class="pui-note">${esc(o.note || '这个对象处于搭档编成中。要把谁作为对象？')}</div>`;
+      opts2.forEach((x, i) => {
         html += `<div class="pui-row" data-i="${i}">`
           + `<span class="pui-key">${'abcdefghijklmnopqrs'[i] || ''}</span>`
-          + `<span class="pui-name">${esc(o.label)}</span>`
+          + `<span class="pui-name">${esc(x.label)}</span>`
           + `<span class="pui-dim">${i === 0 ? '当前选中的一边' : '另一边'}</span></div>`;
       });
-      this.open('tagpick', '搭档选择', html, {
+      this.open('tagpick', o.title || '搭档选择', html, {
         hint: '↑↓ 选择　Enter 确定　Esc 取消',
         onPick: (row) => {
           this.onClose = null;
           this.close();
-          if (onPick) onPick(opts[row.i].chara, row.i);
+          if (onPick) onPick(opts2[row.i].chara, row.i);
         },
       });
       // Esc → 原版 `stat == 0` → goto *label_4363（不消耗回合），这里把会话清掉
-      this.onClose = () => { if (Elona.ItemFxUse) Elona.ItemFxUse.abort(); };
+      this.onClose = () => {
+        if (o.onCancel) o.onCancel();
+        else if (Elona.ItemFxUse) Elona.ItemFxUse.abort();
+      };
+    },
+
+    /**
+     * A395：口調（立ち絵）変更 —— 互动菜单动作 27 → `gosub *label_2797`（294664-294780）。
+     *
+     * 原版界面（294677-294760）：
+     *   294677  「左右キーで選択、Enterキーで決定、キャンセルキーでキャンセル」
+     *   294681  `var_2245 = var_58(431)` —— 记下进来时的编号，Esc 时还原
+     *   294726  画 `\user\graphic2\face<431>_<表情>.bmp`（300×500），旁边写
+     *           `face<编号> now.`（`var_52` 日文 / `var_205` 英文）
+     *   294734  Enter（`getkey var_400, 13`）→ `snd 97`，保留新编号
+     *   294741  Esc → `var_58(431) = var_2245`（还原）
+     *   294750  →/←  → 编号 +1 / -1，范围 0..40（`< 40` 才加、`> 0` 才减）
+     * 表情后缀与互动立绘同一套规则（见 core/interact.js faceFile）。
+     *
+     * @param {object} g
+     * @param {object} [who] 目标角色（不传 = 玩家自己）
+     */
+    openTatie(g, who) {
+      const W = who || (g && g.player);
+      if (!W) return;
+      const MAX = 40;                                  // 294752 `var_58(431) < 40`
+      const orig = W.get(431) | 0;
+      let cur = orig;
+      let confirmed = false;
+      this.rows = [];
+      const html = '<div class="pui-note">左右键选择立绘编号，Enter 决定，Esc 取消。</div>'
+        + '<div class="tatie-wrap">'
+        + '<div class="tatie-shot" id="tatie-shot"></div>'
+        + '<div class="tatie-side"><div class="tatie-now" id="tatie-now"></div>'
+        + '<div class="pui-dim">素材：user/graphic2/face&lt;编号&gt;_&lt;表情&gt;.bmp（300×500）</div>'
+        + '<div class="pui-dim">编号 0 = 不显示立绘。</div></div></div>';
+      this.open('tatie', '口調 / 立绘（立ち絵）', html, {
+        wide: true, hint: '←/→ 切换　Enter 确定　Esc 取消',
+      });
+      const draw = () => {
+        if (!this.root) return;
+        W.set(431, cur);                              // 294750：切换时直接写入
+        const now = this.root.querySelector('#tatie-now');
+        if (now) now.textContent = `face${cur} now.`;
+        const box = this.root.querySelector('#tatie-shot');
+        if (!box) return;
+        box.innerHTML = '';
+        if (cur <= 0) {
+          box.innerHTML = '<div class="tatie-none">（无立绘）</div>';
+          return;
+        }
+        const file = (Elona.Interact && Elona.Interact.faceFile)
+          ? Elona.Interact.faceFile(W) : null;
+        if (!file) { box.innerHTML = '<div class="tatie-none">（无立绘）</div>'; return; }
+        // 原版 `picload var_2220, 1`：黑透明。预览同样先抠黑再画，
+        //   否则框里会是一整块黑（素材本身是黑底 BMP）。
+        const rec = (Elona.renderer && Elona.renderer.faceImage)
+          ? Elona.renderer.faceImage(file) : null;
+        const cv = document.createElement('canvas');
+        cv.width = 300; cv.height = 500;
+        cv.className = 'tatie-canvas';
+        box.appendChild(cv);
+        const g2 = cv.getContext('2d');
+        const wait = (n) => {
+          if (rec && rec.canvas) { g2.drawImage(rec.canvas, 0, 0, 300, 500); return; }
+          if (!rec || rec.bad) {
+            // 原版 294699 `exist ... if (strsize == -1) var_58(431) = var_2246`：
+            //   素材不存在时不显示（这里给出提示，编号仍保留，方便玩家去放素材）
+            box.innerHTML = `<div class="tatie-none">没有素材 ${esc(file)}</div>`;
+            return;
+          }
+          if (n < 80) setTimeout(() => wait(n + 1), 60);
+        };
+        wait(0);
+      };
+      draw();
+      this.onKeyFn = (e) => {
+        if (e.key === 'ArrowLeft' || e.key === '4') {
+          if (cur > 0) cur--;
+          draw();
+          return true;
+        }
+        if (e.key === 'ArrowRight' || e.key === '6') {
+          if (cur < MAX) cur++;
+          draw();
+          return true;
+        }
+        if (e.key === 'Enter' || e.key === ' ') {
+          confirmed = true;
+          this.close();
+          return true;
+        }
+        return false;
+      };
+      // Esc（handleKey 直接 close）→ 294741 还原成进来时的编号
+      this.onClose = () => { if (!confirmed) W.set(431, orig); };
     },
 
     /**
@@ -498,7 +612,7 @@
       }
       if (e.key === 'Escape') { e.preventDefault(); this.close(); return true; }
       if (this.onKeyFn && this.onKeyFn(e)) { e.preventDefault(); return true; }
-      if (!this.rows.length) return false;
+      if (!this.rowCount()) return false;
       if (e.key === 'ArrowUp' || e.key === '8') { e.preventDefault(); this.move(-1); return true; }
       if (e.key === 'ArrowDown' || e.key === '2') { e.preventDefault(); this.move(1); return true; }
       if (e.key === 'PageUp' || e.key === '+') { e.preventDefault(); this.move(-10); return true; }
@@ -507,17 +621,35 @@
       return false;
     },
 
+    /** 上下移动光标：一律首尾循环（0-U0，所有面板统一） */
     move(d) {
-      const n = this.rows.length;
+      const n = this.rowCount();
       if (!n) return;
-      this.sel = (this.sel + d + n) % n;
+      this.sel = (((this.sel | 0) + (d | 0)) % n + n) % n;
       this.renderSel();
     },
 
+    /**
+     * 回车确定 —— 0-U0 统一入口，三种面板各走一条：
+     *   ① onActivate(i)：面板自己实现「对第 i 行执行」（字母键菜单都走这条）
+     *   ② onPick(row)：老式回调，row 取自 this.rows
+     *   ③ 都没有：把回车当成「点一下选中行」，交给面板挂的 click 处理
+     */
     confirm() {
-      const row = this.rows[this.sel];
-      if (row === undefined) return;
-      if (this.onPick) this.onPick(row);
+      const n = this.rowCount();
+      if (!n) return;
+      const i = Math.max(0, Math.min(n - 1, this.sel | 0));
+      if (this.onActivate) { this.onActivate(i); return; }
+      if (this.onPick) {
+        const rows = this.rows || [];
+        const row = rows[i];
+        if (row !== undefined) { this.onPick(row); return; }
+      }
+      const el = this.rowEls()[i];
+      if (!el) return;
+      const ev = new MouseEvent('click', { bubbles: true, cancelable: true });
+      ev.__keyboard = true;
+      el.dispatchEvent(ev);
     },
 
     // ======================================================================
@@ -985,7 +1117,7 @@
         const { grp, it } = slice[i];
         const st = it.owned ? '習得済み' : (it.disabled ? (it.reason || '不可') : '可');
         const cls = it.owned ? 'ci-on' : (it.disabled ? 'ci-dim' : '');
-        html += `<tr class="${cls}"><td class="ci-key">${letters[i] || ''}</td>`
+        html += `<tr class="pui-opt ${cls}" data-i="${i}"><td class="ci-key">${letters[i] || ''}</td>`
           + `<td class="ci-dim">${esc(grp)}</td>`
           + `<td class="ci-skill-name">${esc(it.label)}</td>`
           + `<td class="ci-skill-desc">${esc(it.note || '')}</td>`
@@ -1001,9 +1133,20 @@
       const roster = [g.player].concat(
         (g.charas || []).slice(1, 16).filter((m) => m && (m.get(0) | 0) === 1));
 
+      // 0-U0：字母键与回车共用 act()，回车也能取得光标所在的那一项
+      const act = (k) => {
+        if (k < 0 || k >= slice.length) return false;
+        const { it } = slice[k];
+        const r = Elona.AP.spend(g, c, it);
+        this.pushMessage(r.message);
+        this.openAwaken(g, this.awakenTarget);
+        return true;
+      };
+      this.onActivate = act;
       this.onKeyFn = (e) => {
-        if (e.key === 'ArrowLeft' && cur > 0) { this.awakenPage = cur - 1; this.openAwaken(g, this.awakenTarget); return true; }
-        if (e.key === 'ArrowRight' && cur < total - 1) { this.awakenPage = cur + 1; this.openAwaken(g, this.awakenTarget); return true; }
+        // 0-U0：翻页首尾循环
+        if (e.key === 'ArrowLeft') { this.awakenPage = (cur - 1 + total) % total; this.openAwaken(g, this.awakenTarget); return true; }
+        if (e.key === 'ArrowRight') { this.awakenPage = (cur + 1) % total; this.openAwaken(g, this.awakenTarget); return true; }
         if (e.key === 'Tab') {
           const pos = roster.findIndex((m) => (m.index | 0) === this.awakenTarget);
           const nxt = roster[(pos + 1) % Math.max(1, roster.length)];
@@ -1011,14 +1154,8 @@
           return true;
         }
         const k = 'abcdefghijklmnopqrstuvwxyz'.indexOf(e.key);
-        if (k >= 0 && k < slice.length) {
-          const { it } = slice[k];
-          const r = Elona.AP.spend(g, c, it);
-          this.pushMessage(r.message);
-          this.openAwaken(g, this.awakenTarget);
-          return true;
-        }
-        return false;
+        if (k < 0) return false;
+        return act(k);
       };
     },
 
@@ -1040,7 +1177,7 @@
       for (let i = 0; i < slice.length; i++) {
         const a = slice[i];
         const d = (descs[String(a.id)] || {}).desc || {};
-        html += `<tr><td class="ci-key">${letters[i] || ''}</td>`
+        html += `<tr class="pui-opt" data-i="${i}"><td class="ci-key">${letters[i] || ''}</td>`
           + `<td class="ci-skill-name">${esc(a.name)}</td>`
           + `<td class="ci-nums">${a.cost} Sp</td>`
           + `<td class="ci-skill-desc">${esc(d.ch || d.jp || '')}</td></tr>`;
@@ -1052,11 +1189,9 @@
 
       // 翻页与快捷键（open 之后设置）
       this.open('abilities', `能力の発動　Page.${cur + 1}/${total}`, html,
-        { wide: true, hint: 'a~p 发动　← → 翻页　Esc 关闭' });
-      this.onKeyFn = (e) => {
-        if (e.key === 'ArrowLeft' && cur > 0) { this.abilPage = cur - 1; this.openAbilities(g); return true; }
-        if (e.key === 'ArrowRight' && cur < total - 1) { this.abilPage = cur + 1; this.openAbilities(g); return true; }
-        const k = 'abcdefghijklmnopqrstuvwxyz'.indexOf(e.key);
+        { wide: true, hint: '↑↓ 选择　Enter 发动　a~p 发动　← → 翻页　Esc 关闭' });
+      // 0-U0：字母键与回车共用 act()，回车也能发动光标所在的能力
+      const act = (k) => {
         if (k >= 0 && k < slice.length) {
           const target = slice[k];
           // 0-CW：ネクロフォース(743) 需要二次菜单（txtsetnecro 6，332789-332795）
@@ -1124,6 +1259,15 @@
         }
         return false;
       };
+      this.onActivate = act;
+      this.onKeyFn = (e) => {
+        // 0-U0：翻页也首尾循环
+        if (e.key === 'ArrowLeft') { this.abilPage = (cur - 1 + total) % total; this.openAbilities(g); return true; }
+        if (e.key === 'ArrowRight') { this.abilPage = (cur + 1) % total; this.openAbilities(g); return true; }
+        const k = 'abcdefghijklmnopqrstuvwxyz'.indexOf(e.key);
+        if (k < 0) return false;
+        return act(k);
+      };
     },
 
     /**
@@ -1176,16 +1320,24 @@
         + `<span class="ci-dim">Toil-Energy: ${st.toilEnergy} / ${st.energyMax}</span></td></tr>`
         + '</table>';
       this.open('camp', '収容所', html, {
-        hint: 'a~p 放出　x 強度変更　z エネルギー交換　Esc 閉じる',
+        hint: '↑↓ 选择　Enter 确定　a~p 放出　x 強度変更　z エネルギー交換　Esc 閉じる',
       });
-      this.onKeyFn = (e) => {
-        const k = 'abcdefghijklmnop'.indexOf(e.key);
-        if (k >= 0 && k < inmates.length) {
-          const r = C.release(g, inmates[k]);
+      // 0-U0：字母键与回车走同一个 act()，回车也能放出 / 改变强度
+      const act = (i) => {
+        if (i >= 0 && i < inmates.length) {
+          const r = C.release(g, inmates[i]);
           if (r && r.message) this.pushMessage(r.message);
           this.openCamp(g);
           return true;
         }
+        if (i === inmates.length) { this.openCampToil(g); return true; }
+        if (i === inmates.length + 1) { this.openCampExchange(g); return true; }
+        return false;
+      };
+      this.onActivate = act;
+      this.onKeyFn = (e) => {
+        const k = 'abcdefghijklmnop'.indexOf(e.key);
+        if (k >= 0 && k < inmates.length) return act(k);
         if (e.key === 'x') { this.openCampToil(g); return true; }
         if (e.key === 'z') { this.openCampExchange(g); return true; }
         return false;
@@ -1211,12 +1363,17 @@
           + `<td>${esc(c.name || '')}</td><td>${c.get(11) | 0}</td></tr>`;
       });
       html += '</table>';
-      this.open('ride-pick', '騎乗', html, { hint: 'a~p 選択　Esc 閉じる' });
-      this.onKeyFn = (e) => {
-        const k = letters.indexOf(e.key);
+      this.open('ride-pick', '騎乗', html, { hint: '↑↓ 选择　Enter 确定　a~p 選択　Esc 閉じる' });
+      const act = (k) => {
         if (k < 0 || k >= list.length) return false;
         this.openRide(g, list[k]);
         return true;
+      };
+      this.onActivate = act;
+      this.onKeyFn = (e) => {
+        const k = letters.indexOf(e.key);
+        if (k < 0) return false;
+        return act(k);
       };
     },
 
@@ -1239,9 +1396,8 @@
         html += `<tr class="pui-row" data-i="${it.mode}"><td>${'abc'[i]}</td><td>${esc(it.label)}</td></tr>`;
       });
       html += '</table>';
-      this.open('ride', '騎乗', html, { hint: 'a~c 選択　Esc 閉じる' });
-      this.onKeyFn = (e) => {
-        const k = 'abc'.indexOf(e.key);
+      this.open('ride', '騎乗', html, { hint: '↑↓ 选择　Enter 确定　a~c 選択　Esc 閉じる' });
+      const act = (k) => {
         if (k < 0 || k >= items.length) return false;
         const mode = items[k].mode;
         if (mode < 0) { this.close(); return true; }
@@ -1250,6 +1406,12 @@
         if (r && r.extra) for (const m of r.extra) this.pushMessage(m);
         this.close();
         return true;
+      };
+      this.onActivate = act;
+      this.onKeyFn = (e) => {
+        const k = 'abc'.indexOf(e.key);
+        if (k < 0) return false;
+        return act(k);
       };
     },
 
@@ -1273,16 +1435,19 @@
           + `<td>${esc(t.jp)}${cur}<br><span class="ci-dim">${esc(t.en)}</span></td></tr>`;
       });
       html += '</table>';
-      this.open('camp-toil', '労働強度の変更', html, { hint: 'a~d 変更　Esc 閉じる' });
+      this.open('camp-toil', '労働強度の変更', html, { hint: '↑↓ 选择　Enter 确定　a~d 変更　Esc 閉じる' });
+      const act = (k) => {
+        if (k < 0 || k >= C.TOIL_LEVELS.length) return false;
+        const r = C.setToilLevel(g, C.TOIL_LEVELS[k].lv);
+        if (r && r.message) this.pushMessage(r.message);
+        this.openCamp(g);
+        return true;
+      };
+      this.onActivate = act;
       this.onKeyFn = (e) => {
         const k = 'abcd'.indexOf(e.key);
-        if (k >= 0 && k < C.TOIL_LEVELS.length) {
-          const r = C.setToilLevel(g, C.TOIL_LEVELS[k].lv);
-          if (r && r.message) this.pushMessage(r.message);
-          this.openCamp(g);
-          return true;
-        }
-        return false;
+        if (k < 0) return false;
+        return act(k);
       };
     },
 
@@ -1305,16 +1470,20 @@
           + `<td>${e.cost}</td></tr>`;
       });
       html += '</table>';
-      this.open('camp-exchange', '労働エナジー交換', html, { hint: 'a~j 交換　Esc 閉じる' });
+      this.open('camp-exchange', '労働エナジー交換', html,
+        { hint: '↑↓ 选择　Enter 确定　a~j 交換　Esc 閉じる' });
+      const act = (k) => {
+        if (k < 0 || k >= C.EXCHANGE_ITEMS.length) return false;
+        const r = C.exchangeEnergy(g, C.EXCHANGE_ITEMS[k].idx);
+        if (r && r.message) this.pushMessage(r.message);
+        this.openCampExchange(g);
+        return true;
+      };
+      this.onActivate = act;
       this.onKeyFn = (e) => {
         const k = 'abcdefghij'.indexOf(e.key);
-        if (k >= 0 && k < C.EXCHANGE_ITEMS.length) {
-          const r = C.exchangeEnergy(g, C.EXCHANGE_ITEMS[k].idx);
-          if (r && r.message) this.pushMessage(r.message);
-          this.openCampExchange(g);
-          return true;
-        }
-        return false;
+        if (k < 0) return false;
+        return act(k);
       };
     },
 
@@ -1334,21 +1503,25 @@
           + `<td>${esc(it.label)}</td></tr>`;
       });
       html += '</table>';
-      this.open('abyss', '深淵魔術', html, { hint: 'a~j 選択　Esc 閉じる' });
-      this.onKeyFn = (e) => {
-        const k = 'abcdefghij'.indexOf(e.key);
-        if (k >= 0 && k < items.length) {
-          const it = items[k];
-          if (!it.unlocked) {
-            this.pushMessage(`<深淵魔力${it.need}以上で解放>`);
-            return true;
-          }
-          const r = Elona.Abyss.cast(g, it.id);
-          if (r && r.message) this.pushMessage(r.message);
-          this.close();
+      this.open('abyss', '深淵魔術', html,
+        { hint: '↑↓ 选择　Enter 确定　a~j 選択　Esc 閉じる' });
+      const act = (k) => {
+        if (k < 0 || k >= items.length) return false;
+        const it = items[k];
+        if (!it.unlocked) {
+          this.pushMessage(`<深淵魔力${it.need}以上で解放>`);
           return true;
         }
-        return false;
+        const r = Elona.Abyss.cast(g, it.id);
+        if (r && r.message) this.pushMessage(r.message);
+        this.close();
+        return true;
+      };
+      this.onActivate = act;
+      this.onKeyFn = (e) => {
+        const k = 'abcdefghij'.indexOf(e.key);
+        if (k < 0) return false;
+        return act(k);
       };
     },
 
@@ -1366,17 +1539,21 @@
           + `<td>${esc(it.jp)}<span class="ci-dim"> / ${esc(it.en)}</span></td></tr>`;
       });
       html += '</table>';
-      this.open('necro', 'ネクロフォース', html, { hint: 'a~f 選択　Esc 閉じる' });
+      this.open('necro', 'ネクロフォース', html,
+        { hint: '↑↓ 选择　Enter 确定　a~f 選択　Esc 閉じる' });
+      const act = (k) => {
+        if (k < 0 || k >= items.length) return false;
+        const r = g.useAbility(743, { choice: items[k].id });
+        for (const m of ((r && r.messages) || [])) this.pushMessage(m);
+        if (r && r.message) this.pushMessage(r.message);
+        this.close();
+        return true;
+      };
+      this.onActivate = act;
       this.onKeyFn = (e) => {
         const k = 'abcdef'.indexOf(e.key);
-        if (k >= 0 && k < items.length) {
-          const r = g.useAbility(743, { choice: items[k].id });
-          for (const m of ((r && r.messages) || [])) this.pushMessage(m);
-          if (r && r.message) this.pushMessage(r.message);
-          this.close();
-          return true;
-        }
-        return false;
+        if (k < 0) return false;
+        return act(k);
       };
     },
 
@@ -1576,7 +1753,7 @@
      */
     renderTraits(g) {
       const p = g.player;
-      const data = Elona.Traits.build(g, p, 'en');
+      const data = Elona.Traits.build(g, p);
       const pts = (g.getV65(93) | 0);
       const availIds = [];
       let n = 0;
@@ -2138,7 +2315,7 @@
         onPick: (idx, it) => {
           const p = g.player;
           if (g.dropItem(p, idx, p.x, p.y)) {
-            g.log(`你放下了 ${Elona.ItemDB.name(it.id, 'en')}。`);
+            g.log(`你放下了 ${Elona.ItemDB.name(it.id)}。`);
             g.endTurn();
           } else g.log('无法放下这件物品。');
         },
@@ -2212,7 +2389,7 @@
       const html = list.map((r, i) => {
         const sm = C.summary(r.item);
         return `<div class="pui-row" data-i="${i}">`
-          + `<span class="pui-name">${esc(Elona.ItemDB.name(r.item.id, 'en'))}</span>`
+          + `<span class="pui-name">${esc(Elona.ItemDB.name(r.item.id))}</span>`
           + `<span class="pui-dim">${sm.kinds} 种 / ${sm.count} 件</span></div>`;
       }).join('');
       this.open('container-pick', '打开哪个容器？', html, {
@@ -2242,27 +2419,27 @@
           return;
         }
         if (r && r.result && r.result.spawned > 0) {
-          Elona.UI.pushMessage(`从${Elona.ItemDB.name(it.id, 'en')}里散落出 ${r.result.spawned} 件东西。`);
+          Elona.UI.pushMessage(`从${Elona.ItemDB.name(it.id)}里散落出 ${r.result.spawned} 件东西。`);
         }
       }
       const items = C.contents(it);
       const sm = C.summary(it);
       this.rows = items.map((x, i) => ({ idx: i, item: x }));
 
-      const head = `<div class="pui-note">${esc(Elona.ItemDB.name(it.id, 'en'))}`
+      const head = `<div class="pui-note">${esc(Elona.ItemDB.name(it.id))}`
         + `　${sm.kinds} 种 / ${sm.count} 件 / 重 ${sm.weight}</div>`;
       const rowsHtml = this.rows.length
         ? this.rows.map((r, i) => {
           const n = r.item.f[0] | 0;
           const w = (r.item.weight | 0) * n;
           return `<div class="pui-row" data-i="${i}">`
-            + `<span class="pui-name">${esc(Elona.ItemDB.name(r.item.id, 'en'))}</span>`
+            + `<span class="pui-name">${esc(Elona.ItemDB.name(r.item.id))}</span>`
             + `<span class="pui-num">×${n}</span>`
             + `<span class="pui-dim">重 ${w}</span></div>`;
         }).join('')
         : '<div class="pui-note">（空）</div>';
 
-      this.open('container', `${Elona.ItemDB.name(it.id, 'en')}`, head + rowsHtml, {
+      this.open('container', `${Elona.ItemDB.name(it.id)}`, head + rowsHtml, {
         wide: true, hint: 'Enter 取出　p 放入　Esc 关闭',
         onPick: (row) => {
           const r = C.take(g, it, row.idx);
@@ -2282,7 +2459,7 @@
     pickPutInto(g, it) {
       const C = Elona.Container;
       this.openItemPicker(g, {
-        title: `把什么放进${Elona.ItemDB.name(it.id, 'en')}？`,
+        title: `把什么放进${Elona.ItemDB.name(it.id)}？`,
         filter: (x) => x.eqSlot < 0 && x !== it,
         onPick: (idx) => {
           const r = C.put(g, it, idx);
@@ -2312,7 +2489,7 @@
         onPick: (srcIdx, src) => {
           const isBait = (src.id | 0) === 617;
           this.openItemPicker(g, {
-            title: `把 ${Elona.ItemDB.name(src.id, 'en')} 涂到哪件物品上？`,
+            title: `把 ${Elona.ItemDB.name(src.id)} 涂到哪件物品上？`,
             // 0-GY：348402-348410 —— 鱼饵只能装到钓竿（342）上；其它液体不能选自己或 516。
             filter: isBait
               ? (it) => (it.id | 0) === 342
@@ -2460,7 +2637,7 @@
             if (!r.messages || !r.messages.length) {
               if (r.contested) this.pushMsg(`${r.name} 守护住了祭坛。`);
               else if (r.takenOver) this.pushMsg(`你夺取了祭坛，${r.name} 的虔诚提升了。`);
-              else this.pushMsg(`你把 ${Elona.ItemDB.name(it.id, 'en')} 献给了 ${r.name}。`);
+              else this.pushMsg(`你把 ${Elona.ItemDB.name(it.id)} 献给了 ${r.name}。`);
             }
             g.endTurn();
           } else {
@@ -2482,42 +2659,141 @@
      * 「使用调合道具」进入（var_486 分支）。本项目两处都缺，故把调合挂在 `m` 上，
      * 已在 docs/02-diff-report.md 登记。
      */
+    /** 材料窗口每页行数（`var_893 = 15`，270706） */
+    MAT_PER_PAGE: 15,
+
     /**
-     * 素材窗口 —— 原版 `m`（key_material）对应的 *label_2582（270703-270880）。
+     * 素材窗口 —— 原版 `m`（key_material）对应的 *label_2582（270703-270900）。
      *
-     * 原版界面：标题「所持マテリアル」，每行「名称 ×数量」+ 右列说明，带图标。
-     * 本项目没有单独的材料图标素材，用分类名代替图标。
+     * 版式照源码逐个坐标搬：
+     *   列头 `display_topic`（37293-37302）—— 「◆ 所持材料」x+38、「◆ 说明」x+296，
+     *     菱形图标 + 文字 + 下面一条下划线；
+     *   每行（270750-270833）：48px 图标贴到 x+47 → `display_key` 键帽 x+68 →
+     *     `cs_list`「名称 × 数量」x+96 → 说明文字 x+308；
+     *   `cnt \ 2 == 0` 的行有浅色底纹（270760-270764 `gfini 490,18 / gfdec2 12,14,16`）；
+     *   光标行由 `cs_list` 的 `var_761 == cnt` 分支画浅底 + 右端小光标（31599-31614）。
      *
-     * 0-FZ / A27：按原版，`m` 只打开 *label_2582 的素材查看窗口；
-     * 调合（*label_2647）由「使用錬金術の道具」(127) 进入 Game.useItem → openCraft。
+     * 交互（270882-270900 + `cursor_check` 36955-36980）：
+     *   ↑↓ 移动光标（首尾循环）；＋ / －（也能用 PageUp/PageDown、←→）翻页，
+     *   越界回卷（label_2583 的 270733-270741）；Shift / Esc 关闭。
+     *
+     * 名称与说明只取 `materials.json` 的 jp 字段（已按原版 lang() 的日文侧汉化），
+     * 不再显示英文；分类名与「两套库存」的说明原版窗口里没有，一并去掉。
      */
-    async openMaterials(g, keepSel) {
+    async openMaterials(g, page) {
       const Mat = Elona.Material;
       if (!Mat) { Elona.UI.pushMessage('材料模块未加载。'); return null; }
       await Mat.load();
 
       const held = Mat.list(g);
-      this.rows = held;
-      const head = '<div class="pui-note">材料与物品是两套库存（var_497）。'
-        + '在地下城的矿脉 / 泉 / 残骸 / 植物上按 Space 可以采集。</div>';
-      const body = held.length
-        ? held.map((r, i) => {
-          const d = Mat.def(r.id);
-          const cat = d && d.cats && d.cats[0] ? Mat.catName(d.cats[0]) : '';
-          return `<div class="pui-row" data-i="${i}">`
-            + `<span class="pui-name">${esc(Mat.name(r.id, 'en'))}</span>`
-            + `<span class="pui-dim">${esc(cat)}</span>`
-            + `<span class="pui-num">×${r.count}</span></div>`
-            + `<div class="pui-dim" style="padding:0 6px 4px 6px">${esc(Mat.desc(r.id, 'en'))}</div>`;
-        }).join('')
-        : '<div class="pui-note">（还没有任何材料）</div>';
+      const per = this.MAT_PER_PAGE;
+      const pages = Math.max(1, Math.ceil(held.length / per));
+      const req = (page === undefined || page === null) ? (this.matPage | 0) : (page | 0);
+      const pg = ((req % pages) + pages) % pages;          // 270734-270741：越界回卷
+      this.matPage = pg;
 
-      this.open('materials', `所持材料（${held.length} 种）`, head + body, {
-        wide: true, hint: '↑↓ 选择　Esc 关闭',
-      });
-      this.sel = Math.min(keepSel === undefined ? 0 : keepSel, Math.max(0, held.length - 1));
+      const slice = held.slice(pg * per, pg * per + per);
+      this.rows = slice;
+      // 换页时把光标留在同一行号（越界落到末行，等价 cursor_check 末尾的钳制）
+      const keep = Math.max(0, Math.min(slice.length - 1, this.matRow == null ? 0 : (this.matRow | 0)));
+
+      let body = '<div class="mat-topics">'
+        + '<span class="mat-topic">所持材料</span>'
+        + '<span class="mat-topic mat-topic-desc">说明</span></div>';
+      if (!slice.length) {
+        body += '<div class="mat-empty">（还没有任何材料）</div>';
+      } else {
+        body += '<div class="mat-list">';
+        for (let i = 0; i < slice.length; i++) {
+          const r = slice[i];
+          const d = Mat.def(r.id);
+          // 图标 id = var_999(2, 材料 id)，与 item.bmp 的 33 列 × 48px 网格同一套
+          const icon = (d && d.icon) | 0;
+          body += `<div class="pui-row mat-row${i % 2 ? '' : ' odd'}" data-i="${i}">`
+            + `<canvas class="mat-icon" width="24" height="24" data-icon="${icon}"></canvas>`
+            + `<span class="mat-key">${'abcdefghijklmno'[i] || ''}</span>`
+            + '<span class="mat-item">'
+            + `<span class="mat-name">${esc(Mat.name(r.id, 'jp'))} × ${r.count | 0}</span>`
+            + '<i class="mat-cur"></i></span>'
+            + `<span class="mat-desc">${esc(Mat.desc(r.id, 'jp'))}</span></div>`;
+        }
+        body += '</div>';
+      }
+      body += '<div class="mat-foot"><span>＋, － [页面切换]　Shift, Esc [关闭]</span>'
+        + `<span>Page. ${pg + 1}/${pages}</span></div>`;
+
+      // bare：不画顶栏，列头由 body 里的 mat-topics 承担（原版窗口就是这样）
+      this.open('materials', '所持材料', body, { wide: true, cls: 'mat-sheet', bare: true });
+      this.sel = keep;
+      this.matRow = keep;
       this.renderSel();
+      await this.paintRowIcons();
+
+      this.onKeyFn = (e) => {
+        const k = e.key;
+        // 270896：var_150（Esc）与 Shift 都关闭窗口
+        if (k === 'Shift') { this.close(); return true; }
+        // 270882-270894：var_341 / var_342 是 ＋ / －；箭头左右也被 cursor_check 映射成翻页
+        if (k === '+' || k === 'PageDown' || k === 'ArrowRight' || k === '6') {
+          this.matRow = this.sel | 0;
+          this.openMaterials(g, this.matPage + 1);
+          return true;
+        }
+        if (k === '-' || k === 'PageUp' || k === 'ArrowLeft' || k === '4') {
+          this.matRow = this.sel | 0;
+          this.openMaterials(g, this.matPage - 1);
+          return true;
+        }
+        // 键帽字母：把光标移到该行（display_key 的字母顺序）
+        const idx = 'abcdefghijklmno'.indexOf((k || '').toLowerCase());
+        if (idx >= 0 && idx < slice.length) {
+          this.sel = idx; this.matRow = idx; this.renderSel();
+          return true;
+        }
+        return false;
+      };
+      // 纯查看窗口：回车不做任何事（但也不要落进「点击第一行」的兜底）
+      this.onActivate = () => { };
       return held;
+    },
+
+    // ======================================================================
+    // A60：item.bmp 图标（材料行、立绘以外的所有「图标列表」共用）
+    // ======================================================================
+    /**
+     * 面板里画 item.bmp 切片用的图。renderer 已经把纯黑像素抠成透明
+     * （loadItemSheet → item.png / item.bmp 兜底），这里只取现成的画布。
+     */
+    async itemSheetReady() {
+      const rd = Elona.renderer;
+      if (!rd) return null;
+      if (rd.itemSheet) return rd.itemSheet;
+      try { return await rd.loadItemSheet(); } catch (e) { return null; }
+    },
+
+    /** 在 canvas 上画一张 48px 图标（33 列网格，与 ItemDB.iconPos 同一套算法） */
+    paintIcon(cv, iconId, size) {
+      const sheet = this._iconSheet;
+      if (!sheet || !cv) return;
+      const id = iconId | 0;
+      const sx = (id % 33) * 48, sy = Math.floor(id / 33) * 48;
+      if (sx + 48 > sheet.width || sy + 48 > sheet.height) return;
+      try {
+        const c2 = cv.getContext('2d');
+        c2.imageSmoothingEnabled = false;
+        c2.drawImage(sheet, sx, sy, 48, 48, 0, 0, size, size);
+      } catch (e) { /* 图未就绪时留空 */ }
+    },
+
+    /** 把当前面板里所有 `canvas[data-icon]` 填上图标 */
+    async paintRowIcons() {
+      if (!this.root) return;
+      const cvs = this.root.querySelectorAll('canvas[data-icon]');
+      if (!cvs.length) return;
+      this._iconSheet = await this.itemSheetReady();
+      for (const cv of cvs) {
+        this.paintIcon(cv, parseInt(cv.dataset.icon, 10) | 0, cv.width | 0);
+      }
     },
 
     /** 调合 / 炼金面板（数据来自 *label_2645 的配方表） */
@@ -2575,7 +2851,7 @@
       if (!F) { Elona.UI.pushMessage('钓鱼模块未加载。'); return; }
       const rod = g.player.inv[rodIdx];
       const bait = rod ? (rod.f[9] | 0) : 0;
-      const rodName = rod ? Elona.ItemDB.name(rod, 'en') : '钓竿';
+      const rodName = rod ? Elona.ItemDB.name(rod) : '钓竿';
       const note = `《${rodName}》　剩余鱼饵 ${bait}　釣り技能 ${g.player.skill(F.SKILL) | 0}`
         + '　输入要钓的小时数（整数，默认 1）';
       this.openTextInput('釣り — 何時間釣ろうか？', '1', (v) => {
@@ -2603,7 +2879,7 @@
       const opts = F.sitOptions(it);
       const rows = opts.map((o) => ({ opt: o }));
       this.rows = rows;
-      const name = esc(Elona.ItemDB ? Elona.ItemDB.name(it, 'en') : '椅子');
+      const name = esc(Elona.ItemDB ? Elona.ItemDB.name(it) : '椅子');
       const own = it.f[25] | 0;
       const ownText = own === 1 ? '我的座位' : (own === 2 ? '客人的座位' : '谁都可以坐');
       const head = `<div class="pui-note">《${name}》　当前：${ownText}</div>`;
@@ -3284,7 +3560,7 @@
       const tier = CK.toolTier(tool);
       const cap = CK.TIER_CAP[tier] === undefined ? 9 : CK.TIER_CAP[tier];
       this.openItemPicker(g, {
-        title: `用${Elona.ItemDB.name(tool.id, 'en')}料理（料理 ${skill}　上限品质 ${cap}）`,
+        title: `用${Elona.ItemDB.name(tool.id)}料理（料理 ${skill}　上限品质 ${cap}）`,
         filter: (it) => CK.isIngredient(g, it),
         hint: '↑↓ 选择　Enter 料理　Esc 取消',
         decorate: (it) => {
@@ -3328,7 +3604,7 @@
       const lv = g.player.skill(skill) | 0;
       // 工具名（没有对应工具时用通用名，例如从控制台直接打开）
       const kit = Pr.kits(g).find((k) => k.type === kitType);
-      const kitName = kit ? Elona.ItemDB.name(kit.item.id, 'en') : '工具';
+      const kitName = kit ? Elona.ItemDB.name(kit.item.id) : '工具';
 
       const head = `<div class="pui-note">${esc(Pr.SKILL_NAME[skill] || '')} 技能 ${lv}`
         + '　材料来自采集（矿脉 / 泉 / 残骸 / 植物）与调合。</div>';
@@ -3337,7 +3613,7 @@
           const mats = r.mats.map((m) => {
             const have = Mat.get(g, m[0]) | 0;
             const mark = have >= m[1] ? '' : '!';
-            return `${mark}${Mat.name(m[0], 'en')} ${have}/${m[1]}`;
+            return `${mark}${Mat.name(m[0])} ${have}/${m[1]}`;
           }).join('，');
           return `<div class="pui-row" data-i="${i}">`
             + `<span class="pui-name">${esc(r.name)}</span>`
@@ -3457,7 +3733,7 @@
         filter: (it) => it.eqSlot < 0,
         onPick: (idx, it) => {
           Elona.QuickSlot.bindItem(g, target, it.id, 14);
-          Elona.UI.pushMessage(`已把 ${Elona.ItemDB.name(it.id, 'en')} 绑定到 {${target + 1}}。`);
+          Elona.UI.pushMessage(`已把 ${Elona.ItemDB.name(it.id)} 绑定到 {${target + 1}}。`);
           this.openQuickSlots(g, target);
         },
       });
@@ -3949,7 +4225,7 @@
         const w = (it.f[7] | 0);
         return {
           it, key: 'abcdefghijklmnop'[i],
-          label: Elona.ItemDB.name(it.id, 'en'),
+          label: Elona.ItemDB.name(it.id),
           sub: `重量 ${w}　窃盗力 ${pw}`,
         };
       });
@@ -4110,7 +4386,7 @@
       const html = '<div class="ci-sec">◆ 和 ' + esc(ally.name) + ' 一起吃什么？</div>'
         + rows.map((it, i) => `<div class="pui-row" data-i="${i}">`
           + `<span class="pui-key">${'abcdefghijklmnop'[i]}</span>`
-          + `<span class="pui-name">${esc(Elona.ItemDB.name(it.id, 'en'))}</span>`
+          + `<span class="pui-name">${esc(Elona.ItemDB.name(it.id))}</span>`
           + `<span class="pui-dim">x${it.f[0] | 0}</span></div>`).join('')
         + '<div class="pui-note">两人分食一份：满腹度增加量减半，食物技能经验合计 200%。</div>';
       this.rows = rows;

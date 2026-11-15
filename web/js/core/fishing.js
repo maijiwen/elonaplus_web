@@ -376,7 +376,7 @@
       if (mapId === 70) it.f[22] = 7;
       this.addToInv(p, it);
 
-      const name = Elona.ItemDB.instanceName(it, 'en');
+      const name = Elona.ItemDB.instanceName(it);
       g.log(`你钓上来了 ${name}！`);                   // 312772
       // 312775：鱼饵 -1
       const rod = p.inv[this.runs.get(p) ? this.runs.get(p).rodIdx : (p.get(142) | 0)];

@@ -150,7 +150,7 @@
     ];
     message += ' ' + lines[g.rng.rnd(lines.length)];
     if (r.item && Elona.ItemDB) {
-      message += `（获得了 ${Elona.ItemDB.name(889, 'en')}）`;
+      message += `（获得了 ${Elona.ItemDB.name(889)}）`;
     }
     return { ok: true, message, item: r.item };
   }

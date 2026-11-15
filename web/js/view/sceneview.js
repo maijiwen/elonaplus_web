@@ -11,7 +11,9 @@
  * 【已实现的偏差（见 docs/02-diff-report.md）】
  *   1. 源码在每页淡入后**自动续行**（无 waitkey），按键(bit128)直接结束整段。
  *      网页默认改为「按键推进」，并可用选项 sceneAuto 恢复自动推进，Esc 跳过整段。
- *   2. `{mc}` 的音乐是 MIDI，浏览器无法播放，改为语义相近的环境音循环。
+ *   2. `{mc}` 的音乐：0-S0 起按 `user\music\musiclist.txt` 找原曲 .mid，
+ *      交给 `js/midibgm.js` 的 WebAudio 合成器播放（音色近似，音符/节拍与原曲一致）；
+ *      合成器不可用时才退回语义相近的环境音循环。
  *   3. `{actor_N}` 的头像（第二个字段）在 0-J0 按 425500 的 gzoom 补齐：
  *      graphic/face1.bmp / face2.bmp 每格 48×72、16 列，放大到 80×112 画在对话框左侧
  *      （pic >= 160 用 face2 并减 160）；图集未就绪时退回「只显示名字」。
@@ -268,12 +270,67 @@
     Elona.Audio.sfx(String(file).replace(/\.wav$/i, ''));
   }
 
+  /**
+   * 0-S0：`user\music\musiclist.txt` —— `文件名 <TAB> 曲名`（6870-6884 读入
+   * `var_114(50+)`，7400-7460 按曲名播 `sound\*.mid`）。原版允许玩家把自己的
+   * 音乐放进 user\music 覆盖同名曲目，所以文件优先在 user 下找。
+   *
+   * 这里只做「曲名 → 文件名」的静态表；实际播放交给 Audio.midi（MIDI 合成）。
+   */
+  let MC_FILES = null;
+  let mcLoading = null;
+
+  async function loadMusicList() {
+    if (MC_FILES) return MC_FILES;
+    if (mcLoading) return mcLoading;
+    mcLoading = (async () => {
+      const map = {};
+      for (const base of ['assets/user/music/', 'assets/sound/']) {
+        try {
+          const res = await fetch(base + 'musiclist.txt');
+          if (!res.ok) continue;
+          const txt = await res.text();
+          for (const line of txt.split(/\r?\n/)) {
+            const cols = line.split('\t').map((s) => s.trim()).filter(Boolean);
+            if (cols.length < 2) continue;
+            const file = cols[0];
+            // 后面可能还有一列备注（原版 musiclist.txt 有几行多一个 TAB）
+            for (let i = 1; i < cols.length; i++) {
+              const key = cols[i].toLowerCase();
+              if (key && !(key in map)) map[key] = file;
+            }
+          }
+          break;                       // user 下找到就不再读 sound 下的
+        } catch (e) { /* 忽略，下一处 */ }
+      }
+      MC_FILES = map;
+      return map;
+    })();
+    return mcLoading;
+  }
+
   function playMc(name) {
     if (!name || !Elona.Audio) return;
-    for (const [re, key] of MC_ALIAS) {
-      if (re.test(name)) { Elona.Audio.bgm(key); return; }
-    }
-    // 未识别的音乐名：保持当前 BGM 不变（原版走 var_114(138) 动态加载）
+    // 先按 musiclist 播原曲 .mid（6870-6884 → 7400-7460）
+    loadMusicList().then((map) => {
+      const file = map[String(name).toLowerCase()];
+      if (file && /\.mid$/i.test(file) && Elona.Audio.midi) {
+        Elona.Audio.midi(file, aliasOf(name));
+        return;
+      }
+      const key = aliasOf(name);
+      if (key) Elona.Audio.bgm(key);
+      // 未识别的音乐名：保持当前 BGM 不变（原版走 var_114(138) 动态加载）
+    }).catch(() => {
+      const key = aliasOf(name);
+      if (key) Elona.Audio.bgm(key);
+    });
+  }
+
+  /** 曲名 → 环境音语义名（MIDI 合成器不可用时的兜底） */
+  function aliasOf(name) {
+    for (const [re, key] of MC_ALIAS) if (re.test(name)) return key;
+    return null;
   }
 
   /**

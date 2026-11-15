@@ -64,7 +64,7 @@
     if (kind === 'item') {
       const mode = Math.floor(v / ITEM_BASE);
       const id = v % ITEM_BASE;
-      const nm = Elona.ItemDB ? Elona.ItemDB.name(id, 'en') : ('item ' + id);
+      const nm = Elona.ItemDB ? Elona.ItemDB.name(id) : ('item ' + id);
       return `${nm}（模式 ${mode}）`;
     }
     const id = v;

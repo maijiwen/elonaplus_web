@@ -337,6 +337,8 @@
       this.drawDesignCursor(game, startX, startY);
       this.drawDirArrows(game, startX, startY);
       ctx.restore();
+      // A395：互动对象的双立绘（289363-289421）画在场景之上、HUD 之下
+      this.drawFaceLayer();
       this.drawHud(game);
       if (Elona.UI && Elona.UI.invOpen) this.drawInventory(game);
       // 0-HO：商店列表按 x 打开的道具知识窗（与主界面共用 UI.invInfo）
@@ -429,6 +431,63 @@
           }
         }
       }
+    }
+
+    /**
+     * A395：互动对象与坐骑的立绘层 —— 289363-289421。
+     *
+     * 原版在方向选定后、互动菜单之前，用 `picload` + `gcopy` 把
+     * `\user\graphic2\face<431>_<表情>.bmp`（300×500）直接贴在屏幕上：
+     *   右侧 `pos var_216 - 300, var_217 - 588`（= 500, 12）
+     *   左侧 `pos 0, var_217 - 588`（= 0, 12）
+     * 这里画在同一块画布上，并只在互动窗口打开期间显示（原版立绘同样
+     * 只在这次互动里存在）。`var_58(431) == 0` 时不画 —— 原版亦然。
+     */
+    faceImage(file) {
+      if (!this._faceCache) this._faceCache = new Map();
+      let rec = this._faceCache.get(file);
+      if (rec) return rec;
+      // `picload var_2220, 1`（289369）第二参 1 = 黑透明：BMP 里的纯黑要先抠成透明，
+      //   否则 300×500 的图会带一块黑底盖住地图。
+      rec = { canvas: null, bad: false };
+      this._faceCache.set(file, rec);
+      const img = new Image();
+      img.onload = () => {
+        try {
+          const cv = document.createElement('canvas');
+          cv.width = img.naturalWidth;
+          cv.height = img.naturalHeight;
+          const g = cv.getContext('2d');
+          g.drawImage(img, 0, 0);
+          const d = g.getImageData(0, 0, cv.width, cv.height);
+          const px = d.data;
+          for (let i = 0; i < px.length; i += 4) {
+            if (px[i] === 0 && px[i + 1] === 0 && px[i + 2] === 0) px[i + 3] = 0;
+          }
+          g.putImageData(d, 0, 0);
+          rec.canvas = cv;
+        } catch (e) {
+          rec.bad = true;
+        }
+      };
+      img.onerror = () => { rec.bad = true; };
+      img.src = `assets/user/graphic2/${file}`;
+      return rec;
+    }
+
+    drawFaceLayer() {
+      const I = Elona.Interact;
+      if (!I || !I.faces || !I.faces.length) return;
+      // 立绘属于「这次互动」的演出：只有互动窗口开着才画
+      if (!Elona.UI || !Elona.UI.npcOpen) return;
+      const ctx = this.ctx;
+      ctx.save();
+      for (const f of I.faces) {
+        const rec = this.faceImage(f.file);
+        if (!rec.canvas) continue;
+        ctx.drawImage(rec.canvas, f.x, f.y, f.w, f.h);
+      }
+      ctx.restore();
     }
 
     /**
@@ -1313,7 +1372,7 @@
           right = `MP ${mp} x${st}`;
         } else if (typeof row === 'number') {
           id = row;
-          name = Elona.ItemDB.name(id, 'en');
+          name = Elona.ItemDB.name(id);
           count = (Elona.ItemDB.eq(id) || {}).value || 0;
           right = isBook ? `${Elona.ItemDB.value(id)} gp` : K.cnvweight(0);
         } else {

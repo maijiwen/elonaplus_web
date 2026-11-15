@@ -65,7 +65,7 @@
       const lb = DATA && DATA.labels && DATA.labels[String(matId)];
       return lb ? `任意「${lb}」` : `标签 ${matId}`;
     }
-    return Elona.ItemDB ? Elona.ItemDB.name(matId, 'en') : String(matId);
+    return Elona.ItemDB ? Elona.ItemDB.name(matId) : String(matId);
   }
 
   /** 材料是否匹配某物品（blendcheckmat 的核心判据，279627-279644） */
@@ -343,7 +343,7 @@
       if (productPid === 10023) {
         g.log(`调合成功：${name} → 生体复原完成。`);   // 产物是怪物本体
       } else {
-        const pname = product && Elona.ItemDB ? Elona.ItemDB.name(product.id, 'en') : '';
+        const pname = product && Elona.ItemDB ? Elona.ItemDB.name(product.id) : '';
         g.log(`调合成功：${name}${pname ? ' → ' + pname : ''}。`);
       }
     } else {

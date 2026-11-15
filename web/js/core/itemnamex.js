@@ -121,7 +121,7 @@
   function prefix(it, lang) {
     const t = table();
     if (!t || !it) return '';
-    const L = String(lang || 'en').toLowerCase();
+    const L = String(lang || 'ch').toLowerCase();
     const ctx = { it, lang: L, missing: false };
     let out = '';
     for (const r of t.rules) {
@@ -135,7 +135,7 @@
       const add = r.add;
       if (add.k === 'lit') {
         ctx.missing = false;
-        const tpl = L === 'jp' ? add.jp : add.en;
+        const tpl = (L === 'en') ? add.en : (add.jp || add.en);
         const s = render(tpl, ctx);
         if (!ctx.missing && s) out += s;
       } else if (add.k === 'baseName' && Elona.ItemDB) {
@@ -180,7 +180,8 @@
   function suffix(it, lang) {
     const t = suffixTable();
     if (!t || !it) return '';
-    const L = String(lang || 'en').toLowerCase() === 'jp' ? 'jp' : 'en';
+    // 0-※：中文译文缺失时用日文（后缀表只有 jp / en 两套）
+    const L = String(lang || 'ch').toLowerCase() === 'en' ? 'en' : 'jp';
     const id = it.id | 0;
     const f = (n) => field(it, n);
     const S = t.single || {};
@@ -219,13 +220,14 @@
           if (v.max !== undefined) { if (f(25) <= v.max) { hit = v; break; } }
           else if (f(25) === (v.f25 | 0)) { hit = v; break; }
         }
-        if (hit) out += L === 'jp' ? hit.jp : hit.en;
+        if (hit) out += (L === 'en') ? hit.en : (hit.jp || hit.en);
       }
       // 31073-31084：「モードN」（f2 减基数）
       for (const m of (t.modes || [])) {
         if (id === (m.id | 0)) {
           const n = f(2) - (m.base | 0);
-          out += L === 'jp' ? `モード${n}` : ` mode ${n}`;
+          // 三种语言各写各的（原版 var_52 日文 / 英文两套，中文沿用「模式」）
+          out += (L === 'en') ? ` mode ${n}` : ((L === 'jp') ? `モード${n}` : `模式${n}`);
         }
       }
       // 31132-31154：骰子表示 ` (XdY+Z)(N)`

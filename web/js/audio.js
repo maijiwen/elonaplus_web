@@ -5,11 +5,12 @@
  * 【资源】web/assets/sound/ 下是原版 sound 目录里可直接被浏览器播放的 .wav。
  * 【音效编号】原版 `snd N` 的编号→文件名表在 `js/sndtable.js`（由 tools/gen_sndmap.js
  *   从 start.hsp 的 sndload 表生成，307 项），本层直接查表，与源码一一对应。
- * 【重要差异】原版 BGM 是 .mid（MIDI），现代浏览器没有内建 MIDI 合成器，
- *   无法在不引入额外库的情况下播放。因此本实现：
+ * 【重要差异】原版 BGM 是 .mid（MIDI），现代浏览器没有内建 MIDI 合成器。
+ *   0-S0 起由 `js/midibgm.js` 补上播放管线：解析 SMF → WebAudio 实时合成
+ *   （音色是近似合成，音符 / 节拍 / 循环与原曲一致，见 17 册 A36）。
+ *   该模块不可用（旧浏览器无 AudioContext / 解析失败）时才退回同名环境音 wav。
  *     - 音效（原版 `snd N`）→ 查 sndtable.js 播放同名 wav；
- *     - BGM（原版 .mid）→ 用同目录的环境音 wav（bg_town / bg_wind / bg_rain …）代替，
- *       并在差异报告中登记「BGM 未还原为 MIDI 原曲」。
+ *     - BGM（原版 .mid）→ `Audio.midi(文件名)` 走 MidiBgm。
  * 【心跳音】Heart1.wav 对应 config.txt 的 heartbeat（低血量时播放，源码 snd 32）。
  */
 (function (global) {
@@ -160,11 +161,43 @@
       if (bgmEl) { try { bgmEl.pause(); } catch (e) { /* ignore */ } }
       bgmEl = null;
       bgmName = null;
+      if (Elona.MidiBgm) Elona.MidiBgm.stop();     // 0-S0：同时停掉 MIDI 合成
+    },
+
+    /**
+     * 0-S0：原版 BGM —— 直接放 `sound\*.mid`（`*label_0069` 7400-7460 的
+     *   `mmload/mmplay`）。素材在 web/assets/sound/ 下共 83 首。
+     *
+     * @param {string} file 文件名（含 .mid，来自 user\music\musiclist.txt 的第一列）
+     * @param {string} [fallbackKey] 合成器不可用时的环境音语义名（town / field / …）
+     * @returns {boolean} 是否真的用 MIDI 播了
+     */
+    midi(file, fallbackKey) {
+      if (!file) return false;
+      if (!musicOn || volume <= 0) return false;
+      const name = String(file);
+      const B = 'assets/sound/';
+      if (bgmName === name && Elona.MidiBgm && Elona.MidiBgm.playing) return true;
+      if (Elona.MidiBgm && Elona.MidiBgm.supported) {
+        this.stopBgm();
+        Elona.MidiBgm.setVolume(volume * 0.5);
+        bgmName = name;
+        Elona.MidiBgm.play(B + name, { loop: true }).then((okv) => {
+          if (!okv) {
+            if (bgmName === name) bgmName = null;
+            if (fallbackKey) this.bgm(fallbackKey);
+          }
+        }).catch(() => { if (fallbackKey) this.bgm(fallbackKey); });
+        return true;
+      }
+      if (fallbackKey) this.bgm(fallbackKey);       // 无合成器：退回环境音
+      return false;
     },
 
     setVolume(v) {
       volume = Math.max(0, Math.min(1, Number(v) || 0));
       if (bgmEl) bgmEl.volume = volume * 0.45;
+      if (Elona.MidiBgm) Elona.MidiBgm.setVolume(volume * 0.5);
     },
 
     get volume() { return volume; },
