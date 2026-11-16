@@ -1101,7 +1101,7 @@
       if (sub === 'say') {
         if (!near.length) return ['身边没有人。'];
         const type = parseInt(args[1], 10) || 106;
-        const r = T.say(g, near[0], type, { lang: 'en' });
+        const r = T.say(g, near[0], type);
         if (!r) return [`${near[0].name} 没有可用的 ${type} 台词（${T.TYPES[type] || '?'}）`];
         return [`[${r.tag}${r.quiet ? '·静' : '·喊'}] ${r.text}`];
       }

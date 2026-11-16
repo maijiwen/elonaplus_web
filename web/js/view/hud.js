@@ -404,34 +404,155 @@
     ctx.restore();
   }
 
-  // ---------------------------------------------------------------- 异常状态
+  // ---------------------------------------------------------------- 状态指示
   /**
-   * 异常状态文本行（视野左下角，自下而上）。
-   * 与源码 203327+ 的顺序一致：饥饿 / 口渴 / 天气 / 以太病 之后追加各类状态异常。
+   * 视野左下角的「指示性状态 + 异常状态」文本行，自下而上堆叠。
+   *
+   * 【0-Z7】此前的实现只画了饱食 / 水分 + status.json 里 15 项异常状态，
+   *   漏掉了源码 203326-203885 中另外二十多条指示状态，而且饱食/水分的
+   *   文案表也不是源码字面量（源码 0..4 为「餓死中/飢餓/空腹×3」，
+   *   11 为「満腹」、12 为「食過ぎ/飲過ぎ」，10 为空串）。
+   *   这里按源码逐条重排，字符串数组与 8820-9065 的字面量逐字一致。
+   *
+   * 源码颜色一律 `color r,g,b` → 此处 `rgb(r,g,b)`。
    */
+  const FOOD_TEXT = ['餓死中', '飢　餓', '空　腹', '空　腹', '空　腹',
+    '', '', '', '', '', '', '満　腹', '食過ぎ'];                       // var_289 8820-8824
+  const WATER_TEXT = ['脱水症', '渇　き', '乾　燥', '乾　燥', '乾　燥',
+    '', '', '', '', '', '', '湿　潤', '飲過ぎ'];                       // var_290 8826-8830
+  const ANOREXIA_TEXT = ['拒食Lv0', '拒食Lv1', '拒食Lv2', '拒食Lv3', '拒食Lv4',
+    '拒食Lv5', '拒食Lv6', '拒食Lv7', '拒食Lv8', '拒食Lv9', '拒食Lv??'];  // var_291 8832-8836
+  const BURDEN_TEXT = ['', '重　荷', '圧　迫', '超　過', '潰れ中'];      // var_292 8838-8842
+  const SLEEPY_TEXT = ['睡眠可', '要睡眠', '要睡眠'];                    // var_293 8844-8848
+  const SICK_TEXT = ['病気Lv0', '病気Lv1', '病気Lv2', '病気Lv3', '病気Lv4',
+    '病気Lv5', '病気Lv6', '病気Lv7', '病気Lv8', '病気Lv9', '病気Lv??'];  // var_294 8850-8854
+  const POISON_TEXT = ['　毒', '猛　毒'];                                 // var_295 8856-8860
+  const DIM_TEXT = ['朦　朧', '混　濁', '気　絶'];                        // var_297 8868-8872
+  const FURY_TEXT = ['激　怒', '狂　乱'];                                 // var_298 8874-8878
+  const BLEED_TEXT = ['出　血', '出　血', '大出血'];                      // var_313 8960-8964
+  const INSANE_TEXT = ['不安定', '狂　気', '崩　壊'];                     // var_314 8966-8970
+  const BIND_TEXT = ['束　縛', '不　動'];                                 // var_328 9042-9046
+  const SLEEP_TEXT = ['睡　眠', '爆　睡'];                                // var_321 9006-9010
+
+  // 源码字面量（逐字）
+  const STATUS_TEXT = {
+    dyspnea: ['呼吸困難', '窒　息'],                                      // var_324 9018-9022
+    tired: ['軽疲労', '疲　労', '過　労'],                                // var_331 9076-9080
+    parasite: '寄　生', brainParasite: '脳髄寄生',                         // var_300/301
+    erosion: '侵　蝕', metal: 'メタル', labor: '労　働',                   // var_296/302/299
+    dupli: '杖複製', muteki: '無　敵', jiu: '柔　術',                     // var_303/304/305
+    advCast: '高度詠唱', crest: '刻死紋', magS: 'Ｓ極状態', magN: 'Ｎ極状態', // var_306/307/308/309
+    brainwash: '洗　脳', wince: '怯　み', chills: '震　え',                // var_310/311/312
+    drunk: '酔払い', incapable: '行動不能', wet: '濡　れ', oil: 'オイル',  // var_315/316/317/318
+    invert: '転　倒', gravity: '重　力', ash: '灰　化', overGods: '神智超越', // var_319/320/329/330
+    blind: '盲　目', paralysis: '麻　痺', confusion: '混　乱', fear: '恐　怖', // var_322/323/325/326
+    atrophy: '畏　縮',                                                    // var_327
+  };
+  const rgb = (r, g, b) => 'rgb(' + (r | 0) + ',' + (g | 0) + ',' + (b | 0) + ')';
+
   function statusLines(game) {
     const p = game && game.player;
     const out = [];
     if (!p) return out;
-    const FOOD = ['空腹', '空腹', '空腹', '空腹', '空腹', '', '', '', '', '', '満腹', '満腹', '満腹'];
-    // 203395-203425 的 var_290 表（13 项：脱水 / 干燥 / 口渴 / 湿润 / 喝过头）
-    const WATER = ['脱水症状', '干燥', '口渴！', '口渴', '口渴',
-      '', '', '', '', '', '湿润', '湿润！', '喝过头'];
-    const food = p.get(22) | 0;
-    if (food >= 1000) {
-      const t = FOOD[limit(idiv(food, 1000), 0, 12)];
-      if (t) out.push({ text: t, color: food <= 4000 ? 'rgb(200,0,0)' : '#000' });
-    } else out.push({ text: FOOD[0], color: 'rgb(250,0,0)' });
-    const water = p.get(446) | 0;
-    if (water >= 12000) {
-      out.push({ text: WATER[12], color: 'rgb(0,0,90)' });        // 喝过头
-    } else if (water >= 1000) {
-      const t = WATER[limit(idiv(water, 1000), 0, 11)];
-      if (t) out.push({ text: t, color: water <= 4000 ? 'rgb(200,0,0)' : 'rgb(0,0,90)' });
-    } else out.push({ text: WATER[0], color: 'rgb(250,0,0)' });
-    for (const s of statusList(p)) {
-      out.push({ text: s.name, color: 'rgb(170,60,60)' });
+    const G = (f) => (p.get(f) | 0);
+    const V65 = (n) => ((game && game.getV65) ? (game.getV65(n) | 0) : 0);
+    const cb = (bit) => ((Elona.Status && Elona.Status.cbit) ? (Elona.Status.cbit(p, bit) | 0) : 0);
+    const put = (text, color) => { if (text) out.push({ text: text, color: color }); };
+    const T = STATUS_TEXT;
+
+    // 203326-203358：饱食 var_58(22) —— 先判 12000（食過ぎ），再 1000..
+    const food = G(22);
+    if (food >= 12000) {
+      put(FOOD_TEXT[12], rgb(0, 0, 0));
+    } else if (food >= 1000) {
+      const t = FOOD_TEXT[limit(idiv(food, 1000), 0, 12)];
+      put(t, food <= 4000 ? rgb(200, 0, 0) : rgb(0, 0, 0));
+    } else put(FOOD_TEXT[0], rgb(250, 0, 0));
+
+    // 203361-203369 / 203371-203378：寄生虫 / 脑髓寄生
+    if (cb(978)) put(T.parasite, rgb(20, 100, 50));
+    if (cb(1045)) put(T.brainParasite, rgb(20, 50, 100));
+    // 203380-203396：拒食症（强度存 var_58(93)）
+    if (cb(986)) {
+      const lv = G(93) > 0 ? limit(idiv(G(93), 3), 0, 10) : 0;
+      put(ANOREXIA_TEXT[lv], rgb(200, 100, 50));
     }
+
+    // 203398-203430：水分 var_58(446)
+    const water = G(446);
+    if (water >= 12000) {
+      put(WATER_TEXT[12], rgb(0, 0, 80));
+    } else if (water >= 1000) {
+      const t = WATER_TEXT[limit(idiv(water, 1000), 0, 11)];
+      put(t, water <= 4000 ? rgb(200, 0, 0) : rgb(0, 0, 80));
+    } else put(WATER_TEXT[0], rgb(250, 0, 0));
+
+    // 203432-203440：磁极 / 203442-203458：病気 / 毒 / 侵蝕 / 睡眠 / 盲目 / 麻痺 / 呼吸困难
+    if (cb(1029)) put(T.magS, rgb(0, 0, 100));                        // 源码 cbit(1029,0)
+    if (cb(1030)) put(T.magN, rgb(100, 0, 0));                        // 源码 cbit(1030,0)
+    if (G(261) !== 0) {
+      put(G(261) > 0 ? SICK_TEXT[limit(idiv(G(261), 3), 0, 10)] : '', rgb(80, 120, 0));
+    }
+    if (G(250) !== 0) put(POISON_TEXT[G(250) >= 30 ? 1 : 0], rgb(0, 150, 0));
+    if (G(445) !== 0) put(T.erosion, rgb(0, 0, 100));
+    if (G(251) > 0) put(SLEEP_TEXT[G(251) >= 30 ? 1 : 0], rgb(0, 50, 50));
+    if (G(253) !== 0) put(T.blind, rgb(100, 100, 0));
+    if (G(252) > 0) put(T.paralysis, rgb(0, 100, 100));
+    if (G(263) !== 0) put(STATUS_TEXT.dyspnea[G(263) >= 15 ? 1 : 0], rgb(0, 100, 100));
+
+    // 203547-203570：混乱 / 恐怖 / 朦朧 / 激怒 / 金属 / 労働
+    if (G(254) !== 0) put(T.confusion, rgb(100, 0, 100));
+    if (G(255) !== 0) put(T.fear, rgb(100, 0, 100));
+    if (G(256) !== 0) {
+      put(DIM_TEXT[G(256) >= 60 ? 2 : (G(256) >= 30 ? 1 : 0)], rgb(0, 100, 100));
+    }
+    if (G(264) !== 0) put(FURY_TEXT[G(264) >= 30 ? 1 : 0], rgb(150, 0, 0));
+    if (G(265) !== 0) put(T.metal, rgb(0, 0, 160));
+    if (cb(1042)) put(T.labor, rgb(100, 100, 0));
+
+    // 203591-203630：出血 / 不安定 / 酔 / 畏縮 / 洗脳 / 杖複製 / 無敵 / 柔術
+    if (G(258) !== 0) put(BLEED_TEXT[G(258) >= 20 ? 2 : (G(258) >= 10 ? 1 : 0)], rgb(150, 0, 0));
+    if (G(260) !== 0) put(INSANE_TEXT[G(260) >= 50 ? 2 : (G(260) >= 25 ? 1 : 0)], rgb(150, 100, 0));
+    if (G(257) !== 0) put(T.drunk, rgb(100, 0, 100));
+    if (G(267) !== 0) put(T.atrophy, rgb(100, 0, 100));
+    if (G(269) !== 0) put(T.brainwash, rgb(100, 0, 100));
+    if (V65(250 + 310) !== 0) put(T.dupli, rgb(0, 0, 160));
+    if (V65(250 + 387) !== 0) put(T.muteki, rgb(100, 80, 0));
+    if (cb(1028)) put(T.jiu, rgb(10, 10, 10));
+
+    // 203680-203716：剧情状态灰化 / 神智超越 / 刻死紋 / 高度詠唱 / 怯み / 震え / 束縛
+    const story = V65(250 + 2);
+    if (story >= 875 && story < 900) put(T.ash, rgb(120, 120, 120));
+    if (story >= 900 && story < 1000) put(T.overGods, rgb(160, 160, 0));
+    if (G(428) !== 0) put(T.crest, rgb(0, 0, 200));
+    if (cb(1036)) put(T.advCast, rgb(220, 0, 0));
+    if (G(175) !== 0) put(T.wince, rgb(160, 0, 0));
+    if (G(176) !== 0) put(T.chills, rgb(0, 0, 160));
+    if (G(268) !== 0) put(BIND_TEXT[G(268) >= 20 ? 1 : 0], rgb(0, 150, 0));
+
+    // 203758-203812：油 / 転倒 / 行動不能 / 濡れ / 重力
+    if (G(412) !== 0) put(T.oil, rgb(160, 0, 0));
+    if (G(434) !== 0) put(T.invert, rgb(80, 30, 30));
+    if (G(181) < 0) put(T.incapable, rgb(100, 0, 0));
+    if (G(259) !== 0) put(T.wet, rgb(0, 0, 160));
+    if (G(262) !== 0) put(T.gravity, rgb(0, 80, 80));
+
+    // 203814-203840：困意（var_65(90)）
+    const sleepy = V65(90);
+    if (sleepy >= 50) put(SLEEPY_TEXT[2], rgb(255, 0, 0));
+    else if (sleepy >= 30) put(SLEEPY_TEXT[1], rgb(100, 100, 0));
+    else if (sleepy >= 13) put(SLEEPY_TEXT[0], rgb(0, 0, 0));
+
+    // 203842-203866：SP 疲劳（var_58(52)）
+    const sp = G(52);
+    if (sp < 50) {
+      if (sp < 0) put(T.tired[2], rgb(120, 120, 0));
+      else if (sp < 25) put(T.tired[1], rgb(80, 80, 0));
+      else put(T.tired[0], rgb(60, 60, 0));
+    }
+    // 203872-203879：负重档（var_58(45)）
+    const burden = G(45);
+    if (burden !== 0) put(BURDEN_TEXT[limit(burden, 0, 4)], rgb(0, burden * 40, burden * 40));
     return out;
   }
 

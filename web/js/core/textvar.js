@@ -66,6 +66,19 @@
   let DATA = null;                // vars.json
   const warnOnce = new Set();
 
+  /**
+   * 0-Z2：中文口径的 {…} 短语替换。vars.json 的 funcs 短语表是日文原值；
+   * talk.txt 的 JP 列已整体汉化，中文句子本身语义完整，因此：
+   *   · 代称 / 完整短语 → 给中文常用词（本表，后续可外置汉化）；
+   *   · 语气后缀（_da / _na / _yo …）→ 置空，避免中文句尾再拼日文词。
+   */
+  const CH_PHRASE = {
+    _ore: '我', _kimi: '你',
+    _thanks: '谢谢', _gomen: '抱歉', _yoro: '请多关照', _dozo: '请',
+    _yamero: '住手', _rob: '打劫', _aisite: '我爱你', _tanomu: '拜托了',
+    _miruna: '别看我', _trick: '不给糖就捣蛋',
+  };
+
   const TextVar = {
     /** 数据是否已就绪（未就绪时 expand 原样返回） */
     get loaded() { return !!DATA; },
@@ -91,6 +104,10 @@
     /** 语气函数：等价 `_xxx(prm)`，返回短语 + 标点 */
     phrase(func, ch, punct, rnd) {
       if (!DATA) return null;
+      // 0-Z2：中文界面用 CH_PHRASE / 置空，不拼日文短语
+      if (this.lang === 'ch') {
+        return CH_PHRASE[func] === undefined ? '' : CH_PHRASE[func];
+      }
       const f = DATA.funcs[func];
       if (!f) return null;
       const tone = ch && typeof ch.get === 'function' ? (ch.get(18) | 0) : 0;
@@ -145,7 +162,8 @@
         return s0.replace(/\{[A-Za-z0-9_]+\}/g, '');
       }
       const c = ctx || {};
-      const lang = c.lang === 'en' ? 'en' : 'jp';
+      // 0-Z2：'ch'（中文，项目默认）也走 vars.json 数据；代称/语气按 CH_PHRASE 中文口径
+      const lang = c.lang === 'en' ? 'en' : (c.lang === 'ch' ? 'ch' : 'jp');
       const o = {
         lang,
         punct: c.punct === undefined ? 3 : c.punct,
@@ -199,14 +217,17 @@
       if (key === 'npcc') return this._name(o.npcc, lang);
       if (key === 'onii') {
         if (lang === 'jp') return sex === 1 ? 'お姉' : 'お兄';
+        if (lang === 'ch') return sex === 1 ? '姐姐' : '哥哥';
         return sex === 1 ? 'sister' : 'brother';
       }
       if (key === 'syujin') {
         if (lang === 'jp') return sex === 1 ? 'お嬢様' : 'ご主人様';
+        if (lang === 'ch') return sex === 1 ? '大小姐' : '主人';
         return 'master';
       }
       if (key === 'sex') {
         if (lang === 'jp') return sex === 1 ? '女' : '男';
+        if (lang === 'ch') return sex === 1 ? '女' : '男';
         return sex === 1 ? 'girl' : 'boy';
       }
 

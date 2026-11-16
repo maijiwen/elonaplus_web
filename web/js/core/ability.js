@@ -315,14 +315,19 @@
       }
 
       // 4.55 窃盗（300，319566-319596 → var_486=27 → 299168 → *label_3026 → 311077）
-      //   原版：在能力窗口选「窃盗」→ 打开只列脚下物品的选择窗口（var_486=27）
-      //   → 选中后建立 rowact 10（var_58(140)=10、141=2+limit(重量/500,0,50)）。
-      //   本实现直接对脚下的第一件有主物品开始行窃（多件时的选择窗口见差异报告）。
+      //   原版：在能力窗口选「窃盗」→ 通用 `*label_2893`（305110-305231）弹出 8 方向箭头：
+      //     回车/确认 = 玩家当前格（var_1311/1312 = 玩家坐标），方向键 = 对应邻格；
+      //   → 对目标格的有主物品建立 rowact 10（var_58(140)=10、141=2+limit(重量/500,0,50)）。
+      //   0-Z4：此前本实现直接偷脚下，现改为先返回 need-steal-direction 让 UI 开方向层，
+      //   回调带 tile 再进来完成偷窃（resume 跳过二次睡眠/体力判定）。
       if (aid === 300) {
         if (!g.startSteal) { g.log('偷窃模块未加载。'); return { ok: false, reason: 'no-steal' }; }
-        const st = g.startSteal(p);
+        if (!o.tile) {
+          return { ok: false, reason: 'need-steal-direction', dirs: true, allowSelf: true };
+        }
+        const st = g.startSteal(p, null, o.tile.x, o.tile.y);
         if (!st || !st.ok) {
-          g.log((st && st.message) || '脚下没有可偷的东西。');
+          g.log((st && st.message) || '那里没有可偷的东西。');
           return { ok: false, reason: (st && st.reason) || 'no-target' };
         }
         g.log(st.message);

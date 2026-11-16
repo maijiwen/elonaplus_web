@@ -85,11 +85,28 @@
     if (!file) return null;
     return {
       file,
+      // 289363-289380：168==0 画右半边，否则画左半边
       x: (c.get(168) | 0) === 0 ? FACE_RIGHT_X : 0,
       y: FACE_Y,
       w: FACE_W,
       h: FACE_H,
     };
+  }
+
+  /** 搭档立绘的位置 —— 289390-289408 固定画在右半边（var_216 - 300） */
+  function partnerFaceAt(c) {
+    const f = faceAt(c);
+    if (!f) return null;
+    return { file: f.file, x: FACE_RIGHT_X, y: FACE_Y, w: FACE_W, h: FACE_H };
+  }
+
+  /**
+   * 0-Z1：组队搭档索引。本模块保持自包含（不依赖 core/companion.js 是否已加载）：
+   *   168==0 表示没有搭档；tag_end 把 167 复位为 -1，0 也可能是「玩家当搭档」。
+   */
+  function partnerIndexOf(c) {
+    if (!c || (c.get(168) | 0) === 0) return -1;
+    return c.get(167) | 0;
   }
 
   /** 该格的角色（原版 `var_704(x, y, 1)`：0 = 空；只认活着的） */
@@ -141,6 +158,7 @@
      * A395：计算要显示的两张立绘（289363-289421）。
      * 只在 `var_58(431) > 0` 时才有内容 —— 原版同样是「用户放了立绘素材
      * 并用互动菜单设过编号」才画得出来。
+     * 0-Z1：`var_58(167)` 是**组队搭档**（不是坐骑）；搭档立绘固定画右半边。
      * @param {object} g
      * @param {object} c 被选中的角色
      */
@@ -148,12 +166,11 @@
       const list = [];
       const own = c ? faceAt(c) : null;
       if (own) list.push(own);
-      // 289390-289408：有坐骑时，坐骑的立绘固定画在左半边
-      const mi = c ? (c.get(167) | 0) : 0;
-      const mount = (mi && g && g.charas) ? (g.charas[mi] || null) : null;
-      if (mount) {
-        const f = faceAt(mount);
-        if (f) list.push({ file: f.file, x: 0, y: FACE_Y, w: FACE_W, h: FACE_H });
+      const pi = partnerIndexOf(c);
+      const partner = (pi >= 0 && g && g.charas) ? (g.charas[pi] || null) : null;
+      if (partner) {
+        const f = partnerFaceAt(partner);
+        if (f) list.push(f);
       }
       this.faces = list;
       return list;
@@ -192,13 +209,14 @@
 
       const c = charaAt(g, x, y);
       if (!c) return empty;
-      // 289359-289421：双立绘 + 骑乘二选一。有坐骑（167 > 0）时由
-      //   panels.openRideChoice 弹出「坐骑（左）/ 骑乘者（右）」二选一，
-      //   对应源码 289443 的 `txtselecttc 2`（选 1 → var_244 = 坐骑）。
+      // 0-Z1：289359-289421 的双立绘 + 289443 的 `txtselecttc 2`。
+      //   `var_58(167,c) > 0` 是**组队搭档**（坐骑另用 var_65(183)），
+      //   此时弹「タッグ左側 / タッグ右側」成员选择窗；选右侧时
+      //   `var_244 = var_58(167, var_244)` 换成搭档，再开操作弹窗。
       this.showFaces(g, c);
-      const mi = c.get(167) | 0;
-      const mount = (mi && g.charas) ? (g.charas[mi] || null) : null;
-      return { ok: true, action: 'chara', npc: c, dir: d, mount };
+      const pi = partnerIndexOf(c);
+      const partner = (pi >= 0 && g.charas) ? (g.charas[pi] || null) : null;
+      return { ok: true, action: 'chara', npc: c, dir: d, partner };
     },
 
     /** 289342 / 289352：空格的提示（var_364） */

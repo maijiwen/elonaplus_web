@@ -22,8 +22,8 @@
  *   web/data/tables/talktxt.json。原版 guide\guide.txt 在发行包里只有 dummy.txt，
  *   教程正文放在 exhelp.txt，这里按该文件还原。
  *
- * 【语言】原版 lang("JP","EN") 二选一；本项目默认英文原文（'en'），
- *   日文用 'jp'。talk.txt 没有中文版本，中文界面仍显示英文原句，不臆造译文。
+ * 【语言】原版 lang("JP","EN") 二选一。0-Z2：talk.txt 的 JP 列已整体汉化，
+ *   项目默认语言（'ch'）读 JP 列即得中文；显式传 'en' 才显示英文原句。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -41,8 +41,19 @@
     return (cached && cached.categories) ? cached : null;
   }
 
+  function langKeyOf(lang) {
+    return lang == null
+      ? (Elona.Lang && Elona.Lang.current ? Elona.Lang.current() : 'ch')
+      : String(lang).toLowerCase();
+  }
+
+  /**
+   * 语言键 → talktxt.json 类目后缀。
+   * 0-Z2：talk.txt 的 JP 列已被整体汉化（89/89 类目含中文，带 {な} 语气标记），
+   *   所以项目默认语言 'ch' 映射到 JP 列读中文；显式 'en' 才读英文原句。
+   */
   function langCode(lang) {
-    return String(lang || 'en').toLowerCase() === 'jp' ? 'JP' : 'EN';
+    return langKeyOf(lang) === 'en' ? 'EN' : 'JP';   // 'jp' 与 'ch' 都读（已汉化的）JP 列
   }
 
   function rndOf(g) {
@@ -121,7 +132,7 @@
       ? lines[rndOf(g)(lines.length) % lines.length]
       : lines[((o.index | 0) % lines.length + lines.length) % lines.length];
     return {
-      text: expand(g, raw, o.npc || null, String(o.lang || 'en').toLowerCase()),
+      text: expand(g, raw, o.npc || null, langKeyOf(o.lang)),
       raw,
       key: cat.key,
       fallback,
@@ -155,7 +166,7 @@
     }
     const text = cat.lines.join('\n');
     return {
-      text: expand(g, text, o.npc || null, String(o.lang || 'en').toLowerCase()),
+      text: expand(g, text, o.npc || null, langKeyOf(o.lang)),
       raw: text,
       key: cat.key,
       fallback: false,

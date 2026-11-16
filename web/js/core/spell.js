@@ -503,7 +503,12 @@
     if (!tg || tg.get(0) !== 1) return { ok: true, type: 2, implemented: true, noTarget: true };
 
     let dmg = Elona.Battle.role(g.rng, dice.dice, dice.sides, dice.bonus);   // 316767
-    // 【未移植】calcmagicrit（212189）会心判定 → 此处恒无会心（var_1139=0）
+    // 316768-316790：calcmagicrit() 会心判定 → 骰子取满 rolemax + 「会心の一撃！」
+    // （原版 var_1139=1 时 var_1588=rolemax(...)；此标记随即清零，不影响后续计算）
+    if (calcMagicCrit(g, caster, tg)) {                                      // 316768
+      dmg = Elona.Battle.rolemax(dice.dice, dice.sides, dice.bonus);         // 316770
+      if (g.log) g.log('会心の一撃！');                                      // 316777 / 316786
+    }
     if (Elona.Status && Elona.Status.findbuff(caster, 32) !== -1) {         // 316792 完全詠唱
       if (caster.index !== 0 || tg.get(9) === -3) dmg = dmg * 11;           // 316794 ×11
     }

@@ -242,6 +242,13 @@
       return record(mapId | 0, g);
     },
 
+    /** 0-Z0：var_132 表本体（world_sites.json 的 .sites）。Towns.syncFromSites 用来
+     *  整体重建城镇列表 —— fields[0]==3 的据点即城镇（*label_2474 249783-251301）。 */
+    all() {
+      const t = table();
+      return (t && t.sites) || null;
+    },
+
     /** var_132(16, mapId)：0-L0 起走统一运行时表（含动态站点与显式覆盖） */
     rawType(mapId, g) { return field(16, mapId, g); },
 

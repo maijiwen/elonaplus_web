@@ -203,7 +203,9 @@
       const seg = tags[tag];
       if (!seg) return null;
 
-      const lang = o.lang || 'en';
+      // 0-Z2：默认走项目当前语言（'ch'）；seg 无 'ch' 段时回退 seg.jp——
+      //   talk 数据（talktxt / data/talk/*.json）的 jp 段已整体汉化。
+      const lang = o.lang || (Elona.Lang && Elona.Lang.current ? Elona.Lang.current() : 'ch');
       let lines = seg[lang];
       if (!lines || !lines.length) lines = seg.jp || seg.en;
       if (!lines || !lines.length) return null;

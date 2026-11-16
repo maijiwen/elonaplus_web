@@ -471,6 +471,20 @@
   }
 
   /**
+   * 0-Y0：按源码 tag_begin / tag_end（194040-194072）取搭档索引。
+   *   follower.var_58(167) = base.index —— **玩家就是 0**，完全合法；
+   *   tag_end 从任一侧调用都靠 `var_1047 = var_58(167, prm_896)` 找对方，
+   *   双方 167 = -1、168 = 0，并不要求索引 > 0。
+   * 旧 tagPartner 的 `(i > 0) ? i : 0` 把「玩家当搭档」误判成「无搭档」，
+   * 于是对着追随侧同伴点「解散搭档」会返回「没有搭档」（0-Y0 实机复现）。
+   * @returns {number} 搭档索引；-1 = 没有搭档
+   */
+  function tagPartnerIndex(c) {
+    if (!c || (c.get(TAG_ROLE) | 0) === 0) return -1;
+    return c.get(TAG_PARTNER_SLOT) | 0;
+  }
+
+  /**
    * 组成搭档（tag_begin）。
    * @param {object} g
    * @param {object} base      ベース（掌握移动权的一方）
@@ -508,21 +522,37 @@
     return { ok: true, message: msg, base: base.index | 0, follower: follower.index | 0 };
   }
 
-  /** 解散（tag_end） */
+  /** 解散（tag_end，194057-194072）：从任一侧调用都生效 */
   function tagEnd(g, c) {
     if (!c) return { ok: false, message: '没有对象。' };
-    const other = tagPartner(c);
-    if (!other || !g.charas[other]) return { ok: false, message: `${c.name}没有搭档。` };
-    const o = g.charas[other];
+    const pi = tagPartnerIndex(c);
+    const o = (pi >= 0 && g && g.charas) ? g.charas[pi] : null;
+    if (!o) return { ok: false, message: `${c.name}没有搭档。` };
     if (c.get(140) | 0) c.set(140, 0);
     if (o.get(140) | 0) o.set(140, 0);
-    o.set(TAG_PARTNER_SLOT, 0);
+    // 194063-194066：双方 var_58(167) = -1、var_58(168) = 0
+    o.set(TAG_PARTNER_SLOT, -1);
     o.set(TAG_ROLE, 0);
-    c.set(TAG_PARTNER_SLOT, 0);
+    c.set(TAG_PARTNER_SLOT, -1);
     c.set(TAG_ROLE, 0);
+    // 194047 的 tag_begin 清掉了追随侧的格子占用；解散后必须把它挪到邻格，
+    // 否则两人仍同格，cell[1] 只记得住一个角色（原版由 map_placeplayer 重放）。
+    if ((c.x | 0) === (o.x | 0) && (c.y | 0) === (o.y | 0) && g && g.map) {
+      const map = g.map;
+      for (const d of [[0, -1], [-1, 0], [1, 0], [0, 1], [-1, -1], [1, -1], [-1, 1], [1, 1]]) {
+        const x = (o.x | 0) + d[0], y = (o.y | 0) + d[1];
+        if (map.inBounds && !map.inBounds(x, y)) continue;
+        if (typeof map.walkable === 'function' && !map.walkable(x, y)) continue;
+        const cell = map.cell(x, y);
+        if (cell && (cell[1] | 0) !== 0) continue;
+        c.x = x; c.y = y;
+        break;
+      }
+      if (g.syncCharaCells) g.syncCharaCells();
+    }
     const msg = `${c.name}和${o.name}解散了。`;
     if (g && g.log) g.log(msg);
-    return { ok: true, message: msg };
+    return { ok: true, message: msg, partner: pi };
   }
 
   /** 可以编成搭档的同伴（追随側候补）：在场、无搭档、非滞在 */
@@ -530,6 +560,29 @@
     return activeAllies(g).filter((c) => c !== base
       && (c.get(TAG_ROLE) | 0) === 0 && (c.get(MAP_BELONG) | 0) === 0
       && !(Elona.Status && Elona.Status.cbit && Elona.Status.cbit(c, 971)));
+  }
+
+  /**
+   * 0-Z1：源码 35104-35222 的「同格组队对」判定。
+   *   tag_begin 把追随側坐标写成 base 坐标（290750-290751），两人同格；
+   *   渲染时追随側（168=1）不单独画，base（168=-1）那一格拼两张半身图。
+   *   只有 168=-1 与 168=1 互指才算有效对 —— 与源码
+   *   `if (var_58(168, var_859) == 1)` 的门槛一致。
+   * @returns {{base:object, follower:object}|null}
+   */
+  function tagPairOf(g, c) {
+    if (!c || !g || !g.charas) return null;
+    const role = c.get(TAG_ROLE) | 0;
+    if (role === 0) return null;
+    const pi = tagPartnerIndex(c);
+    if (pi < 0) return null;
+    const other = g.charas[pi] || null;
+    if (!other || other === c) return null;
+    const oRole = other.get(TAG_ROLE) | 0;
+    if (oRole === 0) return null;
+    if (role === -1 && oRole === 1) return { base: c, follower: other };
+    if (role === 1 && oRole === -1) return { base: other, follower: c };
+    return null;
   }
 
   // ======================================================================
@@ -814,6 +867,7 @@
     ROUTES, canChat, chatOptions, petOptions, chat, unlockRates, lockPicking,
     TEMPER, ROUTE, MADNESS,
     // 0-DH：タッグ
-    TAG_PARTNER_SLOT, TAG_ROLE, tagPartner, tagBegin, tagEnd, tagCandidates,
+    TAG_PARTNER_SLOT, TAG_ROLE, tagPartner, tagPartnerIndex,
+    tagBegin, tagEnd, tagCandidates, tagPairOf,
   };
 })(window);

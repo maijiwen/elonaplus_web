@@ -37,6 +37,11 @@
  *   - npcTurn()：*label_4302 的**通用决策子集**：
  *       求饶/怜悯 → 坐骑同步 → 目标获取（var_58(29) → 否则最近敌对）
  *       → 相邻则攻击 → 否则朝目标移动。
+ *   - combatStatusSkip()：*label_4305 交战决策开头的**盲目 / 混乱阻断**
+ *       （593152-593162 / 593326-593329，两级盲目合计 90%、混乱 60%）。
+ *   - 闲时 AI（0-Z9）：tamerIdle() 承接 wiki「通用闲时 AI」12 项（調教鞭 var_58(202)，
+ *       593693-593872）；idleGate / drunkCatIdle / nightSleepIdle / pocketSupplyIdle /
+ *       snowPlayIdle / allyEatIdle 承接 wiki「专属闲时 AI」与通用入口（593420-593690）。
  *   - 【未实现，不得视为原版行为】：施法、使用道具、**远程攻击**、群体/召唤、
  *     神罚、剧情特例，以及 `var_58(27)` **特殊生物分支（共 338 个 id / 414 处 ==）**。
  *     —— 这些依赖区间外、尚未移植的叶子例程
@@ -459,6 +464,237 @@
     return { acted: false, target };
   }
 
+  /**
+   * 593152-593162 / 593326-593329：盲目 / 混乱对交战决策的阻断。
+   *
+   * 源码 *label_4305（交战决策）开头，在 `if (var_58(201)>0 | var_58(9)==10)`
+   * 分支内：
+   *   if ( var_58(253,var_243) != 0 ) { if ( rnd(10) > 2 ) goto *label_4306 }  // 盲目第一级 70%
+   *   if ( var_58(254,var_243) != 0 ) { if ( rnd(10) > 3 ) goto *label_4306 }  // 混乱 60%
+   * 同块 593326-593329（仍在上述分支内）还有第二级盲目：
+   *   if ( var_58(253,var_243) != 0 ) { if ( rnd(3) ) goto *label_4306 }       // 约 66.7%
+   *
+   * 两级盲目录计命中率 = 0.7 + 0.3*(2/3) = 0.9（90%），与 wiki「失明 90% 跳过战时 AI」
+   * 一致；wiki 的「混乱 60%」与源码 60% 一致。goto *label_4306 表示跳过整段交战决策
+   * （含交涉/防御/攻击/走位的选招），转入 *label_4306 的接近 / 闲时 / 待机分支。
+   *
+   * 【wiki 与源码差异】wiki 把「失明 90%」写成单次判定；源码实为 70% 与 66.7% 两级串联，
+   *   本实现按源码两级判定，不采用 wiki 的单次 90%。
+   * 【恐惧】wiki 称恐惧会逃跑；但 AI 主体 592172-596816 没有任何以 var_58(255) 为条件的
+   *   逃跑分支，343465（*label_2990 移动例程）仅有 `255>0 → end turn` 的阻断，故本项目
+   *   不移植「恐惧逃跑」，只按源码在攻击 / 移动结算处阻断。
+   *
+   * @returns {string|null} 'blind' / 'confusion' / null（null = 不阻断）
+   */
+  function combatStatusSkip(g, c) {
+    const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    const blind = (c.get(253) | 0) !== 0;
+    const confused = (c.get(254) | 0) !== 0;
+    // 源码判定顺序：593152 盲目一级 → 593156 混乱 → 593326 盲目二级。
+    if (blind) {
+      if (R(10) > 2) return 'blind';      // 593152-593154 70%
+    }
+    if (confused) {
+      if (R(10) > 3) return 'confusion';  // 593156-593162 60%
+    }
+    if (blind) {
+      if (R(3) !== 0) return 'blind';     // 593326-593329 约 66.7%
+    }
+    return null;
+  }
+
+  /* ================================================================
+   * 闲时 AI（*label_4306 / 4307 / 4308，593420-593690）
+   * wiki 的「通用闲时 AI」12 项由 tamerIdle() 承接（調教鞭 var_58(202)）；
+   * 以下补上 wiki「专属闲时 AI」与通用入口在源码中的真实分支。
+   * ================================================================ */
+
+  /** 593421-593423：防御態勢（mode==1）跳过闲时 AI —— npcTurn 的 mode 分派已拦截。 */
+  function idleModeBlocked(g, c) { return (c.get(266) | 0) === 1; }
+
+  /**
+   * 593420-593454：*label_4306 闲时入口。
+   *   593429-593435：202==4「跟着我」或牧畜（cbit1012==0 & 177!=0 & cbit960==1）
+   *                  → goto *label_4309 接近玩家。
+   *   593452-593454：index>=16（非宠物）`rnd(5)!=0` → 80% 直接发呆。
+   */
+  function idleGate(g, c) {
+    const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    const cbit = (b) => (Elona.Status && Elona.Status.cbit ? (Elona.Status.cbit(c, b) | 0) : 0);
+    const follow = (c.get(202) | 0) === 4
+      || (cbit(1012) === 0 && (c.get(177) | 0) !== 0 && cbit(960) === 1);
+    if (follow) {
+      const p = g.player;
+      if (!p) return { follow: true, idle: true };
+      const moved = !!stepToward(g, c, { x: p.x, y: p.y });
+      return { acted: moved, moved, follow: true };
+    }
+    // 593452-593454
+    if ((c.index | 0) >= 16 && R(5) !== 0) return { blocked: true };
+    return null;
+  }
+
+  /**
+   * 593455-593517：醉酒猫族（var_58(257)）加深醉意并唱歌。
+   *   源码 593457-593462：`257<5 → +=40`（加深醉酒）；
+   *   593464-593517 为 1/3 + 1/4 + 1/4 + 1/4 四段歌曲与兜底，文本层统一为一条日志。
+   */
+  function drunkCatIdle(g, c) {
+    if ((c.get(257) | 0) === 0) return null;
+    if (c.raceName !== 'cat') return null;
+    if ((c.get(257) | 0) < 5) c.set(257, (c.get(257) | 0) + 40);
+    const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    // 消费与源码同序列的随机数（rnd(3) → rnd(4) → rnd(4) → rnd(4)）。
+    R(3); R(4); R(4); R(4);
+    if (g.log) g.log(`${c.name} 唱起了酒歌。`);
+    return { acted: true, drunkSing: true };
+  }
+
+  /**
+   * 593529-593545：城镇居民夜间入睡。
+   *   条件：index>=16、非死灵(cbit992)、地图!=94、mapType 3 或 2、
+   *         小时 >=22 或 <7、var_58(140)==0、rnd(100)==0；
+   *   效果 `dmgcon var_243, 2, 4000`（睡眠）。
+   */
+  function nightSleepIdle(g, c) {
+    if ((c.index | 0) < 16) return null;
+    const cbit = (b) => (Elona.Status && Elona.Status.cbit ? (Elona.Status.cbit(c, b) | 0) : 0);
+    if (cbit(992)) return null;
+    const gv = (i) => (g.getV65 ? (g.getV65(i) | 0) : 0);
+    if (gv(20) === 94) return null;
+    const mt = (g.map && g.map.header) ? (g.map.header[6] | 0) : 0;
+    if (mt !== 3 && mt !== 2) return null;
+    const hour = gv(13);
+    if (!(hour >= 22 || hour < 7)) return null;
+    if ((c.get(140) | 0) !== 0) return null;
+    if ((g.rng ? g.rng.rnd(100) : 0) !== 0) return null;
+    if (Elona.Resist && Elona.Resist.dmgcon && g.dmgconTable) {
+      Elona.Resist.dmgcon(g, g.dmgconTable, c, 2, 4000);
+    } else {
+      c.set(251, (c.get(251) | 0) + 1);
+    }
+    if (g.log) g.log(`${c.name} 睡着了。`);
+    return { acted: true, sleep: true };
+  }
+
+  /**
+   * 593546-593565 / 593646-593690：没有持用道具时从「四次元袋」掏食物 / 药剂吃喝。
+   *   593546：地图 13 且 var_65(70)==1009 且 rnd(30)==0 → 生成食物或药水写成持用(f[12])；
+   *   593646：饥饿(var_58(22)<=10000) 时，4/5 直接增减饱食/水分，1/5 真生成物品。
+   */
+  function pocketSupplyIdle(g, c) {
+    const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    const gv = (i) => (g.getV65 ? (g.getV65(i) | 0) : 0);
+    const cbit = (b) => (Elona.Status && Elona.Status.cbit ? (Elona.Status.cbit(c, b) | 0) : 0);
+    const make = (cls) => (Elona.Item && Elona.Item.create)
+      ? Elona.Item.create(g, { t638: cls, level: 20 }) : null;
+    const carry = (it) => {
+      if (!it) return;
+      c.inv = c.inv || [];
+      c.inv.push(it);
+      c.set(12, c.inv.length - 1);
+    };
+    // 593546：`if ( var_58(12)==0 ) { if ( var_58(9)!=10 ) { ... } }`
+    // 两次元袋与饥饿吃喝都只对非同伴生效（同伴由 allyEatIdle 在 label_4305 处理）。
+    if ((c.get(9) | 0) === 10) return null;
+    if ((c.get(12) | 0) === 0 && gv(20) === 13 && gv(70) === 1009 && R(30) === 0) {
+      const it = make(R(4) === 0 ? 57000 : 52000);
+      carry(it);
+      return { acted: true, pocket: true, item: it };
+    }
+    if ((c.get(22) | 0) <= 10000) {
+      const depressed = cbit(986);
+      if ((c.get(6) | 0) !== (g.var104 | 0) || R(5) !== 0) {
+        c.set(22, (c.get(22) | 0) + (depressed ? -3000 : 5000));
+        if ((c.get(446) | 0) <= 10000) c.set(446, (c.get(446) | 0) + 5000);
+        return { acted: true, pocketEat: true };
+      }
+      const r = R(4);
+      const cls = (r === 0 || depressed) ? 57000 : (r === 1 ? 52000 : 52002);
+      const it = make(cls);
+      carry(it);
+      c.set(22, (c.get(22) | 0) + (depressed ? -3000 : 5000));
+      if ((c.get(446) | 0) <= 10000) c.set(446, (c.get(446) | 0) + 5000);
+      return { acted: true, pocketItem: true, item: it };
+    }
+    return null;
+  }
+
+  /**
+   * 593567-593645：诺耶尔 / 妹之馆的大小姐与城里的小孩（种族 35 / 211）玩雪。
+   *   地图 33 / 29、雪地地形（源码 var_593(0,cell)==4，这里按地图 id 近似）；
+   *   1/4 向视野内目标扔雪球(587)、1/12 找地面物、1/10 堆雪人(541)、1/12 再扔。
+   */
+  function snowPlayIdle(g, c) {
+    const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    const mapId = g.getV65 ? (g.getV65(20) | 0) : 0;
+    if (mapId !== 33 && mapId !== 29) return null;
+    const race = c.get(27) | 0;
+    if (race !== 35 && race !== 211) return null;
+    const make = (id) => (Elona.Item && Elona.Item.create)
+      ? Elona.Item.create(g, { itemId: id, level: 1 }) : null;
+    if (R(4) === 0) {
+      const tgt = (Elona.Throw && Elona.Throw.nearestEnemy)
+        ? Elona.Throw.nearestEnemy(g, c, 6) : null;
+      if (tgt) return { acted: true, snowball: true, target: tgt, item: make(587) };
+    }
+    if (R(12) === 0) return { acted: true, snowball: true, item: make(587) };
+    if (R(10) === 0 && !(g.groundItems || []).some((it) => it && (it.f[0] | 0) > 0 && it.f[5] === c.x && it.f[6] === c.y)) {
+      const man = make(541);
+      if (man && g.groundItems) { man.f[5] = c.x; man.f[6] = c.y; g.groundItems.push(man); }
+      return { acted: true, snowman: true, item: man };
+    }
+    if (R(12) === 0) return { acted: true, snowball: true, item: make(587) };
+    return null;
+  }
+
+  /**
+   * 593181-593316：非死灵同伴（9==10、cbit992==0）尝试食用脚下的食物或饮用井 / 马桶。
+   *   食物 57000 / 偏好食物(cbit1050 & f[24]==35)、井水 60001（排除圣井 602）。
+   */
+  function allyEatIdle(g, c) {
+    if ((c.get(9) | 0) !== 10) return null;
+    const cbit = (b) => (Elona.Status && Elona.Status.cbit ? (Elona.Status.cbit(c, b) | 0) : 0);
+    const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    if (cbit(992)) return null;
+    const here = (g.groundItems || []).filter((it) => it && (it.f[0] | 0) > 0
+      && it.f[5] === c.x && it.f[6] === c.y);
+    if (!here.length) return null;
+    const it = here[here.length - 1];
+    const cat = (Elona.ItemDB && Elona.ItemDB.ref) ? (Elona.ItemDB.ref(it.f[3], 5) | 0) : 0;
+    if ((c.get(22) | 0) <= 10000 && (cat === 57000 || (cbit(1050) && (it.f[24] | 0) === 35))) {
+      if ((it.f[21] | 0) <= 0) {
+        if (cbit(1033)) {
+          if (R(5) === 0 && g.log) g.log(`${c.name} 眼巴巴地看着食物……`);
+          return { acted: false, watched: true };
+        }
+        if (!cbit(1032) || (c.get(169) | 0) <= 0) {
+          if (g.eatItemNow) { try { g.eatItemNow(c, it); } catch (e) { /* 表现层可选 */ } }
+          const idx = (g.groundItems || []).indexOf(it);
+          if (idx >= 0) g.groundItems.splice(idx, 1);
+          return { acted: true, ate: true, item: it };
+        }
+      }
+    }
+    if (cat === 60001 && cbit(1033) === 0 && (!cbit(1032) || (c.get(169) | 0) <= 0)) {
+      if ((it.f[21] | 0) <= 1 && (it.f[25] | 0) >= -5 && (it.f[27] | 0) < 20 && (it.f[3] | 0) !== 602) {
+        if (g.eatItemNow) { try { g.eatItemNow(c, it); } catch (e) { /* 表现层可选 */ } }
+        return { acted: true, drank: true, item: it };
+      }
+    }
+    return null;
+  }
+
+  /** 593455-593690 专属闲时行为的源码顺序汇合。 */
+  function specialIdle(g, c) {
+    return allyEatIdle(g, c)
+      || drunkCatIdle(g, c)
+      || nightSleepIdle(g, c)
+      || pocketSupplyIdle(g, c)
+      || snowPlayIdle(g, c)
+      || null;
+  }
+
   function npcTurn(g, c) {
     if (!c || c.get(0) !== 1 || c.index === 0) return { acted: false };
 
@@ -541,6 +777,18 @@
     const itemR = tryUseItem(g, c);
     if (itemR.used) return { acted: true, used: itemR.kind, result: itemR.result, mercy, mounted };
 
+    // ③-e 593152-593162 / 593326-593329：盲目 / 混乱阻断交战决策。
+    //   源码在 *label_4305 一开头判定，goto *label_4306 跳过整段交涉/防御/攻击/走位选招，
+    //   转入接近 / 闲时 / 待机。本项目把「无目标」路径集中在 tamerIdle，故此处直接落到它。
+    //   注：源本的 mode 3/1 分派位于 *label_4312（596606 起），在交战决策之后、被 skip 绕过，
+    //   因此这里也要放在 mode 分派之前。
+    const skipCause = combatStatusSkip(g, c);
+    if (skipCause) {
+      const idleR = tamerIdle(g, c, { mercy, mounted });
+      if (idleR) return Object.assign(idleR, { combatBlocked: skipCause });
+      return { acted: false, mercy, mounted, combatBlocked: skipCause };
+    }
+
     // 0-DH：战斗模式（var_58(266)）的完整行为 —— 源码 596606-596672。
     const mode = c.get(266) | 0;
     // 交渉態勢（596606-596657）：不攻击，改用「話術」能力（816/817/818/819/820/875），
@@ -592,6 +840,15 @@
     if (tIdx < 0) {
       // 0-L0 / A342：没有敌对目标 = 原版 *label_4306 的「别行动时」路径，
       // 此时才由調教鞭写入的 f[202] 决定同伴是跟随、待机、游走还是发动本职动作。
+      // 0-Z9：先按源码顺序走 *label_4306 入口（跟随/80%跳过）与 *label_4307/4308
+      // 专属闲时（醉猫 / 夜间入睡），最后才落到 202 指令消费。
+      const gate = idleGate(g, c);
+      if (gate) {
+        if (gate.blocked) return { acted: false, mercy, mounted, idleBlocked: true };
+        return Object.assign(gate, { mercy, mounted });
+      }
+      const sp = specialIdle(g, c);
+      if (sp) return Object.assign(sp, { mercy, mounted });
       const idleR = tamerIdle(g, c, { mercy, mounted });
       if (idleR) return idleR;
       return { acted: false, mercy, mounted };
@@ -798,9 +1055,10 @@
 
   function tamerIdle(g, c, base) {
     const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
-    const isAlly = (c.index | 0) < 16 || (c.get(9) | 0) === 10;
+    // 0-Z9：源码 593693-593872 的 202 指令消费位于 *label_4306，对**所有** NPC
+    // 生效（非宠物经 593452 的 20% 通过率进入），不再限定 isAlly。
     let v = c.get(202) | 0;
-    if (!isAlly || v === 0) return null;                 // 0 = 默认战斗行为，交回主流程
+    if (v === 0) return null;                           // 0 = 默认战斗行为，交回主流程
     const out = { acted: false, mercy: base && base.mercy, mounted: base && base.mounted };
 
     // 593693-593705：做本职工作 → 按 var_58(27) 种族 id 改成本职指令（写回，与本一致）
@@ -962,6 +1220,8 @@
     tryHealPotion, tryIdle, tryUseItem, findInvItem, sightRange,
     mercyCheck, mountSync, tamerIdle, TAMER_ABILITY, TAMER_SPECIES,
     isHostile, hostileTowards, stepToward, stepAway, randomStep, combatMove,
-    preferredDistance, DIRS8, DIR,
+    preferredDistance, combatStatusSkip, idleModeBlocked, idleGate, drunkCatIdle,
+    nightSleepIdle, pocketSupplyIdle, snowPlayIdle, allyEatIdle, specialIdle,
+    DIRS8, DIR,
   };
 })(window);

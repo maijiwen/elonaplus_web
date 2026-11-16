@@ -1659,6 +1659,14 @@
       const ctx = this.ctx;
       // 0-DD：骑乘中的坐骑不单独绘制（玩家贴图的 ridebk/ride 层已包含它）
       const mountIdx = (game.getV65 ? (game.getV65(183) | 0) : 0);
+      // 0-Z2：源码 35105-35270 的组队画法 —— 格子表只登记 base（cell_swap 对
+      //   168==1 直接 return），画完 base 后把 var_859 换成搭档（167）在同一格
+      //   再完整画一次，中心偏移 `var_58(168) * 12` px；Pcc_show=1 时两侧都按
+      //   24×40（≈75%）缩小绘制。即「两张完整贴图缩小并排叠在一格」，不是左右各半。
+      const TAG_SCALE = 0.75;          // 24/32（Pcc_show=1 缩小口径）
+      const TAG_OFF = 12;              // 追随侧中心偏移（普通图；世界图为 8）
+      const TAG_SZ = Math.round(TILE * TAG_SCALE);   // 36
+      const C = Elona.Companion;
       for (const c of game.charas) {
         if (!c || c.index === 0 || c.get(0) !== 1) continue;
         if (mountIdx !== 0 && (c.index | 0) === mountIdx && (c.get(196) | 0) === 0) continue;
@@ -1666,45 +1674,57 @@
         if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
         // 0-DW：视野外的角色不画（原版 var_58(6,c)=var_104 只在可见时更新）
         if (game.map.isVisible && !game.map.isVisible(c.x, c.y)) continue;
+        // 0-Z2：tag_begin 把追随側坐标写成 base 坐标（290750-290751），两人同格。
+        //   源码绘制追随側时由 base 分支（35105）补画，这里跳过 168==1 的单独绘制。
+        const pair = (C && C.tagPairOf) ? C.tagPairOf(game, c) : null;
+        if (pair && pair.follower === c) continue;
         const dx = vx * TILE, dy = vy * TILE;
         // 0-W0：脚下道具图像（34275-34347）。cbit 1025 = 画在角色之后（后层）
         const markId = c.get(447) | 0;
         const behind = markId > 0 && !!(Elona.Status && Elona.Status.cbit(c, 1025));
         if (behind) this.drawItemMark(ctx, c, dx, dy);
-        // 只有具备 PCC 外观的角色（玩家 / cbit(967)）才走合成图；
-        // 其余 NPC 一律使用 character.bmp 中各自的 var_58(7) 贴图。
-        let drawn = false;
-        if (Elona.PCC && c.pcc) {
-          if (Elona.PCC.ready(c, game) && Elona.PCC.draw(ctx, c, dx, dy, TILE, game)) drawn = true;
-          else Elona.PCC.preload(c, game).catch(() => { });
-        }
-        if (!drawn) {
-          const idx = this.charaSpriteIndex(c);
-          if (idx >= 0) {
-            const sx = (idx % COLS) * TILE, sy = Math.floor(idx / COLS) * TILE;
-            if (sx + TILE <= ch.width && sy + TILE <= ch.height) {
-              ctx.drawImage(ch, sx, sy, TILE, TILE, dx, dy, TILE, TILE);
+
+        /**
+         * 画一名角色。cx 为精灵水平中心（px）：组队时 base=格中心（+24）、
+         *   追随侧=中心+TAG_OFF（源码 `pos var_835 + 22 + var_58(168) * 12`，
+         *   grotate 以 pos 为中心）。cx 传 null 时按普通 48×48 整格绘制。
+         *   组队两侧按 Pcc_show=1 口径统一缩到 75%，底边对齐格底。
+         */
+        const drawOne = (who, cx) => {
+          if (!who) return;
+          const scaled = cx != null;
+          const bx = scaled ? cx - 18 : dx;      // (cx - TAG_SZ/2) - (36-24)/2
+          const by = scaled ? dy + (TILE - TAG_SZ) : dy;
+          ctx.save();
+          let drawn = false;
+          if (Elona.PCC && who.pcc) {
+            if (Elona.PCC.ready(who, game) && Elona.PCC.draw(ctx, who, bx, by, scaled ? TAG_SZ : TILE, game)) drawn = true;
+            else Elona.PCC.preload(who, game).catch(() => { });
+          }
+          if (!drawn) {
+            const idx = this.charaSpriteIndex(who);
+            if (idx >= 0) {
+              const sx = (idx % COLS) * TILE, sy = Math.floor(idx / COLS) * TILE;
+              if (sx + TILE <= ch.width && sy + TILE <= ch.height) {
+                if (scaled) ctx.drawImage(ch, sx, sy, TILE, TILE, bx, by, TAG_SZ, TAG_SZ);
+                else ctx.drawImage(ch, sx, sy, TILE, TILE, dx, dy, TILE, TILE);
+              }
             }
           }
+          ctx.restore();
+        };
+
+        if (pair && pair.base === c && pair.follower) {
+          // base 居中 + 追随侧右移 12px 叠画：原版「组队两人缩小合在一格」。
+          drawOne(c, dx + TILE / 2);
+          drawOne(pair.follower, dx + TILE / 2 + TAG_OFF);
+        } else {
+          drawOne(c, null);
         }
+
         if (markId > 0 && !behind) this.drawItemMark(ctx, c, dx, dy);
-        // 0-X0：A201 / 289359-289405 / 35104-35222 —— 167/168「双立绘」。
-        //   var_58(168,c) != 0 时 var_58(167,c) 指向同格的另一名角色，
-        //   源码用对方的 var_58(83)*48 图像行（grotate 10+var_859）画在旁边。
-        //   这里等价地用该角色的 character.bmp 网格序号叠加一层。
-        const pair = (Elona.Riding && Elona.Riding.doubleSpriteOf)
-          ? Elona.Riding.doubleSpriteOf(game, c) : null;
-        if (pair && pair.mount) {
-          const mi = this.charaSpriteIndex(pair.mount);
-          if (mi >= 0) {
-            const sx2 = (mi % COLS) * TILE, sy2 = Math.floor(mi / COLS) * TILE;
-            if (sx2 + TILE <= ch.width && sy2 + TILE <= ch.height) {
-              ctx.drawImage(ch, sx2, sy2, TILE, TILE, dx + pair.offset, dy, TILE, TILE);
-            }
-          }
-        }
-        // 0-DG：听诊器（478）→ 贴图下方显示 HP / MP / 斗志 三条
-        if (c.__hpbar) this.drawAllyBars(c, dx, dy);
+        // 0-DG / 0-Z1：听诊器条在组队时按源码 34800-34960 缩短为半宽
+        if (c.__hpbar) this.drawAllyBars(c, dx, dy, !!pair);
       }
     }
 
@@ -1741,9 +1761,11 @@
      * 同伴贴图下方的 HP 条（听诊器 toggles c.__hpbar）。
      * 原版 34662：`gcopy 3, 480-var_861, 517, var_861, 3` —— 单条 HP，无 MP/斗志。
      */
-    drawAllyBars(c, dx, dy) {
+    drawAllyBars(c, dx, dy, inTag) {
       const ctx = this.ctx;
-      const w = TILE - 8, x = dx + 4, y = dy + TILE - 6;
+      // 0-Z1：源码 34800-34960 —— 168==0 时条长 30，组队时缩为 15 并右移
+      const w = inTag ? (TILE - 8) / 2 : TILE - 8;
+      const x = dx + 4, y = dy + TILE - 6;
       const hpMax = Math.max(1, c.get(51) | 0);
       const ratio = Math.max(0, Math.min(1, (c.get(50) | 0) / hpMax));
       ctx.save();
@@ -1851,22 +1873,52 @@
       const ch = this.sheets.character;
       const dx = ox * TILE, dy = oy * TILE;
       const p = game.player;
+      // 0-Z2：玩家为 base（168=-1）且同伴 168=1 同格时，追随側由 drawCharas 跳过，
+      //   这里按源码 33357-33536（玩家绘制段的搭档补画）画「玩家 + 同伴」两张
+      //   完整贴图缩小并排叠在一格（同伴中心偏移 +12px），世界地图坐标体系不同，
+      //   所以要求双方 x/y 相同才叠画，避免把同伴画到错误的格子上。
+      const pair = (Elona.Companion && Elona.Companion.tagPairOf)
+        ? Elona.Companion.tagPairOf(game, p) : null;
+      const tagBase = !!(pair && pair.base === p && pair.follower
+        && (pair.follower.x | 0) === (p.x | 0) && (pair.follower.y | 0) === (p.y | 0));
       // 0-W0：玩家自己的脚下道具图像（33164-33221 / 33557-33614）
       const markId = p ? (p.get(447) | 0) : 0;
       const behind = markId > 0 && !!(Elona.Status && Elona.Status.cbit(p, 1025));
       if (behind) this.drawItemMark(ctx, p, dx, dy);
-      let drawn = false;
-      if (Elona.PCC) {
-        if (Elona.PCC.ready(p, game) && Elona.PCC.draw(ctx, p, dx, dy, TILE, game)) drawn = true;
-        else Elona.PCC.preload(p, game).catch(() => { });
-      }
-      if (!drawn && ch) {
-        let idx = this.charaSpriteIndex(p);
-        if (idx < 0) idx = 16;   // 第 0 行第 16 号（冒险者外观）作为 PCC 未就绪时的占位
-        ctx.drawImage(ch, (idx % COLS) * TILE, Math.floor(idx / COLS) * TILE, TILE, TILE, dx, dy, TILE, TILE);
-      } else if (!drawn) {
-        ctx.fillStyle = '#ffd700';
-        ctx.fillRect(dx + 8, dy + 8, TILE - 16, TILE - 16);
+      const TAG_SZ = Math.round(TILE * 0.75);   // Pcc_show=1 缩小口径（24×40 ≈ 75%）
+      /** 与 drawCharas 相同的缩小叠画；playerPath 决定 PCC 是否无条件尝试 */
+      const drawOne = (who, cx, playerPath) => {
+        if (!who) return;
+        const scaled = cx != null;
+        const bx = scaled ? cx - 18 : dx;
+        const by = scaled ? dy + (TILE - TAG_SZ) : dy;
+        ctx.save();
+        let drawn = false;
+        if (Elona.PCC) {
+          const usePcc = playerPath || !!who.pcc;
+          if (usePcc && Elona.PCC.ready(who, game) && Elona.PCC.draw(ctx, who, bx, by, scaled ? TAG_SZ : TILE, game)) drawn = true;
+          else if (usePcc) Elona.PCC.preload(who, game).catch(() => { });
+        }
+        if (!drawn && ch) {
+          let idx = this.charaSpriteIndex(who);
+          if (playerPath && idx < 0) idx = 16;  // 冒险者外观占位
+          if (idx >= 0) {
+            if (scaled) ctx.drawImage(ch, (idx % COLS) * TILE, Math.floor(idx / COLS) * TILE,
+              TILE, TILE, bx, by, TAG_SZ, TAG_SZ);
+            else ctx.drawImage(ch, (idx % COLS) * TILE, Math.floor(idx / COLS) * TILE,
+              TILE, TILE, dx, dy, TILE, TILE);
+          } else if (playerPath) {
+            ctx.fillStyle = '#ffd700';
+            ctx.fillRect(dx + 8, dy + 8, TILE - 16, TILE - 16);
+          }
+        }
+        ctx.restore();
+      };
+      if (tagBase) {
+        drawOne(p, dx + TILE / 2, true);
+        drawOne(pair.follower, dx + TILE / 2 + 12, false);
+      } else {
+        drawOne(p, null, true);
       }
       if (markId > 0 && !behind) this.drawItemMark(ctx, p, dx, dy);
     }

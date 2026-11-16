@@ -71,7 +71,11 @@
     noEscort: '不能骑乘护送对象。',
     selfRide: '你想骑自己。',
     notHere: '那个同伴目前待在这个地方。',
-    tag: '需要先解散搭档组合。',
+    // 319688：var_58(168, var_244) != 0 →「タッグを解散する必要がある。」
+    // 0-Y0：补上「去哪解散」的引导。原版只在自身互动菜单里给「タッグ解散」
+    //   （289706-289723：168 != 1 且 167 > 0），追随侧同伴的操作弹窗没有这一项，
+    //   玩家按 a 键选方向骑乘时就会被这句没头没尾的话挡住（本批用户截图）。
+    tag: '需要先解散搭档组合。（对着自己按 i 键选「解散搭档」，然后再骑乘）',
     alreadyRiding: (a, b) => `现在${a}正骑着${b}。`,
     alreadyCarrying: (a, b) => `现在${b}正骑着${a}。`,
     cancel: '取消',
@@ -124,9 +128,13 @@
     if (target === p) {
       return { ok: false, reason: 'self', message: TEXT.selfRide.replace('〜', p.name || '') };
     }
-    // 319688：对方正在载人 → 需要先解散タッグ
+    // 319688：对方正在载人 / 处于タッグ → 需要先解散タッグ
+    // 0-Y0：带上搭档索引与角色，便于 UI / 回归定位是哪一组搭档挡住了骑乘。
     if ((target.get(168) | 0) !== 0) {
-      return { ok: false, reason: 'tag', message: TEXT.tag };
+      return {
+        ok: false, reason: 'tag', message: TEXT.tag,
+        partner: target.get(167) | 0, role: target.get(168) | 0,
+      };
     }
     // 319698：槽位 >= 16 → 不是同伴
     if ((target.index | 0) >= 16) {

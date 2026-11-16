@@ -643,19 +643,27 @@
       if (Elona.Interact.dirOfKey(e.key)) {
         const r = Elona.Interact.pick(game, e.key);
         if (r && r.ok && r.npc) {
-          // A395：289443 —— 该格角色有坐骑（var_58(167) > 0）时先二选一。
-          //   源码 `txtselecttc 2` 的两项就是搭档/骑乘的左与右；选 1 换到坐骑。
-          if (r.mount && Elona.Panels && Elona.Panels.openTagPick) {
+          // 0-Z1：289443 —— 该格角色有组队搭档（var_58(167) > 0）时先弹
+          //   `txtselecttc 2`「タッグ左側 / タッグ右側」成员选择窗；
+          //   选到谁就以谁为操作对象，再开操作弹窗（289481）。
+          //   注意坐骑走的是 var_65(183) / txtselectride 2，与这里不是一回事。
+          if (r.partner && Elona.Panels && Elona.Panels.openTagPick) {
             const nm = (c) => (c && (c.name || c.cname)) || '？';
+            const C = Elona.Companion;
+            const pair = (C && C.tagPairOf) ? C.tagPairOf(game, r.npc) : null;
+            const left = pair ? pair.base : r.npc;
+            const right = pair ? pair.follower : r.partner;
             Elona.Panels.openTagPick(game, [
-              { label: `${nm(r.npc)}（当前）`, chara: r.npc },
-              { label: `${nm(r.mount)}（坐骑）`, chara: r.mount },
+              { label: `${nm(left)}（组队左侧）`, chara: left },
+              { label: `${nm(right)}（组队右侧）`, chara: right },
             ], (chara) => {
-              // 0-※：方向确定后先开「操作弹窗」（289481），选「交谈」才进入对话
+              // 0-※：方向确定后先开「操作弹窗」（289481），选「解散」才解散
               UI.openActionMenu(game, chara);
             }, {
-              title: '骑乘选择',
-              note: '这一格有两名角色（源码 289443 的 txtselecttc 2）。要操作哪一位？',
+              title: '组队成员选择',
+              note: '这一格有两名组队的同伴（源码 289443 的 txtselecttc 2）。要操作哪一位？',
+              leftHint: '队长 / base',
+              rightHint: '追随者',
               onCancel: () => Elona.Interact.clearFaces(),
             });
           } else {

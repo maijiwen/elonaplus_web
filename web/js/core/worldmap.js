@@ -52,8 +52,13 @@
           const a = attrs[String(c[0] | 0)] || [];
           return ((a[ATTR_WALK] | 0) & 4) ? 0 : 1;
         }));
-        // 城镇所在格及其周围 1 格强制可走（原版城镇入口在世界地图上是可站的）
-        const towns = (Elona.Towns && Elona.Towns.LIST) || [];
+        // 0-Y0：城镇所在格及其周围 1 格强制可走，但**只放行本世界的城镇**
+        //   （var_132(30) == wid，源码 245653 同样按 worldId 过滤据点）。
+        //   旧实现把 14 个城镇（含属于 44 南提里斯的 7 个）全在 4 号图上打洞，
+        //   于是第一张世界地图就能走到本该在 styris 才存在的城镇格。
+        const towns = (Elona.Towns && Elona.Towns.ofWorld)
+          ? Elona.Towns.ofWorld(wid)
+          : ((Elona.Towns && Elona.Towns.LIST) || []);
         for (const t of towns) {
           for (let dy = -1; dy <= 1; dy++) {
             for (let dx = -1; dx <= 1; dx++) {

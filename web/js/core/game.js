@@ -1000,13 +1000,24 @@
           if (this.pushGroundItem(it)) cell[4] = 1;
         }
       }
-      // 放置玩家：优先使用 header[5]（入口坐标，编码为 y*1000+x），
-      // 否则从地图中心向外螺旋查找第一个可通行格（避免落在角落）
+      // 放置玩家：
+      //   0-Y0：从世界地图进入时按 var_65(26)/var_65(35) 落在四边缘之一
+      //     （pendingEntrance 由 worldEnter 设置，这里一次性消费）；
+      //   否则优先使用 header[5]（入口坐标，编码为 y*1000+x），
+      //   再否则从地图中心向外螺旋查找第一个可通行格（避免落在角落）。
       let px = 0, py = 0, placed = false;
-      const ent = this.map.header[5];
-      if (ent && ent > 0) {
-        const ex = ent % 1000, ey = Math.floor(ent / 1000);
-        if (this.map.walkable(ex, ey)) { px = ex; py = ey; placed = true; }
+      const pe = this.pendingEntrance;
+      this.pendingEntrance = null;
+      if (pe && Elona.Entrance) {
+        const e = Elona.Entrance.place(this, this.map, pe);
+        if (e) { px = e.x; py = e.y; placed = true; }
+      }
+      if (!placed) {
+        const ent = this.map.header[5];
+        if (ent && ent > 0) {
+          const ex = ent % 1000, ey = Math.floor(ent / 1000);
+          if (this.map.walkable(ex, ey)) { px = ex; py = ey; placed = true; }
+        }
       }
       if (!placed) {
         const cx = Math.floor(this.map.width / 2), cy = Math.floor(this.map.height / 2);
@@ -1060,8 +1071,15 @@
       // 0-HM：剧情在城镇地图上留下的固定入口（原版 map 5 初始化时的
       //   `if (var_65(250+201)) cell_featset 48, 5, var_1606, 11, 4`，239933-239940）
       this.applyQuestMapFeats();
+      // 0-Z3 / 237110：var_65(19) = 换图前的地图 id（旅行出发记录用）
+      const prevMapId = this.getV65(20) | 0;
       this.setV65(20, mapId);
       this.setV65(22, subId);
+      // 0-Z3 / 237600-237602 + 248724-248846：进城镇 / 野外 / 自宅时记录出发
+      //   信息；旅行里数满 300 时结算全队经验（core/travel.js）。
+      if (Elona.Travel && this.player) {
+        try { Elona.Travel.onEnterMap(this, prevMapId); } catch (e) { /* 结算失败不影响换图 */ }
+      }
       // 0-L0 / A43：`map_init` 的 var_126(9) = var_132(9, var_65(20))（237970）。
       // 此前只有 WorldMap.turnCost 单独查静态表，地图头里这一格一直是空的；
       // 现在统一从运行时表取，动态地城 / 覆盖写的 col=9 也能生效。
@@ -1411,6 +1429,16 @@
         this.endTurn();
         return true;
       }
+      // 0-Z3 / 343030-343039：普通地图上压溃中（档 4）→ 无法移动，消耗 1 回合
+      //   （世界地图的同一判定与货物两倍超载在 worldMove 里，源码 343040-343043）
+      if (!this.worldMap && Elona.Travel) {
+        const block = Elona.Travel.blockMove(this, false);
+        if (block) {
+          this.log(block.message);
+          this.endTurn();
+          return true;
+        }
+      }
       const nx = p.x + d[0], ny = p.y + d[1];
       // 0-GP / 342926-343027：移动前的摇晃（var_58(257)）与坐骑 / 搭档的
       //   演出反应。摇晃造成的 var_58(3/4) 偏移按一次一格输入替代，不改写 nx/ny。
@@ -1728,6 +1756,9 @@
      */
     useStairs(up) {
       if (this.transitioning) return { ok: false, reason: 'busy' };
+      // 344614-344625：负重 >= 3 档走楼梯会踏空滚落，先结算伤害再照常换图。
+      //   概率 tier3 = 1/2、tier4 = 1（源码 rnd(5 - tier)==0）。
+      if (Elona.Travel && Elona.Travel.stairFall) Elona.Travel.stairFall(this);
       // 0-FS：自宅的楼层（地面家具 750/751 触发，见 core/home.js useStairs）
       if (Elona.Home && Elona.Home.inHome(this)) {
         const pr = Elona.Home.useStairs(this, up);
@@ -2662,6 +2693,9 @@
       if (this.map && this.map.name === name) return false;
       if (this.dungeonDepth > 0 || this.questMap) return false;
       this.transitioning = true;
+      // 0-Y0：从世界地图进入时 pendingEntrance 已备好四边缘落点，
+      //   loadMap 消费后不能再用 townPos 把玩家拉回上次的中心坐标。
+      const fromWorld = !!this.pendingEntrance;
       try {
         const from = this.map ? this.map.name : null;
         if (from && Elona.Towns.isTown(from)) {
@@ -2681,7 +2715,8 @@
         }
         await this.loadMap(name);
         this.charas = [this.player];
-        const pos = this.townPos[name];
+        // 0-Y0：世界地图进入走四边缘落点，不恢复 townPos（旧行为是固定中心）
+        const pos = fromWorld ? null : this.townPos[name];
         if (pos && this.map.walkable(pos.x, pos.y)) {
           this.player.x = pos.x; this.player.y = pos.y;
         }
@@ -2795,6 +2830,13 @@
      */
     async travelToWorld(worldId) {
       const wid = (worldId | 0) || 4;
+      // 0-Y0：除初始的 4 号世界外，其余世界随主线进度 var_65(250+2) 解锁。
+      //   源码 20000-20112 的分部提示，以及 389264 / 389332 / 421976 的
+      //   次元歪曲航行 / 飞空艇都发生在对应进度之后；旧实现没有任何门槛。
+      if (Elona.WorldUnlock && !Elona.WorldUnlock.isUnlocked(this, wid)) {
+        this.log(Elona.WorldUnlock.lockedMessage(this, wid));
+        return false;
+      }
       const from = this.getV65(20) | 0;
       // 落点对应源码 `var_65(5) = var_132(1, site), var_132(2, site)`：
       //   25→70 中央神殿(79)、79→4 拉娜(25)、71→44 メルガスト(55)、65→70 ウルム・レソン(71)
@@ -2810,6 +2852,8 @@
       this.setV65(5, x);
       this.setV65(6, y);
       this.setV65(850, wid);
+      this.pendingEntrance = null;      // 0-Y0：世界切换不沿用旧地图的落点
+      if (Elona.Towns && Elona.Towns.syncCoords) Elona.Towns.syncCoords();
       if (Elona.WorldMap) await Elona.WorldMap.load(wid);
       if (Elona.Sites) { await Elona.Sites.load(); Elona.Sites.bindGame(this); }
       if (Elona.RandDungeon) Elona.RandDungeon.onEnterWorld(this, wid);
@@ -2869,15 +2913,32 @@
     worldMove(dx, dy) {
       const w = this.worldMap;
       if (!w || this.transitioning) return false;
+      // 0-Z3 / 343028-343043：压溃中（档 4）或货物超上限两倍 → 无法移动，消耗 1 回合
+      const block = Elona.Travel ? Elona.Travel.blockMove(this, true) : null;
+      if (block) {
+        this.log(block.message);
+        this.endTurn();
+        return false;
+      }
       const nx = w.x + (dx | 0), ny = w.y + (dy | 0);
       if (Elona.WorldMap && !Elona.WorldMap.walkable(nx, ny)) {
         this.log('那里无法通行。');
         return false;
       }
       w.x = nx; w.y = ny;
+      // 0-Z3：旅行里数每格 +4（wiki 口径；源码 248731 负累计 -300 的等价正累计）
+      if (Elona.Travel) Elona.Travel.worldStep(this);
       // 602322-602323：var_65(5)/(6) 与步行坐标同步（603171 的下雪判定用这两个值）
       this.setV65(5, nx);
       this.setV65(6, ny);
+      // 0-Y0 / 606036-606085：世界地图上的移动方向决定 var_65(35)（进入方向），
+      // 同时写进 var_58(83,0)（玩家朝向）；进城镇时 300589 / 319981 / 331039
+      // 再由 var_58(83,0) 还原 var_65(35)，map_placecharaonentrance 据此落四边缘。
+      if (Elona.Entrance) {
+        const d35 = Elona.Entrance.dirOfMove(dx, dy);
+        this.setV65(35, d35);
+        if (this.player && this.player.set) this.player.set(83, d35);
+      }
       // 343594-343604：回避遇敌（var_65(250+375)）每走一格 −1，并按 ×4 英里提示
       this.tickEncounterCancel();
       this.advanceClock();
@@ -2885,9 +2946,14 @@
       // 0-DG：站到 site 的入口格**不再自动进入**，改为提示「按回车进入」。
       //   原版世界地图上站在入口格后由确认键（var_577 == 6）触发进入，
       //   见 docs/02-diff-report.md A321；这里只做提示，按 Enter 由 worldEnter() 处理。
+      // 0-Y0：城镇只认当前世界（var_132(30) == var_65(850)，源码 245653）；
+      //   旧实现用全部 14 个城镇，属于 44 的 7 个在 4 号图上也能踩到。
+      const wid = (this.getV65(850) | 0) || 4;
+      const townList = (Elona.Towns && Elona.Towns.ofWorld)
+        ? Elona.Towns.ofWorld(wid) : ((Elona.Towns && Elona.Towns.LIST) || []);
       const site = this.siteUnderFoot();
       const town = site ? null
-        : (Elona.Towns && Elona.Towns.LIST.find((t) => t.wx === nx && t.wy === ny));
+        : townList.find((t) => t.wx === nx && t.wy === ny);
       if (site || town) {
         const label = site ? ((Elona.Sites.nameOf(site.id, 'jp') || Elona.Sites.nameOf(site.id))) : this.townName(town);
         // 0-FA：随机地城按源码 mapname() 的提示补上「入口危险度」
@@ -3080,17 +3146,19 @@
 
     /**
      * 0-DG：当前世界地图格上的 site（入口格精确判定）。
-     * var_65(850) 是「当前所在的世界 id」，但它在坐船/载具时会变；
-     * 找不到时退回 4（北ティリス）再找一次，避免在海上/其它世界时整个入口失效。
+     * var_65(850) 是当前所在的世界 id。
+     *
+     * 0-Y0：删掉「找不到就回退到 4 号世界再找一次」的旧分支 —— 源码 245653
+     *   `if ( var_132(30, cnt) != var_65(850) ) { continue }` 明确只认同一世界的
+     *   据点。旧分支会让玩家在 44 / 70 世界地图上按坐标踩到北提里斯的城镇，
+     *   这正是「所有城镇和固定据点都堆在第一张世界地图上」的直接原因之一。
      */
     siteUnderFoot() {
       const w = this.worldMap;
       if (!w) return null;
       if (!(Elona.Sites && Elona.Sites.ready && Elona.Sites.ready())) return null;
       const cur = (this.getV65(850) | 0) || 4;
-      const hit = Elona.Sites.at(cur, w.x, w.y, this);
-      if (hit) return hit;
-      return cur === 4 ? null : Elona.Sites.at(4, w.x, w.y, this);
+      return Elona.Sites.at(cur, w.x, w.y, this);
     }
 
     /**
@@ -3108,30 +3176,81 @@
       const w = this.worldMap;
       if (!w) return false;
       if (this.transitioning) return true;          // 正在换图，忽略本次输入
+      const wid = (this.getV65(850) | 0) || 4;
       const site = this.siteUnderFoot();
+      // 0-Y0：跨世界入口（提里斯关所 / 古代庭园 / 乌尔姆·雷宗）按主线进度
+      //   解锁后切换世界地图。源码 389328-389332 明确 65(44) ↔ 70、71(70) ↔ 44。
+      if (site && Elona.WorldUnlock) {
+        const gate = Elona.WorldUnlock.gateFor(wid, site.id | 0);
+        if (gate) {
+          if (!Elona.WorldUnlock.isUnlocked(this, gate.to)) {
+            this.log(Elona.WorldUnlock.lockedMessage(this, gate.to));
+            return true;
+          }
+          this.travelToWorld(gate.to).catch(() => { });
+          return true;
+        }
+      }
+      // 0-Y0：var_65(26) = var_132(3, var_65(20))（237616）；城镇 site 的
+      //   field 3 全是 3 → 按进入方向 var_65(35) 落到四边缘之一。
+      //   pendingEntrance 由 loadMap 一次性消费，读档 / 楼梯 / 传送不受影响。
+      const armEntrance = (mapId, mode) => {
+        this.pendingEntrance = {
+          mode: mode | 0, dir: this.getV65(35) | 0,
+          mapId: mapId | 0, sub: this.getV65(22) | 0,
+          override: null,   // var_65(60/61) 剧情固定落点，本项目暂无等价来源
+        };
+      };
       // 0-HM：从世界地图进入地城（ネフィア）时记下世界落点，
       //   出地城 / 上行到地表时要回到世界地图（原版 237429-237435 的
       //   `var_126(6) >= 20` 分支 → `var_65(20) = var_65(850)`）。
       this.dungeonFromWorld = null;
       if (!site) {
-        const town = Elona.Towns && Elona.Towns.LIST.find((t) => t.wx === w.x && t.wy === w.y);
+        // 0-Y0：只认当前世界的城镇（var_132(30) == var_65(850)）
+        const townList = (Elona.Towns && Elona.Towns.ofWorld)
+          ? Elona.Towns.ofWorld(wid) : ((Elona.Towns && Elona.Towns.LIST) || []);
+        const town = townList.find((t) => t.wx === w.x && t.wy === w.y);
         // 0-FC：空白格 → 野外地图（原版 var_65(20)=2）
         if (!town) { this.enterWilderness(); return true; }
         this.worldMap = null;
         if (this.map && this.map.name === town.name) { this.log(`你回到了 ${this.townName(town)}。`); return true; }
+        armEntrance(town.id, 3);
         this.travelToTown(town.name);
         return true;
       }
       const cur = Elona.Towns && Elona.Towns.byId(site.id);
       const kind = site.fields ? (site.fields[0] | 0) : 0;
       if (!cur && kind >= 20 && kind <= 27) {
-        this.dungeonFromWorld = { x: w.x | 0, y: w.y | 0, worldId: (this.getV65(850) | 0) || 4 };
+        this.dungeonFromWorld = { x: w.x | 0, y: w.y | 0, worldId: wid };
       }
       this.worldMap = null;                          // 进入 site = 离开世界地图
       if (cur && this.map && this.map.name === cur.name) {   // 就是当前所在地
+        // 0-Z3：出城（enterWorldMap）不清城镇地图对象（项目结构差异，原版会释放），
+        //   但再进城必须与原版同口径 —— 按 var_65(35) 重新落四边缘，
+        //   而不是把玩家留在出城前的旧位置。复现：出城 → 上移一格 → 下移回城格
+        //   → 回车，var_65(35) 已更新为 0（向下），应落上边缘。
+        const e = (Elona.Entrance && typeof Elona.Entrance.place === 'function')
+          ? Elona.Entrance.place(this, this.map, {
+            mode: site.fields ? (site.fields[3] | 0) : 3,
+            dir: this.getV65(35) | 0,
+            mapId: site.id | 0, sub: this.getV65(22) | 0,
+            override: null,
+          }) : null;
+        if (e) {
+          this.player.x = e.x;
+          this.player.y = e.y;
+          this.player.set(A.MAP, 0);
+          if (this.syncCharaCells) this.syncCharaCells();
+        }
+        // 0-Z3：原版再进城会重载地图并跑旅行结算（248724）；本项目保留城镇
+        //   地图对象不重建，但结算必须补上，否则绕行回城不吃 300 里经验。
+        if (Elona.Travel) {
+          try { Elona.Travel.onEnterMap(this, this.getV65(19) | 0); } catch (e2) { /* 结算失败不影响进城 */ }
+        }
         this.log(`你回到了 ${this.townName(cur)}。`);
         return true;
       }
+      armEntrance(site.id, site.fields ? (site.fields[3] | 0) : 0);
       this.enterSite(site);
       return true;
     }
@@ -3974,7 +4093,7 @@
      * @param {number|string} id 教程编号（exhelp.txt 的 %N 类别）
      */
     showGuide(id) {
-      const r = Elona.IdleTalk && Elona.IdleTalk.guide(this, id, { lang: 'en' });
+      const r = Elona.IdleTalk && Elona.IdleTalk.guide(this, id);
       if (!r || !r.text) return null;
       for (const row of r.text.split('\n')) {
         if (row.trim()) this.log(row.trim());
@@ -4130,9 +4249,9 @@
       if (id === 738 && (p.index | 0) < 16 && Elona.IdleTalk) {
         const bless = it.f[17] | 0;
         this.log(`${who}读了饼干里的签文。`);
-        let fortune = Elona.IdleTalk.cookie(this, 2, { lang: 'en' });
+        let fortune = Elona.IdleTalk.cookie(this, 2);
         if (bless >= 1 || (bless === 0 && this.rng.rnd(2) !== 0)) {
-          const second = Elona.IdleTalk.cookie(this, 1, { lang: 'en' });
+          const second = Elona.IdleTalk.cookie(this, 1);
           if (second) fortune = second;
         }
         if (fortune && fortune.text) this.log(fortune.text);
@@ -5003,11 +5122,15 @@
      *
      * stealAt() 为同步复合（startSteal + 推进到结束），供测试与一次性调用。
      */
-    stealTargets(c) {
+    stealTargets(c, x, y) {
+      // 0-Z4 / 305110-305231 *label_2893：目标格由 8 方向箭头选定（回车=当前格）。
+      // 未指定坐标时退回脚下，兼容既有一次性调用与测试。
+      const tx = (x === undefined || x === null) ? (c.x | 0) : (x | 0);
+      const ty = (y === undefined || y === null) ? (c.y | 0) : (y | 0);
       const out = [];
       for (const it of this.groundItems) {
         if (!it || (it.f[0] | 0) <= 0) continue;
-        if (it.f[5] !== c.x || it.f[6] !== c.y) continue;
+        if (it.f[5] !== tx || it.f[6] !== ty) continue;
         if (!it.townOwned) continue;
         out.push(it);
       }
@@ -5068,12 +5191,14 @@
       return out;
     }
 
-    /** 开始偷窃（rowact 10 建立，311077-311095） */
-    startSteal(c, pick) {
+    /** 开始偷窃（rowact 10 建立，311077-311095）；x/y 为 *label_2893 选定的目标格 */
+    startSteal(c, pick, x, y) {
       if (!c) return { ok: false, message: '没有对象。' };
       if ((c.get(140) | 0) !== 0) return { ok: false, message: '你正在忙别的事情。' };
-      const targets = this.stealTargets(c);
-      if (!targets.length) return { ok: false, reason: 'no-target', message: '脚下没有可偷的有主物品。' };
+      const targets = this.stealTargets(c, x, y);
+      if (!targets.length) {
+        return { ok: false, reason: 'no-target', message: '那个方向没有可偷的东西。' };
+      }
       // 0-DH：源码 319566-319596 是先 `var_486 = 27` 打开物品选择窗口（*label_3026），
       //   选中哪件就偷哪件；这里接受外部指定，未指定时退回第一件。
       const it = (pick && targets.indexOf(pick) >= 0) ? pick : targets[0];
@@ -5879,6 +6004,8 @@
       if (Elona.TurnCycle) {
         Elona.TurnCycle.beginAction(this, 0);
         Elona.TurnCycle.playerPeriodic(this);
+        // 0-Z3 / 604895-604908：玩家回合结算的货物压伤（档 3+ 且 1/20）
+        if (Elona.Travel) Elona.Travel.cargoHurt(this);
         const wr = Elona.TurnCycle.worldReturn(this);
         if (wr && wr.travel && wr.destination) {
           const dest = wr.destination;

@@ -178,11 +178,17 @@
     }
     // 289706-289723：搭档编成 / 解散
     if (!noTalk) {
-      if (party && f(168) !== 1 && (f(80) === 0 || idx === 0)) {
+      if (party && (f(80) === 0 || idx === 0)) {
+        // 源码 289711：编成只给 168==0（还没有搭档）的一侧
         if (f(168) === 0) push(16, 'tag', '编成搭档');
-        if (f(167) > 0) {
-          const mount = g && g.charas ? g.charas[f(167)] : null;
-          if (mount && (mount.get(0) | 0) === 1) push(17, 'tag-dissolve', '解散搭档');
+        // 0-Z1：解散按 0-Y0 的 tagEnd 口径放宽到任一侧 —— 从 289443 的
+        //   「组队左側／右側」选择窗选中追随者（168==1）后也要能解散。
+        //   搭档索引允许 0（玩家），所以用 tagPartnerIndex 而不是 f(167) > 0。
+        const C = Elona.Companion;
+        const pi = (C && C.tagPartnerIndex) ? C.tagPartnerIndex(npc) : f(167);
+        if (pi >= 0) {
+          const pt = g && g.charas ? g.charas[pi] : null;
+          if (pt && (pt.get(0) | 0) === 1) push(17, 'tag-dissolve', '解散搭档');
         }
       }
     }
@@ -478,7 +484,7 @@
     }
     // customtalk（192942-193157）：NPC 配了台词文件（cbit 989）时优先用它
     if (Elona.Talk) {
-      const t = Elona.Talk.say(g, npc, 106, { lang: 'en' });
+      const t = Elona.Talk.say(g, npc, 106);
       if (t && t.text) {
         const line = /^["「]/.test(t.text) ? t.text : `「${t.text}」`;
         return title ? `${npc.name}（${title}）${line}` : `${npc.name}${line}`;
@@ -488,7 +494,7 @@
     // 再 customtalk 106 覆盖；这里 customtalk 已在上面优先返回，
     // 因此把内置闲聊接在自定义台词之后、硬编码 GREET 之前（结果等价）。
     if (Elona.IdleTalk) {
-      const idl = Elona.IdleTalk.idle(g, npc, { lang: 'en' });
+      const idl = Elona.IdleTalk.idle(g, npc);
       if (idl && idl.text) {
         const body = /^[「"『]/.test(idl.text) ? idl.text : `「${idl.text}」`;
         return (title ? `${npc.name}（${title}）` : npc.name) + body + extra;

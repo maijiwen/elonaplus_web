@@ -1677,11 +1677,29 @@
           afterPanel();
           return;
 
-        // 16 タッグ編成（290686+）：把当前对象编成搭档
+        // 16 タッグ編成（290686+）：源码 `tag_begin var_244, var_2226` ——
+        //   当前操作对象（玩家自己或选中的同伴）当 base，再选一名未组队同伴当追随者。
         case 16: {
-          if (!Elona.Companion || !Elona.Companion.tagBegin) { say('搭档功能没有加载。'); return; }
-          const r = Elona.Companion.tagBegin(game, game.player, npc);
-          say(r.message);
+          const C = Elona.Companion;
+          if (!C || !C.tagBegin) { say('搭档功能没有加载。'); return; }
+          const cand = C.tagCandidates(game, npc);
+          if (!cand.length) {
+            say('现在没有可以组队的同伴（要在场，且双方都还没有搭档）。');
+            return;
+          }
+          const rows = cand.map((c) => ({
+            label: `${c.name}（Lv ${c.get(38) | 0}）`,
+            pick: () => {
+              const r = C.tagBegin(game, npc, c);
+              this.openActionMenu(game, npc);
+              this.npcText = r.message;
+              this.renderActionMenu(game);
+            },
+          }));
+          if (!P || !P.chooseRow) { say('选择窗口不可用。'); return; }
+          P.chooseRow(`为 ${npc.name} 选择搭档`, rows.map((row) => row.label), (i) => {
+            if (rows[i]) rows[i].pick();
+          });
           return;
         }
 

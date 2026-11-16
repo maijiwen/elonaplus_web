@@ -24,6 +24,16 @@
   const Elona = global.Elona = global.Elona || {};
   const idiv = (a, b) => (b === 0 ? 0 : ((a / b) | 0));
 
+  // 0-Z0：ペットとの再会 / 隠れていたもの（事件 12 / 38）的选项台词表。
+  //   读 data/text/pet_reunion.json（zh 优先，空则回退 jp），boot 即拉取；
+  //   未就绪 / 加载失败时 openPetReunion 用内置兜底。用户翻译只需改该 json 的 zh。
+  let PET_REUNION_TXT = null;
+  try {
+    fetch('data/text/pet_reunion.json').then((r) => (r.ok ? r.json() : null))
+      .then((j) => { if (j) PET_REUNION_TXT = j; }).catch(() => { });
+  } catch (e) { /* file:// 等环境：静默走兜底 */ }
+
+
   const ATTR_NAMES = [
     [10, 'Strength 筋力'], [11, 'Constitution 耐久'], [12, 'Dexterity 器用'], [13, 'Perception 感覚'],
     [14, 'Learning 習得'], [15, 'Will 意志'], [16, 'Magic 魔力'], [17, 'Charisma 魅力'],
@@ -382,10 +392,12 @@
       this.rows = opts2.map((x, i) => ({ i, label: x.label }));
       let html = `<div class="pui-note">${esc(o.note || '这个对象处于搭档编成中。要把谁作为对象？')}</div>`;
       opts2.forEach((x, i) => {
+        // 0-Z1：成员选择窗复用此函数，调用方可用 leftHint/rightHint 标注左右侧
+        const hint = i === 0 ? (o.leftHint || '当前选中的一边') : (o.rightHint || '另一边');
         html += `<div class="pui-row" data-i="${i}">`
           + `<span class="pui-key">${'abcdefghijklmnopqrs'[i] || ''}</span>`
           + `<span class="pui-name">${esc(x.label)}</span>`
-          + `<span class="pui-dim">${i === 0 ? '当前选中的一边' : '另一边'}</span></div>`;
+          + `<span class="pui-dim">${esc(hint)}</span></div>`;
       });
       this.open('tagpick', o.title || '搭档选择', html, {
         hint: '↑↓ 选择　Enter 确定　Esc 取消',
@@ -953,6 +965,8 @@
       const cargoCap = (g.getV65(82) | 0) || (p.get(43) | 0);
       const misc = [
         `荷车重量 ${wt(cargo)} / 上限 ${wt(cargoCap)}`,
+        // 0-Z3 / 203872-203877：负重四档状态（var_292(var_58(45,0))，8838-8841）
+        `负重状态：${(Elona.Travel && Elona.Travel.tierName(p)) || '无'}`,
         `装备重量 ${wt(p.get(64) | 0)}`,
         `回合 ${g.turn | 0} / 总时间 ${timeText}`,
         '证明：无持续效果',
@@ -1209,6 +1223,9 @@
             }
             if (r && r.message) this.pushMessage(r.message);
             for (const m of ((r && r.messages) || [])) this.pushMessage(m);
+            // 0-Z0：已骑乘 → useAbility(301) 直接解散（319614 解散后回主循环），
+            //   能力窗也要关掉 —— 此前只发消息不关窗，窗口留在屏幕上。
+            this.close();
             return true;
           }
           // 0-DH：窃盗(300) 先弹物品选择窗（var_486 = 27 → *label_3026，319566-319596）
@@ -1244,6 +1261,23 @@
             this.pushMessage(r.allowSelf
               ? '对谁使用？（方向键 / 小键盘 1-9 选人，回车 = 自己，Esc 取消）'
               : '哪个方向？（方向键 / 小键盘 1-9，Esc 取消）');
+            return true;
+          }
+          // 0-Z4：窃盗(300) —— 319566 *label_3026 → *label_2893 的 8 方向箭头
+          //   回车 = 当前格，方向键 = 邻格；对选定格的有主物品建立 rowact 10。
+          if (r && r.reason === 'need-steal-direction' && Elona.DirSel) {
+            this.close();
+            Elona.DirSel.startCmd(g, '窃盗', (gg, dx, dy) => {
+              const p = gg.player;
+              const x = (p.x | 0) + (dx | 0), y = (p.y | 0) + (dy | 0);
+              const st = gg.startSteal(p, null, x, y);
+              if (!st || !st.ok) {
+                return { ok: false, message: (st && st.message) || '那里没有可偷的东西。' };
+              }
+              if (gg.endTurn) gg.endTurn();
+              return { ok: true, action: 'steal', message: st.message };
+            }, { allowSelf: true });
+            this.pushMessage('偷哪个方向？（方向键 / 小键盘 1-9 选格子，回车 = 脚下，Esc 取消）');
             return true;
           }
           // 0-EP：626 精神分析 —— 目标处于タッグ编成中 → 318832 的 txtselecttc 2 二选一
@@ -2663,6 +2697,14 @@
 
     pushMsg(t) { Elona.UI.pushMessage(t); },
 
+    /**
+     * 0-Z0：`pushMsg` 的别名。abilities / ride / steal / direction 等一批面板的
+     * act 回调里写的是 `this.pushMessage(...)`，而方法名一直是 `pushMsg` ——
+     * 调用时抛 TypeError，写在它后面的 `this.close()` 就执行不到：
+     * 骑乘面板「骑上它」成功后弹窗残留、能力窗解散骑乘后不关闭，都是这个根因。
+     */
+    pushMessage(t) { this.pushMsg(t); },
+
     // ======================================================================
     // 素材 / 材料（m → label_2582）
     // ======================================================================
@@ -4026,21 +4068,28 @@
       const P = Elona.Party;
       const p = g.player;
       const lv = Math.max(1, Math.min(50, Math.floor((p.level | 0) * 2 / 3) + 1));
+      // 0-Z0：台词读 data/text/pet_reunion.json（zh 优先）；未就绪时用内置兜底，
+      //   选项与源码 608095-608200 一致（犬165/猫164/熊108/少女166；妹436/お嬢様485/…）。
+      const sec = PET_REUNION_TXT ? (PET_REUNION_TXT[kind] || null) : null;
       const PETS = [
-        { id: 165, label: '犬だ！' }, { id: 164, label: '猫だ！' },
-        { id: 108, label: 'クマだ！' }, { id: 166, label: '少女だ！' },
+        { id: 165, jp: '犬だ！', zh: '是狗！' }, { id: 164, jp: '猫だ！', zh: '是猫！' },
+        { id: 108, jp: 'クマだ！', zh: '是熊！' }, { id: 166, jp: '少女だ！', zh: '是少女！' },
       ];
       const FAMILY = [
-        { id: 436, label: '妹だ！' }, { id: 485, label: 'お嬢様だ！' },
-        { id: 493, label: '姉だ！' }, { id: 494, label: '少女だ！' },
-        { id: 963, label: '少年だ！' }, { id: 921, label: '弟だ！' },
-        { id: 965, label: '執事だ！' }, { id: 922, label: '兄だ！' },
+        { id: 436, jp: '妹だ！', zh: '是妹妹！' }, { id: 485, jp: 'お嬢様だ！', zh: '是大小姐！' },
+        { id: 493, jp: '姉だ！', zh: '是姐姐！' }, { id: 494, jp: '少女だ！', zh: '是少女！' },
+        { id: 963, jp: '少年だ！', zh: '是少年！' }, { id: 921, jp: '弟だ！', zh: '是弟弟！' },
+        { id: 965, jp: '執事だ！', zh: '是管家！' }, { id: 922, jp: '兄だ！', zh: '是哥哥！' },
       ];
-      const list = (kind === 'family') ? FAMILY : PETS;
-      const title = (kind === 'family') ? '隠れていたもの' : 'ペットとの再会';
-      const intro = (kind === 'family')
-        ? '你察觉到背后的气息，停下了脚步。回头看到的是……'
-        : '你听见熟悉的叫声，停下脚步。船难时失散的宠物正高兴地跑过来！你的宠物是……';
+      const src = (sec && sec.options && sec.options.length) ? sec.options
+        : (kind === 'family') ? FAMILY : PETS;
+      const list = src.map((it) => ({ id: it.id, label: it.zh || it.jp }));
+      const title = (sec && sec.title && (sec.title.zh || sec.title.jp))
+        || ((kind === 'family') ? '隠れていたもの' : 'ペットとの再会');
+      const intro = (sec && sec.intro && (sec.intro.zh || sec.intro.jp))
+        || ((kind === 'family')
+          ? '你察觉到背后的气息，停下了脚步。回头看到的是……'
+          : '你听见熟悉的叫声，停下脚步。船难时失散的宠物正高兴地跑过来！你的宠物是……');
       const html = '<div class="pui-note">' + esc(intro) + '</div>'
         + list.map((it, i) => `<div class="pui-row" data-i="${i}">`
           + `<span class="pui-key">${'abcdefgh'[i]}</span>`
@@ -4596,8 +4645,9 @@
         + `<div class="pui-kv"><span>幸福度</span><b>${C.happiness(c)} / ${C.HAPPY_MAX}</b></div>`
         + `<div class="pui-kv"><span>戰鬥模式</span><b>${C.modeName(C.modeOf(c))}</b></div>`
         + `<div class="pui-kv"><span>搭档</span><b>${(() => {
-          const pi = C.tagPartner(c);
-          const pt = pi ? g.charas[pi] : null;
+          // 0-Y0：搭档可以是玩家（索引 0），旧的 tagPartner 会把它误判成「没有搭档」
+          const pi = C.tagPartnerIndex ? C.tagPartnerIndex(c) : (C.tagPartner(c) || -1);
+          const pt = (pi >= 0 && g.charas) ? g.charas[pi] : null;
           if (!pt) return '—';
           const role = (c.get(C.TAG_ROLE) | 0) === 1 ? '追随' : 'ベース';
           return `${pt.name}（${role}）`;
