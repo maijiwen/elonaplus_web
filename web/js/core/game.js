@@ -792,6 +792,13 @@
         }
       }
 
+      // 0-Z18：252304-252632 的节日临时 NPC / 祭品。原版由 *label_2477/2478
+      // 在 map_reload 前生成；本项目在城镇基础 NPC 之后同批生成，节日地图物件
+      // 已由 loadMap 从 *_fest.json 放入地面。
+      if (Elona.FestivalMap && Elona.FestivalMap.spawnContent) {
+        Elona.FestivalMap.spawnContent(this);
+      }
+
       this.syncCharaCells();
       this.log(`${this.townName(town)} 的街道上可以看到店主、市民和服务区 NPC。`);
     }
@@ -950,12 +957,17 @@
     // ---------- 地图 ----------
     async loadMap(name) {
       if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
+      // 0-Z18：245916-245948 —— 8 月卢杜斯 / 12 月诺耶尔载入各自的 *_fest 地图，
+      // 同时按源码写入 var_132(29, mapId)。地图对象名仍是普通城镇名。
+      const fmSel = Elona.FestivalMap ? Elona.FestivalMap.selectMap(this, name) : null;
+      const mapFile = fmSel ? fmSel.file : name;
       // 0-FY：246213 / 252210 —— 载入地图时把所有角色的行动计 var_58(10) 清零
       if (Elona.TurnGauge && Elona.TurnGauge.reset) Elona.TurnGauge.reset(this);
       // 0-EA：离开自建建筑前先把地面物品收进 site.stock（原版 235253-235255 写 inv_*.s2）
       if (Elona.Property && Elona.Property.stashStock) Elona.Property.stashStock(this);
-      const json = await Elona.Data.map(name);
+      const json = await Elona.Data.map(mapFile);
       this.map = new Elona.GameMap(json, this.tileAttrs);
+      if (fmSel && Elona.FestivalMap) Elona.FestivalMap.tagLoadedMap(this.map, fmSel);
       // 地图对象 → 地形特性 / 地面物品（map_initcustom 227693-227735 / map_reload 227761-227777）。
       // 【注记】原版城镇走 map_reload，只创建 kind==0 的物品；kind==2 的地形对象由
       //   map_initcustom 写入。本项目统一在 loadMap 应用两者，否则城镇的门/楼梯不存在。
@@ -1075,6 +1087,9 @@
       const prevMapId = this.getV65(20) | 0;
       this.setV65(20, mapId);
       this.setV65(22, subId);
+      // 0-Z18：闲聊台词用 var_132(29, mapId) 判定节日（idletalk 的 attr(29)）。
+      // 注：源码在跨月后需重新进图才会切换，这里也只在 loadMap 时刷新。
+      if (Elona.FestivalMap) Elona.FestivalMap.onMapLoaded(this, mapId);
       // 0-Z3 / 237600-237602 + 248724-248846：进城镇 / 野外 / 自宅时记录出发
       //   信息；旅行里数满 300 时结算全队经验（core/travel.js）。
       if (Elona.Travel && this.player) {
@@ -6561,6 +6576,9 @@
       this.v132 = data.v132 || {};
       // 0-L0 / A43：旧存档没有 v132Fields，按「无覆盖」处理（静态表照常生效）
       this.v132Fields = data.v132Fields || Object.create(null);
+      // 0-Z18：读档不走 loadMap，按存档里的 var_132(29) 恢复节日图标记，
+      // 否则 populateTown 会把节日临时 NPC 当成普通城镇重建。
+      if (Elona.FestivalMap) Elona.FestivalMap.restoreMeta(this);
       this.propertySites = data.propertySites || {};
       this.farmRenew = data.farmRenew || {};
       // 0-FS：自宅的楼层状态（旧存档缺字段时按「还没进过家」处理）

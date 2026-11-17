@@ -858,6 +858,9 @@
 
     /** 供测试直接调用内部函数 */
     _internals: { Ctx, runOps, execStmt, evalExpr, statRecalc, defaultSkillBase, initSlots, Parser },
+
+    /** randomname()（25856-25899）的随机姓名，节日摊贩命名复用 */
+    randomName(g) { return randomName({ rng: (g && g.rng) || Elona.rng }); },
   };
 
   Elona.CharaFactory = CharaFactory;
