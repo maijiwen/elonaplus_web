@@ -269,7 +269,63 @@
         const dish = Elona.FoodName.of(cat, it.f[26] | 0, this.name(it.id, lang), lang);
         if (dish) return dish;
       }
-      return this.name(it.id, lang);
+      return this._qualityAwareBase(it, lang);
+    },
+
+    /**
+     * 黑星 / 品质名包装 —— itemname 30652 / 30872-30895 / 31187-31189。
+     *
+     *   · 30652：`var_99(8) == 0`（尚未鉴定）→ 名称取 `var_53`（未鉴定别名）。
+     *   · 30872-30882：`var_99(8) < 3` 时，品质 >= 4 且非消耗品（refitem(5) < 50000）
+     *     也取别名，其余取真名。
+     *   · 31187-31189：`var_99(8) == 2`（已鉴定品质、未鉴定名称）且装备（< 50000）时，
+     *     名称后加 ` (品质名)` —— 品质 6 即用户 wiki 所说的「（特别的）」。
+     *   · 30883-30895：`var_99(8) >= 3`（完全鉴定）时，
+     *     `var_99(4) == 6 | ibit(5) == 1`（黑星装备 / 贵重品）→ 名称前加「★」；
+     *     否则品质 >= 4 → 加「☆」。
+     *
+     * 中文名表把「★」直接写进了 157 件神器的 nameCh，这里先剥掉再按鉴定状态重加，
+     * 避免未鉴定时就剧透。别名表只有 aliasJp / aliasEn（无 aliasCh），
+     * 中文模式暂不启用未鉴定别名（见 aliasName 的说明）。
+     */
+    _qualityAwareBase(it, lang) {
+      const f8 = it.f[8] | 0;
+      const q = it.f[4] | 0;
+      let cat = it.field657 | 0;
+      if (!cat) { try { cat = this.ref(it.id | 0, 5) | 0; } catch (e) { cat = 0; } }
+      const real = String(this.name(it.id, lang) || '').replace(/^[★☆]/, '');
+      if (f8 >= 3) {
+        if (q === 6 || this.ibit(5, it) === 1) return '★' + real;    // 30883-30889
+        if (q >= 4) return '☆' + real;                               // 30891-30893
+        return real;
+      }
+      let nm = real;
+      if (f8 === 0) nm = this.aliasName(it, lang) || real;           // 30652
+      else if (q >= 4 && cat < 50000) nm = this.aliasName(it, lang) || real;  // 30872-30882
+      if (f8 === 2 && cat < 50000) nm += ' (' + this.qualityName(q, lang) + ')';  // 31187
+      return nm;
+    },
+
+    /**
+     * `var_53` 未鉴定别名（items.json 的 aliasJp / aliasEn）。
+     * 【数据缺口】items.json 没有 aliasCh，中文模式返回空串 → 由调用方回退真名，
+     *   以免未鉴定物品显示成日文别名；日/英模式按源码取值。
+     */
+    aliasName(it, lang) {
+      const e = this.eq(it && it.id);
+      if (!e) return '';
+      if (lang === 'en') return e.aliasEn || '';
+      if (lang === 'jp') return e.aliasJp || '';
+      return e.aliasCh || '';
+    },
+
+    /** `var_332`（9078/9081）：0 空 / 1 粗悪 / 2 平凡 / 3 高品質 / 4 奇跡 / 5 神器 / 6 特別 */
+    qualityName(q, lang) {
+      const JP = ['', '粗悪', '平凡', '高品質', '奇跡', '神器', '特別'];
+      const EN = ['', 'bad', 'common', 'great', 'miracle', 'godly', 'special'];
+      const CH = ['', '粗糙', '平凡', '高品质', '奇迹', '神器', '特别'];
+      const i = Math.max(0, Math.min(6, q | 0));
+      return lang === 'en' ? EN[i] : (lang === 'jp' ? JP[i] : CH[i]);
     },
 
     desc(id, lang) {
@@ -539,6 +595,37 @@
         }
         if (!moved) break;
       }
+    },
+
+    /**
+     * encremove(it, id, power, g)：源码 27795-27823。
+     * 在 15 个附魔槽中找同 id 的槽，数值 -= power；归零则清 id。
+     * 之后按附魔类型系数（var_649(1,type)，即 enchant.enchants[type][1]）
+     * 回退物品价值，再 sortenc。用于换材质时移除旧材质自带附魔
+     * （label_0354 的 8 次 encremove 循环 / 28758-28765）。
+     */
+    encremove(it, id, power, g) {
+      if (!it || !it.f || !id) return 0;
+      const f = it.f;
+      const T = ENCHANT && ENCHANT.enchants;
+      const typeOf = (x) => (x >= 10000 ? idiv(x, 10000) : x);
+      // 27797-27805：var_664 = prm_547（满 id），var_665 = prm_548（power）
+      let found = 0;
+      for (let cnt = 0; cnt < 15; cnt++) {
+        if ((f[40 + cnt * 2] | 0) === (id | 0)) {
+          f[40 + cnt * 2 + 1] = (f[40 + cnt * 2 + 1] | 0) - (power | 0);
+          if ((f[40 + cnt * 2 + 1] | 0) === 0) f[40 + cnt * 2] = 0;
+          found = 1;
+          break;
+        }
+      }
+      // 27817-27821：var_666 = type；价值 = 价值 * 100 / var_649(1,type)
+      const t = typeOf(id);
+      const def = T ? T[String(t)] : null;
+      const pct = def ? (def[1] || 100) : 100;
+      if (pct && (f[1] | 0) > 0) f[1] = idiv((f[1] | 0) * 100, pct);
+      this.sortenc(it);
+      return found;
     },
 
     /** encadd(it, id, power, g, opt)：逐字移植 27825-27998 */
@@ -1237,27 +1324,55 @@
      *   if ( refitem(var_99(3, item), 5) >= 50000 ) { return }   ; 消耗品/材料类不转换
      *   if ( var_99(4, item) != 6 ) { return }                  ; var_99(4)==6 = 唯一物品
      *   if ( var_99(18, item) != 0 ) { return }                 ; 已有神器编号的不转换
-     *   ; 遍历背包：若已存在同 id（var_99(3)）的另一件 → 触发转换
+     *   ; repeat 5480：扫描全局物品表，跳过 [20*16+200, 5080-20) = [520,5060)
+     *   ;   —— 按 inv_getowner（29271-29280）的划分，这一段是「其他 NPC」的背包；
+     *   ;   实际参与判定的是：玩家背包（0-199）、队伍成员 1..16（200-519）、
+     *   ;   当前地图地面（5080 之后，owner == -1）。
+     *   ; 死者（var_58(0, owner)==0）的物品不参与判定（222022）。
      *   var_99(0, item) = 0
      *   itemcreate owner, 1066, x, y, 0                        ; 生成 stardust
      *   「<name>はスターダストに形を変えた。」
      *
+     * @param {object} c   物品所在角色（新取得物品的持有者）
+     * @param {number} idx c.inv 下标
+     * @param {object} [g] 游戏实例；缺省用 Elona.game。给出时按源码扫队伍与地面
      * @returns {null|{name:string, dust:object}} 转换成功时返回新生成的星尘实例
      */
-    convertArtifact(c, idx) {
+    convertArtifact(c, idx, g) {
       const it = c.inv[idx];
       if (!it || (it.f[0] | 0) <= 0) return null;
       if (this.ref(it.id, 5) >= 50000) return null;        // 222004：消耗品/材料类
       if ((it.f[4] | 0) !== 6) return null;                // 222007：必须是唯一物品
       if ((it.f[18] | 0) !== 0) return null;               // 222010：已有神器编号
-      let dup = -1;
-      for (let k = 0; k < c.inv.length; k++) {
-        if (k === idx) continue;
-        const o = c.inv[k];
-        if (!o || (o.f[0] | 0) <= 0) continue;
-        if ((o.f[3] | 0) === (it.f[3] | 0)) { dup = k; break; }   // 222029-222035
+      const gg = g || Elona.game || null;
+      const sameId = (o) => o && o !== it && (o.f[0] | 0) > 0 && (o.f[3] | 0) === (it.f[3] | 0);
+      let dup = false;
+      // 玩家 + 队伍成员（9 == 10 为同伴），同伴以外不参与；四次元袋（g.pocket）不在扫描范围
+      const chars = [];
+      if (gg && gg.charas) {
+        for (let i = 0; i < gg.charas.length; i++) {
+          const ch = gg.charas[i];
+          if (!ch) continue;
+          if ((ch.index | 0) === 0 || (ch.get ? (ch.get(9) | 0) === 10 : false)) chars.push(ch);
+        }
       }
-      if (dup < 0) return null;
+      if (chars.indexOf(c) < 0) chars.push(c);
+      for (let ci = 0; ci < chars.length && !dup; ci++) {
+        const ch = chars[ci];
+        // 222022：死者（var_58(0)==0）的物品不参与；玩家（index 0）取物时必然存活，不套用
+        if ((ch.index | 0) !== 0 && ch.get && (ch.get(0) | 0) === 0) continue;
+        const inv = ch.inv || [];
+        for (let k = 0; k < inv.length; k++) {
+          if (sameId(inv[k])) { dup = true; break; }
+        }
+      }
+      if (!dup && gg && gg.groundItems) {
+        const ground = gg.groundItems;
+        for (let k = 0; k < ground.length; k++) {
+          if (sameId(ground[k])) { dup = true; break; }
+        }
+      }
+      if (!dup) return null;
       const name = this.name(it, 'jp');
       it.f[0] = 0;                                        // 222046：清空原物品
       const dust = this.createItem(1066, 1, null);          // 222047：生成 stardust

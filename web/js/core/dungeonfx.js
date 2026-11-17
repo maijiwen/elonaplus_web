@@ -611,6 +611,82 @@
     return { ok: true, empty: false, result };
   }
 
+  /**
+   * 暴力开锁（效果 757，源码 328177-328300 的 *label_2994 前置段）。
+   *
+   *   统计视野内自身与同伴的力量/2（skill 10）与开锁等级（skill 158，>0 才计）之和 A；
+   *   锁难度 B = clamp(f[26],0,2000)；A/2 < B 必败；否则 rnd(rnd(A+1)+1) < B 失败；
+   *   成功则破坏锁、开箱，并给自身 skillexp(10,50)+skillexp(158,40+B/3)、
+   *   在场同伴各 skillexp(10,50)+(开锁>0 时 skillexp(158,40)）。
+   *
+   *   视野/距离按源码 328196-328201 逐字：`dist(actor,ch) <= var_83(3,656)\1000+1`
+   *   且 `fov_los(actor,ch) != 0`。dist 是欧氏（battle.js:40），sightRange 取
+   *   Spell.field(656,3)\1000+1（AI.sightRange），fov_los 用 Spell.fovLos。
+   * @returns {{ok:boolean, reason?:string, power?:number, lock?:number, result?:object}}
+   */
+  function forceUnlock(g, c, it) {
+    if (!it || !it.f) return { ok: false, reason: 'no-item' };
+    const R = rndOf(g);
+    const B = clamp(it.f[26] | 0, 0, 2000);
+    const actor = c || (g && g.player);
+    if (!actor) return { ok: false, reason: 'no-actor' };
+    // 源码 dist <= var_83(3,656)\1000+1（AI.sightRange 已封装此式，默认 3006→7）
+    let sight = 7;
+    if (Elona.AI && typeof Elona.AI.sightRange === 'function') {
+      try { sight = (Elona.AI.sightRange() | 0); } catch (e) { sight = 7; }
+    }
+    const ax = actor.get(1) | 0, ay = actor.get(2) | 0;
+    // 源码 40 行 dist = trunc(sqrt(dx²+dy²))，fov_los 需非 0（相邻格 fovLos 恒为 1）
+    const edist = (x1, y1, x2, y2) => Math.trunc(Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
+    const inView = (ch) => {
+      if (!ch || (ch.get(0) | 0) !== 1) return false;  // var_58(0,cnt)==1
+      const cx = ch.get(1) | 0, cy = ch.get(2) | 0;
+      if (edist(ax, ay, cx, cy) > sight) return false;
+      if (Elona.Spell && typeof Elona.Spell.fovLos === 'function'
+          && (Elona.Spell.fovLos(g, ax, ay, cx, cy) | 0) === 0) return false;
+      return true;
+    };
+    // A：同伴（1..15）力量/2 + 开锁等级（>0）
+    let A = 0;
+    const allies = [];
+    const chars = (g && g.charas) || [];
+    for (let idx = 1; idx < 16; idx++) {
+      const ch = chars[idx];
+      if (!inView(ch)) continue;
+      A += idiv(ch.skill(10) | 0, 2);
+      const sk = ch.skill(158) | 0;
+      if (sk > 0) A += sk;
+      allies.push(ch);
+    }
+    // 自身（var_243 == 0 玩家）
+    A += idiv(actor.skill(10) | 0, 2);
+    const selfLock = actor.skill(158) | 0;
+    if (selfLock > 0) A += selfLock;
+    // 判定
+    if (idiv(A, 2) < B) return { ok: false, reason: 'impossible', power: A, lock: B };
+    if (R(R(A + 1) + 1) < B) return { ok: false, reason: 'fail', power: A, lock: B };
+    // 成功：破坏锁 + 开箱（label_3000）
+    it.f[26] = 0;
+    const result = rollChestContent(g, it);
+    // 经验：自身 skillexp(10,0,50) + skillexp(158,0,40+B/3)
+    if (Elona.Stats && Elona.Stats.skillExp) {
+      try {
+        Elona.Stats.skillExp(actor, 10, actor.index | 0, 50, 9999, 0, g);
+        Elona.Stats.skillExp(actor, 158, actor.index | 0, 40 + idiv(B, 3), 9999, 0, g);
+      } catch (e) { /* noop */ }
+      for (const ally of allies) {
+        try {
+          Elona.Stats.skillExp(ally, 10, ally.index | 0, 50, 9999, 0, g);
+          if ((ally.skill(158) | 0) > 0) {
+            Elona.Stats.skillExp(ally, 158, ally.index | 0, 40, 9999, 0, g);
+          }
+        } catch (e) { /* noop */ }
+      }
+    }
+    if (g && typeof g.log === 'function') g.log('你成功破坏了锁！');
+    return { ok: true, power: A, lock: B, result, force: true };
+  }
+
   // ==========================================================================
   // 六、按地城类型的挖墙掉落（313181-313481）
   // ==========================================================================
@@ -700,7 +776,7 @@
     calcFame, raceNameOf, materialOf, applyCoreSeed,
     onBossKilled, rollSeeds, kindTag,
     trapIdAllowed, placeTrap, placeFloorHazards,
-    genContainerFields, tryUnlock, rollChestContent, openChest,
+    genContainerFields, tryUnlock, forceUnlock, rollChestContent, openChest,
     rollDigDrop, digDrop,
     mapType, depthOf, isFever,
   };

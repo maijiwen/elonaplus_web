@@ -197,6 +197,25 @@
       });
       return true;
     }
+    // 0-Z16 / 328182-328200 暴力开锁 757：源码 var_486=23,14 的物品选择窗，
+    //   只列未开且上锁的容器（f[25]!=0 且 f[26]>0），选中后 forceUnlock 结算。
+    if (r.request === 'force-unlock-pick' && Elona.Panels && Elona.DungeonFx) {
+      const list = (r.candidates || []).filter(Boolean);
+      if (!list.length) return true;
+      Elona.Panels.openItemPicker(game, {
+        title: '要破坏哪个箱子的锁？',
+        hint: '↑↓ 选择　Esc 取消',
+        filter: (it) => list.indexOf(it) >= 0,
+        onPick: (idx, it) => {
+          const rr = Elona.DungeonFx.forceUnlock(game, game.player, it);
+          if (rr && rr.reason === 'impossible') UI.pushMessage('不论如何也打不开这把锁。');
+          else if (rr && rr.reason === 'fail') UI.pushMessage('破坏了锁，但失败了！');
+          else if (rr && rr.ok) UI.pushMessage('你成功破坏了锁！');
+          if (rr && rr.ok && game.endTurn) game.endTurn();
+        },
+      });
+      return true;
+    }
     // 炼成雨（751）/ 液体操纵弹（826）：打开「只列可用药水」的选择窗（var_486=23,11）
     if (r.request === 'potion-pick') {
       if (Elona.Panels && Elona.Panels.openPotionPick) {

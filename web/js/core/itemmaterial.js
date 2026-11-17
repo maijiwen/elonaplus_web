@@ -159,9 +159,165 @@
     return it;
   }
 
+  // ======================================================================
+  // 素材変化の巻物（0-Z12）—— 326087-326202 的三张循环表
+  // ======================================================================
+  /**
+   * 卷轴 500 / 501 / 502 把目标物品的材质沿固定环推进一格。
+   * 源码是三段平铺的 `if ( var_99(24, var_579) == N ) { var_687 = M }`：
+   *   500 劣悪素材の巻物（power 10）：16→3→2→21→44→35→1→5→4→33→12→34→18→16，缺省 16
+   *   501 素材変化の巻物（power 180）：27→43→20→30→10→9→19→25→26→32→22→28→(祝福?24:27)
+   *                                   / 24→(祝福?31:27) / 31→27，缺省 27
+   *   502 *素材変化*巻物（power 350）：17→14→24→11→29→45→7→31→23→13→(祝福?15:17)
+   *                                   / 15→(祝福?8:17) / 8→17，缺省 17
+   * 「祝福」判定用**卷轴自己**的 `var_99(17) < 1`（326113 / 326150）。
+   */
+  const CYCLE = {
+    500: {
+      16: 3, 3: 2, 2: 21, 21: 44, 44: 35, 35: 1, 1: 5, 5: 4, 4: 33,
+      33: 12, 12: 34, 34: 18, 18: 16,
+    },
+    501: {
+      27: 43, 43: 20, 20: 30, 30: 10, 10: 9, 9: 19, 19: 25, 25: 26,
+      26: 32, 32: 22, 22: 28, 31: 27,
+    },
+    502: {
+      17: 14, 14: 24, 24: 11, 11: 29, 29: 45, 45: 7, 7: 31, 31: 23,
+      23: 13, 8: 17,
+    },
+  };
+  const CYCLE_DEFAULT = { 500: 16, 501: 27, 502: 17 };
+
+  /**
+   * 下一档材质。
+   * @param {number} toolId 500 / 501 / 502
+   * @param {number} mat    当前材质
+   * @param {boolean} blessed 卷轴是否祝福（`var_99(17) >= 1`）
+   */
+  function nextMaterial(toolId, mat, blessed) {
+    const t = toolId | 0, m = mat | 0;
+    if (t === 501) {
+      if (m === 28) return blessed ? 24 : 27;
+      if (m === 24) return blessed ? 31 : 27;
+    }
+    if (t === 502) {
+      if (m === 13) return blessed ? 15 : 17;
+      if (m === 15) return blessed ? 8 : 17;
+    }
+    const tbl = CYCLE[t];
+    if (!tbl) return 0;
+    const v = tbl[m];
+    return v === undefined ? (CYCLE_DEFAULT[t] | 0) : v;
+  }
+
+  /**
+   * 换材质：start.hsp *label_0354 → *label_0355 → *label_0356（28754-28888）逐段移植。
+   *
+   *   label_0354：先按旧材质的 var_681 表逐条 encremove（去掉旧材质自带附魔），
+   *               反算骰面基数 var_689 = 价值*400/(旧价值系数/4+200)，
+   *               gosub label_0598（var_59=10 → label_1934，普通装备不改基础字段），
+   *               恢复价值，写入新材质（var_687）后进入 label_0355。
+   *   label_0355：按新材质系数缩放骰面/价值/命中，并用品质分母 + rnd(30)/rnd(25)
+   *               重算 5 个附魔加成槽 f[13/12/14/15/11]（随机骰波动，var_690==0 分支），
+   *               末尾 gosub label_0356。
+   *   label_0356：按新材质的 var_681 表逐条 encadd、var_682 表逐条 ibitmod。
+   *
+   * @param g 游戏对象（提供 rng；encadd/encremove 需要）
+   * @returns {boolean} 是否发生材质变化
+   */
+  function changeTo(it, newMat, g) {
+    if (!it || !it.f) return false;
+    const f = it.f;
+    const oldMat = f[24] | 0;
+    const nm = newMat | 0;
+    if (nm === oldMat) return false;
+    const co = stats(oldMat) || [], cn = stats(nm) || [];
+    const DB = Elona.ItemDB;
+    const rnd = (n) => ((g && g.rng && typeof g.rng.rnd === 'function')
+      ? g.rng.rnd(Math.max(1, n | 0)) : 0);
+    const idiv = (a, b) => (b === 0 ? 0 : Math.trunc(a / b));
+
+    // ---- label_0354 开头：移除旧材质自带附魔（var_681 表最多 8 对） ----
+    const oldRec = ref(oldMat);
+    if (oldRec) {
+      for (const pair of (oldRec.enchants || [])) {
+        const id = pair[0] | 0, val = pair[1] | 0;
+        if (!id) break;                                   // 源码 `if (==0) break`
+        if (DB && typeof DB.encremove === 'function') {
+          try { DB.encremove(it, id, val, g); } catch (e) { /* noop */ }
+        }
+      }
+      // 旧材质 ibit 清除（避免残留耐火/耐酸等材质特性）
+      for (const bit of (oldRec.ibits || [])) {
+        if (!bit) break;
+        if (DB && typeof DB.ibitmod === 'function') {
+          try { DB.ibitmod(bit | 0, it, 0); } catch (e) { /* noop */ }
+        }
+      }
+    }
+
+    // ---- label_0354：反算骰面基数 var_689 = 价值*400/(旧价值系数/4+200) ----
+    // 源码对 refitem==60000 有另一分支（金币等），装备一般都走 else。
+    const refitem = (f[3] | 0);
+    let var689;
+    if (co[1] !== undefined) var689 = idiv((f[1] | 0) * 400, idiv(co[1] | 0, 4) + 200);
+    else var689 = f[1] | 0;
+
+    // 清 f[13]/f[12]/f[14]/f[15]（源码 28776-28785 的条件段；换材质装备通常都带附魔加成）
+    f[13] = 0; f[12] = 0; f[14] = 0; f[15] = 0;
+
+    // label_0598（var_59=10 → label_1934）：普通装备不改基础字段，仅保留 var_689 回写价值
+    void refitem;
+
+    // 写入新材质
+    f[24] = nm;
+
+    // ---- label_0355：按新材质缩放 ----
+    // 骰面/价值基数：f[7] = f[7] * 新重量系数/100
+    if (cn[0] !== undefined) f[7] = Math.max(1, idiv((f[7] | 0) * (cn[0] | 0), 100));
+    // 价值：f[1] = var689 * (新价值系数/4+200)/400
+    const valDiv = (cn[1] !== undefined) ? (idiv(cn[1] | 0, 4) + 200) : 400;
+    f[1] = Math.max(1, idiv(var689 * valDiv, 400));
+    // 命中修正：f[22]==0 时取新材质的图标/命中位 c7
+    if ((f[22] | 0) === 0 && cn[7] !== undefined) f[22] = cn[7] | 0;
+
+    // 品质分母 var_400(1)：默认 120；品质1→150，品质3→100，品质≥4→80（28823-28831）
+    const qual = f[4] | 0;
+    const denom = qual === 1 ? 150 : (qual === 3 ? 100 : (qual >= 4 ? 80 : 120));
+    // var_690==0 分支（28855-28871）：分母带 rnd(30)/rnd(25) 的随机骰波动。
+    // 换材质（卷轴/素材槌）不设 var_690，沿用 0，故走此分支。
+    if ((f[13] | 0) !== 0) f[13] = idiv((cn[2] | 0) * (f[13] | 0) * 9, denom - rnd(30));
+    if ((f[12] | 0) !== 0) f[12] = idiv((cn[3] | 0) * (f[12] | 0) * 5, denom - rnd(30));
+    if ((f[14] | 0) !== 0) f[14] = idiv((cn[4] | 0) * (f[14] | 0) * 7, denom - rnd(30));
+    if ((f[15] | 0) !== 0) f[15] = idiv((cn[5] | 0) * (f[15] | 0) * 9, denom - rnd(30));
+    if ((f[11] | 0) !== 0) f[11] = idiv((f[11] | 0) * (cn[6] | 0), denom + rnd(25));
+
+    // ---- label_0356：加新材质自带附魔与 ibit ----
+    const newRec = ref(nm);
+    if (newRec) {
+      for (const pair of (newRec.enchants || [])) {
+        const id = pair[0] | 0, val = pair[1] | 0;
+        if (!id) break;
+        if (DB && typeof DB.encadd === 'function') {
+          try { DB.encadd(it, id, val, g, { prm553: 1 }); } catch (e) { /* noop */ }
+        } else if (it.enchantTable) {
+          it.enchantTable.push([id, val]);
+        }
+      }
+      for (const bit of (newRec.ibits || [])) {
+        if (!bit) break;
+        if (DB && typeof DB.ibitmod === 'function') {
+          try { DB.ibitmod(bit | 0, it, 1); } catch (e) { /* noop */ }
+        }
+      }
+    }
+    return true;
+  }
+
   Elona.ItemMaterial = {
     table, ref, nameOf, adjOf, workPrefix, pickTier, materialIndex,
     stats, apply, applyStats,
+    nextMaterial, changeTo, CYCLE,
     count() { const t = table(); return t ? Object.keys(t.materials).length : 0; },
   };
 })(typeof window !== 'undefined' ? window : globalThis);

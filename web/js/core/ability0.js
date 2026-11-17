@@ -844,10 +844,27 @@
     dmg(g, t, d, c, 64, 1000);
     return { implemented: true, dmg: d, R };
   };
-  // 328299 魔杖复制 / 328177 暴力开锁：源码在 var_243 != 0 时直接结束，
-  //   玩家侧走的是道具栏 UI（不在本分派里），故此处等价于无事。
+  // 328299 魔杖复制：源码在 var_243 != 0 时直接结束，玩家侧走道具栏 UI。
   T[756] = (g) => ({ implemented: true, nothing: true, flag: v65(g, 560) });
-  T[757] = () => ({ implemented: true, nothing: true });
+  /**
+   * 757 暴力开锁（源码 328177-328300）：选一个上锁的容器，统计自身+视野内同伴的
+   *   力量/2 与开锁等级之和，与锁难度比对判定，成功破锁开箱并给经验。
+   *   源码通过 `var_486=23,14` 的物品选择 UI 选箱子（328182-328200），
+   *   项目走 main.js consumeSpellRequest 的 'force-unlock-pick' → openItemPicker，
+   *   只列 f[25]!=0（未开）且 f[26]>0（上锁）且 id!=784 的容器，选中后由
+   *   DungeonFx.forceUnlock 按源码结算（力量/技能统计、A/2 与 rnd 判定、经验）。
+   */
+  T[757] = (g, c) => {
+    const D = Elona.DungeonFx;
+    if (!D || typeof D.forceUnlock !== 'function') return { implemented: true, nothing: true };
+    const actor = c || (g && g.player);
+    const inv = (actor && actor.inv) || [];
+    const candidates = inv.filter((it) => it && it.f && (it.f[0] | 0) > 0
+      && (it.f[25] | 0) !== 0 && (it.f[26] | 0) > 0 && (it.id | 0) !== 784);
+    if (!candidates.length) return { implemented: true, nothing: true, reason: 'no-locked-container' };
+    // 源码 var_486=23,14 的物品选择窗；交给 UI 让玩家自己挑上锁容器
+    return { implemented: true, request: 'force-unlock-pick', candidates };
+  };
   T[760] = (g, c) => {                                      // 舍身攻击 330948
     if (meleeLocked(g, c)) {
       subMorale(c, 25);
@@ -1416,12 +1433,20 @@
     if (rage(g, c, t, 728)) return { implemented: true, recast: 728 };
     return { implemented: true, glare: true };
   };
-  T[843] = (g, c, t) => {                                   // 直接输血 330810
+  T[843] = (g, c, t) => {                                   // 直接输血 330810-330851
     if ((c.index | 0) === 0) { say(g, '首先要选择输血源。'); return { implemented: true, request: 'transfuse' }; }
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
+    // 330843-330845：源扣 MP（var_82(151,施法者)/2+1，由 con 承担）+ 敌对化
     con(g, t, 9, idiv(c.skill(151) | 0, 2) + 1);
     hostile(g, c, t);
-    return { implemented: true, transfuse: true };
+    // 0-Z13 / 330844-330847：源码还做 healcon(目标,9,差额) 与 gain_iden(源,目标,5)。
+    //   项目把「源」简化为施法者 c（ transfusion 双选人 UI 尚无消费方），
+    //   受体为 t；遗传物质品质 5 由 Birth.gainIden 按 201765-201862 结算。
+    let gene = null;
+    if (Elona.Birth && Elona.Birth.gainIden) {
+      try { gene = Elona.Birth.gainIden(g, c, t, 5); } catch (e) { gene = null; }
+    }
+    return { implemented: true, transfuse: true, gene };
   };
   T[844] = (g, c, t) => {                                   // 电流驱使 337718
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };

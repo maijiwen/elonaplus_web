@@ -127,6 +127,37 @@
    * 这是抢劫行商/船商的代价；从商人身上抢来的商品就在 bag.inv 里（见 loot.js）。
    */
   function beforeOpen(g, it) {
+    // 0-Z16 / 297569：形見のカバン 510（f[9]==3）——无继承权则打不开（只读也不行）
+    if (it && (it.id | 0) === 510 && (it.f[9] | 0) === 3 && Elona.Heirloom) {
+      const r = Elona.Heirloom.openTrunk(g, it);
+      if (!r.ok) {
+        const msg = r.reason === 'no-right' ? '你没有遗产的继承权。'
+          : (r.reason === 'no-legacy' ? '这个提包里没有遗产。' : '打不开这个提包。');
+        if (g && g.log) g.log(msg);
+        return { ok: false, reason: r.reason, message: msg };
+      }
+      // 遗产物品存在全局记录（源码 shop3.s2）；打开时同步到本提包的 inv 供面板显示。
+      // 取出的物品不计入 here inv 的永久状态——由 take() 里的 Heirloom.take 负责扣继承权并回写。
+      const H = Elona.Heirloom;
+      const rec = H.load();
+      if (rec && Array.isArray(rec.items)) {
+        const inv = [];
+        for (const row of rec.items) {
+          let o = null;
+          if (Elona.ItemDB && typeof Elona.ItemDB.createItem === 'function') {
+            try { o = Elona.ItemDB.createItem(row.id, row.n || 1, null); } catch (e) { o = null; }
+          }
+          if (o) {
+            if (row.f) for (let k = 0; k < row.f.length; k++) o.f[k] = row.f[k] | 0;
+            if (row.name) o.name = row.name;
+            inv.push(o);
+          }
+        }
+        it.inv = inv;
+        it._heirloomIndices = rec.items.map((_, i) => i); // 面板 idx → 遗产记录 idx 映射
+      }
+      return { ok: true, heirloom: true, rights: r.rights, items: r.items };
+    }
     if (!g || !it || (it.id | 0) !== 361) return { ok: true };
     if (typeof g.modkarma === 'function') g.modkarma(-10);
     else if (Elona.Karma && Elona.Karma.mod) Elona.Karma.mod(g, -10);
@@ -146,6 +177,23 @@
     const list = contents(it);
     const x = list[idx];
     if (!x || (x.f[0] | 0) <= 0) return { ok: false, message: '那一格是空的。' };
+
+    // 0-Z16 / 297717：形見のカバン 510（f[9]==3）取物 → 继承权 var_65(97)-- 并回写遗产记录
+    if ((it.id | 0) === 510 && (it.f[9] | 0) === 3 && Elona.Heirloom) {
+      const hIdx = (it._heirloomIndices && it._heirloomIndices[idx] !== undefined)
+        ? (it._heirloomIndices[idx] | 0) : idx;
+      const r = Elona.Heirloom.take(g, hIdx);
+      if (!r.ok) {
+        const msg = r.reason === 'no-right' ? '继承权不足，不能再取了。' : '取不出这件遗产。';
+        if (g.log) g.log(msg);
+        return { ok: false, message: msg };
+      }
+      list.splice(idx, 1);
+      if (it._heirloomIndices) it._heirloomIndices.splice(idx, 1);
+      const got = r.item || x;
+      placeIntoInventory(g.player, got);
+      return { ok: true, message: `取出了遗产 ${Elona.ItemDB.name(got.id)} ×${got.f[0] | 0}。剩余继承权 ${r.rights}。` };
+    }
 
     const FL = Elona.FoodLeft;
     if (FL && FL.isFreezer(it) && FL.freezerConvert) FL.freezerConvert(g, x, 'out'); // 342161-342166

@@ -89,6 +89,7 @@
    * @param {object} [opt]
    *   opt.count        变异次数（默认 1；效果 1144 由调用方传 `2 + rnd(3)`）
    *   opt.positiveOnly 是否只允许正面（效果 1144 = true）
+   *   opt.negativeOnly 是否只允许负面（诅咒的 1152 变异药水）
    *   opt.ignoreProtect 跳过附魔 33 判定
    * @returns {{ok:boolean, resisted:boolean, mutated:number, messages:string[], feats:Array}}
    */
@@ -108,6 +109,7 @@
 
     let times = (opt.count === undefined) ? 1 : (opt.count | 0);   // 320321 var_400
     const positiveOnly = !!opt.positiveOnly;                       // var_396 == 1144
+    const negativeOnly = !!opt.negativeOnly;                       // 诅咒的变异药水（只保留恶性）
 
     for (let n = 0; n < times; n++) {
       let done = false;
@@ -121,6 +123,7 @@
         if (cur >= (mi.max | 0)) dir = -1;                          // 320339
         if (cur <= (mi.min | 0)) dir = 1;                           // 320342
         if (positiveOnly && dir === -1) continue;                   // 320357-320359
+        if (negativeOnly && dir === 1) continue;                    // 诅咒变异药水：只留恶性
         featSet(c, id, cur + dir);                                  // 320362
         out.mutated++;
         out.feats.push({ id, name: mi.name, level: cur + dir, dir });

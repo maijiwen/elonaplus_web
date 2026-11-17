@@ -1038,7 +1038,8 @@
     if ((c.index | 0) !== 0) c.set(430, G(c, 27));
     consume(g, it);
     weight(g);
-    g.log(`${nm(c)}体内生成了新的生命核心。需要给予${nm(c)}以外的遗传因子。在第二阶段期间也可以追加注射。`);
+    // 351370：源码是 Phase 1 —— 第一阶段（遗传物质积累期）内可继续追加注射核心。
+    g.log(`${nm(c)}体内生成了新的生命核心。需要给予${nm(c)}以外的遗传因子。在第一阶段期间也可以追加注射。`);
     return { end: 'turnWeight' };
   }
 
@@ -1561,15 +1562,58 @@
     return r;
   }
 
-  /** 21 素材工具（358773-358789）：挥动 → 消耗 1 → var_396=21 / var_578=500 → label_2960 */
+  /**
+   * 21 素材槌（358773-358789 → 325987-326175）。
+   * 之前误判成「空分支」：其实 var_1302==21 用 var_1303 贯穿到 1127 的改材质段，
+   * 与三张卷轴共用 label_2960/0354。区别在于 var_687：卷轴走 500/501/502 的循环表，
+   * 而素材槌在入口就把 var_687 = var_99(24,槌)（槌自身材质）—— 326056-326168 的
+   * 三个 `if (var_99(3,var_1580)==500/501/502)` 均不命中（var_1580 是槌 id 630），
+   * 于是 var_687 原样保留，直接把目标道具换成「槌子对应的材质」。
+   * 流程：挥动 → 先消耗 1 个槌子（358783）→ 打开选道具窗口 → 改材质。
+   */
   function eff21(g, st) {
-    const it = st.it, p = g.player;
     if ((g.getV65 ? (g.getV65(20) | 0) : 0) === 35) return { end: 'silent' };
-    const iname = Elona.ItemDB ? Elona.ItemDB.name(it.id, 'jp') : '道具';
-    g.log(`你挥动了${iname}。`);
-    consume(g, it);
-    castEffect(g, 21, 500, p);
-    return { end: 'turnWeight' };
+    g.log(`你挥动了${gaItemName(st.it)}。`);
+    consume(g, st.it);                       // 358783：入口就消耗，随后选道具
+    return gaItem(st, '要改变哪件道具的材质？', null, 'hammer');
+  }
+
+  /** 素材槌改材质结算（326012-326175，复用 label_0354 的 changeTo） */
+  function eff21Res(g, st, target) {
+    if (!target || !target.f) return { end: 'turnWeight', changed: false };
+    const f = target.f;
+    const qual = f[4] | 0;
+    // 326016-326030：品质 6（神器）需 power ≥ 350。素材槌 var_578 = 500，
+    //   所以总能再构造（重掷同编号新品）；与 500/501/502 卷轴的差别只是 power。
+    if (qual === 6) {
+      const cnt = f[0] | 0, x = f[5] | 0, y = f[6] | 0;
+      let fresh = null;
+      try { fresh = Elona.ItemDB.createItem(target.id, Math.max(1, cnt), g.rng); } catch (e) { fresh = null; }
+      if (fresh && fresh.f) {
+        for (let k = 0; k < 64; k++) f[k] = fresh.f[k] | 0;
+        f[0] = Math.max(1, cnt); f[5] = x; f[6] = y;
+      }
+      g.log(`${gaItemName(target)}被再构造了。`);
+      recalc(g, g.player);
+      return { end: 'turnWeight', changed: true, reconstructed: true };
+    }
+    const M = Elona.ItemMaterial;
+    if (!M || !M.changeTo) {
+      g.log('什么也没有发生……');
+      return { end: 'turnWeight', changed: false, reason: 'no-material-module' };
+    }
+    const mat = st.it.f[24] | 0;             // var_687 = 槌子的材质
+    const before = f[24] | 0;
+    if (!mat || mat === before) {
+      g.log('什么也没有发生……');
+      return { end: 'turnWeight', changed: false };
+    }
+    const oldName = gaItemName(target);
+    M.changeTo(target, mat, g);
+    const mn = M.nameOf ? M.nameOf(mat) : String(mat);
+    g.log(`你的${oldName}变成了${mn}制。`);
+    recalc(g, g.player);
+    return { end: 'turnWeight', changed: true, material: mat, from: before, hammer: true };
   }
 
   /**
@@ -2277,44 +2321,137 @@
     return { end: 'turnWeight', summoned: true, tier };
   }
 
-  /** 64 情人节巧克力（357036-357234）：2 月限定 + 两段菜单 */
+  /**
+   * 64 手制巧克力器（357036-357234）—— 2 月限定、每月上限 10 次、三段菜单。
+   *
+   * 源码逐步：
+   *   357038  `var_65(11) != 2 | var_65(250+264) >= 10` → 「まだ2月を待とう。」
+   *   357048  `rnd(8)`：0 → 音 92，否则 73（演出，网页版折算成一行提示）
+   *   357056  txtsetchocoword 3「チョコレートを溶かす / 食べる / 面倒になった」
+   *           · 食べる(1)：`var_58(22,0) += 750`，消耗 1，到此为止（357070）
+   *           · 面倒(2)：什么都不消耗，直接退出（357080）
+   *           · 溶かす(0)：`var_99(0)--`（**先扣 1 个**）→ `var_65(13)++` +
+   *             `*label_4352`（推进 1 小时）→ 第二段菜单（357092/357104）
+   *   357108  txtsetchocoword2 3「型に流し込む / 飲み干す / 頭から浴びる」
+   *           · 飲み干す(1)：饱腹 +750，`dmghp 0, maxHP/10, -23`（357124）
+   *           · 浴びる(2)：`dmghp 0, maxHP/10, -23`、`var_65(250+265) = 1`
+   *             （身上沾满巧克力 → 操作弹窗动作 15「自分をプレゼント」）
+   *           · 型に流し込む(0)：进入第三段（357141）
+   *   357166  txtsetchocoword3 6「愛を込める / 憎しみ / 火薬 / 材料全部 / 髪と爪 / 食べる」
+   *           · 0/1/2/4 → `var_2577` = 4 / 2 / 5 / 3（＝成品的 f[27] 类型）
+   *           · 3（材料全部）→ `characreate -1, 625, 自格`：生成松露巧克力怪，**不产出成品**
+   *           · 5（食べる）→ 饱腹 +750（357205）
+   *           · 收尾：`var_65(14) += 10`（10 分钟）、`itemcreate -1, 889, 自格, 0`、
+   *             `var_99(23)=0`（无名）、`var_99(17)=0`、`var_99(27)=var_2577`、计数器 ++
+   *
+   * 889 本身的「吃」效果（f[27]=2 生病 / 5 爆炸 / 1 异物 / 3 爱情的台词）在
+   *   `core/ingredientfx.js` 的 `id === 889` 段，逐条与 226272-226330 对应。
+   */
+  const CHOCO_LIMIT = 250 + 264;      // var_65(514)：本月的制作次数
+  const CHOCO_SPLASH = 250 + 265;     // var_65(515)：全身沾满巧克力
+
+  /** `var_65(14) += n`（分钟）＋跨 60 分进位 */
+  function advanceMinutes(g, n) {
+    if (!g || !g.getV65 || !g.setV65) return;
+    const m = (g.getV65(14) | 0) + (n | 0);
+    if (m >= 60 && g.advanceHours) {
+      g.setV65(14, m % 60);
+      g.advanceHours(idiv(m, 60));
+    } else {
+      g.setV65(14, m);
+    }
+  }
+
   function eff64(g, st) {
     if ((g.getV65 ? (g.getV65(11) | 0) : 0) !== 2
-        || (g.getV65 ? (g.getV65(250 + 264) | 0) : 0) >= 10) {
-      g.log('等下一个 2 月吧。');
+        || (g.getV65 ? (g.getV65(CHOCO_LIMIT) | 0) : 0) >= 10) {
+      g.log('等下一个 2 月再来吧。');
       return { end: 'turnWeight', made: false, reason: 'not-february' };
     }
+    g.log(R(g, 8) === 0 ? '巧克力在锅里滴溜溜地转着。' : '你卷起袖子，准备做巧克力。');
     return gaChoice(st, '来做美味的巧克力吧！首先怎么做？',
-      ['随便做做', '讲究一点', '还是算了'], 'first');
+      ['溶化巧克力', '吃掉巧克力', '太麻烦了算了'], 'first');
   }
+
+  /** 第三段：把成品（889）放到脚下并入账 */
+  function chocoFinish(g, st, type, msg) {
+    const p = g.player, it = st.it;
+    advanceMinutes(g, 10);                                  // 357207 var_65(14) += 10
+    const made = gaSpawn(g, 889, p.x, p.y, 1);
+    if (made) {
+      made.f[23] = 0;                                       // var_99(23) = 0（无名）
+      made.f[17] = 0;                                       // var_99(17) = 0（未鉴定）
+      made.f[27] = type | 0;                                // var_99(27) = var_2577
+      made.f[5] = p.x | 0; made.f[6] = p.y | 0;
+    }
+    if (g.setV65) g.setV65(CHOCO_LIMIT, (g.getV65(CHOCO_LIMIT) | 0) + 1);
+    g.log(msg);
+    g.log('你做了一块巧克力。');
+    return { end: 'turnWeight', made: true, type, ok: !!made };
+  }
+
   function eff64res(g, st, v) {
     const p = g.player, it = st.it, sel = v | 0;
     if (st.gaTag === 'first') {
       if (sel === 2) { g.log('光想想就觉得麻烦，不做了。'); return { end: 'turnWeight', made: false }; }
-      if (sel === 0) {
+      if (sel === 1) {                                       // 357072-357078
         consume(g, it);
         p.set(22, (G(p, 22) + 750) | 0);
-        g.log('味道还行。');
-        return { end: 'turnWeight', made: true, simple: true };
+        g.log('还挺好吃的。');
+        return { end: 'turnWeight', made: false, ate: true };
       }
-      return gaChoice(st, '切好巧克力、边调温边隔水加热！接下来呢？',
-        ['再加热一会儿', '直接尝一口', '全部倒掉'], 'second');
+      // 357084-357090：先扣掉 1 个，再推进 1 小时（var_65(13)++ ; *label_4352）
+      consume(g, it);
+      if (g.advanceHours) g.advanceHours(1);
+      else if (g.setV65) g.setV65(13, (g.getV65(13) | 0) + 1);
+      return gaChoice(st, '把巧克力溶化、倒进模具里！接下来呢？',
+        ['倒进模具', '趁热喝掉', '从头上淋下来'], 'second');
     }
     if (st.gaTag === 'second') {
-      consume(g, it);
-      g.log('好烫！');
-      gaDamage(g, p, idiv(G(p, 51), 10), -23, p);
-      if (sel === 1) { g.log('…又甜又好吃！'); p.set(22, (G(p, 22) + 750) | 0); }
-      else {
-        g.log('你弄得浑身都是巧克力。');
-        // 0-W0 / 357146-357151：全身沾满巧克力 → var_65(515)=1，
-        // 打开操作弹窗动作 15「自分をプレゼント」的入口（290749）。
-        // 洗澡时由 Elona.Love.washOffChoco(g) 按 343570-343578 清 0。
-        if (Elona.Love && Elona.Love.chocoSplash) Elona.Love.chocoSplash(g);
-        else if (g.setV65) g.setV65(515, 1);
+      if (sel === 1) {                                       // 357124-357135
+        g.log('好烫！');
+        p.set(22, (G(p, 22) + 750) | 0);
+        g.log('……凉下来之后还挺好吃的！');
+        gaDamage(g, p, idiv(G(p, 51), 10), -23, p);
+        return { end: 'turnWeight', made: false, drank: true };
       }
-      if (g.setV65) g.setV65(13, (g.getV65(13) | 0) + 1);
-      return { end: 'turnWeight', made: true, burnt: true };
+      if (sel === 2) {                                       // 357137-357153
+        g.log('好烫！');
+        g.log('你弄得浑身都是巧克力。');
+        gaDamage(g, p, idiv(G(p, 51), 10), -23, p);
+        // var_65(250+265) = 1：身上沾满巧克力，可当礼物（操作弹窗动作 15）。
+        //   洗澡时由 Elona.Love.washOffChoco(g) 按 343570-343578 清 0。
+        if (Elona.Love && Elona.Love.chocoSplash) Elona.Love.chocoSplash(g);
+        else if (g.setV65) g.setV65(CHOCO_SPLASH, 1);
+        return { end: 'turnWeight', made: false, splashed: true };
+      }
+      return gaChoice(st, '最后再下点功夫吧！要加什么？',
+        ['注入爱情', '注入憎恨', '混入火药', '把剩下的材料全混进去',
+          '混入头发和指甲', '吃掉'], 'third');
+    }
+    if (st.gaTag === 'third') {
+      if (sel === 3) {                                       // 357182-357194：松露巧克力怪
+        g.log('这个软绵绵的巧克力是……！');
+        let c = null;
+        if (Elona.Monster && Elona.Monster.create) {
+          try {
+            c = Elona.Monster.create(g, 625, Math.max(1, G(p, 38)), p.x | 0, p.y | 0, { var641: 2 });
+          } catch (e) { c = null; }
+        }
+        if (!c) g.log('……但是什么也没有出现。');
+        return { end: 'turnWeight', made: false, truffle: !!c };
+      }
+      if (sel === 5) {                                       // 357200-357205
+        p.set(22, (G(p, 22) + 750) | 0);
+        g.log('虽然还软软的，但很好吃！');
+        return { end: 'turnWeight', made: false, ate: true };
+      }
+      const type = (sel === 0) ? 4 : (sel === 1 ? 2 : (sel === 2 ? 5 : 3));
+      const msg = (sel === 0) ? '你把爱情注入了巧克力。'
+        : (sel === 1 ? '你把憎恨注入了巧克力。'
+          : (sel === 2 ? '你试着把火药混进了巧克力。' : '你把头发和指甲混进了巧克力。'));
+      void it;
+      return chocoFinish(g, st, type, msg);
     }
     return { end: 'turnWeight', made: false };
   }
@@ -2523,12 +2660,19 @@
     return { end: 'turnWeight', tended: !!(r && r.ok), care: r ? (r.care | 0) : 0 };
   }
 
-  /** 110 守护者知识（352292-352362）：全队获得技能 / 技能经验， sanity -5 */
+  /**
+   * 110 記憶片 / 记忆碎片（352292-352362）—— 给全员（含玩家 0..15）灌技能。
+   *   f[25] = 技能号（0 → 165 战术），f[26] = 碎片等级（0 → 1）。
+   *   没学过的：`skillgain 1` + `modgrowth limit(f[26], 1, 300)`（352304-352323）
+   *   已学过的：`modgrowth sqrt(f[26]+1)+10`（352325），再给两条技能经验
+   *             （352330/352331）并 `dmgsan 5`（352333）。
+   */
   function eff110(g, st) {
     if (onWorld(g)) return { end: 'turnWeight', taught: 0 };
     const it = st.it;
     const skill = (it.f[25] | 0) || 165;
     const power = (it.f[26] | 0) || 1;
+    const growth = Elona.Stats && Elona.Stats.modGrowth;
     let learned = 0, trained = 0;
     for (let i = 0; i < 16 && i < (g.charas || []).length; i++) {
       const c = g.charas[i];
@@ -2536,9 +2680,13 @@
       g.log(`曾是守护者的知识流进了${nm(c)}的脑海…`);
       if (S(c, skill) === 0 && Elona.Stats && Elona.Stats.skillGain) {
         try { Elona.Stats.skillGain(c, i, skill, 1); } catch (e) { /* 未就绪 */ }
+        if (growth) { try { growth(c, skill, i, limit(power, 1, 300), g); } catch (e) { /* 未就绪 */ } }
         g.log(`${nm(c)}习得了技能 ${skill}！`);
         learned++;
       } else {
+        if (growth) {
+          try { growth(c, skill, i, Math.floor(Math.sqrt(power + 1)) + 10, g); } catch (e) { /* 未就绪 */ }
+        }
         const exp = 200 + Math.floor(Math.sqrt(power * 2000)
           + limit(idiv(S(c, 165), 2), 0, 500)) * 2;
         gaExp(g, c, skill, exp);
@@ -2552,6 +2700,75 @@
     consume(g, it);
     recalc(g, g.player);
     return { end: 'turnWeight', taught: learned + trained, learned, trained, skill };
+  }
+
+  /**
+   * 变忆结晶 1204（352135-352280）—— 源码的效果号是运行期变量。
+   *
+   * 89910  `var_99(19, var_579) = var_1011`（创建时把效果号写成 var_1011），
+   * 352135 `if ( var_1302 == var_1011 | var_1303 )` —— 这两个参照同一个全局量，
+   * 所以这批物品**必然**命中该分支。项目里 v99_19 求值为空（f[19] == 0），
+   * 因此在 `ItemFx.effectOf` 里按物品 id 补一个伪效果号 1204。
+   *
+   * 流程：
+   *   352139  世界地图 → 直接收尾
+   *   352147  「誰に使用する？」→ *label_2893 选人（本项目走 tag = pick）
+   *   352176  `var_244 >= 16` → 只能对队伍成员（0..15）使用
+   *   352190  `var_58(41) >= 100` 且天气不是 2/5 → 只提示「技能点 100 以上时无法新吸收」
+   *   352209  `sorg(f[25]) < 5` → 技能会被**遗忘**（二次确认）
+   *   352254  否则 → 技能等级减半、`var_58(41) += 3`（技能点 +3，二次确认）
+   */
+  function eff1204(g, st) {
+    const it = st.it, t = st.target;
+    if (onWorld(g)) return { end: 'turnWeight', used: false };
+    if (!t) return { end: 'turnWeight', used: false };
+    const idx = t.index | 0;
+    if (idx >= 16) { g.log('那是办不到的。'); return { end: 'none', used: false }; }
+    const skill = it.f[25] | 0;
+    const sname = (Elona.ItemInfo && Elona.ItemInfo.nameOf)
+      ? Elona.ItemInfo.nameOf(skill) : String(skill);
+    const bonus = G(t, 41);
+    const weather = g.getV65 ? (g.getV65(17) | 0) : 0;
+    if (bonus >= 100 && weather !== 2 && weather !== 5) {
+      g.log('注意！技能点达到 100 以上时无法再吸收新的技能。');
+    }
+    const lvl = S(t, skill);
+    const P = Elona.Panels;
+    if (lvl < 5) {
+      const doForget = () => {
+        t.setSkill(skill, 0);                              // var_82(f[25]+600) = 0
+        g.log(`${nm(t)}遗忘了${sname}这项技能……`);
+        consume(g, it);
+        recalc(g, g.player);
+      };
+      if (P && P.openConfirm) {
+        P.openConfirm(`要转化成技能点需要对应技能 5 级。就这样使用的话技能会消失，真的要使用吗？（${sname}）`,
+          (yes) => { if (yes) doForget(); }, { title: '变忆结晶' });
+        return { end: 'none', used: false };
+      }
+      doForget();
+      return { end: 'turnWeight', used: true, forgotten: true, skill };
+    }
+    const doHalve = () => {
+      t.setSkill(skill, idiv(lvl, 2));                     // var_82(f[25]+600) /= 2
+      t.set(41, G(t, 41) + 3);                             // var_58(41) += 3
+      g.log(`${nm(t)}的技能记忆被转化成了技能点。`);
+      if (G(t, 41) >= 100) {
+        const w2 = g.getV65 ? (g.getV65(17) | 0) : 0;
+        if (w2 !== 2 && w2 !== 5) {
+          g.log('注意！技能点达到 100 以上时无法再吸收新的技能。');
+        }
+      }
+      consume(g, it);
+      recalc(g, g.player);
+    };
+    if (P && P.openConfirm) {
+      P.openConfirm(`对应的技能会被减半，真的要使用吗？（${sname} Lv.${lvl}）`,
+        (yes) => { if (yes) doHalve(); }, { title: '变忆结晶' });
+      return { end: 'none', used: false };
+    }
+    doHalve();
+    return { end: 'turnWeight', used: true, halved: true, skill, bonus: G(t, 41) };
   }
 
   /** 134 获得能力（359961-360170）：一次性 flag + 伙伴形态推进（近似） */
@@ -2634,6 +2851,75 @@
     return { end: 'turnWeight', megane: n, gauge: G(p, 182) };
   }
 
+  /**
+   * 500 / 501 / 502 素材変化の巻物（0-Z12）—— 326087-326210 的 1127 分支。
+   *
+   * 这三张卷轴在源码里没有 `var_99(19)`（使用效果号），而是走 itemuse 的
+   *   mode 13 → spell 1127（`label_2965` 链）。项目把它们的**物品编号**当伪
+   *   效果号（见 ItemFx.effectOf），复用之下的「选一件道具」流程。
+   *
+   * 流程（326000-326210）：
+   *   326000  `var_243 != 0` → 只有玩家能用
+   *   326006  `*label_2824` 选目标道具（`var_486 = 23, 0` = 全部）
+   *   326009  `var_99(4) == 5 | ibit(10)` → 不可变（什么也没有发生）
+   *   326013  `var_99(4) == 6`（神器）→ `var_578 < 350` 时拒绝；否则**再构造**
+   *           （消耗原件、`itemcreate 0` 重新生成）
+   *   326087  其它：按卷轴 500/501/502 的三张循环表换材质 → `*label_0354`
+   *           （按新材质重算骰面/价值/附魔）→ 「X は Y に変化した。」
+   */
+  function effMaterialScroll(g, st) {
+    return gaItem(st, '要改变哪件道具的材质？', null, 'main');
+  }
+
+  function effMaterialScrollRes(g, st, target) {
+    const tool = st.it, toolId = tool.id | 0;
+    if (!target || !target.f) return { end: 'none', changed: false };
+    const f = target.f;
+    const bit10 = (Elona.ItemDB && Elona.ItemDB.ibit) ? Elona.ItemDB.ibit(10, target) : 0;
+    const qual = f[4] | 0;
+    if (qual === 5 || bit10) {
+      g.log('什么也没有发生……');
+      return { end: 'turnWeight', changed: false, reason: 'fixed-quality' };
+    }
+    const power = toolId === 500 ? 10 : (toolId === 501 ? 180 : 350);
+    if (qual === 6) {
+      if (power < 350) {
+        g.log('要再构造神器，需要更多的力量。');
+        return { end: 'turnWeight', changed: false, reason: 'need-power', need: 350 };
+      }
+      // 326027-326040：消耗原件，`itemcreate 0, 同编号` 生成一件新的（属性重掷）
+      const cnt = f[0] | 0, x = f[5] | 0, y = f[6] | 0;
+      let fresh = null;
+      try { fresh = Elona.ItemDB.createItem(target.id, Math.max(1, cnt), g.rng); } catch (e) { fresh = null; }
+      if (fresh && fresh.f) {
+        for (let k = 0; k < 64; k++) f[k] = fresh.f[k] | 0;
+        f[0] = Math.max(1, cnt); f[5] = x; f[6] = y;
+      }
+      consume(g, tool);
+      g.log(`${gaItemName(target)}被再构造了。`);
+      recalc(g, g.player);
+      return { end: 'turnWeight', changed: true, reconstructed: true };
+    }
+    const M = Elona.ItemMaterial;
+    if (!M || !M.nextMaterial || !M.changeTo) {
+      g.log('什么也没有发生……');
+      return { end: 'turnWeight', changed: false, reason: 'no-material-module' };
+    }
+    const before = f[24] | 0;
+    const next = M.nextMaterial(toolId, before, (tool.f[17] | 0) >= 1);
+    if (!next || next === before) {
+      g.log('什么也没有发生……');
+      return { end: 'turnWeight', changed: false };
+    }
+    const oldName = gaItemName(target);
+    M.changeTo(target, next, g);
+    consume(g, tool);
+    const mn = M.nameOf ? M.nameOf(next) : String(next);
+    g.log(`你的${oldName}变成了${mn}制。`);
+    recalc(g, g.player);
+    return { end: 'turnWeight', changed: true, material: next, from: before };
+  }
+
   const SPECS = {
     5: { name: '听诊器', tag: 'pick', empty: 'none', success: 'turn', run: eff5 },
     // 0-GA：label_3016 最后 25 个可落地效果号（16/17/99 已由其它模块接管）
@@ -2653,7 +2939,7 @@
     96: { name: '强化道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => gaItem(st, '要强化哪件道具？', null, 'main'), resolve: (g, st, it) => gaMorphRes(g, st, it, 96) },
     101: { name: '撒饵', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff101, resolve: eff101res },
     106: { name: '栽培管理', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff106, resolve: eff106res },
-    110: { name: '守护者知识', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff110 },
+    110: { name: '记忆碎片', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff110 },
     129: { name: '强化星维', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => gaItem(st, '要强化哪件道具？', null, 'main'), resolve: (g, st, it) => gaMorphRes(g, st, it, 129) },
     133: { name: '麻醉枪', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effGun(g, st, 133) },
     134: { name: '异形之友', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff134 },
@@ -2709,7 +2995,10 @@
     123: { name: '源码空分支 123', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
     124: { name: '源码空分支 124', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
     126: { name: '遥控器', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff126 },
-    131: { name: '源码空分支 131', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: effNoop },
+    // 0-Z13：131/132 在源码里靠 var_1303 贯穿共用同一段注射逻辑（351256-351375），
+    //   仅以物品 id 区分核心性别：1254(X)→var_58(213) 女核心，1253(Y)→var_58(187) 男核心。
+    //   eff132 已按 it.id 分流，131 直接复用，不再是空分支。
+    131: { name: 'Su扩展器X', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff132 },
     144: { name: '深渊陷阱设置器', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff144 },
     147: { name: '收容所蓄能器（小）', tag: null, noTarget: true, empty: 'none', success: 'none', run: (g, st) => effCampEnergy(g, st, 107) },
     148: { name: '收容所蓄能器（大）', tag: null, noTarget: true, empty: 'none', success: 'none', run: (g, st) => effCampEnergy(g, st, 108) },
@@ -2717,7 +3006,9 @@
     152: { name: '发型变换 B', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff152 },
     7: { name: '避难所', tag: null, noTarget: true, empty: 'none', success: 'none', run: eff7 },
     9: { name: '训练机', tag: null, noTarget: true, empty: 'none', success: 'none', run: eff9 },
-    21: { name: '素材工具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff21 },
+    // 0-Z13：素材槌 630 走 var_1303 贯穿到 1127 的改材质段，run 打开选道具窗口，
+    //   resolve 把目标改成槌子 f[24] 对应的材质（与卷轴的循环表来源不同）。
+    21: { name: '素材槌', tag: null, noTarget: true, empty: 'turnWeight', success: 'turnWeight', run: eff21, resolve: eff21Res },
     32: { name: '能力复合机', tag: null, noTarget: true, empty: 'none', success: 'none', run: eff32 },
     11: { name: '小猫存钱罐', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff11 },
     13: { name: '火把', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff13 },
@@ -2755,7 +3046,7 @@
     127: { name: '安宁剂', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff127 },
     128: { name: '药烟管', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff128 },
     130: { name: '灵质', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff130 },
-    132: { name: '生存力扩张液', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff132 },
+    132: { name: 'Su扩展器Y', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff132 },
     139: { name: '抗性上限', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff139 },
     140: { name: 'DV 修正剂', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff140 },
     141: { name: 'PV 修正剂', tag: 'pick', empty: 'none', success: 'turnWeight', world: true, run: eff141 },
@@ -2769,6 +3060,26 @@
     150: {
       name: '拟态镜', tag: 'pick', empty: 'none', success: 'turnWeight', world: true,
       pre: eff150Pre, onPre: eff150OnPre, run: eff150,
+    },
+    // 0-Z12：変憶結晶 1204 —— 源码效果号是运行期变量 var_1011（89910 / 352135），
+    //   项目在 ItemFx.effectOf 里按物品 id 补成伪效果号 1204，分支见 eff1204。
+    1204: {
+      name: '变忆结晶', tag: 'pick', empty: 'turnWeight', success: 'turnWeight', run: eff1204,
+    },
+    // 0-Z12：素材変化の巻物三张（500 劣悪 / 501 素材変化 / 502 *素材変化*）
+    //   没有 var_99(19)，实际走 itemuse 的 mode 13 → spell 1127；同样用物品编号
+    //   当伪效果号，分支见 effMaterialScroll。
+    500: {
+      name: '劣悪素材の巻物', tag: null, noTarget: true, empty: 'none', success: 'turnWeight',
+      run: effMaterialScroll, resolve: effMaterialScrollRes,
+    },
+    501: {
+      name: '素材変化の巻物', tag: null, noTarget: true, empty: 'none', success: 'turnWeight',
+      run: effMaterialScroll, resolve: effMaterialScrollRes,
+    },
+    502: {
+      name: '*素材変化*巻物', tag: null, noTarget: true, empty: 'none', success: 'turnWeight',
+      run: effMaterialScroll, resolve: effMaterialScrollRes,
     },
   };
 
@@ -2889,7 +3200,10 @@
      * @param {object} [opts] { target: undefined 未选 / null 邻格没人 / Chara 目标 }
      */
     dispatch(g, it, opts) {
-      const eff = (it && it.f) ? (it.f[19] | 0) : 0;
+      // 效果号与 ItemFx.effectOf 保持一致（含 1204 変憶結晶的伪效果号）
+      const eff = (Elona.ItemFx && Elona.ItemFx.effectOf)
+        ? (Elona.ItemFx.effectOf(it) | 0)
+        : ((it && it.f) ? (it.f[19] | 0) : 0);
       const spec = SPECS[eff];
       if (!spec) return null;
       const o = opts || {};

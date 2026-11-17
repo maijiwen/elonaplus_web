@@ -1756,8 +1756,8 @@
      */
     useStairs(up) {
       if (this.transitioning) return { ok: false, reason: 'busy' };
-      // 344614-344625：负重 >= 3 档走楼梯会踏空滚落，先结算伤害再照常换图。
-      //   概率 tier3 = 1/2、tier4 = 1（源码 rnd(5 - tier)==0）。
+      // 344614-344628：先 `actionsp 0, 15`（SP 见底时判定失败、失败必定踏空，15 点 SP
+      //   成败都扣），成功时再按负重：>= 3 档 rnd(5 - tier)==0（tier3 = 1/2、tier4 = 1）。
       if (Elona.Travel && Elona.Travel.stairFall) Elona.Travel.stairFall(this);
       // 0-FS：自宅的楼层（地面家具 750/751 触发，见 core/home.js useStairs）
       if (Elona.Home && Elona.Home.inHome(this)) {
@@ -4147,6 +4147,10 @@
       }
       p.set(22, (p.get(22) | 0) + gain);
 
+      // 0-Z13 / 226805-226831：妊娠阶段 2 —— 每次进食按营养推进怀孕进度，
+      //   到 -12000000 登记出生事件（由 endTurn 的 Birth.tickBirths 消费）。
+      if (Elona.Birth && Elona.Birth.onEat) Elona.Birth.onEat(this, p, gain);
+
       // 57000 类食物回复 SP（226112-226114）
       if (Elona.Status && Elona.Status.healsp) {
         Elona.Status.healsp(p, 5 + f26 * 3 + f20 * 3);
@@ -4548,6 +4552,19 @@
       const p = this.player;
       const eid = it.id | 0;
       const bname = Elona.ItemDB.name(eid);
+
+      // 0-Z16 / 326218-326245：遗产权书 511（效果 1128）——var_65(97)+=3。
+      //   源码在 var_243 != 0（NPC 使用）时无事发生；玩家侧给 3 次继承权。
+      if ((spellId | 0) === 1128 || eid === 511) {
+        if (Elona.Heirloom && Elona.Heirloom.claim) {
+          const r = Elona.Heirloom.claim(this);
+          if (r && r.ok) {
+            this.log(`你被认可为遗产继承人（+3）。现在你可以继承 ${r.total} 件遗产。`);
+            return { ok: true, effect: 1128, claim: true, rights: r.total };
+          }
+        }
+        return { ok: false, reason: 'no-heirloom', effect: 1128 };
+      }
 
       // 313802-313827：レシピ（教材）
       if (eid === 783) {
@@ -5707,7 +5724,7 @@
         // 0-BY：唯一物品重复 → 化为星尘（convertartifact 222003-222063）
         if (Elona.ItemDB && Elona.ItemDB.convertArtifact) {
           const slotIdx = c.inv.indexOf(it);
-          const conv = Elona.ItemDB.convertArtifact(c, slotIdx);
+          const conv = Elona.ItemDB.convertArtifact(c, slotIdx, this);
           if (conv) this.log(`${conv.name} 化成了星尘。`);
         }
         // 0-GW / 342338：逐件拾取播报（「(名前)は(物品)を拾った。」；NPC 的 _s 分支
@@ -5997,6 +6014,9 @@
       // 0-GU / 605349-605415：主循环尾部的常驻检查
       //   濒死习得「命乞い」（605402-605415）与真实时间的「已玩 N 小时」播报（605383-605396）
       if (Elona.MainLoop) Elona.MainLoop.tick(this);
+      // 0-Z13 / 609072-609205：出生事件 93 —— 阶段 2 进食完成后在事件队列消费，
+      //   把母亲的男/女生命核心转成子嗣（含 207-220 继承、白鹳 690）。
+      if (Elona.Birth && Elona.Birth.tickBirths) Elona.Birth.tickBirths(this);
       // 0-GO / 603956-604166：*label_4354 的回合开始（速度修正复位、回合计数、
       //   每 10 回合的技能/SP 成长）与 *label_4355 的 var_65(63) 归航倒计时。
       //   归航成功时原版 goto *label_2459 中断本回合，这里 loadMap 后直接 return，

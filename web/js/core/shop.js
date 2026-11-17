@@ -641,7 +641,7 @@
     if (Elona.ItemDB) Elona.ItemDB.stack(c, idx);
     // 0-BZ：唯一物品重复 → 化为星尘（convertartifact 222003；原版 298885/299131 在交易入包处调用）
     if (Elona.ItemDB && Elona.ItemDB.convertArtifact) {
-      const conv = Elona.ItemDB.convertArtifact(c, idx);
+      const conv = Elona.ItemDB.convertArtifact(c, idx, g);
       if (conv && g && g.log) g.log(`${conv.name} 化成了星尘。`);
     }
     return it;

@@ -428,8 +428,22 @@
     }
     return out;
   }
-  /** dmgsp（体力扣除）：var_58(52) -= n，下限 0。 */
-  function dmgsp(c, n) { c.sp = Math.max(c.sp - n, 0); }
+  /**
+   * dmgsp / dmgspt（201438-201458）：SP 扣除。
+   *   · 201442-201444：buff 70「エナジーマックス（Energy MAX）」存在时**完全不扣**。
+   *   · 201445：玩家（prm_992==0）下限 **-100**。
+   *   · 201451-201458 dmgspt（NPC 版）：同一 buff 免疫，下限 **-50**。
+   *   源码 dmgsp 对 prm_992!=0 直接 return（只服务玩家），NPC 一律走 dmgspt；
+   *   这里按角色序号统一选下限，供同伴/敌方的调用点共用。
+   *   【未移植】dmgsp 里 `var_30 == 0` 的调试免扣开关（var_30 恒 0）。
+   */
+  function dmgsp(c, n) {
+    if (!c) return 1;
+    if (findbuff(c, 70) !== -1) return 1;                 // 201442-201444
+    const floor = (c.index | 0) === 0 ? -100 : -50;       // 201445 / 201455
+    c.sp = Math.max((c.sp | 0) - (n | 0), floor);
+    return 1;
+  }
   /**
    * wet（195661）：目标被淋湿，var_58(259) 累加；var_58(412)!=0（防水）时免疫。
    * 【未移植】提示文本与 cbit(6) 的"身形显露"分支。
@@ -653,6 +667,26 @@
           const s = rng.rnd(10) + 10;                       // 216590-216594
           dmgsp(c, s);
           out.thirst = s;
+        }
+      }
+    }
+
+    // --- 困意 var_65(90)（216597-216614）：源码整段嵌在 `if (var_691 == 0)` 内，只对玩家结算 ---
+    //   216597-216604：`var_65(4) \ 100 == 0` 时提示「あなたは眠りを必要としている。」
+    //     （var_65(4) 是游玩时间计数，即每 100 回合提示一次）。
+    //   216605-216607：`if (rnd(2))` 命中（50%）→ 本回合 var_1450 = 0，不自然回复。
+    //   216608-216614：困意 >= 50 时再叠加「不回复 + SP -1」（dmgsp 受 Energy MAX 免疫、
+    //     下限 -100 约束），这是困意对体力的直接惩罚。
+    if ((c.index | 0) === 0) {
+      const sleepy = (g && typeof g.getV65 === 'function') ? (g.getV65(90) | 0) : 0;
+      if (sleepy >= 30) {
+        const play = (g && typeof g.getV65 === 'function') ? (g.getV65(4) | 0) : 0;
+        if (play % 100 === 0 && g.log) g.log('你需要睡眠。');   // 216597-216604
+        if (rng.rnd(2) !== 0) regenBlocked = true;              // 216605-216607
+        if (sleepy >= 50 && (c.sp | 0) > -100) {                // 216608-216614
+          regenBlocked = true;
+          dmgsp(c, 1);
+          out.drowsySp = 1;
         }
       }
     }

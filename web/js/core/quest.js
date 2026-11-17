@@ -1014,7 +1014,7 @@
       inv.push(it);
       // 0-BZ：唯一物品重复 → 化为星尘（convertartifact 222003；原版 299222/299273 在「收到物品」处调用）
       if (Elona.ItemDB && Elona.ItemDB.convertArtifact) {
-        const conv = Elona.ItemDB.convertArtifact(g.player, inv.length - 1);
+        const conv = Elona.ItemDB.convertArtifact(g.player, inv.length - 1, g);
         if (conv && g.log) g.log(`${conv.name} 化成了星尘。`);
       }
       return;

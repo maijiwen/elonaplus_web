@@ -1428,8 +1428,54 @@
         g.log(LINES[pick % LINES.length]);
         return { ok: false, reason: 'not-yours', item: owned.id | 0 };
       }
+      // 296026-296052：脚下完全没有物品时，若在城镇/野外（var_126(6) == 3 | 2）且
+      //   脚下地块属性 0 == 4（雪地），改为「掬雪」：snd 83 →「雪をかきあつめた。」→
+      //   `actionsp 0, 10`；失败则「疲労し過ぎて失敗した！」直接结束；
+      //   成功则 itemcreate 0, 587（雪球）+ 数量 3，然后回合结束。
+      if (here.length === 0 && this.snowTileAt(g, p)) {
+        if (Elona.Audio && typeof Elona.Audio.playIndex === 'function') {
+          try { Elona.Audio.playIndex(83); } catch (e) { /* 无声卡 */ }
+        }
+        g.log('掬起了一捧雪。');
+        const ok = (Elona.Travel && Elona.Travel.actionsp)
+          ? Elona.Travel.actionsp(g, p, 10) : 1;              // 296036 actionsp 0, 10
+        if (!ok) {
+          g.log('疲劳过度，失败了！');                          // 296041-296044
+          g.endTurn();
+          return { ok: true, snow: false, exhausted: true };
+        }
+        if (Elona.ItemDB && Elona.ItemDB.createItem) {
+          const it = Elona.ItemDB.createItem(587, 1, g.rng);     // 296046 itemcreate 0, 587
+          if (it) {
+            it.f[0] = 1; it.f[8] = 3; it.f[17] = 0;              // 296048-296050：数量 3
+            p.inv.push(it);
+          }
+        }
+        g.endTurn();
+        return { ok: true, snow: true };
+      }
       g.log('脚下没有物品。');
       return { ok: false, count: 0 };
+    },
+
+    /**
+     * 296028-296029：`var_126(6) == 3 | var_126(6) == 2` 且
+     *   `var_593(0, var_704(x, y, 0)) == 4`（地块属性 0 == 4，雪地）。
+     * header[6] 在静态图上可能为 0（见 game.js 0-M0 的回填说明），
+     * 此时回落到 `Sites.field(0, var_65(20))`，与原版 var_132(0, 地图) 同源。
+     */
+    snowTileAt(g, p) {
+      if (!g || !g.map || !p) return false;
+      const H = g.map.header || [];
+      let mt = H[6] | 0;
+      if (!mt && Elona.Sites && Elona.Sites.field) {
+        const mapId = (g.getV65 ? (g.getV65(20) | 0) : 0) || (g.mapId | 0);
+        if (mapId) mt = Elona.Sites.field(0, mapId, g) | 0;
+      }
+      if (mt !== 2 && mt !== 3) return false;
+      const cell = g.map.cell ? g.map.cell(p.x | 0, p.y | 0) : null;
+      if (!cell) return false;
+      return (g.map.attr(cell[0] | 0, 0) | 0) === 4;
     },
 
     // 注：`o`（打开容器）已迁移到 core/container.js + Panels.openContainer。

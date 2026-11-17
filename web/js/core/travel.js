@@ -212,8 +212,29 @@
   }
 
   /**
-   * 下楼梯踏空（344614-344625）：负重 >= 3 档（超過 / 潰れ中）时
-   *   `stat==0 | rnd(5 - 档位)==0` → 从楼梯滚落，受到两倍于普通压伤的伤害。
+   * actionsp（201512-201523）：行动前的 SP 判定。
+   *   源码：
+   *     `if ( prm_1002 != 0 ) { return 1 }`        —— NPC 恒成功
+   *     `if ( SP < 50 ) { if ( SP < rnd(75) ) { dmgsp 0, prm; return 0 } }`
+   *     `dmgsp 0, prm; return 1`
+   *   注意**成功与失败都会扣 SP**，返回值只表示「这次判定是否因疲劳失败」。
+   *   扣费走 Status.dmgsp，因此同样受 Energy MAX（buff 70）免疫与 -100 下限约束。
+   * @returns {number} 1 = 成功；0 = 疲劳失败（SP 已扣）
+   */
+  function actionsp(g, p, amount) {
+    const sp = (p && p.sp) | 0;
+    const fail = sp < 50 && sp < R(g, 75);
+    if (Elona.Status && Elona.Status.dmgsp) Elona.Status.dmgsp(p, amount);
+    else if (p) p.sp = Math.max(sp - (amount | 0), -100);
+    return fail ? 0 : 1;
+  }
+
+  /**
+   * 下楼梯踏空（344614-344628）：
+   *   ① `actionsp 0, 15` —— SP 见底时判定失败（stat==0），失败则**无视负重档位必定踏空**，
+   *      且 15 点 SP 无论成败都已被扣掉；
+   *   ② 成功时按负重判定：负重 >= 3 档（超過 / 潰れ中）时
+   *      `rnd(5 - 档位)==0` → 从楼梯滚落，受到两倍于普通压伤的伤害。
    *   源码：`dmghp var_243, var_58(51)*(var_58(43)*10/var_58(44)+10)/100+1, -7`
    *   （普通压伤 604895-604908 是 /200+1，故此处恰为两倍）。
    * @returns {number} 实际伤害（0 = 未触发）
@@ -221,15 +242,18 @@
   function stairFall(g) {
     const p = g && g.player;
     if (!p) return 0;
+    const stat = actionsp(g, p, 15);          // 344615
     const tier = p.get(45) | 0;
-    if (tier < 3) return 0;
-    if (R(g, 5 - tier) !== 0) return 0;
+    if (stat !== 0) {                          // 344616：`stat == 0 | var_58(45,0) >= 3`
+      if (tier < 3) return 0;
+      if (R(g, 5 - tier) !== 0) return 0;      // 344617：`stat == 0 | rnd(4+1-tier) == 0`
+    }
     const w = p.get(43) | 0, cap = Math.max(1, p.get(44) | 0);
     const hpMax = p.get(51) | 0;
     const dmg = idiv(hpMax * (idiv(w * 10, cap) + 10), 100) + 1;
     if (g.log) g.log(`哇啊！${p.name || '你'}从楼梯上踏空了。`);
     if (Elona.Battle && Elona.Battle.applyDamage) {
-      Elona.Battle.applyDamage(p, dmg, g, null, 0, 0);   // 344620：dmghp …, -7
+      Elona.Battle.applyDamage(p, dmg, g, null, 0, 0);   // 344623：dmghp …, -7
     }
     return dmg;
   }
@@ -243,6 +267,6 @@
   Elona.Travel = {
     TIER_NAMES,
     blockMove, worldStep, onEnterMap, cargoHurt, stairFall, tierName,
-    cargoWeight, cargoLimit, totalHours,
+    cargoWeight, cargoLimit, totalHours, actionsp,
   };
 })(window);

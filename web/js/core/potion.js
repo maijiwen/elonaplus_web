@@ -243,6 +243,328 @@
     return { ok: true, messages };
   };
 
+  // ------------------------------------------------------------ 0-Z17 补全：dmgcon 异常类
+  // 源码 condId：1=毒 2=睡眠 3=麻痹 4=盲目/暗黑 5=混乱 7=模糊 8=醉酒 12=生病
+  //   dmgcon 的伤害/回合写入由 Resist.dmgcon 按 dmgcon.json 处理。
+  function dmgcon(g, target, condId, power) {
+    if (Elona.Resist && g.dmgconTable) return Elona.Resist.dmgcon(g, g.dmgconTable, target, condId, power) | 0;
+    return 0;
+  }
+
+  // 1108 毒药（325195-325233）：dmgcon 1 + 若寄生(cbit 978)则清除（var_58(430)=0）
+  SPECIAL[1108] = function (g, target, power, ctx) {
+    const messages = [`${target.name || '它'}被毒侵染了！`];
+    if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(target, 978)) {
+      Elona.Status.cbitmod(target, 978, 0);
+      if (target.set) target.set(430, 0);
+      messages.push(`${target.name || '它'}体内的异物溶解了。`);
+    }
+    dmgcon(g, target, 1, power | 0);
+    return { ok: true, messages };
+  };
+
+  // 1109 混乱（325235-325247）：dmgcon 5
+  SPECIAL[1109] = function (g, target, power) {
+    return { ok: true, messages: [`${target.name || '它'}陷入混乱！`],
+      applied: dmgcon(g, target, 5, power | 0) };
+  };
+  // 1110 麻痹（325248-325260）：dmgcon 3
+  SPECIAL[1110] = function (g, target, power) {
+    return { ok: true, messages: [`${target.name || '它'}麻痹了！`],
+      applied: dmgcon(g, target, 3, power | 0) };
+  };
+  // 1111 盲目（325222-325234）：dmgcon 4
+  SPECIAL[1111] = function (g, target, power) {
+    return { ok: true, messages: [`${target.name || '它'}的眼睛被墨染黑了！`],
+      applied: dmgcon(g, target, 4, power | 0) };
+  };
+  // 1112 睡眠（325261-325273）：dmgcon 2
+  SPECIAL[1112] = function (g, target, power) {
+    return { ok: true, messages: [`${target.name || '它'}被甜蜜的液体浸染，睡着了。`],
+      applied: dmgcon(g, target, 2, power | 0) };
+  };
+
+  // 1102 库莱姆酒（318975-318989）：醉酒 dmgcon 8, rnd(300)+200 + eatstatus（祝福/诅咒档）
+  SPECIAL[1102] = function (g, target, power, ctx) {
+    const messages = [];
+    dmgcon(g, target, 8, g.rng.rnd(300) + 200);
+    if (ctx.curse <= -1) {
+      if (target.set) target.set(22, Math.max(0, (target.get(22) | 0) - 1500));
+      vomitOnce(g, target, messages);
+      messages.push('真难喝……');
+    } else {
+      if (ctx.curse >= 1) {
+        if (Elona.Status && Elona.Status.healsan) Elona.Status.healsan(target, 2);
+        if (g.rng.rnd(5) === 0 && Elona.Status && Elona.Status.addbuff) {
+          Elona.Status.addbuff(g, target, 19, 100, g.rng.rnd(500) + 500);
+        }
+      }
+      messages.push('真是一杯好酒。');
+    }
+    return { ok: true, messages };
+  };
+
+  // ------------------------------------------------------------ 级联 buff 效果
+  // 源码 `var_396 = X : gosub *label_2960` → 走 buff 引擎（f1=1000+buffId）。
+  // 复用 Spell.dispatchEffect，让祝福/诅咒强度修正与持续回合由 buff 引擎统一处理。
+  function castBuff(g, user, target, spellId, power, curse) {
+    const prev = g.var2362;
+    if (g) g.var2362 = curse | 0;
+    let r = null;
+    if (Elona.Spell) {
+      try { r = Elona.Spell.dispatchEffect(g, user, spellId, target, power); } catch (e) { r = { error: String(e) }; }
+    }
+    if (g) g.var2362 = prev;
+    return r;
+  }
+
+  // 1118 失耐性（325381-325390）：450(元素伤痕) + 452(梦魇) + 重算
+  SPECIAL[1118] = function (g, target, power, ctx) {
+    castBuff(g, ctx.caster || target, target, 450, power | 0, ctx.curse);
+    castBuff(g, ctx.caster || target, target, 452, power | 0, ctx.curse);
+    if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    return { ok: true, messages: [`${target.name || '它'}失去了元素耐性。`] };
+  };
+  // 1167 贤皇药（319267-319288）：448(振奋) + 477(守护石) + 474(集中) + 453(智者加护)
+  SPECIAL[1167] = function (g, target, power, ctx) {
+    for (const sp of [448, 477, 474, 453]) castBuff(g, ctx.caster || target, target, sp, power | 0, ctx.curse);
+    return { ok: true, messages: [`${target.name || '它'}获得了贤者的加护。`] };
+  };
+  // 1178 强身药（319291-319312）：442(守护) + 444(再生) + 446(属性保护) + 468(羽化)
+  SPECIAL[1178] = function (g, target, power, ctx) {
+    for (const sp of [442, 444, 446, 468]) castBuff(g, ctx.caster || target, target, sp, power | 0, ctx.curse);
+    return { ok: true, messages: [`${target.name || '它'}身体变得强健。`] };
+  };
+  // 1180 劳动能量饮料（321089-321097）：buff 70, p1=10, turns=10；index>=16 置 cbit 1042
+  SPECIAL[1180] = function (g, target) {
+    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, target, 70, 10, 10);
+    if ((target.index | 0) >= 16 && Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(target, 1042, 1);
+    return { ok: true, messages: [`${target.name || '它'}充满了干劲。`] };
+  };
+
+  // ------------------------------------------------------------ 属性弱化/强化类
+  // attr → var_58(240 + (attr-10)) = var_58(230+attr)
+  // 列表 439:力量10/体质11/灵巧12/速度17/魅力18；440:感知14/学习13/意志16/魔力15/幸运19
+  const ATTR_BODY = [10, 11, 12, 17, 18];
+  const ATTR_MIND = [14, 13, 16, 15, 19];
+  const ATTR_ALL = [10, 11, 12, 17, 18, 14, 13, 16, 15, 19];
+  function setAttrMod(c, attr, v) { if (c && c.set) c.set(230 + attr, v | 0); }
+  function getAttrMod(c, attr) { return (c && c.get) ? (c.get(230 + attr) | 0) : 0; }
+
+  // 439/440 肉体/精神复活（324865-324964，440 空块 fall-through 到 439）：
+  //   诅咒且 var_58(25)>=4 → 无效；普通→弱化归零；祝福→(sorg/10+5) 强化；
+  //   诅咒且 var_58(25)<=3 → 弱化减少 rnd(sorg/5)+rnd(5)。439 SP+3、440 斗志+4。
+  SPECIAL[439] = function (g, target, power, ctx) {
+    const messages = [];
+    const spirit = (target.get ? (target.get(25) | 0) : 0);
+    if (ctx.curse <= -1 && spirit >= 4) return { ok: true, messages: ['什么也没有发生……'] };
+    if ((ctx.spellId | 0) === 439 || ctx.isBody !== false) {
+      if (Elona.Status && Elona.Status.healsp) Elona.Status.healsp(target, 3);
+    } else {
+      if ((target.get ? (target.get(182) | 0) : 0) < 50 && target.set) target.set(182, (target.get(182) | 0) + 4);
+    }
+    const attrs = ((ctx.spellId | 0) === 440) ? ATTR_MIND : ATTR_BODY;
+    for (const a of attrs) {
+      const s = Elona.Stats ? Elona.Stats.sorg(target, a) : 0;
+      const cur = getAttrMod(target, a);
+      if (ctx.curse <= -1 && spirit <= 3) {
+        setAttrMod(target, a, cur - (g.rng.rnd(idiv(s, 5)) + g.rng.rnd(5)));
+      } else if (ctx.curse >= 1) {
+        setAttrMod(target, a, idiv(s, 10) + 5);
+      } else if (cur < 0) {
+        setAttrMod(target, a, 0);
+      }
+    }
+    if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    messages.push(`${target.name || '它'}的属性复位了。`);
+    return { ok: true, messages };
+  };
+  // 440 走 439 的同一段（fall-through）；ctx.spellId 区分身体/精神
+  SPECIAL[440] = function (g, target, power, ctx) {
+    return SPECIAL[439](g, target, power, Object.assign({}, ctx, { spellId: 440 }));
+  };
+
+  // 1157 索玛（319039-319074）：全属性 = sorg/7+5，healcon 12/0，玩家 SP+200&var_65(90)=0，dmgsan 100
+  SPECIAL[1157] = function (g, target, power, ctx) {
+    for (const a of ATTR_ALL) setAttrMod(target, a, idiv(Elona.Stats ? Elona.Stats.sorg(target, a) : 0, 7) + 5);
+    if (Elona.Status && Elona.Status.healcon) Elona.Status.healcon(target, 12, 0);
+    if ((target.index | 0) === 0) {
+      if (Elona.Status && Elona.Status.healsp) Elona.Status.healsp(target, 200);
+      if (g.setV65) g.setV65(90, 0);
+    }
+    if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    if (Elona.Status && Elona.Status.dmgsan) Elona.Status.dmgsan(target, 100, g);
+    return { ok: true, messages: ['精神焕发，身体充满了力量！'] };
+  };
+
+  // 1155 大灾药（319116-319157）：5 异常 + 5 debuff(9/11/8/6/2) + 全属性弱化
+  SPECIAL[1155] = function (g, target, power, ctx) {
+    const danger = (g && g.getV65) ? (g.getV65(22) | 0) : 0;
+    const pw = (power | 0) + limit(danger * 2, 50, 400);
+    for (const c of [2, 1, 3, 5, 4]) dmgcon(g, target, c, pw);
+    for (const b of [9, 11, 8, 6, 2]) castBuff(g, ctx.caster || target, target, 1000 + b, pw, 0);
+    if ((target.get ? (target.get(25) | 0) : 0) < 4) {
+      for (const a of ATTR_ALL) setAttrMod(target, a, idiv((Elona.Stats ? Elona.Stats.sorg(target, a) : 0) * -1, 10) - 5);
+      if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    }
+    return { ok: true, messages: [`灾祸降临到${target.name || '它'}身上！`] };
+  };
+
+  // 1176 阿苦药（319071-319090）：5 异常，强度 power+limit(danger,10,200)
+  SPECIAL[1176] = function (g, target, power) {
+    const danger = (g && g.getV65) ? (g.getV65(22) | 0) : 0;
+    const pw = (power | 0) + limit(danger, 10, 200);
+    for (const c of [2, 1, 3, 5, 4]) dmgcon(g, target, c, pw);
+    if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    return { ok: true, messages: [`苦痛降临到${target.name || '它'}身上！`] };
+  };
+  // 1177 祸多岐药（319091-319112）：5 debuff，强度 power+limit(danger,10,200)
+  SPECIAL[1177] = function (g, target, power, ctx) {
+    const danger = (g && g.getV65) ? (g.getV65(22) | 0) : 0;
+    const pw = (power | 0) + limit(danger, 10, 200);
+    for (const b of [9, 11, 8, 6, 2]) castBuff(g, ctx.caster || target, target, 1000 + b, pw, 0);
+    if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    return { ok: true, messages: [`灾厄降临到${target.name || '它'}身上！`] };
+  };
+
+  // ------------------------------------------------------------ 潜能/技能类
+  // 1113 潜力药（321130-321171）：祝福全 8 属性 modgrowth+100；普通随机1个+100；诅咒随机1个 -(rnd(sgrowth/10+10)+1)
+  SPECIAL[1113] = function (g, target, power, ctx) {
+    const messages = [];
+    if (Elona.Stats && Elona.Stats.modGrowth) {
+      if (ctx.curse >= 1) {
+        for (let a = 10; a < 20; a++) Elona.Stats.modGrowth(target, a, target, 100, g);
+        messages.push('所有属性的潜在能力上升了。');
+      } else {
+        const a = g.rng.rnd(8) + 10;
+        const delta = ctx.curse === 0 ? 100 : -(g.rng.rnd(idiv(Elona.Stats.sgrowth(target, a), 10) + 10) + 1);
+        Elona.Stats.modGrowth(target, a, target, delta, g);
+        messages.push(`${ctx.curse === 0 ? '潜在能力上升了' : '潜在能力下降了'}。`);
+      }
+    }
+    return { ok: true, messages };
+  };
+
+  // ------------------------------------------------------------ 变异类
+  // 1121 变异治疗药（320402-320465）：cure；诅咒→反过来变异
+  SPECIAL[1121] = function (g, target, power, ctx) {
+    if (!Elona.Mutation) return { ok: true, messages: [] };
+    if (ctx.curse <= -1) return SPECIAL[1152](g, target, power, ctx);
+    const r = Elona.Mutation.cure(g, target, { var2362: ctx.curse | 0 });
+    return { ok: true, messages: (r && r.messages) || [], cured: r && r.cured };
+  };
+  // 1152 变异药水（空块→632→1144）：1 次变异，方向可正可负（诅咒固定负，祝福 1/3 取消负）
+  // 1144 进化药水：只正向 2+rnd(3) 次。两者都由 Mutation.mutate 覆盖。
+  SPECIAL[1152] = function (g, target, power, ctx) {
+    if (!Elona.Mutation) return { ok: true, messages: [] };
+    const opt = { count: 1 };
+    if (ctx.curse <= -1) opt.negativeOnly = true;
+    const r = Elona.Mutation.mutate(g, target, opt);
+    return { ok: true, messages: (r && r.messages) || [], mutation: r };
+  };
+  SPECIAL[1144] = function (g, target, power, ctx) {
+    if (!Elona.Mutation) return { ok: true, messages: [] };
+    const r = Elona.Mutation.mutate(g, target, { count: 2 + g.rng.rnd(3), positiveOnly: true });
+    return { ok: true, messages: (r && r.messages) || [], mutation: r };
+  };
+
+  // ------------------------------------------------------------ 其他
+  // 1147 蓝色胶囊（319481-319500）：SP+100 + sickifcursed
+  SPECIAL[1147] = function (g, target, power, ctx) {
+    const messages = [`${target.name || '它'}的体力大幅恢复了。`];
+    if (Elona.Status && Elona.Status.healsp) Elona.Status.healsp(target, 100);
+    sickIfCursed(g, ctx.curse, target, 1, messages);
+    return { ok: true, messages };
+  };
+  // 1150 糖（340231-340248）：清除多个异常状态字段
+  SPECIAL[1150] = function (g, target) {
+    const fields = [445, 250, 251, 254, 253, 252, 263, 256, 257, 258, 262, 259, 264, 267, 268, 412];
+    if (target.set) {
+      for (const f of fields) target.set(f, 0);
+      if ((target.get(269) | 0) > 1) target.set(269, 1);
+    }
+    return { ok: true, messages: ['状态异常恢复了！'] };
+  };
+  // 1163 精油（319221-319242）：dmgcon 5, power/3+1 + f412+=30
+  // 1164 挥发油（319244-319266）：dmgcon 5, power/3+1 + f412+=100
+  function oilPotion(g, target, power, add) {
+    dmgcon(g, target, 5, idiv(power | 0, 3) + 1);
+    if (target.set) target.set(412, (target.get(412) | 0) + add);
+    if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    return { ok: true, messages: [`${target.name || '它'}浑身沾满了油。`] };
+  }
+  SPECIAL[1163] = (g, target, power) => oilPotion(g, target, power, 30);
+  SPECIAL[1164] = (g, target, power) => oilPotion(g, target, power, 100);
+
+  // 1131 以太抗体药（338889-338918）：modcorrupt -3000(祝福)/-2000(普通)/+2000(诅咒)，仅玩家
+  SPECIAL[1131] = function (g, target, power, ctx) {
+    if ((target.index | 0) !== 0) return { ok: true, messages: ['什么也没有发生……'] };
+    const delta = ctx.curse >= 1 ? -3000 : (ctx.curse === 0 ? -2000 : 2000);
+    if (Elona.Weather && Elona.Weather.modCorrupt) Elona.Weather.modCorrupt(g, delta);
+    return { ok: true, messages: [delta < 0 ? '以太病的症状大幅缓解了。' : '以太病扩散到了全身。'] };
+  };
+
+  // 1135 春药（318650-318738）：模糊(dmgcon 7)、好感/主从度、生成蛋奶
+  SPECIAL[1135] = function (g, target, power, ctx) {
+    const messages = [];
+    const isPlayer = (target.index | 0) === 0;
+    if (ctx.curse <= -1) {
+      if (isPlayer) {
+        if (target.set) target.set(22, Math.max(0, (target.get(22) | 0) - 1500));
+        vomitOnce(g, target, messages);
+      } else if (Elona.Relation) {
+        if (Elona.Relation.modimp) Elona.Relation.modimp(target, -15, g);
+        if (Elona.Relation.modimp2) Elona.Relation.modimp2(target, -15, g);
+      }
+      return { ok: true, messages };
+    }
+    dmgcon(g, target, 7, 500);
+    if (isPlayer) {
+      messages.push(`${target.name || '它'}兴奋了！`);
+    } else {
+      if (Elona.Relation) {
+        if (Elona.Relation.modimp && (target.get(17) | 0) < 100) Elona.Relation.modimp(target, limit((power | 0) / 5, 0, 25), g);
+        if (Elona.Relation.modimp2) Elona.Relation.modimp2(target, 10, g);
+      }
+      dmgcon(g, target, 7, 100);
+    }
+    return { ok: true, messages };
+  };
+
+  // 1143 下降药（320824-320880）：普通/诅咒→等级-1；祝福→等级+1；诅咒额外 1/3 概率属性经验-1000
+  SPECIAL[1143] = function (g, target, power, ctx) {
+    const messages = [];
+    if (ctx.curse >= 1) {
+      if (Elona.Stats && Elona.Stats.levelUp) Elona.Stats.levelUp(target, g);
+      if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(target, 960)) messages.push(`${target.name || '它'}无法升级。`);
+    } else {
+      const lv = (target.get ? (target.get(38) | 0) : 0);
+      if (lv > 1) {
+        if (target.set) { target.set(38, lv - 1); target.set(35, 0); }
+        messages.push(`${target.name || '它'}的等级下降了……`);
+      } else messages.push('什么也没有发生……');
+    }
+    if (ctx.curse <= -1) {
+      for (let s = 10; s < 50; s++) if (g.rng.rnd(3) === 0 && Elona.Stats) Elona.Stats.skillExp(target, s, target.index | 0, -1000, undefined, 0, g);
+    }
+    if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    return { ok: true, messages };
+  };
+
+  // 1161 魔女点心（319002-319026）：睡眠 256=70(以太>=4→65)，重算
+  SPECIAL[1161] = function (g, target) {
+    if (target.set) target.set(256, (target.get(25) | 0) >= 4 ? 65 : 70);
+    if (Elona.Stats && Elona.Stats.recalcStats) Elona.Stats.recalcStats(target, g);
+    return { ok: true, messages: ['太美味了……', `${target.name || '它'}昏倒了。`] };
+  };
+
+  // 1174 蜂蜜酒（319174-319226）：醉酒 dmgcon 8 rnd(300)+100 + skillexp(14,500)；玩家幽体离脱是玩家侧 UI，省略
+  SPECIAL[1174] = function (g, target) {
+    dmgcon(g, target, 8, g.rng.rnd(300) + 100);
+    if (Elona.Stats) Elona.Stats.skillExp(target, 14, target.index | 0, 500, undefined, 0, g);
+    return { ok: true, messages: [`${target.name || '它'}感到一阵奇妙的感觉……`] };
+  };
+
   // ------------------------------------------------------------ 饮品专例
   // 这些饮品在源码里不是 buff 型，而是各自一段 var_1302 分支（见每条的注释）。
 

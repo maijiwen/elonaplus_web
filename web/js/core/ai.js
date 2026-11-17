@@ -695,8 +695,52 @@
       || null;
   }
 
+  /**
+   * 0-Z14：孩子（cbit1034 / 成长阶段 var_58(59)<0）的行动前特殊行为。
+   * 源码 *label_4358 594466-594520：孩子按成长阶段掷 rnd(100) 走神，命中则
+   *   「玩耍/东张西望/沉思/烦恼」后 `goto label_4358` 结束本回合（放弃正常行动）。
+   * 其中 -1（思春期）用叛逆公式 limit(var_58(169),1,150)/10+80 <= rnd(100)。
+   * 嗜睡（wiki）：幼儿/幼童每回合 5%、幼少期夜间 5%、成长期夜间 2% 入睡，
+   *   时长 rnd(301)+100 / rnd(151)+50（项目用 var_58(251) 作睡眠回合数）。
+   * 叛逆拒绝道具/指令（298308 / 340605）属交互层响应，不在 AI 自主决策里触发；
+   *   思春期的「拒绝指令」概率已并入 distractionRate 的叛逆公式。
+   * @returns {{acted:boolean}|null} 命中返回 acted（本回合结束），否则 null
+   */
+  function childAiPre(g, c) {
+    const B = Elona.Birth;
+    if (!B || !B.stageOf || B.stageOf(c) === null) return null;
+    // 睡眠中的孩子本回合不行动（嗜睡是在清醒时判定入睡，之后由 251 持续）
+    if ((c.get(251) | 0) !== 0) return { acted: true, childAsleep: true };
+    const rnd = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    // 嗜睡判定（清醒时）
+    if (typeof B.sleepiness === 'function' && typeof g.getV65 === 'function') {
+      const hour = g.getV65(13) | 0;
+      const sl = B.sleepiness(g, c, hour);
+      if (sl && sl.sleep) {
+        c.set(251, Math.max(1, sl.turns | 0));
+        if (g.log) g.log(`${c.name} 睡着了。`);
+        return { acted: true, childSleep: true, turns: sl.turns | 0 };
+      }
+    }
+    // 走神判定（按成长阶段；叛逆期公式已含顺从度）
+    if (typeof B.distractionRate === 'function' && typeof B.isDistracted === 'function') {
+      if (B.isDistracted(g, c)) {
+        const st = B.stageOf(c);
+        const lines = { '-5': '正开心地打滚玩耍！', '-4': '蹦蹦跳跳地玩着！',
+          '-3': '好奇地东张西望！', '-2': '一本正经地思考着！', '-1': '对自己的存在方式感到烦恼！' };
+        if (g.log) g.log(`${c.name} ${lines[String(st)] || '发起了呆。'}`);
+        return { acted: true, childDistracted: true, stage: st };
+      }
+    }
+    return null;
+  }
+
   function npcTurn(g, c) {
     if (!c || c.get(0) !== 1 || c.index === 0) return { acted: false };
+
+    // 0-Z14：孩子行动前的走神/嗜睡判定（源码 594466-594520 的孩子分支）
+    const childR = childAiPre(g, c);
+    if (childR) return childR;
 
     // 592204-592205：NPC 行动开始时清零「同回合连续被击次数」（dmghp 的防连击减伤）
     if (c.get(444) !== 0) c.set(444, 0);
@@ -1216,7 +1260,7 @@
   }
 
   Elona.AI = {
-    adjacentCheck, npcTurn, runAll, findNearestHostile, castBranch,
+    adjacentCheck, npcTurn, runAll, childAiPre, findNearestHostile, castBranch,
     tryHealPotion, tryIdle, tryUseItem, findInvItem, sightRange,
     mercyCheck, mountSync, tamerIdle, TAMER_ABILITY, TAMER_SPECIES,
     isHostile, hostileTowards, stepToward, stepAway, randomStep, combatMove,
