@@ -341,7 +341,7 @@
     }
     // 0-CM：万圣节 Trick-or-Treat（事件 1025，366745-366930）—— 10/25 且未应付过
     if (Elona.Festival && Elona.Festival.isTrickTime(g) && ((npc.get(150) | 0) !== 2002)) {
-      out.push({ id: 'trick-or-treat', label: 'Trick or Treat?' });
+      out.push({ id: 'trick-or-treat', label: '不给糖就捣蛋？' });
     }
     // 0-CQ：力の覚醒（AP 天赋菜单，410000-411925）。
     // 原版入口是「冒険ゼミ」的講師，且进度标志 var_65(250+254) >= 4 才追加菜单项（410044-410048）。
@@ -630,7 +630,11 @@
     return identifyAll(g, npc, player);
   }
 
-  /** 训练可选的技能（只列有潜力的技能，按潜力降序） */
+  /**
+   * 训练可选的技能（只列有潜力的技能）
+   * 0-Z21：源码的列表按排序键 `var_83(0,id)+21000` 冒泡（label_2821），
+   *   即组内按关联属性升序、同属性按 id 升序，而不是按潜力高低。
+   */
   function trainableSkills(player) {
     const out = [];
     const seen = {};
@@ -644,7 +648,8 @@
       if (pot <= 0 && exp <= 0) continue;
       out.push({ id, name: skillName(id), potential: pot });
     }
-    out.sort((a, b) => b.potential - a.potential);
+    const attr = (SKILL_SHOP && SKILL_SHOP.attr) || {};
+    out.sort((a, b) => ((attr[String(a.id)] | 0) - (attr[String(b.id)] | 0)) || (a.id - b.id));
     return out.slice(0, 40);
   }
 
@@ -893,13 +898,14 @@
    *   5 (特殊)      type == 7 或 id ∈ {454,456,455,437,472,436,413,435}
    *   6 (探索)      type ∈ {5, 0} 且 id 不在下面 K6 的排除表
    */
+  // 0-Z23：魔法实习二级菜单文案中文化（源码 422572-422595 的六类实习）。
   const PRACTICE = [
-    { id: 1, label: 'ソーサラー実習（攻击魔法）' },
-    { id: 2, label: 'ウォーロック実習（上位攻击魔法）' },
-    { id: 3, label: 'エンチャンター実習（付与魔法）' },
-    { id: 4, label: 'ヒーラー実習（回复魔法）' },
-    { id: 5, label: 'シャーマン実習（特殊魔法）' },
-    { id: 6, label: 'メイジ実習（探索魔法）' },
+    { id: 1, label: '咒术师实习（攻击魔法）' },
+    { id: 2, label: '术士实习（上位攻击魔法）' },
+    { id: 3, label: '附魔师实习（赋予魔法）' },
+    { id: 4, label: '治愈师实习（回复魔法）' },
+    { id: 5, label: '萨满实习（特殊魔法）' },
+    { id: 6, label: '法师实习（探索魔法）' },
   ];
   const PRACTICE_K4 = [406, 407, 412, 404, 439, 440, 461];
   const PRACTICE_K5 = [454, 456, 455, 437, 472, 436, 413, 435];
@@ -1825,13 +1831,15 @@
       header = '今天的对手是等级约 ' + q.level + ' 的战士。要挑战吗？';
     }
     if (q.champion) header = (q.petMode ? PET_KING_TEXT : CHAMPION_TEXT) + header;
-    const label = q.petMode ? "I'll send my pet." : 'Alright.';
+    // 源码 417079 `lang("やめる", "I'll pass.")` / 417191 `lang("挑戦する", "I'll send my pet.")`
+    //   —— 日文原文「挑戦する / やめる」，中文版统一为「挑战 / 放弃」。
+    const label = q.petMode ? '挑战' : '挑战';
     return {
       ok: true, reopenList: true, header,
       entries: [
         { label: label, meta: '胜利可获得 ' + q.fame + ' 名声',
           arg: { confirm: true, mode: mode, petIndex: q.petIndex, petCount: q.count } },
-        { label: "I'll pass.", meta: '算了', arg: { confirm: false, mode: mode } },
+        { label: '放弃', meta: '算了', arg: { confirm: false, mode: mode } },
       ],
     };
   }

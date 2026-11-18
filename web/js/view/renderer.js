@@ -239,10 +239,22 @@
      * 0-FT：当前视野左上角的世界格坐标。
      *   平时 = 玩家 − (8,5)（原版 `var_537/538` 的固定半屏偏移）；
      *   装修模式下改为光标 − (8,5)，于是光标恒在视口正中、移动光标即可看视野外。
+     *   0-Z24 / 210858-210861：宠物竞技场（map 40）镜头改为跟随**出战的宠物**
+     *   `var_58(1/2, var_1334)`，并按 210880-210890 把镜头钳在地图内。
      */
     camOrigin(game) {
       const OX = 8, OY = 5;
       const D = Elona.Home && Elona.Home.design;
+      if (!(D && D.active) && Elona.Arena && Elona.Arena.watchCam) {
+        const wc = Elona.Arena.watchCam(game);
+        if (wc) {
+          const mw = (game.map && game.map.width) | 0;
+          const mh = (game.map && game.map.height) | 0;
+          const x = Math.max(0, Math.min(wc.x - OX, mw - this.viewW));
+          const y = Math.max(0, Math.min(wc.y - OY, mh - this.viewH));
+          return { x, y, ox: OX, oy: OY };
+        }
+      }
       const cx = (D && D.active) ? (D.x | 0) : (game.player.x | 0);
       const cy = (D && D.active) ? (D.y | 0) : (game.player.y | 0);
       return { x: cx - OX, y: cy - OY, ox: OX, oy: OY };
@@ -1950,7 +1962,14 @@
       const look = game.worldLook;             // 0-FT：查看模式的光标（null = 正常）
       const cam = look || w;                   // 镜头中心：查看时跟光标，否则跟玩家
       const ox = 8, oy = 5;
-      const startX = cam.x - ox, startY = cam.y - oy;
+      // 0-Z23：把镜头起点钳制在 [0, 地图尺寸-视口]，使地图边缘正好贴住视口边缘。
+      // 【源码】283648-283661 玩家坐标 limit 在 [0,var_126(0/1))；283665-283681
+      //   查看光标 var_1311/1312 也 limit 在 [0,width/height)。原版玩家/光标永不出界，
+      //   视野越界部分由 gfini 裁剪（不绘制），所以地图外不会出现平铺图块。
+      //   网页版此前不钳制、越界格填 tile 531（墓碑），于是地图边缘外出现一整片
+      //   规则重复的「草地+墓碑」—— 正是截图里红圈的现象。
+      const startX = Math.max(0, Math.min((cam.x | 0) - ox, WM.width - this.viewW));
+      const startY = Math.max(0, Math.min((cam.y | 0) - oy, WM.height - this.viewH));
       ctx.save();
       ctx.beginPath();
       ctx.rect(0, 0, UI_W, UI_TOP);
@@ -1959,7 +1978,9 @@
         for (let vx = 0; vx < this.viewW; vx++) {
           const mx = startX + vx, my = startY + vy;
           const dx = vx * TILE, dy = vy * TILE;
-          let tile = 531;                       // 越界用默认图块
+          // 兜底：即使视口比地图还大，越界格画海洋（264）而不是墓碑（531），
+          //   与世界地图边缘的浅海衔接，绝不出现重复地形。
+          let tile = 264;
           if (mx >= 0 && my >= 0 && mx < WM.width && my < WM.height) {
             tile = WM.cells[my][mx][0] | 0;
           }

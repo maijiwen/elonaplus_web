@@ -4,8 +4,8 @@
 <meta charset="utf-8" />
 <title>ElonaPlus 2.33R — Web 重制版</title>
 <link rel="icon" href="data:," />
-<link rel="stylesheet" href="css/style.css?v=0x0" />
-<link rel="stylesheet" href="css/charcreate.css?v=0i0" />
+<link rel="stylesheet" href="css/style.css?v=0z23" />
+<link rel="stylesheet" href="css/charcreate.css?v=0z20" />
 </head>
 <body>
   <!-- 主菜单（title.bmp + interface.bmp 窗口） -->
@@ -95,14 +95,11 @@
           <div class="npc-main">
             <div id="npc-text" class="npc-text"></div>
             <div id="npc-actions" class="npc-actions"></div>
-            <div id="npc-feelings" class="npc-train hidden">
-              <select id="npc-feeling"></select>
-              <button id="npc-feeling-ok">说</button>
-            </div>
-            <div id="npc-train" class="npc-train hidden">
-              <select id="npc-skill"></select>
-              <button id="npc-train-ok">训练</button>
-            </div>
+            <!-- 0-Z21/Z22：原版 UI 没有下拉框。训练/学技能走 Panels 技能窗口；
+                 其余二级选择（魔法实习/竞技场/宠物/给予/鉴定等）走 showPickMenu 的对话内 a-p 菜单。
+                 下列三个浮层容器已停用（脚本只隐藏不显示），保留仅为兼容旧引用。 -->
+            <div id="npc-feelings" class="npc-train hidden"></div>
+            <div id="npc-train" class="npc-train hidden"></div>
             <div id="npc-give" class="npc-give hidden"></div>
           </div>
         </div>
@@ -231,7 +228,7 @@
   <script src="js/core/storywarp.js"></script>
   <script src="js/core/shop.js?v=0z11"></script>
   <script src="js/core/shopmanage.js"></script>
-  <script src="js/core/npc.js?v=0z2"></script>
+  <script src="js/core/npc.js?v=0z23"></script>
   <script src="js/core/towns.js?v=0z0"></script>
   <script src="js/core/worldmap.js?v=0y0"></script>
   <script src="js/core/entrance.js?v=0y0"></script>
@@ -239,7 +236,7 @@
   <script src="js/core/wildmap.js"></script>
   <script src="js/core/randdungeon.js"></script>
   <script src="js/core/dungeonfx.js?v=0z16"></script>
-  <script src="js/core/quest.js?v=0z11"></script>
+  <script src="js/core/quest.js?v=0z23"></script>
   <script src="js/core/questmap.js"></script>
   <script src="js/core/battle.js?v=0z7"></script>
   <script src="js/core/resist.js"></script>
@@ -258,8 +255,8 @@
   <script src="js/core/festivalmap.js?v=0z18"></script>
   <script src="js/core/birth.js?v=0z14"></script>
   <script src="js/core/encounter.js"></script>
-  <script src="js/core/arena.js?v=0hv"></script>
-  <script src="js/core/party.js?v=0hu"></script>
+  <script src="js/core/arena.js?v=0z24"></script>
+  <script src="js/core/party.js?v=0z24"></script>
   <script src="js/core/companion.js?v=0z1"></script>
   <script src="js/core/love.js?v=0w0"></script>
   <script src="js/core/festival.js"></script>
@@ -302,7 +299,7 @@
   <script src="js/core/source_fragments.js"></script>
   <script src="js/core/deathmsg.js"></script>
   <script src="js/core/ai.js?v=0z14"></script>
-  <script src="js/core/game.js?v=0z18"></script>
+  <script src="js/core/game.js?v=0z24"></script>
   <script src="js/core/actions.js?v=0z10"></script>
   <script src="js/core/aim.js?v=0q0"></script>
   <script src="js/core/dirsel.js?v=0x0"></script>
@@ -316,14 +313,14 @@
   <script src="js/view/uikit.js"></script>
   <script src="js/view/hud.js?v=0z7"></script>
   <script src="js/view/title.js"></script>
-  <script src="js/view/renderer.js?v=0z2"></script>
-  <script src="js/view/ui.js?v=0z1"></script>
-  <script src="js/view/panels.js?v=0z4"></script>
+  <script src="js/view/renderer.js?v=0z24"></script>
+  <script src="js/view/ui.js?v=0z22"></script>
+  <script src="js/view/panels.js?v=0z21"></script>
   <script src="js/view/npcedit.js?v=0x0"></script>
   <script src="js/view/altar.js"></script>
   <script src="js/view/sceneview.js?v=0s0"></script>
   <script src="js/view/consoleview.js"></script>
   <script src="js/view/charcreate.js?v=0i0"></script>
-  <script src="js/main.js?v=0z16"></script>
+  <script src="js/main.js?v=0z24"></script>
 </body>
 </html>

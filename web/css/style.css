@@ -256,6 +256,8 @@ html, body {
   font-family: monospace; font-size: 12px;
 }
 .npc-label { font-size: 14px; }
+/* 0-Z22：label_3068 对话内二级菜单的右侧附注（报价 / 数量 / 难度） */
+.npc-meta { margin-left: auto; padding-left: 12px; font-size: 12px; color: #6b5324; white-space: nowrap; }
 .npc-close .npc-label { color: #5a482c; }
 /* 0-W0：原版对话窗的键帽是深色梯形（display_key 的 a/b/c…），
    选中行铺一条浅色底并在末尾带两个小菱形。操作弹窗仍用上面的方块键帽。 */
@@ -681,6 +683,68 @@ table tr.pui-row:hover > td, table tr.pui-opt:hover > td { background: rgba(120,
 /* 0-DF：人物信息窗列表页的光标行（↑↓ 移动，「,」锁定） */
 .ci-table tr.ci-item.ci-sel { background: rgba(126, 96, 30, 0.26); outline: 1px solid rgba(90, 70, 40, 0.7); }
 .ci-table tr.ci-item { cursor: default; }
+
+/* 0-Z20：技能页 —— 行内顺序与源码 293936-294103 的坐标一致：
+ *   绿色 EXP UP(18) → 属性图标(38) → 快捷键(58) → 技能名(84)。
+ *   原版行高 19px、字号 14pt、图标 `gmode 2,48,48`（48×0.48≈23px），
+ *   所以这里用 14px 字号 + 19px 行高 + 24px 图标，比例与原版一致。
+ *   图标表沿用 item.png（1584×2208 原尺寸、48px 格），按 0.5 倍显示 24px：
+ *   background-size 792px，位置按 24px 步进。
+ *   属性图标在源图第 14 行（y=672 → 672×0.5 = 336）。
+ *   绿色标记改为按原版截图复刻的三个 chevron（见下方 .ci-expup 注释）。 */
+.ci-skills { font-size: 14px; table-layout: fixed; }
+.ci-skills td, .ci-skills th {
+  line-height: 19px; padding: 0 4px; white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.ci-skills tr.ci-item { height: 19px; }
+.ci-skills .c-mark { width: 22px; }
+.ci-skills .c-ico { width: 26px; }
+.ci-skills .c-key { width: 26px; }
+.ci-skills .c-name { width: 140px; }
+.ci-skills .c-num { width: 108px; }
+/* 0-Z21：训练师技能列表的成本列（源码 294104-294113 的 "2p"/"5p"） */
+.ci-skills .c-cost { width: 52px; }
+.ci-skills .ci-cost { text-align: right; padding-right: 10px; font-family: monospace; }
+.ci-skills .ci-th-cost { text-align: right; padding-right: 10px; }
+.ci-skills .ci-mark { padding: 0; }
+.ci-skills .ci-ico { padding: 0 2px 0 0; }
+.ci-skills .ci-key { padding: 0 4px 0 2px; }
+.ci-skills .ci-nums { text-align: right; padding-right: 10px; }
+.ci-skills .ci-th-name { padding-left: 0; }
+.ci-skills .ci-th-num { text-align: right; padding-right: 10px; }
+.ci-skills .ci-th-desc { padding-left: 6px; }
+.ci-sico {
+  display: inline-block; width: 24px; height: 24px; flex: 0 0 24px;
+  vertical-align: -6px; margin-right: 0;
+  background-image: url('../assets/graphic/item.png');
+  background-repeat: no-repeat;
+  background-size: 792px auto;
+  image-rendering: pixelated;
+}
+/* 0-Z21：绿色 EXP UP 标记 —— 原版截图是三个纵向叠在一起的绿色「^」。
+ *   源码 293993 用 `grotate 1, 576, 1680, 0, var_452, var_452` 从 item 图集
+ *   取该格；本地 item.bmp 的 (576,1680) 是「EXP UP」文字（见 docs 17-diff-report2 A724），
+ *   与用户提供的原版截图图案不同。这里按截图复刻三个 chevron，保留源码的触发条件
+ *   （当日冒险日和 / 詠唱モード），24px 方格与原图标同尺寸。 */
+.ci-expup {
+  display: inline-block; width: 24px; height: 24px; flex: 0 0 24px;
+  vertical-align: -6px; visibility: hidden;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><g fill='%234ad63f' stroke='%230a4a0a' stroke-width='1.2' stroke-linejoin='round'><path d='M2 7 L12 1 L22 7 L19 8.7 L12 4 L5 8.7 Z'/><path d='M2 13 L12 7 L22 13 L19 14.7 L12 10 L5 14.7 Z'/><path d='M2 19 L12 13 L22 19 L19 20.7 L12 16 L5 20.7 Z'/></g></svg>");
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  image-rendering: pixelated;
+}
+.ci-expup.on { visibility: visible; }
+/* 没有属性图标（耐性页等）时占位但不画图，避免露出图集左上角 */
+.ci-sico-none { background-image: none; }
+.ci-head td { padding-top: 7px; }
+.ci-head-label {
+  padding-left: 76px !important;
+  color: #3a2712; font-weight: bold; font-size: 14px;
+  border-bottom: 1px solid rgba(90, 70, 40, 0.45);
+}
+.ci-bonus { color: #1a0e04; font-weight: bold; }
 
 /* 0-DH：evochat 的红心（行動力 / 幸福度）—— 原版用 interface.bmp 的红心图标 */
 .dh-hearts { letter-spacing: 1px; color: #a3202a; font-family: "MS Gothic", monospace; }

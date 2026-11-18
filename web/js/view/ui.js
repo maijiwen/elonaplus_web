@@ -946,7 +946,9 @@
       if (!slice.length) this.shopCursor = 0;
       else this.shopCursor = Math.max(0, Math.min(slice.length - 1, this.shopCursor | 0));
 
-      const lang = 'en';
+      // 0-Z19：此前硬编码 'en'，导致商品列表显示英文名、按 x 的情报窗却是中文。
+      //   源码没有语言切换，名称一律取当前语言的名称表（中文优先），
+      //   所以这里改为交给 ItemDB.name 的默认语言解析（Elona.Lang 当前档）。
       const list = this.el('shop-list');
       list.innerHTML = slice.length ? slice.map((r, i) => {
         const it = r.it;
@@ -956,7 +958,7 @@
         const price = Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
         return `<div class="inv-row${i === this.shopCursor ? ' sel' : ''}" data-i="${i}">
           <span class="inv-icon" style="background-position:-${pos.x * k}px -${pos.y * k}px"></span>
-          <span class="inv-name">${this.esc(Elona.ItemDB.name(it.id, lang))}</span>
+          <span class="inv-name">${this.esc(Elona.ItemDB.name(it))}</span>
           <span class="inv-meta">${it.f[0]} 个 / ${price} gp</span>
         </div>`;
       }).join('') : '<div id="shop-empty">没有可以交易的物品。</div>';
@@ -1140,6 +1142,11 @@
     /* 固定 NPC 对话脚本会话（core/dialogue.js，源 367818-410727） */
     npcSession: null,
     npcDialog: null,
+    /* 0-Z22：二级选择菜单（原版 label_3068 的对话内 a-p 选项）。
+     *   原版所有「选一项再执行」都在同一个对话窗里用 a-p 键完成，不弹浮层；
+     *   这里把选项临时挂成 npcDialog 项，复用 renderTalkActions 的同一套 UI。
+     *   { items: [{label,arg,...}], onPick: function(arg), allowEsc: bool } */
+    npcPick: null,
 
     openNPC(game, npc) {
       if (!Elona.NPC || !npc) return;
@@ -1266,10 +1273,50 @@
 
     /** 选择某个对话选项 */
     answerTalk(game, item) {
+      // 0-Z22：二级选择菜单（label_3068 的对话内 a-p 选项）复用同一套 .npc-action 行
+      if (item && item.__pick) { this.pickFromMenu(game, item); return; }
       const s = this.npcSession;
       if (!s) return;
       s.answer(item.v);
       this.advanceTalk(game);
+    },
+
+    /**
+     * 0-Z22：原版「选一项再执行」的对话框渲染（*label_3068，425380-425419）。
+     *   原版把 var_484/var_485 的选项画在同一对话窗，用 display_key(a-p) + cs_list：
+     *   ① 魔法实习 75（422572-422595）、② 竞技场确认 21/22（417075-417082）、
+     *   ③ 宠物战确认 40/41/49（417190-417197）、④ 护卫 50（421312-421335）、
+     *   ⑤ 魔法库存交换 158/159（422475-422551）等，全部走这里。
+     *   替代旧的 .npc-give 浮层（那个带边框/滚动/取消按钮，视觉上是「下拉框」）。
+     * @param {object} opts { onPick(arg), allowEsc=true, header=提示语 }
+     */
+    showPickMenu(game, header, entries, onPick, allowEsc) {
+      if (!entries || !entries.length) return false;
+      const items = entries.map((e, i) => ({
+        __pick: true, v: i, arg: e.arg, label: e.label, meta: e.meta,
+      }));
+      this.npcText = header || '';
+      // renderTalkActions 不写 npc-text（那是 renderNPC 的职责），这里手动同步提示语
+      const textEl = this.el('npc-text');
+      if (textEl) textEl.textContent = this.npcText;
+      this.npcDialog = { items, allowEsc: allowEsc !== false, pick: true };
+      this.npcPick = { onPick: onPick || null, items };
+      this.npcSel = 0;
+      // 浮层容器全部收起，避免同时出现「对话菜单 + 下拉框」
+      for (const id of ['npc-give', 'npc-train', 'npc-feelings']) {
+        const el = this.el(id); if (el) el.classList.add('hidden');
+      }
+      this.renderTalkActions(game);
+      return true;
+    },
+
+    /** 二级菜单选中一行：交回注册的回调（回调里负责执行 NPC.perform 或重开列表） */
+    pickFromMenu(game, item) {
+      const pick = this.npcPick;
+      this.npcPick = null;
+      this.npcDialog = null;
+      if (pick && typeof pick.onPick === 'function') pick.onPick(item.arg, item);
+      else this.renderNPC(game);
     },
 
     /** 对话中按「再见」= Esc（var_134 / var_2612） */
@@ -1292,6 +1339,7 @@
       this.npcSel = 0;
       this.npcSession = null;
       this.npcDialog = null;
+      this.npcPick = null;
       this.el('npc').classList.add('hidden');
       this.el('npc-train').classList.add('hidden');
       this.el('npc-give').classList.add('hidden');
@@ -1301,35 +1349,9 @@
     wireNPC(game) {
       if (this.npcWired) return;
       this.npcWired = true;
-      this.el('npc-train-ok').onclick = () => {
-        const sel = this.el('npc-skill');
-        const skillId = parseInt(sel.value, 10);
-        const mode = this.npcTrainMode === 'learn' ? 'learn' : 'train';
-        const r = Elona.NPC.perform(game, this.npcTarget, mode, skillId);
-        this.pushMessage(r.message);
-        this.npcText = r.message;
-        this.el('npc-train').classList.add('hidden');
-        this.renderNPC(game);
-      };
-      // 0-BV：说「気持ち」（原版对话动作 var_400 == 29 → 心情菜单 11000-11186）
-      this.el('npc-feeling-ok').onclick = () => {
-        const npc = this.npcTarget;
-        if (!npc || !Elona.Relation) return;
-        const choice = parseInt(this.el('npc-feeling').value, 10) | 0;
-        const r = Elona.Relation.talk(game, npc, choice);
-        const msgs = (r && r.messages) || [];
-        if (!r || !r.ok) {
-          const why = r && r.reason === 'cooldown' ? `对方还需要 ${r.wait} 小时才愿意再听你说话。`
-            : (r && r.reason === 'vigor' ? '你已经没有力气说话了。' : '现在说不出口。');
-          this.pushMessage(why);
-          this.npcText = why;
-        } else {
-          for (const m of msgs) this.pushMessage(m);
-          this.npcText = msgs.length ? msgs[msgs.length - 1] : this.npcText;
-        }
-        this.el('npc-feelings').classList.add('hidden');
-        this.renderNPC(game);
-      };
+      // 0-Z21：原版没有下拉框——训练/学技能走 Panels.openSkillTraining，
+      //   说心里话走 renderPickList 的 a-p 键列表，旧的 select + 按钮已移除。
+      void game;
     },
 
     /**
@@ -1904,8 +1926,10 @@
     activateNPCSel() {
       const list = this.npcActions || [];
       const i = this.npcSel | 0;
-      if (i === list.length && this.npcCloseRow) {          // 「再见」
-        if (this.npcDialog) this.cancelTalk(this.npcGame);
+      if (i === list.length && this.npcCloseRow) {          // 「再见」/ 二级菜单「取消」
+        const isPick = !!(this.npcDialog && this.npcDialog.pick);
+        if (isPick) { this.npcPick = null; this.npcDialog = null; this.renderNPC(this.npcGame); }
+        else if (this.npcDialog) this.cancelTalk(this.npcGame);
         else this.closeNPC();
         return;
       }
@@ -1931,12 +1955,15 @@
       this.npcCloseRow = showClose;
       const total = items.length + (showClose ? 1 : 0);
       if (!(this.npcSel >= 0 && this.npcSel < total)) this.npcSel = 0;
+      const isPick = !!(this.npcDialog && this.npcDialog.pick);
       items.forEach((it, i) => {
         const row = document.createElement('div');
         row.className = 'npc-action' + (i === this.npcSel ? ' sel' : '');
         const key = KEY_LETTERS[i] || '';
-        row.innerHTML = `<span class="npc-key">${key}</span><span class="npc-label"></span>`;
+        row.innerHTML = `<span class="npc-key">${key}</span><span class="npc-label"></span>`
+          + (isPick && it.meta ? `<span class="npc-meta"></span>` : '');
         row.querySelector('.npc-label').textContent = it.label;
+        if (isPick && it.meta) row.querySelector('.npc-meta').textContent = it.meta;
         row.onclick = () => { this.npcSel = i; this.answerTalk(game, it); };
         wrap.appendChild(row);
       });
@@ -1944,8 +1971,12 @@
         const close = document.createElement('div');
         close.className = 'npc-action npc-close' + (this.npcSel === items.length ? ' sel' : '');
         const key = KEY_LETTERS[items.length] || '';
-        close.innerHTML = `<span class="npc-key">${key}</span><span class="npc-label">再见</span>`;
-        close.onclick = () => this.cancelTalk(game);
+        close.innerHTML = `<span class="npc-key">${key}</span><span class="npc-label"></span>`;
+        close.querySelector('.npc-label').textContent = isPick ? '取消' : '再见';
+        close.onclick = () => {
+          if (isPick) { this.npcPick = null; this.npcDialog = null; this.renderNPC(game); }
+          else this.cancelTalk(game);
+        };
         wrap.appendChild(close);
       }
       this.keepSelVisible();
@@ -1984,35 +2015,32 @@
           if (s.id === 'feelings') {
             const npc = this.npcTarget;
             if (!npc || !Elona.Relation) return;
-            const sel = this.el('npc-feeling');
-            sel.innerHTML = Elona.Relation.menu(npc, game).map((m) =>
-              `<option value="${m.id}">${this.esc(m.jp || m.en)}</option>`).join('');
-            this.el('npc-feelings').classList.remove('hidden');
-            this.el('npc-train').classList.add('hidden');
-            this.el('npc-give').classList.add('hidden');
+            // 0-Z21：原版 290141-290156 用 txtselectkimoti + *label_2896 的
+            //   a-p 键列表，不是下拉框；复用通用选择列表，回调走 Relation.talk。
+            const entries = Elona.Relation.menu(npc, game)
+              .map((m) => ({ label: m.jp || m.en, arg: m.id }));
+            this.renderPickList(game, 'feelings', '说点心里话', entries, (choice) => {
+              const r = Elona.Relation.talk(game, npc, choice | 0);
+              const msgs = (r && r.messages) || [];
+              if (!r || !r.ok) {
+                const why = r && r.reason === 'cooldown' ? `对方还需要 ${r.wait} 小时才愿意再听你说话。`
+                  : (r && r.reason === 'vigor' ? '你已经没有力气说话了。' : '现在说不出口。');
+                this.pushMessage(why);
+                this.npcText = why;
+              } else {
+                for (const m of msgs) this.pushMessage(m);
+                this.npcText = msgs.length ? msgs[msgs.length - 1] : this.npcText;
+              }
+              this.renderNPC(game);
+            });
             return;
           }
-          if (s.id === 'train') {
-            const list = Elona.NPC.trainableSkills(game.player);
-            if (!list.length) { this.pushMessage('没有可以训练的技能。'); return; }
-            const sel = this.el('npc-skill');
-            this.npcTrainMode = 'train';
-            sel.innerHTML = list.map((k) =>
-              `<option value="${k.id}">${this.esc(k.name)}（潜力 ${k.potential}）</option>`).join('');
-            this.el('npc-train').classList.remove('hidden');
+          // 0-Z21：训练 / 学新技能 —— 原版 416880/417286 打开与人物信息窗共用的
+          //   角色表窗口（能力訓練 / 能力の習得），不是只露出一个下拉框。
+          if (s.id === 'train' || s.id === 'learn') {
+            if (!Elona.Panels || !Elona.Panels.openSkillTraining) return;
             this.el('npc-give').classList.add('hidden');
-            return;
-          }
-          // 0-CA：学新技能（原版菜单 30「新しいスキルを覚えたい」）
-          if (s.id === 'learn') {
-            const list = Elona.NPC.learnableSkills(game, game.player);
-            if (!list.length) { this.pushMessage('已经没有可以学的技能了。'); return; }
-            const sel = this.el('npc-skill');
-            this.npcTrainMode = 'learn';
-            sel.innerHTML = list.map((k) =>
-              `<option value="${k.id}">${this.esc(k.name)}（5 白金币）</option>`).join('');
-            this.el('npc-train').classList.remove('hidden');
-            this.el('npc-give').classList.add('hidden');
+            await Elona.Panels.openSkillTraining(game, s.id === 'learn' ? 3 : 2, this.npcTarget);
             return;
           }
           // 0-CA：装备解咒（原版菜单 62）
@@ -2294,45 +2322,24 @@
       return true;
     },
 
-    /** 给予物品：列出背包物品，点击交给 NPC */
+    /** 给予物品：列出背包物品（0-Z22：原版 label_3068 的对话内 a-p 菜单） */
     renderGiveList(game) {
-      const box = this.el('npc-give');
-      this.el('npc-train').classList.add('hidden');
-      box.classList.remove('hidden');
-      box.innerHTML = '';
       const inv = game.player.inv || [];
-      let n = 0;
+      const entries = [];
       for (let i = 0; i < inv.length; i++) {
         const it = inv[i];
         if (!it || (it.f[0] | 0) <= 0) continue;
         const name = Elona.ItemDB ? Elona.ItemDB.name(it.id) : ('item ' + it.id);
-        const row = document.createElement('div');
-        row.className = 'inv-row';
-        const disabled = it.eqSlot >= 0;
-        row.innerHTML = `<span class="inv-name">${this.esc(name)}</span>` +
-          `<span class="inv-meta">×${it.f[0] | 0}${disabled ? '（装备中）' : ''}</span>`;
-        if (!disabled) {
-          row.onclick = () => {
-            const r = Elona.NPC.perform(game, this.npcTarget, 'give', i);
-            this.pushMessage(r.message);
-            this.npcText = r.message;
-            box.classList.add('hidden');
-            this.renderNPC(game);
-          };
-        } else {
-          row.style.opacity = 0.5;
-        }
-        box.appendChild(row);
-        n++;
+        if (it.eqSlot >= 0) continue;
+        entries.push({ label: name, meta: `×${it.f[0] | 0}`, arg: i });
       }
-      if (!n) {
-        box.innerHTML = '<div class="inv-row"><span class="inv-name">背包里没有可以给予的物品。</span></div>';
-      }
-      const cancel = document.createElement('button');
-      cancel.textContent = '取消';
-      cancel.style.marginTop = '6px';
-      cancel.onclick = () => box.classList.add('hidden');
-      box.appendChild(cancel);
+      if (!entries.length) { this.pushMessage('背包里没有可以给予的物品。'); return; }
+      this.showPickMenu(game, '给谁？选一件物品送出', entries, (idx) => {
+        const r = Elona.NPC.perform(game, this.npcTarget, 'give', idx);
+        this.pushMessage(r.message);
+        this.npcText = r.message;
+        this.renderNPC(game);
+      });
     },
 
     /**
@@ -2341,36 +2348,18 @@
      * 其余行是 user/talk/*.txt 的文件名。
      */
     renderToneList(game, files) {
-      const box = this.el('npc-give');
-      this.el('npc-train').classList.add('hidden');
-      box.classList.remove('hidden');
-      box.innerHTML = '';
-      const head = document.createElement('div');
-      head.className = 'inv-row';
-      head.innerHTML = '<span class="inv-name">口吻一览</span>';
-      box.appendChild(head);
-      const rows = [{ key: null, label: '默认口吻' }]
+      const rows = [{ key: '', label: '默认口吻' }]
         .concat(files.map((k) => ({ key: k, label: k })));
-      for (const row of rows) {
-        const el = document.createElement('div');
-        el.className = 'inv-row';
-        el.innerHTML = `<span class="inv-name">${this.esc(row.label)}</span>`;
-        el.onclick = () => {
-          const npc = this.npcTarget;
-          box.classList.add('hidden');
-          if (!npc) return;
-          if (Elona.Talk && Elona.Talk.bind) Elona.Talk.bind(npc, row.key || '');
-          this.npcText = `${npc.name}的口吻好像变了。`;
-          this.pushMessage(this.npcText);
-          this.renderNPC(game);
-        };
-        box.appendChild(el);
-      }
-      const cancel = document.createElement('button');
-      cancel.textContent = '取消';
-      cancel.style.marginTop = '6px';
-      cancel.onclick = () => box.classList.add('hidden');
-      box.appendChild(cancel);
+      const entries = rows.map((r, i) => ({ label: r.label, arg: i }));
+      this.showPickMenu(game, '口吻一览', entries, (i) => {
+        const npc = this.npcTarget;
+        if (!npc) return;
+        const row = rows[i | 0];
+        if (Elona.Talk && Elona.Talk.bind) Elona.Talk.bind(npc, row.key || '');
+        this.npcText = `${npc.name}的口吻好像变了。`;
+        this.pushMessage(this.npcText);
+        this.renderNPC(game);
+      });
     },
 
     /**
@@ -2378,83 +2367,48 @@
      *   `var_58(447) = var_99(2)`（物品的图像号）、`var_58(54) = var_99(22)`。
      */
     renderItemMarkList(game, list) {
-      const box = this.el('npc-give');
-      this.el('npc-train').classList.add('hidden');
-      box.classList.remove('hidden');
-      box.innerHTML = '';
-      const head = document.createElement('div');
-      head.className = 'inv-row';
-      head.innerHTML = '<span class="inv-name">用哪件物品的图像？</span>';
-      box.appendChild(head);
-      for (const row of list) {
-        const it = game.player.inv[row.v | 0];
-        if (!it) continue;
-        const el = document.createElement('div');
-        el.className = 'inv-row';
-        el.innerHTML = `<span class="inv-name">${this.esc(row.label)}</span>`;
-        el.onclick = () => {
-          const npc = this.npcTarget;
-          box.classList.add('hidden');
-          if (!npc) return;
-          npc.set(447, it.f[2] | 0);
-          npc.set(54, it.f[22] | 0);
-          this.npcText = `给${npc.name}赋予了道具图像。`;
-          this.pushMessage(this.npcText);
-          this.renderNPC(game);
-        };
-        box.appendChild(el);
-      }
-      const cancel = document.createElement('button');
-      cancel.textContent = '取消';
-      cancel.style.marginTop = '6px';
-      cancel.onclick = () => box.classList.add('hidden');
-      box.appendChild(cancel);
+      const valid = list.filter((r) => game.player.inv[r.v | 0]);
+      const entries = valid.map((r) => ({ label: r.label, arg: r.v | 0 }));
+      if (!entries.length) return;
+      this.showPickMenu(game, '用哪件物品的图像？', entries, (idx) => {
+        const npc = this.npcTarget;
+        if (!npc) return;
+        const it = game.player.inv[idx | 0];
+        if (!it) return;
+        npc.set(447, it.f[2] | 0);
+        npc.set(54, it.f[22] | 0);
+        this.npcText = `给${npc.name}赋予了道具图像。`;
+        this.pushMessage(this.npcText);
+        this.renderNPC(game);
+      });
     },
 
     /**
-     * 0-CC：通用「选一项然后执行」列表（复用 npc-give 容器）
+     * 0-CC：通用「选一项然后执行」列表。
+     * 0-Z22：改为原版 label_3068 的对话内 a-p 菜单，不再用 npc-give 浮层。
      */
-    renderPickList(game, action, header, entries) {
-      const box = this.el('npc-give');
-      this.el('npc-train').classList.add('hidden');
-      box.classList.remove('hidden');
-      box.innerHTML = '';
-      const head = document.createElement('div');
-      head.className = 'inv-row';
-      head.innerHTML = `<span class="inv-name">${this.esc(header)}</span>`;
-      box.appendChild(head);
-      for (const e of entries) {
-        const row = document.createElement('div');
-        row.className = 'inv-row';
-        row.innerHTML = `<span class="inv-name">${this.esc(e.label)}</span>`
-          + (e.meta ? `<span class="inv-meta">${this.esc(e.meta)}</span>` : '');
-        row.onclick = () => {
-          const r = Elona.NPC.perform(game, this.npcTarget, action, e.arg);
-          // 0-HU：目录换档会返回新的报价列表，保持列表打开而不是关掉对话
-          if (r && r.reopenList) {
-            this.renderPickList(game, action, r.header || header, r.entries || []);
-            return;
-          }
-          // 0-HV：竞技场确认后换到 arena_1 / arena_2
-          if (r && r.enterMap && game.enterArenaMap) {
-            this.pushMessage(r.message || '');
-            box.classList.add('hidden');
-            this.closeNPC();
-            game.enterArenaMap(r.enterMap).catch(() => { });
-            return;
-          }
-          this.pushMessage(r.message);
-          this.npcText = r.message;
-          box.classList.add('hidden');
-          this.renderNPC(game);
-        };
-        box.appendChild(row);
-      }
-      const cancel = document.createElement('button');
-      cancel.textContent = '取消';
-      cancel.style.marginTop = '6px';
-      cancel.onclick = () => box.classList.add('hidden');
-      box.appendChild(cancel);
+    renderPickList(game, action, header, entries, onPick) {
+      const choose = (arg) => {
+        // 0-Z21：心情等不走 NPC.perform 的选项用回调（原版 *label_2896 列表选择）
+        if (typeof onPick === 'function') { onPick(arg); return; }
+        const r = Elona.NPC.perform(game, this.npcTarget, action, arg);
+        // 0-HU：目录换档会返回新的报价列表，保持列表打开而不是关掉对话
+        if (r && r.reopenList) {
+          this.showPickMenu(game, r.header || header, r.entries || [], choose);
+          return;
+        }
+        // 0-HV：竞技场确认后换到 arena_1 / arena_2
+        if (r && r.enterMap && game.enterArenaMap) {
+          this.pushMessage(r.message || '');
+          this.closeNPC();
+          game.enterArenaMap(r.enterMap).catch(() => { });
+          return;
+        }
+        this.pushMessage(r.message);
+        this.npcText = r.message;
+        this.renderNPC(game);
+      };
+      this.showPickMenu(game, header, entries, choose);
     },
 
     /**
@@ -2463,71 +2417,39 @@
      * @param {string} action 'enhance' | 'lighten' | 'heavify'
      */
     renderEquipList(game, action) {
-      const box = this.el('npc-give');
-      this.el('npc-train').classList.add('hidden');
-      box.classList.remove('hidden');
-      box.innerHTML = '';
       const p = game.player;
-      const entries = [];
+      const choices = [];
       const inv = p.inv || [];
       for (let i = 0; i < inv.length; i++) {
         const it = inv[i];
         if (!it || (it.f[0] | 0) <= 0) continue;
         const cat = Elona.ItemDB.ref(it.id, 5);
         if (!(cat < 50000 || cat === 60000)) continue;
-        entries.push({ it, idx: i });
+        choices.push({ it, idx: i });
       }
-      const head = document.createElement('div');
-      head.className = 'inv-row';
-      head.innerHTML = `<span class="inv-name">${action === 'enhance' ? '强化哪件装备？'
-        : (action === 'lighten' ? '轻量化哪件装备？' : '重量化哪件装备？')}</span>`;
-      box.appendChild(head);
-      if (!entries.length) {
-        const row = document.createElement('div');
-        row.className = 'inv-row';
-        row.innerHTML = '<span class="inv-name">没有可以处理的装备。</span>';
-        box.appendChild(row);
-      }
-      for (const { it, idx } of entries) {
+      const entries = [];
+      for (const { it, idx } of choices) {
         const name = Elona.ItemDB ? Elona.ItemDB.name(it) : ('item ' + it.id);
         const wt = ((it.f[7] | 0) / 1000).toFixed(1);
         if (action === 'enhance') {
           const cost = Elona.NPC.enhanceCost(it);
-          const row = document.createElement('div');
-          row.className = 'inv-row';
-          row.innerHTML = `<span class="inv-name">${this.esc(name)} +${it.f[20] | 0}</span>`
-            + `<span class="inv-meta">强化费 ${cost} gold</span>`;
-          row.onclick = () => {
-            const r = Elona.NPC.perform(game, this.npcTarget, 'enhance', idx);
-            this.pushMessage(r.message);
-            this.npcText = r.message;
-            box.classList.add('hidden');
-            this.renderNPC(game);
-          };
-          box.appendChild(row);
+          entries.push({ label: `${name} +${it.f[20] | 0}`, meta: `强化费 ${cost} gold`, arg: idx });
         } else {
           const unit = action === 'lighten' ? 12000 : 4000;
           for (const [u, label] of [[1, '0.1s'], [10, '1.0s']]) {
-            const row = document.createElement('div');
-            row.className = 'inv-row';
-            row.innerHTML = `<span class="inv-name">${this.esc(name)}（${wt}s）</span>`
-              + `<span class="inv-meta">${label} / ${unit * u} gold</span>`;
-            row.onclick = () => {
-              const r = Elona.NPC.perform(game, this.npcTarget, action, [idx, u]);
-              this.pushMessage(r.message);
-              this.npcText = r.message;
-              box.classList.add('hidden');
-              this.renderNPC(game);
-            };
-            box.appendChild(row);
+            entries.push({ label: `${name}（${wt}s）`, meta: `${label} / ${unit * u} gold`, arg: [idx, u] });
           }
         }
       }
-      const cancel = document.createElement('button');
-      cancel.textContent = '取消';
-      cancel.style.marginTop = '6px';
-      cancel.onclick = () => box.classList.add('hidden');
-      box.appendChild(cancel);
+      if (!entries.length) { this.pushMessage('没有可以处理的装备。'); return; }
+      const header = action === 'enhance' ? '强化哪件装备？'
+        : (action === 'lighten' ? '轻量化哪件装备？' : '重量化哪件装备？');
+      this.showPickMenu(game, header, entries, (arg) => {
+        const r = Elona.NPC.perform(game, this.npcTarget, action, arg);
+        this.pushMessage(r.message);
+        this.npcText = r.message;
+        this.renderNPC(game);
+      });
     },
 
     /**
@@ -2535,40 +2457,29 @@
      * 'message'（2000 gold 传话，选中后进入讯息选择）。
      */
     renderAdventurerList(game, mode, list) {
-      const box = this.el('npc-give');
-      this.el('npc-train').classList.add('hidden');
-      box.classList.remove('hidden');
-      box.innerHTML = '';
-      const head = document.createElement('div');
-      head.className = 'inv-row';
-      head.innerHTML = `<span class="inv-name">${mode === 'intel'
-        ? '冒险者的情报（每位 100 gold）' : '给谁传话？（2000 gold）'}</span>`;
-      box.appendChild(head);
-      for (const c of list) {
-        const imp = c.get(17) | 0;
-        const row = document.createElement('div');
-        row.className = 'inv-row';
-        row.innerHTML = `<span class="inv-name">${this.esc(c.name)} Lv${c.level}</span>`
-          + `<span class="inv-meta">名声 ${c.get(34) | 0}　好感 ${imp}</span>`;
-        row.onclick = () => {
-          if (mode === 'intel') {
-            const r = Elona.NPC.perform(game, this.npcTarget, 'adventurer-info', c.index);
+      const entries = list.map((c) => ({
+        label: `${c.name} Lv${c.level}`,
+        meta: `名声 ${c.get(34) | 0}　好感 ${c.get(17) | 0}`,
+        arg: c.index,
+      }));
+      const header = mode === 'intel' ? '冒险者的情报（每位 100 gold）' : '给谁传话？（2000 gold）';
+      this.showPickMenu(game, header, entries, (idx) => {
+        if (mode === 'intel') {
+          const r = Elona.NPC.perform(game, this.npcTarget, 'adventurer-info', idx);
+          this.pushMessage(r.message);
+          this.npcText = r.message;
+          this.renderNPC(game);
+        } else {
+          const c = list.find((x) => x.index === idx);
+          const msgs = Elona.NPC.ADV_MESSAGES.map((label, i) => ({ label, arg: [idx, i] }));
+          this.showPickMenu(game, `对 ${c ? c.name : '冒险者'} 说什么？`, msgs, (arg) => {
+            const r = Elona.NPC.perform(game, this.npcTarget, 'message-send', arg);
             this.pushMessage(r.message);
             this.npcText = r.message;
-            box.classList.add('hidden');
             this.renderNPC(game);
-          } else {
-            const msgs = Elona.NPC.ADV_MESSAGES.map((label, i) => ({ label, arg: [c.index, i] }));
-            this.renderPickList(game, 'message-send', `对 ${c.name} 说什么？`, msgs);
-          }
-        };
-        box.appendChild(row);
-      }
-      const cancel = document.createElement('button');
-      cancel.textContent = '取消';
-      cancel.style.marginTop = '6px';
-      cancel.onclick = () => box.classList.add('hidden');
-      box.appendChild(cancel);
+          });
+        }
+      });
     },
 
     /** 0-CC：以物易物 —— 列出背包中非装备物品 */
@@ -2591,46 +2502,24 @@
      * @param {string} action 'identify-one'（强度 250）或 'investigate'（强度 1000）
      */
     renderIdentifyList(game, action) {
-      const box = this.el('npc-give');
-      this.el('npc-train').classList.add('hidden');
-      box.classList.remove('hidden');
-      box.innerHTML = '';
       const p = game.player;
       const unknown = (Elona.NPC.unknownItems ? Elona.NPC.unknownItems(p) : [])
         .map((it) => ({ it, idx: (p.inv || []).indexOf(it) }));
       const kind = action === 'investigate' ? 2 : 0;
       const cost = Elona.NPC.calcIdentifyValue ? Elona.NPC.calcIdentifyValue(p, kind) : 0;
-      const head = document.createElement('div');
-      head.className = 'inv-row';
-      head.innerHTML = `<span class="inv-name">${action === 'investigate' ? '调查' : '鉴定'}`
-        + `（每件 ${cost} gold）</span>`;
-      box.appendChild(head);
-      if (!unknown.length) {
-        const row = document.createElement('div');
-        row.className = 'inv-row';
-        row.innerHTML = '<span class="inv-name">没有未鉴定的物品。</span>';
-        box.appendChild(row);
-      }
-      for (const { it, idx } of unknown) {
-        const name = Elona.ItemDB ? Elona.ItemDB.name(it.id) : ('item ' + it.id);
-        const row = document.createElement('div');
-        row.className = 'inv-row';
-        row.innerHTML = `<span class="inv-name">${this.esc(name)}</span>`
-          + `<span class="inv-meta">×${it.f[0] | 0}　难度 ${it.f[29] | 0}</span>`;
-        row.onclick = () => {
-          const r = Elona.NPC.perform(game, this.npcTarget, action, idx);
-          this.pushMessage(r.message);
-          this.npcText = r.message;
-          box.classList.add('hidden');
-          this.renderNPC(game);
-        };
-        box.appendChild(row);
-      }
-      const cancel = document.createElement('button');
-      cancel.textContent = '取消';
-      cancel.style.marginTop = '6px';
-      cancel.onclick = () => box.classList.add('hidden');
-      box.appendChild(cancel);
+      const entries = unknown.map(({ it, idx }) => ({
+        label: (Elona.ItemDB ? Elona.ItemDB.name(it.id) : ('item ' + it.id)),
+        meta: `×${it.f[0] | 0}　难度 ${it.f[29] | 0}`,
+        arg: idx,
+      }));
+      if (!entries.length) { this.pushMessage('没有未鉴定的物品。'); return; }
+      const header = `${action === 'investigate' ? '调查' : '鉴定'}（每件 ${cost} gold）`;
+      this.showPickMenu(game, header, entries, (idx) => {
+        const r = Elona.NPC.perform(game, this.npcTarget, action, idx);
+        this.pushMessage(r.message);
+        this.npcText = r.message;
+        this.renderNPC(game);
+      });
     },
 
     // ---------- 掲示板 / 委托（*label_2704） ----------

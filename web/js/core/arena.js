@@ -430,6 +430,56 @@
     };
   }
 
+  /**
+   * 0-Z23：进入竞技场后清掉地图上的城镇 NPC，只留下玩家 + 敌对怪物（+ 出战宠物）。
+   * 【源码】arena_1 238715-238730 / arena_2 238763-238779：
+   *   人竞技场：`repeat 16 ... if (var_58(9,cnt)==10 && cnt!=0 && 格子有人)`
+   *             → 清 cell + `var_58(0,cnt)=8`（离场）。
+   *   宠物竞技场：`repeat 16 ... if (cnt==0|56) continue; if (var_1635(cnt)==0)`
+   *             → `var_58(0,cnt)=6; x=0; y=0`（离场）；出战宠物 state=1。
+   * 网页版城镇 NPC 占 57..131 槽、state=1，换图时不会自动离场，于是会站在竞技场
+   * 场地上。这里把非参赛角色临时离场，原状态记到 `g.arena.hidden`，
+   * 由 game.leaveArenaMap 调 restoreArenaCivilians() 还原。
+   */
+  function clearArenaCivilians(g, a) {
+    const keep = new Set([0].concat(a.opponents || [], a.petSlots || []));
+    const hidden = [];
+    if (!g.charas) return hidden;
+    for (const c of g.charas) {
+      if (!c || (c.get(0) | 0) !== 1 || keep.has(c.index | 0)) continue;
+      // 人竞技场：只清镇民（源码 var_58(9)==10；网页版镇民用槽 57..131 +
+      //   var_58(150)==3 固定居民标记，关系为 0，两种口径都认）。
+      // 宠物竞技场：把所有非出战角色清场（源码 var_1635==0）。
+      const relation = c.get(9) | 0;
+      const role = c.get(150) | 0;
+      const idx = c.index | 0;
+      const isTown = relation >= 10 || (idx >= 57 && role >= 3) || (idx >= 16 && idx <= 131 && role >= 4);
+      const isPet = !!a.petMode;
+      if (!isPet && !isTown) continue;
+      hidden.push({ index: idx, x: c.x | 0, y: c.y | 0, relation });
+      c.set(0, isPet ? 6 : 8);                      // 238722 / 238768
+      if (isPet) { c.x = 0; c.y = 0; }              // 238769-238770
+    }
+    return hidden;
+  }
+
+  /** 离场还原：把被 clearArenaCivilians 临时离场的角色放回 */
+  function restoreArenaCivilians(g) {
+    const hidden = g && (g.arenaHidden || (g.arena && g.arena.hidden));
+    if (!hidden || !g.charas) return 0;
+    let n = 0;
+    for (const h of hidden) {
+      const c = g.charas[h.index];
+      if (!c || (c.get(0) | 0) === 1) continue;
+      const st = c.get(0) | 0;
+      if (st !== 8 && st !== 6) continue;           // 只还原仍被我们藏起来的角色
+      c.set(0, 1);
+      c.x = h.x; c.y = h.y;
+      n++;
+    }
+    return n;
+  }
+
   /** 竞技场地图（32×24 / 25×14）里找个能站的格子（不踩已有角色） */
   function walkableAt(g, x, y) {
     if (!g.map || !g.map.inBounds(x, y)) return null;
@@ -452,6 +502,10 @@
     const p = g.player;
     const CB = Elona.Status && Elona.Status.cbitmod;
     let placed = 0;
+    // 0-Z23：先把城镇 NPC / 未出战的随从临时离场，场地只留玩家 + 对手 + 出战宠物
+    //   （源码 238715-238730 / 238763-238779 在 map_initcustom 之后立即清场）。
+    a.hidden = clearArenaCivilians(g, a);
+    g.arenaHidden = a.hidden;                       // 离场时 arena 可能已清空，单独留一份
     // 238792-238809：宠物方 `map_placearena cnt, 0` → 右半区 x 13..19 / y 6..11，
     //   敌人 `map_placearena var_581, 1` → 左半区 x 5..11 / y 6..11。
     if (a.petMode && a.petSlots) {
@@ -831,6 +885,177 @@
     };
   }
 
+  /*
+   * 0-Z24：宠物竞技场观战（按源码重写，见 A734-A736）。
+   *
+   * 【源码】
+   *   238759-238816（map_initcustom "arena_2"）：
+   *     `repeat 16` 里 `if (cnt == 0 | cnt == 56) continue;` → **玩家（cnt 0）不动**，
+   *     只把 `var_1635(cnt) == 0`（未出战）的随从置 `var_58(0,cnt) = 6` 离场；
+   *     出战宠物走 `map_placearena cnt, 0`（右半区）。玩家由 238780 `map_placeplayer`
+   *     放在 arena_2 上方的观众席走廊（第 1~2 行），与场地之间隔着第 3 行的围栏。
+   *     ⇒ 玩家**不是** state=6，也不站在场地里（A732 已撤销）。
+   *   210858-210861：`if (var_65(20) == 40)` 时镜头中心改成
+   *     `var_58(1, var_1334) / var_58(2, var_1334)` —— var_1334 是「正在观战的那只宠物」
+   *     （227976-227999 在 map_placeplayer 里取第一只出战宠物；605224-605245 可切换）。
+   *   605200-605288 `*label_4360`（观战循环）：
+   *     `await var_1237 → key_check`；←/→ 在存活的出战宠物间切换镜头（snd 5）；
+   *     `if (var_138 != var_150)`（不是 Esc）`& var_138 != ""` → `goto *label_4358`
+   *     ⇒ **除 Esc 以外的任意键**都是「过一个正常回合」；
+   *     `if (var_138 == var_2803 | var_148)`（Esc）→「試合を放棄する？」→ 选「はい」
+   *     → `var_1845 = 2`（判负）→ 结算 → 离场。
+   *     ⇒ 原版过回合跑的是 `gosub *label_2104`（正常回合：宠物与怪物都走常规 AI），
+   *       不是手写的「靠近→攻击」（A731 已撤销）。
+   *   605150-605199：每个回合结束后 `repeat 16,1` 检查 `var_58(9,cnt)==10` 的存活己方，
+   *     全灭 → `var_1845=2` → `gosub *label_4292` → `var_1777 = 4` 离场。
+   */
+
+  /** 某个槽位是否是「在场且存活」的角色 */
+  function isAliveSlot(g, i) {
+    const c = g.charas && g.charas[i];
+    return !!(c && (c.get(0) | 0) === 1 && (c.get(50) | 0) > 0);
+  }
+
+  /** var_1334 的初值：第一只存活的出战宠物（227996-227998） */
+  function firstAlivePet(g, a) {
+    const list = (a && a.petSlots) || [];
+    for (const i of list) if (isAliveSlot(g, i)) return i | 0;
+    return list.length ? (list[0] | 0) : -1;
+  }
+
+  /** 进入宠物竞技场后启动观战：镜头焦点切到出战宠物，玩家留在观众席 */
+  function watchStart(g) {
+    const a = g && g.arena;
+    if (!a || !a.petMode) return false;
+    a.watching = true;
+    a.watchFocus = firstAlivePet(g, a);          // var_1334
+    a.forfeitAsk = false;
+    if (g.log) g.log('你在观众席上观战。按任意键推进一回合，Esc 放弃比赛。');
+    return true;
+  }
+
+  /**
+   * 210858-210861：地图 40 的镜头中心 = 正在观战的宠物。
+   * 焦点宠物倒下/离场时自动退到下一只存活宠物。
+   * @returns {{x:number,y:number,index:number}|null}
+   */
+  function watchCam(g) {
+    const a = g && g.arena;
+    if (!a || !a.watching) return null;
+    if (!isAliveSlot(g, a.watchFocus | 0)) a.watchFocus = firstAlivePet(g, a);
+    const c = g.charas && g.charas[a.watchFocus | 0];
+    if (!c || (c.get(0) | 0) !== 1) return null;
+    return { x: c.x | 0, y: c.y | 0, index: a.watchFocus | 0 };
+  }
+
+  /**
+   * 605208-605246：←/→（var_171..174）在「己方存活宠物」之间切换镜头。
+   * 切换本身也会走一次正常回合（605247-605250），由 watchTick 统一处理。
+   * @returns {number|null} 新的焦点槽位
+   */
+  function watchCycle(g, dir) {
+    const a = g && g.arena;
+    if (!a || !a.watching) return null;
+    const list = (a.petSlots || []).filter((i) => isAliveSlot(g, i));
+    if (list.length < 2) return null;
+    let k = list.indexOf(a.watchFocus | 0);
+    if (k < 0) k = 0;
+    k = (k + (dir < 0 ? -1 : 1) + list.length) % list.length;
+    a.watchFocus = list[k] | 0;
+    snd(g, 5);                                   // 605230 / 605239
+    return a.watchFocus;
+  }
+
+  /** 观战中是否仍在比赛（arena 未结算） */
+  function isWatching(g) {
+    const a = g && g.arena;
+    return !!(a && a.petMode && a.watching && inArena(g));
+  }
+
+  /** 存活宠物 / 存活对手（state==1 且 hp>0） */
+  function watchSurvivors(g) {
+    const a = g && g.arena;
+    return {
+      pets: ((a && a.petSlots) || []).filter((i) => isAliveSlot(g, i)),
+      foes: ((a && a.opponents) || []).filter((i) => isAliveSlot(g, i)),
+    };
+  }
+
+  /**
+   * 宠物竞技场败北结算（队伍全灭、玩家未死）—— 605173-605198 / 591347-591365：
+   *   `var_1845=2` → label_4292 的败北分支 modrank 1,-100 + decfame 0,60
+   *   → var_1777=4 离场。玩家本人不倒下，走观战离场路径。
+   */
+  function onPetDefeat(g) {
+    const a = g && g.arena;
+    if (!a || !a.petMode) return null;
+    const st = stats(g);
+    st.losses++;
+    const p = g.player;
+    let rankText = '';
+    if (p) {
+      if (Elona.Rank && Elona.Rank.modRank) {
+        try {
+          const rr = Elona.Rank.modRank(g, 1, -100, 0);
+          if (rr && rr.text) rankText = rr.text;
+        } catch (e) { /* 排名表未就绪 */ }
+      }
+      if (a.mode !== 'pet-ex') decfame(g, p, 60);    // 591355（EX 战败北按源码仍扣名声）
+    }
+    setArenaMode(g, false, true);                    // 591174 var_65(70)=0,0,0,0
+    restoreWithdrawn(g, a);
+    const modeLabel = a.mode === 'pet-team' ? '团队战' : (a.mode === 'pet-ex' ? 'EX 战' : '宠物决斗');
+    g.arena = null;
+    snd(g, 49);                                      // 605177 离场音
+    // 605176 `var_1777 = 4`：败北后直接离场回原地图（与胜利 onKill 同款）。
+    //   此时 g.arena 已清空，用 questMap.arena 判断是否仍在竞技场图。
+    let pr = null;
+    if (g.questMap && g.questMap.arena && typeof g.leaveArenaMap === 'function') {
+      pr = g.leaveArenaMap();
+      if (pr && pr.catch) pr.catch(() => { });
+    }
+    const msg = `【${modeLabel}】你的队伍败北了。${rankText ? ' ' + rankText : ''}（累计 ${st.wins} 胜 ${st.losses} 负）`;
+    return { lost: true, forfeit: !!a.forfeitAsk, petMode: true, leaveMap: true, mode: a.mode, message: msg };
+  }
+
+  /**
+   * 观战一回合 —— 605150-605155：`gosub *label_2104`，即**正常回合**。
+   *   原版这里不做任何特判：宠物、对手、旁观者一律走常规 AI，
+   *   所以这里直接调用 game.endTurn()（A731 的手写驱动已撤销）。
+   *   endTurn 里的 onKill / onPlayerDown 会自行结算并离场。
+   * @returns {{ended:boolean, message:string, result?:object}}
+   */
+  function watchTick(g) {
+    if (!isWatching(g)) return { ended: false, message: '' };
+    const a = g.arena;
+    if (typeof g.endTurn !== 'function') return { ended: false, message: '' };
+    try {
+      g.endTurn();
+    } catch (e) {
+      return { ended: false, message: '' };
+    }
+    if (!g.arena) return { ended: true, message: '', result: null };  // onKill 已结算并离场
+    // 605157-605172：回合结束后检查己方（var_58(9,cnt)==10）是否还有存活
+    const sv = watchSurvivors(g);
+    if (!sv.pets.length) {
+      const r = onPetDefeat(g);
+      return { ended: true, message: (r && r.message) || '你的队伍败北了。', result: r };
+    }
+    if (!sv.foes.length) return { ended: true, message: '', result: null };
+    // 焦点宠物倒下 → 自动接管下一只（605224）
+    if (!isAliveSlot(g, a.watchFocus | 0)) a.watchFocus = firstAlivePet(g, a);
+    return { ended: false, message: '' };
+  }
+
+  /** 605265-605280：ESC →「試合を放棄する？」选「はい」= var_1845=2 → 判负结算离场 */
+  function watchForfeit(g) {
+    const a = g && g.arena;
+    if (!a || !a.petMode) return null;
+    a.forfeitAsk = false;
+    return onPetDefeat(g);
+  }
+
+
   /**
    * 成绩（var_506 == 23 人 / 42 宠物）—— 417234-417239：
    *   「現在は var_132(22 或 23) 勝だ。3勝、5勝、10勝、20勝、30勝、50勝、100勝の
@@ -867,6 +1092,12 @@
 
   Elona.Arena = { start, onKill, onPlayerDown, stats, scoreText, opponentLevel, curDay, placeArena,
     days, restoreWithdrawn,
+    // 0-Z23：竞技场清场 / 还原（只留敌对怪物）
+    clearArenaCivilians, restoreArenaCivilians,
+    // 0-Z23：宠物竞技观战（按任意键过回合 → 自动结算回城）
+    watchStart, isWatching, watchTick, watchSurvivors, onPetDefeat,
+    // 0-Z24：观战镜头跟随出战宠物（210858-210861）、←/→ 切换（605208-605246）、Esc 放弃（605265-605280）
+    watchCam, watchCycle, watchForfeit, firstAlivePet, isAliveSlot,
     // 0-HU / A200
     absHours, a132, cooldown, markStarted, fameReward, setQuestMode, EXCLUDE_RACES,
     // 0-HV / A200：报价 → 换图 → 摆位 → 结算 → 离场

@@ -519,6 +519,11 @@
   function tick(g) {
     const p = g.player;
     if (!p) return;
+    // 0-Z24：宠物竞技场观战期间，出战宠物在场地里比赛（玩家在上方观众席），
+    //   跟随逻辑会把距离 >6 的宠物「传送」到玩家身边 —— 那是战斗 AI 的事，
+    //   不是跟随。原版 238759-238816 出战宠物由 map_placearena 固定站位，
+    //   场外随从已 var_58(0,cnt)=6 离场，所以这里整段跳过。
+    if (Elona.Arena && Elona.Arena.isWatching && Elona.Arena.isWatching(g)) return;
     for (const c of members(g)) {
       // 0-DG：待機（7）/ 阵亡（6）的同伴不跟队、不计护卫天数
       if ((c.get(0) | 0) !== 1) continue;

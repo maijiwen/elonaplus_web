@@ -810,7 +810,13 @@
     // ---------- 3) 其它弹窗 ----------
     if (panelOpen('npc')) {
       if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') {
-        e.preventDefault(); UI.closeNPC();
+        e.preventDefault();
+        // 0-Z22：二级选择菜单（label_3068）按 Esc 只取消当前层、回到上层对话
+        if (UI.npcPick) {
+          UI.npcPick = null;
+          if (UI.npcDialog && UI.npcDialog.pick) UI.npcDialog = null;
+          UI.renderNPC(game);
+        } else UI.closeNPC();
         return;
       }
       // 方向键上下移动光标，回车确定（原版 `*label_2896` 的菜单光标）
@@ -1004,6 +1010,44 @@
     //   `Panels.handleKey` 只吃掉窗口真正用到的键（↑/↓/回车…），←/→ 与空列表时的
     //   ↑/↓ 会漏到下面；不在这里拦住，角色就会在弹窗背后走掉。
     if (modalOpen()) { e.preventDefault(); return; }
+
+    // ---------- 3.95) 宠物竞技场观战 ----------
+    // 0-Z24 / 605200-605288（*label_4360）：原版观战循环里
+    //   · ←/→ 在存活的出战宠物之间切换镜头（var_1334，snd 5）；
+    //   · **除 Esc 以外的任意键** → `gosub *label_2104`，跑一个正常回合
+    //     （宠物和怪物都走常规 AI，胜负由 605150-605199 判定）；
+    //   · Esc →「試合を放棄する？」→ 是 → var_1845=2（判负）→ 结算并离场。
+    if (Elona.Arena && Elona.Arena.isWatching && Elona.Arena.isWatching(game)) {
+      const A = Elona.Arena;
+      // 放弃确认（605265-605280）：Y = 放弃，N / Esc = 继续
+      if (game.arena && game.arena.forfeitAsk) {
+        e.preventDefault();
+        if (e.key === 'y' || e.key === 'Y' || e.key === 'Enter') {
+          const r = A.watchForfeit(game);
+          if (r && r.message && UI.pushMessage) UI.pushMessage(r.message);
+          renderer.lastMove = performance.now();
+        } else if (e.key === 'n' || e.key === 'N' || e.key === 'Escape') {
+          game.arena.forfeitAsk = false;
+          if (UI.pushMessage) UI.pushMessage('比赛继续。');
+        }
+        return;
+      }
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        game.arena.forfeitAsk = true;
+        if (UI.pushMessage) UI.pushMessage('要放弃比赛吗？（Y 放弃 / N 继续）');
+        return;
+      }
+      e.preventDefault();
+      // ←/→ 先切镜头，再和别的键一样走一个回合（605247-605250）
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') A.watchCycle(game, -1);
+      else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') A.watchCycle(game, 1);
+      const r = A.watchTick(game);
+      if (r && r.message && UI.pushMessage) UI.pushMessage(r.message);
+      // 焦点宠物被击倒后可能换成别的宠物，镜头每帧由 renderer 重新取
+      renderer.lastMove = performance.now();
+      return;
+    }
 
     // ---------- 4) 快捷槽 / 移动 ----------
     // 0-FZ / A33：主键盘数字先按原版走快捷槽；小键盘数字与方向键才是移动。

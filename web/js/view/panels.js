@@ -51,6 +51,17 @@
     [58, '神经'], [59, '混沌'], [60, '魔法'], [61, '出血'],
   ];
 
+  /**
+   * 耐性评价九档（9084 的 `var_333`，294042-294044 用
+   * `var_333(limit(var_82(id)/100, 0, 8))` 取档）：
+   *   0 致命的な弱点 / 1 弱点 / 2 耐性なし / 3 弱い耐性 / 4 普通の耐性
+   *   5 強い耐性 / 6 素晴らしい耐性 / 7 凄まじい耐性 / 8 至上の耐性
+   */
+  const RESIST_RANKS = [
+    '致命弱点', '弱点', '无耐性', '弱耐性', '普通耐性',
+    '强耐性', '出色耐性', '惊人耐性', '至上耐性',
+  ];
+
   /** 取面板根（open 之前返回 null） */
   function E_(g) {
     void g;
@@ -174,6 +185,9 @@
       if (Elona.UI) {
         if (Elona.UI.invOpen) Elona.UI.closeInventory();
         for (const id of ['npc', 'shop', 'quest']) {
+          // 0-Z21：训练师的技能列表是 NPC 对话的**子窗口**，原版叠在对话上，
+          //   关掉后要回到原对话，所以保留 npc 容器不隐藏。
+          if (opts && opts.keepNPC && id === 'npc') continue;
           const el = Elona.UI.el(id);
           if (el) el.classList.add('hidden');
         }
@@ -723,9 +737,35 @@
       return ((p.potential && p.potential[id]) | 0) % 1000;
     },
 
-    /** 技能列表：100..399 中已习得的技能，按 id 升序（原版按此顺序列出） */
+    /**
+     * 技能关联的原始属性 id `var_83(0, id)`（数据来自 skills.json 的
+     * skillMeta[id][0][1] 第一项，10=筋力 … 17=魅力）。
+     * 源码排序键是 `var_83(0,id) + 组偏移`（293347/293371/293393），
+     * 因此整张表实际上按关联属性升序排列（label_2821 的冒泡排序）。
+     */
+    skillAttrRaw(id) {
+      const meta = (this._skillMeta || (this._skillMeta = {}));
+      const e = meta[String(id)];
+      if (!e || !e[0] || !e[0][1]) return 0;
+      const v = parseInt(String(e[0][1]).split(',')[0], 10);
+      return Number.isFinite(v) ? v : 0;
+    },
+
+    /**
+     * 技能 → 属性图标下标（源码 `var_83(0, id) - 10`）。
+     * 源码在 293981-293987 用 `(var_83(0, id) - 10)` 当图标列下标，
+     * 从 item.bmp 第 14 行（y=672）取 48×48 的属性图标。
+     */
+    skillAttrIndex(id) {
+      const v = this.skillAttrRaw(id);
+      return (v >= 10 && v <= 19) ? v - 10 : -1;
+    },
+
+    /** 技能列表：150..399（技能与特殊能力）与 100..149（武器专精）分开返回 */
     async skillRows(p) {
-      const names = (await Elona.Data.table('skills')).skillNames || {};
+      const table = (await Elona.Data.table('skills')) || {};
+      const names = table.skillNames || {};
+      this._skillMeta = table.skillMeta || {};
       const descs = await this.skillDescTable();
       const out = [];
       const pot = p.potential || {};
@@ -734,11 +774,21 @@
         if (!raw) continue;
         const nm = names[String(id)] || {};
         const act = descs[String(id)] || {};
+        const lvNow = p.skill ? (p.skill(id) | 0) : idiv(raw, 1000000);
+        // 源码 293. 之后的显示串：`sorg + "." + sexp(3位) + "(" + sgrowth + "%)"`，
+        //   再在 sorg != var_82(id)（装备/附魔加成）时追加 "+差值"。
+        let sub = `${lvNow}.${String(idiv(raw % 1000000, 1000)).padStart(3, '0')}(${raw % 1000}%)`;
+        const diff = idiv(raw, 1000000) - lvNow;
+        if (diff !== 0) sub += (diff > 0 ? '+' : '') + diff;
         out.push({
           id,
+          group: id < 150 ? 'weapon' : 'skill',
+          attr: this.skillAttrIndex(id),
           lv: idiv(raw, 1000000),
+          gain: lvNow,
           exp: idiv(raw % 1000000, 1000),
           potv: raw % 1000,               // 成长率 = 原版「潜在 %」
+          sub,
           // 汉化：技能名读同层级的 ch（skills.json 的 skillNames 为 {jp, en, ch}）
           name: nm.ch || nm.jp || (act.name && (act.name.ch || act.name.jp)) || ('技能 ' + id),
           en: nm.en || (act.name && act.name.en) || '',
@@ -748,67 +798,84 @@
       return out;
     },
 
-    /** 渲染人物信息（按 this.charaPage 分页；0-DF 增加耐性 / 魔法页与「,」锁定） */
-    async renderCharaInfo(g) {
-      // 0-EP：洞察透镜 72 要显示**别人**的信息窗（原版 `var_243 = var_244`）
-      const p = this.charaTarget || g.player;
-      if (!p) return;
-      const skills = await this.skillRows(p);
+    /**
+     * 0-Z20：列表页条目 —— 完全照源码 293326-293397 的 var_484/var_485 压入顺序：
+     *   ◆ 技能和特殊能力(150..399) → ◆ 武器専精(100..149)
+     *   → ◆ 耐性と抵抗力(50..99) → ◆ スペル(400..491)。
+     *   四组共用**同一个数组**，按 var_893 = 16 行/页 连续翻页
+     *   （翻页 294150-294317），所以耐性・抗性紧跟在武器组下面，不再单独成页。
+     *   分组标题在源码里 var_484(0,…) = -1：不画快捷键但仍占一个 cnt，
+     *   因此每个分组的第一项技能从 b 键开始（与截图一一致）。
+     */
+    async buildCharaSheetItems(p, skills) {
       const table = (await Elona.Data.table('skills')) || {};
       const names = table.skillNames || {};
       const descs = await this.skillDescTable();
-
-      // 列表页：技能 → 耐性 → 魔法（每页 16 项）
-      const lists = [];
-      lists.push({
-        kind: 'skill', title: 'スキルと特殊能力',
-        items: skills.map((r) => ({
-          watchKind: 'skill', id: r.id, label: r.name,
-          sub: `${r.lv}.${String(r.exp).padStart(3, '0')}(${r.potv}%)`,
-          desc: r.desc || '',
-        })),
+      const items = [];
+      // 293347/293371/293393：排序键 `var_83(0,id)+组偏移`，label_2821 按它冒泡；
+      //   偏移在同一组里是常量，所以组内顺序就是关联属性升序，同属性按 id 升序。
+      const bySkillAttr = (a, b) => (a.attrRaw - b.attrRaw) || (a.id - b.id);
+      const mkSkillRow = (r) => ({
+        watchKind: 'skill', id: r.id, sid: r.id, label: r.name,
+        sub: r.sub, desc: r.desc || '', attr: r.attr,
+        attrRaw: this.skillAttrRaw(r.id),
       });
-      // 0-EU：耐性页此前只有名字（`sub` 恒为空、说明是内部的 var_82 编号），
-      //   读起来像「没有数据」。这里补上 值 / 潜在 / 评价 与 actions.json 的说明文本。
-      lists.push({
-        kind: 'resist', title: '耐性',
-        items: RESIST_ROWS.map(([id, label]) => {
-          const v = p.skill ? (p.skill(id) | 0) : 0;
-          const raw = (p.potential && p.potential[id]) | 0;
-          // 成长率 = 打包值低三位（sgrowth）。原来取 `%1e6/1000` 是经验值，
-          // 对耐性/属性这类「没有经验」的键恒为 0，于是永远显示 Hopeless。
-          const potv = raw % 1000;
-          const act = descs[String(id)] || {};
-          // 原版耐性是 var_82(50..60)：0 = 完全没有，100 = 普通，>100 = 有耐性。
-          // 显示成「数值 + 档位」，一眼能看出是「真的没数据」还是「本来就没有耐性」。
-          const rank = v <= 0 ? '无' : (v < 100 ? '弱点' : (v === 100 ? '普通' : (v < 200 ? '耐性' : '强耐性')));
-          return {
-            watchKind: 'resist', id,
-            label,
-            sub: potv ? `${v}（${rank}）潜力 ${potv}%` : `${v}（${rank}）`,
-            desc: (act.desc && (act.desc.ch || act.desc.jp))
-              || (act.name && (act.name.ch || act.name.jp)) || '属性耐性',
-          };
-        }),
-      });
-      // 0-EU：魔法页改为**始终存在**（没学会时显示空列表提示），否则新角色
-      //   翻不到这一页，会以为「法术完全没有显示」。
+      items.push({ header: true, label: '◆ 技能和特殊能力' });
+      items.push(...skills.filter((r) => r.group === 'skill').map(mkSkillRow).sort(bySkillAttr));
+      items.push({ header: true, label: '◆ 武器専精' });
+      items.push(...skills.filter((r) => r.group === 'weapon').map(mkSkillRow).sort(bySkillAttr));
+      // 耐性・抗性（var_82(50..61)）跟在武器组之后
+      items.push({ header: true, label: '◆ 耐性と抵抗力' });
+      for (const [id, label] of RESIST_ROWS) {
+        const v = p.skill ? (p.skill(id) | 0) : 0;
+        const act = descs[String(id)] || {};
+        // 294042-294044：`var_333(limit(var_82(id) / (50*2), 0, 8))` —— 九档评价词，
+        //   不再显示原始数值与潜力百分比（那是上一版的自定义口径）。
+        const rankIdx = idiv(v, 100);
+        const rank = RESIST_RANKS[Math.max(0, Math.min(8, rankIdx))];
+        items.push({
+          watchKind: 'resist', id,
+          // 293948-293983：id < 100 的条目图标固定取属性图标的第 10 列
+          attr: 10,
+          label,
+          sub: rank,
+          desc: (act.desc && (act.desc.ch || act.desc.jp))
+            || (act.name && (act.name.ch || act.name.jp)) || '属性耐性',
+        });
+      }
+      // 0-EU：魔法组始终存在（没学会时只剩分组标题），否则新角色
+      //   翻不到这一块，会以为「法术完全没有显示」。
+      items.push({ header: true, label: '◆ スペル' });
       const st = p.spellStock || [];
-      const spells = [];
+      const spellItems = [];
       for (let i = 0; i < 200; i++) {
         const n = st[i] | 0;
         if (n <= 0) continue;
         const sid = 400 + i;
         const nm = names[String(sid)] || {};
         const act = descs[String(sid)] || {};
-        spells.push({
-          watchKind: 'spell', id: i,
+        spellItems.push({
+          watchKind: 'spell', id: i, sid,
+          attr: this.skillAttrIndex(sid),
+          attrRaw: this.skillAttrRaw(sid),
           label: nm.ch || nm.jp || nm.en || (act.name && (act.name.ch || act.name.jp)) || ('魔法 ' + sid),
           sub: 'x' + n,
           desc: (act.desc && (act.desc.ch || act.desc.jp)) || '',
         });
       }
-      lists.push({ kind: 'spell', title: '魔法', items: spells });
+      // 293393：魔法组排序键也是 var_83(0,sid)+51000
+      items.push(...spellItems.sort(bySkillAttr));
+      return items;
+    },
+
+    /** 渲染人物信息（按 this.charaPage 分页；0-DF 增加耐性 / 魔法页与「,」锁定） */
+    async renderCharaInfo(g) {
+      // 0-EP：洞察透镜 72 要显示**别人**的信息窗（原版 `var_243 = var_244`）
+      const p = this.charaTarget || g.player;
+      if (!p) return;
+      const skills = await this.skillRows(p);
+      const items = await this.buildCharaSheetItems(p, skills);
+      const lists = [{ kind: 'sheet', title: '技能リスト', items }];
 
       const per = 16;
       const pages = [{ info: true }];
@@ -834,27 +901,85 @@
       const list = lists[page.li];
       const from = page.pg * per;
       const slice = list.items.slice(from, from + per);
+      this.charaSlice = slice;
+      // 光标不落在分组标题行上（源码标题行不可选）
+      if (slice[this.charaCursor] && slice[this.charaCursor].header) this.charaCursor += 1;
       this.charaCursor = Math.max(0, Math.min(slice.length - 1, this.charaCursor | 0));
       this.rows = [];
       this.open('charainfo',
         `角色信息　Page.${cur + 1}/${total}　${list.title}`,
-        this.charaListPage(list, slice, from, list.items.length, p),
-        { wide: true, hint: '↑↓ 选择　, 锁定/解除　← → 翻页　Esc 关闭' });
+        this.charaListPage(list, slice, from, list.items.length, p, g),
+        { wide: true, hint: '↑↓ 选择　Enter 分配点数　, 锁定/解除　← → 翻页　Esc 关闭' });
       this.highlightCharaRows();
       this.onKeyFn = (e) => {
         if (this.charaNav(e, g, cur, total)) return true;
         if (e.key === 'ArrowUp' || e.key === '8') { this.moveCharaCursor(-1); return true; }
         if (e.key === 'ArrowDown' || e.key === '2') { this.moveCharaCursor(1); return true; }
+        // 0-Z19：源码在列表页用「行对应的键」直接消耗 1 点奖励（294229-294275）。
+        //   按用户要求改用确认键（回车/空格）分配技能点 / 魔法点。
+        if (e.key === 'Enter' || e.key === ' ') {
+          this.spendBonus(g, slice[this.charaCursor], p);
+          return true;
+        }
         if (e.key === ',' || e.key === '，') { this.toggleWatchRow(slice[this.charaCursor], g); return true; }
-        if (e.key === 'Enter' || e.key === ' ') { this.toggleWatchRow(slice[this.charaCursor], g); return true; }
         const k = 'abcdefghijklmnop'.indexOf(e.key);
-        if (k >= 0 && k < slice.length) {
+        if (k >= 0 && k < slice.length && !slice[k].header) {
           this.charaCursor = k;
           this.highlightCharaRows();
           return true;
         }
         return false;
       };
+    },
+
+    /**
+     * 消耗 1 点奖励换技能/魔法成长（294229-294276 / 294280-294305）。
+     *   技能行：源码 294234-294246 的分支是 `if (var_400 < 400)`，且
+     *   `if (var_58(41,0) < 1 | var_400 < 0 | var_400 < 100) goto` ——
+     *   即**只有 100 <= id < 400 的技能 / 武器専精 / 特殊能力**能用技能点，
+     *   耐性・抗性(50..99) 既不加经验也不扣点。
+     *   魔法行（id >= 400）：扣 var_65(250+410)=槽位 660，同上；441 号魔法不允许。
+     *   前提：该技能 sorg 必须 > 0（没学会不能分配）。
+     */
+    spendBonus(g, row, p) {
+      if (!row || row.header) return false;
+      const isSpell = row.watchKind === 'spell';
+      const id = isSpell ? (row.sid | 0) : (row.id | 0);
+      // 耐性・抗性：源码在 294235 的 `var_400 < 100` 条件里直接 return，
+      //   不会消耗点数。这里给一句提示，避免玩家以为按键没反应。
+      if (!isSpell && !(id >= 100 && id < 400)) {
+        this.pushMessage('耐性和抗性不能用技能点提升。');
+        return false;
+      }
+      if (isSpell && id === 441) {
+        this.pushMessage('その魔法には使えない。（这个魔法不能用点数分配）');
+        return false;
+      }
+      const learned = p.skill ? (p.skill(id) | 0) : 0;
+      if (learned <= 0) {
+        this.pushMessage('还没学会这个技能，无法分配点数。');
+        return false;
+      }
+      if (isSpell) {
+        const pts = g.getV65(660) | 0;
+        if (pts < 1) { this.pushMessage('没有剩余的魔法点。'); return false; }
+        g.setV65(660, pts - 1);
+      } else {
+        const pts = p.get(41) | 0;
+        if (pts < 1) { this.pushMessage('没有剩余的技能点。'); return false; }
+        p.set(41, pts - 1);
+      }
+      // 294261-294263：skillexp id, cc, 400, 2, 1000 → modgrowth cc, id, 20
+      if (Elona.Stats) {
+        if (Elona.Stats.skillExp) Elona.Stats.skillExp(p, id, 0, 400, 2, 1000, g);
+        if (Elona.Stats.modGrowth) Elona.Stats.modGrowth(p, id, 0, 20, g);
+      }
+      const keep = this.charaCursor | 0;
+      this.renderCharaInfo(g);
+      this.charaCursor = keep;
+      this.highlightCharaRows();
+      this.pushMessage(`${row.label} 得到了锻炼（消耗 1 点）。`);
+      return true;
     },
 
     /** 列表页翻页（← →） */
@@ -872,18 +997,30 @@
       return false;
     },
 
-    /** 光标在列表页内上下移动（只改高亮，不重建 DOM） */
+    /**
+     * 光标在列表页内上下移动（只改高亮，不重建 DOM）。
+     * `charaCursor` 是 slice 的下标；分组标题行（header）不可停，自动跳过。
+     */
     moveCharaCursor(d) {
-      const rows = this.root ? this.root.querySelectorAll('tr.ci-item') : [];
-      if (!rows.length) return;
-      this.charaCursor = (this.charaCursor + d + rows.length) % rows.length;
+      const sl = this.charaSlice || [];
+      if (!sl.length) return;
+      let i = this.charaCursor | 0;
+      const step = d < 0 ? -1 : 1;
+      for (let guard = 0; guard < sl.length; guard++) {
+        i = (i + step + sl.length) % sl.length;
+        if (!sl[i].header) break;
+      }
+      this.charaCursor = i;
       this.highlightCharaRows();
     },
 
     highlightCharaRows() {
       if (!this.root) return;
       const rows = this.root.querySelectorAll('tr.ci-item');
-      rows.forEach((r, i) => r.classList.toggle('ci-sel', i === (this.charaCursor | 0)));
+      rows.forEach((r) => {
+        const i = parseInt(r.dataset.i, 10);
+        r.classList.toggle('ci-sel', i === (this.charaCursor | 0));
+      });
     },
 
     /**
@@ -891,7 +1028,7 @@
      * 锁定后立即重绘本页，★ 与高亮随之更新。
      */
     toggleWatchRow(row, g) {
-      if (!row || !Elona.Hud) return;
+      if (!row || row.header || !row.watchKind || !Elona.Hud) return;
       const on = Elona.Hud.toggleWatch(row.watchKind, row.id, row.label);
       const keep = this.charaCursor | 0;
       this.renderCharaInfo(g);
@@ -1062,32 +1199,169 @@
      */
     pendingThrow: -1,
 
-    /** 列表页（技能 / 耐性 / 魔法共用的 16 行表格） */
-    charaListPage(list, slice, from, totalItems, p) {
+    /**
+     * 列表页（技能 / 耐性 / 魔法合并的 16 行表格）。
+     * 0-Z20：按源码 293936-294103 的坐标重排行内顺序，从左往右：
+     *   ① 绿色 EXP UP 标记（x=18，当日冒险日和，294024-294030）；
+     *   ② 属性图标（x=38，`var_83(0,id)-10` 列，293985-293987）；
+     *   ③ 快捷键（x=58，display_key，293964）；
+     *   ④ 技能名（x=84；耐性 x=54）。
+     *   图标按 `gmode 2, var_452, var_452`（48×0.48≈23px）绘制，故与 14px 文字等高。
+     * 0-Z21：opts.costFn 存在时插入「◆ 消費」列（训练师窗口 294104-294113 的
+     *   `calctraincost/calclearncost + "p"`），与人物的技能列表共用同一套排版。
+     */
+    charaListPage(list, slice, from, totalItems, p, g, opts) {
       const letters = 'abcdefghijklmnop';
       const hud = Elona.Hud;
-      let html = `<div class="ci-sec">◆ ${esc(list.title)}（${totalItems}）</div>`
-        + '<table class="ci-table ci-skills"><tr><th></th><th>名称</th><th>値</th><th>効果</th></tr>';
+      const costFn = (opts && opts.costFn) || null;
+      const ncol = costFn ? 7 : 6;
+      // 图标表 item.png 是 1584×2208 原尺寸（48px 格），按 0.5 倍显示：
+      //   background-size 792px → 48px 格变 24px；属性图标行 y = 672×0.5 = 336
+      const ICON = 24;
+      const iconStyle = (attr) => {
+        if (!(attr >= 0)) return '';
+        return ` style="background-position:-${attr * ICON}px -${(672 / 48) * ICON}px"`;
+      };
+      let html = `<div class="ci-sec">◆ ${esc(list.title)}（${totalItems}）</div>`;
+      // 表头沿用源码 display_topic（293926-293933）：能力の名称 / Lv(潜在) / 効果，
+      //   位置同样是「图标区 → 名称 → 数值 → 效果」。
+      html += '<table class="ci-table ci-skills">'
+        + '<colgroup><col class="c-mark"><col class="c-ico"><col class="c-key">'
+        + '<col class="c-name"><col class="c-num">'
+        + (costFn ? '<col class="c-cost">' : '')
+        + '<col class="c-desc"></colgroup>'
+        + '<tr class="ci-hd">'
+        + '<th class="ci-th-name" colspan="4">◆ 技能的名称</th>'
+        + '<th class="ci-th-num">◆ Lv(潜在)</th>'
+        + (costFn ? '<th class="ci-th-cost">p</th>' : '')
+        + '<th class="ci-th-desc">◆ 効果</th></tr>';
       for (let i = 0; i < slice.length; i++) {
         const r = slice[i];
+        // 分组标题行：源码 var_484(0,idx) = -1，占键位但不画字母、不可选中
+        if (r.header) {
+          html += `<tr class="ci-head"><td colspan="${ncol}" class="ci-head-label">`
+            + `${esc(r.label)}</td></tr>`;
+          continue;
+        }
         const locked = hud && hud.isWatched ? hud.isWatched(r.watchKind, r.id) : false;
-        html += `<tr class="ci-item${locked ? ' ci-on' : ''}">`
+        const sid = r.sid === undefined ? r.id : r.sid;
+        // 293988-294035：当日组命中 → 绿色 EXP UP
+        let expUp = false;
+        if (Elona.Daily && Elona.Daily.inCurrentGroup) {
+          if (sid >= 400) expUp = (p.get(428) | 0) === 1;
+          else if (sid >= 100) expUp = Elona.Daily.inCurrentGroup(g, sid);
+        }
+        html += `<tr class="ci-item${locked ? ' ci-on' : ''}" data-i="${i}">`
+          + `<td class="ci-mark"><span class="ci-expup${expUp ? ' on' : ''}"></span></td>`
+          + `<td class="ci-ico">`
+          + (r.attr >= 0
+            ? `<span class="ci-sico"${iconStyle(r.attr)}></span>`
+            : '<span class="ci-sico ci-sico-none"></span>')
+          + '</td>'
           + `<td class="ci-key">${letters[i] || ''}</td>`
           + `<td class="ci-skill-name">${locked ? '★' : ''}${esc(r.label)}</td>`
           + `<td class="ci-nums">${esc(r.sub || '')}</td>`
+          + (costFn ? `<td class="ci-cost">${esc(costFn(r))}</td>` : '')
           + `<td class="ci-skill-desc">${esc(r.desc || '')}</td></tr>`;
       }
       if (!slice.length) {
-        const empty = list.kind === 'spell' ? '还没有学会任何魔法。' : '没有条目。';
-        html += `<tr><td></td><td colspan="3" class="ci-dim">${empty}</td></tr>`;
+        html += `<tr><td colspan="${ncol}" class="ci-dim">没有条目。</td></tr>`;
       }
       html += '</table>';
-      html += `<div class="ci-foot">↑↓ 移动　, 锁定/解除　— 锁定的项目会常驻显示在视野左侧`
+      const foot = (opts && opts.foot) || '↑↓ 移动　Enter 消耗 1 点分配（仅技能）　, 锁定/解除';
+      html += `<div class="ci-foot">${foot}`
         + `（第 ${from + 1}–${from + slice.length} 项）</div>`;
-      if (list.kind === 'skill' && p) {
-        html += `<div class="ci-foot">剩余 ${p.get(41) | 0} 点可以分配到技能</div>`;
+      // 293851-293860：`残り var_58(41) のボーナスをスキルに、残り var_65(250+410) のボーナスをスペルに分配できる`
+      if (g && p && !costFn) {
+        const sk = p.get(41) | 0;
+        const sp = g.getV65(660) | 0;
+        html += `<div class="ci-foot ci-bonus">剩余 ${sk} 点技能点和 ${sp} 点魔法点可以分配</div>`;
       }
       return html;
+    },
+
+    /**
+     * 0-Z21：训练师的「能力訓練」/「能力の習得」窗口（源码 var_1502 = 2 / 3）。
+     *   416880-416881（菜单 17）与 417286-417287（菜单 30）都跳到 *label_3065
+     *   → *label_2784，用与人物信息窗**同一个角色表**：293449 的提示、
+     *   293926-294103 的列表、294104-294113 的 `calctraincost/calclearncost + "p"`。
+     *   所以这里复用 buildCharaSheetItems + charaListPage，只按模式过滤条目、
+     *   追加成本列；选一行回车即调用 NPC.perform，窗口叠在对话上（keepNPC）。
+     */
+    async openSkillTraining(g, mode, npc) {
+      if (!g || !g.player) return;
+      const p = g.player;
+      const isLearn = (mode | 0) === 3;
+      const skills = await this.skillRows(p);
+      const all = await this.buildCharaSheetItems(p, skills);
+      // mode 2：293338-293344 只列 sorg>0 的已习得技能；
+      // mode 3：293363-293369 只列未习得且在技能库里的武器/特殊能力，
+      //         场景过滤沿用 NPC.learnableSkills（A181 / *label_2777/2778）。
+      let allowed = null;
+      if (isLearn && Elona.NPC && Elona.NPC.learnableSkills) {
+        try { allowed = new Set(Elona.NPC.learnableSkills(g, p).map((e) => e.id | 0)); }
+        catch (e) { allowed = null; }
+      }
+      const items = [];
+      let curHead = null, headPushed = false;
+      for (const it of all) {
+        if (it.header) { curHead = it; headPushed = false; continue; }
+        if (it.watchKind !== 'skill') continue; // 293376/293387：耐性与魔法不列
+        const learned = (p.skill ? (p.skill(it.id) | 0) : 0) > 0;
+        if (isLearn ? learned : !learned) continue;
+        if (isLearn && allowed && !allowed.has(it.id)) continue;
+        if (!headPushed && curHead) { items.push(curHead); headPushed = true; }
+        items.push(it);
+      }
+      const costFn = (r) => (isLearn ? '5p' : `${Elona.NPC.trainCost(p, r.id | 0)}p`);
+      const per = 16;
+      const pages = Math.max(1, Math.ceil(items.length / per));
+      const cur = Math.max(0, Math.min(pages - 1, this.trainPage | 0));
+      this.trainPage = cur;
+      const slice = items.slice(cur * per, cur * per + per);
+      this.charaSlice = slice;
+      if (slice[this.charaCursor] && slice[this.charaCursor].header) this.charaCursor += 1;
+      this.charaCursor = Math.max(0, Math.min(slice.length - 1, this.charaCursor | 0));
+      this.rows = [];
+      const title = isLearn ? '能力の習得' : '能力訓練';
+      const header = isLearn ? '学哪个技能？' : '训练哪个技能？';
+      this.open('skilltrain', `${title}　Page.${cur + 1}/${pages}`,
+        this.charaListPage({ kind: 'training', title: header }, slice, cur * per, items.length, p, g,
+          { costFn, foot: '↑↓ 选择　Enter 决定　, 锁定/解除' }),
+        { wide: true, keepNPC: true, hint: '↑↓ 选择　Enter 决定　Esc 返回对话' });
+      this.highlightCharaRows();
+      this.onKeyFn = (e) => {
+        if (e.key === 'ArrowUp' || e.key === '8') { this.moveCharaCursor(-1); return true; }
+        if (e.key === 'ArrowDown' || e.key === '2') { this.moveCharaCursor(1); return true; }
+        if (e.key === 'ArrowLeft' && cur > 0) {
+          this.trainPage = cur - 1; this.charaCursor = 0; this.openSkillTraining(g, mode, npc);
+          return true;
+        }
+        if (e.key === 'ArrowRight' && cur < pages - 1) {
+          this.trainPage = cur + 1; this.charaCursor = 0; this.openSkillTraining(g, mode, npc);
+          return true;
+        }
+        if (e.key === 'Enter' || e.key === ' ') {
+          const row = slice[this.charaCursor];
+          if (!row || row.header) return true;
+          const r = Elona.NPC.perform(g, npc, isLearn ? 'learn' : 'train', row.id | 0);
+          const msg = (r && r.message) || '';
+          if (Elona.UI) {
+            this.pushMessage(msg);
+            Elona.UI.npcText = msg;
+          }
+          this.close();
+          return true;
+        }
+        if (e.key === ',' || e.key === '，') { this.toggleWatchRow(slice[this.charaCursor], g); return true; }
+        const k = 'abcdefghijklmnop'.indexOf(e.key);
+        if (k >= 0 && k < slice.length && !slice[k].header) {
+          this.charaCursor = k;
+          this.highlightCharaRows();
+          return true;
+        }
+        return false;
+      };
     },
 
     // ======================================================================

@@ -2614,12 +2614,38 @@
         };
         this.worldMap = null;
         await this.loadMap(arenaMap);
-        // 238714 / 238760 `map_placeplayer`：竞技场没有入口标记，放底边中央
+        // 238714 / 238760 `map_placeplayer`：
+        //   人竞技场（arena_1）没有入口标记 → 底边中央；
+        //   宠物竞技场（arena_2）→ **上方观众席走廊**（第 1~2 行，与场地之间隔着第 3 行的围栏，
+        //     见 227972-228013 的 map_placecharaonentrance；怪物够不到玩家）。
+        //   镜头不看玩家而是看出战宠物（210858-210861），由 renderer.camOrigin 处理。
         const w = this.map.width | 0, h = this.map.height | 0;
         let px = Math.floor(w / 2), py = Math.max(1, h - 3);
-        if (!this.map.walkable(px, py)) {
-          const spot = this.randWalkableCell();
+        /** 从某点向两侧扩散找可站格（不叠在别人身上） */
+        const findNear = (bx, by, span) => {
+          for (let dx = 0; dx <= (span || 8); dx++) {
+            for (const xx of [bx + dx, bx - dx]) {
+              if (xx < 0 || xx >= w) continue;
+              const ck = this.map.check(xx, by);
+              if (ck.walkable && (ck.charaIndex | 0) < 0) return { x: xx, y: by };
+            }
+          }
+          return null;
+        };
+        if (a.petMode) {
+          let spot = findNear(Math.floor(w / 2), 2, w);
+          if (!spot) spot = findNear(Math.floor(w / 2), 1, w);
           if (spot) { px = spot.x; py = spot.y; }
+          else { px = Math.floor(w / 2); py = 2; }
+        } else {
+          // arena_1 的底边 3 行是墙（21-23），从底边往上找第一块能站的地面
+          let spot = null;
+          for (let yy = h - 3; yy >= 1 && !spot; yy--) spot = findNear(px, yy, 8);
+          if (spot) { px = spot.x; py = spot.y; }
+          else {
+            const rs = this.randWalkableCell();
+            if (rs) { px = rs.x; py = rs.y; }
+          }
         }
         p.x = px; p.y = py;
         this.mef = new Elona.Mef();
@@ -2630,6 +2656,9 @@
         this.setV65(64, arenaMap === 'arena_2' ? 40 : 6);
         this.setV65(65, 1);
         const placed = A.beginBattle(this);
+        // 0-Z23 / 0-Z24：宠物竞技场 —— 玩家在观众席观战，镜头跟随出战宠物，
+        //   按任意键过一回合（Esc 放弃比赛），一方全灭即结算并自动回城。
+        if (a.petMode && A.watchStart) A.watchStart(this);
         this.syncCharaCells();
         if (this.onMapChange) this.onMapChange(this.map);
         this.log(a.petMode ? '你被带进了宠物竞技场。' : '你走进了竞技场。');
@@ -2664,6 +2693,14 @@
         }
         this.questMap = null;
         await this.loadMap(ret.map);
+        // 0-Z23：还原进场时临时离场的城镇 NPC（源码回城 map_reload 重建镇民）。
+        //   必须放在 loadMap(原图) 之后：坐标在那张图上才有意义，且 loadMap 的
+        //   syncCharaCells 会按 state=1 重新占格。
+        if (Elona.Arena && Elona.Arena.restoreArenaCivilians) {
+          Elona.Arena.restoreArenaCivilians(this);
+          if (this.syncCharaCells) this.syncCharaCells();
+          this.arenaHidden = null;
+        }
         // 0-S0：不能再无条件清空 —— 持久图（城镇）刚由 loadMap 从 mapGround 还原，
         //   清掉就等于把玩家上次丢的东西冲了；奖励物品在下面追加即可。
         const p = this.player;

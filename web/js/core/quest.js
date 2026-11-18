@@ -272,10 +272,11 @@
         dests = Elona.Towns.escortTargets(curName);
       }
       if (!dests.length) {
+        // 0-Z23：兜底也用中文城镇名（与 towns.js 的 cn 一致），避免委托文本露英文
         dests = [
-          { name: 'kapul', id: 11, label: 'Kapul' },
-          { name: 'yowyn', id: 12, label: 'Yowyn' },
-          { name: 'palmia', id: 15, label: 'Palmia' },
+          { name: 'kapul', id: 11, label: '卡普尔港' },
+          { name: 'yowyn', id: 12, label: '约温' },
+          { name: 'palmia', id: 15, label: '帕尔米亚' },
         ].filter((d) => d.name !== curName);
       }
       const dest = dests[R(g, dests.length)] || dests[0];
