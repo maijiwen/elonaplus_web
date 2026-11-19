@@ -219,6 +219,19 @@
 
   /** 风味文本 → 行（末行 `#～…～` 右对齐，300232-300250） */
   function flavorLines(it) {
+    // 0-Z29 / 299740-299762：有 plan 编号时 flavor 取 `user/item/planN.txt` 的
+    //   `%txtFlavor`（同名取段内最后一行，再按 trimdesc 只留第一行）。
+    if (it && Elona.ItemPlan) {
+      const custom = Elona.ItemPlan.flavorOf(it, (Elona.Lang && Elona.Lang.current) ? Elona.Lang.current() : 'ch');
+      if (custom) {
+        const out = [];
+        for (const raw of String(custom).replace(/\\n/g, '\n').split('\n')) {
+          const s = raw.replace(/\t/g, '').replace(/#/g, '').trim();
+          if (s) out.push({ icon: 7, text: s, align: 'left' });
+        }
+        if (out.length) return out;
+      }
+    }
     const e = Elona.ItemDB ? Elona.ItemDB.eq(it.id) : null;
     const d = (e && e.desc) || {};
     let txt = d.ch0 || d.jp0 || d.en0 || '';
@@ -319,9 +332,27 @@
       }
       if (ibit(it, 15)) out.lines.push({ icon: 4, text: '对手会死' });
       // 4 行「鉴定报告」（var_488(0..3) → desc.ch3）
-      const e = D ? D.eq(it.id) : null;
-      const d = (e && e.desc) || {};
-      const rep = d.ch3 || d.jp3 || d.en3 || '';
+      // 0-Z29 / 300090-300160：有 plan 编号（f28 1..33，id 不是 342/729）时改用
+      //   `user/item/planN.txt` 的 `%txtDescript0..3`，空行跳过。
+      let rep = '';
+      if (Elona.ItemPlan) {
+        const custom = Elona.ItemPlan.descriptOf(it, (Elona.Lang && Elona.Lang.current) ? Elona.Lang.current() : 'ch');
+        if (custom) {
+          for (const seg of custom) {
+            if (!seg) continue;
+            for (const raw of String(seg).replace(/\\n/g, '\n').split('\n')) {
+              const s = raw.replace(/\t/g, '').replace(/^#/, '');
+              if (s) out.lines.push({ icon: 7, text: s, align: /^#/.test(raw) ? 'right' : 'left' });
+            }
+          }
+          rep = null;
+        }
+      }
+      if (rep !== null) {
+        const e = D ? D.eq(it.id) : null;
+        const d = (e && e.desc) || {};
+        rep = d.ch3 || d.jp3 || d.en3 || '';
+      }
       if (rep) {
         for (const seg of String(rep).replace(/\\n/g, '\n').split('\n')) {
           const s = seg.replace(/\t/g, '').replace(/^#/, '');

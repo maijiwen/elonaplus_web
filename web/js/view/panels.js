@@ -1156,9 +1156,10 @@
     },
 
     /**
-     * 「各种修正」两列（源码 293853-293900 的布局）：
-     *   左列 格斗 NdM+B x倍率 ／ 减轻 P% + NdM
-     *   右列 魔法威力 % ／ 命中 % ／ 回避 %
+     * 「各种修正」两列（源码 293853-293900 + *label_2811/2812/2813/2840）：
+     *   左列 武器1/武器2/…/射撃/格闘 的 骰+倍率，末行 軽減
+     *   右列 首行 魔法威力，其后每行对应各武器的 命中，末行 回避
+     * 0-Z33：按源码 295363-295410 逐件列出近战武器（此前写死只显示一行格斗）。
      * 数据全部来自 Elona.Battle.infoCorrection —— 换装备、加 buff、升技能后立刻反映。
      */
     correctionFix(g, p) {
@@ -1167,14 +1168,23 @@
       let r;
       try { r = Elona.Battle.infoCorrection(g, p); } catch (e) { return empty; }
       if (!r || !r.ok) return empty;
-      // cnvfix(var_1386)：正数带 +，0 省略
-      const b = r.meleeB | 0;
-      const melee = `${r.meleeN}d${r.meleeS}${b > 0 ? '+' + b : (b < 0 ? b : '')}`
-        + ` x${this.hsp3(r.meleeX)}`;   // 源码 strmid(var_1387, 0, 3) —— 倍率取 3 字符，如 "1.1"
-      return [
-        [`格斗　${melee}`, `减轻　${r.protPct}% + ${r.protN}d${r.protS}`],
-        [`魔法威力　${r.spell}%`, `命中　${r.hit}%`, `回避　${r.evade}%`],
-      ];
+      // cnvfix(var_1386)：正数带 +，0 省略；倍率 strmid(var_1387,0,3)
+      const diceText = (row) => `${row.n}d${row.s}${row.b > 0 ? '+' + row.b : (row.b < 0 ? row.b : '')}`
+        + ` x${this.hsp3(row.x)}`;
+      const rows = (r.rows && r.rows.length) ? r.rows
+        : [{ label: '格斗', n: r.meleeN, s: r.meleeS, b: r.meleeB, x: r.meleeX, hit: r.hit }];
+      const left = [], right = [];
+      // 源码：魔法威力画在武器行上方一行（var_221+263 vs +281），故右列首行单独放它
+      left.push('');
+      right.push(`魔法威力　${r.spell}%`);
+      for (const row of rows) {
+        left.push(`${row.label}　${diceText(row)}`);
+        right.push(`命中　${row.hit}%`);
+      }
+      // 末行：軽減 / 回避（293856-293889）
+      left.push(`减轻　${r.protPct}% + ${r.protN}d${r.protS}`);
+      right.push(`回避　${r.evade}%`);
+      return [left, right];
     },
 
     /**
@@ -4132,6 +4142,7 @@
         { id: 'resume', label: '返回游戏' },
         { id: 'save', label: '保存 / 读取（存档槽）' },
         { id: 'options', label: '选项 / 键位设置' },
+        { id: 'userdir', label: '用户自定义目录（user）' },
         { id: 'scene', label: '剧本回放' },
         { id: 'help', label: '帮助' },
         { id: 'title', label: '返回标题画面' },
@@ -4144,11 +4155,149 @@
           if (it.id === 'resume') this.close();
           else if (it.id === 'save') this.openSaveSlots();
           else if (it.id === 'options') { this.onClose = null; this.openOptions(); }
+          else if (it.id === 'userdir') { this.onClose = null; this.openUserDir(); }
           else if (it.id === 'scene') this.openScenes();
           else if (it.id === 'help') this.openHelp();
           else if (it.id === 'title') { this.close(); if (Elona.toTitle) Elona.toTitle(); }
         },
       });
+    },
+
+    // ======================================================================
+    // 用户自定义目录（原版 `user\`）—— 0-Z29
+    //
+    // 浏览器没有文件系统，所以提供三条取数路径（优先级见 core/userdir.js）：
+    //   ① File System Access API 授权真目录（可读可写，改完 txt 重进即生效）
+    //   ② `<input webkitdirectory>` 一次性快照（Firefox / Safari 用）
+    //   ③ 内置默认包（data/user/*.json + assets/user/）
+    // ======================================================================
+    async openUserDir() {
+      const U = Elona.UserDir;
+      if (!U) {
+        this.open('userdir', '用户自定义目录', '<div class="pui-note">当前版本不支持用户目录。</div>');
+        return;
+      }
+      // 先占位，统计异步补
+      const items = [
+        { id: 'pick', label: U.supported ? '选择 user 目录（可读写）' : '（此浏览器不支持选择目录）', disabled: !U.supported },
+        { id: 'snap', label: '导入 user 目录快照（只读）' },
+        { id: 'reload', label: '重新读取自定义内容' },
+        { id: 'detach', label: '断开并回到内置默认', disabled: !U.ready },
+        { id: 'close', label: '关闭' },
+      ];
+      this.rows = items;
+      const stateText = () => {
+        if (U.state === 'dir') return `已连接目录：${U.dirName || 'user'}（可读写）`;
+        if (U.state === 'snapshot') return `已导入快照：${U.dirName || 'user'}（只读）`;
+        return '未连接 —— 正在使用内置默认内容';
+      };
+      const html = () => '<div class="pui-kv"><span>状态</span><b>' + esc(stateText()) + '</b></div>'
+        + '<div class="pui-note" id="ud-stats" style="line-height:1.55;margin:2px 0 6px">正在统计…</div>'
+        + '<div class="pui-sep">可自定义的内容</div>'
+        + '<div class="pui-dim" id="ud-list">'
+        + 'talk/*.txt 同伴口調 ／ item/plan1-33.txt 物品名·描述·flavor ／ item/plan*.bmp 物品图<br>'
+        + 'graphic/chara_N.bmp｜item_N.bmp｜Pic_N.bmp 图块覆盖 ／ graphic/faceN.bmp 自定义脸<br>'
+        + 'graphic2/faceN_X.bmp 高清立绘 ／ graphic2/cutinN.bmp 过场图<br>'
+        + 'music/musiclist.txt 曲目表 ／ sound/seN.wav 自定义音效 ／ lastwords.txt 遗言<br>'
+        + '*.npc 自定义 NPC'
+        + '</div>'
+        + items.map((it, i) => `<div class="pui-row" data-i="${i}">`
+          + `<span class="pui-name">${esc(it.label)}</span></div>`).join('');
+      this.open('userdir', '用户自定义目录', html(), {
+        hint: '↑↓ 选择　Enter 执行　Esc 关闭',
+        wide: true,
+        onPick: (it) => {
+          if (it.disabled) return;
+          if (it.id === 'close') { this.close(); return; }
+          if (it.id === 'pick') { void this._userDirPick(); return; }
+          if (it.id === 'snap') { this._userDirSnapshot(); return; }
+          if (it.id === 'reload') { void this._userDirReload(); return; }
+          if (it.id === 'detach') { void U.detach(); this.openUserDir(); return; }
+        },
+      });
+      // 统计各子目录文件数
+      const count = async (dir, pat) => {
+        try { return (await U.list(dir, pat)).length; } catch (e) { return 0; }
+      };
+      const parts = [];
+      const talk = await count('talk', '*.txt');
+      const plan = await count('item', 'plan*.txt');
+      const planBmp = await count('item', 'plan*.bmp');
+      const gChara = await count('graphic', 'chara_*.bmp');
+      const gItem = await count('graphic', 'item_*.bmp');
+      const gPic = await count('graphic', 'Pic_*.bmp');
+      const gFace = await count('graphic', 'face*.bmp');
+      const g2Face = await count('graphic2', 'face*_?.bmp');
+      const g2Cut = await count('graphic2', 'cutin*.bmp');
+      const snd = await count('sound', '*.wav');
+      const npc = await count('', '*.npc');
+      parts.push(`口調 ${talk} 份`, `物品文本 ${plan} 份`, `物品图 ${planBmp} 张`);
+      parts.push(`图块覆盖 ${gChara + gItem + gPic} 个`, `自定义脸 ${gFace} 张`);
+      parts.push(`高清立绘 ${g2Face} 张`, `过场图 ${g2Cut} 张`);
+      parts.push(`音效 ${snd} 个`, `自定义 NPC ${npc} 个`);
+      const st = this.root && this.root.querySelector('#ud-stats');
+      if (st && this.kind === 'userdir') st.textContent = parts.join('　·　');
+    },
+
+    /** 打开系统的目录选择器（必须在用户点击的调用栈里，所以由 click 处理器直接调） */
+    async _userDirPick() {
+      const U = Elona.UserDir;
+      const ok = await U.attach().catch(() => false);
+      if (!ok) {
+        if (Elona.UI && Elona.UI.pushMessage) {
+          Elona.UI.pushMessage(U.supported
+            ? '已取消选择（或没有授权）。'
+            : '当前浏览器不支持目录选择，请用「导入快照」或改用 Edge / Chrome。');
+        }
+        return;
+      }
+      Elona.UI && Elona.UI.pushMessage && Elona.UI.pushMessage(`已连接 user 目录：${U.dirName}（自定义内容已重新读取）`);
+      this.openUserDir();
+    },
+
+    /** webkitdirectory 兜底：一次性快照 */
+    _userDirSnapshot() {
+      const U = Elona.UserDir;
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.webkitdirectory = true;
+      input.multiple = true;
+      input.style.display = 'none';
+      document.body.appendChild(input);
+      input.addEventListener('change', () => {
+        const files = input.files;
+        const ok = U.attachFromInput(files);
+        try { document.body.removeChild(input); } catch (e) { /* 忽略 */ }
+        if (ok) {
+          Elona.UI && Elona.UI.pushMessage && Elona.UI.pushMessage(
+            `已导入 user 目录快照（${files.length} 个文件，只读）。`);
+          this.openUserDir();
+        } else if (Elona.UI && Elona.UI.pushMessage) {
+          Elona.UI.pushMessage('没有选择文件。');
+        }
+      });
+      input.click();
+    },
+
+    /** 重读所有自定义内容 */
+    async _userDirReload() {
+      Elona.UserDir.invalidate();
+      if (Elona.Talk) { Elona.Talk.invalidate(); await Elona.Talk.preloadAll(); }
+      if (Elona.ItemPlan) { Elona.ItemPlan.invalidate(); await Elona.ItemPlan.preloadAll(); }
+      if (Elona.LastWords) { Elona.LastWords.invalidate(); await Elona.LastWords.preload(); }
+      if (Elona.CustomNpc) Elona.CustomNpc.invalidate();
+      if (Elona.GraphicOverride) {
+        Elona.GraphicOverride.invalidate();
+        if (Elona.renderer) {
+          Elona.renderer._userGfxDone = false;
+          if (Elona.renderer.itemSheet) Elona.renderer.itemSheet = null;
+          if (Elona.renderer._itemPromise) Elona.renderer._itemPromise = null;
+          if (Elona.renderer.sheets) Elona.renderer.sheets.character = null;
+        }
+      }
+      if (Elona.Audio && Elona.Audio.refreshUserAssets) await Elona.Audio.refreshUserAssets();
+      Elona.UI && Elona.UI.pushMessage && Elona.UI.pushMessage('已重新读取用户自定义内容。');
+      this.openUserDir();
     },
 
     // ======================================================================
@@ -4453,9 +4602,15 @@
      *
      * 顶部按原版用红心显示「行動力」与「幸福度」（426611-426637）。
      */
-    openEvochat(g, ally, sub) {
+    openEvochat(g, ally, sub, opt) {
       const C = Elona.Companion;
       if (!C || !ally) return;
+      // 0-Z28：`var_2697` / `var_2226` —— 组合evochat(109) 之后进入「三人」菜单，
+      //   此后选完一项重开时沿用同一个搭档；从对话窗正常进入则清空。
+      if (opt && opt.tag !== undefined) this._evoTag = opt.tag | 0;
+      else if (!sub) { this._evoTag = 0; this._evoWatch = 0; }
+      const tagIdx = this._evoTag | 0;
+      const tag = (tagIdx && g.charas && g.charas[tagIdx]) || null;
       const mode = sub || 'main';
       const hearts = (n, max) => '♥'.repeat(Math.max(0, n | 0))
         + '♡'.repeat(Math.max(0, (max | 0) - (n | 0)));
@@ -4465,20 +4620,20 @@
 
       if (mode === 'pet') {
         items = C.petOptions().map((o, i) => ({ ...o, key: 'abcdefgh'[i] }));
-        title = `じゃれあう — ${ally.name}`;
+        title = `亲昵 — ${ally.name}`;
         hint = 'a~e 选择　Esc 关闭';
-        note = '抱きつく・なでなで・キス・色々する 只改表情、不消耗行动力；'
-          + '「我に返る」消耗 4 点行动力，换取 8 点幸福度。';
+        note = '抱住 / 摸头 / 亲吻 / 做各种事 只改表情、不消耗行动力；'
+          + '「回过神来」消耗 4 点行动力，换取 8 点幸福度。';
       } else if (mode === 'intimate') {
         items = [
-          { id: 'gentle', act: 102, key: 'a', label: '優しく（体力 3-7）' },
-          { id: 'hard', act: 103, key: 'b', label: '激しく（体力 5-14）' },
-          { id: 'rest', act: 104, key: 'c', label: '小休憩' },
-          { id: 'back', act: 131, key: 'd', label: '戻る' },
+          { id: 'gentle', act: 102, key: 'a', label: '温柔地（体力 3-7）' },
+          { id: 'hard', act: 103, key: 'b', label: '激烈地（体力 5-14）' },
+          { id: 'rest', act: 104, key: 'c', label: '小憩' },
+          { id: 'back', act: 131, key: 'd', label: '返回' },
         ];
-        title = `二人の時間 — ${ally.name}`;
+        title = `两人的时间 — ${ally.name}`;
         hint = 'a~d 选择　Esc 关闭';
-        note = '体力消耗 / 气氛计量（0-30）/ 经验清零均按源码；描写从略。';
+        note = '两人各扣一次体力（SP，随机 3-7 / 5-14）；气氛计量 0-30，休息可回复。描写从略。';
       } else if (mode === 'unlock') {
         const rates = C.unlockRates(g, ally);
         const cb = (n) => (Elona.Status && Elona.Status.cbit) ? Elona.Status.cbit(ally, n) : 0;
@@ -4489,24 +4644,27 @@
         });
         items = list.map((r, i) => ({
           act: r.act, key: 'abcdefghijkl'[i],
-          label: `[開錠${rates[r.rate] | 0}%] ${r.line}`,
+          label: `[开锁成功率${rates[r.rate] | 0}%] ${r.line}`,
           rel: r.rel, jp: r.jp,
         }));
-        items.push({ id: 'back', act: 131, key: 'abcdefghijkl'[items.length], label: '戻る' });
-        title = `心の開錠 — ${ally.name}`;
+        items.push({ id: 'back', act: 131, key: 'abcdefghijkl'[items.length], label: '返回' });
+        title = `开启心锁 — ${ally.name}`;
         hint = 'a~m 选择　Esc 关闭';
-        note = `成功率由两人的「鍵開け」（你 ${C.lockPicking(g.player)} / ${ally.name} ${C.lockPicking(ally)}）`
+        note = `成功率由两人的「开锁」（你 ${C.lockPicking(g.player)} / ${ally.name} ${C.lockPicking(ally)}）`
           + `与好感 ${ally.get(17) | 0}、主从 ${ally.get(169) | 0} 决定。失败也会消耗 1 点行动力。`;
       } else {
-        items = C.chatOptions(g, ally).map((o, i) => ({ ...o, key: 'abcdefgh'[i] }));
-        title = `evochat — ${ally.name}`;
+        items = C.chatOptions(g, ally, { tag: tagIdx }).map((o, i) => ({ ...o, key: 'abcdefgh'[i] }));
+        title = tag ? `互动 — ${ally.name}＆${tag.name}` : `互动 — ${ally.name}`;
         hint = 'a~h 选择　Esc 关闭';
-        note = C.canChat(g, ally)
-          ? '每一次搭话消耗 1 点行动力（睡一觉回满 10 点）。对方幸福度满 10 时无法继续。'
-          : '现在没法互动：行动力为 0，或对方已经很满足了（睡一觉可恢复行动力）。';
+        if (C.canChat(g, ally)) {
+          note = '每一次搭话消耗 1 点行动力（睡一觉回满 10 点）。对方幸福度满 10 时无法继续。'
+            + (tag ? '组合模式下，对方与搭档会一起受影响。' : '');
+        } else {
+          note = '现在没法互动：行动力为 0，或对方已经很满足了（睡一觉可恢复行动力）。';
+        }
       }
 
-      const head = '<div class="ci-sec">◆ ' + esc(ally.name) + '</div>'
+      const head = '<div class="ci-sec">◆ ' + esc(ally.name) + (tag ? '＆' + esc(tag.name) : '') + '</div>'
         + '<div class="pui-kv"><span>行動力</span><b class="dh-hearts">' + hearts(ap, C.AP_MAX) + ` ${ap}/${C.AP_MAX}</b></div>`
         + '<div class="pui-kv"><span>幸福度</span><b class="dh-hearts">' + hearts(hap, C.HAPPY_MAX) + ` ${hap}/${C.HAPPY_MAX}</b></div>`
         + (ally.get(C.ROUTE) | 0
@@ -4526,15 +4684,11 @@
         const it = items[i];
         if (!it) return;
         if (it.id === 'end') { this.close(); return; }
-        if (it.id === 'back') {
-          if (mode === 'unlock') this.openEvochat(g, ally, 'main');
-          else this.openEvochat(g, ally, 'main');
-          return;
-        }
-        const r = C.chat(g, ally, it.act);
+        const r = C.chat(g, ally, it.act, { tag: tagIdx });
         if (r.message && Elona.UI && Elona.UI.pushMessage) Elona.UI.pushMessage(r.message);
-        if (r.sub) { this.openEvochat(g, ally, r.sub); return; }
-        this.openEvochat(g, ally, 'main');
+        if (r.close) { this.close(); return; }
+        if (r.sub) { this.openEvochat(g, ally, r.sub, { tag: tagIdx }); return; }
+        this.openEvochat(g, ally, 'main', { tag: tagIdx });
         if (Elona.UI && Elona.UI.refresh) Elona.UI.refresh();
       };
       this.onPick = (row) => pick(items.indexOf(row));
@@ -4544,6 +4698,22 @@
         if (i >= 0) { pick(i); return true; }
         return false;
       };
+    },
+
+    /**
+     * 0-Z28：110「听听组合间的对话」（`var_2696 == 110`，414330-414460）。
+     *   两拍台词（搭档 → 本人）后回到 evochat 主菜单；`var_2695` 每选一次 +1，
+     *   两套通用台词按奇偶轮换。源码第 3 拍直接 `goto *label_3059`。
+     */
+    playWatch(g, ally) {
+      const C = Elona.Companion;
+      if (!C || !ally) return;
+      this._evoWatch = (this._evoWatch | 0) + 1;
+      const tagIdx = ally.get(C.TAG_PARTNER_SLOT) | 0;
+      const lines = C.tagChatLines(g, ally, this._evoWatch);
+      if (!lines.length) { this.pushMessage('对方没有搭档。'); return; }
+      for (const l of lines) this.pushMessage(`${l.name}：${l.text}`);
+      this.openEvochat(g, ally, 'main', { tag: tagIdx });
     },
 
     /**

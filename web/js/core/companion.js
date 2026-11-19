@@ -27,6 +27,7 @@
   const RELATION = 9;
   const ORIGINAL_RELATION = 69;
   const HAPPY = 433;
+  const SP = 52;          // スタミナ（`dmgsp` / `dmgspt` 扣的就是 var_58(52)）
   const MODE = 266;
   const REVIVE_FLAG = 166;
   const MAP_BELONG = 80;
@@ -665,36 +666,51 @@
     return actionPoints(g) > 0 && happiness(c) < HAPPY_MAX;
   }
 
-  /** 各动作的可用性（菜单项的显示条件） */
-  function chatOptions(g, c) {
+  /**
+   * 各动作的可用性（菜单项的显示条件）。
+   *
+   * 415002-415034 的顺序与条件：
+   *   78 温柔对待 / 79 为难对方 / 80 给10万gold（持有 >= 100000 时才出现）/
+   *   101 【特别舒服的事】 / [118 开启心锁 | 111 让搭档之间进行evochat] /
+   *   87 【忍不住了】（行动力 >= 4）/ 81 结束
+   *
+   * 118 与 111 由 `var_2697` 二选一：415016 `if ( var_2697 == 0 )` → 118；
+   * 415021 `if ( var_2697 == 1 )` → 111。后者只在「组合evochat」(109) 之后成立。
+   *
+   * @param {{tag?:number}} [opt] tag = 搭档的角色编号（var_2226）
+   */
+  function chatOptions(g, c, opt) {
     const ap = actionPoints(g);
     const ok = canChat(g, c);
+    const tagMode = !!(opt && (opt.tag | 0));
     const out = [];
     if (ok) {
-      out.push({ id: 'kind', act: 78, label: '優しくする（行动力1）' });
-      out.push({ id: 'embarrass', act: 79, label: '困らせる（行动力1）' });
-      if ((g.player.get(30) | 0) >= 100000) {
-        out.push({ id: 'give-gold', act: 80, label: '10万goldあげる（行动力1）' });
+      out.push({ id: 'kind', act: 78, label: '温柔对待' });
+      out.push({ id: 'embarrass', act: 79, label: '为难对方' });
+      const gold = g && g.player ? (g.player.get(30) | 0) : 0;
+      if (gold >= 100000) {
+        out.push({ id: 'give-gold', act: 80, label: `给10万gold（现在持有${gold}gold）` });
       }
-      out.push({ id: 'intimate', act: 101, label: '【特別な気持ちいいこと】' });
-      out.push({ id: 'mind-unlock', act: 118, label: '心の開錠' });
-      if ((c.get(TAG_PARTNER) | 0) !== 0) {
-        out.push({ id: 'tag-chat', act: 111, label: '让搭档之间也聊一聊（行动力2）' });
+      out.push({ id: 'intimate', act: 101, label: '【特别舒服的事】' });
+      if (tagMode) {
+        out.push({ id: 'tag-chat', act: 111, label: '让搭档之间进行evochat' });
+      } else {
+        out.push({ id: 'mind-unlock', act: 118, label: '开启心锁' });
       }
-      if (ap >= 4) out.push({ id: 'excite', act: 87, label: '【暴走する】' });
+      if (ap >= 4) out.push({ id: 'excite', act: 87, label: '【忍不住了】' });
     }
-    out.push({ id: 'end', act: 81, label: 'おしまい' });
+    out.push({ id: 'end', act: 81, label: '结束' });
     return out;
   }
 
   /** じゃれあう子菜单（var_1294 == 2，415063-415084） */
   function petOptions() {
     return [
-      { id: 'hug', act: 88, label: '抱きつく' },
-      { id: 'pat', act: 89, label: 'なでなでする' },
-      { id: 'kiss', act: 90, label: 'キスしまくる' },
-      { id: 'various', act: 91, label: '色々する' },
-      { id: 'wake', act: 92, label: '我に返る（行动力4 / 幸福度+8）' },
+      { id: 'hug', act: 88, label: '抱住对方' },
+      { id: 'pat', act: 89, label: '摸摸头' },
+      { id: 'kiss', act: 90, label: '不停亲吻' },
+      { id: 'various', act: 91, label: '做各种事' },
+      { id: 'wake', act: 92, label: '回过神来（行动力4 / 幸福度+8）' },
     ];
   }
 
@@ -704,15 +720,22 @@
 
   /**
    * 执行一个 evochat 动作。
+   *
+   * `opt.tag` 是「组合evochat」(109) 之后的搭档编号（源码 `var_2226`）：
+   *   418425-418431（78）、418497-418505（79）、418520-418536（80）等处
+   *   在 `var_2697 == 1` 时会对搭档再跑一遍同样的结算。
+   *
    * @returns {{ok:boolean, message:string, refresh?:boolean, sub?:string, close?:boolean}}
    */
-  function chat(g, c, act) {
+  function chat(g, c, act, opt) {
     const rnd = rngOf(g);
     const p = g && g.player;
     if (!p || !c) return { ok: false, message: '没有对象。' };
     const name = c.name;
+    const tagIdx = (opt && (opt.tag | 0)) || 0;
+    const tag = (tagIdx && g && g.charas && g.charas[tagIdx]) || null;
     switch (act | 0) {
-      // ---------------- 78 優しくする（418417） ----------------
+      // ---------------- 78 温柔对待（418417） ----------------
       case 78: {
         if (!canChat(g, c)) return { ok: false, message: '现在没法这么做。', refresh: true };
         spendAction(g, 1);
@@ -720,23 +743,34 @@
         const imp = c.get(17) | 0;
         if (imp > 0 && rnd(imp) > 75) addHappiness(c, 1);
         pose(c, POSE.smile);
+        if (tag) {                                  // 418425-418431
+          addHappiness(tag, 1);
+          const timp = tag.get(17) | 0;
+          if (timp > 0 && rnd(timp) > 75) addHappiness(tag, 1);
+          pose(tag, POSE.smile);
+        }
         const msg = `你对${name}很温柔。${name}很高兴。（幸福度 ${happiness(c)}）`;
         if (g.log) g.log(msg);
         return { ok: true, message: msg, refresh: true };
       }
-      // ---------------- 79 困らせる（418490） ----------------
+      // ---------------- 79 为难对方（418490） ----------------
       case 79: {
         if (!canChat(g, c)) return { ok: false, message: '现在没法这么做。', refresh: true };
         spendAction(g, 1);
-        const temper = c.get(TEMPER) | 0;
-        let extra = 0;
-        if (temper < 0 && rnd(-temper) > rnd(5)) { addHappiness(c, 2); extra = 2; }
+        // 気質(var_58(186)) < 0 且 rnd(-気質) > rnd(5) → 幸福度 +2
+        const tease = (who) => {
+          const tm = who.get(TEMPER) | 0;
+          if (tm < 0 && rnd(-tm) > rnd(5)) { addHappiness(who, 2); return 2; }
+          return 0;
+        };
+        let extra = tease(c);
         pose(c, POSE.shocked);
+        if (tag) { if (tease(tag)) extra += 1; pose(tag, POSE.shocked); }
         const msg = `你捉弄了${name}。` + (extra ? `意外地很高兴。（幸福度 ${happiness(c)}）` : '');
         if (g.log) g.log(msg);
         return { ok: true, message: msg, refresh: true };
       }
-      // ---------------- 80 10万goldあげる（418510） ----------------
+      // ---------------- 80 给10万gold（418510） ----------------
       case 80: {
         if (!canChat(g, c)) return { ok: false, message: '现在没法这么做。', refresh: true };
         const gold = p.get(30) | 0;
@@ -744,32 +778,50 @@
         spendAction(g, 1);
         addHappiness(c, 1);
         p.set(30, gold - 100000);
-        const cg = (c.get(30) | 0) + 100000;
-        c.set(30, cg);
-        if (rnd(cg + 1) < 100000) addHappiness(c, 1);
+        let msg;
+        if (tag) {
+          // 418520-418536：组合模式下两人各分 5 万
+          const g1 = (c.get(30) | 0) + 50000; c.set(30, g1);
+          const g2 = (tag.get(30) | 0) + 50000; tag.set(30, g2);
+          if (rnd(g1 + 1) < 50000) addHappiness(c, 1);
+          if (rnd(g2 + 1) < 50000) addHappiness(tag, 1);
+          pose(tag, POSE.smile);
+          msg = `${name}把金币分给了搭档。（幸福度 ${happiness(c)}）`;
+        } else {
+          const cg = (c.get(30) | 0) + 100000;
+          c.set(30, cg);
+          if (rnd(cg + 1) < 100000) addHappiness(c, 1);
+          msg = `你给了${name} 100000 gold。（幸福度 ${happiness(c)}）`;
+        }
         pose(c, POSE.smile);
-        const msg = `你给了${name} 100000 gold。（幸福度 ${happiness(c)}）`;
         if (g.log) g.log(msg);
         return { ok: true, message: msg, refresh: true };
       }
-      // ---------------- 87 暴走する（418545）→ 子菜单 ----------------
+      // ---------------- 87 【忍不住了】（418545）→ 子菜单 ----------------
       case 87: {
         if (actionPoints(g) < 4) return { ok: false, message: '行动力不足。', refresh: true };
-        pose(c, POSE.blush);
+        pose(c, POSE.sad);                          // var_58(79) = 21
+        if (tag) pose(tag, POSE.sad);
         return { ok: true, message: '', sub: 'pet' };
       }
       // ---------------- 88..91 じゃれあう（只改表情） ----------------
       case 88:
-        pose(c, POSE.smile);
+        // 418562：var_58(79, 玩家) = 0、var_2694 = 0（普通表情）
+        p.set(79, 0);
+        pose(c, 0);
+        if (tag) pose(tag, 0);
         return { ok: true, message: `你抱住了${name}。`, refresh: true, sub: 'pet' };
       case 89:
-        pose(c, POSE.smile);
+        pose(c, POSE.smile);                        // 6
+        if (tag) pose(tag, POSE.smile);
         return { ok: true, message: `你摸了摸${name}的头。`, refresh: true, sub: 'pet' };
       case 90:
-        pose(c, POSE.blush);
+        pose(c, POSE.blush);                        // 17
+        if (tag) pose(tag, POSE.blush);
         return { ok: true, message: `你吻了${name}。`, refresh: true, sub: 'pet' };
       case 91:
-        pose(c, POSE.blush);
+        pose(c, 18);                                // 418588：var_58(79) = 18
+        if (tag) pose(tag, 18);
         return { ok: true, message: `你和${name}腻在一起。`, refresh: true, sub: 'pet' };
       // ---------------- 92 我に返る（418605） ----------------
       case 92: {
@@ -780,26 +832,30 @@
         if (g.log) g.log(msg);
         return { ok: true, message: msg, main: true };
       }
-      // ---------------- 101 特別なきもちいいこと（418146） ----------------
+      // ---------------- 101 【特别舒服的事】（418146） ----------------
       case 101: {
         // 418147-418158：var_1294=3（子菜单）、var_2698=30（气氛计量）、var_2694=18（表情）、
-        //   两人 var_58(79)（经验残留）清零。描写部分从略（差异 A335 保留）。
+        //   `var_58(79, 对方)` 清零（组合模式下搭档也清）。描写部分从略（差异 A335 保留）。
         g.evoGauge = 30;
-        p.set(79, 0);
         c.set(79, 0);
-        pose(c, POSE.blush);
+        if (tag) tag.set(79, 0);
         return { ok: true, message: '', sub: 'intimate' };
       }
       case 102:
       case 103: {
-        // 418082-418107 / 418109-418134：dmgsp（双方体力）、var_2698 递减、var_1117=45、var_1116=0/1
+        // 418082-418107 / 418109-418134：`dmgsp 0, rnd(5)+3` 与 `dmgspt 对方, rnd(5)+3`
+        //   —— **两次独立掷骰**，扣的是 **SP（var_58(52) スタミナ）**，不是 MP（55）。
+        //   下限：玩家 -100 / 对方（含搭档）-50（201438-201458 dmgsp/dmgspt）。
         const hard = (act | 0) === 103;
-        const cost = hard ? rnd(10) + 5 : rnd(5) + 3;
-        p.set(55, Math.max(0, (p.get(55) | 0) - cost));
-        c.set(55, Math.max(0, (c.get(55) | 0) - cost));
+        const rollCost = () => (hard ? rnd(10) + 5 : rnd(5) + 3);
+        const pCost = rollCost();
+        const cCost = rollCost();
+        if ((p.get(SP) | 0) >= -100) p.set(SP, (p.get(SP) | 0) - pCost);
+        if ((c.get(SP) | 0) >= -50) c.set(SP, (c.get(SP) | 0) - cCost);
+        if (tag && (tag.get(SP) | 0) >= -50) tag.set(SP, (tag.get(SP) | 0) - rollCost());
         g.evoGauge = Math.max(0, (g.evoGauge | 0) - (hard ? (rnd(2) + 3) : 2));
-        pose(c, POSE.blush);
-        const msg = `（两人亲昵了一会儿，消耗了 ${cost} 点体力。）`;
+        pose(c, rnd(2) === 0 ? 11 : 17);
+        const msg = `（两人亲昵了一会儿，消耗了 ${pCost} 点体力。）`;
         if (g.log) g.log(msg);
         return { ok: true, message: msg, refresh: true, sub: 'intimate' };
       }
@@ -808,11 +864,11 @@
         g.evoGauge = Math.min(30, (g.evoGauge | 0) + 1);
         return { ok: true, message: `（稍作休息。气氛 ${g.evoGauge}/30）`, refresh: true, sub: 'intimate' };
       }
-      // ---------------- 111 タッグ間でevochat（417965） ----------------
+      // ---------------- 111 让搭档之间进行evochat（417965） ----------------
       case 111: {
-        const tag = c.get(TAG_PARTNER) | 0;
-        if (!tag) return { ok: false, message: '你没有搭档。', refresh: true };
-        const t = g.charas && g.charas[tag];
+        const ti = c.get(TAG_PARTNER) | 0;
+        if (!ti) return { ok: false, message: '你没有搭档。', refresh: true };
+        const t = g.charas && g.charas[ti];
         if (!spendAction(g, 2)) return { ok: false, message: '行动力不足。', refresh: true };
         addHappiness(c, 1);
         if (t) { addHappiness(t, 1); pose(t, POSE.smile); }
@@ -820,6 +876,12 @@
         const msg = `${name}和搭档聊了起来，两人都很开心。`;
         if (g.log) g.log(msg);
         return { ok: true, message: msg, refresh: true };
+      }
+      // ---------------- 131 戻る（418622） ----------------
+      case 131: {
+        // var_1294 = 1；行动力为 0 时直接退出对话窗
+        if (actionPoints(g) <= 0) return { ok: true, message: '', close: true };
+        return { ok: true, message: '', sub: 'main' };
       }
       // ---------------- 118 心の開錠（418619） ----------------
       case 118: {
@@ -855,8 +917,46 @@
     return { ok: false, message: '什么也没有发生。' };
   }
 
+  /**
+   * 110「听听组合间的对话」（`var_2696 == 110`，414330-414460）。
+   *
+   * 源码只播两拍：先搭档（`var_2693\2 == 1` 时 `var_244 = var_58(167)`），
+   * 再本人；`var_2695` 在搭档开口时 +1，用奇偶在两套通用台词间轮换
+   * （`var_65(191) == 100` 表示 customtalk 146 没给出台词，才用通用句）。
+   * 第 3 拍（var_2693 == 3）清 2694/2696/2693/2697 后回主循环，所以是两句话。
+   *
+   * @param {number} n 本次进入 evochat 后第几次选「听听组合间的对话」（对应 var_2695）
+   * @returns {Array<{name:string, text:string}>}
+   */
+  function tagChatLines(g, c, n) {
+    const ti = c ? (c.get(TAG_PARTNER) | 0) : 0;
+    const t = (ti && g && g.charas) ? g.charas[ti] : null;
+    if (!c || !t) return [];
+    const say = (who, id) => {
+      if (Elona.Talk && Elona.Talk.say) {
+        const r = Elona.Talk.say(g, who, id);
+        if (r && r.text) return /^["「]/.test(r.text) ? r.text : `「${r.text}」`;
+      }
+      return '';
+    };
+    const odd = ((n | 0) % 2) !== 0;      // var_2695 \ 2 == 0 → 第一套
+    const out = [];
+    // 414411 / 414414：搭档那一拍
+    out.push({
+      name: t.name,
+      text: say(t, 146) || (odd ? '（不知该说什么，开始讲无聊笑话……）'
+        : `背后交给我吧，${c.name}。`),
+    });
+    // 414419 / 414422：本人那一拍
+    out.push({
+      name: c.name,
+      text: say(c, 146) || (odd ? '（似乎有些无语……）' : '好好好。'),
+    });
+    return out;
+  }
+
   Elona.Companion = {
-    STATE, HAPPY, MODE, REVIVE_FLAG, ACTIVE, DEAD, WAITING, HAPPY_MAX, AP_MAX, MODE_NAMES,
+    STATE, HAPPY, SP, MODE, REVIVE_FLAG, ACTIVE, DEAD, WAITING, HAPPY_MAX, AP_MAX, MODE_NAMES,
     happiness, addHappiness, actionPoints, spendAction, onWake,
     modeOf, modeName, setMode, setModeAll,
     AMMO_MODES, switchAmmo, ammoTypeOf, equippedAmmo,
@@ -865,7 +965,7 @@
     ITEM, isBed,
     // 0-DH：evochat
     ROUTES, canChat, chatOptions, petOptions, chat, unlockRates, lockPicking,
-    TEMPER, ROUTE, MADNESS,
+    TEMPER, ROUTE, MADNESS, tagChatLines,
     // 0-DH：タッグ
     TAG_PARTNER_SLOT, TAG_ROLE, tagPartner, tagPartnerIndex,
     tagBegin, tagEnd, tagCandidates, tagPairOf,

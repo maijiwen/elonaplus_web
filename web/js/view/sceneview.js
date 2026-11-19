@@ -285,23 +285,36 @@
     if (mcLoading) return mcLoading;
     mcLoading = (async () => {
       const map = {};
-      for (const base of ['assets/user/music/', 'assets/sound/']) {
-        try {
-          const res = await fetch(base + 'musiclist.txt');
-          if (!res.ok) continue;
-          const txt = await res.text();
-          for (const line of txt.split(/\r?\n/)) {
-            const cols = line.split('\t').map((s) => s.trim()).filter(Boolean);
-            if (cols.length < 2) continue;
-            const file = cols[0];
-            // 后面可能还有一列备注（原版 musiclist.txt 有几行多一个 TAB）
-            for (let i = 1; i < cols.length; i++) {
-              const key = cols[i].toLowerCase();
-              if (key && !(key in map)) map[key] = file;
-            }
+      const parse = (txt) => {
+        for (const line of String(txt).split(/\r?\n/)) {
+          const cols = line.split('\t').map((s) => s.trim()).filter(Boolean);
+          if (cols.length < 2) continue;
+          const file = cols[0];
+          // 后面可能还有一列备注（原版 musiclist.txt 有几行多一个 TAB）
+          for (let i = 1; i < cols.length; i++) {
+            const key = cols[i].toLowerCase();
+            if (key && !(key in map)) map[key] = file;
           }
-          break;                       // user 下找到就不再读 sound 下的
-        } catch (e) { /* 忽略，下一处 */ }
+        }
+      };
+      // 0-Z29 / 6870-6884：原版就是读 `user\music\musiclist.txt`，玩家可以改。
+      //   先走 UserDir（授权目录 → webkitdirectory 快照 → 内置默认包）。
+      if (Elona.UserDir && Elona.UserDir.readText) {
+        try {
+          const txt = await Elona.UserDir.readText('music/musiclist.txt');
+          if (txt) parse(txt);
+        } catch (e) { /* 没有用户目录就退回静态资源 */ }
+      }
+      if (!Object.keys(map).length) {
+        for (const base of ['assets/user/music/', 'assets/sound/']) {
+          try {
+            const res = await fetch(base + 'musiclist.txt');
+            if (!res.ok) continue;
+            const txt = await res.text();
+            parse(txt);
+            break;                       // user 下找到就不再读 sound 下的
+          } catch (e) { /* 忽略，下一处 */ }
+        }
       }
       MC_FILES = map;
       return map;
@@ -433,6 +446,8 @@
     isActive: () => active,
     /** 已结束的剧情段数（含被跳过的）。测试用它判断「这一段确实播完了」 */
     playedCount: () => playCount,
+    /** `user/music/musiclist.txt` 的解析结果（曲名小写 → 文件名）；0-Z29 自定义 BGM 表 */
+    musicList: () => loadMusicList(),
     _drawForTest: { wrap, drawPage },
     /** A39：头像图集的格位换算（测试用） */
     _faceForTest: { faceSheet, faceReady, preloadFaces },

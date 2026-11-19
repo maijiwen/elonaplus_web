@@ -13,3 +13,7 @@
 /.shots_equip/
 /.shots_fk/
 /elonaplus2.33R/
+/web/node_modules/
+/web/package-lock.json
+/web/main.cjs
+/web/package.json

@@ -88,6 +88,79 @@
   }
 
   /**
+   * 0-Z27：兴趣 var_58(14) —— 对话菜单与左侧蓝条都用它
+   *
+   * 【原版依据】
+   *   · 289585-289589：`if (现在小时数 >= var_58(15)) var_58(14) = 100`
+   *     过了 var_58(15) 记下的时刻就回满。
+   *   · 414150-414151：每闲聊一次 `var_58(14) -= rnd(20)`，并 `var_58(15) = 现在 + 12 小时`。
+   *   · 415128：`var_58(14) > 0` 菜单里才有「話がしたい」。
+   *   · 426639-426645：对话窗左侧蓝条按 `var_58(14) / 5 + 1` 条画。
+   *   · var_58(15) 初值 0（219684 建立角色时只把 var_58(14) 设成 100），
+   *     所以第一次对话前 `现在 >= 0` 恒成立，等于「一上来就是满的」。
+   *
+   * @returns {number} 当前兴趣（0..100），必要时已写回 100
+   */
+  function interestOf(npc, g) {
+    if (!npc) return 0;
+    // 0-Z27：Relation.refreshVigor 是同一件事的既有实现（A183），优先复用，
+    //   避免出现两套「兴趣」模型。
+    if (Elona.Relation && Elona.Relation.refreshVigor) {
+      return Elona.Relation.refreshVigor(g, npc) | 0;
+    }
+    const v = npc.get(14) | 0;
+    if (gameDate(g) >= (npc.get(15) | 0)) {
+      if (v !== 100) npc.set(14, 100);
+      return 100;
+    }
+    return v;
+  }
+
+  /**
+   * 0-Z27：一次闲聊的好感 / 兴趣结算（414135-414153）
+   *
+   *   if ( var_58(14, var_244) > 0 ) {
+   *     if ( var_58(9, var_244) != 10 ) {
+   *       if ( var_244 >= 16 ) {
+   *         if ( var_65(20) != 80 | var_65(22) != 70 ) {
+   *           if ( rnd(3) == 0 ) {
+   *             if ( var_58(17, var_244) < 100 ) {
+   *               if ( rnd(var_82(17, 0) + 1) > 10 ) { modimp var_244, rnd(3) }
+   *               else                              { modimp var_244, rnd(3) * (-1) }
+   *   ...}}}}
+   *     var_58(14, var_244) -= rnd(20)
+   *     var_58(15, var_244) = 现在 + 12 小时
+   *   }
+   *
+   * `var_82(17, 0)` 是主角的「魅力」（1767 行 `var_81(17) = "魅力"`），
+   * 所以魅力越高越容易掷到加好感。
+   * 这段在原版 `*label_3059` 里位于 `var_122 == ""` 的分支 —— 也就是**每次
+   * 重建会话窗**都会跑一次：打开对话窗算一次，选一次「話がしたい」
+   * （415806 `var_122 = ""` → `goto *label_3059`）再算一次。
+   */
+  function chatImp(g, npc) {
+    if (!g || !npc) return;
+    if (interestOf(npc, g) <= 0) return;              // 已经没兴趣了，不结算
+    if ((npc.get(9) | 0) === 10) return;              // 同阵营 / 同伴
+    const idx = npc.index | 0;
+    const party = (idx < 16)
+      || !!(Elona.Party && Elona.Party.isAlly && Elona.Party.isAlly(npc));
+    if (party) return;                                // 原版只对 var_244 >= 16 的镇民生效
+    const rng = g.rng || Elona.rng;
+    // 事务所（地图 80 / 子图 70，见 docs 2896）里闲聊不掷好感
+    const mapId = v65(g, 20) | 0, sub = v65(g, 22) | 0;
+    if (!(mapId === 80 && sub === 70)) {
+      if (rng.rnd(3) === 0 && (npc.get(17) | 0) < 100) {
+        const cha = g.player ? (g.player.skill(17) | 0) : 0;
+        if (rng.rnd(cha + 1) > 10) modImp(npc, rng.rnd(3), g);
+        else modImp(npc, -rng.rnd(3), g);
+      }
+    }
+    npc.set(14, Math.max(0, (npc.get(14) | 0) - rng.rnd(20)));
+    npc.set(15, gameDate(g) + 12);
+  }
+
+  /**
    * @param {object} npc 操作对象（玩家自己时 index 为 0）
    * @param {object} g
    * @returns {Array<{act:number,id:string,label:string}>} 按源码顺序
@@ -127,9 +200,8 @@
         push(0, 'talk', '交谈');
         if (!party) push(1, 'attack', '攻击');
       }
-      // 289584-289590：気力（var_58(14)）冷却回满后 >= 80 才能表达心意
-      const qi = (gameDate(g) >= f(15)) ? 100 : f(14);
-      if (qi >= 80) push(29, 'feelings', '表达心意');
+      // 289584-289590：兴趣（var_58(14)）冷却回满后 >= 80 才能表达心意
+      if (interestOf(npc, g) >= 80) push(29, 'feelings', '表达心意');
       // 289591-289624：给予 / 带出 / 采集身体部位 / 攻击（同伴）
       if (!noTalk) {
         if (party || (has(960) && mapId === 67)) push(4, 'give-take', '交出/收下物品');
@@ -237,7 +309,12 @@
    */
   function services(npc, g) {
     const r = roleOf(npc);
-    const out = [{ id: 'talk', label: '来聊聊聊天吧' }];
+    const out = [];
+    // 0-Z27 / 415128-415131：`if ( var_58(14, var_244) > 0 & var_506(1) == 0 )`
+    //   兴趣耗尽后「来聊聊天吧」消失，等 var_58(15) 到点（+12 小时）由 interestOf 回满。
+    if (interestOf(npc, g) > 0) {
+      out.push({ id: 'talk', label: '来聊聊天吧' });
+    }
     if (isShop(r)) {
       out.push({ id: 'shop-buy', label: '买东西' });
       out.push({ id: 'shop-sell', label: '卖东西' });
@@ -467,9 +544,24 @@
     1026: ['「要出海吗？」', '「船上的货，看看？」'],
   };
 
+  /**
+   * 0-Z27：会话窗正文 + 一次闲聊结算（`*label_3059` 的顺序）
+   *
+   * 原版 414098-414153 的顺序是：先 `gosub *label_0264` 取台词（其中
+   * `if ( var_58(14) <= 0 ) var_400 = %BORED` 用的是**扣减前**的兴趣），
+   * 然后才跑兴趣扣减 / 好感掷骰。所以这里先取文本，再结算。
+   */
   function talk(g, npc) {
+    const text = talkText(g, npc);
+    // 414135-414153：会话窗（var_122 == "" 的分支）重建一次就结算一次 ——
+    //   「打开对话窗」与「点一次来聊聊天吧」各一次，两条路都过本函数，等价。
+    chatImp(g, npc);
+    return text;
+  }
+
+  function talkText(g, npc) {
     const r = roleOf(npc);
-    const title = roleName(r);
+    // 0-Z25：窗口标题已显示「名字（头衔）」，正文不再拼前缀
     // 0-GN / 365740-365762：睡眠（var_58(256)>60）或眩晕（var_58(251)!=0）的角色，
     //   对话窗口第一项是「（XX 正睡得香甜……）」而非闲聊台词。
     if ((npc.get(251) | 0) !== 0 || (npc.get(256) | 0) > 60) {
@@ -487,7 +579,9 @@
       const t = Elona.Talk.say(g, npc, 106);
       if (t && t.text) {
         const line = /^["「]/.test(t.text) ? t.text : `「${t.text}」`;
-        return title ? `${npc.name}（${title}）${line}` : `${npc.name}${line}`;
+        // 0-Z25：去掉「名字（头衔）」前缀 —— 对话窗口标题已有名字（原版
+        //   txtsetconv 只拼台词本身，名字由对话框上方的标题栏显示）。
+        return line;
       }
     }
     // 0-GM / 414098-414105：原版先 gosub *label_0264 取 data\talk.txt 的随机闲聊，
@@ -497,12 +591,12 @@
       const idl = Elona.IdleTalk.idle(g, npc);
       if (idl && idl.text) {
         const body = /^[「"『]/.test(idl.text) ? idl.text : `「${idl.text}」`;
-        return (title ? `${npc.name}（${title}）` : npc.name) + body + extra;
+        return body + extra;   // 0-Z25：名字由窗口标题显示，正文不再拼前缀
       }
     }
     const lines = GREET[r] || GREET[3];
     const pick = lines[((g && g.rng) ? g.rng : Elona.rng).rnd(lines.length)];
-    const base = title ? `${npc.name}（${title}）${pick}` : `${npc.name}${pick}`;
+    const base = pick;   // 0-Z25：同上，正文不带名字前缀
     return base + extra;
   }
 
@@ -1554,24 +1648,56 @@
    *                 （本项目无 var_63(1) 称号，故为「名字 性别」）
    *   426553-426561 好感行 "(var_58(17))" + var_258..265[implevel(var_58(17))]
    *   426580-426591 兴致行 "(var_58(169))" + var_266..269[implevel2(var_58(169))]
-   *   426618-426638 興趣条：repeat var_58(433, var_244) 颗蓝色小图（每颗 8px）
+   *   426617-426638 var_58(433) 的红心（幸福度 / 行動力，不是兴趣）
+   *   426639-426645 興趣条：repeat var_58(14) / 5 + 1 条竖线
+   *                 （0-Z27 修正：此前误读成 var_58(433)，导致蓝条恒满）
    *   426593-426595 cbit 969 → cnvdate(var_58(84), 2)（記念日）
    *   426597-426610 否则 var_58(400)/var_58(401)（月/日），为 0 时用
    *                 var_65(11)/var_65(12)（当前月/日）初始化
    *
    * @returns {{title,face:{img,x,y},impLine,itLine,interest,anniversary}}
    */
+  /**
+   * 高清立绘的表情后缀（425627-425645）。
+   *   源码按顺序判 `var_58(79) \ 100`，**后面的会覆盖前面的**，所以优先级是
+   *   低血 / 26 > 17 > 6 > 21 > 18，最后落到默认 B。
+   *   A 生气 / Q 悲伤 / F 高兴 / H 脸红 / E 受伤 / B 平常
+   * @returns {'A'|'B'|'E'|'F'|'H'|'Q'}
+   */
+  function faceMood(npc) {
+    const pose = Math.trunc((npc.get(79) | 0) / 100);
+    const hp = npc.get(50) | 0, hpMax = npc.get(51) | 0;
+    if (pose === 26 || (hpMax > 0 && hp < hpMax / 2)) return 'E';
+    if (pose === 17) return 'H';
+    if (pose === 6) return 'F';
+    if (pose === 21) return 'Q';
+    if (pose === 18 || (npc.get(264) | 0) > 0) return 'A';
+    return 'B';
+  }
+
   function dialogInfo(npc, g) {
     const sex = npc.get(8) | 0;
     const gender = (sex === 0) ? '男性' : '女性';
     const portrait = npc.get(13) | 0;
-    const face = (Elona.CharCreate && Elona.CharCreate.faceTileOf)
+    const picNo = npc.get(431) | 0;          // var_58(431)：高清立绘编号（289363-289411）
+    let face = (Elona.CharCreate && Elona.CharCreate.faceTileOf)
       ? Elona.CharCreate.faceTileOf(sex, portrait < 0 ? 0 : portrait)
       : { img: 'face1.bmp', x: 0, y: 0 };
+    // 0-Z29：用户图像覆盖。原版 425517-425530 / 425536-425545 两条分支：
+    //   · `var_58(431) > 0` → `user\graphic2\face<431>_<表情>.bmp`（高清立绘）
+    //   · `var_58(13) < 0`  → `user\graphic\face<|portrait+1|>.bmp`（自定义脸）
+    //     但源码里还套了一层 `if (var_58(13) != -1)`：-1 就是「用 graphic\face1.bmp
+    //     的基础格」，不算自定义脸。所以只有 < -1 才去取文件。
+    //   两者都只是「换一张图」，所以这里给 face 挂一个 customPath，
+    //   由 view/ui.js 异步取 blob URL 之后覆盖 background-image。
+    if (picNo > 0) {
+      face = { img: face.img, x: face.x, y: face.y, highRes: true, picNo, mood: faceMood(npc) };
+    } else if (portrait < -1) {
+      face = { img: face.img, x: face.x, y: face.y, portrait, customPath: 'graphic/face' + Math.abs(portrait + 1) + '.bmp' };
+    }
     const lab = impLabel(npc);
-    const own = Math.max(0, npc.get(433) | 0);
-    const pl = g && g.player;
-    const interest = own || (pl ? Math.max(0, pl.get(433) | 0) : 0);
+    // 0-Z27：兴趣取自 var_58(14)（426618 的蓝条画的就是它）
+    const interest = Math.max(0, interestOf(npc, g));
     const monthOf = () => (g && typeof g.getV65 === 'function') ? (g.getV65(11) | 0) : 0;
     const dayOf = () => (g && typeof g.getV65 === 'function') ? (g.getV65(12) | 0) : 0;
     let anniversary;
@@ -1984,8 +2110,12 @@
       }
       case 'heal': return heal(g, player, npc);
       case 'companion-menu': return { ok: true, action: 'companion-menu', target: npc, message: '' };
-      // 0-DH：evochat / 一緒に食事
+      // 0-DH / 0-Z28：evochat / 一緒に食事
       case 'evochat': return { ok: true, action: 'evochat', target: npc, message: '' };
+      // 109 组合evochat（417990）：三人世界，进入 var_2697 == 1 的菜单
+      case 'evochat-tag': return { ok: true, action: 'evochat-tag', target: npc, message: '' };
+      // 110 听听组合间的对话（var_2696 == 110）：两拍台词后回主菜单
+      case 'evochat-watch': return { ok: true, action: 'evochat-watch', target: npc, message: '' };
       case 'share-meal': return { ok: true, action: 'share-meal', target: npc, message: '' };
       // 0-DG：调酒师的同伴服务（417429-417525）
       case 'revive-ally': {
@@ -2024,7 +2154,9 @@
   Elona.NPC = {
     ROLE_NAMES, SHOP_ROLES, loadTable, setSkillNames, setSkillShop, skillName,
     roleOf, roleName, isShop, services, actionMenu, talk, meal, drink, identify,
-    implevel, implevel2, impLabel, dialogInfo, IMP_LABELS, modImp, give, intel,
+    implevel, implevel2, impLabel, dialogInfo, faceMood, IMP_LABELS, modImp, give, intel,
+    // 0-Z27：兴趣（var_58(14)）读取与闲聊结算（414135-414153）
+    interestOf, chatImp,
     trainableSkills, trainCost, train, heal, infoText, perform, aside,
     calcIdentifyValue, unknownItems, identifyOne, identifyAll, investigate,
     magicStockExchange, magicPractice, PRACTICE, practiceQuote, practiceSpells, practiceCost,

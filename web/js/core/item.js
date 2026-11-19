@@ -290,6 +290,14 @@
      */
     _qualityAwareBase(it, lang) {
       const f8 = it.f[8] | 0;
+      // 0-Z29 / 30655-30870：已鉴定（f8 != 0）+ 有 plan 编号（f28 != 0）且 id 不是 342/729
+      //   → 名字整个换成 `user/item/planN.txt` 的 `%txtName`，这条分支直接
+      //   `var_719 += var_736` 就跳到累加之后，不再走品质包装（所以没有 ★☆）。
+      //   没加载到就返回 null，继续走下面的正常名，等下一次渲染时再取。
+      if (f8 !== 0 && Elona.ItemPlan) {
+        const custom = Elona.ItemPlan.nameOf(it, lang);
+        if (custom) return custom;
+      }
       const q = it.f[4] | 0;
       let cat = it.field657 | 0;
       if (!cat) { try { cat = this.ref(it.id | 0, 5) | 0; } catch (e) { cat = 0; } }

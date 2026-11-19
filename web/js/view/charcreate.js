@@ -471,13 +471,22 @@
     const v = p.pcc[item.idx] | 0;
     return item.color ? idiv(v, 1000) : (v % 1000);
   }
+
+  /** 肖像行的显示文本：负数段是玩家的自定义脸（`user/graphic/faceN.bmp`） */
+  function lookText(item) {
+    if (item && item.key === 'portrait') {
+      const p = S.portrait | 0;
+      if (p < -1) return `自定义 ${Math.abs(p + 1)}`;
+    }
+    return String(lookValue(item));
+  }
   function stepLook() {
     const items = LOOK_PAGES[S.lookPage | 0];
     if (S.sel >= items.length) S.sel = 0;
     const rows = items.map((it, i) => `<div class="cc-look-row${i === S.sel ? ' on' : ''}" data-act="lookrow" data-i="${i}">`
       + `<span class="cc-arrow" data-act="val" data-i="${i}" data-d="-1">≪</span>`
       + `<span style="padding-left:8px">${esc(it.jp)}</span>`
-      + `<span class="val">${(it.key === 'done' || it.key === 'page0' || it.key === 'page1') ? '' : lookValue(it)}</span>`
+      + `<span class="val">${(it.key === 'done' || it.key === 'page0' || it.key === 'page1') ? '' : lookText(it)}</span>`
       + `<span class="cc-arrow" data-act="val" data-i="${i}" data-d="1">≫</span></div>`).join('');
     return `<div class="cc-topic" style="position:absolute;left:34px;top:52px">项目</div>`
       + `<div class="cc-list" style="left:30px;top:86px;width:220px">${rows}</div>`
@@ -497,6 +506,30 @@
     return { img, x: (idx % 16) * 96, y: idiv(idx, 16) * 144 };
   }
   function faceTileHtml() { return faceTileOf(S.gender, S.portrait); }
+
+  // ---------------------------------------------------------------- 自定义脸
+  // 295185/295211：肖像可调范围 -40..30；负数段读 `user/graphic/faceN.bmp`
+  //   （N = |portrait+1|，293430-293435）。-1 表示「用 graphic\face1.bmp 的默认格」，
+  //   所以只有 < -1 才去找自定义脸。
+  const PORTRAIT_MIN = -40;
+  const PORTRAIT_MAX = 30;
+  let ccFaceToken = 0;
+
+  /** 肖像为负数时把 `#cc-face` 换成玩家自定义脸（异步，取不到就保留默认格） */
+  function applyCustomFace(el) {
+    if (!el) return;
+    const G = Elona.GraphicOverride;
+    const p = S.portrait | 0;
+    if (!G || !G.faceUrl || p >= -1) return;
+    const token = (ccFaceToken | 0) + 1;
+    ccFaceToken = token;
+    Promise.resolve(G.faceUrl(p)).then((u) => {
+      // 期间可能已经切回默认脸，别把旧图贴上
+      if (!u || ccFaceToken !== token) return;
+      el.style.backgroundImage = `url('${u}')`;
+      el.style.backgroundPosition = '0 0';
+    }).catch(() => { /* 没有自定义脸就保持默认格 */ });
+  }
 
   /**
    * 潜力 → 七档评价（原版 293783-293830 的 var_400 判定）
@@ -603,16 +636,20 @@
       let r;
       try { r = Elona.Battle.infoCorrection(g, p); } catch (e) { return null; }
       if (!r || !r.ok) return null;
+      // 0-Z33：与游戏内 correctionFix 同口径 —— 逐武器行（源码 295363-295410）
       const b = r.meleeB | 0;
-      // 倍率按 HSP 的 `"" + 実数` 再 strmid(…,0,3) 取 3 字符（1.14 → "1.1"）
-      let xs = String(Math.round((r.meleeX || 0) * 100) / 100);
-      if (xs.indexOf('.') < 0) xs += '.0';
-      const melee = `${r.meleeN}d${r.meleeS}${b > 0 ? '+' + b : (b < 0 ? b : '')}`
-        + ` x${xs.slice(0, 3)}`;
-      return [
-        [`格斗　${melee}`, `减轻　${r.protPct}% + ${r.protN}d${r.protS}`],
-        [`魔法威力　${r.spell}%`, `命中　${r.hit}%`, `回避　${r.evade}%`],
-      ];
+      const diceText = (row) => `${row.n}d${row.s}${row.b > 0 ? '+' + row.b : (row.b < 0 ? row.b : '')}`
+        + ` x${String(Math.round((row.x || 0) * 100) / 100).replace(/^([^.]+)$/, '$1.0').slice(0, 3)}`;
+      const rows = (r.rows && r.rows.length) ? r.rows
+        : [{ label: '格斗', n: r.meleeN, s: r.meleeS, b, x: r.meleeX, hit: r.hit }];
+      const left = [''], right = [`魔法威力　${r.spell}%`];
+      for (const row of rows) {
+        left.push(`${row.label}　${diceText(row)}`);
+        right.push(`命中　${row.hit}%`);
+      }
+      left.push(`减轻　${r.protPct}% + ${r.protN}d${r.protS}`);
+      right.push(`回避　${r.evade}%`);
+      return [left, right];
     })();
     return summaryHtml({
       face: faceTileHtml(), name: S.name, nameInput: true,
@@ -753,6 +790,7 @@
       f.style.backgroundImage = `url(assets/graphic/${face.img})`;
       f.style.backgroundPosition = `-${face.x}px -${face.y}px`;
     }
+    applyCustomFace(f);
     // 源码 295060-295090：光标停在「肖像」行时显示立绘，其余行显示 PCC 角色
     const showFace = isStep('summary') || (isStep('look') && (S.lookSel | 0) === 1);
     if (f) f.style.display = showFace ? 'block' : 'none';
@@ -936,7 +974,9 @@
     if (!p.pcc) cfg.api.ensurePcc(p);
     if (!p.pcc) return;
     if (it.key === 'portrait') {
-      S.portrait = Math.max(0, Math.min(159, (S.portrait | 0) + d));
+      // 295185-295212：肖像行 ≫ 上限 30、≪ 下限 -40。
+      //   负数段对应 `user/graphic/faceN.bmp`（N = |portrait+1|，-1 是「用默认脸」）。
+      S.portrait = Math.max(PORTRAIT_MIN, Math.min(PORTRAIT_MAX, (S.portrait | 0) + d));
       p.set(13, S.portrait | 0);
     } else if (it.idx !== undefined) {
       const cur = p.pcc[it.idx] | 0;

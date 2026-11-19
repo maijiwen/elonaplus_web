@@ -1593,38 +1593,73 @@
    *   var_2236                      → 魔法威力（293863-293870）
    * 全部走 battle.js 的正式公式，因此换装备 / 加 buff / 升技能后会立刻变化。
    *
+   * 0-Z33：按源码 295363-295410 的 *label_2812 逐件列出近战武器：
+   *   遍历 30 个装备槽，凡 f[10]>0 且槽类型不是 10/11 的武器各占一行「武器N」，
+   *   技能取该物品 f[16]（iequiploc==10 → 103）；一件都没有才显示「格闘」(106)；
+   *   再用 *label_2840（getRanged）判定是否显示「射撃」行。
+   *   每一行的命中/伤害都用**该行自己的武器与技能**（var_1368 / var_1322）算。
+   *
    * 纯读：所有调用的 mode 都在随机数之前返回，不会消耗 rng、不改角色状态。
    *
    * @param {object} g  当前对局（可为 null —— 创建画面预览时）
    * @param {object} ch 被查看的角色
    * @returns {{meleeN:number,meleeS:number,meleeB:number,meleeX:number,
    *            armor:number,protPct:number,protN:number,protS:number,
-   *            spell:number,hit:number,evade:number,ok:boolean}}
+   *            spell:number,hit:number,evade:number,ok:boolean,
+   *            rows:Array<{label:string,hit:number,n:number,s:number,b:number,x:number,skill:number}>}}
    */
   function infoCorrection(g, ch) {
     const out = {
       ok: false, meleeN: 0, meleeS: 0, meleeB: 0, meleeX: 1,
       armor: 0, protPct: 0, protN: 1, protS: 1, spell: 0, hit: 0, evade: 0,
+      rows: [],
     };
     if (!g || !ch || !ch.get) return out;
 
-    // *label_2811：逐件「有伤害骰」的武器各占一行；一件都没有就用空手（Unarmed）
-    let w = null;
+    // *label_2812（295363-295410）：逐槽收集有伤害骰的近战武器
+    //   if (var_58(slot)\10000==0) continue; if (/10000==10|11) continue;
+    //   var_1368 = var_58(slot)%10000 - 1; if (var_99(10,item)>0) → 一行
+    const weaponRows = [];
+    const count5 = () => {
+      let c = 0;
+      for (let n = 0; n < 30; n++) if (idiv(ch.get(100 + n), 10000) === 5) { c++; if (c >= 4) break; }
+      return c;
+    };
+    const rowOf = (label, weapon, skillId, atkType) => {
+      const dmg = calcAttackDmg(g, ch, ch, weapon, null, skillId, atkType || 0, false, 0, 3);
+      const h = calcAttackHit(g, ch, ch, weapon, null, skillId, atkType || 0, 1);
+      const d = (dmg && dmg.dice) || { n: 0, s: 0, b: 0, x: 1 };
+      return {
+        label, skill: skillId | 0,
+        n: d.n | 0, s: d.s | 0, b: d.b | 0, x: d.x,
+        hit: (h && h.hit) | 0,
+      };
+    };
     if (Elona.Equipment && Elona.Equipment.slots) {
       for (const s of Elona.Equipment.slots(ch)) {
-        if (s.item && s.item.f && (s.item.f[10] | 0) > 0) { w = s.item; break; }
+        if (s.type === 10 || s.type === 11) continue;          // 远程 / 弹药不算近战
+        const it = s.item;
+        if (!it || !it.f || (it.f[10] | 0) <= 0) continue;     // var_99(10)>0
+        let skill = it.f[16] | 0;
+        const loc = Elona.ItemDB ? (Elona.ItemDB.equipLocById(it.id) | 0) : 0;
+        if (loc === 10) skill = 103;                            // 295389 if iequiploc==10
+        weaponRows.push(rowOf('武器' + (weaponRows.length + 1), it, skill));
       }
     }
-    const skillId = (w && w.f[16]) ? (w.f[16] | 0) : 106;
+    // 一件都没有 → 「格闘」(106)
+    if (!weaponRows.length) weaponRows.push(rowOf('格斗', null, 106));
+    out.rows = weaponRows.slice();
+    // 兼容旧字段：melee* / hit 取第一行（无武器时即格斗行）
+    const first = weaponRows[0];
+    out.meleeN = first.n; out.meleeS = first.s; out.meleeB = first.b; out.meleeX = first.x;
+    out.hit = first.hit;
 
-    // 打撃骰 + 倍率（mode 3：不掷骰）
-    const dmg = calcAttackDmg(g, ch, ch, w, null, skillId, 0, false, 0, 3);
-    if (dmg && dmg.dice) {
-      out.meleeN = dmg.dice.n | 0;
-      out.meleeS = dmg.dice.s | 0;
-      out.meleeB = dmg.dice.b | 0;
-      out.meleeX = dmg.dice.x;
+    // *label_2840（300458）：stat==1 时追加「射撃」行
+    const ranged = (typeof getRanged === 'function') ? getRanged(g, ch) : null;
+    if (ranged && ranged.ok && ranged.weapon) {
+      out.rows.push(rowOf('射击', ranged.weapon, ranged.skill, 2));
     }
+
     // 护甲 PV + 减免率（mode 2；源码 213090-213100 的 var_1392/1393/1394）
     const pv = calcAttackDmg(g, ch, ch, null, null, 106, 0, false, 0, 2);
     out.armor = (pv && pv.armor) | 0;
@@ -1636,9 +1671,7 @@
     } else {
       out.protPct = 0; out.protN = 1; out.protS = 1;
     }
-    // 命中 / 回避（mode 1 / 2，源码 293871、212232 的 prm 分支）
-    const h = calcAttackHit(g, ch, ch, null, null, 106, 0, 1);
-    out.hit = (h && h.hit) | 0;
+    // 回避（mode 2，源码 293871、212232 的 prm 分支）
     const e = calcAttackHit(g, ch, ch, null, null, 106, 0, 2);
     out.evade = (e && e.eva) | 0;
     // 魔法威力（293863-293870）

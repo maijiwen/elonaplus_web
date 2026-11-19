@@ -97,33 +97,57 @@
       return out;
     },
 
-    /** 加载一份对话文件（data/talk/<key>.json） */
+    /** 加载一份对话文件（user/talk/<key>.txt → data/talk/<key>.json） */
     async load(key) {
       const k = String(key || '').replace(/\.txt$/i, '');
       if (!k) return null;
       if (cache.has(k)) return cache.get(k);
       let data = null;
-      try {
-        data = await Elona.Data.fetchJson('data/talk/' + k + '.json');
-      } catch (e) {
-        data = null;
+      // 0-Z29 / 192947-192955：原版每次都从 `user\talk\<名字>.txt` 现读，
+      //   所以玩家改了 txt 就立刻生效。网页版先走 UserDir（授权目录 →
+      //   webkitdirectory 快照 → 内置默认包），拿到原文就自己解析。
+      if (Elona.UserDir && Elona.UserDir.readText) {
+        try {
+          const txt = await Elona.UserDir.readText('talk/' + k + '.txt');
+          if (txt) {
+            const tags = this.parse(txt, null);   // 同时收 JP / EN 两段
+            if (Object.keys(tags).length) data = { key: k, tags, from: 'user' };
+          }
+        } catch (e) { /* 读不到就走下面的 JSON */ }
+      }
+      if (!data) {
+        try {
+          data = await Elona.Data.fetchJson('data/talk/' + k + '.json');
+        } catch (e) {
+          data = null;
+        }
       }
       cache.set(k, data);
       return data;
     },
 
-    /** 启动时把 index.json 里所有对话文件读进缓存 */
+    /** 清空已加载的台词表（用户改了 txt 之后调用，对应原版每次 noteload） */
+    invalidate() { cache.clear(); fileList = []; },
+
+    /** 启动时把 index.json + user/talk/*.txt 里所有对话文件读进缓存 */
     async preloadAll() {
+      const set = new Set();
       let idx = null;
       try {
         idx = await Elona.Data.fetchJson('data/talk/index.json');
-      } catch (e) {
-        return { count: 0, files: [] };
+      } catch (e) { idx = null; }
+      for (const row of ((idx && idx.files) || [])) set.add(row.key);
+      // 0-Z29 / 291110-291121：原版口調一覧是 `dirlist user\talk\*.txt` 现场列出来的，
+      //   所以用户新丢一个 txt 进去就多一个口調。这里把用户目录里的也并进来。
+      if (Elona.UserDir && Elona.UserDir.list) {
+        try {
+          const names = await Elona.UserDir.list('talk', '*.txt');
+          for (const n of names) set.add(String(n).replace(/\.txt$/i, ''));
+        } catch (e) { /* 没有用户目录就只用 index.json */ }
       }
-      const files = (idx && idx.files) || [];
-      fileList = files.map((r) => r.key);
-      for (const row of files) await this.load(row.key);
-      return { count: files.length, files: fileList.slice() };
+      fileList = Array.from(set).sort((a, b) => a.localeCompare(b, 'en'));
+      for (const k of fileList) await this.load(k);
+      return { count: fileList.length, files: fileList.slice() };
     },
 
     /**

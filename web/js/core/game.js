@@ -442,11 +442,14 @@
 
     // ---------- 消息 ----------
     log(text) {
-      // 0-DD：只在「该回合的第一条消息」前加分钟数（原版「添加时间信息」选项）
-      //   原版消息栏形如 `[48] あなたは…`，分钟数取 var_65(14)
+      // 0-Z32：严格按源码 8100 的 txt_conv —— 每条玩家回合的第一条消息前
+      //   加 `[时:分] `（`var_232 = "[" + var_65(13) + ":" + var_65(14) + "] " + var_232`）。
+      //   `var_230 = 1` 只在 603962（玩家回合起点 *label_4354）置位，随后被 8098 清零，
+      //   所以是「每回合第一条」而非「每行」。config.txt 的 msg_addTime.="1" 默认开启。
+      //   注：小时/分钟都不补零（源码字符串拼接数字）。
       const turn = this.turn | 0;
       const prefix = (this._msgTurn !== turn)
-        ? `[${String(this.getV65(14) | 0).padStart(2, '0')}] ` : '';
+        ? `[${this.getV65(13) | 0}:${this.getV65(14) | 0}] ` : '';
       this._msgTurn = turn;
       const line = prefix + text;
       this.messages.push(line);
@@ -2656,6 +2659,10 @@
         this.setV65(64, arenaMap === 'arena_2' ? 40 : 6);
         this.setV65(65, 1);
         const placed = A.beginBattle(this);
+        // 0-Z26：宠物竞技场生成观众（arena_2 地图对象 kind==1 → characreate，
+        //   原版 map_initcustom 227718-227720 的行为）。人竞技场 arena_1 的
+        //   地图对象里没有 kind==1，spawnAudience 自然不生成任何角色。
+        if (A.spawnAudience) A.spawnAudience(this);
         // 0-Z23 / 0-Z24：宠物竞技场 —— 玩家在观众席观战，镜头跟随出战宠物，
         //   按任意键过一回合（Esc 放弃比赛），一方全灭即结算并自动回城。
         if (a.petMode && A.watchStart) A.watchStart(this);
@@ -2693,6 +2700,13 @@
         }
         this.questMap = null;
         await this.loadMap(ret.map);
+        // 0-Z26：移除宠物竞技场的观众（原版换图时内嵌角色随地图一起消失）
+        if (this.charas) {
+          for (let k = 57; k < this.charas.length; k++) {
+            const c = this.charas[k];
+            if (c && c.arenaAudience) { c.set(0, 0); this.charas[k] = null; }
+          }
+        }
         // 0-Z23：还原进场时临时离场的城镇 NPC（源码回城 map_reload 重建镇民）。
         //   必须放在 loadMap(原图) 之后：坐标在那张图上才有意义，且 loadMap 的
         //   syncCharaCells 会按 state=1 重新占格。
@@ -6191,6 +6205,14 @@
       if (this.events) this.events.process(this);
       if (this.player && this.player.hp <= 0) {
         this.state = STATE.DEAD;
+        // 0-Z29 / 606547-606570：原版死亡时会问「遺言は？」，
+        //   留空则从 `user/lastwords.txt` 随机取一句（txtsetlastword 9707-9712）。
+        //   网页版没有输入框，直接取随机遗言写进消息栏 —— 与「留空」分支等价。
+        if (!this._diedWords && Elona.LastWords) {
+          this._diedWords = true;
+          const lw = Elona.LastWords.dying('', this);
+          if (lw) this.log(lw);
+        }
         // 0-FI：Loss 模式（201186）玩家死亡 → var_65(196)=4，存档作废
         if (Elona.GameMode) {
           const gm = Elona.GameMode.onPlayerDeath(this);
@@ -6730,6 +6752,8 @@
       this.restoreCharasFromSave(data);
       this.syncCharaCells();
       this.state = STATE.PLAY;
+      this._diedWords = false;          // 0-Z29：读档后允许再留一次遗言
+      if (this.player) this.player._equipChanged = false;   // 0-Z31：换装备的回合结算是瞬态
       return true;
     }
   }

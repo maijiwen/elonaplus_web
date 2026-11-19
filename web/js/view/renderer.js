@@ -267,7 +267,27 @@
     }
 
     /** 绘制地图（玩家固定在视口第 8 列 / 第 5 行，视口 800×512） */
+    /**
+     * 0-Z29：图集加载完之后，把 `user/graphic` 与 `user/item` 里的单格 bmp 贴上去。
+     *   原版这一步在启动时做一次（303102-303158 的 `gsel 5 / gsel 1` + `picload`），
+     *   网页版的两张图集都是异步加载的，所以放在 drawMap 里「都就绪了就补一次」。
+     */
+    _maybeUserGraphics() {
+      if (this._userGfxDone) return;
+      const G = Elona.GraphicOverride;
+      // 不要求 UserDir.ready：内置素材包（web/assets/user/）也是合法来源，
+      //   原版从来就是无条件读 user/graphic/ 的。
+      if (!G || !Elona.UserDir) return;
+      if (!this.itemSheet || !(this.sheets && this.sheets.character)) return;
+      this._userGfxDone = true;
+      G.applyTo(this).then((st) => {
+        const n = (st.chara + st.pic + st.item + st.plan) | 0;
+        if (n) console.log(`[用户目录] 覆盖图块 ${n} 个（角色 ${st.chara}+${st.pic} / 物品 ${st.item}+${st.plan}）`);
+      }).catch(() => { });
+    }
+
     drawMap(game) {
+      this._maybeUserGraphics();
       const map = game.map, ctx = this.ctx;
       const sheet = this.sheets[map.tileset];
       if (!sheet) { this.drawHud(game); return; }
@@ -1716,11 +1736,8 @@
           if (!drawn) {
             const idx = this.charaSpriteIndex(who);
             if (idx >= 0) {
-              const sx = (idx % COLS) * TILE, sy = Math.floor(idx / COLS) * TILE;
-              if (sx + TILE <= ch.width && sy + TILE <= ch.height) {
-                if (scaled) ctx.drawImage(ch, sx, sy, TILE, TILE, bx, by, TAG_SZ, TAG_SZ);
-                else ctx.drawImage(ch, sx, sy, TILE, TILE, dx, dy, TILE, TILE);
-              }
+              const sz = scaled ? TAG_SZ : TILE;
+              this.drawCharaSprite(ctx, ch, idx, scaled ? bx : dx, scaled ? by : dy, sz, sz);
             }
           }
           ctx.restore();
@@ -1799,6 +1816,30 @@
      *   694..724 区间直接使用原值
      * var_597 网格：列 = idx \ 33，行 = idx / 33（48px/格，33 列）。
      */
+    /**
+     * 按源码 `var_597` 的几何画角色贴图 —— 0-Z30。
+     *
+     * 184 个 idx 的 var_597(3) = var_452*2（96px = 两格高），网页版原先一律
+     * 取 48×48，于是绿龙/巨像这类怪物只露出上半身。这里取完整高度并把
+     * **脚底对齐到原来的格子底边**（源码 var_597(4) 已让两格贴图的脚底与
+     * 一格贴图齐平：h - anchor = 96-64 = 48-16 = 32）。
+     * @param {number} idx charaSpriteIndex() 的结果
+     * @param {number} dw/dh 目标宽高（组队叠画时是 36×36）
+     */
+    drawCharaSprite(ctx, sheet, idx, dx, dy, dw, dh) {
+      if (!sheet || idx < 0) return false;
+      const S = Elona.CharaSprite;
+      const srcH = S ? (S.heightOf(idx) | 0) : TILE;
+      const w = dw === undefined ? TILE : dw;
+      const h = dh === undefined ? TILE : dh;
+      const sx = (idx % COLS) * TILE;
+      const sy = Math.floor(idx / COLS) * TILE;
+      if (sx + TILE > sheet.width || sy + srcH > sheet.height) return false;
+      const destH = Math.round(h * srcH / TILE);
+      ctx.drawImage(sheet, sx, sy, TILE, srcH, dx, dy - (destH - h), w, destH);
+      return true;
+    }
+
     charaSpriteIndex(c) {
       let raw = c.get(7) | 0;
       const css = c.get(435) | 0;
@@ -1915,10 +1956,12 @@
           let idx = this.charaSpriteIndex(who);
           if (playerPath && idx < 0) idx = 16;  // 冒险者外观占位
           if (idx >= 0) {
-            if (scaled) ctx.drawImage(ch, (idx % COLS) * TILE, Math.floor(idx / COLS) * TILE,
-              TILE, TILE, bx, by, TAG_SZ, TAG_SZ);
-            else ctx.drawImage(ch, (idx % COLS) * TILE, Math.floor(idx / COLS) * TILE,
-              TILE, TILE, dx, dy, TILE, TILE);
+            const sz = scaled ? TAG_SZ : TILE;
+            if (!this.drawCharaSprite(ctx, ch, idx, scaled ? bx : dx, scaled ? by : dy, sz, sz)
+              && playerPath) {
+              ctx.fillStyle = '#ffd700';
+              ctx.fillRect(dx + 8, dy + 8, TILE - 16, TILE - 16);
+            }
           } else if (playerPath) {
             ctx.fillStyle = '#ffd700';
             ctx.fillRect(dx + 8, dy + 8, TILE - 16, TILE - 16);

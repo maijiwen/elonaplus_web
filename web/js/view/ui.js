@@ -25,7 +25,20 @@
     messages: [],
     msgVersion: 0,
 
-    pushMessage(text) {
+    /**
+     * 消息栏唯一显示入口 —— 0-Z32。
+     * 源码只有一条通道（var_232 → txt_conv，8100 行统一加 `[时:分] `），
+     *   所以任何要显示在下方日志栏的文字都必须先经 `game.log()` 加前缀并存入存档。
+     * @param {string} text
+     * @param {boolean} [formatted] true = 已经过 game.log 格式化（回调 / 读档重建），直接显示，
+     *                              避免 game.log → onMessage → pushMessage 的递归。
+     */
+    pushMessage(text, formatted) {
+      if (!formatted && Elona.game && typeof Elona.game.log === 'function'
+          && Elona.game.onMessage) {
+        Elona.game.log(String(text));
+        return;
+      }
       this.messages.push(String(text));
       if (this.messages.length > 31) this.messages.splice(0, this.messages.length - 31);
       this.msgVersion++;
@@ -144,6 +157,16 @@
     },
 
     closeInventory() {
+      // 源码 605336-605339（*label_4363）：装备窗里换过装备会置 var_65(808)，
+      //   **关闭窗口时**才播「装備を変更した。」并 goto *label_4358 —— 一次开窗只消耗 1 回合。
+      // 网页版原先每次穿/脱都 endTurn，连换 3 件就白走 3 回合，这里改成窗口关闭时结算一次。
+      const g = Elona.game;
+      if (g && g.player && g.player._equipChanged
+        && g.state === Elona.Game.STATE.PLAY) {
+        g.player._equipChanged = false;
+        if ((g.player.get(269) | 0) === 0) this.pushMessage('你改变了装备。');
+        if (g.endTurn) g.endTurn();
+      }
       this.invOpen = false;
       this.invMode = 'bag';
       this.equipSlotN = -1;
@@ -365,7 +388,9 @@
         Elona.Stats.refreshSpeed(game.player, game);
       }
       if (Elona.Feat && Elona.Feat.applyWeight) Elona.Feat.applyWeight(game.player, game);
-      if (game.endTurn) game.endTurn();
+      // 295769 / 297814：这里只置 var_65(808)；真正的回合消耗在关闭装备窗时
+      //   （605336-605339），因此连续换多件也只算一回合。
+      if (game && game.player) game.player._equipChanged = true;
     },
 
     /** 执行选中行（对应原版 cs_list 的确定动作） */
@@ -1373,8 +1398,29 @@
       if (title) title.textContent = info.title;
       const face = this.el('npc-face');
       if (face) {
+        // 0-Z29：先摆内置图集那一格，再异步问用户目录有没有覆盖图。
+        //   425517-425530  var_58(13) < 0  → user\graphic\faceN.bmp（自定义脸）
+        //   289363-289411  var_58(431) > 0 → user\graphic2\faceN_<表情>.bmp（高清立绘）
         face.style.backgroundImage = `url('assets/graphic/${info.face.img}')`;
         face.style.backgroundPosition = `-${info.face.x | 0}px -${info.face.y | 0}px`;
+        face.style.backgroundSize = '';
+        const G = Elona.GraphicOverride;
+        const wantHigh = info.face.highRes && G && G.highResFaceUrl;
+        const wantFace = !info.face.highRes && info.face.customPath && G && G.faceUrl;
+        if ((wantHigh || wantFace) && Elona.UserDir) {
+          const token = (this._faceToken | 0) + 1;
+          this._faceToken = token;
+          const p = wantHigh
+            ? G.highResFaceUrl(info.face.picNo, info.face.mood)
+            : G.faceUrl(info.face.portrait);
+          Promise.resolve(p).then((u) => {
+            // 期间可能已经换了对话对象，别把旧图贴到新窗口
+            if (!u || this._faceToken !== token) return;
+            face.style.backgroundImage = `url('${u}')`;
+            face.style.backgroundPosition = '0 0';
+            face.style.backgroundSize = '100% 100%';
+          }).catch(() => { });
+        }
       }
       const l1 = this.el('npc-imp-1'), l2 = this.el('npc-imp-2');
       const anniv = this.el('npc-anniversary');
@@ -1383,10 +1429,11 @@
       if (anniv) anniv.textContent = info.anniversary;
       const bar = this.el('npc-interest');
       if (bar) {
+        // 0-Z27 / 426639-426645：原版按 `repeat var_58(14) / 5 + 1` 画竖条
+        //   （兴趣 100 → 21 条；兴趣 0 也留 1 条）。此前用的是 var_58(433)，恒满。
         const total = Math.max(0, info.interest | 0);
-        const n = Math.min(total, 22);        // 426619 repeat 每颗 8px，左栏宽 172px
-        bar.innerHTML = (n ? '<i></i>'.repeat(n) : '<span>—</span>')
-          + (total > 22 ? `<span>+${total - 22}</span>` : '');
+        const n = Math.min(Math.floor(total / 5) + 1, 22);
+        bar.innerHTML = '<i></i>'.repeat(n);
       }
       return info;
     },
@@ -2228,6 +2275,23 @@
           if (r.action === 'evochat') {
             this.closeNPC();
             if (Elona.Panels) Elona.Panels.openEvochat(game, r.target);
+            return;
+          }
+          // 0-Z28：109 组合evochat —— 三人世界，进 var_2697 == 1 的菜单
+          if (r.action === 'evochat-tag') {
+            this.closeNPC();
+            const ti = r.target.get(Elona.Companion.TAG_PARTNER_SLOT) | 0;
+            const tg = ti && game.charas ? game.charas[ti] : null;
+            this.pushMessage(tg
+              ? `你和${r.target.name}与${tg.name}进入了只有三个人的世界。`
+              : '对方没有搭档。');
+            if (Elona.Panels) Elona.Panels.openEvochat(game, r.target, 'main', { tag: ti });
+            return;
+          }
+          // 0-Z28：110 听听组合间的对话（两拍台词后回 evochat 主菜单）
+          if (r.action === 'evochat-watch') {
+            this.closeNPC();
+            if (Elona.Panels) Elona.Panels.playWatch(game, r.target);
             return;
           }
           // 0-DH：一緒に食事（先选食物，再两人分食）

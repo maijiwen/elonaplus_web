@@ -18,6 +18,7 @@
 
   const game = new Elona.Game();
   const renderer = new Elona.Renderer(document.getElementById('screen'));
+  Elona.renderer = renderer;      // 0-Z29：用户目录面板要重置图集覆盖标记
   const UI = Elona.UI;
   let animationHandle = null;
   let titleScreen = null;
@@ -1487,7 +1488,7 @@
       await renderer.loadSheet(game.map.tileset);
       await renderer.loadCharacterSheet();
       UI.clearMessages();
-      for (const m of game.messages) UI.pushMessage(m);
+      for (const m of game.messages) UI.pushMessage(m, true);
       UI.show('game');
       startLoop();
       if (Elona.Audio) Elona.Audio.bgm('town');
@@ -1582,10 +1583,47 @@
         console.warn('[启动] 进化规则表加载失败:', e.message);
       }
     }
+    // 用户自定义目录（原版 `user\`）—— 0-Z29
+    //   先尝试无弹窗地恢复上次授权的目录；授权 / 断开时把各功能模块重读一遍。
+    if (Elona.UserDir) {
+      const reloadUser = async (why) => {
+        if (Elona.Talk) { Elona.Talk.invalidate(); await Elona.Talk.preloadAll(); }
+        if (Elona.ItemPlan) { Elona.ItemPlan.invalidate(); await Elona.ItemPlan.preloadAll(); }
+        if (Elona.Audio && Elona.Audio.refreshUserAssets) {
+          const r = await Elona.Audio.refreshUserAssets();
+          console.log(`[用户目录] 自定义音效 ${r.sfx} 个 / 自定义 BGM ${r.music} 首`);
+        }
+        if (Elona.GraphicOverride) Elona.GraphicOverride.invalidate();
+        if (Elona.CustomNpc) Elona.CustomNpc.invalidate();
+        if (Elona.LastWords) { Elona.LastWords.invalidate(); await Elona.LastWords.preload(); }
+        console.log(`[用户目录] ${why} → ${Elona.UserDir.state}`
+          + (Elona.UserDir.dirName ? `（${Elona.UserDir.dirName}）` : ''));
+      };
+      Elona.UserDir.onChange((e) => { reloadUser(e.type); });
+      try {
+        const ok = await Elona.UserDir.restore();
+        if (!ok) await reloadUser('startup');
+      } catch (e) { /* 没有目录就只用内置包 */ }
+    }
+
     // NPC 自定义对话（user/talk/*.txt → data/talk/*.json）
     if (Elona.Talk) {
       const tk = await Elona.Talk.preloadAll();
       if (tk.count) console.log(`[启动] 自定义对话 ${tk.count} 份：${tk.files.join(', ')}`);
+    }
+    // 自定义物品（user/item/plan1-33.txt）—— 0-Z29
+    if (Elona.ItemPlan) {
+      try {
+        const n = await Elona.ItemPlan.preloadAll();
+        if (n) console.log(`[启动] 自定义物品描述 ${n} 份`);
+      } catch (e) { /* 内置包缺失时静默 */ }
+    }
+    // 遗言（user/lastwords.txt）—— 0-Z29，死亡是同步流程，所以启动时先读进内存
+    if (Elona.LastWords) {
+      try {
+        const n = await Elona.LastWords.preload();
+        if (n) console.log(`[启动] 遗言 ${n} 句`);
+      } catch (e) { /* 忽略 */ }
     }
     // 固定 NPC 对话脚本（*label_3035..3038，172 个种族分支）
     // 表有 2.8MB，不参与启动等待 —— 后台下载，首次搭话前大概率已就绪；
@@ -1622,8 +1660,8 @@
     });
     titleScreen.start();
 
-    // 消息 → 消息窗（game.log 的回调）
-    game.onMessage = (text) => UI.pushMessage(text);
+    // 消息 → 消息窗（game.log 的回调；行已带 `[时:分] ` 前缀，直接显示不再过 log）
+    game.onMessage = (text) => UI.pushMessage(text, true);
     // 地图切换后重载图块表 + 切换环境音
     game.onMapChange = (map) => {
       renderer.loadSheet(map.tileset).catch(() => { });

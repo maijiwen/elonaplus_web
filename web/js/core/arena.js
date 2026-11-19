@@ -202,6 +202,40 @@
   }
 
   /**
+   * 0-Z26：宠物竞技场的观众 —— arena_2 地图对象 kind==1（原版 map_initcustom
+   *   227718-227720 对 kind==1 逐个 `characreate -1, id, x, y`），站在上方围栏
+   *   外的走廊（第 1~2 行）。人竞技场 arena_1 的地图对象里没有 kind==1，
+   *   所以按数据自然区分：有观众数据的图才有观众，与源码行为一致。
+   *   观众是中立角色（characreate 的默认关系 0），不参与比赛；
+   *   离场时由 game.leaveArenaMap 随地图一起移除。
+   * @returns {number[]} 生成的观众槽位列表
+   */
+  function spawnAudience(g) {
+    const created = [];
+    if (!g.map || !g.map.objects) return created;
+    const occupied = new Set((g.charas || []).filter(Boolean).map((c) => c.index | 0));
+    let slot = 57;
+    for (const o of g.map.objects) {
+      if (!o || (o[4] | 0) !== 1) continue;
+      while (occupied.has(slot) || (g.charas && g.charas[slot])) slot++;
+      if (slot >= 245) break;
+      let c = null;
+      try {
+        c = Elona.CharaFactory.create(g, o[0] | 0, 1, o[1] | 0, o[2] | 0, { index: slot });
+      } catch (e) { c = null; }                    // 单只失败不影响其余观众
+      if (!c) continue;
+      c.set(9, 0);                                 // 中立（原版 characreate 默认关系）
+      c.set(69, 0);
+      c.arenaAudience = true;                      // 离场清理 / 清场跳过的标记
+      occupied.add(slot);
+      created.push(slot);
+      slot++;
+    }
+    if (created.length && g.syncCharaCells) g.syncCharaCells();
+    return created;
+  }
+
+  /**
    * 0-CM：竞技场对手的区域放置 —— map_placearena（227947-227977）。
    *   反复 `x = rnd(7)+5（type 0 再 +8）, y = rnd(6)+6`，放上角色后校验区域：
    *     type 0 → x∈[13,20), y∈[6,12)；type 1 → x∈[5,12), y∈[6,12)。
@@ -447,6 +481,10 @@
     if (!g.charas) return hidden;
     for (const c of g.charas) {
       if (!c || (c.get(0) | 0) !== 1 || keep.has(c.index | 0)) continue;
+      // 0-Z26：观众（arena_2 地图对象 kind==1 生成的中立角色）不清场 ——
+      //   源码 238722 / 238768 的 repeat 16 只扫同伴槽 0..15，
+      //   观众是 57+ 槽的地图内嵌角色，原版换图时才随地图一起消失。
+      if (c.arenaAudience) continue;
       // 人竞技场：只清镇民（源码 var_58(9)==10；网页版镇民用槽 57..131 +
       //   var_58(150)==3 固定居民标记，关系为 0，两种口径都认）。
       // 宠物竞技场：把所有非出战角色清场（源码 var_1635==0）。
@@ -1094,6 +1132,8 @@
     days, restoreWithdrawn,
     // 0-Z23：竞技场清场 / 还原（只留敌对怪物）
     clearArenaCivilians, restoreArenaCivilians,
+    // 0-Z26：宠物竞技场观众（arena_2 地图对象 kind==1 → characreate）
+    spawnAudience,
     // 0-Z23：宠物竞技观战（按任意键过回合 → 自动结算回城）
     watchStart, isWatching, watchTick, watchSurvivors, onPetDefeat,
     // 0-Z24：观战镜头跟随出战宠物（210858-210861）、←/→ 切换（605208-605246）、Esc 放弃（605265-605280）

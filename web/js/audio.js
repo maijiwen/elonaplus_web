@@ -83,6 +83,41 @@
     return cache[name];
   }
 
+  // ---------------------------------------------------------------- 用户目录（0-Z29）
+  /**
+   * 原版 `user\sound\seN.wav` / `user\music\*` 是玩家自定义的音效与 BGM：
+   *   6767-6870  `var_119 = var_47 + "user\sound\"` → `sndload se0..se99.wav, 188..287`
+   *   7430-7452  播 BGM 时先找 `user\music\<文件>`，找不到才退回 `sound\<文件>`
+   *
+   * 网页版的做法：拿到目录后**一次性**把所有音频转成 blob URL 缓存到表里，
+   * 这样 `sfx()` / `midi()` 仍是同步函数（调用点太多，不能全改成 await）。
+   */
+  const userSfx = new Map();        // 'se0' → blob:
+  const userMusic = new Map();      // 'pop01.mid' → blob:
+
+  async function refreshUserAssets() {
+    userSfx.clear();
+    userMusic.clear();
+    const U = Elona.UserDir;
+    // 不判 ready：内置素材包（web/assets/user/）也算来源，和原版「直接读 user\sound\」一致。
+    if (!U || !U.list || !U.url) return { sfx: 0, music: 0 };
+    try {
+      for (const n of await U.list('sound', '*.wav')) {
+        const u = await U.url('sound/' + n);
+        if (u) userSfx.set(String(n).replace(/\.wav$/i, '').toLowerCase(), u);
+      }
+    } catch (e) { /* 目录不可读就跳过 */ }
+    try {
+      for (const pat of ['*.mid', '*.midi', '*.mp3', '*.ogg', '*.wav']) {
+        for (const n of await U.list('music', pat)) {
+          const u = await U.url('music/' + n);
+          if (u) userMusic.set(String(n).toLowerCase(), u);
+        }
+      }
+    } catch (e) { /* 同上 */ }
+    return { sfx: userSfx.size, music: userMusic.size };
+  }
+
   const Audio2 = {
     /** 语义名播放（未知名静默忽略，避免刷日志） */
     play(name) {
@@ -128,7 +163,9 @@
       if (!enabled || volume <= 0 || !file) return null;
       const name = String(file).replace(/\.wav$/i, '');
       try {
-        const a = el(name);
+        // 0-Z29：`user\sound\seN.wav` 优先（原版 6767-6870 把 se0-se99 指到 user 目录）
+        const u = userSfx.get(name.toLowerCase());
+        const a = u ? new Audio(u) : el(name);
         a.volume = volume;
         a.currentTime = 0;
         const p = a.play();
@@ -136,6 +173,13 @@
         return a;
       } catch (e) { return null; }
     },
+
+    /** 用户目录里有没有这个音效（差异核对 / 测试用） */
+    userSfxUrl(name) { return userSfx.get(String(name || '').replace(/\.wav$/i, '').toLowerCase()) || null; },
+    /** 用户目录里有没有这个 BGM */
+    userMusicUrl(name) { return userMusic.get(String(name || '').toLowerCase()) || null; },
+    /** 重新扫描 user/sound 与 user/music（目录变更后调用） */
+    refreshUserAssets,
 
     /** 环境音 / BGM（循环）—— 语义名入口 */
     bgm(name) {
@@ -176,13 +220,17 @@
       if (!file) return false;
       if (!musicOn || volume <= 0) return false;
       const name = String(file);
-      const B = 'assets/sound/';
       if (bgmName === name && Elona.MidiBgm && Elona.MidiBgm.playing) return true;
+      // 0-Z29 / 7430-7437：先找 `user\music\<文件>`，找不到才退回 `sound\<文件>`
+      const u = userMusic.get(name.toLowerCase()) || null;
+      const src = u || ('assets/sound/' + name);
+      // 玩家放的是 mp3/ogg/wav 时原版直接 DMPLAY（7439-7442），网页用 <audio> 循环
+      if (!/\.(mid|midi)$/i.test(name)) return this.bgmUrl(src, name, fallbackKey);
       if (Elona.MidiBgm && Elona.MidiBgm.supported) {
         this.stopBgm();
         Elona.MidiBgm.setVolume(volume * 0.5);
         bgmName = name;
-        Elona.MidiBgm.play(B + name, { loop: true }).then((okv) => {
+        Elona.MidiBgm.play(src, { loop: true }).then((okv) => {
           if (!okv) {
             if (bgmName === name) bgmName = null;
             if (fallbackKey) this.bgm(fallbackKey);
@@ -192,6 +240,31 @@
       }
       if (fallbackKey) this.bgm(fallbackKey);       // 无合成器：退回环境音
       return false;
+    },
+
+    /**
+     * 0-Z29：按完整 URL 循环播一段 BGM（用户目录里的 mp3/ogg/wav）。
+     * @param {string} src
+     * @param {string} name 用于去重的逻辑名
+     * @param {string} [fallbackKey] 播放失败时的环境音语义名
+     */
+    bgmUrl(src, name, fallbackKey) {
+      if (!musicOn || volume <= 0 || !src) return false;
+      if (bgmName === name && bgmEl && !bgmEl.paused) return true;
+      this.stopBgm();
+      try {
+        bgmEl = new Audio(src);
+        bgmEl.loop = true;
+        bgmEl.volume = volume * 0.45;
+        bgmName = name;
+        const p = bgmEl.play();
+        if (p && p.catch) p.catch(() => { if (fallbackKey) this.bgm(fallbackKey); });
+        return true;
+      } catch (e) {
+        bgmEl = null;
+        if (fallbackKey) this.bgm(fallbackKey);
+        return false;
+      }
     },
 
     setVolume(v) {

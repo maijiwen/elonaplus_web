@@ -316,6 +316,15 @@
       case 'var_52': return 1;                       // 语言开关：本项目按日文模式
       case 'var_205': return 0;                      // 英文模式
       case 'cbit': return (Elona.Status && Elona.Status.cbit) ? Elona.Status.cbit(c, A[0]) : 0;
+      // refchara(id, field) —— creature 表字段查询。characreate.json 219655-219660 用它
+      //   取「该物种的基准配色」field 5 决定是否置 var_58(435)=1（贴图索引的 +1000 档）。
+      //   以前没有实现 → 恒为 0 → 只要 sprite >= 1000 就误置 435，
+      //   于是 id 61 巨大松鼠的 6204 被画成 1204（红色铠甲角色）。
+      case 'refchara': {
+        const rec = (Elona.CharaFactory && Elona.CharaFactory.ref)
+          ? Elona.CharaFactory.ref(A[0] | 0) : null;
+        return (rec && rec.fields) ? (rec.fields[String(A[1])] | 0) : 0;
+      }
       case 'findchara': case 'inv_sum': case 'var_132': case 'var_126': case 'var_99':
       case 'var_97': case 'var_98': case 'stat': case 'sorg': case 'var_1437':
         this.mark('func:' + name);

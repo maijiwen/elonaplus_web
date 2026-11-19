@@ -283,8 +283,9 @@
       }
       targets.sort((a, b) => a.dist - b.dist);
       if (!targets.length) {
-        g.log('你环视四周，什么也没有发现。');   // 283824
-        g.endTurn();
+        g.log('你环视四周，什么也没有发现。');   // 283820-283825
+        // 源码 283825 `goto *label_4363`（605329）= 不消耗回合；
+        //   只有真的选到目标并执行才走行动收尾。
         return { ok: false, reason: 'nothing', targets };
       }
       g.log('你环视四周，仔细查看周围的情况。');
@@ -1317,7 +1318,7 @@
         if (Elona.ItemDB.stack(p, i) >= 0) merged++;
       }
       g.log(merged ? `你整理了物品，合并了 ${merged} 组。` : '没有可以合并的物品。');
-      g.endTurn();
+      // 289261 `goto *label_4363`（605329）—— 整理背包不消耗回合。
       return { ok: true, merged };
     },
 
