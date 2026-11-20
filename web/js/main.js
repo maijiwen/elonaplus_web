@@ -136,6 +136,7 @@
     (Elona.Panels && Elona.Panels.isOpen && Elona.Panels.isOpen())
     || !!UI.invOpen
     || panelOpen('npc') || panelOpen('shop') || panelOpen('quest') || panelOpen('worldmap')
+    || (Elona.Modifier && Elona.Modifier.isOpen && Elona.Modifier.isOpen())
     || (game.shopSession && !!UI.invInfo)   // 0-HP：商店收起后画布上的道具情报窗
     || !!game.throwState
     || (Elona.SceneView && Elona.SceneView.isActive && Elona.SceneView.isActive())
@@ -580,16 +581,24 @@
    * 0-HD：F1 快速存档 / F2 快速读档。
    * 0-HM：F3 打开许愿输入框（原版「願い事」窗口，由魔法/道具触发，
    *   网页版给一个直接入口，便于调试与自由游玩）。
+   * 0-Z39：F4 改为打开修改器弹窗（原先的消息栏高度循环已由 `/` 承担）。
    *   单独用「捕获阶段」注册，避免被其它窗口的 keydown（stopPropagation）吞掉；
    *   同时判断 e.key 与 e.code（个别键盘 / 输入法只给其中一个）。
    *   注：笔记本若把 F1/F2 设成媒体键，需要按 Fn+F1 / Fn+F2，浏览器收不到 F1/F2。
    */
   const isFnKey = (e, name) => e.key === name || e.code === name;
   window.addEventListener('keydown', (e) => {
-    if (!isFnKey(e, 'F1') && !isFnKey(e, 'F2') && !isFnKey(e, 'F3')) return;
+    if (!isFnKey(e, 'F1') && !isFnKey(e, 'F2') && !isFnKey(e, 'F3') && !isFnKey(e, 'F4')) return;
     e.preventDefault();
     e.stopPropagation();
     if (e.repeat) return;
+    if (isFnKey(e, 'F4')) {
+      // 修改器是独立模态：即使输入框正在编辑也能用 F4 收起。
+      if (game.state === STATE.PLAY && Elona.Modifier && Elona.Modifier.toggle) {
+        Elona.Modifier.toggle(game);
+      }
+      return;
+    }
     const t = e.target;
     if (t && /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
     if (isFnKey(e, 'F1')) {
@@ -606,6 +615,17 @@
 
     if (e.key === 'Shift') { shiftPending = !!Elona.Keys.shiftAsEsc; return; }
     shiftPending = false;
+
+    // ---------- 0.1) 修改器（F4）：模态期间只处理弹窗自身按键 ----------
+    //   表单里的输入必须放行，否则 window 的 preventDefault 会让数字打不进去；
+    //   其余按键（方向键、i、g…）一律吞掉，不能穿透到地图。
+    if (Elona.Modifier && Elona.Modifier.isOpen && Elona.Modifier.isOpen()) {
+      if (Elona.Modifier.handleKey && Elona.Modifier.handleKey(e)) { e.preventDefault(); return; }
+      const tag = e.target && e.target.tagName;
+      if (/^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(tag)) return;
+      e.preventDefault();
+      return;
+    }
 
     // ---------- 0) 瞄准 / 锁定（*label_2670，283536-283808）----------
     //    原版是阻塞式循环，这里逐键驱动 Elona.Aim 的状态机。
@@ -1010,20 +1030,12 @@
       return;
     }
 
-    // ---------- 3.5) HUD 开关（F2 / F4，不影响原版键位；F3 已用作许愿） ----------
+    // ---------- 3.5) F2 技能监视（F4 已改作修改器；消息栏展开仍按 `/`） ----------
     if (e.key === 'F2') {
       e.preventDefault();
       if (Elona.Hud) {
         const on = Elona.Hud.toggleSkillMonitor();
         UI.pushMessage(on ? '技能監視：表示' : '技能監視：非表示');
-      }
-      return;
-    }
-    if (e.key === 'F4') {
-      e.preventDefault();
-      if (Elona.Hud) {
-        const n = Elona.Hud.cycleMsgExpand();
-        UI.pushMessage(`消息栏高度：${Elona.Hud.MSG_BASE_LINES + n} 行`);
       }
       return;
     }

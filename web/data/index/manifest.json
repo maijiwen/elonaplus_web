@@ -37,6 +37,7 @@
   "item_tags.json",
   "itemcand.json",
   "itemcmd.json",
+  "itemfields.json",
   "itemfx.json",
   "itemnamesuffix.json",
   "itemnamex.json",
@@ -91,5 +92,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 83
+ "count": 84
 }

@@ -187,6 +187,58 @@ html, body {
 #shop-actions button:hover:not(:disabled) { background: #e8dec4; }
 #shop-actions button:disabled { color: #8a7b5c; border-color: #a4977a; cursor: default; }
 
+/* ---------- 修改器（F4） ---------- */
+#modifier { width: 680px; max-height: 560px; z-index: 30; }
+.mod-tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 7px; }
+.mod-tab {
+  padding: 3px 9px; font-size: 11px; cursor: pointer;
+  background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a;
+}
+.mod-tab:hover { background: #e8dec4; }
+.mod-tab.on {
+  background: #b9a97f; border-color: #4e3f26;
+  color: #241608; font-weight: bold;
+}
+.mod-body { flex: 1; min-height: 0; overflow-y: auto; padding-right: 3px; }
+.mod-line { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+.mod-line > label { flex: 0 0 68px; color: #3a2712; }
+.mod-line input[type="text"], .mod-field input[type="text"] {
+  height: 20px; padding: 1px 4px; box-sizing: border-box;
+  background: #f6efdc; color: #241608;
+  border: 1px solid #8a7752; border-radius: 0; font: inherit;
+}
+#mod-item-index { width: 66px; text-align: center; }
+.mod-readonly { flex: 1; background: #e6dcc0 !important; color: #4d3c22 !important; }
+.mod-arrow {
+  min-width: 25px; height: 20px; padding: 0 4px; cursor: pointer;
+  background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a;
+}
+.mod-arrow:hover { background: #e8dec4; }
+.mod-hint { color: #6a573a; font-size: 11px; }
+.mod-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 12px; }
+.mod-field { min-width: 0; }
+.mod-field-line { display: grid; grid-template-columns: minmax(0, 1fr) 96px; gap: 4px; align-items: start; }
+.mod-field-line label { font-size: 11px; line-height: 20px; overflow-wrap: anywhere; color: #3a2712; }
+.mod-field input[type="text"] { width: 96px; }
+.mod-field input.bad, #mod-item-index.bad { border-color: #a5371d; background: #f4d9cd; }
+.mod-field.bad .mod-field-line label { color: #9b2c18; }
+.mod-field-error { min-height: 12px; color: #9b2c18; font-size: 10px; line-height: 12px; }
+.mod-actions {
+  position: sticky; bottom: 0; z-index: 1;
+  display: flex; align-items: center; gap: 7px;
+  border-top: 1px solid #6b5a3a; margin-top: 5px; padding-top: 6px;
+  background-color: #cfc3a4; background-image: var(--pui-tile); background-repeat: repeat;
+}
+.mod-actions button {
+  padding: 3px 14px; background: #ddd0ae; color: #241608;
+  border: 1px solid #6b5a3a; cursor: pointer;
+}
+.mod-actions button:hover:not(:disabled) { background: #e8dec4; }
+.mod-actions button:disabled { color: #8a7b5c; border-color: #a4977a; cursor: default; }
+.mod-status { flex: 1; color: #3a2712; font-size: 11px; }
+.mod-status.bad { color: #9b2c18; }
+.mod-placeholder { padding: 30px 8px; text-align: center; color: #6a573a; }
+
 /* ---------- NPC 交互 ---------- */
 #npc { width: 460px; }
 /* 0-W0：和同伴「对话」时的窗口按原版截图重排（宽窗、左头像 + 信息栏、右正文 + 选项）。

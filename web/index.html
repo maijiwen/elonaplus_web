@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <title>ElonaPlus 2.33R — Web 重制版</title>
 <link rel="icon" href="data:," />
-<link rel="stylesheet" href="css/style.css?v=0z23" />
+<link rel="stylesheet" href="css/style.css?v=0z39" />
 <link rel="stylesheet" href="css/charcreate.css?v=0z20" />
 </head>
 <body>
@@ -133,6 +133,15 @@
       <div id="wm-walk" class="wm-walk hidden">
         <span class="wm-walk-title">世界地图（方向键移动 / M 返回）</span>
         <div id="wm-walk-dest" class="wm-dest"></div>
+      </div>
+      <!-- 修改器（F4）：九个页签，当前实现「物品」页 -->
+      <div id="modifier" class="panel modifier hidden" role="dialog" aria-label="修改器">
+        <div class="panel-head">
+          <span>修改器</span>
+          <span class="panel-hint">F4 / Esc 关闭</span>
+        </div>
+        <div id="modifier-tabs" class="mod-tabs" role="tablist"></div>
+        <div id="modifier-body" class="mod-body"></div>
       </div>
     </div>
   </div>
@@ -328,7 +337,8 @@
   <script src="js/view/altar.js"></script>
   <script src="js/view/sceneview.js?v=0z29"></script>
   <script src="js/view/consoleview.js"></script>
+  <script src="js/view/modifier.js?v=0z39"></script>
   <script src="js/view/charcreate.js?v=0z33"></script>
-  <script src="js/main.js?v=0z38"></script>
+  <script src="js/main.js?v=0z39"></script>
 </body>
 </html>
