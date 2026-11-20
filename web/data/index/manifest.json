@@ -69,6 +69,8 @@
   "skillshop.json",
   "source_anchors.json",
   "status.json",
+  "storykill.json",
+  "storymap.json",
   "talkscripts.json",
   "talktxt.json",
   "throwhit.json",
@@ -89,5 +91,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 81
+ "count": 83
 }

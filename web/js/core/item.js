@@ -1768,6 +1768,27 @@
 
     toJSON() {
       const o = { f: this.f, eqSlot: this.eqSlot, field657: this.field657, field677: this.field677, enchantTable: this.enchantTable };
+      // 0-Z36：城镇预设物品的「有主」标记要一起存档。
+      //   此前只写 f/eqSlot，读完档（或换图经 mapGround 往返）后 `townOwned` 丢失，
+      //   偷窃（game.stealTargets）就查不到目标 →「那里没有可偷的东西」；
+      //   同时 pickupAt 也不再拦这类物品，可以白拿。
+      if (this.townOwned) o.townOwned = 1;
+      // 0-Z37：`var_99` 之外、由各模块挂在物品实例上的持久标记。
+      // 源码把这些写进物品槽的独立字段（同一存档块 inv.s1），web 用 JS 属性承载，
+      // 不写进 toJSON 就会在读档后丢失。只写有值的，避免存档膨胀。
+      //   identified      —— 鉴定标志（wand.js 318 / console 1037）
+      //   genLevel/genFix —— 生成等级 / 品质（item.js 1245-1246、farm/ranch/dip）
+      //   egoId           —— 自我物品 id（ego.js 158）
+      //   note            —— 改过名的物品 / 能力赋予的备注（ap.js 212）
+      //   owned           —— 特殊归属标记（ap.js 211）
+      //   __giftOpened    —— 礼物包已拆封（giftpack.js 177/194），不存可重复领内容
+      if (this.identified) o.identified = 1;
+      if (this.genLevel !== undefined && this.genLevel !== null) o.genLevel = this.genLevel;
+      if (this.genFix !== undefined && this.genFix !== null) o.genFix = this.genFix;
+      if (this.egoId !== undefined && this.egoId !== null) o.egoId = this.egoId;
+      if (this.note) o.note = this.note;
+      if (this.owned) o.owned = 1;
+      if (this.__giftOpened) o.__giftOpened = 1;
       // 容器内容物（core/container.js）：只在非空时写入，避免存档膨胀
       if (Array.isArray(this.inv) && this.inv.length) o.inv = this.inv.map((x) => x.toJSON());
       return o;
@@ -1778,6 +1799,17 @@
       it.eqSlot = o.eqSlot === undefined ? -1 : o.eqSlot;
       it.field657 = o.field657; it.field677 = o.field677;
       it.enchantTable = o.enchantTable || [];
+      // 0-Z36：恢复「有主」标记；旧存档没这个字段时按 f[21]==1 反推（源码的
+      //   所有者标记 var_99(21) == 1，见 296771 的偷窃列表过滤）。
+      it.townOwned = !!o.townOwned || ((it.f[21] | 0) === 1);
+      // 0-Z37：恢复物品实例的持久标记（见 toJSON 注释）
+      if (o.identified) it.identified = true;
+      if (o.genLevel !== undefined) it.genLevel = o.genLevel;
+      if (o.genFix !== undefined) it.genFix = o.genFix;
+      if (o.egoId !== undefined) it.egoId = o.egoId;
+      if (o.note) it.note = o.note;
+      if (o.owned) it.owned = true;
+      if (o.__giftOpened) it.__giftOpened = true;
       // 容器内容物可能嵌套（箱子里还有箱子），递归还原
       if (Array.isArray(o.inv) && o.inv.length) it.inv = o.inv.map((x) => Item.fromJSON(x));
       return it;

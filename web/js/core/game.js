@@ -873,6 +873,9 @@
       await Elona.Feat.loadTable();
       await Elona.Feat.loadAbilities();
       if (Elona.NPC) await Elona.NPC.loadTable();
+      // 0-Z35：主线推进所用的两张表 —— 击杀结算发生在回合内，必须同步可取
+      if (Elona.StoryKill) await Elona.StoryKill.load();
+      if (Elona.StoryMap) await Elona.StoryMap.load();
       this.townNpcTable = await Elona.Data.table('town_npcs');
     }
 
@@ -2307,6 +2310,17 @@
         this.player.x = entry.x; this.player.y = entry.y;
         this.syncCharaCells();
         this.restoreParty();          // 0-DG：同伴随行
+        // 0-Z35：原版 map_init 里 `var_65(22)` 在剧情链之前就已经写好（237233/237307），
+        //   旧实现把 `setV65(22, depth)` 放在 checkStoryEvents 之后，导致依赖楼层的
+        //   剧情规则（var_65(22) == N）在首次进层时永远读到上一层。
+        this.dungeonDepth = depth;
+        this.setV65(22, depth);
+        if (Elona.StoryMap) {
+          // 0-Z35：剧情地图（3/49/76）的逐层 BOSS / NPC 摆放与状态推进
+          const sm = Elona.StoryMap.onEnterFloor(this, (this.dungeonSiteId | 0) || (this.getV65(20) | 0),
+            depth, { maxDepth: this.dungeonMaxDepth });
+          if (sm && sm.spawned.length) this.lastStorySpawn = sm;
+        }
         this.checkStoryEvents();       // 0-DG：进图剧情（Vernis 宠物再会）
         for (const m of f.monsters) {
           try {
@@ -2334,8 +2348,7 @@
           if (fx && fx.text) this.log(fx.text);
         }
         this.syncCharaCells();
-        this.dungeonDepth = depth;
-        this.setV65(22, depth);
+        // （0-Z35：`dungeonDepth` / `var_65(22)` 已在上方剧情链之前写好，这里不再重复）
         // 0-FB：247590-247604 —— 觉醒地城的核心品质种子、深层地城的小徽章骰
         if (Elona.DungeonFx && Elona.DungeonFx.rollSeeds) {
           Elona.DungeonFx.rollSeeds(this, depth, this.dungeonAwake);
@@ -3577,6 +3590,10 @@
             charas: this.charas.slice(), items: this.groundItems.slice(),
           };
         }
+        // 0-Z35：原版换图时 `var_65(20) = var_65(64)` 发生在 map_init **之前**
+        //   （237493-237565），剧情链与楼层生成都要读新地图 id；旧实现先 enterDungeon
+        //   再写 var_65(20)，导致 map 3/49/76 的剧情规则在进层时读到的是上一张地图。
+        this.setV65(20, site.id | 0);
         await this.enterDungeon(start, false);
         this.setV65(20, site.id | 0);
         this.log(`你进入了${siteLabel}。入口的危险度是 ${start} 层相当，最深层 ${bottom} 层。`);
@@ -5205,6 +5222,18 @@
      *
      * stealAt() 为同步复合（startSteal + 推进到结束），供测试与一次性调用。
      */
+    /**
+     * 地面物品是否「有主」（不能白拿 / 可以偷）。
+     *
+     * 源码的唯一判据是 `var_99(21) == 1`（296771 偷窃列表；296070-296088 的
+     * 「那不是你的东西」）。本项目的 `townOwned` 只是读图时打的辅助标记，
+     * 会在存档 / 换图（mapGround）往返中丢失，故两处都要看。
+     */
+    isOwnedItem(it) {
+      if (!it) return false;
+      return (it.f[21] | 0) === 1 || !!it.townOwned;
+    }
+
     stealTargets(c, x, y) {
       // 0-Z4 / 305110-305231 *label_2893：目标格由 8 方向箭头选定（回车=当前格）。
       // 未指定坐标时退回脚下，兼容既有一次性调用与测试。
@@ -5213,8 +5242,8 @@
       const out = [];
       for (const it of this.groundItems) {
         if (!it || (it.f[0] | 0) <= 0) continue;
-        if (it.f[5] !== tx || it.f[6] !== ty) continue;
-        if (!it.townOwned) continue;
+        if ((it.f[5] | 0) !== tx || (it.f[6] | 0) !== ty) continue;
+        if (!this.isOwnedItem(it)) continue;
         out.push(it);
       }
       return out;
@@ -5700,8 +5729,12 @@
       return { ok: true, dst: target };
     }
 
-    /** 拾取脚下全部地面物品；only 指定时只拾取该件（0-FZ 的 103 采摘完成用） */
-    pickupAt(c, only) {
+    /**
+     * 拾取脚下全部地面物品；only 指定时只拾取该件（0-FZ 的 103 采摘完成用）。
+     * @param {object} [opts] `{ harvest: true }` —— only 指定的那件也要能转入 103 采摘
+     *   （g 键的拾取列表：玩家在某格里选中一件作物时，源码同样会开始收获）。
+     */
+    pickupAt(c, only, opts) {
       let picked = 0;
       let pickedCampfire = false;   // 0-GW：本轮拾起过营火 255（342366-342385）
       let pickedWeight = 0;
@@ -5713,7 +5746,7 @@
         if (only && it !== only) { rest.push(it); continue; }
         if (it.f[5] !== c.x || it.f[6] !== c.y) { rest.push(it); continue; }
         // 0-CI：城镇预设物品（有主）不能白拿 → 留给 stealAt 处理
-        if (it.townOwned) { rest.push(it); continue; }
+        if (this.isOwnedItem(it)) { rest.push(it); continue; }
         // 341874-341935：金币（54）/白金币（55）**不进背包**，直接累加到
         //   var_58(30)/var_58(31)（HUD 的 gp / pp 字段）；白金币另外累计 var_65(291)。
         //   白金币持有 >=100 时无法再获得（var_65(250+23)==2/5 的地图除外）。
@@ -5747,7 +5780,9 @@
         // 0-FZ / 341990-342030：未收获作物（f[21]==4、类别 57000）不直接捡起，
         //   而是启动 103 采摘持续行动（回合数按重量 / 筋力·自然计算）。
         //   采集任务（1006）的田里作物就带这个标记（见 questmap.js:219）。
-        if (!only && !harvest && (it.f[21] | 0) === 4 && (c.get(140) | 0) === 0) {
+        //   0-Z36：`opts.harvest` 时即使指定了 only 也走这一档（g 键列表选中作物 → 采摘）
+        if ((!only || (opts && opts.harvest)) && !harvest
+          && (it.f[21] | 0) === 4 && (c.get(140) | 0) === 0) {
           const cat = (Elona.ItemDB && Elona.ItemDB.ref)
             ? (Elona.ItemDB.ref(it.id, 5) | 0) : 0;
           if (cat === 57000 && Elona.Camp && Elona.Camp.beginHarvest) {
@@ -6408,7 +6443,10 @@
         const c = this.charas[i];
         if (!c || typeof c.get !== 'function') continue;
         const stay = !!(Elona.Status && Elona.Status.cbit && Elona.Status.cbit(c, 960) === 1);
-        const keep = !!(c.__ally || c.__pet || stay
+        // 0-Z37：死灵仆从（__necro）也必须保留 —— 源码里所有 var_58 角色整块进
+        //   cdata.s1（303324），死灵自然在其中；此前它既非 ally/pet、也没设
+        //   var_58(80)，collectSavedCharas 会漏掉它，读档后死灵凭空消失。
+        const keep = !!(c.__ally || c.__pet || c.__necro || stay
           || (this.party && this.party.indexOf(c) >= 0)
           || (c.get(80) | 0) !== 0 || (c.get(150) | 0) === 3);
         if (!keep) continue;
@@ -6606,6 +6644,9 @@
       await Elona.Feat.loadTable();       // feat 表 *label_0043/0044/2607
       await Elona.Feat.loadAbilities();   // 能力解锁条件 *label_2229
       if (Elona.NPC) await Elona.NPC.loadTable();
+      // 0-Z35：读档路径也要把主线表 fetch 进缓存（击杀结算走同步 tableSync）
+      if (Elona.StoryKill) await Elona.StoryKill.load();
+      if (Elona.StoryMap) await Elona.StoryMap.load();
       this.townNpcTable = await Elona.Data.table('town_npcs');
       const json = data.mapJson || await Elona.Data.map(data.map);
       this.map = new Elona.GameMap(json, this.tileAttrs);

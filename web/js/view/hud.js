@@ -712,14 +712,37 @@
     opts.msgExpand = (opts.msgExpand + 4) % (MSG_BASE_LINES * 5);
     return opts.msgExpand;
   }
+  /**
+   * 0-Z36 / 0-Z37：`/` 键的消息栏展开开关（用户口径：按 / 把下方消息区加高、显示更多行，
+   * 再按 / 或 Esc 复原）。
+   *
+   * 原版 *label_4325（597465-）是在**地图视口上**覆盖一个大窗口：
+   *   左 var_219 = var_204-2；宽 var_910 = var_216-var_204+6（宽度与消息区相同、不遮左侧状态栏）
+   *   顶 var_221 = var_208-(var_227-3)*var_207-1；高 var_911 = (var_227-3)*var_207
+   *   var_227 = (var_208-100)/var_207+3 = (512-100)/15+3 = 30 → 展开 27 行 × 15 = 405px
+   * 窗口从 y≈106 到 y=511，左侧 HP/MP 等状态栏仍在框外；消息贴窗口底部绘制。
+   */
+  // var_227 - 3 = 27 行总高，减去基础 4 行 = 额外 23 行
+  const MSG_EXPAND_MAX = 23;
+  function isMsgExpanded() { return (opts.msgExpand | 0) > 0; }
+  function setMsgExpanded(on) {
+    opts.msgExpand = on ? MSG_EXPAND_MAX : 0;
+    return opts.msgExpand;
+  }
+  function toggleMsgExpand() {
+    setMsgExpanded(!isMsgExpanded());
+    return opts.msgExpand;
+  }
   function msgLines() { return MSG_BASE_LINES + opts.msgExpand; }
 
   Elona.Hud = {
     opts, ATTRS, ATTR_NAMES, MSG_BASE_LINES,
+    MSG_EXPAND_TOTAL_LINES: MSG_BASE_LINES + 23,
     loadNames, setNames, buffName, activeBuffs, statusList, statusLines,
     drawClock, drawSkillMonitor, drawWatch, drawBuffBox, drawCharaBars, drawMinimap,
     buffIconRect, ICON_SIZE,
     canInspect, toggleSkillMonitor, cycleMsgExpand, msgLines,
+    isMsgExpanded, setMsgExpanded, toggleMsgExpand, MSG_EXPAND_MAX,
     // 0-DF：人物信息窗的「,」锁定
     watch, isWatched, toggleWatch, clearWatch, watchValue, strokeText,
   };

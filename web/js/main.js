@@ -533,12 +533,28 @@
       case 'charainfo': P.openCharaInfo(game); return true;
       case 'journal': P.openJournal(game); return true;
       case 'trait': P.openTraits(game); return true;
-      case 'msglog': P.openMsgLog(game); return true;
+      case 'msglog':
+        // 0-Z36：/ 不再另开窗口，而是把下方消息区向上加高（4 → 20 行），
+        //   再按 / 复原；Esc 也可复原（见下面的 case 'esc'）。
+        if (Elona.Hud && Elona.Hud.toggleMsgExpand) {
+          const n = Elona.Hud.toggleMsgExpand();
+          UI.pushMessage(n > 0
+            ? `消息栏加高到 ${Elona.Hud.MSG_BASE_LINES + n} 行（再按 / 或 Esc 复原）。`
+            : '消息栏恢复原来的高度。');
+        }
+        return true;
       case 'help': P.openHelp(); return true;
 
       // ---- 系统 ----
       case 'save': P.openSaveSlots(); return true;
-      case 'esc': P.openMenu(); return true;
+      case 'esc':
+        // 0-Z36：消息栏加高状态下，Esc 先复原高度（与 / 同效），不弹菜单
+        if (Elona.Hud && Elona.Hud.isMsgExpanded && Elona.Hud.isMsgExpanded()) {
+          Elona.Hud.setMsgExpanded(false);
+          UI.pushMessage('消息栏恢复原来的高度。');
+          return true;
+        }
+        P.openMenu(); return true;
       case 'cancel': P.close(); return true;
       default: return false;
     }

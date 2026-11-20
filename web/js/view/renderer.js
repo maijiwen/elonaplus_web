@@ -61,6 +61,7 @@
   const INV_TITLE = {
     bag: '调查道具', book: '阅读', identify: '鉴定', throw: '投掷',
     offer: '供奉', equip: '装备品', 'equip-pick': '装备', use: '使用', spell: '咏唱',
+    pickup: '拾取',
   };
 
   // var_289 / var_290（202948 附近 lang 文本表）
@@ -1636,20 +1637,34 @@
      */
     drawMessages() {
       const extra = (Elona.Hud && Elona.Hud.opts) ? (Elona.Hud.opts.msgExpand | 0) : 0;
-      const total = MSG_LINES + extra;
-      const top = MSG_TOP - extra * MSG_LINE_H;
       const lines = this.messageLines();
-      const shown = lines.slice(-total);
       const font = FONT_MSG;
       if (extra > 0) {
+        // 0-Z37 / *label_4325（597465-）：展开窗口覆盖在地图视口上，**宽度与消息区相同**
+        //   （左 var_219=var_204-2，宽 var_910=var_216-var_204+6），左侧 HP/MP 状态栏露在框外；
+        //   只向上长高（var_907=(var_227-3)*var_207，顶 106→底 511），消息贴窗口底部。
         const ctx = this.ctx;
+        const total = MSG_LINES + extra;                  // var_227 = 30
+        const winH = (total - 3) * MSG_LINE_H;            // var_911 = (var_227-3)*var_207 = 405
+        const left = UI_LEFT - 2;                         // var_219 = var_204-2
+        const width = UI_W - UI_LEFT + 6;                 // var_910 = var_216-var_204+6
+        const top = MSG_TOP - winH - 1;                   // var_221 = var_208-winH-1
         ctx.save();
-        ctx.fillStyle = 'rgba(0,0,0,0.86)';
-        ctx.fillRect(0, top, UI_W, UI_BOTTOM - top);
+        ctx.fillStyle = 'rgba(0,0,0,0.92)';
+        ctx.fillRect(left, top, width, winH);
         ctx.restore();
-        this.text(`▲ 消息栏 ${total} 行（F4 收起）`, UI_W - 168, top + 2, 'rgba(220,210,170,0.85)', FONT_UI(10));
+        // showtitle「過去のメッセージ / Log」+「何かキーを押すと閉じる」
+        this.text('按下任意键关闭', left + width - 96, top + 3, 'rgba(230,220,190,0.9)', FONT_UI(11));
+        // 消息贴底：label_4325 末尾 pos var_204, var_208-cnt*var_207
+        const shown = lines.slice(-(total - 3));
+        const baseY = MSG_TOP - 4;
+        for (let i = 0; i < shown.length; i++) {
+          this.text(shown[i], left + 4, baseY - i * MSG_LINE_H, '#fff', font);
+        }
+        return;
       }
-      const startY = top + 6;
+      const shown = lines.slice(-MSG_LINES);
+      const startY = MSG_TOP + 6;
       for (let i = 0; i < shown.length; i++) {
         this.text(shown[i], UI_LEFT + 6, startY + i * MSG_LINE_H, '#fff', font);
       }

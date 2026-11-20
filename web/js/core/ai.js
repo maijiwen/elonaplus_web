@@ -236,55 +236,91 @@
   }
 
   /**
-   * 0-DH：同伴的拾食 / 捡拾（调教鞭菜单的 cbit 1033 / 1032，355783-355798 的开关）。
-   *   · cbit(1033) == 0 时允许「拾い食い」：脚下是食物且不饱 → 吃掉（营养 +2500）
-   *   · cbit(1032) == 0 时允许「アイテム拾い」：脚下的无主物品收进同伴背包
-   *   有主物品（townOwned）不碰，避免同伴把城镇布置搬走。
+   * 0-DH / 0-Z36：同伴的拾食 / 捡拾（593180-593330 的 AI 分支）。
+   *
+   * 源码（593180-593330）里同伴**只对两类东西动手**：
+   *   ① 食物（`refitem(id,5) == 57000`）且不饱 → 当场吃掉（`*label_2984`，营养 +1250）；
+   *   ② **金币 / 矿石 / 宝石**（`refitem(id,5) == 68000 | 77000`，且 `id <= 208`、
+   *      `var_99(21) <= 0`（无主）、`ibit(5) == 0`、`var_126(6) != 5`（不在自己家））
+   *      → `gosub *label_2978` 收进背包（金币走 label_2978 的 54/55 分支记到 var_58(30/31)）。
+   * 其它物品一律不碰 —— 之前本项目「脚下所有无主物品都捡」，同伴会把地城里的
+   * 装备/垃圾全搬空。开关仍是调教鞭的 cbit 1033（拾い食い）/ 1032（アイテム拾い）。
+   *
+   * @returns {{used:boolean, kind?:string}}
    */
   function tryPetPickup(g, c) {
     if (!(Elona.Party && Elona.Party.isAlly && Elona.Party.isAlly(c))) return { used: false };
     if (!g.groundItems || !g.groundItems.length) return { used: false };
     const CB = (n) => (Elona.Status && Elona.Status.cbit ? Elona.Status.cbit(c, n) : 0);
-    const idx = g.groundItems.findIndex((it) => it && (it.f[0] | 0) > 0
-      && (it.f[5] | 0) === (c.x | 0) && (it.f[6] | 0) === (c.y | 0) && !it.townOwned);
-    if (idx < 0) return { used: false };
-    const it = g.groundItems[idx];
-    const cat = (Elona.ItemDB && Elona.ItemDB.ref) ? Elona.ItemDB.ref(it.id, 5) : 0;
-    const nm = (Elona.ItemDB && Elona.ItemDB.name) ? Elona.ItemDB.name(it.id, 'jp') : ('item ' + it.id);
-    // 341874-341935：同伴拾到金币(54)/白金币(55) 时同样不进背包，
-    //   累加到 var_58(30/31)；白金币另计 var_65(291)，持有 >=100 时不再拾取。
-    {
+    const here = [];
+    for (const it of g.groundItems) {
+      if (!it || (it.f[0] | 0) <= 0) continue;
+      if ((it.f[5] | 0) !== (c.x | 0) || (it.f[6] | 0) !== (c.y | 0)) continue;
+      if (g.isOwnedItem ? g.isOwnedItem(it) : !!it.townOwned) continue;   // 有主的不动
+      here.push(it);
+    }
+    if (!here.length) return { used: false };
+    const ref = (id, f) => ((Elona.ItemDB && Elona.ItemDB.ref) ? (Elona.ItemDB.ref(id, f) | 0) : 0);
+    const ibit = (b, it) => ((Elona.ItemDB && Elona.ItemDB.ibit) ? (Elona.ItemDB.ibit(b, it) | 0) : 0);
+    const nmOf = (it) => ((Elona.ItemDB && Elona.ItemDB.name)
+      ? Elona.ItemDB.name(it.id, 'jp') : ('item ' + it.id));
+    const mt = (g.map && g.map.header) ? (g.map.header[6] | 0) : 0;
+
+    // ① 拾い食い（593193-593260 的食物分支，末尾 goto *label_2984）
+    for (const it of here) {
+      const cat = ref(it.id, 5);
+      if (cat !== 57000) continue;
+      if ((c.get(22) | 0) > 10000) continue;          // 不饱（var_58(22) <= 10000）
+      if (CB(1033) !== 0) continue;                    // 拾い食い被禁止
+      it.f[0] = (it.f[0] | 0) - 1;
+      if (it.f[0] <= 0) g.groundItems.splice(g.groundItems.indexOf(it), 1);
+      c.set(22, (c.get(22) | 0) + 1250);
+      if (g.refreshGroundCell) g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
+      if (g.log) g.log(`${c.name}捡起地上的${nmOf(it)}吃掉了。`);
+      return { used: true, kind: 'eat-ground' };
+    }
+
+    // ② アイテム拾い（593280-593300：68000 金币 / 77000 矿石宝石，id <= 208）
+    for (const it of here) {
+      const cat = ref(it.id, 5);
+      if (cat !== 68000 && cat !== 77000) continue;
+      if ((it.id | 0) > 208) continue;
+      if ((it.f[21] | 0) > 0) continue;                 // var_99(21) <= 0
+      if (ibit(5, it) !== 0) continue;                  // 不可拾标记
+      if (mt === 5) continue;                           // var_126(6) != 5（自己家）
+      if (CB(1032) !== 0) continue;                     // アイテム拾い被禁止
+      const nm = nmOf(it);
+      // 341874-341935：金币(54)/白金币(55) 不进背包，累加到 var_58(30/31)；
+      //   白金币另计 var_65(291)，持有 >=100 时不再拾取。
       const iid = it.f[3] | 0;
       if (iid === 54 || iid === 55) {
         const n = it.f[0] | 0;
-        if (iid === 55 && (c.get(31) | 0) >= 100) return { used: false };
+        if (iid === 55 && (c.get(31) | 0) >= 100
+          && (g.getV65 ? (g.getV65(273) | 0) : 0) !== 2
+          && (g.getV65 ? (g.getV65(273) | 0) : 0) !== 5) continue;
         it.f[0] = 0;
         if (iid === 54) c.set(30, (c.get(30) | 0) + n);
         else {
           c.set(31, (c.get(31) | 0) + n);
           if (g.setV65) g.setV65(291, ((g.getV65 ? g.getV65(291) : 0) | 0) + n);
         }
-        g.groundItems.splice(idx, 1);
+        g.groundItems.splice(g.groundItems.indexOf(it), 1);
         if (g.refreshGroundCell) g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
         if (g.log) g.log(`${c.name}捡起了${nm}。`);
         return { used: true, kind: 'pick-ground' };
       }
-    }
-    // 拾い食い
-    if (cat === 57000 && CB(1033) === 0 && (c.get(22) | 0) <= 10000) {
-      it.f[0] = (it.f[0] | 0) - 1;
-      if (it.f[0] <= 0) g.groundItems.splice(idx, 1);
-      c.set(22, (c.get(22) | 0) + 1250);
-      if (g.log) g.log(`${c.name}捡起地上的${nm}吃掉了。`);
-      return { used: true, kind: 'eat-ground' };
-    }
-    // アイテム拾い
-    if (CB(1032) === 0 && it.f[0] > 0) {
+      // 矿石 / 宝石：整堆放进同伴背包（342355-342365 的 _s 分支）
       if (!c.inv) c.inv = [];
-      if (c.inv.length >= 60) return { used: false };
-      const copy = { id: it.id, f: it.f.slice() };
-      c.inv.push(copy);
-      g.groundItems.splice(idx, 1);
+      let slot = -1;
+      for (let k = 0; k < c.inv.length; k++) {
+        if (!c.inv[k] || (c.inv[k].f[0] | 0) <= 0) { slot = k; break; }
+      }
+      if (slot < 0 && c.inv.length >= 60) return { used: false };
+      const copy = (Elona.Item && Elona.Item.fromJSON)
+        ? Elona.Item.fromJSON(it.toJSON()) : { id: it.id, f: it.f.slice() };
+      copy.f[21] = 0;
+      if (slot < 0) c.inv.push(copy); else c.inv[slot] = copy;
+      g.groundItems.splice(g.groundItems.indexOf(it), 1);
       if (g.refreshGroundCell) g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
       if (g.log) g.log(`${c.name}捡起了${nm}。`);
       return { used: true, kind: 'pick-ground' };
@@ -1261,7 +1297,7 @@
 
   Elona.AI = {
     adjacentCheck, npcTurn, runAll, childAiPre, findNearestHostile, castBranch,
-    tryHealPotion, tryIdle, tryUseItem, findInvItem, sightRange,
+    tryHealPotion, tryIdle, tryUseItem, findInvItem, sightRange, tryPetPickup,
     mercyCheck, mountSync, tamerIdle, TAMER_ABILITY, TAMER_SPECIES,
     isHostile, hostileTowards, stepToward, stepAway, randomStep, combatMove,
     preferredDistance, combatStatusSkip, idleModeBlocked, idleGate, drunkCatIdle,

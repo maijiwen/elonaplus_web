@@ -104,6 +104,20 @@
         pcc: this.pcc,
         // 魔力库存 var_495
         spellStock: this.spellStock,
+        // 0-Z37：模块挂在角色实例上、源码却写进存档的持久标记。
+        //   __necro       —— 死灵仆从身份（necro.js 270/585 据此召回/强制），
+        //                    源码 356021 的 var_641=2 档位不进角色 v[]，只能单独存
+        //   __leash       —— 绳索牵引（cbit 968 也存，这里保持一致便于直接读）
+        //   __hpbar       —— 监视 HP 条（cbit 966）
+        //   __tempDays    —— 护卫剩余天数（var_58(84) 绝对时间也存，兼容旧字段）
+        //   __dominated   —— 被支配标记（party.js 688）
+        //   __escortQuest —— 护送委托 id（quest.js 812）
+        __necro: this.__necro ? 1 : 0,
+        __leash: this.__leash ? 1 : 0,
+        __hpbar: this.__hpbar ? 1 : 0,
+        __tempDays: this.__tempDays,
+        __dominated: this.__dominated ? 1 : 0,
+        __escortQuest: this.__escortQuest,
       };
     }
     static fromJSON(o) {
@@ -119,6 +133,13 @@
       c.alias = o.alias || '';
       c.feats = o.feats || null; c.featFlags = o.featFlags || null;
       c.pcc = o.pcc || null;
+      // 0-Z37：恢复角色实例上的持久标记（见 toJSON 注释）
+      if (o.__necro) c.__necro = true;
+      if (o.__leash) c.__leash = true;
+      if (o.__hpbar) c.__hpbar = true;
+      if (o.__tempDays !== undefined && o.__tempDays !== null) c.__tempDays = o.__tempDays;
+      if (o.__dominated) c.__dominated = true;
+      if (o.__escortQuest !== undefined && o.__escortQuest !== null) c.__escortQuest = o.__escortQuest;
       if (Array.isArray(o.spellStock)) {
         for (let i = 0; i < 200; i++) c.spellStock[i] = o.spellStock[i] | 0;
       }

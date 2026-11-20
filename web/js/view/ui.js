@@ -238,6 +238,16 @@
         for (const it of game.player.inv) {
           if (it && it.f[0] > 0) rows.push(it);
         }
+      } else if (this.invMode === 'pickup') {
+        // 0-Z36 / *label_2824 的 var_486 == 3（拾う）：只列**脚下这一格**的物品。
+        // 源码 296247-296260 的过滤是 `var_99(5/6) == var_58(1/2, var_243)`，
+        // 不区分有主/无主 —— 有主的在选中后才由 *label_2819 提示「那不是你的东西」。
+        const pp = game.player;
+        for (const it of (game.groundItems || [])) {
+          if (!it || (it.f[0] | 0) <= 0) continue;
+          if ((it.f[5] | 0) !== (pp.x | 0) || (it.f[6] | 0) !== (pp.y | 0)) continue;
+          rows.push(it);
+        }
       } else if (this.invMode === 'equip') {
         // 装备窗本身画的是部位表（renderer.drawEquipWindow），不是物品列表
       } else if (this.invMode === 'equip-pick') {
@@ -396,6 +406,13 @@
     /** 执行选中行（对应原版 cs_list 的确定动作） */
     activateInventoryRow(game, row) {
       if (!row) return;
+      // 0-Z36：拾取列表（var_486 == 3）—— 只拿选中的这一件，然后回主循环
+      if (this.invMode === 'pickup') {
+        this.closeInventory();
+        const r = Elona.Actions ? Elona.Actions.pickHere(game, [row]) : null;
+        if (r && r.ok === false && r.reason === 'not-yours') return;
+        return;
+      }
       if (this.invMode === 'spell') {
         const r = game.castPlayerSpell(row);
         // 【A115】方向系（`var_938 == 8000`）法术：源码 315663-315707 先

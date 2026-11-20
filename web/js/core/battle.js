@@ -775,7 +775,7 @@
     if (dead.__death) return dead.__death;
     const out = {
       exp: null, loot: null, recruit: null, arena: null, necro: null,
-      companion: null, morale: null, quest: null, vanquished: false, gold: 0,
+      companion: null, morale: null, quest: null, story: null, vanquished: false, gold: 0,
     };
     // 0-GQ / 200036-200348：死因文案（var_1165 / txt_select）与尸体清理
     //   （cell_removechara + 血痕 / 碎片）。放在玩家分支之前，玩家与 NPC 都会记录；
@@ -808,6 +808,13 @@
       // 2. 经验 / AP
       if (att && Elona.KillReward && Elona.KillReward.onKill) {
         out.exp = Elona.KillReward.onKill(g, att, dead);
+      }
+      // 2-b 0-Z35：200456-201175 死者物种分派 —— 主线推进的真正入口
+      //   （三魔石 141/143/144、データレジスタ 508、以太发生器 516、
+      //     魔歇拉·摩多 672、夜烟神 789、爱克尔贝伊尔 911、奥鲁菲 923/1015/1017 ……）
+      //   原版顺序在经验之后、掉落之前，这里照做。
+      if (Elona.StoryKill && Elona.StoryKill.run) {
+        try { out.story = Elona.StoryKill.run(g, dead, att); } catch (e) { out.story = null; }
       }
       // 3. 招募事件
       if (Elona.KillReward && Elona.KillReward.queueRecruit) {

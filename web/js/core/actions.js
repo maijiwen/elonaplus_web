@@ -1409,7 +1409,26 @@
       const p = g.player;
       const here = ((g.groundItems || [])).filter((it) => it && (it.f[0] | 0) > 0
         && (it.f[5] | 0) === (p.x | 0) && (it.f[6] | 0) === (p.y | 0));
-      const n = g.pickupAt(p);          // 只拿 townOwned 之外的（含作物等无主物）
+      // 0-Z36 / 296010-296020：格子上有**多件**物品时，源码先
+      //   `var_486 = 3; snd 100; goto *label_2824` —— 打开「どのアイテムを拾う？」物品窗，
+      //   玩家选中一件才走 *label_2978 拿走。此前本项目直接 pickupAt 全拿。
+      if (here.length > 1 && Elona.UI && Elona.UI.openInventory) {
+        Elona.UI.openInventory(g, 'pickup');
+        return { ok: true, opened: 'pickup', count: here.length };
+      }
+      return this.pickHere(g, here);
+    },
+
+    /**
+     * 拾取脚下物品的实际结算（*label_2819 的后半段）。
+     * @param {object} g
+     * @param {object[]} here 要拾取的物品（1 件；多件时由 `get` 先开列表）
+     */
+    pickHere(g, here) {
+      const p = g.player;
+      const only = (here && here.length === 1) ? here[0] : null;
+      // 只拿有主物品之外的（含作物等无主物）；只选一件时允许它自己转采摘
+      const n = g.pickupAt(p, only, only ? { harvest: true } : null);
       // 0-FZ：成熟作物转入 103 采摘，本回合结束（不再走「那不是你的东西」分支）
       if (g.pendingHarvest) {
         g.pendingHarvest = false;
@@ -1422,7 +1441,8 @@
         return { ok: true, count: n };
       }
       // 没拿到东西：若有主物品在脚下，给出原版的三种提示之一
-      const owned = here.find((it) => it.townOwned || (it.f[21] | 0) !== 0);
+      const owned = here.find((it) => (g.isOwnedItem ? g.isOwnedItem(it)
+        : (it.townOwned || (it.f[21] | 0) === 1)));
       if (owned) {
         const LINES = ['那不是你的东西。', '怎么能偷呢。', '这东西不能捡。'];
         const pick = (g.rng && g.rng.rnd) ? g.rng.rnd(LINES.length) : 0;
