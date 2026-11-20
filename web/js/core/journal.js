@@ -177,10 +177,21 @@
     for (const op of blk.ops) {
       if (op.op === 'ret') break;
       if (op.c && !evalAst(op.c, env)) continue;
+      // 0-Z34：一条任务块 = `if (var_65(250+N) != 0) { var_121=… ; … }` +
+      //   `if (var_400 == …) { var_426=… ; stage }`。编译后第二段的守卫里
+      //   `var_400 == var_65(250+N)` 在「这条任务没开始」时会变成 0 == 0，
+      //   于是拿**上一条任务残留的 var_121/var_426** 拼出一行错正文
+      //   （米娅完成后日志里出现「(米娅的梦…) 阳牢之塔的西娜阿…」）。
+      //   slotActive 只在「本块的 var_121 因槽位非 0 被赋值」后为真。
+      //   （只对支线任务段生效；主线段本来就是「按进度逐段追加」，沿用旧语义。）
+      if (name === 'quests'
+        && (op.op === 'stage' || (op.op === 'set' && op.var === 'var_426'))
+        && !env.slotActive) continue;
       switch (op.op) {
         case 'set':
           vars[op.var] = loc(op, env);
           if (op.slot) env.curSlot = op.slot;
+          if (op.var === 'var_121') env.slotActive = true;
           break;
         case 'setslot':
           env.curSlot = op.n;
@@ -189,6 +200,7 @@
         case 'clearslot':
           env.curSlot = null;
           vars.var_400 = 0;
+          env.slotActive = false;
           break;
         case 'note': {
           let t = loc(op, env);
@@ -231,7 +243,7 @@
     return {
       // lang: 'jp' 源码日文 / 'ch' 汉化 / 'en' 英文（日记书本固定用 jp）
       g, lang: (lang === 'jp' || lang === 'ch') ? lang : 'en', mode: mode | 0,
-      vars: {}, curSlot: null,
+      vars: {}, curSlot: null, slotActive: false,
       slot: (n) => slotOf(g, n),
       p58: (n) => (g.player && g.player.get ? (g.player.get(n) | 0) : 0),
     };

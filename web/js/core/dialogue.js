@@ -87,6 +87,9 @@
     4274: 'join', 2683: 'chara', 2824: 'item', 2707: 'npc',
     2174: 'refresh', 2235: 'parts', 2143: 'partbonus', 2147: 'clampPot',
     2911: 'relocate', 2929: 'strip', 2612: 'faith', 4352: 'hour',
+    // 0-Z34：*label_2225 是负重/速度重算（216702-216732），交付物品后源码必调；
+    //   此前未登记 → 伊克罗交球、凯尔交角等分支在 `gosub 2225` 处整段 blocked。
+    2225: 'weight',
   };
 
   /**
@@ -140,8 +143,7 @@
   }
 
   /** 表达式求值：new Function 里是 sloppy 模式，所以可以用 with */
-  function ev(js, S) {
-    let fn = evCache.get(js);
+  function ev(js, S) {    let fn = evCache.get(js);
     if (!fn) {
       try {
         fn = new Function('S', 'with (S) { return (' + js + '); }');
@@ -151,6 +153,25 @@
       evCache.set(js, fn);
     }
     try { return fn(S); } catch (e) { return 0; }
+  }
+
+  /**
+   * 0-Z34：按顶层逗号切分表达式（`repeat VX(696), VX(695)` = 次数, 起始）。
+   *   括号内的逗号不切。
+   */
+  function splitTopArgs(src) {
+    const s = String(src || '');
+    const out = [];
+    let depth = 0, cur = '';
+    for (let i = 0; i < s.length; i++) {
+      const ch = s[i];
+      if (ch === '(' || ch === '[') depth++;
+      else if (ch === ')' || ch === ']') depth--;
+      if (ch === ',' && depth === 0) { out.push(cur.trim()); cur = ''; continue; }
+      cur += ch;
+    }
+    if (cur.trim()) out.push(cur.trim());
+    return out;
   }
 
   /**
@@ -353,6 +374,15 @@
       VX[1607] = 232;
       const rnd = (n) => ((g && g.rng) ? g.rng.rnd(n) : Math.floor(Math.random() * Math.max(1, n | 0)));
 
+      // ---- 0-Z34：源码 #defcfunc 需要的局部工具 ----
+      const idiv = (a, b) => { const d = (b | 0) || 1; return Math.trunc((a | 0) / d); };
+      const limit = (v, a, b) => Math.max(a, Math.min(b, v));
+      const charaAt = (i) => (g && g.charas ? (g.charas[i | 0] || null) : null);
+      const skillOf = (i, n) => {
+        const c = charaAt(i);
+        return (c && c.get) ? (c.get(60 + (n | 0)) | 0) : 0;
+      };
+
       const scope = {
         // ---- 跨模块访问器 ----
         V: (n) => (g && g.getV65 ? (g.getV65(n | 0) | 0) : 0),
@@ -399,6 +429,9 @@
         },
         CB: (n) => (self.var244 && Elona.Status && Elona.Status.cbit
           ? (Elona.Status.cbit(self.var244, n | 0) | 0) : 0),
+        /** 对任意角色取 cbit（findallyguard / get_freeally 需要） */
+        CB2: (n, c) => ((c || self.var244) && Elona.Status && Elona.Status.cbit
+          ? (Elona.Status.cbit(c || self.var244, n | 0) | 0) : 0),
         SK: (n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
         SKI: (a, n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
         VX: (n) => (VX[n | 0] | 0),
@@ -432,16 +465,91 @@
         cbit: (n) => scope.CB(n),
         ibit: (n) => (self.item && Elona.ItemDB && Elona.ItemDB.ibit
           ? (Elona.ItemDB.ibit(n | 0, self.item) | 0) : 0),
-        findally: () => 0,
-        get_freeally: () => 0,
-        findallyguard: () => 0,
-        findchara: () => 0,
-        dist: (a, b) => 0,
-        fov_los: () => 1,
-        instr: (a, b) => 0,
-        strmid: (s) => s,
-        strlen: (s) => (typeof s === 'string' ? s.length : 0),
-        calcinvestvalueg: () => 0,
+        // ---- 源码 #defcfunc 的直接移植（0-Z34）----
+        //   这些此前全是恒 0 的桩，导致「交付同伴 / 交付物品 / 购买」类支线
+        //   永远走不通（例如米娅的梦要 findally(246) 找银猫、伊克罗要买 5 个球）。
+        /** 193271 findally：0..15 号里状态 1 且种族 id 匹配的同伴 */
+        findally: (id) => {
+          for (let i = 0; i < 16; i++) {
+            const c = charaAt(i);
+            if (!c || !c.get || (c.get(0) | 0) !== 1) continue;
+            if ((c.get(27) | 0) === (id | 0)) return i;
+          }
+          return -1;
+        },
+        /** 193256 findallyguard：同上，且带 cbit 971（守卫标记） */
+        findallyguard: (id) => {
+          for (let i = 0; i < 16; i++) {
+            const c = charaAt(i);
+            if (!c || !c.get || (c.get(0) | 0) !== 1) continue;
+            if (!scope.CB2(971, c)) continue;
+            if ((c.get(27) | 0) === (id | 0)) return i;
+          }
+          return -1;
+        },
+        /** 194227 get_freeally：找一个空的同伴槽（15 个以内） */
+        get_freeally: () => {
+          let slot = 0;
+          const lim = limit(idiv((skillOf(0, 17) | 0), 5) + 1, 2, 15);
+          for (let i = 1; i < lim; i++) {
+            const c = charaAt(i);
+            if (!c || !c.get || (c.get(0) | 0) === 0) { slot = i; break; }
+          }
+          let used = 0;
+          for (let i = 0; i < 245; i++) {
+            const c = charaAt(i);
+            if (!c || !c.get || (c.get(0) | 0) !== 1 || i === 0) continue;
+            if (i < 16) used++;
+            const id = c.get(27) | 0;
+            if (id === 447 || id === 21 || id === 100 || id === 150 || id === 47
+              || id === 578 || id === 416 || id === 579) {
+              if (!scope.CB2(960, c) && scope.CB2(992, c)) used++;
+            }
+          }
+          if (used >= 15) slot = 0;
+          return slot;
+        },
+        /** 193167 findchara：57..244 号里状态 1/2 且种族 id 匹配的角色 */
+        findchara: (id) => {
+          for (let i = 57; i < 245; i++) {
+            const c = charaAt(i);
+            if (!c || !c.get) continue;
+            const st = c.get(0) | 0;
+            if (st !== 1 && st !== 2) continue;
+            if ((c.get(27) | 0) === (id | 0)) return i;
+          }
+          return 0;
+        },
+        /** 31560 dist：欧氏距离取整 */
+        dist: (x1, y1, x2, y2) => {
+          const dx = (x1 | 0) - (x2 | 0), dy = (y1 | 0) - (y2 | 0);
+          return Math.trunc(Math.sqrt(dx * dx + dy * dy));
+        },
+        /** fov_los(x1,y1,x2,y2)：有视线 1 / 被挡 0 */
+        fov_los: (x1, y1, x2, y2) => {
+          const los = Elona.Spell && Elona.Spell.fovLos;
+          if (!los) return 1;
+          try { return los(g, x1, y1, x2, y2) ? 1 : 0; } catch (e) { return 1; }
+        },
+        /** instr(s, start, needle)：从 start 起找子串，找不到 -1 */
+        instr: (s, start, needle) => String(s === undefined || s === null ? '' : s)
+          .indexOf(String(needle === undefined ? '' : needle), start | 0),
+        /** strmid(s, start, len) */
+        strmid: (s, start, len) => {
+          const t = String(s === undefined || s === null ? '' : s);
+          const a = start | 0;
+          return len === undefined ? t.slice(a) : t.substr(a, len | 0);
+        },
+        strlen: (s) => (typeof s === 'string' ? s.length : String(s === undefined ? '' : s).length),
+        /** 214425 calcinvestvalueg：当前展示物品的买入价 */
+        calcinvestvalueg: () => {
+          const it = self.item;
+          if (!it) return 0;
+          if (Elona.Shop && Elona.Shop.unitPrice) {
+            try { return Elona.Shop.unitPrice(g, it, 0) | 0; } catch (e) { /* fallthrough */ }
+          }
+          return (Elona.ItemDB && Elona.ItemDB.value ? Elona.ItemDB.value(it) | 0 : 0);
+        },
         calcobjlv: () => 1,
         calcfixlv: () => 1,
         sorg: (n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
@@ -514,7 +622,9 @@
       // 579 / 581 是「选中的物品 / 临时角色」—— 归一化到通用槽，读写都走 VX
       s.var579 = this._VX[579] | 0;
       s.var581 = this._VX[581] | 0;
-      s.cnt = this.loops.length ? this.loops[this.loops.length - 1].i : 0;
+      // 0-Z34：`repeat n, start` 的 cnt 从 start 起算（源码 repeat var_696, var_695）
+      const fr = this.loops[this.loops.length - 1];
+      s.cnt = fr ? ((fr.start | 0) + fr.i) : 0;
     }
 
     /** 把 scope 上的局部量拉回会话（指令可能改了它们） */
@@ -593,6 +703,14 @@
         for (let a = 100; a < 112; a++) cap(a, 1000 * 20000);
         for (let a = 150; a < 191; a++) cap(a, 1000 * 20000);
         for (let a = 300; a < 302; a++) cap(a, 1000 * 20000);
+        return null;
+      }
+      // ---- 负重 / 重量等级重算（*label_2225，216702-216732）----
+      if (kind === 'weight') {
+        const p = this.player;
+        if (p && Elona.Feat && Elona.Feat.applyWeight) {
+          try { Elona.Feat.applyWeight(p, g); } catch (e) { this.noteSkip(L); }
+        }
         return null;
       }
       // ---- 角色落点搬移（*label_2911）----
@@ -871,9 +989,22 @@
             break;
           case 'txtef':
           case 'tagend':
-          case 'invheader':
             this.pc++;
             break;
+          case 'invheader': {
+            // 29257 `#deffunc inv_getheader prm`：0 → 玩家背包（0..199）
+            //   0-Z34：此前是空操作，var_695/696 恒 0 → 交付类支线（凯尔交角、
+            //   伊克罗交球、雷托交绘本）的 `repeat var_696, var_695` 一次都不转。
+            this.syncScope();
+            const mode = d.e ? (ev(d.e, S) | 0) : 0;
+            this.pullScope();
+            const inv = (this.player && Array.isArray(this.player.inv)) ? this.player.inv : [];
+            if (mode === 0) { this.setVx(695, 0); this.setVx(696, Math.min(200, inv.length)); }
+            else if (mode === -1) { this.setVx(695, 5080); this.setVx(696, 400); }
+            else { this.setVx(695, 200 + 20 * (mode - 1)); this.setVx(696, 20); }
+            this.pc++;
+            break;
+          }
           case 'fclear':
             this.var1303 = 0;
             this._scope.var1303 = 0;
@@ -912,8 +1043,17 @@
           case 'ldec': {
             const n = d.n | 0;
             this.syncScope();
-            if (d.o === 'lset') this._VX[n] = ev(d.e, S) | 0;
-            else if (d.o === 'ladd') this._VX[n] = (this._VX[n] | 0) + (ev(d.e, S) | 0);
+            if (d.o === 'lset') {
+              // 0-Z34：`var_400 = 0,0,0,0,0,0` 是清空 var_400(0..5) 这个数组
+              //   （雷托交绘本时用来记「这一册已经收到过」）。标量同时置 0。
+              if (n === 400 && String(d.e || '').indexOf(',') >= 0) {
+                for (const k of Object.keys(this._VXA)) {
+                  const kk = k | 0;
+                  if (kk >= 400000 && kk < 401000) this._VXA[k] = 0;
+                }
+              }
+              this._VX[n] = ev(d.e, S) | 0;
+            } else if (d.o === 'ladd') this._VX[n] = (this._VX[n] | 0) + (ev(d.e, S) | 0);
             else if (d.o === 'linc') this._VX[n] = (this._VX[n] | 0) + 1;
             else this._VX[n] = (this._VX[n] | 0) - 1;
             this.pullScope();
@@ -1027,8 +1167,21 @@
             break;
           case 'repeat': {
             let n = -1;                    // -1 = 无限（源码里 `repeat` 不带参数）
-            if (d.e) { this.syncScope(); n = ev(d.e, S) | 0; this.pullScope(); }
-            this.loops.push({ i: 0, n, body: this.pc + 1 });
+            let start = 0;
+            if (d.e) {
+              this.syncScope();
+              // `repeat <次数>, <起始>`：cnt 从「起始」开始（源码 var_696, var_695）
+              const args = splitTopArgs(d.e);
+              if (args.length >= 2) {
+                n = ev(args[0], S) | 0;
+                start = ev(args[1], S) | 0;
+              } else {
+                n = ev(d.e, S) | 0;
+              }
+              this.pullScope();
+            }
+            this.loops.push({ i: 0, n, start, body: this.pc + 1 });
+            this._scope.cnt = start;
             this.pc++;
             break;
           }
@@ -1037,7 +1190,7 @@
             if (!fr) { this.pc++; break; }
             fr.i++;
             if (fr.n < 0 || fr.i < fr.n) {
-              this._scope.cnt = fr.i;
+              this._scope.cnt = (fr.start | 0) + fr.i;
               this.pc = fr.body;
             } else {
               this.loops.pop();
@@ -1464,6 +1617,60 @@
               break;
             }
             this.unsupported = this.unsupported || [];
+            // ---- 0-Z34：背包遍历类 raw（交付道具的支线全靠它）----
+            //   抽取器只把「var_99(n, cnt)」这种以 cnt 为下标的写法留在 raw 里，
+            //   凯尔交独角兽角、伊克罗交怪物球、雷托交绘本都走这段循环。
+            {
+              const src = String(d.s || '').trim();
+              // var_99(<n>, cnt)-- / ++
+              let m2 = /^var_99\(\s*([^,]+)\s*,\s*cnt\s*\)\s*(--|\+\+)$/.exec(src);
+              if (m2) {
+                const it = this.itemAt(this._scope.cnt | 0);
+                if (it) {
+                  this.syncScope();
+                  const f = ev(m2[1], S) | 0;
+                  this.pullScope();
+                  it.f[f] = (it.f[f] | 0) + (m2[2] === '--' ? -1 : 1);
+                }
+                this.pc++;
+                break;
+              }
+              // var_99(<n>, cnt) = <expr>
+              m2 = /^var_99\(\s*([^,]+)\s*,\s*cnt\s*\)\s*=\s*(.+)$/.exec(src);
+              if (m2) {
+                const it = this.itemAt(this._scope.cnt | 0);
+                if (it) {
+                  this.syncScope();
+                  const f = ev(m2[1], S) | 0;
+                  const v = ev(m2[2], S) | 0;
+                  this.pullScope();
+                  it.f[f] = v;
+                }
+                this.pc++;
+                break;
+              }
+              // continue cnt —— 进入下一轮（源码的 `continue cnt` 是「跳到该 loop」）
+              if (/^continue\s+cnt$/.test(src)) {
+                const fr = this.loops[this.loops.length - 1];
+                this.pc = fr ? this.findLoop(fr.body) : (this.pc + 1);
+                break;
+              }
+              // var_400(var_99(<n>, cnt)) = <expr> —— 记「这一册/这种已经交付过」
+              m2 = /^var_400\(\s*var_99\(\s*([^,]+)\s*,\s*cnt\s*\)\s*\)\s*=\s*(.+)$/.exec(src);
+              if (m2) {
+                const it = this.itemAt(this._scope.cnt | 0);
+                if (it) {
+                  this.syncScope();
+                  const f = ev(m2[1], S) | 0;
+                  const key = it.f[f] | 0;
+                  const v = ev(m2[2], S) | 0;
+                  this.pullScope();
+                  this._VXA[400 * 1000 + key] = v;
+                }
+                this.pc++;
+                break;
+              }
+            }
             if (this.unsupported.length < 8) {
               this.unsupported.push({ l: d.l, o: d.o, src: d.s || '' });
             }
@@ -1502,6 +1709,11 @@
       // 最直接的后果就是 A403：光玉分支只写了 var_65(250+N)=1000，物品根本没给玩家。
       const id = a.length > 1 ? (a[1] | 0) : 0;
       if (id <= 0) return;
+      // 0-Z34：第 5 参 prm_562（→ var_694）是**数量**（29245-29248）。
+      //   此前固定 createItem(id, 1)，于是「5000GP」「白金币×3」这类奖励
+      //   实际只进 1 枚 —— 支线奖励全被吞掉了数量。
+      const count = a.length > 4 ? (a[4] | 0) : 0;
+      const qty = count > 0 ? count : 1;
       // 0-L0 / A403：8 位神的光玉收口到 Faith.lightOrb（378792-386247）。
       // 脚本条件 `P(61)==神 && P(62)>=4000 && V(250+N)==0` 与 lightOrb 的判定同源，
       // 命中后由它投递到玩家脚边、写旗标与领取记录，不再走通用 itemcreate。
@@ -1516,8 +1728,9 @@
         return;
       }
       try {
-        const it = DB.createItem(id, 1, this.g && this.g.rng);
+        const it = DB.createItem(id, qty, this.g && this.g.rng);
         if (!it) return;
+        it.f[0] = qty;
         if (Elona.ItemDB && Elona.ItemDB.identify) { /* 保持未鉴定，与原版一致 */ }
         if (this.g && this.g.giveItem) this.g.giveItem(it);
         else if (this.player && Array.isArray(this.player.inv)) this.player.inv.push(it);
