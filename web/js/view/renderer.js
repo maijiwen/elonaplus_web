@@ -962,12 +962,15 @@
       // 地图名（var_494(0)）/ 层数（maplevel）
       this.text(String(game.map.name || '').slice(0, 16), UI_LEFT + 24, UI_BOTTOM + 2, '#000', FONT_MAP);
 
-      // 0-DD：先画消息（消息栏可展开，展开时会被数值条压住，与原版层级一致）
-      this.drawMessages();
+      // 0-Z38 / *label_4325：原版按 `/` 后是由展开窗口独占画面 —— 底部 HP/MP/金钱栏
+      //   （x > UI_LEFT）会被窗口盖住，否则数值条压在消息上就看不清了；左侧数据栏
+      //   （Lv / 技能经验等，x < UI_LEFT）露在窗口外仍可见。所以先画状态栏、再画消息。
+      //   未展开时消息与状态栏不重叠，顺序无影响。
       this.drawBars(p);
       this.drawStatSlots(p);
       this.drawMoney(p);
       this.drawStatusLines(p, game);
+      this.drawMessages();
       // 0-DD：界面增强层（时钟 / 技能监视 / 法术状态 / 小地图）
       if (Elona.Hud) {
         Elona.Hud.drawClock(this, game);
@@ -1655,11 +1658,14 @@
         ctx.restore();
         // showtitle「過去のメッセージ / Log」+「何かキーを押すと閉じる」
         this.text('按下任意键关闭', left + width - 96, top + 3, 'rgba(230,220,190,0.9)', FONT_UI(11));
-        // 消息贴底：label_4325 末尾 pos var_204, var_208-cnt*var_207
+        // 消息贴底：label_4325 末尾 `cnt=0 → pos var_208（最底）、var_400=var_226-3（最新）`，
+        //   cnt 增大则 y 上移、取更早的消息 —— 即**最新消息在最下，越往上越早**。
         const shown = lines.slice(-(total - 3));
         const baseY = MSG_TOP - 4;
         for (let i = 0; i < shown.length; i++) {
-          this.text(shown[i], left + 4, baseY - i * MSG_LINE_H, '#fff', font);
+          // shown 是「旧→新」顺序，倒序画到「底→顶」：最新一条落在 baseY
+          const line = shown[shown.length - 1 - i];
+          this.text(line, left + 4, baseY - i * MSG_LINE_H, '#fff', font);
         }
         return;
       }

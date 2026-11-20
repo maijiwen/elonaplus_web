@@ -85,6 +85,13 @@
     // 200453-200454
     killer.set(35, (killer.get(35) | 0) + exp);
     killer.set(201, 0);
+    // 0-Z38 / 201200：`var_499(0, 死者物种)++`（地图 40/35/6 不计）。
+    //   这是通用的按物种累计击杀数，供地图初始化时的 BOSS 重生判定（610737+）使用。
+    const mapId = g.getV65 ? (g.getV65(20) | 0) : 0;
+    if (mapId !== 40 && mapId !== 35 && mapId !== 6) {
+      const sp = target.get(27) | 0;
+      if (sp > 0 && g.killCounts) g.killCounts[sp] = (g.killCounts[sp] | 0) + 1;
+    }
     return { exp, targetLevel: tLv, capped };
   }
 

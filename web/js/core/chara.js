@@ -60,6 +60,10 @@
       this.potential = {};
       // 魔力库存 var_495[200]：法术 400..599 各占一格（仅玩家 index 0 使用）
       this.spellStock = new Array(200).fill(0);
+      // 0-Z38 / var_496[200]：法术「封印（非表示）」标志。源码在施法列表
+      //   （*label_2762，291471）只列出 var_496(cnt)==0 的法术；在列表里按 `/`
+      //   （var_2217）把选中法术置 2 隐藏，再按一次把全部 2 清回 0（292071/292083）。
+      this.spellSeal = new Array(200).fill(0);
       this.inv = [];
     }
     get(key) { return this.v[key]; }
@@ -104,6 +108,8 @@
         pcc: this.pcc,
         // 魔力库存 var_495
         spellStock: this.spellStock,
+        // 法术封印 var_496（存档块 cnt15，291471/292071）
+        spellSeal: this.spellSeal,
         // 0-Z37：模块挂在角色实例上、源码却写进存档的持久标记。
         //   __necro       —— 死灵仆从身份（necro.js 270/585 据此召回/强制），
         //                    源码 356021 的 var_641=2 档位不进角色 v[]，只能单独存
@@ -142,6 +148,10 @@
       if (o.__escortQuest !== undefined && o.__escortQuest !== null) c.__escortQuest = o.__escortQuest;
       if (Array.isArray(o.spellStock)) {
         for (let i = 0; i < 200; i++) c.spellStock[i] = o.spellStock[i] | 0;
+      }
+      // 0-Z38 / var_496：法术封印标志（旧存档无此字段时全 0 = 不封印）
+      if (Array.isArray(o.spellSeal)) {
+        for (let i = 0; i < 200; i++) c.spellSeal[i] = o.spellSeal[i] | 0;
       }
       // 物品实例需要还原为 Item 对象（否则读档后失去方法）
       c.inv = (o.inv || []).map((x) => (global.Elona.Item ? global.Elona.Item.fromJSON(x) : x));

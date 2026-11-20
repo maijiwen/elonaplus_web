@@ -966,6 +966,11 @@
         // 295829 / 299389：z = 情報切替（var_2251）
         e.preventDefault();
         UI.toggleInvInfoCols();
+      } else if (e.key === '/' && mode === 'spell') {
+        // 0-Z38 / *label_2766（292060-292090）：施法列表里按 `/` 封印当前法术，
+        //   再按一次解除全部封印（var_496）。非施法列表时 `/` 仍是消息栏展开。
+        e.preventDefault();
+        UI.toggleSpellSeal(game);
       } else if (e.key === 'Tab' && mode === 'use') {
         // 0-GU / 299322-299344：Tab = 命令切换（原版 Tab 换组，这里在组内环绕）
         e.preventDefault();

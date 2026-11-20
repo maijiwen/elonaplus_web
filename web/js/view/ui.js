@@ -214,6 +214,34 @@
       Elona.ItemDB.ibitmod(13, row, on);
       this.pushMessage(on ? '指定为「重要物品」（不会误丢/误卖）。' : '解除了「重要物品」的指定。');
     },
+    /**
+     * 0-Z38 / var_496：施法列表按 `/` 封印当前选中法术（非表示）；再按一次把全部封印解除。
+     * 源码 *label_2766（292060-292090）：选中项 → var_496(var_400-400)=2；
+     *   无选中项再按 → repeat 492-400 var_496(cnt)==2 全部清 0。
+     */
+    toggleSpellSeal(game) {
+      const p = game && game.player;
+      if (!p) return false;
+      if (!p.spellSeal) p.spellSeal = new Array(200).fill(0);
+      const rows = this.inventoryRows(game);
+      const row = rows[this.invSel | 0];
+      if (typeof row === 'number' && row >= 400 && row < 600
+        && (p.spellStock[row - 400] | 0) > 0) {
+        p.spellSeal[row - 400] = 2;
+        this.pushMessage(`【${(Elona.Spell && Elona.Spell.name ? Elona.Spell.name(row, 'ch') : '法术 ' + row)}】已设为不显示。`);
+        this.invalidateInventory();
+        if (this.invSel >= rows.length - 1) this.invSel = Math.max(0, rows.length - 2);
+        return true;
+      }
+      // 无有效选中项 → 解除全部封印（原版第二个 `/` 分支）
+      let n = 0;
+      for (let i = 0; i < 200; i++) {
+        if ((p.spellSeal[i] | 0) === 2) { p.spellSeal[i] = 0; n++; }
+      }
+      this.pushMessage(n ? '已解除全部法术的不显示设置。' : '当前没有隐藏的法术。');
+      this.invalidateInventory();
+      return n > 0;
+    },
 
     invalidateInventory() { this._invRows = null; },
 
@@ -298,8 +326,13 @@
           rows.push(it);
         }
       } else if (this.invMode === 'spell') {
+        // 0-Z38 / *label_2763（291468-291475）：只列出有库存(var_495>0)且未被
+        //   封印(var_496==0)的法术。封印者在施法列表里「非表示」。
         const st = game.player.spellStock || [];
-        for (let i = 0; i < 200; i++) if ((st[i] | 0) > 0) rows.push(400 + i);
+        const seal = game.player.spellSeal || [];
+        for (let i = 0; i < 200; i++) {
+          if ((st[i] | 0) > 0 && (seal[i] | 0) === 0) rows.push(400 + i);
+        }
       } else {
         // 图鉴：按 id 升序展示全部物品（使用名称表数据，不创建实例）
         const ids = Object.keys(Elona.ItemDB.data).map(Number).sort((a, b) => a - b);

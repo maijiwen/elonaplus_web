@@ -135,6 +135,9 @@
       this.transitioning = false;
       this.pendingInteraction = null;  // 撞到中立 NPC 后由表现层消费（打开对话）
       this.quests = [];                // var_434：每名 NPC 一个委托槽位
+      // 0-Z38 / var_499(0, species)：通用「按物种累计击杀数」。源码 201200 在击杀时
+      //   var_499(0, species)++（地图 40/35/6 除外），供 610737+ 的 BOSS 重生判定等使用。
+      this.killCounts = {};
       this.activeQuests = [];          // status 1/3 的委托（上限 5，见 Quest.MAX_ACTIVE）
       this._questSeq = 0;
       this.questMap = null;            // 委托专用地图（原版 var_65(64)=13）
@@ -6516,6 +6519,8 @@
         // 0-FY：var_500 已学配方 / var_498(2,id) 已读过的书
         knownRecipes: this.knownRecipes || {},
         readBooks: this.readBooks || {},
+        // 0-Z38 / var_499(0, species)：按物种累计击杀数（存档块 cnt6）
+        killCounts: this.killCounts || {},
         // 0-GA：var_515 牌组张数 / 已获得的一次性能力
         cardDeck: this.cardDeck || {},
         learnedAbilities: this.learnedAbilities || {},
@@ -6689,6 +6694,8 @@
       // 0-FY：旧存档缺字段时按「还没学过配方 / 没读过书」处理
       this.knownRecipes = data.knownRecipes || {};
       this.readBooks = data.readBooks || {};
+      // 0-Z38 / var_499：按物种累计击杀数（旧存档无此字段时为空）
+      this.killCounts = data.killCounts || {};
       this.cardDeck = data.cardDeck || {};
       this.learnedAbilities = data.learnedAbilities || {};
       // 0-FA：随机地城站点与当前地城上下文（旧存档缺字段时按空表处理）
