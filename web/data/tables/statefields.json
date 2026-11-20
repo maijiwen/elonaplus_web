@@ -1,0 +1,1603 @@
+{
+ "source": "Elona-YAS-CSVs/States.csv",
+ "note": "修改器状态页字段表，由 tools/gen_statefields.py 生成；不要手改",
+ "fields": [
+  {
+   "row": 1,
+   "sourceName": "Name",
+   "label": "名称",
+   "index": 0,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 2,
+   "sourceName": "Age(500=default)",
+   "label": "年龄（500＝默认）",
+   "index": 21,
+   "store": "var58",
+   "min": 0,
+   "max": 1000,
+   "shared": false
+  },
+  {
+   "row": 3,
+   "sourceName": "Gender(0-1)",
+   "label": "人物性别（0-1）",
+   "index": 8,
+   "store": "var58",
+   "min": 0,
+   "max": 1,
+   "shared": false
+  },
+  {
+   "row": 4,
+   "sourceName": "Attraction(75-100-150-200)",
+   "label": "魅力（75/100/150/200）",
+   "index": 17,
+   "store": "var58",
+   "min": 0,
+   "max": 200,
+   "shared": false
+  },
+  {
+   "row": 5,
+   "sourceName": "Relation Equality",
+   "label": "关系平等值",
+   "index": 169,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 6,
+   "sourceName": "Level",
+   "label": "等级",
+   "index": 38,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 7,
+   "sourceName": "Exp",
+   "label": "经验值",
+   "index": 35,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 8,
+   "sourceName": "Exp To Next Level",
+   "label": "升级所需经验",
+   "index": 36,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 9,
+   "sourceName": "God(1-8)",
+   "label": "神明（1-8）",
+   "index": 61,
+   "store": "var58",
+   "min": 0,
+   "max": 8,
+   "shared": false
+  },
+  {
+   "row": 10,
+   "sourceName": "Favor Point(1500-2500-4000)",
+   "label": "信仰点数（1500/2500/4000）",
+   "index": 62,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 11,
+   "sourceName": "Ability to Pray(1000+ and Favor Point 200+)",
+   "label": "祈祷能力（1000+ 且信仰 200+）",
+   "index": 63,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 12,
+   "sourceName": "Skill Bonus",
+   "label": "技能修正",
+   "index": 41,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 13,
+   "sourceName": "Feat Bonus",
+   "label": "专长修正",
+   "index": 93,
+   "store": "v65",
+   "min": 0,
+   "max": 2147483647,
+   "v65": 93,
+   "shared": false
+  },
+  {
+   "row": "spell",
+   "sourceName": "Spell Bonus",
+   "label": "魔法点",
+   "index": 660,
+   "store": "v65",
+   "v65": 660,
+   "min": 0,
+   "max": 2147483647,
+   "playerOnly": true,
+   "shared": false
+  },
+  {
+   "row": 14,
+   "sourceName": "Gold Pieces (gp)",
+   "label": "金币（gp）",
+   "index": 30,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 15,
+   "sourceName": "Platinum Coin (pp)",
+   "label": "铂金币（pp）",
+   "index": 31,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 16,
+   "sourceName": "Height",
+   "label": "身高",
+   "index": 19,
+   "store": "var58",
+   "min": 0,
+   "max": 1000,
+   "shared": false
+  },
+  {
+   "row": 17,
+   "sourceName": "Weight",
+   "label": "体重",
+   "index": 20,
+   "store": "var58",
+   "min": 0,
+   "max": 100000,
+   "shared": false
+  },
+  {
+   "row": 18,
+   "sourceName": "HP (Current Health Points)",
+   "label": "当前 HP",
+   "index": 50,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 19,
+   "sourceName": "HP Limit",
+   "label": "HP 上限",
+   "index": 51,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 20,
+   "sourceName": "SP (Current Stamina Points)",
+   "label": "当前 SP",
+   "index": 52,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 21,
+   "sourceName": "SP Limit",
+   "label": "SP 上限",
+   "index": 53,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 22,
+   "sourceName": "MP (Current Mana Points)",
+   "label": "当前 MP",
+   "index": 55,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 23,
+   "sourceName": "MP Limit",
+   "label": "MP 上限",
+   "index": 56,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 24,
+   "sourceName": "Morale",
+   "label": "士气",
+   "index": 182,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 25,
+   "sourceName": "Hunger(1k-4k-6k-10k-15k)",
+   "label": "饥饿度（1k/4k/6k/10k/15k）",
+   "index": 22,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 27,
+   "sourceName": "Insanty",
+   "label": "精神错乱值",
+   "index": 86,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 28,
+   "sourceName": "Vomit Count",
+   "label": "呕吐计数",
+   "index": 93,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 29,
+   "sourceName": "Speed Penalty(-5% -10% -15%...)",
+   "label": "速度惩罚（-5%/-10%/-15%…）",
+   "index": 68,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 0,
+   "shared": false
+  },
+  {
+   "row": 30,
+   "sourceName": "Current AP",
+   "label": "当前 AP",
+   "index": 173,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 31,
+   "sourceName": "Total AP",
+   "label": "总 AP",
+   "index": 159,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 32,
+   "sourceName": "INIT 1",
+   "label": "先制 1",
+   "index": 198,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 33,
+   "sourceName": "INIT 2",
+   "label": "先制 2",
+   "index": 199,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 34,
+   "sourceName": "STR",
+   "label": "力量",
+   "index": 610,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 35,
+   "sourceName": "CON",
+   "label": "体质",
+   "index": 611,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 36,
+   "sourceName": "DEX",
+   "label": "敏捷",
+   "index": 612,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 37,
+   "sourceName": "PER",
+   "label": "感知",
+   "index": 613,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 38,
+   "sourceName": "LER",
+   "label": "学习",
+   "index": 614,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 39,
+   "sourceName": "WIL",
+   "label": "意志",
+   "index": 615,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 40,
+   "sourceName": "MAG",
+   "label": "魔力",
+   "index": 616,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 41,
+   "sourceName": "CHR",
+   "label": "魅力",
+   "index": 617,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 42,
+   "sourceName": "Life",
+   "label": "生命",
+   "index": 602,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 43,
+   "sourceName": "Mana",
+   "label": "法力",
+   "index": 603,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 44,
+   "sourceName": "Speed",
+   "label": "速度",
+   "index": 618,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 45,
+   "sourceName": "Luck",
+   "label": "幸运",
+   "index": 619,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 46,
+   "sourceName": "Fame",
+   "label": "名声",
+   "index": 34,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 47,
+   "sourceName": "Karma",
+   "label": "善恶值",
+   "index": 49,
+   "store": "var58",
+   "min": -100,
+   "max": 100,
+   "shared": false
+  },
+  {
+   "row": 48,
+   "sourceName": "X Pos (Don't Change)",
+   "label": "X 坐标（勿改）",
+   "index": 1,
+   "store": "var58",
+   "min": 0,
+   "max": 1000,
+   "shared": false
+  },
+  {
+   "row": 49,
+   "sourceName": "Y Pos (Don't Change)",
+   "label": "Y 坐标（勿改）",
+   "index": 2,
+   "store": "var58",
+   "min": 0,
+   "max": 1000,
+   "shared": false
+  },
+  {
+   "row": 50,
+   "sourceName": "X Target",
+   "label": "目标 X",
+   "index": 3,
+   "store": "var58",
+   "min": 0,
+   "max": 1000,
+   "shared": false
+  },
+  {
+   "row": 51,
+   "sourceName": "Y Target",
+   "label": "目标 Y",
+   "index": 4,
+   "store": "var58",
+   "min": 0,
+   "max": 1000,
+   "shared": false
+  },
+  {
+   "row": 52,
+   "sourceName": "Absolute Pierce Chance",
+   "label": "绝对贯穿几率",
+   "index": 66,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 53,
+   "sourceName": "Critical Hit Chance",
+   "label": "暴击几率",
+   "index": 67,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 54,
+   "sourceName": "PV Correction",
+   "label": "PV 修正",
+   "index": 76,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 55,
+   "sourceName": "DV Correction",
+   "label": "DV 修正",
+   "index": 77,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 56,
+   "sourceName": "Strength Correction",
+   "label": "力量修正",
+   "index": 240,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 57,
+   "sourceName": "Constitution Correction",
+   "label": "体质修正",
+   "index": 241,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 58,
+   "sourceName": "Dexterity Correction",
+   "label": "敏捷修正",
+   "index": 242,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 59,
+   "sourceName": "Perception Correction",
+   "label": "感知修正",
+   "index": 243,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 60,
+   "sourceName": "Learning Correction",
+   "label": "学习修正",
+   "index": 244,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 61,
+   "sourceName": "Will Correction",
+   "label": "意志修正",
+   "index": 245,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 62,
+   "sourceName": "Magic Correction",
+   "label": "魔力修正",
+   "index": 246,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 63,
+   "sourceName": "Charisma Correction",
+   "label": "魅力修正",
+   "index": 247,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 64,
+   "sourceName": "Speed Correction",
+   "label": "速度修正",
+   "index": 248,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 65,
+   "sourceName": "Luck Correction",
+   "label": "幸运修正",
+   "index": 249,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 66,
+   "sourceName": "Status: Poison",
+   "label": "状态：中毒",
+   "index": 250,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 67,
+   "sourceName": "Status: Sleep",
+   "label": "状态：睡眠",
+   "index": 251,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 68,
+   "sourceName": "Status: Paralyzed",
+   "label": "状态：麻痹",
+   "index": 252,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 69,
+   "sourceName": "Status: Blinded",
+   "label": "状态：失明",
+   "index": 253,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 70,
+   "sourceName": "Status: Confused",
+   "label": "状态：混乱",
+   "index": 254,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 71,
+   "sourceName": "Status: Fear",
+   "label": "状态：恐惧",
+   "index": 255,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 72,
+   "sourceName": "Status: Dim",
+   "label": "状态：虚弱",
+   "index": 256,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 73,
+   "sourceName": "Status: Drunk",
+   "label": "状态：醉酒",
+   "index": 257,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 74,
+   "sourceName": "Status: Bleeding",
+   "label": "状态：流血",
+   "index": 258,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 75,
+   "sourceName": "Status: Wet",
+   "label": "状态：潮湿",
+   "index": 259,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 76,
+   "sourceName": "Status: Insanity",
+   "label": "状态：精神错乱",
+   "index": 260,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 77,
+   "sourceName": "Status: Sick",
+   "label": "状态：疾病",
+   "index": 261,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 78,
+   "sourceName": "Status: Gravity",
+   "label": "状态：重力",
+   "index": 262,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 79,
+   "sourceName": "Status: Choking",
+   "label": "状态：窒息",
+   "index": 263,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 80,
+   "sourceName": "Status: Rampage",
+   "label": "状态：狂暴",
+   "index": 264,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 81,
+   "sourceName": "Status: Metal",
+   "label": "状态：金属化",
+   "index": 265,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 82,
+   "sourceName": "Status: Shrinking",
+   "label": "状态：缩小",
+   "index": 267,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 83,
+   "sourceName": "Status: Bounded",
+   "label": "状态：束缚",
+   "index": 268,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 84,
+   "sourceName": "Status: Brainwashing",
+   "label": "状态：洗脑",
+   "index": 269,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 85,
+   "sourceName": "Buff Type 1",
+   "label": "增益类型 1",
+   "index": 280,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 86,
+   "sourceName": "Buff Magnitude 1",
+   "label": "增益强度 1",
+   "index": 281,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 87,
+   "sourceName": "Buff Duration 1",
+   "label": "增益持续 1",
+   "index": 282,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 88,
+   "sourceName": "Buff Type 2",
+   "label": "增益类型 2",
+   "index": 283,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 89,
+   "sourceName": "Buff Magnitude 2",
+   "label": "增益强度 2",
+   "index": 284,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 90,
+   "sourceName": "Buff Duration 2",
+   "label": "增益持续 2",
+   "index": 285,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 91,
+   "sourceName": "Buff Type 3",
+   "label": "增益类型 3",
+   "index": 286,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 92,
+   "sourceName": "Buff Magnitude 3",
+   "label": "增益强度 3",
+   "index": 287,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 93,
+   "sourceName": "Buff Duration 3",
+   "label": "增益持续 3",
+   "index": 288,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 94,
+   "sourceName": "Buff Type 4",
+   "label": "增益类型 4",
+   "index": 289,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 95,
+   "sourceName": "Buff Magnitude 4",
+   "label": "增益强度 4",
+   "index": 290,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 96,
+   "sourceName": "Buff Duration 4",
+   "label": "增益持续 4",
+   "index": 291,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 97,
+   "sourceName": "Buff Type 5",
+   "label": "增益类型 5",
+   "index": 292,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 98,
+   "sourceName": "Buff Magnitude 5",
+   "label": "增益强度 5",
+   "index": 293,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 99,
+   "sourceName": "Buff Duration 5",
+   "label": "增益持续 5",
+   "index": 294,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 100,
+   "sourceName": "Buff Type 6",
+   "label": "增益类型 6",
+   "index": 295,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 101,
+   "sourceName": "Buff Magnitude 6",
+   "label": "增益强度 6",
+   "index": 296,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 102,
+   "sourceName": "Buff Duration 6",
+   "label": "增益持续 6",
+   "index": 297,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 103,
+   "sourceName": "Body Part 1 (10000-20000-40000-30000-50000-50000-60000-60000-70000-80000-90000-100000-110000)",
+   "label": "身体部位 1（10000/20000/40000/30000/50000/50000/60000/60000/70000/80000/90000/100000/110000）",
+   "index": 100,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 104,
+   "sourceName": "Body Part 2",
+   "label": "身体部位 2",
+   "index": 101,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 105,
+   "sourceName": "Body Part 3",
+   "label": "身体部位 3",
+   "index": 102,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 106,
+   "sourceName": "Body Part 4",
+   "label": "身体部位 4",
+   "index": 103,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 107,
+   "sourceName": "Body Part 5",
+   "label": "身体部位 5",
+   "index": 104,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 108,
+   "sourceName": "Body Part 6",
+   "label": "身体部位 6",
+   "index": 105,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 109,
+   "sourceName": "Body Part 7",
+   "label": "身体部位 7",
+   "index": 106,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 110,
+   "sourceName": "Body Part 8",
+   "label": "身体部位 8",
+   "index": 107,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 111,
+   "sourceName": "Body Part 9",
+   "label": "身体部位 9",
+   "index": 108,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 112,
+   "sourceName": "Body Part 10",
+   "label": "身体部位 10",
+   "index": 109,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 113,
+   "sourceName": "Body Part 11",
+   "label": "身体部位 11",
+   "index": 110,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 114,
+   "sourceName": "Body Part 12",
+   "label": "身体部位 12",
+   "index": 111,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 115,
+   "sourceName": "Body Part 13",
+   "label": "身体部位 13",
+   "index": 112,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 116,
+   "sourceName": "Body Part 14",
+   "label": "身体部位 14",
+   "index": 113,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 117,
+   "sourceName": "Body Part 15",
+   "label": "身体部位 15",
+   "index": 114,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 118,
+   "sourceName": "Body Part 16",
+   "label": "身体部位 16",
+   "index": 115,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 119,
+   "sourceName": "Body Part 17",
+   "label": "身体部位 17",
+   "index": 116,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 120,
+   "sourceName": "Body Part 18",
+   "label": "身体部位 18",
+   "index": 117,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 121,
+   "sourceName": "Body Part 19",
+   "label": "身体部位 19",
+   "index": 118,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 122,
+   "sourceName": "Body Part 20",
+   "label": "身体部位 20",
+   "index": 119,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 123,
+   "sourceName": "Body Part 21",
+   "label": "身体部位 21",
+   "index": 120,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 124,
+   "sourceName": "Body Part 22",
+   "label": "身体部位 22",
+   "index": 121,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 125,
+   "sourceName": "Body Part 23",
+   "label": "身体部位 23",
+   "index": 122,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 126,
+   "sourceName": "Body Part 24",
+   "label": "身体部位 24",
+   "index": 123,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 127,
+   "sourceName": "Body Part 25",
+   "label": "身体部位 25",
+   "index": 124,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 128,
+   "sourceName": "Body Part 26",
+   "label": "身体部位 26",
+   "index": 125,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 129,
+   "sourceName": "Body Part 27",
+   "label": "身体部位 27",
+   "index": 126,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 130,
+   "sourceName": "Body Part 28",
+   "label": "身体部位 28",
+   "index": 127,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 131,
+   "sourceName": "Body Part 29",
+   "label": "身体部位 29",
+   "index": 128,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 132,
+   "sourceName": "Body Part 30",
+   "label": "身体部位 30",
+   "index": 129,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 133,
+   "sourceName": "Monster ID",
+   "label": "怪物 ID",
+   "index": 27,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 134,
+   "sourceName": "Monster \"Quality\"(1-6)",
+   "label": "怪物品质（1-6）",
+   "index": 25,
+   "store": "var58",
+   "min": 0,
+   "max": 6,
+   "shared": false
+  },
+  {
+   "row": 135,
+   "sourceName": "Attack Range(from this line below are about AI)",
+   "label": "攻击距离（以下为 AI 相关）",
+   "index": 208,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 136,
+   "sourceName": "Chance to Move into attack range",
+   "label": "移入攻击范围概率",
+   "index": 207,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 137,
+   "sourceName": "Chance to Use Sub Action",
+   "label": "使用副动作概率",
+   "index": 209,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 138,
+   "sourceName": "Ai Heal",
+   "label": "AI 治疗",
+   "index": 211,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 139,
+   "sourceName": "Main Action #1",
+   "label": "主行动 1",
+   "index": 215,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 140,
+   "sourceName": "Main Action #2",
+   "label": "主行动 2",
+   "index": 216,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 141,
+   "sourceName": "Main Action #3",
+   "label": "主行动 3",
+   "index": 217,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 142,
+   "sourceName": "Main Action #4",
+   "label": "主行动 4",
+   "index": 218,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 143,
+   "sourceName": "Main Action #5",
+   "label": "主行动 5",
+   "index": 219,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 144,
+   "sourceName": "Sub Action #1",
+   "label": "副行动 1",
+   "index": 220,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 145,
+   "sourceName": "Sub Action #2",
+   "label": "副行动 2",
+   "index": 221,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 146,
+   "sourceName": "Sub Action #3",
+   "label": "副行动 3",
+   "index": 222,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 147,
+   "sourceName": "Sub Action #4",
+   "label": "副行动 4",
+   "index": 223,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 148,
+   "sourceName": "Sub Action #5",
+   "label": "副行动 5",
+   "index": 224,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 149,
+   "sourceName": "Elemental Wrestling(like:xxnnnnn)",
+   "label": "元素角力（如 xxnnnnn）",
+   "index": 230,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 150,
+   "sourceName": "Bit(2^x+2^y+...etc)",
+   "label": "位标志（2^x＋2^y＋…）",
+   "index": 450,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 151,
+   "sourceName": "If Magic Blocked(0-1)",
+   "label": "魔法封锁（0-1）",
+   "index": 180,
+   "store": "var58",
+   "min": 0,
+   "max": 1,
+   "shared": false
+  },
+  {
+   "row": 152,
+   "sourceName": "If Ability Blocked(0-1)",
+   "label": "能力封锁（0-1）",
+   "index": 181,
+   "store": "var58",
+   "min": 0,
+   "max": 1,
+   "shared": false
+  },
+  {
+   "row": 153,
+   "sourceName": "AP Superaddition(Talents and Spacts)",
+   "label": "AP 附加（天赋与特质）",
+   "index": 481,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 154,
+   "sourceName": "Number of Times Hired(For adventurers)",
+   "label": "雇佣次数（冒险者）",
+   "index": 85,
+   "store": "v65",
+   "min": 0,
+   "max": 2147483647,
+   "v65": 85,
+   "link": "v65-85",
+   "shared": true
+  },
+  {
+   "row": 155,
+   "sourceName": "Other Info(anorexia=67108864,pegnant=262144)",
+   "label": "其它信息（厌食＝67108864，怀孕＝262144）",
+   "index": 480,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 156,
+   "sourceName": "pregnant progress(Phase 1: (x + 1000000) * (-1) / 10000 + 50; Phase 2: (x + 2000000) * (-1) / 100000)",
+   "label": "怀孕进度（阶段1：(x+1000000)*(-1)/10000+50；阶段2：(x+2000000)*(-1)/100000）",
+   "index": 42,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 157,
+   "sourceName": "education num",
+   "label": "教育次数",
+   "index": 85,
+   "store": "v65",
+   "min": 0,
+   "max": 2147483647,
+   "v65": 85,
+   "link": "v65-85",
+   "shared": true
+  },
+  {
+   "row": 158,
+   "sourceName": "growth phase",
+   "label": "成长阶段",
+   "index": 59,
+   "store": "var58",
+   "min": 0,
+   "max": 2147483647,
+   "shared": false
+  },
+  {
+   "row": 159,
+   "sourceName": "race modify value",
+   "label": "种族修正值",
+   "index": 415,
+   "store": "var58",
+   "min": -2147483648,
+   "max": 2147483647,
+   "shared": false
+  }
+ ]
+}

@@ -66,9 +66,11 @@
   "residual_status.json",
   "residual_tables.json",
   "resist_msgs.json",
+  "skillfields.json",
   "skills.json",
   "skillshop.json",
   "source_anchors.json",
+  "statefields.json",
   "status.json",
   "storykill.json",
   "storymap.json",
@@ -92,5 +94,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 84
+ "count": 86
 }

@@ -1,0 +1,1427 @@
+{
+ "source": "Elona-YAS-CSVs/Skills.csv",
+ "names": "web/data/tables/skills.json → skillNames[id].ch",
+ "note": "修改器技能页字段表，由 tools/gen_skillsfields.py 生成；不要手改",
+ "fields": [
+  {
+   "row": 1,
+   "sourceName": "Tactics",
+   "csvName": "ｦﾖ Tactics",
+   "label": "战术",
+   "index": 152,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 2,
+   "sourceName": "Weight Lifting",
+   "csvName": "ｦﾖ Weight Lifting",
+   "label": "举重",
+   "index": 153,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 3,
+   "sourceName": "Two Hand",
+   "csvName": "ｦﾖ Two hand",
+   "label": "双手持握",
+   "index": 167,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 4,
+   "sourceName": "Healing",
+   "csvName": "ｦｮ Healing",
+   "label": "治愈",
+   "index": 154,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 5,
+   "sourceName": "Mining",
+   "csvName": "ｦｮ Mining",
+   "label": "采矿",
+   "index": 163,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 6,
+   "sourceName": "Shield",
+   "csvName": "ｦｮ Shield",
+   "label": "盾牌",
+   "index": 168,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 7,
+   "sourceName": "Heavy Armor",
+   "csvName": "ｦｮ Heavy Armor",
+   "label": "重装备",
+   "index": 169,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 8,
+   "sourceName": "Medium Armor",
+   "csvName": "ｦｮ Medium Armor",
+   "label": "中装备",
+   "index": 170,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 9,
+   "sourceName": "Carpentry",
+   "csvName": "ｦｮ Carpentry",
+   "label": "木工",
+   "index": 176,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 10,
+   "sourceName": "Lock Picking",
+   "csvName": "ｦﾇ Lock Picking",
+   "label": "开锁",
+   "index": 158,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 11,
+   "sourceName": "Dual Wield",
+   "csvName": "ｦﾇ Dual Wield",
+   "label": "双持",
+   "index": 166,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 12,
+   "sourceName": "Light Armor",
+   "csvName": "ｦﾇ Light Armor",
+   "label": "轻装备",
+   "index": 171,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 13,
+   "sourceName": "Evasion",
+   "csvName": "ｦﾇ Evasion",
+   "label": "闪避",
+   "index": 173,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 14,
+   "sourceName": "Disarm Trap",
+   "csvName": "ｦﾇ Disarm Trap",
+   "label": "陷阱知识",
+   "index": 175,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 15,
+   "sourceName": "Tailoring",
+   "csvName": "ｦﾇ Tailoring",
+   "label": "裁缝",
+   "index": 177,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 16,
+   "sourceName": "Jeweler",
+   "csvName": "ｦﾇ Jeweler",
+   "label": "宝石加工",
+   "index": 179,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 17,
+   "sourceName": "Pickpocket",
+   "csvName": "ｦﾇ Pickpocket",
+   "label": "偷窃",
+   "index": 300,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 18,
+   "sourceName": "Stealth",
+   "csvName": "ｦﾄ Stealth",
+   "label": "隐蔽",
+   "index": 157,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 19,
+   "sourceName": "Detection",
+   "csvName": "ｦﾄ Detection",
+   "label": "探知",
+   "index": 159,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 20,
+   "sourceName": "Analysis",
+   "csvName": "ｦﾄ Sense Quality",
+   "label": "分析",
+   "index": 162,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 21,
+   "sourceName": "Fishing",
+   "csvName": "ｦﾄ Fishing",
+   "label": "钓鱼",
+   "index": 185,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 22,
+   "sourceName": "Eye of Mind",
+   "csvName": "ｦｸ Eye of Mind",
+   "label": "心眼",
+   "index": 186,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 23,
+   "sourceName": "Greater Evasion",
+   "csvName": "ｦﾄ Greater Evasion",
+   "label": "看穿",
+   "index": 187,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 24,
+   "sourceName": "Marksman",
+   "csvName": "ｦﾄ Marksman",
+   "label": "射击",
+   "index": 189,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 25,
+   "sourceName": "Literacy",
+   "csvName": "ｦｰ Literacy",
+   "label": "读书",
+   "index": 150,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 26,
+   "sourceName": "Gene engineer",
+   "csvName": "ｦｰ Gene engineer",
+   "label": "基因工程",
+   "index": 151,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 27,
+   "sourceName": "Anatomy",
+   "csvName": "ｦｰ Anatomy",
+   "label": "解剖学",
+   "index": 161,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 28,
+   "sourceName": "Memorization",
+   "csvName": "ｦｰ Memorization",
+   "label": "背诵",
+   "index": 165,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 29,
+   "sourceName": "Alchemy",
+   "csvName": "ｦｰ Alchemy",
+   "label": "炼金术",
+   "index": 178,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 30,
+   "sourceName": "Gardening",
+   "csvName": "ｦｰ Gardening",
+   "label": "栽培",
+   "index": 180,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 31,
+   "sourceName": "Cooking",
+   "csvName": "ｦｰ Cooking",
+   "label": "料理",
+   "index": 184,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 32,
+   "sourceName": "Magic Capacity",
+   "csvName": "ｦｸ Magic Capacity",
+   "label": "魔力上限",
+   "index": 164,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 33,
+   "sourceName": "Faith",
+   "csvName": "ｦｸ Faith",
+   "label": "信仰",
+   "index": 181,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 34,
+   "sourceName": "Traveling",
+   "csvName": "ｦｸ Traveling",
+   "label": "旅行",
+   "index": 182,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 35,
+   "sourceName": "Swimming",
+   "csvName": "ｦｸ Swimming",
+   "label": "游泳",
+   "index": 190,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 36,
+   "sourceName": "Riding",
+   "csvName": "ｦｸ Riding",
+   "label": "骑乘",
+   "index": 301,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 37,
+   "sourceName": "Meditation",
+   "csvName": "ｦｨ Meditation",
+   "label": "冥想",
+   "index": 155,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 38,
+   "sourceName": "Casting",
+   "csvName": "ｦｨ Casting",
+   "label": "咏唱",
+   "index": 172,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 39,
+   "sourceName": "Magic Device",
+   "csvName": "ｦｨ Magic Device",
+   "label": "魔法道具",
+   "index": 174,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 40,
+   "sourceName": "Control Magic",
+   "csvName": "ｦｨ Control Magic",
+   "label": "魔力控制",
+   "index": 188,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 41,
+   "sourceName": "Negotiation",
+   "csvName": "ｦﾘ Negotiation",
+   "label": "交涉",
+   "index": 156,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 42,
+   "sourceName": "Investing",
+   "csvName": "ｦﾘ Investiong",
+   "label": "投资",
+   "index": 160,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 43,
+   "sourceName": "Performer",
+   "csvName": "ｦﾘ Performer",
+   "label": "演奏",
+   "index": 183,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 44,
+   "sourceName": "Long Sword",
+   "csvName": "ｦﾖ Long Sword",
+   "label": "长剑",
+   "index": 100,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 45,
+   "sourceName": "Axe",
+   "csvName": "ｦﾖ Axe",
+   "label": "斧",
+   "index": 102,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 46,
+   "sourceName": "Martial Arts",
+   "csvName": "ｦﾖ Martial Art",
+   "label": "格斗",
+   "index": 106,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 47,
+   "sourceName": "Scythe",
+   "csvName": "ｦﾖ Scythe",
+   "label": "镰刀",
+   "index": 107,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 48,
+   "sourceName": "Blunt",
+   "csvName": "ｦｮ Blunt",
+   "label": "钝器",
+   "index": 103,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 49,
+   "sourceName": "Polearm",
+   "csvName": "ｦｮ Polearm",
+   "label": "长枪",
+   "index": 104,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 50,
+   "sourceName": "Stave",
+   "csvName": "ｦｮ Stave",
+   "label": "法杖",
+   "index": 105,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 51,
+   "sourceName": "Short Sword",
+   "csvName": "ｦﾇ Short Sword",
+   "label": "短剑",
+   "index": 101,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 52,
+   "sourceName": "Bow",
+   "csvName": "ｦﾇ Bow",
+   "label": "弓",
+   "index": 108,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 53,
+   "sourceName": "Crossbow",
+   "csvName": "ｦﾇ Crossbow",
+   "label": "弩",
+   "index": 109,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 54,
+   "sourceName": "Throwing",
+   "csvName": "ｦﾇ Throwing",
+   "label": "投掷",
+   "index": 111,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 55,
+   "sourceName": "Firearm",
+   "csvName": "ｦﾄ Firearm",
+   "label": "枪械",
+   "index": 110,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 56,
+   "sourceName": "fire",
+   "csvName": "ｦﾍ Resist Fire",
+   "label": "火焰",
+   "index": 50,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 57,
+   "sourceName": "cold",
+   "csvName": "ｦﾍ Resist Cold",
+   "label": "寒冷",
+   "index": 51,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 58,
+   "sourceName": "lightning",
+   "csvName": "ｦﾍ Resist Lightning",
+   "label": "电击",
+   "index": 52,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 59,
+   "sourceName": "darkness",
+   "csvName": "ｦﾍ Resist Darkness",
+   "label": "黑暗",
+   "index": 53,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 60,
+   "sourceName": "mind",
+   "csvName": "ｦﾍ Resist Mind",
+   "label": "幻惑",
+   "index": 54,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 61,
+   "sourceName": "poison",
+   "csvName": "ｦﾍ Resist Poison",
+   "label": "毒",
+   "index": 55,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 62,
+   "sourceName": "nether",
+   "csvName": "ｦﾍ Resist Nether",
+   "label": "地狱",
+   "index": 56,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 63,
+   "sourceName": "sound",
+   "csvName": "ｦﾍ Resist Sound",
+   "label": "音",
+   "index": 57,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 64,
+   "sourceName": "nerve",
+   "csvName": "ｦﾍ Resist Nerve",
+   "label": "神经",
+   "index": 58,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 65,
+   "sourceName": "chaos",
+   "csvName": "ｦﾍ Resist Chaos",
+   "label": "混沌",
+   "index": 59,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 66,
+   "sourceName": "magic",
+   "csvName": "ｦﾍ Resist Magic",
+   "label": "魔法",
+   "index": 60,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 67,
+   "sourceName": "Heal Light",
+   "csvName": "Heal Light",
+   "label": "轻伤治疗",
+   "index": 400,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 68,
+   "sourceName": "Heal Critical",
+   "csvName": "Heal Critical",
+   "label": "致命伤治疗",
+   "index": 401,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 69,
+   "sourceName": "Cure of Eris",
+   "csvName": "Cure of Eris",
+   "label": "爱丽丝之治愈",
+   "index": 402,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 70,
+   "sourceName": "Cure of Jua",
+   "csvName": "Cure of Jua",
+   "label": "朱亚之治愈",
+   "index": 403,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 71,
+   "sourceName": "Healing Rain",
+   "csvName": "Healing Rain",
+   "label": "治愈之雨",
+   "index": 404,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 72,
+   "sourceName": "Healing Touch",
+   "csvName": "Healing Touch",
+   "label": "治愈之手",
+   "index": 405,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 73,
+   "sourceName": "Holy Light",
+   "csvName": "Holy Light",
+   "label": "清净圣光",
+   "index": 406,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 74,
+   "sourceName": "Vanquish Hex",
+   "csvName": "Vanquish Hex",
+   "label": "全净化",
+   "index": 407,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 75,
+   "sourceName": "Teleport",
+   "csvName": "Teleport",
+   "label": "传送",
+   "index": 408,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 76,
+   "sourceName": "Teleport Other",
+   "csvName": "Teleport Other",
+   "label": "传送他人",
+   "index": 409,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 77,
+   "sourceName": "Short Teleport",
+   "csvName": "Short Teleport",
+   "label": "短距传送",
+   "index": 410,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 78,
+   "sourceName": "Identify",
+   "csvName": "Identify",
+   "label": "鉴定",
+   "index": 411,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 79,
+   "sourceName": "Uncurse",
+   "csvName": "Uncurse",
+   "label": "解咒",
+   "index": 412,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 80,
+   "sourceName": "Oracle",
+   "csvName": "Oracle",
+   "label": "神谕",
+   "index": 413,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 81,
+   "sourceName": "Magic Dart",
+   "csvName": "Magic Dart",
+   "label": "魔法之箭",
+   "index": 414,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 82,
+   "sourceName": "Nether Sigh",
+   "csvName": "Nether Arrow",
+   "label": "地狱之息",
+   "index": 415,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 83,
+   "sourceName": "Nerve Needle",
+   "csvName": "Nerve Arrow",
+   "label": "神经之针",
+   "index": 416,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 84,
+   "sourceName": "Chaos Eye",
+   "csvName": "Chaos eye",
+   "label": "混沌之瞳",
+   "index": 417,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 85,
+   "sourceName": "Darkness Wedge",
+   "csvName": "Dark eye",
+   "label": "暗黑之楔",
+   "index": 418,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 86,
+   "sourceName": "Ice Bolt",
+   "csvName": "Ice Bolt",
+   "label": "冰冷射线",
+   "index": 419,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 87,
+   "sourceName": "Fire Bolt",
+   "csvName": "Fire Bolt",
+   "label": "炽热射线",
+   "index": 420,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 88,
+   "sourceName": "Lightning Bolt",
+   "csvName": "Lightning Bolt",
+   "label": "雷光射线",
+   "index": 421,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 89,
+   "sourceName": "Darkness Bolt",
+   "csvName": "Darkness Bolt",
+   "label": "暗黑射线",
+   "index": 422,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 90,
+   "sourceName": "Mind Bolt",
+   "csvName": "Mind Bolt",
+   "label": "幻影射线",
+   "index": 423,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 91,
+   "sourceName": "Summon Monsters",
+   "csvName": "Summon Monsters",
+   "label": "怪物召唤",
+   "index": 424,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 92,
+   "sourceName": "Summon Wild",
+   "csvName": "Summon Wild",
+   "label": "野兽召唤",
+   "index": 425,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 93,
+   "sourceName": "Return",
+   "csvName": "Return",
+   "label": "归还",
+   "index": 428,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 94,
+   "sourceName": "Magic Map",
+   "csvName": "Magic Map",
+   "label": "魔法地图",
+   "index": 429,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 95,
+   "sourceName": "Sense Object",
+   "csvName": "Sense Object",
+   "label": "物质感知",
+   "index": 430,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 96,
+   "sourceName": "Freezing Wave",
+   "csvName": "Ice Ball",
+   "label": "冰结波动",
+   "index": 431,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 97,
+   "sourceName": "Burning Storm",
+   "csvName": "Fire Ball",
+   "label": "灼热风暴",
+   "index": 432,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 98,
+   "sourceName": "Chaos Vortex",
+   "csvName": "Chaos Ball",
+   "label": "混沌漩涡",
+   "index": 433,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 99,
+   "sourceName": "Howling Wave",
+   "csvName": "Raging Roar",
+   "label": "轰鸣波动",
+   "index": 434,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 100,
+   "sourceName": "Dominate",
+   "csvName": "Dominate",
+   "label": "支配",
+   "index": 435,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 101,
+   "sourceName": "Web",
+   "csvName": "Web",
+   "label": "蛛网术",
+   "index": 436,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 102,
+   "sourceName": "Mist of Darkness",
+   "csvName": "Mist of Darkness",
+   "label": "暗之雾",
+   "index": 437,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 103,
+   "sourceName": "Wall Creation",
+   "csvName": "Wall Creation",
+   "label": "造墙术",
+   "index": 438,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 104,
+   "sourceName": "Restore Body",
+   "csvName": "Restore Body",
+   "label": "肉体复活",
+   "index": 439,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 105,
+   "sourceName": "Restore Spirit",
+   "csvName": "Restore Spirit",
+   "label": "精神复活",
+   "index": 440,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 106,
+   "sourceName": "Wish",
+   "csvName": "Wish",
+   "label": "许愿",
+   "index": 441,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 107,
+   "sourceName": "Holy Shield",
+   "csvName": "Holy Shield",
+   "label": "神圣之盾",
+   "index": 442,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 108,
+   "sourceName": "Mist of Silence",
+   "csvName": "Mist of Silence",
+   "label": "沉默之雾",
+   "index": 443,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 109,
+   "sourceName": "Regeneration",
+   "csvName": "Regeneration",
+   "label": "再生",
+   "index": 444,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 110,
+   "sourceName": "Attribution Shield",
+   "csvName": "Attribution Shield",
+   "label": "属性保护",
+   "index": 445,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 111,
+   "sourceName": "Speed",
+   "csvName": "Speed",
+   "label": "加速",
+   "index": 446,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 112,
+   "sourceName": "Slow",
+   "csvName": "Slow",
+   "label": "迟缓",
+   "index": 447,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 113,
+   "sourceName": "Hero",
+   "csvName": "Hero",
+   "label": "振奋",
+   "index": 448,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 114,
+   "sourceName": "Mist of frailness",
+   "csvName": "Mist of frailness",
+   "label": "脆弱之雾",
+   "index": 449,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 115,
+   "sourceName": "Element Scar",
+   "csvName": "Element Scar",
+   "label": "元素伤痕",
+   "index": 450,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 116,
+   "sourceName": "Holy Veil",
+   "csvName": "Holy Veil",
+   "label": "圣光加护",
+   "index": 451,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 117,
+   "sourceName": "Nightmare",
+   "csvName": "Nightmare",
+   "label": "梦魇",
+   "index": 452,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 118,
+   "sourceName": "Divine Wisdom",
+   "csvName": "Divine Wisdom",
+   "label": "智者的加护",
+   "index": 453,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 119,
+   "sourceName": "Mutation",
+   "csvName": "Mutation",
+   "label": "改名",
+   "index": 454,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 120,
+   "sourceName": "Acid Ground",
+   "csvName": "Acid Ground",
+   "label": "酸之海",
+   "index": 455,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 121,
+   "sourceName": "Fire Wall",
+   "csvName": "Fire Wall",
+   "label": "火墙术",
+   "index": 456,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 122,
+   "sourceName": "Door Creation",
+   "csvName": "Door Creation",
+   "label": "造门术",
+   "index": 457,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 123,
+   "sourceName": "Incognito",
+   "csvName": "Incognito",
+   "label": "避隐",
+   "index": 458,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 124,
+   "sourceName": "Magic Bolt",
+   "csvName": "Crystal Spear",
+   "label": "魔法射线",
+   "index": 459,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 125,
+   "sourceName": "Magic Storm",
+   "csvName": "Magic Storm",
+   "label": "魔力风暴",
+   "index": 460,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 126,
+   "sourceName": "Resurrection",
+   "csvName": "Resurrection",
+   "label": "复活",
+   "index": 461,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 127,
+   "sourceName": "Contingency",
+   "csvName": "Contingency",
+   "label": "契约",
+   "index": 462,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 128,
+   "sourceName": "4-Dimensional Pocket",
+   "csvName": "4-Dimensionl Pocket",
+   "label": "四次元空间袋",
+   "index": 463,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 129,
+   "sourceName": "Wizard's Harvest",
+   "csvName": "Wizard's Harvest",
+   "label": "丰收术",
+   "index": 464,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 130,
+   "sourceName": "Meteor",
+   "csvName": "Meteor",
+   "label": "陨石术",
+   "index": 465,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 131,
+   "sourceName": "Gravity",
+   "csvName": "Gravity",
+   "label": "重力",
+   "index": 466,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 132,
+   "sourceName": "Summon spirit",
+   "csvName": "Summon Spirit",
+   "label": "精灵召唤",
+   "index": 467,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 133,
+   "sourceName": "Feather",
+   "csvName": "Feather",
+   "label": "羽化",
+   "index": 468,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 134,
+   "sourceName": "Eclipse Jail",
+   "csvName": "Eclipse",
+   "label": "月蚀牢笼",
+   "index": 469,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 135,
+   "sourceName": "Thunder Vortex",
+   "csvName": "Thunder Votex",
+   "label": "雷霆漩涡",
+   "index": 470,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 136,
+   "sourceName": "Nether Roar",
+   "csvName": "Roar of Hades",
+   "label": "冥王咆哮",
+   "index": 471,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 137,
+   "sourceName": "Mist of Dazzling",
+   "csvName": "Mist of Light",
+   "label": "光之雾",
+   "index": 472,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 138,
+   "sourceName": "Poison Storm",
+   "csvName": "Poison Storm",
+   "label": "猛毒风暴",
+   "index": 473,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 139,
+   "sourceName": "Concentration",
+   "csvName": "Concentration",
+   "label": "集中",
+   "index": 474,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 140,
+   "sourceName": "Hydro Bolt",
+   "csvName": "Water Bolt",
+   "label": "水流射线",
+   "index": 475,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 141,
+   "sourceName": "Bubble Storm",
+   "csvName": "Bubble Storm",
+   "label": "泡沫风暴",
+   "index": 476,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 142,
+   "sourceName": "Gem Power",
+   "csvName": "Gem Power",
+   "label": "守护石",
+   "index": 477,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  }
+ ]
+}
