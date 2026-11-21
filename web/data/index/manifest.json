@@ -46,6 +46,7 @@
   "journal.json",
   "kimoti.json",
   "magicfields.json",
+  "materialfields.json",
   "materials.json",
   "monster.json",
   "monster_tags.json",
@@ -53,6 +54,7 @@
   "npc_menu.json",
   "onhit.json",
   "palette.json",
+  "playerfields.json",
   "production.json",
   "profile.json",
   "quest_progress.json",
@@ -95,5 +97,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 87
+ "count": 89
 }

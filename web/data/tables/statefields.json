@@ -5,7 +5,7 @@
   {
    "row": 1,
    "sourceName": "Name",
-   "label": "名称",
+   "label": "姓名",
    "index": 0,
    "store": "var58",
    "min": 0,
@@ -35,7 +35,7 @@
   {
    "row": 4,
    "sourceName": "Attraction(75-100-150-200)",
-   "label": "魅力（75/100/150/200）",
+   "label": "好感度（75/100/150/200）",
    "index": 17,
    "store": "var58",
    "min": 0,
@@ -45,7 +45,7 @@
   {
    "row": 5,
    "sourceName": "Relation Equality",
-   "label": "关系平等值",
+   "label": "服从度",
    "index": 169,
    "store": "var58",
    "min": 0,
@@ -85,7 +85,7 @@
   {
    "row": 9,
    "sourceName": "God(1-8)",
-   "label": "神明（1-8）",
+   "label": "信仰（1-8）",
    "index": 61,
    "store": "var58",
    "min": 0,
@@ -95,7 +95,7 @@
   {
    "row": 10,
    "sourceName": "Favor Point(1500-2500-4000)",
-   "label": "信仰点数（1500/2500/4000）",
+   "label": "恩惠点数（1500/2500/4000）",
    "index": 62,
    "store": "var58",
    "min": 0,
@@ -105,7 +105,7 @@
   {
    "row": 11,
    "sourceName": "Ability to Pray(1000+ and Favor Point 200+)",
-   "label": "祈祷能力（1000+ 且信仰 200+）",
+   "label": "祈祷充能（1000+ 且恩惠 200+）",
    "index": 63,
    "store": "var58",
    "min": 0,
@@ -115,7 +115,7 @@
   {
    "row": 12,
    "sourceName": "Skill Bonus",
-   "label": "技能修正",
+   "label": "技能点",
    "index": 41,
    "store": "var58",
    "min": -2147483648,
@@ -125,7 +125,7 @@
   {
    "row": 13,
    "sourceName": "Feat Bonus",
-   "label": "专长修正",
+   "label": "天赋点",
    "index": 93,
    "store": "v65",
    "min": 0,
@@ -158,7 +158,7 @@
   {
    "row": 15,
    "sourceName": "Platinum Coin (pp)",
-   "label": "铂金币（pp）",
+   "label": "白金币（pp）",
    "index": 31,
    "store": "var58",
    "min": 0,
@@ -208,7 +208,7 @@
   {
    "row": 20,
    "sourceName": "SP (Current Stamina Points)",
-   "label": "当前 SP",
+   "label": "当前耐力",
    "index": 52,
    "store": "var58",
    "min": -2147483648,
@@ -218,7 +218,7 @@
   {
    "row": 21,
    "sourceName": "SP Limit",
-   "label": "SP 上限",
+   "label": "耐力上限",
    "index": 53,
    "store": "var58",
    "min": -2147483648,
@@ -248,7 +248,7 @@
   {
    "row": 24,
    "sourceName": "Morale",
-   "label": "士气",
+   "label": "斗志",
    "index": 182,
    "store": "var58",
    "min": 0,
@@ -258,7 +258,7 @@
   {
    "row": 25,
    "sourceName": "Hunger(1k-4k-6k-10k-15k)",
-   "label": "饥饿度（1k/4k/6k/10k/15k）",
+   "label": "饱食度（1k/4k/6k/10k/15k）",
    "index": 22,
    "store": "var58",
    "min": 0,
@@ -268,7 +268,7 @@
   {
    "row": 27,
    "sourceName": "Insanty",
-   "label": "精神错乱值",
+   "label": "疯狂度",
    "index": 86,
    "store": "var58",
    "min": 0,
@@ -278,7 +278,7 @@
   {
    "row": 28,
    "sourceName": "Vomit Count",
-   "label": "呕吐计数",
+   "label": "呕吐次数",
    "index": 93,
    "store": "var58",
    "min": -2147483648,
@@ -298,7 +298,7 @@
   {
    "row": 30,
    "sourceName": "Current AP",
-   "label": "当前 AP",
+   "label": "当前AP",
    "index": 173,
    "store": "var58",
    "min": 0,
@@ -308,7 +308,7 @@
   {
    "row": 31,
    "sourceName": "Total AP",
-   "label": "总 AP",
+   "label": "累计AP",
    "index": 159,
    "store": "var58",
    "min": 0,
@@ -318,7 +318,7 @@
   {
    "row": 32,
    "sourceName": "INIT 1",
-   "label": "先制 1",
+   "label": "初期能力值1",
    "index": 198,
    "store": "var58",
    "min": 0,
@@ -328,7 +328,7 @@
   {
    "row": 33,
    "sourceName": "INIT 2",
-   "label": "先制 2",
+   "label": "初期能力值2",
    "index": 199,
    "store": "var58",
    "min": 0,
@@ -718,7 +718,7 @@
   {
    "row": 72,
    "sourceName": "Status: Dim",
-   "label": "状态：虚弱",
+   "label": "状态：模糊",
    "index": 256,
    "store": "var58",
    "min": 0,
@@ -748,7 +748,7 @@
   {
    "row": 75,
    "sourceName": "Status: Wet",
-   "label": "状态：潮湿",
+   "label": "状态：湿润",
    "index": 259,
    "store": "var58",
    "min": 0,
@@ -758,7 +758,7 @@
   {
    "row": 76,
    "sourceName": "Status: Insanity",
-   "label": "状态：精神错乱",
+   "label": "状态：混乱",
    "index": 260,
    "store": "var58",
    "min": 0,
@@ -1358,7 +1358,7 @@
   {
    "row": 136,
    "sourceName": "Chance to Move into attack range",
-   "label": "移入攻击范围概率",
+   "label": "向攻击距离移动概率",
    "index": 207,
    "store": "var58",
    "min": 0,
@@ -1368,7 +1368,7 @@
   {
    "row": 137,
    "sourceName": "Chance to Use Sub Action",
-   "label": "使用副动作概率",
+   "label": "次要行动概率",
    "index": 209,
    "store": "var58",
    "min": 0,
@@ -1378,7 +1378,7 @@
   {
    "row": 138,
    "sourceName": "Ai Heal",
-   "label": "AI 治疗",
+   "label": "治疗用的技能id",
    "index": 211,
    "store": "var58",
    "min": 0,
@@ -1388,7 +1388,7 @@
   {
    "row": 139,
    "sourceName": "Main Action #1",
-   "label": "主行动 1",
+   "label": "主要行动 1",
    "index": 215,
    "store": "var58",
    "min": 0,
@@ -1398,7 +1398,7 @@
   {
    "row": 140,
    "sourceName": "Main Action #2",
-   "label": "主行动 2",
+   "label": "主要行动 2",
    "index": 216,
    "store": "var58",
    "min": 0,
@@ -1408,7 +1408,7 @@
   {
    "row": 141,
    "sourceName": "Main Action #3",
-   "label": "主行动 3",
+   "label": "主要行动 3",
    "index": 217,
    "store": "var58",
    "min": 0,
@@ -1418,7 +1418,7 @@
   {
    "row": 142,
    "sourceName": "Main Action #4",
-   "label": "主行动 4",
+   "label": "主要行动 4",
    "index": 218,
    "store": "var58",
    "min": 0,
@@ -1428,7 +1428,7 @@
   {
    "row": 143,
    "sourceName": "Main Action #5",
-   "label": "主行动 5",
+   "label": "主要行动 5",
    "index": 219,
    "store": "var58",
    "min": 0,
@@ -1438,7 +1438,7 @@
   {
    "row": 144,
    "sourceName": "Sub Action #1",
-   "label": "副行动 1",
+   "label": "次要行动 1",
    "index": 220,
    "store": "var58",
    "min": 0,
@@ -1448,7 +1448,7 @@
   {
    "row": 145,
    "sourceName": "Sub Action #2",
-   "label": "副行动 2",
+   "label": "次要行动 2",
    "index": 221,
    "store": "var58",
    "min": 0,
@@ -1458,7 +1458,7 @@
   {
    "row": 146,
    "sourceName": "Sub Action #3",
-   "label": "副行动 3",
+   "label": "次要行动 3",
    "index": 222,
    "store": "var58",
    "min": 0,
@@ -1468,7 +1468,7 @@
   {
    "row": 147,
    "sourceName": "Sub Action #4",
-   "label": "副行动 4",
+   "label": "次要行动 4",
    "index": 223,
    "store": "var58",
    "min": 0,
@@ -1478,7 +1478,7 @@
   {
    "row": 148,
    "sourceName": "Sub Action #5",
-   "label": "副行动 5",
+   "label": "次要行动 5",
    "index": 224,
    "store": "var58",
    "min": 0,
@@ -1488,7 +1488,7 @@
   {
    "row": 149,
    "sourceName": "Elemental Wrestling(like:xxnnnnn)",
-   "label": "元素角力（如 xxnnnnn）",
+   "label": "属性格斗（数值格式是属性id*100000+属性强度，比如61 * 100000 + 30",
    "index": 230,
    "store": "var58",
    "min": 0,
@@ -1498,7 +1498,7 @@
   {
    "row": 150,
    "sourceName": "Bit(2^x+2^y+...etc)",
-   "label": "位标志（2^x＋2^y＋…）",
+   "label": "特性（2^x＋2^y＋…）",
    "index": 450,
    "store": "var58",
    "min": 0,
@@ -1508,7 +1508,7 @@
   {
    "row": 151,
    "sourceName": "If Magic Blocked(0-1)",
-   "label": "魔法封锁（0-1）",
+   "label": "是否使用魔法（0-1）",
    "index": 180,
    "store": "var58",
    "min": 0,
@@ -1518,7 +1518,7 @@
   {
    "row": 152,
    "sourceName": "If Ability Blocked(0-1)",
-   "label": "能力封锁（0-1）",
+   "label": "是否使用能力（0-1）",
    "index": 181,
    "store": "var58",
    "min": 0,
@@ -1528,7 +1528,7 @@
   {
    "row": 153,
    "sourceName": "AP Superaddition(Talents and Spacts)",
-   "label": "AP 附加（天赋与特质）",
+   "label": "AP 天赋/特质",
    "index": 481,
    "store": "var58",
    "min": 0,

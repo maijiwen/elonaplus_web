@@ -7,8 +7,11 @@
  *   tools/gen_statefields.py  → statefields.json （var_58 / var_65 / var_82：状态页）
  *   tools/gen_skillsfields.py → skillfields.json （var_82 组合值：等级+经验+潜力）
  *   tools/gen_magicfields.py  → magicfields.json （var_495：魔法库存页）
+ *   tools/gen_materialfields.py → materialfields.json （var_497：材料页）
+ *   tools/gen_playerfields.py → playerfields.json （var_65：系统参数页）
  * 打开弹窗 / 切换页签时都重新从当前游戏状态读值，避免显示旧存档。
- * 目前实现「物品」「状态」「技能」「魔法库存」四页，其余五页占位但页签切换可用。
+ * 目前实现「系统参数」「物品」「状态」「技能」「魔法库存」「材料」六页，
+ * 只剩「委托」占位但页签切换可用。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -19,8 +22,7 @@
     { id: 'skill', label: '技能' },
     { id: 'item', label: '物品' },
     { id: 'spell', label: '魔法库存' },
-    { id: 'material', label: '材料' },
-    { id: 'quest', label: '委托' },
+    { id: 'material', label: '材料' }
   ];
   const LABEL_MAX = 10;
   const ELLIPSIS = '......';
@@ -58,6 +60,14 @@
     // 魔法库存页：var_495(id - 400)，写在玩家（角色槽 0）的 spellStock 上
     magicFields: null,
     _magicFieldInputs: [],
+
+    // 材料页：var_497(材料 id)，写在 game.materials[id] 上
+    materialFields: null,
+    _materialFieldInputs: [],
+
+    // 系统参数页：var_65(索引)，全局槽（存档里的 v65 对象）
+    systemFields: null,
+    _systemFieldInputs: [],
 
     _built: false,
     _loadPromise: null,
@@ -116,6 +126,8 @@
       if (t.id === 'status' && (force || this.stateFields)) this.refreshChara();
       if (t.id === 'skill' && (force || this.skillFields)) this.refreshSkill();
       if (t.id === 'spell' && (force || this.magicFields)) this.refreshSpell();
+      if (t.id === 'material' && (force || this.materialFields)) this.refreshMaterial();
+      if (t.id === 'system' && (force || this.systemFields)) this.refreshSystem();
       return true;
     },
 
@@ -154,6 +166,8 @@
         else if (t.id === 'status') page.innerHTML = this._statusPageHtml();
         else if (t.id === 'skill') page.innerHTML = this._skillPageHtml();
         else if (t.id === 'spell') page.innerHTML = this._spellPageHtml();
+        else if (t.id === 'material') page.innerHTML = this._materialPageHtml();
+        else if (t.id === 'system') page.innerHTML = this._systemPageHtml();
         else page.innerHTML = '<div class="mod-placeholder">【' + t.label + '】页面尚未实现。</div>';
         this.bodyEl.appendChild(page);
       }
@@ -222,6 +236,32 @@
       this.spellForm.addEventListener('submit', (e) => {
         e.preventDefault();
         this._saveSpell();
+      });
+
+      const materialPage = this.bodyEl.querySelector('[data-page="material"]');
+      this.materialForm = materialPage.querySelector('#mod-material-form');
+      this.materialFieldsEl = materialPage.querySelector('#mod-material-fields');
+      this.materialStatusEl = materialPage.querySelector('#mod-material-status');
+      this.materialSaveBtn = materialPage.querySelector('#mod-material-save');
+      this.materialSumEl = materialPage.querySelector('#mod-material-sum');
+      materialPage.querySelector('#mod-material-reset')
+        .addEventListener('click', () => this.refreshMaterial(true));
+      this.materialForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this._saveMaterial();
+      });
+
+      const systemPage = this.bodyEl.querySelector('[data-page="system"]');
+      this.systemForm = systemPage.querySelector('#mod-system-form');
+      this.systemFieldsEl = systemPage.querySelector('#mod-system-fields');
+      this.systemStatusEl = systemPage.querySelector('#mod-system-status');
+      this.systemSaveBtn = systemPage.querySelector('#mod-system-save');
+      this.systemTipEl = systemPage.querySelector('#mod-system-tip');
+      systemPage.querySelector('#mod-system-reset')
+        .addEventListener('click', () => this.refreshSystem(true));
+      this.systemForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this._saveSystem();
       });
     },
 
@@ -320,6 +360,40 @@
       ].join('\n');
     },
 
+    /** 材料页：只有材料列表，对应 var_497(材料 id) */
+    _materialPageHtml() {
+      return [
+        '<form id="mod-material-form" autocomplete="off">',
+        '  <div class="mod-line">',
+        '    <label>持有概览</label>',
+        '    <input id="mod-material-sum" type="text" readonly class="mod-readonly" />',
+        '  </div>',
+        '  <div class="mod-tip">字段为 var_497(材料 id)，即当前持有该材料的数量；0 表示没有。</div>',
+        '  <div id="mod-material-fields" class="mod-fields"></div>',
+        '  <div class="mod-actions">',
+        '    <button type="submit" id="mod-material-save">保存</button>',
+        '    <button type="button" id="mod-material-reset">还原</button>',
+        '    <span id="mod-material-status" class="mod-status" role="status"></span>',
+        '  </div>',
+        '</form>',
+      ].join('\n');
+    },
+
+    /** 系统参数页：只有全局参数列表，对应 var_65(索引) */
+    _systemPageHtml() {
+      return [
+        '<form id="mod-system-form" autocomplete="off">',
+        '  <div class="mod-tip" id="mod-system-tip">字段为 var_65(字段索引)，全部是存档里的全局参数（与角色无关）。</div>',
+        '  <div id="mod-system-fields" class="mod-fields"></div>',
+        '  <div class="mod-actions">',
+        '    <button type="submit" id="mod-system-save">保存</button>',
+        '    <button type="button" id="mod-system-reset">还原</button>',
+        '    <span id="mod-system-status" class="mod-status" role="status"></span>',
+        '  </div>',
+        '</form>',
+      ].join('\n');
+    },
+
     /** 长字段名：只显示前 10 字 + ......；完整名放 title，鼠标悬停自然浮出 */
     _shortLabel(label) {
       const s = String(label == null ? '' : label);
@@ -357,11 +431,13 @@
       }
     },
 
-    /** var_65(85) 的两个叫法指向同一槽：编辑一个，另一个输入框立即跟着变 */
+    /** 同一存储槽的多个叫法（var_65(85)、var_65(70)）编辑其一时其余立即跟着变 */
     _syncLinkedFields(input, value, page) {
-      if (page !== 'status') return;
+      const list = page === 'status' ? this._stateFieldInputs
+        : (page === 'system' ? this._systemFieldInputs : null);
+      if (!list) return;
       const key = this._storeKey(input._modDef || {});
-      for (const f of this._stateFieldInputs) {
+      for (const f of list) {
         if (f.input === input || this._storeKey(f.def) !== key || f.input.disabled) continue;
         f.input.value = String(value);
         f.input.classList.remove('bad');
@@ -408,7 +484,8 @@
     },
 
     async _ensureFields() {
-      if (this.fields && this.stateFields && this.skillFields && this.magicFields) return;
+      if (this.fields && this.stateFields && this.skillFields && this.magicFields
+        && this.materialFields && this.systemFields) return;
       if (!this._loadPromise) {
         this._loadPromise = (async () => {
           const load = async (name) => {
@@ -420,17 +497,23 @@
             }
             return data.fields;
           };
-          const [itemFields, stateFields, skillFields, magicFields] = await Promise.all([
-            load('itemfields'), load('statefields'), load('skillfields'), load('magicfields'),
-          ]);
+          const [itemFields, stateFields, skillFields, magicFields, materialFields,
+            systemFields] = await Promise.all([
+              load('itemfields'), load('statefields'), load('skillfields'),
+              load('magicfields'), load('materialfields'), load('playerfields'),
+            ]);
           this.fields = itemFields;
           this.stateFields = stateFields;
           this.skillFields = skillFields;
           this.magicFields = magicFields;
+          this.materialFields = materialFields;
+          this.systemFields = systemFields;
           this._buildFieldRows(this.fieldsEl, this.fields, 'mod-item', 'item');
           this._buildFieldRows(this.stateFieldsEl, this.stateFields, 'mod-status', 'status');
           this._buildFieldRows(this.skillFieldsEl, this.skillFields, 'mod-skill', 'skill');
           this._buildFieldRows(this.spellFieldsEl, this.magicFields, 'mod-spell', 'spell');
+          this._buildFieldRows(this.materialFieldsEl, this.materialFields, 'mod-material', 'material');
+          this._buildFieldRows(this.systemFieldsEl, this.systemFields, 'mod-system', 'system');
         })().catch((e) => { this._loadPromise = null; throw e; });
       }
       await this._loadPromise;
@@ -443,7 +526,8 @@
         const key = def.row === undefined ? 'i' + def.index : 's' + def.row;
         // 物品/技能页用字段索引（都唯一）；状态页用 CSV 行号，避免历史重复索引撞 id。
         const inputId = prefix + '-f-'
-          + (page === 'status' && def.row !== undefined ? 's' + def.row : def.index);
+          + ((page === 'status' || page === 'system') && def.row !== undefined
+            ? 's' + def.row : def.index);
         const wrap = document.createElement('div');
         wrap.className = 'mod-field';
         wrap.setAttribute('data-key', key);
@@ -458,8 +542,9 @@
         const storeText = page === 'item'
           ? 'var_99(' + def.index + ')'
           : (page === 'spell' ? 'var_495(' + def.slot + ')'
-            : (def.store === 'v65' ? 'var_65(' + def.v65 + ')'
-              : (def.store === 'var82' ? 'var_82(' + def.index + ')' : 'var_58(' + def.index + ')')));
+            : (page === 'material' ? 'var_497(' + def.id + ')'
+              : (def.store === 'v65' ? 'var_65(' + def.v65 + ')'
+                : (def.store === 'var82' ? 'var_82(' + def.index + ')' : 'var_58(' + def.index + ')'))));
         label.title = def.label + '（' + def.sourceName + '，' + storeText + '）'
           + (page === 'skill' ? '；值＝等级×1000000＋3 位经验×1000＋3 位潜力，0＝未习得' : '')
           + (def.shared ? '；与另一字段共用同一存储槽，修改会同步' : '');
@@ -486,6 +571,8 @@
       if (page === 'status') this._stateFieldInputs = list;
       else if (page === 'skill') this._skillFieldInputs = list;
       else if (page === 'spell') this._magicFieldInputs = list;
+      else if (page === 'material') this._materialFieldInputs = list;
+      else if (page === 'system') this._systemFieldInputs = list;
       else this._fieldInputs = list;
       return list;
     },
@@ -685,9 +772,11 @@
     },
 
     // ---------- 通用校验 / 保存 ----------
-    _validateValue(def, raw) {
+    _validateValue(def, raw, page) {
       const s = String(raw == null ? '' : raw).trim();
-      if (def.store === 'skillpack') return this._validateSkillPack(s);
+      // 技能页一律按「等级+经验+潜力」组合值校验：CSV 之外的补行 store 可能是 var82，
+      // 但页面语义相同，不能因此退回普通整数校验。
+      if (page === 'skill' || def.store === 'skillpack') return this._validateSkillPack(s);
       if (!/^[+-]?\d+$/.test(s)) return '请输入整数。';
       const v = Number(s);
       if (!Number.isSafeInteger(v)) return '数值超出 32 位整数范围。';
@@ -696,7 +785,7 @@
     },
 
     _validateField(def, input, updateStatus, page) {
-      const err = this._validateValue(def, input.value);
+      const err = this._validateValue(def, input.value, page);
       input.classList.toggle('bad', !!err);
       const row = input.closest ? input.closest('.mod-field') : null;
       if (row) row.classList.toggle('bad', !!err);
@@ -717,13 +806,19 @@
 
     _updateSaveState(page) {
       const kind = page === 'status' ? 'status'
-        : (page === 'skill' ? 'skill' : (page === 'spell' ? 'spell' : 'item'));
+        : (page === 'skill' ? 'skill'
+          : (page === 'spell' ? 'spell'
+            : (page === 'material' ? 'material' : (page === 'system' ? 'system' : 'item'))));
       const inputs = kind === 'status' ? this._stateFieldInputs
         : (kind === 'skill' ? this._skillFieldInputs
-          : (kind === 'spell' ? this._magicFieldInputs : this._fieldInputs));
+          : (kind === 'spell' ? this._magicFieldInputs
+            : (kind === 'material' ? this._materialFieldInputs
+              : (kind === 'system' ? this._systemFieldInputs : this._fieldInputs))));
       const btn = kind === 'status' ? this.charaSaveBtn
         : (kind === 'skill' ? this.skillSaveBtn
-          : (kind === 'spell' ? this.spellSaveBtn : this.saveBtn));
+          : (kind === 'spell' ? this.spellSaveBtn
+            : (kind === 'material' ? this.materialSaveBtn
+              : (kind === 'system' ? this.systemSaveBtn : this.saveBtn))));
       if (!btn) return;
       const okIndex = kind === 'status'
         ? (this._charaIndexValid && !!this._currentChara())
@@ -731,11 +826,13 @@
           ? (this._skillIndexValid && !!this._currentSkillChara())
           : (kind === 'spell'
             ? !!this._spellOwner()
-            : (this._indexValid && !!this._currentItem())));
+            : (kind === 'material' ? !!this._materialOwner()
+              : (kind === 'system' ? !!this._v65Owner()
+                : (this._indexValid && !!this._currentItem())))));
       const okFields = inputs.every((f) => {
         const row = f.input.closest ? f.input.closest('.mod-field') : null;
         if (row && row.classList.contains('hidden')) return true;
-        return !this._validateValue(f.def, f.input.value);
+        return !this._validateValue(f.def, f.input.value, kind);
       });
       btn.disabled = !(okIndex && okFields);
     },
@@ -748,7 +845,7 @@
       }
       const pending = [];
       for (const f of this._fieldInputs) {
-        const err = this._validateValue(f.def, f.input.value);
+        const err = this._validateValue(f.def, f.input.value, 'item');
         if (err) {
           f.input.focus();
           this._setStatus(f.def.label + '：' + err, true, 'item');
@@ -773,7 +870,7 @@
       for (const f of this._stateFieldInputs) {
         const row = f.input.closest ? f.input.closest('.mod-field') : null;
         if (row && row.classList.contains('hidden')) continue;   // 魔法点只在玩家页生效
-        const err = this._validateValue(f.def, f.input.value);
+        const err = this._validateValue(f.def, f.input.value, 'status');
         if (err) {
           f.input.focus();
           this._setStatus(f.def.label + '：' + err, true, 'status');
@@ -881,7 +978,7 @@
       for (const f of this._skillFieldInputs) {
         const row = f.input.closest ? f.input.closest('.mod-field') : null;
         if (row && row.classList.contains('hidden')) continue;
-        const err = this._validateValue(f.def, f.input.value);
+        const err = this._validateValue(f.def, f.input.value, 'skill');
         if (err) {
           f.input.focus();
           this._setStatus(f.def.label + '：' + err, true, 'skill');
@@ -935,7 +1032,7 @@
       }
       const pending = [];
       for (const f of this._magicFieldInputs) {
-        const err = this._validateValue(f.def, f.input.value);
+        const err = this._validateValue(f.def, f.input.value, 'spell');
         if (err) {
           f.input.focus();
           this._setStatus(f.def.label + '：' + err, true, 'spell');
@@ -948,6 +1045,135 @@
       this._setStatus('已保存 ' + pending.length + ' 项魔法库存。', false, 'spell');
       if (Elona.UI && Elona.UI.pushMessage) {
         Elona.UI.pushMessage('修改器：魔法库存已保存。');
+      }
+    },
+
+    // ---------- 材料页（var_497(材料 id)） ----------
+    /** var_497 存在 game.materials 上（core/material.js） */
+    _materialOwner() {
+      const g = this.game;
+      if (!g) return null;
+      if (Elona.Material && Elona.Material.ensure) {
+        try { Elona.Material.ensure(g); } catch (e) { /* 退回下面的判定 */ }
+      }
+      return Array.isArray(g.materials) ? g : null;
+    },
+
+    _readMaterial(id) {
+      if (Elona.Material && Elona.Material.get) return Elona.Material.get(this.game, id) | 0;
+      const g = this.game;
+      return (g && Array.isArray(g.materials) ? (g.materials[id] | 0) : 0);
+    },
+
+    refreshMaterial(force) {
+      if (!this.materialFields) return;
+      const g = this._materialOwner();
+      if (this.materialSumEl) {
+        let kinds = 0;
+        let total = 0;
+        for (const f of this.materialFields) {
+          const v = g ? this._readMaterial(f.id) : 0;
+          if (v > 0) { kinds += 1; total += v; }
+        }
+        this.materialSumEl.value = g
+          ? ('持有 ' + kinds + ' 种，合计 ' + total + ' 个')
+          : '没有游戏进度';
+      }
+      for (const f of this._materialFieldInputs) {
+        if (!g) {
+          f.input.value = ''; f.input.disabled = true; f.err.textContent = '';
+          continue;
+        }
+        f.input.value = String(this._readMaterial(f.def.id));
+        f.input.disabled = false;
+        this._validateField(f.def, f.input, false, 'material');
+      }
+      this._updateSaveState('material');
+      if (force) {
+        this._setStatus(g ? '已按当前存档重新载入。' : '没有游戏进度，无法修改材料。', !g, 'material');
+      }
+    },
+
+    _saveMaterial() {
+      const g = this._materialOwner();
+      if (!g) {
+        this._setStatus('没有游戏进度，无法修改材料。', true, 'material');
+        return;
+      }
+      const pending = [];
+      for (const f of this._materialFieldInputs) {
+        const err = this._validateValue(f.def, f.input.value, 'material');
+        if (err) {
+          f.input.focus();
+          this._setStatus(f.def.label + '：' + err, true, 'material');
+          return;
+        }
+        pending.push({ id: f.def.id, value: Number(f.input.value) });
+      }
+      for (const p of pending) {
+        if (Elona.Material && Elona.Material.set) Elona.Material.set(g, p.id, p.value);
+        else g.materials[p.id] = p.value;
+      }
+      this.refreshMaterial();
+      this._setStatus('已保存 ' + pending.length + ' 项材料数量。', false, 'material');
+      if (Elona.UI && Elona.UI.pushMessage) {
+        Elona.UI.pushMessage('修改器：材料数量已保存。');
+      }
+    },
+
+    // ---------- 系统参数页（var_65(索引)） ----------
+    /** var_65 只在有游戏进度时存在（game.v65） */
+    _v65Owner() {
+      const g = this.game;
+      return (g && typeof g.getV65 === 'function' && typeof g.setV65 === 'function') ? g : null;
+    },
+
+    refreshSystem(force) {
+      if (!this.systemFields) return;
+      const g = this._v65Owner();
+      for (const f of this._systemFieldInputs) {
+        if (!g) {
+          f.input.value = ''; f.input.disabled = true; f.err.textContent = '';
+          continue;
+        }
+        const v = g.getV65(f.def.v65) | 0;
+        f.input.value = String(v);
+        f.input.disabled = false;
+        this._validateField(f.def, f.input, false, 'system');
+      }
+      const shared = this.systemFields.filter((d) => d.shared).length;
+      if (this.systemTipEl) {
+        this.systemTipEl.textContent = '字段为 var_65(字段索引)，全部是存档里的全局参数（与角色无关）。'
+          + (shared ? '共 ' + this.systemFields.length + ' 项，其中 ' + shared
+            + ' 项共用同一槽位，改写任一项另一项同步。' : '共 ' + this.systemFields.length + ' 项。');
+      }
+      this._updateSaveState('system');
+      if (force) {
+        this._setStatus(g ? '已按当前存档重新载入。' : '没有游戏进度，无法修改系统参数。', !g, 'system');
+      }
+    },
+
+    _saveSystem() {
+      const g = this._v65Owner();
+      if (!g) {
+        this._setStatus('没有游戏进度，无法修改系统参数。', true, 'system');
+        return;
+      }
+      const pending = [];
+      for (const f of this._systemFieldInputs) {
+        const err = this._validateValue(f.def, f.input.value, 'system');
+        if (err) {
+          f.input.focus();
+          this._setStatus(f.def.label + '：' + err, true, 'system');
+          return;
+        }
+        pending.push({ slot: f.def.v65, value: Number(f.input.value) });
+      }
+      for (const p of pending) g.setV65(p.slot, p.value);
+      this.refreshSystem();
+      this._setStatus('已保存 ' + pending.length + ' 项系统参数。', false, 'system');
+      if (Elona.UI && Elona.UI.pushMessage) {
+        Elona.UI.pushMessage('修改器：系统参数已保存。');
       }
     },
 
@@ -967,6 +1193,8 @@
       if (page === 'status') return this.charaStatusEl;
       if (page === 'skill') return this.skillStatusEl;
       if (page === 'spell') return this.spellStatusEl;
+      if (page === 'material') return this.materialStatusEl;
+      if (page === 'system') return this.systemStatusEl;
       return this.statusEl;
     },
     _setStatus(msg, isError, page) {

@@ -18,7 +18,7 @@
   },
   {
    "sourceName": "Image",
-   "label": "图像编号",
+   "label": "物品图像编号",
    "index": 2,
    "min": 0,
    "max": 2147483647
@@ -60,7 +60,7 @@
   },
   {
    "sourceName": "Number of dice",
-   "label": "骰子数量",
+   "label": "骰子数",
    "index": 10,
    "min": 0,
    "max": 2147483647
@@ -123,7 +123,7 @@
   },
   {
    "sourceName": "Usage modifier (8 - house board 41 - secret exp of kumiromi)",
-   "label": "用途修正（8＝房屋告示板，41＝库米罗米秘传经验）",
+   "label": "物品使用类型（8＝房屋告示板，41＝库米罗米秘传经验）",
    "index": 19,
    "min": 0,
    "max": 2147483647
@@ -165,14 +165,14 @@
   },
   {
    "sourceName": "Weapon Level OR deed house type",
-   "label": "武器等级／地契房屋类型",
+   "label": "活武器等级／地契房屋类型",
    "index": 25,
    "min": 0,
    "max": 2147483647
   },
   {
    "sourceName": "Blood Exp = % * Weapon Level OR Monster Ball Level?",
-   "label": "血经验（百分比×武器等级）／怪物球等级",
+   "label": "活武器经验（百分比×武器等级）／怪物球等级",
    "index": 26,
    "min": -2147483648,
    "max": 2147483647
@@ -193,7 +193,7 @@
   },
   {
    "sourceName": "Flag ->Acid proof + 2 Fireproof + 4 Precious +32 blessed by ehekatl +256 stole +512 living +1024 Eternal Force +32768",
-   "label": "标志位（+2 耐酸，+4 防火，+8 贵重，+32 艾赫卡特祝福，+256 偷窃，+512 活物，+1024 永恒之力，+32768）",
+   "label": "物品标志位（+2 耐酸，+4 防火，+8 贵重，+32 艾赫卡特祝福，+256 偷窃，+512 活物，+1024 永恒之力，+32768）",
    "index": 35,
    "min": 0,
    "max": 2147483647
