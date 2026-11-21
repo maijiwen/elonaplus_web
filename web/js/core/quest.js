@@ -77,9 +77,23 @@
   function curDay(g) { return idiv(nowH(g), DAY_H); }
   function mapName(g) { return g && g.map ? g.map.name : null; }
   function mapId(g) {
+    // 0-Z49：源码直接读 var_65(20)，不能只按地图名查静态表（地图 73/79 要排除）
+    const live = (g && g.getV65) ? (g.getV65(20) | 0) : 0;
+    if (live) return live;
     const n = mapName(g);
     return (n && MAP_IDS[n]) || (g && g.mapId) || 0;
   }
+  /** 当前地图是不是允许掲示板/生成委托的城镇（源码 246395-246402）。
+   *  var_126(6)==3 且 var_65(20) 不是 73/79，且 var_132(34,mapId)!=4；
+   *  Web 版没有 var_132 表，用 Towns/MAP_IDS 白名单近似，并排除 73/79。 */
+  function isQuestTown(g) {
+    const name = mapName(g);
+    if (!name || !MAP_IDS[name]) return false;
+    const id = mapId(g);
+    if (id === 73 || id === 79) return false;
+    return true;
+  }
+
   /** 当前地图危险度 —— 原版 var_65(189)；未移植时退化为玩家等级 */
   function danger(g) {
     const v = g && g.getV65 ? (g.getV65(189) | 0) : 0;
@@ -457,8 +471,9 @@
     if (!g) return [];
     if (!Array.isArray(g.quests)) g.quests = [];
     const name = mapName(g);
-    // 只有城镇地图才生成/刷新委托；专用委托地图（mapId 0）不产生新委托
-    if (!MAP_IDS[name]) { syncActive(g); return g.quests; }
+    // 0-Z49 / 246395-246402：只有城镇地图才生成/刷新委托。
+    // 家、洞窟、专用任务图都不张贴新委托（此前测试在家也能贴出条目）。
+    if (!isQuestTown(g)) { syncActive(g); return g.quests; }
     const now = nowH(g);
     for (const npc of eligibleNpcs(g)) {
       let q = g.quests.find((x) => x.map === name && x.clientIndex === npc.index);
@@ -493,6 +508,9 @@
   /** 掲示板可接取列表（*label_2704 的筛选条件） */
   function available(g) {
     ensure(g);
+    // 0-Z49：非城镇地图上掲示板没有任何可接委托（286295 的 var_434(1)==var_65(20)
+    // 只会在城镇里成立；测试夹具不得再在家/洞窟里贴出委托）。
+    if (!isQuestTown(g)) return [];
     const name = mapName(g);
     return g.quests.filter((q) => q
       && q.type !== 0
@@ -522,6 +540,8 @@
   // ---------------------------------------------------------------------------
   function accept(g, id) {
     ensure(g);
+    // 0-Z49 / *label_3063：接取也限定在城镇（掲示板与委托人对话都只在城镇发生）
+    if (!isQuestTown(g)) return { ok: false, reason: 'not-town', message: '这里没有可以接受的委托。' };
     const q = g.quests.find((x) => x.id === id);
     if (!q || q.type === 0) return { ok: false, reason: 'no-quest', message: '委托不存在。' };
     if (q.status !== 0) return { ok: false, reason: 'accepted', message: '这份委托已经在进行中了。' };
@@ -1107,6 +1127,92 @@
   }
 
   /**
+   * 掲示板条目的描述正文（源码 *label_0273 + board.txt 模板 + *label_0274 占位符）。
+   * 旧版只有按类型现编的一两句话；这里改为从 board.json 抽一条完整叙事模板，
+   * 填入 {reward}/{ref}/{map}/{client}/{objective}/{you}/{me} 等源码占位符。
+   * 抽取序号由委托 id 决定，保证同一条委托重绘时文字不变（原版随机只抽一次）。
+   */
+  function boardEntry(g, q) {
+    if (!q) return null;
+    const J = Elona.Journal;
+    if (!J || !J.boardLine || typeof J.questKey !== 'function') return null;
+    if (!J.board) return null;                       // board.txt 尚未加载
+    const key = J.questKey(g, q);
+    if (!key) return null;
+    const seed = (q.id | 0) + (q.clientIndex | 0) * 7;
+    const hit = J.boardLine(key, 'ch', g, seed)
+      || J.boardLine(key, 'en', g, seed)
+      || J.boardLine(key, 'jp', g, seed);
+    if (!hit) return null;
+    return { key: key, name: hit.name, body: fillBoardTokens(hit.body, g, q) };
+  }
+
+  /** 源码 22185-22280 的 {xxx} 替换表 */
+  function fillBoardTokens(body, g, q) {
+    const who = (g && g.player && g.player.name) || '你';
+    const ctx = {
+      client: q.clientName || '委托人',
+      map: q.targetMapName || q.map || '这附近',
+      ref: boardRef(q),
+      you: '你', me: '我',
+      npc: q.targetName || '目标人物',
+      player: who, aka: who,
+      reward: `${q.rewardGold | 0} 金币${q.rewardItem ? '和物品' : ''}`,
+      objective: describe(q),
+      deadline: daysText(q),
+    };
+    return String(body || '').replace(/\{([^}]+)\}/g, (m, k) => (
+      Object.prototype.hasOwnProperty.call(ctx, k) ? String(ctx[k]) : ''
+    ));
+  }
+
+  /** var_121(10)：模板里的 {ref}（22017-22123） */
+  function boardRef(q) {
+    switch (q.type | 0) {
+      case TYPE.HARVEST: return `${q.targetData | 0}`;
+      case TYPE.TRAP:
+      case TYPE.PARTY: return `${q.targetData | 0}`;
+      case TYPE.CONQUER: return `${Math.floor((q.difficulty | 0) * 10 / 6)}`;
+      case TYPE.HUNTEX: return `${Math.floor((q.difficulty | 0) * 3 / 2)}`;
+      case TYPE.DELIVER:
+      case TYPE.COLLECT:
+      case TYPE.SUPPLY: return itemName(q.itemId);
+      default: return `${q.need | 0}`;
+    }
+  }
+
+  /** 掲示板条目的标题（源码 var_121(3)，来自 board.txt 的 "名称:正文"） */
+  function boardName(g, q) {
+    const e = boardEntry(g, q);
+    return e ? e.name : describe(q);
+  }
+
+  /**
+   * 委托正文。mode=0 掲示板（var_428=0），mode=1 委托人对话（var_428=1，
+   * 22125-22131 追加「有件事想拜托你 / 期限 / 怎么样？」）。
+   */
+  function boardTalkText(g, q, mode) {
+    const e = boardEntry(g, q);
+    let s = e ? e.body : '';
+    if (!s) {
+      // board.txt 未加载时退回逐类型简报，保证 UI 不会空白
+      const who = q.clientName || '委托人';
+      const rw = `${q.rewardGold | 0} 金币`;
+      s = mode ? `${who}有件事想拜托你：${describe(q)}。报酬 ${rw}。`
+        : `${who}：${describe(q)}。报酬 ${rw}。`;
+    }
+    if (mode && q.daysLeft !== -1) {
+      s += `期限还剩 ${q.daysLeft | 0} 天。`;
+    }
+    if (mode) s += '愿意接受吗？';
+    return s;
+  }
+
+  function questText(q, g) {
+    return boardTalkText(g, q, 0);
+  }
+
+  /**
    * 委托人菜单追加项（对应 415663-415745）。
    * 【0-BT 确认】`tradecheck`（365562，唯一调用点 415491）的「委托取货 NPC 菜单加
    * 交换项（动作 20）」由下方 DELIVER/COLLECT 分支等价覆盖（q.targetClientIndex
@@ -1152,14 +1258,15 @@
   }
 
   Elona.Quest = {
-    TYPE, TYPE_NAMES, MAX_ACTIVE, PAGE_SIZE, QUEST_MAP_TYPES,
+    TYPE, TYPE_NAMES, MAX_ACTIVE, PAGE_SIZE, QUEST_MAP_TYPES, isQuestTown,
     makeQuest, generate: ensure, ensure, available, forClient, activeQuests, activeCount,
     syncActive,
     accept, report, tick, isComplete, markComplete, hasItem, countItem, consumeItem,
     fail: failQuest,
     onKill, onEnterFloor, onTrapDisarmed, handOver, harvest, party, collect,
     spawnEscortFollower, restoreEscortFollowers, tickEscort, onArriveTown,
-    describe, progressText, stars, daysText, rewardText, itemName,
+    describe, progressText, stars, daysText, rewardText, questText, itemName,
+    boardEntry, boardName, boardTalkText,
     npcServices, nowH, curDay,
   };
 })(window);

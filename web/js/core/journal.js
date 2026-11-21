@@ -499,13 +499,19 @@
    * `*label_0272`（21964-21986）：从 board.txt 里按 key + 语言抽一行，拆成 [名称, 正文]。
    * 原版用 `rnd(noteinfo(0) - 1) + 1` 抽行，这里等价为 0 基随机。
    */
-  function boardLine(key, lang, g) {
+  function boardLine(key, lang, g, index) {
     const t = BOARD && BOARD[key];
     if (!t) return null;
-    const arr = (lang === 'jp') ? t.jp : t.en;
+    // 0-Z49：`ch` 为 board.txt 的中文对译（保留 {reward}/{ref}/{map} 等源码占位符）；
+    // 旧调用只传 jp/en，行为不变。
+    const arr = (t[lang] || t.en || t.jp);
     if (!arr || !arr.length) return null;
     const n = arr.length;
-    const i = (g && g.rng && g.rng.rnd) ? (g.rng.rnd(n) | 0) : 0;
+    // 源码 21985：rnd(noteinfo(0)-1)+1。掲示板条目按委托 id 稳定抽取，
+    // 避免每次重绘换一段文字；日常日记保持原来的随机行为。
+    const i = (index === undefined || index === null)
+      ? ((g && g.rng && g.rng.rnd) ? (g.rng.rnd(n) | 0) : 0)
+      : (((index | 0) % n) + n) % n;
     const line = arr[Math.min(Math.max(i, 0), n - 1)];
     const p = line.indexOf(':');
     if (p < 0) return { name: line, body: '' };

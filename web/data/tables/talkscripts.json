@@ -45795,13 +45795,13 @@
                 "l": 376301,
                 "o": "mlabel",
                 "t": {
-                    "jp": "50規模投資する({0}var_390)",
-                    "en": "Invest 50( {1}var_390 )",
+                    "jp": "50規模投資する({0} gold)",
+                    "en": "Invest 50( {1} gold )",
                     "a": [
                         "calcinvestvalueg()",
                         "calcinvestvalueg()"
                     ],
-                    "ch": "投资50规模（{0}var_390）"
+                    "ch": "投资50规模（{0}金币）"
                 }
             },
             {
@@ -47621,13 +47621,13 @@
                 "l": 376647,
                 "o": "mlabel",
                 "t": {
-                    "jp": "50規模投資する({0}var_390)",
-                    "en": "Invest 50( {1}var_390 )",
+                    "jp": "50規模投資する({0} gold)",
+                    "en": "Invest 50( {1} gold )",
                     "a": [
                         "calcinvestvalueg()",
                         "calcinvestvalueg()"
                     ],
-                    "ch": "投资50规模（{0}var_390）"
+                    "ch": "投资50规模（{0}金币）"
                 }
             },
             {
@@ -49447,13 +49447,13 @@
                 "l": 376993,
                 "o": "mlabel",
                 "t": {
-                    "jp": "50規模投資する({0}var_390)",
-                    "en": "Invest 50( {1}var_390 )",
+                    "jp": "50規模投資する({0} gold)",
+                    "en": "Invest 50( {1} gold )",
                     "a": [
                         "calcinvestvalueg()",
                         "calcinvestvalueg()"
                     ],
-                    "ch": "投资50规模（{0}var_390）"
+                    "ch": "投资50规模（{0}金币）"
                 }
             },
             {
@@ -265096,12 +265096,12 @@
                 "l": 415177,
                 "o": "mlabel",
                 "t": {
-                    "jp": "飲み物を注文する ({0}var_390)",
-                    "en": "飲み物を注文する ({0}var_390)",
+                    "jp": "飲み物を注文する ({0} gold)",
+                    "en": "飲み物を注文する ({0} gold)",
                     "a": [
                         "calcmealvalued()"
                     ],
-                    "ch": "点一杯饮料（{0}var_390）"
+                    "ch": "点一杯饮料（{0}金币）"
                 }
             },
             {
@@ -266033,12 +266033,12 @@
                 "l": 415346,
                 "o": "mlabel",
                 "t": {
-                    "jp": "食事をとる ({0}var_390)",
-                    "en": "食事をとる ({0}var_390)",
+                    "jp": "食事をとる ({0} gold)",
+                    "en": "食事をとる ({0} gold)",
                     "a": [
                         "calcmealvalue()"
                     ],
-                    "ch": "用餐（{0}var_390）"
+                    "ch": "用餐（{0}金币）"
                 }
             },
             {
@@ -266115,12 +266115,12 @@
                 "l": 415360,
                 "o": "mlabel",
                 "t": {
-                    "jp": "鑑定したい ({0}var_390)",
-                    "en": "鑑定したい ({0}var_390)",
+                    "jp": "鑑定したい ({0} gold)",
+                    "en": "鑑定したい ({0} gold)",
                     "a": [
                         "calcidentifyvalue(0)"
                     ],
-                    "ch": "想鉴定（{0}var_390）"
+                    "ch": "想鉴定（{0}金币）"
                 }
             },
             {
@@ -266139,12 +266139,12 @@
                 "l": 415363,
                 "o": "mlabel",
                 "t": {
-                    "jp": "全て鑑定してほしい ({0}var_390)",
-                    "en": "全て鑑定してほしい ({0}var_390)",
+                    "jp": "全て鑑定してほしい ({0} gold)",
+                    "en": "全て鑑定してほしい ({0} gold)",
                     "a": [
                         "calcidentifyvalue(1)"
                     ],
-                    "ch": "希望全部鉴定（{0}var_390）"
+                    "ch": "希望全部鉴定（{0}金币）"
                 }
             },
             {
@@ -266163,12 +266163,12 @@
                 "l": 415366,
                 "o": "mlabel",
                 "t": {
-                    "jp": "調査したい ({0}var_390)",
-                    "en": "調査したい ({0}var_390)",
+                    "jp": "調査したい ({0} gold)",
+                    "en": "調査したい ({0} gold)",
                     "a": [
                         "calcidentifyvalue(2)"
                     ],
-                    "ch": "想调查（{0}var_390）"
+                    "ch": "想调查（{0}金币）"
                 }
             },
             {
@@ -266557,12 +266557,12 @@
                 "l": 415429,
                 "o": "mlabel",
                 "t": {
-                    "jp": "能力の復元({0}var_390)",
-                    "en": "能力の復元({0}var_390)",
+                    "jp": "能力の復元({0} gold)",
+                    "en": "能力の復元({0} gold)",
                     "a": [
                         "calcrestorecost()"
                     ],
-                    "ch": "能力复原（{0}var_390）"
+                    "ch": "能力复原（{0}金币）"
                 }
             },
             {
@@ -266581,12 +266581,12 @@
                 "l": 415432,
                 "o": "mlabel",
                 "t": {
-                    "jp": "装備中のアイテム解呪({0}var_390)",
-                    "en": "装備中のアイテム解呪({0}var_390)",
+                    "jp": "装備中のアイテム解呪({0} gold)",
+                    "en": "装備中のアイテム解呪({0} gold)",
                     "a": [
                         "calcrestorecostc()"
                     ],
-                    "ch": "解除装备中物品的诅咒（{0}var_390）"
+                    "ch": "解除装备中物品的诅咒（{0}金币）"
                 }
             },
             {
@@ -277672,14 +277672,14 @@
                 "l": 417457,
                 "o": "say",
                 "t": {
-                    "jp": "そいつを呼び戻すには、{0}var_390必要{1}",
+                    "jp": "そいつを呼び戻すには、{0} gold必要{1}",
                     "en": "Alright. We had taken good care of your pet. It will cost you {2} gold pieces.",
                     "a": [
                         "calcresurrectvalue(var581)",
                         "_da()",
                         "calcresurrectvalue(var581)"
                     ],
-                    "ch": "要把那家伙叫回来，需要{0}var_390。"
+                    "ch": "要把那家伙叫回来，需要{0}金币。"
                 }
             },
             {
@@ -287570,7 +287570,7 @@
                 "l": 419312,
                 "o": "say",
                 "t": {
-                    "jp": "なかなかの身体つき{0}{1}var_390でどう{2}",
+                    "jp": "なかなかの身体つき{0}{1} goldでどう{2}",
                     "en": "Let me see....Hmmm, this one got a nice figure. I'll give you {3} gold pieces.",
                     "a": [
                         "_dana()",
@@ -287578,7 +287578,7 @@
                         "_da(1)",
                         "calcslavevalue(var581) * 2 / 3"
                     ],
-                    "ch": "身材相当不错。就{1}var_390怎么样？"
+                    "ch": "身材相当不错。就{1}金币怎么样？"
                 }
             },
             {
@@ -288739,7 +288739,7 @@
                 "l": 419533,
                 "o": "say",
                 "t": {
-                    "jp": "免罪符を希望する{0}{1}var_390かかるけどいいの{2}",
+                    "jp": "免罪符を希望する{0}{1} goldかかるけどいいの{2}",
                     "en": "In the authority of all the saints, I will grant you an indulgence, for money of course. The price is {3} gold pieces.",
                     "a": [
                         "_noka(1)",
@@ -288747,7 +288747,7 @@
                         "_kana(1)",
                         "calcguiltvalue()"
                     ],
-                    "ch": "我希望得到免罪符。需要{1}var_390，可以吗？"
+                    "ch": "我希望得到免罪符。需要{1}金币，可以吗？"
                 }
             },
             {
@@ -299671,7 +299671,7 @@
                 "l": 421470,
                 "o": "say",
                 "t": {
-                    "jp": "そう{0}、全員の特殊矢弾を補充すると{1}var_390{2}",
+                    "jp": "そう{0}、全員の特殊矢弾を補充すると{1} gold{2}",
                     "en": "Sure, let me check what type of ammos you need....Okay, reloading all of your ammos will cost {3} gold pieces.",
                     "a": [
                         "_dana(3)",
@@ -299679,7 +299679,7 @@
                         "_da()",
                         "calccostreload(0)"
                     ],
-                    "ch": "好，补充所有人的特殊弹药需要{1}var_390。"
+                    "ch": "好，补充所有人的特殊弹药需要{1}金币。"
                 }
             },
             {
@@ -319098,7 +319098,7 @@
                 "l": 424925,
                 "o": "say",
                 "t": {
-                    "jp": "そう{0}{1}を{2}var_390でどう{3}",
+                    "jp": "そう{0}{1}を{2} goldでどう{3}",
                     "en": "Okay. Let me check the stable....How about {4} for {5} gold pieces. I'd say it's quite a bargain!",
                     "a": [
                         "_dana()",
@@ -319108,7 +319108,7 @@
                         "cnven(CN(56, 0))",
                         "calcslavevalue(56)"
                     ],
-                    "ch": "好，{1}这个{2}var_390怎么样？"
+                    "ch": "好，{1}这个{2}金币怎么样？"
                 }
             },
             {
@@ -320962,13 +320962,13 @@
                 "l": 425241,
                 "o": "mlabel",
                 "t": {
-                    "jp": "投資する({0}var_390)",
-                    "en": "Invest( {1}var_390 )",
+                    "jp": "投資する({0} gold)",
+                    "en": "Invest( {1} gold )",
                     "a": [
                         "calcinvestvalue()",
                         "calcinvestvalue()"
                     ],
-                    "ch": "投资（{0}var_390）"
+                    "ch": "投资（{0}金币）"
                 }
             },
             {
@@ -320995,13 +320995,13 @@
                 "l": 425246,
                 "o": "mlabel",
                 "t": {
-                    "jp": "50規模投資する({0}var_390)",
-                    "en": "Invest 50( {1}var_390 )",
+                    "jp": "50規模投資する({0} gold)",
+                    "en": "Invest 50( {1} gold )",
                     "a": [
                         "calcinvestvalue50()",
                         "calcinvestvalue50()"
                     ],
-                    "ch": "投资50规模（{0}var_390）"
+                    "ch": "投资50规模（{0}金币）"
                 }
             },
             {

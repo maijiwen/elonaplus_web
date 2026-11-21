@@ -23,6 +23,11 @@
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
   const idiv = (a, b) => (b === 0 ? 0 : ((a / b) | 0));
+  // 0-Z50：这些 kind 都是「从物品里选一件」的窗口，统一改用 X 背包的 Canvas 外观；
+  // 各方法里的 rows/filter 逻辑不动，只在 open() 这一层换皮。
+  const CANVAS_ITEM_KINDS = {
+    'container-pick': 1, container: 1,
+  };
 
   // 0-Z0：ペットとの再会 / 隠れていたもの（事件 12 / 38）的选项台词表。
   //   读 data/text/pet_reunion.json（zh 优先，空则回退 jp），boot 即拉取；
@@ -191,6 +196,24 @@
           const el = Elona.UI.el(id);
           if (el) el.classList.add('hidden');
         }
+      }
+      // 0-Z50：容器类「选一件物品」的窗口也走 X 背包同款 Canvas 外观。
+      // 这里只换皮：rows 仍由各方法按原逻辑构造，onPick 收到原来的 {idx,item} 行。
+      if (Elona.UI && Elona.UI.openItemPicker && CANVAS_ITEM_KINDS[kind]
+        && opts && typeof opts.onPick === 'function' && Array.isArray(this.rows)
+        && this.rows.every((r) => r && ((r.item && r.item.f) || r.f))) {
+        Elona.UI.openItemPicker(Elona.game, {
+          title,
+          rows: this.rows,
+          decorate: (it) => {
+            const Kit = Elona.UiKit;
+            const w = (it.f[7] | 0) * (it.f[0] | 0);
+            return Kit ? Kit.cnvweight(w) : String(w);
+          },
+          onPick: (idx, item) => opts.onPick({ idx, item }),
+          onCancel: opts.onCancel || null,
+        });
+        return true;
       }
       const el = this.ensure();
       this.kind = kind;
@@ -2523,6 +2546,16 @@
      * @param {object} opt { title, filter(item,idx), hint, onPick(idx,item) }
      */
     openItemPicker(g, opt) {
+      // 0-Z50：外观统一走 X 键背包列表的 Canvas 窗口；filter/decorate/onPick 原样透传。
+      if (Elona.UI && Elona.UI.openItemPicker) {
+        return Elona.UI.openItemPicker(g, {
+          title: opt.title || '选择物品',
+          filter: opt.filter,
+          decorate: opt.decorate,
+          onPick: opt.onPick,
+          onCancel: opt.onCancel,
+        });
+      }
       const p = g.player;
       const rows = [];
       for (let i = 0; i < p.inv.length; i++) {
@@ -2683,8 +2716,10 @@
           // 0-EO：先按方向键选方向（315822「どの方向に振る？」），由 DirSel 的 item 档接手
           const r = g.useItem(idx, 0, { askDirection: true });
           if (r && r.reason === 'need-direction' && Elona.DirSel) {
-            Elona.DirSel.startItem(g, idx, 1, null, { allowEmpty: true });
-            Elona.UI.pushMessage('朝哪个方向挥杖？（方向键 / 小键盘 1-9，Esc 取消）');
+            // 0-Z50 / 315822 + *label_2893：玩家周围八个箭头，方向键选相邻格；
+            // passEmpty 让「选中空格」以 target=null 交给效果本体（409 → 何もおきない…）。
+            Elona.DirSel.startItem(g, idx, 1, null, { allowEmpty: true, passEmpty: true });
+            Elona.UI.pushMessage('朝哪个方向挥杖？（↖↑↗/←→/↙↓↘，Esc 取消）');
             return;
           }
           if (r && r.ok) return;                       // 成功：Wand.use 已写日志并结束回合

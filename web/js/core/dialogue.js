@@ -220,6 +220,12 @@
         return (v === undefined || v === null) ? '' : String(v);
       });
     }
+    // A820：源码 var_390 = " gold"（9447/9451/9454），是货币单位后缀。
+    // 提取器把这种裸 `var_NNNN` 当标准选项文本引用留下字面量，但 STD_LABEL 只到 363，
+    // 于是菜单显示成「投资50规模（{0}var_390）」。这里按源码内联成对应语言的货币单位。
+    if (str.indexOf('var_390') >= 0) {
+      str = str.replace(/var_390/g, (lang === 'en') ? ' gold' : '金币');
+    }
     return str;
   }
 

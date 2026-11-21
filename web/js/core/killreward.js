@@ -64,6 +64,27 @@
     const kLv = killer.get(38) | 0;
     let exp = expOf(tLv);
 
+    // 0-Z47 / 源码 200647-200702：击杀公会会长推进公会战任务（1 → 2）。
+    // 死者种族 id 在 var_58(27, 死者)，Chara 里是 get(27)。
+    if (killer.index === 0 && Elona.Guild && Elona.Guild.onMasterKilled) {
+      try { Elona.Guild.onMasterKilled(g, target.get(27) | 0); } catch (e) { /* ignore */ }
+    }
+
+    // 0-Z47 / 源码 347505-347530：活武器按死者等级吸血长经验。
+    // 削减系数 50 = 分裂/召唤/死灵/守卫/护送单位（cbit 23/27/964/960/992）或特定 NPC 职业。
+    if (Elona.LivingWeapon && Elona.LivingWeapon.onKill) {
+      let reduce = 0;
+      const isSpecial = (typeof cbit === 'function') && (
+        cbit(target, 23) === 1 || cbit(target, 27) === 1 || cbit(target, 964) === 1
+        || cbit(target, 960) === 1 || cbit(target, 992) === 1);
+      const role = target.get ? (target.get(150) | 0) : 0;
+      if (isSpecial || role === 24 || role === 14) reduce = 50;
+      try {
+        const grew = Elona.LivingWeapon.onKill(g, target, reduce);
+        if (grew && grew.length && g.log) g.log('活武器吸足了血，可以升级了！');
+      } catch (e) { /* ignore */ }
+    }
+
     // 200431-200435：玩家击杀弱敌
     if (killer.index === 0 && tLv < kLv) exp = idiv(exp, 100) + 5;
     // 200436-200438：店员/马/魅惑/友军

@@ -539,17 +539,23 @@
         const vx = c.x - startX, vy = c.y - startY;
         if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
         const px = vx * TILE, py = vy * TILE;
-        const pulse = 0.28 + 0.18 * Math.sin((performance.now() % 900) / 900 * Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,180,${pulse.toFixed(3)})`;
+        const pulse = 0.32 + 0.22 * Math.sin((performance.now() % 900) / 900 * Math.PI * 2);
+        ctx.fillStyle = `rgba(255,235,140,${pulse.toFixed(3)})`;
         ctx.fillRect(px, py, TILE, TILE);
-        ctx.strokeStyle = 'rgba(255,255,220,.85)';
-        ctx.lineWidth = 1;
-        ctx.strokeRect(px + 0.5, py + 0.5, TILE - 1, TILE - 1);
-        ctx.fillStyle = '#fff8c0';
-        ctx.font = `${Math.floor(TILE * 0.62)}px monospace`;
+        ctx.strokeStyle = 'rgba(255,255,220,.95)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(px + 1, py + 1, TILE - 2, TILE - 2);
+        // 0-Z50：原版 label_2893 用 28px 旋转箭头，这里放大描边字符保证清晰可辨
+        const font = `${Math.floor(TILE * 0.82)}px monospace`;
+        ctx.font = font;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(c.label, px + TILE / 2, py + TILE / 2 + 1);
+        if (Elona.UiKit && Elona.UiKit.btext) {
+          Elona.UiKit.btext(ctx, c.label, px + TILE / 2, py + TILE / 2 + 1, '#fff8c0', font);
+        } else {
+          ctx.fillStyle = '#fff8c0';
+          ctx.fillText(c.label, px + TILE / 2, py + TILE / 2 + 1);
+        }
       }
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
@@ -1324,9 +1330,11 @@
       // 0-GU / 296794：使用模式的标题取 var_365(var_486) + 「アイテムの選択」
       const IC = Elona.ItemCmd;
       const useCmd = (IC && UI.invMode === 'use') ? IC.current(game) : 0;
-      const title = (IC && UI.invMode === 'use')
-        ? IC.pickTitle(useCmd || 14)
-        : (INV_TITLE[UI.invMode] || 'Items');
+      const title = UI.invMode === 'picker'
+        ? ((UI.invPicker && UI.invPicker.title) || '选择物品')
+        : (IC && UI.invMode === 'use')
+          ? IC.pickTitle(useCmd || 14)
+          : (INV_TITLE[UI.invMode] || 'Items');
       const pages = Math.max(1, Math.ceil(rows.length / INV_ROWS));
       let sel = UI.invSel | 0;
       if (sel >= rows.length) sel = Math.max(0, rows.length - 1);
@@ -1392,7 +1400,9 @@
       for (let i = 0; i < INV_ROWS; i++) {
         const idx = start + i;
         if (idx >= rows.length) break;
-        const row = rows[idx];
+        const row0 = rows[idx];
+        // 0-Z50：旧选择器传 { idx, item } 包装行；统一 UI 后仍兼容其筛选数据
+        const row = (row0 && typeof row0 === 'object' && row0.item && !row0.f) ? row0.item : row0;
         const rowY = INV_Y + 60 + i * INV_ROW_H;
         if (i % 2 === 0) {
           ctx.fillStyle = ROW_ALT;
@@ -1419,7 +1429,9 @@
           // 0-DF：使用列表里脚下物品加标记（源码中它们来自 header -1）
           if (row._onGround && UI.invMode === 'use') name = '〔地面〕' + name;
           weight = (row.f[7] | 0) * count;
-          right = K.cnvweight(weight);
+          right = UI.invMode === 'picker' && UI.invPicker && UI.invPicker.decorate
+            ? String(UI.invPicker.decorate(row) || '')
+            : K.cnvweight(weight);
         }
         // itemname 30332-30367：数量 > 1 时加「数字 + 量词」（7瓶…）
         if (count > 1) {
@@ -1489,9 +1501,11 @@
       // 0-FJ：原来右对齐到 INV_X+580，运费文字一长就会压到右下角的 Page.x/x
       ctx.fillText(note, INV_X + 30, INV_Y + 367);
       // 297101：var_340 + var_346 + var_347 + var_343（+ 保持指定，仅 Examine）
-      const hint = (UI.invMode === 'bag')
-        ? '↑↓[选择]  x[知识]  z[情报切换]  *[保持]  Enter[决定]  Esc[关闭]'
-        : '↑↓[选择]  x[知识]  z[切换]  Enter[决定]  Esc[关闭]';
+      const hint = (UI.invMode === 'picker')
+        ? '↑↓[选择]  Enter[决定]  Esc[取消]'
+        : (UI.invMode === 'bag')
+          ? '↑↓[选择]  x[知识]  z[情报切换]  *[保持]  Enter[决定]  Esc[关闭]'
+          : '↑↓[选择]  x[知识]  z[切换]  Enter[决定]  Esc[关闭]';
       ctx.fillText(hint, INV_X + 30, INV_Y + 386);
       const pageText = `Page.${page + 1}/${pages}`;
       ctx.textAlign = 'right';

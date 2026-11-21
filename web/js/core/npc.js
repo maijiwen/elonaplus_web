@@ -364,7 +364,14 @@
       out.push({ id: 'birthday', label: '告诉他生日' });                 // 原版 82
       out.push({ id: 'rumor', label: '打听传闻（2000 gold）' });
     }
-    if (r === 1020) out.push({ id: 'reserve-book', label: '魔法书预订（需解读经验）' });
+    if (r === 1020) {
+      out.push({ id: 'reserve-book', label: '魔法书预订（需解读经验）' });
+      out.push({ id: 'reserve-list', label: '查看/取消魔法书预订' });  // 源码 *label_2712 予約リスト
+    }
+    // 0-Z48 / 源码 371623：铁匠盖洛克（role/species 208）的素材槌材质改造
+    if (r === 208 && Elona.LivingWeapon) {
+      out.push({ id: 'material-kit', label: '素材槌的材质变化' });
+    }
     // 街长：街道管理一览 / 人气
     if (r === 6) {
       out.push({ id: 'town-info', label: '街道管理' });              // 原版 74
@@ -1560,6 +1567,30 @@
       message: '预订了魔法书。下次店铺盘点时会进货。' };
   }
 
+  /**
+   * 预订列表 / 取消预订（源码 *label_2712 予約リスト，286929-287100）。
+   * var_498(2, bookId)==1 显示「入荷なし」、>1 显示「入荷予定」，点击在 1/2 间切换；
+   * web 用 g.reservedBooks 数组表示「>1 已预约」，取消即从数组移除（=回到 1 已解读未预约）。
+   * @returns {{list:Array<{spellId:number,name:string}>, cancelled?:number, message:string}}
+   */
+  function reserveList(g, spellId) {
+    if (!g.reservedBooks) g.reservedBooks = [];
+    if (spellId !== undefined && spellId !== null) {
+      const sid = spellId | 0;
+      const i = g.reservedBooks.indexOf(sid);
+      if (i >= 0) {
+        g.reservedBooks.splice(i, 1);
+        return { list: reserveList(g).list, cancelled: sid, message: '取消了这本魔法书的预订。' };
+      }
+    }
+    const S = Elona.Spell;
+    const list = g.reservedBooks.map((sid) => {
+      const nm = S && S.actionName ? S.actionName(sid | 0) : null;
+      return { spellId: sid | 0, name: (nm && (nm.ch || nm.jp)) || ('魔法 ' + sid) };
+    });
+    return { list, message: list.length ? ('已预订 ' + list.length + ' 本。') : '目前没有预订的魔法书。' };
+  }
+
 
   /** 状态摘要（对话菜单的「查看状态」） */
   function infoText(npc) {
@@ -2059,6 +2090,24 @@
         return heavify(g, player, idx, units);
       }
       case 'reserve-book': return reserveBook(g, player, arg);
+      case 'reserve-list': return reserveList(g, arg);
+      case 'material-kit': {
+        // 源码 371886：需素材槌 630 + *素材変化*卷轴 502 + 青铜币 1041；选当前时段可用材质
+        const L = Elona.LivingWeapon;
+        if (!L) return { ok: false, message: '（材质锤功能未就绪。）' };
+        const opts = L.materialKitOptions(g);
+        if (arg === undefined || arg === null) {
+          return { ok: true, action: 'choice', title: '要变成哪种材质？',
+            options: opts.map((o) => ({ label: o.name, value: o.id })), message: '' };
+        }
+        // 目标物品由 UI 选定后以 { material, itemIndex } 传入
+        const a = (arg && typeof arg === 'object') ? arg : { material: arg };
+        const inv = player.inv || [];
+        const it = inv[a.itemIndex | 0];
+        if (!it) return { ok: false, message: '请先选择要改造的装备。' };
+        const r = L.applyMaterialKit(g, it, a.material);
+        return { ok: r.ok, message: r.ok ? '材质改造完成。' : '这件物品无法用素材槌改造。' };
+      }
       case 'identify': return identifyAll(g, npc, player);
       case 'identify-one': return identifyOne(g, npc, player, arg, 250);
       case 'investigate': return investigate(g, npc, player, arg);
@@ -2169,7 +2218,7 @@
     enhanceCost, enhance, ammoSlots, reloadPlan, reload, AMMO_MAX, AMMO_NAMES,
     lighten, heavify, specialMeal, specialDrink, mealTargets,
     birthday, setBirthday, adventurers, adventurerInfo, sendMessage, applyMessage,
-    ADV_MESSAGES, reserveBook, findItemSlot, consumeItem,
+    ADV_MESSAGES, reserveBook, reserveList, findItemSlot, consumeItem,
     // 0-HU / A201d：护卫动态报价与奴隶·马目录
     guardOptions, slaveOffer, slavePurchase,
     // 0-HV / A200：竞技场的「报价 → 确认」

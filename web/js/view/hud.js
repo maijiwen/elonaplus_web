@@ -691,12 +691,36 @@
       const pw = Math.max(2, Math.ceil(sx)), ph = Math.max(2, Math.ceil(sy));
       ctx.fillRect(ox + w.x * sx - pw / 2, oy + w.y * sy - ph / 2, pw, ph);
     } else {
+      // 0-Z48：立场着色 + 委托人/任务对象标记。
+      //   玩家白 / 敌对(9==-3)红 / 同伴(9==10)蓝绿 / 中立黄灰；
+      //   委托人(clientIndex)金 、任务对象(targetClientIndex)紫，各覆盖其立场色。
+      const Q = Elona.Quest;
+      const active = (Q && Q.activeQuests) ? Q.activeQuests(game) : [];
+      const clients = new Set(), targets = new Set();
+      for (const q of active) {
+        if ((q.clientIndex | 0) > 0) clients.add(q.clientIndex | 0);
+        if ((q.targetClientIndex | 0) > 0) targets.add(q.targetClientIndex | 0);
+        if ((q.escortClientIndex | 0) > 0) targets.add(q.escortClientIndex | 0);
+      }
       for (const c of (game.charas || [])) {
         if (!c || (c.get(0) | 0) !== 1) continue;
         // 0-DW：NPC 点只在本帧视野内时显示（玩家自己恒显示）
         if ((c.index | 0) !== 0 && map.isVisible && !map.isVisible(c.x, c.y)) continue;
-        ctx.fillStyle = (c.index | 0) === 0 ? '#ffffff' : 'rgb(230,70,70)';
-        ctx.fillRect(ox + c.x * sx, oy + c.y * sy, Math.max(2, Math.ceil(sx)), Math.max(2, Math.ceil(sy)));
+        const idx = c.index | 0;
+        let color;
+        if (idx === 0) color = '#ffffff';
+        else if (targets.has(idx)) color = 'rgb(200,90,230)';      // 任务对象：紫
+        else if (clients.has(idx)) color = 'rgb(255,205,60)';      // 委托人：金
+        else {
+          const rel = c.get ? (c.get(9) | 0) : 0;
+          if (rel === -3) color = 'rgb(235,60,60)';                // 敌对：红
+          else if (rel === 10) color = 'rgb(90,200,120)';          // 同伴：绿
+          else color = 'rgb(210,200,120)';                         // 中立：米黄
+        }
+        const size = (idx === 0 || clients.has(idx) || targets.has(idx))
+          ? Math.max(3, Math.ceil(sx) + 1) : Math.max(2, Math.ceil(sx));
+        ctx.fillStyle = color;
+        ctx.fillRect(ox + c.x * sx, oy + c.y * sy, size, Math.max(2, Math.ceil(sy) + (size > Math.ceil(sx) ? 1 : 0)));
       }
     }
     ctx.restore();

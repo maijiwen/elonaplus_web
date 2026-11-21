@@ -7,13 +7,17 @@
   const Elona = global.Elona = global.Elona || {};
 
   const cache = {};
+  // 0-Z50：静态表按版本后缀请求，避免浏览器沿用改动前的 board.json 缓存
+  // （中文 board.txt 对译是 0-Z49 才加进去的，旧缓存会让掲示板正文回退英文）。
+  const DATA_VER = '0z50';
 
   async function fetchJson(path) {
-    if (cache[path]) return cache[path];
-    const res = await fetch(path);
-    if (!res.ok) throw new Error('加载失败: ' + path + ' (' + res.status + ')');
+    const url = path + (path.indexOf('?') < 0 ? '?' : '&') + 'v=' + DATA_VER;
+    if (cache[url]) return cache[url];
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('加载失败: ' + url + ' (' + res.status + ')');
     const data = await res.json();
-    cache[path] = data;
+    cache[url] = data;
     return data;
   }
 
@@ -76,7 +80,7 @@
      * 给回合内的同步逻辑用（例如钓鱼抽鱼，不能在回合途中 await）。
      */
     tableSync(name) {
-      const v = cache['data/tables/' + name + '.json'];
+      const v = cache['data/tables/' + name + '.json?v=' + DATA_VER];
       return v === undefined ? null : v;
     },
     /** 文本数据 */

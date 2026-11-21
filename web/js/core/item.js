@@ -904,6 +904,11 @@
       }
       if (fix === 4 || fix === 5) {
         it.f[23] = 40000 + R(30000);
+        // 0-Z47 / 源码 28184-28194：神器/奇迹武器 1/20 概率成为活武器（Lv=1）。
+        // 源码此时会立即 return（只保留一种附魔）；web 沿用现有生成流程，仅补标志与等级。
+        if (Elona.LivingWeapon && Elona.LivingWeapon.tryMakeAlive(g, it, fix)) {
+          return it;
+        }
         if (fix === 5 || (fix === 4 && R(10) === 0)) {
           this.encadd(it, this.randomenc(99, g, cat), this.randomencp(0, g, feat163), g);
         }
@@ -1454,6 +1459,14 @@
       if (!it) return 0;
       const w = it.f[35 + idiv(bit, 32)] || 0;
       return (w >>> (bit % 32)) & 1;
+    },
+
+    /** calcexpalive（211716）：活武器升下一级所需经验 = 等级 × 100 */
+    calcExpAlive(level) {
+      if (Elona.LivingWeapon && Elona.LivingWeapon.expNeeded) {
+        return Elona.LivingWeapon.expNeeded(level);
+      }
+      return (level | 0) * 100;
     },
     ibitmod(bit, it, on) {
       if (!it) return;

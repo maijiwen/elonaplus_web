@@ -1223,10 +1223,27 @@
     // 593854-593867：2 的归位判定（var_126(8) 存于 map.header[8]）
     if (v === 2 && g.map && g.map.header && (g.map.header[8] | 0) === 1) {
       const hx = c.get(171) | 0, hy = c.get(172) | 0;
-      if (Elona.Battle.dist(c.x, c.y, hx, hy) > 2) {
+      // 源码 593855 的 dist() 是欧氏距离；这里同时用切比雪夫半径 2 兜底，
+      // 保证城镇 NPC 不会斜着一步步漂出出生点周围 3×3 的街区。
+      const far = (x, y) => Elona.Battle.dist(x, y, hx, hy) > 2
+        || Math.max(Math.abs(x - hx), Math.abs(y - hy)) > 2;
+      if (far(c.x, c.y)) {
         const moved = !!stepToward(g, c, { x: hx, y: hy });
         return Object.assign(out, { acted: moved, moved, homing: true });
       }
+      // 593861-593864：在家附近时以当前格为中心各轴 rnd(3)-1（可原地待着），
+      // 不允许像 1/5..12 那样洗牌八方向跑远。
+      const dx = R(3) - 1, dy = R(3) - 1;
+      if (dx || dy) {
+        const nx = c.x + dx, ny = c.y + dy;
+        if (!far(nx, ny) && g.map.walkable(nx, ny)) {
+          c.x = nx; c.y = ny;
+          if (g.syncCharaCells) g.syncCharaCells();
+          if (typeof g.onEnterCell === 'function') g.onEnterCell(c, nx, ny);
+          return Object.assign(out, { acted: true, moved: true, roam: true });
+        }
+      }
+      return Object.assign(out, { idle: true });
     }
 
     // 593846-593852：1 与 5..12（除 11）随机走一格

@@ -715,9 +715,11 @@
       let nextSlot = town.base;
       const slotEnd = town.base + town.size;
       const randomSpot = () => {
+        // 219236-219237：characreate 的随机落点是 rnd(width-4)+2 / rnd(height-4)+2，
+        // 不取地图最外两圈（家坐标因此也不会落到 0,0）。
         for (let t = 0; t < 2000; t++) {
-          const x = this.rng.rnd(this.map.width);
-          const y = this.rng.rnd(this.map.height);
+          const x = 2 + this.rng.rnd(Math.max(1, this.map.width - 4));
+          const y = 2 + this.rng.rnd(Math.max(1, this.map.height - 4));
           if (!this.map.walkable(x, y)) continue;
           if (Math.abs(x - p.x) <= 1 && Math.abs(y - p.y) <= 1) continue;
           const k = `${x},${y}`;
@@ -749,6 +751,11 @@
         c.set(9, 0);                                  // 中立
         c.set(69, 0);
         if (role) c.set(150, role);
+        // 0-Z50 / 219323-219324 + 593854-593867：记下「家」坐标并设为归位式游荡，
+        // 城镇 NPC 只会在出生点附近 ±1~2 格活动，远离时逐格回家。
+        c.set(171, pos.x);
+        c.set(172, pos.y);
+        c.set(202, 2);
         if (extra) extra(c);
         return c;
       };
@@ -1107,6 +1114,10 @@
       //   信息；旅行里数满 300 时结算全队经验（core/travel.js）。
       if (Elona.Travel && this.player) {
         try { Elona.Travel.onEnterMap(this, prevMapId); } catch (e) { /* 结算失败不影响换图 */ }
+      }
+      // 0-Z48 / 源码 241305-242815：进入对方公会/狗神森时生成公会战复仇者
+      if (Elona.Guild && Elona.Guild.onEnterMap) {
+        try { Elona.Guild.onEnterMap(this, mapId); } catch (e) { /* 生成失败不影响换图 */ }
       }
       // 0-L0 / A43：`map_init` 的 var_126(9) = var_132(9, var_65(20))（237970）。
       // 此前只有 WorldMap.turnCost 单独查静态表，地图头里这一格一直是空的；
@@ -1565,6 +1576,11 @@
           // 撞掲示板 = 打开委托一览（*label_2704，286277-286510）
           if (f.type === Elona.MapFeat.TYPE.BOARD) {
             this.endTurn();
+            // 0-Z49 / 246395-246402：掲示板只有城镇里的那块才张贴委托
+            if (Elona.Quest && !Elona.Quest.isQuestTown(this)) {
+              this.log('这里没有可接委托的掲示板。');
+              return true;
+            }
             this.pendingInteraction = { action: 'questBoard' };
             return true;
           }
@@ -2425,6 +2441,29 @@
       } finally {
         this.transitioning = false;
       }
+    }
+
+    /**
+     * 0-Z49 / *label_2960 的 var_396==619：把玩家传送到目标角色身边。
+     * 掲示板选中委托并确认「去见委托人」后调用（286480-286490）。
+     * @returns {boolean} 是否找到落脚格
+     */
+    teleportNextTo(target) {
+      if (!target || !this.map || !this.player) return false;
+      const px = target.x | 0, py = target.y | 0;
+      const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0], [-1, -1], [1, -1], [-1, 1], [1, 1]];
+      for (const [dx, dy] of dirs) {
+        const x = px + dx, y = py + dy;
+        if (this.map.walkable && !this.map.walkable(x, y)) continue;
+        const cell = this.map.check ? this.map.check(x, y) : null;
+        if (cell && (cell.charaIndex | 0) >= 0) continue;
+        this.player.x = x; this.player.y = y;
+        if (this.syncCharaCells) this.syncCharaCells();
+        if (this.refreshGroundCell) this.refreshGroundCell(x, y);
+        this.log(`你被传送到 ${target.name || '委托人'} 身边。`);
+        return true;
+      }
+      return false;
     }
 
     /**
@@ -3772,6 +3811,57 @@
         return { ok: false, reason: 'busy' };
       }
       if (it.eqSlot >= 0) { this.log('装备中的物品不能使用。'); return { ok: false, reason: 'equipped' }; }
+
+      // 0-Z47 / 源码 357248-357266：强化星维（item 1252）喂给活武器 +75 经验。
+      if ((it.id | 0) === 1252 && Elona.LivingWeapon) {
+        const inv = p.inv || [];
+        let target = null;
+        // 0-Z48：优先用调用方指定的目标（UI 物品选择窗 *label_2824 传来的槽号/实例）
+        const want = opts && opts.target;
+        if (typeof want === 'number') target = inv[want | 0] || null;
+        else if (want && want.f) target = want;
+        if (target && (!Elona.LivingWeapon.isAlive(target)
+          || Elona.LivingWeapon.level(target) >= Elona.LivingWeapon.MAX_LEVEL)) target = null;
+        // 未指定目标时收集候选：多个则交给 UI 选择（源码 *label_2824 的喂养目标窗）
+        if (!target) {
+          const cand = [];
+          for (let i = 0; i < inv.length; i++) {
+            const c = inv[i];
+            if (Elona.LivingWeapon.isAlive(c) && Elona.LivingWeapon.level(c) < Elona.LivingWeapon.MAX_LEVEL) {
+              cand.push(i);
+            }
+          }
+          if (!cand.length) { this.log('没有可以喂养的活武器。'); return { ok: false, reason: 'no-living-weapon' }; }
+          if (cand.length > 1 && !(opts && opts.autoTarget)) {
+            return { ok: false, reason: 'pick-living-weapon', candidates: cand };
+          }
+          target = inv[cand.reduce((best, i) => (Elona.LivingWeapon.exp(inv[i]) > Elona.LivingWeapon.exp(inv[best]) ? i : best), cand[0])];
+        }
+        const r = Elona.LivingWeapon.feedStarfiber(this, target);
+        it.f[0] = (it.f[0] | 0) - 1;
+        if (it.f[0] <= 0) inv.splice(idx, 1);
+        this.log(r.canLevel ? '活武器吸足了血，可以升级了！' : '活武器吸收了强化星维，成长了一点。');
+        this.endTurn();
+        return { ok: true, action: 'feed-living-weapon', canLevel: !!r.canLevel, exp: r.exp };
+      }
+
+      // 0-Z47 / 源码 348992-349960：按 T 使用活武器，经验满时进入升级选项。
+      if (Elona.LivingWeapon && Elona.LivingWeapon.isAlive(it)) {
+        const lv = Elona.LivingWeapon.level(it);
+        const need = Elona.LivingWeapon.expNeeded(lv);
+        if (lv >= Elona.LivingWeapon.MAX_LEVEL) {
+          this.log('这把武器已经成长到极限了。');
+          return { ok: false, reason: 'max-level' };
+        }
+        if (Elona.LivingWeapon.exp(it) < need) {
+          this.log('这把武器还没吸足血。');
+          return { ok: false, reason: 'need-exp' };
+        }
+        const options = Elona.LivingWeapon.upgradeOptions(this, it);
+        this.pendingLivingUpgrade = { invIndex: idx, options };
+        this.log('它吸足了血，可以成长了！');
+        return { ok: true, action: 'living-weapon-upgrade', options, invIndex: idx };
+      }
       // 0-FZ / A27：*label_2647 的配方窗口由「使用錬金術の道具」(127) 进入；
       //   m 键只负责 *label_2582 的素材查看窗口（此前由素材窗按 r 进调合）。
       if ((it.id | 0) === 127 && Elona.Panels && Elona.Panels.openCraft) {
@@ -4087,6 +4177,31 @@
       // 使用是一次行动；效果若为 UI 请求（如鉴定卷轴 411）由表现层消费
       this.endTurn();
       return Object.assign({ ok: true }, r);
+    }
+
+    /**
+     * 0-Z47：选择活武器升级附魔后由 UI 调用。optionValue 来自
+     * Elona.LivingWeapon.upgradeOptions() 的 value（源码 var_484 的负值）。
+     */
+    chooseLivingUpgrade(optionValue) {
+      const pend = this.pendingLivingUpgrade;
+      if (!pend || !Elona.LivingWeapon) return { ok: false, reason: 'no-pending' };
+      const it = (this.player.inv || [])[pend.invIndex];
+      if (!it || !Elona.LivingWeapon.isAlive(it)) {
+        this.pendingLivingUpgrade = null;
+        return { ok: false, reason: 'no-item' };
+      }
+      const r = Elona.LivingWeapon.levelUp(this, it, optionValue);
+      this.pendingLivingUpgrade = null;
+      for (const m of (r.messages || [])) this.log(m);
+      if (r.ok) this.endTurn();
+      return r;
+    }
+
+    /** 放弃本次活武器升级（源码 Shift/Esc 取消，348630） */
+    cancelLivingUpgrade() {
+      this.pendingLivingUpgrade = null;
+      return { ok: true };
     }
 
     /**
@@ -6523,6 +6638,8 @@
         // 0-FY：var_500 已学配方 / var_498(2,id) 已读过的书
         knownRecipes: this.knownRecipes || {},
         readBooks: this.readBooks || {},
+        // 0-Z47：魔法书预订列表（源码 var_498(2)>1 的已预约书）
+        reservedBooks: this.reservedBooks || [],
         // 0-Z38 / var_499(0, species)：按物种累计击杀数（存档块 cnt6）
         killCounts: this.killCounts || {},
         // 0-GA：var_515 牌组张数 / 已获得的一次性能力
@@ -6698,6 +6815,7 @@
       // 0-FY：旧存档缺字段时按「还没学过配方 / 没读过书」处理
       this.knownRecipes = data.knownRecipes || {};
       this.readBooks = data.readBooks || {};
+      this.reservedBooks = Array.isArray(data.reservedBooks) ? data.reservedBooks.slice() : [];
       // 0-Z38 / var_499：按物种累计击杀数（旧存档无此字段时为空）
       this.killCounts = data.killCounts || {};
       this.cardDeck = data.cardDeck || {};

@@ -56,8 +56,10 @@
 
     // ---------- 背包 / 物品选择（Canvas 绘制，见 renderer.drawInventory） ----------
     invOpen: false,
-    invMode: 'bag',   // bag | book | identify | throw | offer | equip | equip-pick | use | spell
+    invMode: 'bag',   // bag | book | identify | throw | offer | equip | equip-pick | use | spell | picker
     invSel: 0,
+    /** 0-Z50：共用 X 背包 Canvas 列表的通用物品选择器（替代 DOM .pui-row 窗口） */
+    invPicker: null,
     /** 道具的知识窗（*label_2833）：正在看的物品 = var_579；null = 没开 */
     invInfo: null,
     invInfoPage: 0,
@@ -99,6 +101,54 @@
         const el = this.el(id);
         if (el) el.classList.add('hidden');
       }
+    },
+
+    /**
+     * 0-Z50：所有道具选择窗（Z 挥杖、丢弃、给予、浸泡、献祭、炼成、快捷栏…）
+     * 统一复用 X 键背包列表的 Canvas 外观；调用方只提供 filter/decorate/onPick，
+     * 各自的筛选逻辑保持原样。
+     */
+    openItemPicker(game, opt) {
+      if (!game || !game.player) return false;
+      const o = opt || {};
+      const rows = [];
+      const inv = game.player.inv || [];
+      if (Array.isArray(o.rows)) rows.push(...o.rows);
+      else {
+        for (let i = 0; i < inv.length; i++) {
+          const it = inv[i];
+          if (!it || (it.f[0] | 0) <= 0) continue;
+          if (o.filter && !o.filter(it, i)) continue;
+          rows.push(it);
+        }
+      }
+      this.closeOtherWindows();
+      this.invPicker = {
+        title: o.title || '选择物品',
+        decorate: o.decorate || null,
+        onPick: o.onPick || null,
+        onCancel: o.onCancel || null,
+        rows, done: false,
+      };
+      this.invMode = 'picker';
+      this.invSel = 0;
+      this.invOpen = true;
+      this.invInfo = null;
+      this.invalidateInventory();
+      return true;
+    },
+
+    /** 选中通用 picker 的一行：先关窗，再回调（避免回调里重开窗被覆盖） */
+    finishItemPicker(game, row) {
+      const pk = this.invPicker;
+      if (!pk) return;
+      pk.done = true;
+      const item = (row && typeof row === 'object' && row.item && !row.f) ? row.item : row;
+      const inv = game.player.inv || [];
+      const idx = (row && typeof row.idx === 'number' && inv[row.idx] === item)
+        ? (row.idx | 0) : inv.indexOf(item);
+      this.closeInventory();
+      if (pk.onPick) pk.onPick(idx, item);
     },
 
     /** 魔法/能力选择（v 键） */
@@ -167,12 +217,16 @@
         if ((g.player.get(269) | 0) === 0) this.pushMessage('你改变了装备。');
         if (g.endTurn) g.endTurn();
       }
+      const cancelPicker = (this.invMode === 'picker' && this.invPicker
+        && !this.invPicker.done) ? this.invPicker.onCancel : null;
       this.invOpen = false;
       this.invMode = 'bag';
       this.equipSlotN = -1;
       this.invInfo = null;
       this.invInfoPage = 0;
+      this.invPicker = null;
       this._invRows = null;
+      if (typeof cancelPicker === 'function') cancelPicker();
     },
 
     // ---------- 道具的知识窗（*label_2833 300264-300330） ----------
@@ -249,7 +303,9 @@
     inventoryRows(game) {
       if (this._invRows) return this._invRows;
       const rows = [];
-      if (this.invMode === 'bag') {
+      if (this.invMode === 'picker') {
+        rows.push(...((this.invPicker && this.invPicker.rows) || []));
+      } else if (this.invMode === 'bag') {
         for (const it of game.player.inv) {
           if (it && it.f[0] > 0) rows.push(it);
         }
@@ -439,6 +495,8 @@
     /** 执行选中行（对应原版 cs_list 的确定动作） */
     activateInventoryRow(game, row) {
       if (!row) return;
+      // 0-Z50：通用物品选择器复用 X 列表外观，回车只把行交回调用方
+      if (this.invMode === 'picker') { this.finishItemPicker(game, row); return; }
       // 0-Z36：拾取列表（var_486 == 3）—— 只拿选中的这一件，然后回主循环
       if (this.invMode === 'pickup') {
         this.closeInventory();
@@ -513,6 +571,20 @@
         const onGround = !!row._onGround && (game.groundItems || []).indexOf(row) >= 0;
         const idx = game.player.inv.indexOf(row);
         let r = onGround ? game.useGroundItem(row) : game.useItem(idx, this.useMode || 0);
+        // 0-Z48：强化星维有多个活武器候选时，让玩家指定喂养目标（源码 *label_2824）
+        if (r && r.reason === 'pick-living-weapon' && P) {
+          const cands = (r.candidates || []).map((i) => game.player.inv[i]).filter(Boolean);
+          this.closeInventory();
+          P.openItemPicker(game, {
+            title: '喂养哪一把活武器？',
+            filter: (it) => cands.indexOf(it) >= 0,
+            onPick: (ii, picked) => {
+              const ti = game.player.inv.indexOf(picked);
+              game.useItem(idx, 0, { target: ti });
+            },
+          });
+          return;
+        }
         // effect 115 药水栓发射器：对非敌对目标原版会弹 y/n（*label_2838）。
         // 背包里「选中并使用」本身就是一次明确操作，这里直接当作确认（差异表 A363）。
         if (r && r.effect === 115 && r.reason === 'confirm') {
@@ -529,6 +601,16 @@
             passEmpty: true,
           });
           this.pushMessage('对谁使用？（方向键选邻格，回车 = 自己，Esc 取消）');
+          return;
+        }
+        // 0-Z47：活武器升级选项（源码 348630 的 9 项附魔菜单）
+        if (r && r.action === 'living-weapon-upgrade' && P) {
+          this.closeInventory();
+          const opts = (r.options || []).map((o) => ({ label: o.label, value: o.value }));
+          P.chooseRow('活武器要获得哪种力量？', opts, (i) => {
+            const chosen = opts[i];
+            game.chooseLivingUpgrade(chosen ? chosen.value : -1);
+          });
           return;
         }
         // 0-EP：效果本体在做完前置判断后，可能要一次 UI（输入 / 确认 / 选部位 / 选元素 / 选镜子）
@@ -548,6 +630,7 @@
           Elona.DirSel.startItem(game, idx, 1, onGround ? row : null, {
             allowSelf: !!r.allowSelf,
             allowEmpty: !!r.allowEmpty,
+            passEmpty: !!r.passEmpty,
           });
           this.pushMessage(r.allowSelf
             ? '对谁使用？（方向键 / 小键盘 1-9 选人，回车 = 自己，Esc 取消）'
@@ -2087,17 +2170,18 @@
       // 对话脚本的选项（*label_3068 的 var_484/var_485）：字母键与回车都走这里
       if (s.id === 'dlg') { this.answerTalk(game, s.dlg || s); return; }
       {
-          if (s.id === 'quest-accept' || s.id === 'quest-report') {
-            const qr = s.id === 'quest-accept'
-              ? Elona.Quest.accept(game, s.questId)
-              : Elona.Quest.report(game, s.questId);
+          if (s.id === 'quest-accept') {
+            // 0-Z49 / *label_3063：委托人先展示详细委托正文，再给「接受/取消」，
+            // 不再一点菜单就接取；掲示板传送过来也走同一个对话入口。
+            const q = (game.quests || []).find((x) => x && x.id === s.questId);
+            if (!q) { this.pushMessage('这份委托已经不在了。'); this.renderNPC(game); return; }
+            this.openQuestClientDialogue(game, npc, q);
+            return;
+          }
+          if (s.id === 'quest-report') {
+            const qr = Elona.Quest.report(game, s.questId);
             this.pushMessage(qr.message);
             this.npcText = qr.message;
-            if (qr.ok && qr.enterMap && game.enterQuestMap) {
-              this.closeNPC();
-              game.enterQuestMap(qr.quest).catch(() => { });
-              return;
-            }
             this.renderNPC(game);
             return;
           }
@@ -2639,17 +2723,33 @@
     // ---------- 掲示板 / 委托（*label_2704） ----------
     questOpen: false,
     questPage: 0,
+    questIndex: 0,          // 可接委托列表中的全局选中项（翻页不改变）
+    questConfirm: null,     // 「要去找委托人吗？」二次确认（源码 286467-286479）
 
     openQuestBoard(game) {
       if (!Elona.Quest) return;
+      // 0-Z49 / 246395-246402：非城镇地图不生成、也不显示掲示板委托
+      if (!Elona.Quest.isQuestTown(game)) {
+        this.pushMessage('这里没有可接委托的掲示板。');
+        return;
+      }
+      // 0-Z49：board.txt 只在日记窗打开时按需加载，掲示板需要详细正文时主动取一次
+      if (Elona.Journal && Elona.Journal.load && !Elona.Journal.ready()) {
+        Elona.Journal.load().then(() => {
+          if (this.questOpen) this.renderQuestBoard(game);
+        }).catch(() => { });
+      }
       Elona.Quest.ensure(game);
       this.questOpen = true;
+      this.questConfirm = null;
+      this.questIndex = 0;
       this.el('quest').classList.remove('hidden');
       this.renderQuestBoard(game);
     },
 
     closeQuestBoard() {
       this.questOpen = false;
+      this.questConfirm = null;
       this.el('quest').classList.add('hidden');
     },
 
@@ -2658,7 +2758,138 @@
       // 0-U0：委托板翻页首尾循环
       const pages = Math.max(1, this.questPages | 0);
       this.questPage = ((((this.questPage | 0) + (delta | 0)) % pages) + pages) % pages;
+      // 0-Z49：翻页时选中项跟着该页第一项，避免光标停在不可见行
+      const size = Elona.Quest ? Elona.Quest.PAGE_SIZE : 4;
+      const n = this.questCount | 0;
+      if (n) {
+        const i = this.questPage * size;
+        this.questIndex = i < n ? i : Math.max(0, n - 1);
+      }
       this.renderQuestBoard(game);
+    },
+
+    /**
+     * 0-Z49：掲示板上下键在整个委托列表里循环选择（可一直往下绕回第一行）。
+     * 原版用 a/b/c/d 字母键选取，这里保留字母快捷键，同时补上方向键与回车，
+     * 与用户提供的原版截图操作方式一致；列表不再设「接受」按钮。
+     */
+    moveQuestSel(game, delta) {
+      if (this.questConfirm) return;
+      const n = this.questCount | 0;
+      if (!n) return;
+      this.questIndex = ((((this.questIndex | 0) + (delta | 0)) % n) + n) % n;
+      const size = Elona.Quest ? Elona.Quest.PAGE_SIZE : 4;
+      this.questPage = Math.floor(this.questIndex / size);
+      this.renderQuestBoard(game);
+    },
+
+    /** 确认键：选中一行 → 「要去找委托人吗？」（源码 286457-286479） */
+    activateQuestSel(game) {
+      if (!this.questOpen || !Elona.Quest) return;
+      if (this.questConfirm) { this.answerQuestConfirm(game, this.questConfirmSel | 0); return; }
+      const all = Elona.Quest.available(game);
+      const q = all[this.questIndex | 0];
+      if (!q) return;
+      this.questConfirm = q;
+      this.questConfirmSel = 0;
+      this.questGame = game;
+      this.renderQuestBoard(game);
+    },
+
+    /** 二次确认的 y/n 选择（上下键循环，y/n 直达，Esc 返回列表） */
+    moveQuestConfirm(delta) {
+      this.questConfirmSel = ((((this.questConfirmSel | 0) + (delta | 0)) % 2) + 2) % 2;
+      this.renderQuestBoard(this.questGame || Elona.game);
+    },
+
+    answerQuestConfirm(game, choice) {
+      const q = this.questConfirm;
+      if (!q) return;
+      this.questConfirm = null;
+      if (choice !== 0) { this.renderQuestBoard(game); return; }
+      const client = (game.charas || []).find((c) => c && c.index === q.clientIndex);
+      if (!client) {
+        this.pushMessage('委托人已经不在这里了。');
+        this.renderQuestBoard(game);
+        return;
+      }
+      // 源码 286482-286490：var_396=619 → *label_2960 传送到委托人身边，
+      // 然后 var_2207=1 → *label_3031 打开委托人对话（接受 / 取消）。
+      this.closeQuestBoard();
+      if (game.teleportNextTo && !game.teleportNextTo(client)) {
+        this.pushMessage('委托人身边没有可以落脚的地方。');
+        return;
+      }
+      this.openQuestClientDialogue(game, client, q);
+    },
+
+    /**
+     * 委托人对话里的接取确认（*label_3063）：先展示详细委托正文，
+     * 选项是「接受（I will take the job.）」/「取消（Not now.）」，
+     * 只有选接受才调用 Quest.accept。掲示板传送过来与直接和委托人交谈共用此入口。
+     */
+    openQuestClientDialogue(game, npc, q) {
+      if (!game || !npc || !q || !Elona.Quest) return false;
+      this.npcTarget = npc;
+      this.npcGame = game;
+      this.npcSelf = false;
+      this.npcMode = null;
+      this.npcSession = null;
+      this.npcOpen = true;
+      this.npcSel = 0;
+      this.el('npc').classList.remove('hidden');
+      this.el('npc-train').classList.add('hidden');
+      this.el('npc-give').classList.add('hidden');
+      this.el('npc-feelings').classList.add('hidden');
+      this.wireNPC(game);
+      const text = Elona.Quest.boardTalkText(game, q, 1);
+      this.showPickMenu(game, text, [
+        { label: '接受（受諾する）', arg: 'accept' },
+        { label: '取消（やめる）', arg: 'cancel' },
+      ], (arg) => {
+        this.npcPick = null;
+        this.npcDialog = null;
+        if (arg !== 'accept') {
+          this.npcText = '你婉拒了这份委托。';
+          this.renderNPC(game);
+          return;
+        }
+        const r = Elona.Quest.accept(game, q.id);
+        this.pushMessage(r.message);
+        this.npcText = r.message;
+        if (!r.ok) { this.renderNPC(game); return; }
+        // *label_3064：接取后再问一次是否立刻前往委托地点
+        if (r.enterMap && game.enterQuestMap) { this.askEnterQuestMap(game, r.quest); return; }
+        this.renderNPC(game);
+      }, false);
+      this.renderNPC(game);
+      return true;
+    },
+
+    /** *label_3064 的「要现在前往吗？」确认 */
+    askEnterQuestMap(game, q) {
+      this.showPickMenu(game, '要现在前往委托地点吗？', [
+        { label: '去（是）', arg: 'go' },
+        { label: '不去（否）', arg: 'stay' },
+      ], (arg) => {
+        this.npcPick = null;
+        this.npcDialog = null;
+        if (arg === 'go' && game.enterQuestMap) {
+          this.closeNPC();
+          game.enterQuestMap(q).catch(() => { });
+        } else this.renderNPC(game);
+      }, false);
+      this.renderNPC(game);
+    },
+
+    /** 掲示板难度星颜色（源码 286407-286426：按玩家等级与难度差着色） */
+    _questStarClass(game, q) {
+      const lv = game && game.player ? (game.player.get(38) | 0) : 1;
+      const diff = q.difficulty | 0;
+      if (lv * 2 < diff) return 'star-red';
+      if (lv * 3 / 2 < diff) return 'star-orange';
+      if (lv < diff) return 'star-blue';
+      return 'star-green';
     },
 
     renderQuestBoard(game) {
@@ -2698,7 +2929,10 @@
       const pageSize = Q.PAGE_SIZE;
       const pages = Math.max(1, Math.ceil(all.length / pageSize));
       this.questPages = pages;
-      this.questPage = (((this.questPage | 0) % pages) + pages) % pages;
+      this.questCount = all.length;
+      this.questIndex = (((this.questIndex | 0) % Math.max(1, all.length)) + Math.max(1, all.length)) % Math.max(1, all.length);
+      this.questPage = Math.floor(this.questIndex / pageSize);
+      if (this.questPage >= pages) this.questPage = pages - 1;
       const start = this.questPage * pageSize;
       const rows = all.slice(start, start + pageSize);
 
@@ -2710,39 +2944,86 @@
         empty.textContent = all.length ? '本页没有委托。' : '新的委托还没有张贴出来。';
         list.appendChild(empty);
       }
-      for (const q of rows) {
+      // 0-Z48：按源码 label_2706（286360-286449）的掲示板布局复刻：
+      // 字母键 / 放大镜图标(deco_board.bmp) / 委托名 / 难度星(按等级差着色) /
+      // 期限(N日) / 委托人 / 描述(talk_conv 折行)。源码每条高 120px、4 条/页。
+      rows.forEach((q, i) => {
+        const idx = start + i;
+        const selected = idx === (this.questIndex | 0);
+        const letter = String.fromCharCode(97 + i);  // a/b/c/d，源码 display_key
         const row = document.createElement('div');
-        row.className = 'quest-row';
-        const main = document.createElement('div');
-        main.className = 'q-main';
-        const title = document.createElement('div');
-        title.className = 'q-title';
-        title.innerHTML = `${this.esc(Q.describe(q))}` +
-          `<span class="q-stars">${Q.stars(q)}</span>` +
-          `${Q.rewardText(q)}`;
-        const sub = document.createElement('div');
-        sub.className = 'q-sub';
-        sub.textContent = `委托人：${q.clientName}　期限：${Q.daysText(q)}` +
-          `　类型：${Q.TYPE_NAMES[q.type] || ''}`;
-        main.appendChild(title);
-        main.appendChild(sub);
-        row.appendChild(main);
-        const btn = document.createElement('button');
-        const full = actives.length >= Q.MAX_ACTIVE;
-        btn.textContent = full ? '委托已满' : '接受';
-        btn.disabled = full;
-        btn.onclick = () => {
-          const r = Q.accept(game, q.id);
-          this.pushMessage(r.message);
-          if (r.ok && r.enterMap && game.enterQuestMap) {
-            this.closeQuestBoard();
-            game.enterQuestMap(r.quest).catch(() => { });
-            return;
-          }
-          this.renderQuestBoard(game);
-        };
-        row.appendChild(btn);
+        row.className = 'quest-row' + (selected ? ' sel' : '');
+        if (selected) row.dataset.selected = '1';
+
+        const head = document.createElement('div');
+        head.className = 'q-head';
+        const key = document.createElement('span');
+        key.className = 'q-key';
+        key.textContent = letter;
+        head.appendChild(key);
+        const icon = document.createElement('span');
+        icon.className = 'q-icon';
+        icon.title = Q.TYPE_NAMES[q.type] || '委托';
+        head.appendChild(icon);
+        const name = document.createElement('span');
+        name.className = 'q-name';
+        name.textContent = Q.boardName ? Q.boardName(game, q) : Q.describe(q);
+        head.appendChild(name);
+        const stars = document.createElement('span');
+        stars.className = 'q-stars ' + this._questStarClass(game, q);
+        stars.textContent = Q.stars(q);
+        head.appendChild(stars);
+        const deadline = document.createElement('span');
+        deadline.className = 'q-deadline';
+        deadline.textContent = q.daysLeft < 0 ? '（即時）' : `（${q.daysLeft}日）`;
+        head.appendChild(deadline);
+        const client = document.createElement('span');
+        client.className = 'q-client';
+        client.textContent = q.clientName || '';
+        head.appendChild(client);
+        row.appendChild(head);
+
+        const desc = document.createElement('div');
+        desc.className = 'q-desc';
+        desc.textContent = Q.boardTalkText
+          ? Q.boardTalkText(game, q, 0)
+          : (Q.questText ? Q.questText(q) : (Q.detailText ? Q.detailText(q) : ''));
+        row.appendChild(desc);
+
+        const foot = document.createElement('div');
+        foot.className = 'q-foot';
+        const reward = document.createElement('span');
+        reward.className = 'q-reward';
+        reward.textContent = Q.rewardText(q);
+        foot.appendChild(reward);
+        // 0-Z49：原版掲示板没有「接受」按钮。选中后按确认键，
+        // 经「去见委托人？」→ 传送 → 委托人对话「接受/取消」才真正接取。
+        const hint = document.createElement('span');
+        hint.className = 'q-move-hint';
+        hint.textContent = selected ? '按 Enter 查看' : '↑↓ 选择';
+        foot.appendChild(hint);
+        row.appendChild(foot);
+        row.onclick = () => { this.questIndex = idx; this.renderQuestBoard(game); };
+        row.ondblclick = () => { this.questIndex = idx; this.activateQuestSel(game); };
         list.appendChild(row);
+      });
+
+      // 二次确认：源码 286467-286479 的 txt_select「依頼主に会う？」
+      if (this.questConfirm) {
+        const box = document.createElement('div');
+        box.className = 'quest-confirm';
+        const t = document.createElement('div');
+        t.className = 'qc-text';
+        t.textContent = '要去找委托人吗？';
+        box.appendChild(t);
+        ['是，去见委托人（y）', '否，返回列表（n）'].forEach((label, i) => {
+          const opt = document.createElement('div');
+          opt.className = 'qc-row' + ((this.questConfirmSel | 0) === i ? ' sel' : '');
+          opt.textContent = (i === 0 ? 'a  ' : 'b  ') + label;
+          opt.onclick = () => this.answerQuestConfirm(game, i);
+          box.appendChild(opt);
+        });
+        list.appendChild(box);
       }
 
       const info = this.el('quest-page-info');

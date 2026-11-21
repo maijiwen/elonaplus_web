@@ -375,8 +375,17 @@ html, body {
 }
 .ne-hint { font-size: 11.5px; color: #5a482c; line-height: 1.6; }
 
-/* ---------- 掲示板 / 委托 ---------- */
-#quest { width: 620px; }
+/* ---------- 掲示板 / 委托 ----------
+ * 0-Z49：按用户提供的原版截图，掲示板背景铺满除底部 88px 小地图/消息栏之外的
+ * 整个 800×512 游戏区（画布 UI_TOP=512）。4 行委托窗在木纹底上居中排列。 */
+#quest {
+  left: 0; top: 0; transform: none;
+  width: 800px; height: 512px; max-height: none;
+  margin: 0; padding: 6px 10px 8px; box-sizing: border-box;
+  border: 0; outline: 0; box-shadow: none;
+  overflow: hidden;
+  background: #241a10 url(../assets/graphic/deco_board_wood.bmp) repeat 0 0;
+}
 .quest-active {
   border: 1px solid #6b5a3a; background: rgba(255, 250, 232, 0.35);
   padding: 8px 10px; margin-bottom: 10px; color: #2c1f0e; line-height: 1.6;
@@ -390,19 +399,72 @@ html, body {
 .quest-page button:hover:not(:disabled) { background: #e8dec4; }
 .quest-page button:disabled { color: #8a7b5c; border-color: #a4977a; cursor: default; }
 .quest-page .quest-hint { color: #6a573a; font-size: 12px; margin-left: auto; }
+/* 标题栏 / 翻页区 / 进行中区在木纹底上加羊皮纸衬底，避免深底文字发暗 */
+#quest > .panel-head, #quest > .quest-page, #quest > .quest-active {
+  background: linear-gradient(180deg, rgba(242,226,184,0.92), rgba(220,198,148,0.92));
+  border: 1px solid #8a6a3a; border-radius: 2px;
+  padding: 3px 10px; margin-bottom: 4px; color: #2b1c08;
+}
+#quest > .panel-head { border-bottom: 1px solid #6b5a3a; }
+.quest-list {
+  max-height: 444px; gap: 4px; padding: 4px 6px;
+  flex: 1 1 auto; min-height: 0; overflow-y: auto;
+  width: 700px; margin: 0 auto;
+}
 .quest-row {
-  border: 1px solid #6b5a3a; background: rgba(255, 250, 232, 0.3);
-  padding: 6px 10px; display: flex; align-items: center; gap: 10px;
+  position: relative; border: 1px solid #8a6a3a; border-radius: 3px;
+  background: linear-gradient(180deg, #f2e2b8 0%, #e7d09a 92%, #d4b878 100%);
+  box-shadow: inset 0 0 0 2px #fff6d8, 0 2px 4px rgba(0,0,0,0.45),
+    0 0 0 1px #3a2a14;
+  padding: 5px 12px 6px 34px; color: #2b1c08; min-height: 96px; cursor: pointer;
 }
-.quest-row .q-main { flex: 1; }
-.quest-row .q-title { color: #241608; font-weight: bold; }
-.quest-row .q-sub { color: #5a482c; font-size: 12px; margin-top: 2px; }
-.quest-row .q-stars { color: #9a6b0a; margin: 0 6px; }
-.quest-row button {
-  padding: 3px 12px; background: #ddd0ae; color: #241608; border: 1px solid #6b5a3a; cursor: pointer;
+/* 0-Z49：方向键选中的那一行（原版 cs_list 高亮） */
+.quest-row.sel {
+  box-shadow: inset 0 0 0 2px #fff6d8, 0 0 0 2px #e8c25a, 0 2px 6px rgba(0,0,0,0.5);
+  background: linear-gradient(180deg, #fff1c8 0%, #efdcae 92%, #dfc686 100%);
 }
-.quest-row button:hover:not(:disabled) { background: #e8dec4; }
-.quest-row button:disabled { color: #8a7b5c; border-color: #a4977a; cursor: default; }
+/* 右下角卷角装饰（源码羊皮纸面板） */
+.quest-row::after {
+  content: ''; position: absolute; right: 0; bottom: 0; width: 16px; height: 16px;
+  background: linear-gradient(135deg, transparent 50%, #b89a5e 50%, #8a6a3a 100%);
+  border-top: 1px solid #6b5a3a; border-left: 1px solid #6b5a3a;
+}
+/* 左侧字母快捷键 a/b/c/d（源码 display_key） */
+.quest-row .q-key {
+  position: absolute; left: 6px; top: 6px; width: 20px; height: 20px;
+  background: #2b2118; color: #f2e2b8; border: 1px solid #6b5a3a; border-radius: 3px;
+  font-weight: bold; text-align: center; line-height: 18px; font-size: 13px;
+}
+.quest-row .q-head { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 13px; }
+/* 放大镜图标：deco_board.bmp 的 x0-30/y140-180 区域 */
+.quest-row .q-icon {
+  display: inline-block; width: 20px; height: 20px; flex: none;
+  background: url(../assets/graphic/deco_board.bmp) no-repeat 0 -140px;
+  image-rendering: pixelated;
+}
+.quest-row .q-name { font-weight: bold; color: #241608; }
+.quest-row .q-stars { margin: 0 4px; letter-spacing: -1px; }
+.quest-row .q-stars.star-green { color: #009b00; }
+.quest-row .q-stars.star-blue { color: #0000cd; }
+.quest-row .q-stars.star-orange { color: #8c5000; }
+.quest-row .q-stars.star-red { color: #cd0000; }
+.quest-row .q-deadline { color: #3a2712; }
+.quest-row .q-client { color: #2b1c08; }
+.quest-row .q-desc { margin-top: 4px; font-size: 12px; line-height: 1.45; color: #3a2a12; }
+.quest-row .q-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+.quest-row .q-reward { color: #6b4a12; font-size: 12px; }
+.quest-row .q-move-hint { color: #6b4a12; font-size: 11px; }
+/* 二次确认「要去找委托人吗？」（源码 txt_select + label_2896） */
+.quest-confirm {
+  position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+  width: 440px; padding: 14px 18px; z-index: 5;
+  background: linear-gradient(180deg, #f2e2b8, #d9c08a);
+  border: 2px solid #6b5a3a; box-shadow: 0 0 0 2px #2a2013, 0 6px 18px rgba(0,0,0,.6);
+  color: #2b1c08;
+}
+.quest-confirm .qc-text { font-weight: bold; margin-bottom: 8px; }
+.quest-confirm .qc-row { padding: 4px 8px; cursor: pointer; }
+.quest-confirm .qc-row.sel { background: rgba(126,96,30,.34); outline: 1px solid #8a6a3a; }
 .quest-row.expired { opacity: 0.45; }
 .quest-row.done { opacity: 0.5; }
 

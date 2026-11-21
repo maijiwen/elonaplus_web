@@ -877,12 +877,40 @@
       return;
     }
     if (panelOpen('quest')) {
+      // 0-Z49 / *label_2704：掲示板没有「接受」按钮 —— ↑↓ 在整个列表循环选择，
+      // Enter 确认；二次确认里 ↑↓ 切换 y/n，y/n 也可直达，Esc 返回列表/关闭。
       if (e.key === 'Escape') {
-        e.preventDefault(); UI.closeQuestBoard();
+        e.preventDefault();
+        if (UI.questConfirm) UI.answerQuestConfirm(game, 1);
+        else UI.closeQuestBoard();
+      } else if (UI.questConfirm) {
+        if (e.key === 'ArrowUp' || e.key === '8' || e.key === 'ArrowDown' || e.key === '2') {
+          e.preventDefault();
+          UI.moveQuestConfirm(e.key === 'ArrowUp' || e.key === '8' ? -1 : 1);
+        } else if (e.key === 'y' || e.key === 'Y') {
+          e.preventDefault(); UI.answerQuestConfirm(game, 0);
+        } else if (e.key === 'n' || e.key === 'N') {
+          e.preventDefault(); UI.answerQuestConfirm(game, 1);
+        } else if (e.key === 'Enter' || e.key === ' ' || e.key === '5') {
+          e.preventDefault(); UI.activateQuestSel(game);
+        }
+      } else if (e.key === 'ArrowUp' || e.key === '8') {
+        e.preventDefault(); UI.moveQuestSel(game, -1);
+      } else if (e.key === 'ArrowDown' || e.key === '2') {
+        e.preventDefault(); UI.moveQuestSel(game, 1);
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault(); UI.changeQuestPage(game, -1);
       } else if (e.key === 'ArrowRight') {
         e.preventDefault(); UI.changeQuestPage(game, 1);
+      } else if (e.key === 'Enter' || e.key === ' ' || e.key === '5') {
+        e.preventDefault(); UI.activateQuestSel(game);
+      } else if (e.key.length === 1 && /[a-dA-D]/.test(e.key)) {
+        const i = 'abcd'.indexOf(e.key.toLowerCase());
+        if (i >= 0) {
+          e.preventDefault();
+          UI.questIndex = (UI.questPage | 0) * (Elona.Quest ? Elona.Quest.PAGE_SIZE : 4) + i;
+          UI.renderQuestBoard(game);
+        }
       }
       return;
     }

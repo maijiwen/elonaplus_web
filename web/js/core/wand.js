@@ -165,11 +165,14 @@
    * 是射线终点，效果沿这条线结算，315809-315838）。
    * 遇到墙 / 出界就中断。
    */
-  function targetByDir(g, p, dir) {
+  function targetByDir(g, p, dir, maxSteps) {
     if (!dir || !g.map) return null;
     const dx = dir.dx | 0, dy = dir.dy | 0;
     if (!dx && !dy) return null;
-    for (let i = 1; i <= 20; i++) {
+    // 0-Z50 / *label_2893：八方向箭头选的是玩家**相邻**一格（maxSteps=1）；
+    // f1==5000 的法术/旧杖仍沿射线找目标，保持既有语义。
+    const steps = Math.max(1, maxSteps | 0 || 20);
+    for (let i = 1; i <= steps; i++) {
       const x = (p.x | 0) + dx * i, y = (p.y | 0) + dy * i;
       if (!g.map.inBounds(x, y)) return null;
       const cell = g.map.cell(x, y);
@@ -243,32 +246,35 @@
     const S = Elona.Spell;
     if (!S) return { ok: false, reason: 'no-spell' };
 
-    // 目标（自身系不需要）：f1 == 0 / 4 / 5 / 7 / >=1000 视为自身或无需目标
-    //   315582-315586：玩家挥「自身系(3000)」的杖时会被改判成方向系(8000)，
-    //   所以这类杖仍要先选目标（治愈/解咒杖朝目标挥）。
+    // 0-Z50 / 315580-315590：类别由效果表 field3 决定。
+    //   玩家挥 3000（自身系）的杖 → 改判 8000（方向系）→ 八方向箭头；
+    //   409 瞬移他人本是 8000 / f1=5，旧代码误按 f1 判成自身系，所以没有箭头。
     const f1 = S.field(eid, 1);
     const f3 = S.field(eid, 3);
-    const wandToDir = (idiv(f3, 1000) * 1000) === 3000;
-    const selfOnly = !wandToDir && (f1 === 0 || f1 === 4 || f1 === 5 || f1 === 7 || idiv(f1, 1000) === 1);
+    const cls = idiv(f3, 1000) * 1000;
+    const wandToDir = (cls === 3000);                 // 玩家侧 3000 → 8000
+    const arrowDir = (cls === 8000) || wandToDir;     // 需要 *label_2893 的八方向
+    const selfOnly = !arrowDir && (f1 === 0 || f1 === 4 || f1 === 5 || f1 === 7 || idiv(f1, 1000) === 1);
     let target = p;
     if (!selfOnly) {
-      target = o.target || (o.dir ? targetByDir(g, p, o.dir) : null);
-      // 315822：原版先问「どの方向に振る？」，由准星给出方向
-      if (!target && !o.dir && o.askDirection) {
-        return { ok: false, reason: 'need-direction', effectId: eid, allowEmpty: true };
+      // 5000 系继续沿射线；真正的八方向杖只看相邻一格
+      const adjacentArrow = arrowDir && f1 !== 5000;
+      target = o.target || (o.dir ? targetByDir(g, p, o.dir, adjacentArrow ? 1 : 20) : null);
+      // 315822 / 315670：没方向就先弹箭头，允许空格（效果自己决定落空）
+      if (!target && !o.dir && (o.askDirection || arrowDir) && o.target === undefined) {
+        return { ok: false, reason: 'need-direction', effectId: eid, allowEmpty: true, passEmpty: true };
+      }
+      if (o.target === null && adjacentArrow && (eid === 409 || eid === 635)) {
+        // 317841-317849：箭头选中空格 → 「何もおきない…」，不消耗充能
+        g.log('何もおきない…');
+        return { ok: false, reason: 'nothing', effectId: eid };
       }
       if (!target && o.dir) {
         g.log('那个方向没有可以瞄准的目标。');
         return { ok: false, reason: 'no-target', effectId: eid };
       }
-      // 治愈/解咒杖（3000 系）：没给目标也没给方向时按「对自己挥」处理
-      //   （原版由方向光标选格，选自己所在格即对自身生效）
-      if (!target && wandToDir) {
-        target = p;
-      }
-      if (!target) {
-        target = (Elona.Throw && Elona.Throw.nearestEnemy) ? Elona.Throw.nearestEnemy(g, p, 20) : null;
-      }
+      if (!target && wandToDir) target = p;            // 回车 = 对自己挥
+      if (!target) target = (Elona.Throw && Elona.Throw.nearestEnemy) ? Elona.Throw.nearestEnemy(g, p, 20) : null;
       if (!target) {
         g.log('没有可以瞄准的目标。');
         return { ok: false, reason: 'no-target' };
