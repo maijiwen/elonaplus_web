@@ -1422,6 +1422,146 @@
    "store": "var82",
    "min": 0,
    "max": 2147483647
+  },
+  {
+   "row": 143,
+   "sourceName": "Illusion Roar",
+   "csvName": "Illusion Roar",
+   "label": "梦幻咆哮",
+   "index": 478,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 144,
+   "sourceName": "Anguish Jail",
+   "csvName": "Anguish Jail",
+   "label": "苦闷牢笼",
+   "index": 479,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 145,
+   "sourceName": "Nether Bolt",
+   "csvName": "Nether Bolt",
+   "label": "幽冥射线",
+   "index": 480,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 146,
+   "sourceName": "Poison Bolt",
+   "csvName": "Poison Bolt",
+   "label": "剧毒射线",
+   "index": 481,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 147,
+   "sourceName": "Sound Bolt",
+   "csvName": "Sound Bolt",
+   "label": "声波射线",
+   "index": 482,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 148,
+   "sourceName": "Chaos Bolt",
+   "csvName": "Chaos Bolt",
+   "label": "混沌射线",
+   "index": 483,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 149,
+   "sourceName": "Nerve Bolt",
+   "csvName": "Nerve Bolt",
+   "label": "神经射线",
+   "index": 484,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 150,
+   "sourceName": "Fire Claw",
+   "csvName": "Fire Claw",
+   "label": "火焰之爪",
+   "index": 485,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 151,
+   "sourceName": "Cold Blade",
+   "csvName": "Cold Blade",
+   "label": "冰冷之刃",
+   "index": 486,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 152,
+   "sourceName": "Lightning Spear",
+   "csvName": "Lightning Spear",
+   "label": "电击之枪",
+   "index": 487,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 153,
+   "sourceName": "Mind Thorn",
+   "csvName": "Mind Thorn",
+   "label": "幻惑之棘",
+   "index": 488,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 154,
+   "sourceName": "Poison Mucus",
+   "csvName": "Poison Mucus",
+   "label": "毒之粘液",
+   "index": 489,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 155,
+   "sourceName": "Sound Cannonball",
+   "csvName": "Sound Cannonball",
+   "label": "声波炮弹",
+   "index": 490,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
+  },
+  {
+   "row": 156,
+   "sourceName": "Hydro Fang",
+   "csvName": "Hydro Fang",
+   "label": "水之牙",
+   "index": 491,
+   "store": "var82",
+   "min": 0,
+   "max": 2147483647
   }
  ]
 }

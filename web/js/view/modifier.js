@@ -18,8 +18,6 @@
     { id: 'skill', label: '技能' },
     { id: 'item', label: '物品' },
     { id: 'spell', label: '魔法库存' },
-    { id: 'ability', label: '特殊能力' },
-    { id: 'feat', label: '天赋' },
     { id: 'material', label: '材料' },
     { id: 'quest', label: '委托' },
   ];
