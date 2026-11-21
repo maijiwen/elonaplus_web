@@ -9,9 +9,9 @@
    "csvName": "ｦﾖ Tactics",
    "label": "战术",
    "index": 152,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 2,
@@ -19,9 +19,9 @@
    "csvName": "ｦﾖ Weight Lifting",
    "label": "举重",
    "index": 153,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 3,
@@ -29,9 +29,9 @@
    "csvName": "ｦﾖ Two hand",
    "label": "双手持握",
    "index": 167,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 4,
@@ -39,9 +39,9 @@
    "csvName": "ｦｮ Healing",
    "label": "治愈",
    "index": 154,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 5,
@@ -49,9 +49,9 @@
    "csvName": "ｦｮ Mining",
    "label": "采矿",
    "index": 163,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 6,
@@ -59,9 +59,9 @@
    "csvName": "ｦｮ Shield",
    "label": "盾牌",
    "index": 168,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 7,
@@ -69,9 +69,9 @@
    "csvName": "ｦｮ Heavy Armor",
    "label": "重装备",
    "index": 169,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 8,
@@ -79,9 +79,9 @@
    "csvName": "ｦｮ Medium Armor",
    "label": "中装备",
    "index": 170,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 9,
@@ -89,9 +89,9 @@
    "csvName": "ｦｮ Carpentry",
    "label": "木工",
    "index": 176,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 10,
@@ -99,9 +99,9 @@
    "csvName": "ｦﾇ Lock Picking",
    "label": "开锁",
    "index": 158,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 11,
@@ -109,9 +109,9 @@
    "csvName": "ｦﾇ Dual Wield",
    "label": "双持",
    "index": 166,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 12,
@@ -119,9 +119,9 @@
    "csvName": "ｦﾇ Light Armor",
    "label": "轻装备",
    "index": 171,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 13,
@@ -129,9 +129,9 @@
    "csvName": "ｦﾇ Evasion",
    "label": "闪避",
    "index": 173,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 14,
@@ -139,9 +139,9 @@
    "csvName": "ｦﾇ Disarm Trap",
    "label": "陷阱知识",
    "index": 175,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 15,
@@ -149,9 +149,9 @@
    "csvName": "ｦﾇ Tailoring",
    "label": "裁缝",
    "index": 177,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 16,
@@ -159,9 +159,9 @@
    "csvName": "ｦﾇ Jeweler",
    "label": "宝石加工",
    "index": 179,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 17,
@@ -169,9 +169,9 @@
    "csvName": "ｦﾇ Pickpocket",
    "label": "偷窃",
    "index": 300,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 18,
@@ -179,9 +179,9 @@
    "csvName": "ｦﾄ Stealth",
    "label": "隐蔽",
    "index": 157,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 19,
@@ -189,9 +189,9 @@
    "csvName": "ｦﾄ Detection",
    "label": "探知",
    "index": 159,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 20,
@@ -199,9 +199,9 @@
    "csvName": "ｦﾄ Sense Quality",
    "label": "分析",
    "index": 162,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 21,
@@ -209,9 +209,9 @@
    "csvName": "ｦﾄ Fishing",
    "label": "钓鱼",
    "index": 185,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 22,
@@ -219,9 +219,9 @@
    "csvName": "ｦｸ Eye of Mind",
    "label": "心眼",
    "index": 186,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 23,
@@ -229,9 +229,9 @@
    "csvName": "ｦﾄ Greater Evasion",
    "label": "看穿",
    "index": 187,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 24,
@@ -239,9 +239,9 @@
    "csvName": "ｦﾄ Marksman",
    "label": "射击",
    "index": 189,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 25,
@@ -249,9 +249,9 @@
    "csvName": "ｦｰ Literacy",
    "label": "读书",
    "index": 150,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 26,
@@ -259,9 +259,9 @@
    "csvName": "ｦｰ Gene engineer",
    "label": "基因工程",
    "index": 151,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 27,
@@ -269,9 +269,9 @@
    "csvName": "ｦｰ Anatomy",
    "label": "解剖学",
    "index": 161,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 28,
@@ -279,9 +279,9 @@
    "csvName": "ｦｰ Memorization",
    "label": "背诵",
    "index": 165,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 29,
@@ -289,9 +289,9 @@
    "csvName": "ｦｰ Alchemy",
    "label": "炼金术",
    "index": 178,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 30,
@@ -299,9 +299,9 @@
    "csvName": "ｦｰ Gardening",
    "label": "栽培",
    "index": 180,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 31,
@@ -309,9 +309,9 @@
    "csvName": "ｦｰ Cooking",
    "label": "料理",
    "index": 184,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 32,
@@ -319,9 +319,9 @@
    "csvName": "ｦｸ Magic Capacity",
    "label": "魔力上限",
    "index": 164,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 33,
@@ -329,9 +329,9 @@
    "csvName": "ｦｸ Faith",
    "label": "信仰",
    "index": 181,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 34,
@@ -339,9 +339,9 @@
    "csvName": "ｦｸ Traveling",
    "label": "旅行",
    "index": 182,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 35,
@@ -349,9 +349,9 @@
    "csvName": "ｦｸ Swimming",
    "label": "游泳",
    "index": 190,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 36,
@@ -359,9 +359,9 @@
    "csvName": "ｦｸ Riding",
    "label": "骑乘",
    "index": 301,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 37,
@@ -369,9 +369,9 @@
    "csvName": "ｦｨ Meditation",
    "label": "冥想",
    "index": 155,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 38,
@@ -379,9 +379,9 @@
    "csvName": "ｦｨ Casting",
    "label": "咏唱",
    "index": 172,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 39,
@@ -389,9 +389,9 @@
    "csvName": "ｦｨ Magic Device",
    "label": "魔法道具",
    "index": 174,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 40,
@@ -399,9 +399,9 @@
    "csvName": "ｦｨ Control Magic",
    "label": "魔力控制",
    "index": 188,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 41,
@@ -409,9 +409,9 @@
    "csvName": "ｦﾘ Negotiation",
    "label": "交涉",
    "index": 156,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 42,
@@ -419,9 +419,9 @@
    "csvName": "ｦﾘ Investiong",
    "label": "投资",
    "index": 160,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 43,
@@ -429,9 +429,9 @@
    "csvName": "ｦﾘ Performer",
    "label": "演奏",
    "index": 183,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 44,
@@ -439,9 +439,9 @@
    "csvName": "ｦﾖ Long Sword",
    "label": "长剑",
    "index": 100,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 45,
@@ -449,9 +449,9 @@
    "csvName": "ｦﾖ Axe",
    "label": "斧",
    "index": 102,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 46,
@@ -459,9 +459,9 @@
    "csvName": "ｦﾖ Martial Art",
    "label": "格斗",
    "index": 106,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 47,
@@ -469,9 +469,9 @@
    "csvName": "ｦﾖ Scythe",
    "label": "镰刀",
    "index": 107,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 48,
@@ -479,9 +479,9 @@
    "csvName": "ｦｮ Blunt",
    "label": "钝器",
    "index": 103,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 49,
@@ -489,9 +489,9 @@
    "csvName": "ｦｮ Polearm",
    "label": "长枪",
    "index": 104,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 50,
@@ -499,9 +499,9 @@
    "csvName": "ｦｮ Stave",
    "label": "法杖",
    "index": 105,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 51,
@@ -509,9 +509,9 @@
    "csvName": "ｦﾇ Short Sword",
    "label": "短剑",
    "index": 101,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 52,
@@ -519,9 +519,9 @@
    "csvName": "ｦﾇ Bow",
    "label": "弓",
    "index": 108,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 53,
@@ -529,9 +529,9 @@
    "csvName": "ｦﾇ Crossbow",
    "label": "弩",
    "index": 109,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 54,
@@ -539,9 +539,9 @@
    "csvName": "ｦﾇ Throwing",
    "label": "投掷",
    "index": 111,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 55,
@@ -549,9 +549,9 @@
    "csvName": "ｦﾄ Firearm",
    "label": "枪械",
    "index": 110,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 56,
@@ -559,9 +559,9 @@
    "csvName": "ｦﾍ Resist Fire",
    "label": "火焰",
    "index": 50,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 57,
@@ -569,9 +569,9 @@
    "csvName": "ｦﾍ Resist Cold",
    "label": "寒冷",
    "index": 51,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 58,
@@ -579,9 +579,9 @@
    "csvName": "ｦﾍ Resist Lightning",
    "label": "电击",
    "index": 52,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 59,
@@ -589,9 +589,9 @@
    "csvName": "ｦﾍ Resist Darkness",
    "label": "黑暗",
    "index": 53,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 60,
@@ -599,9 +599,9 @@
    "csvName": "ｦﾍ Resist Mind",
    "label": "幻惑",
    "index": 54,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 61,
@@ -609,9 +609,9 @@
    "csvName": "ｦﾍ Resist Poison",
    "label": "毒",
    "index": 55,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 62,
@@ -619,9 +619,9 @@
    "csvName": "ｦﾍ Resist Nether",
    "label": "地狱",
    "index": 56,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 63,
@@ -629,9 +629,9 @@
    "csvName": "ｦﾍ Resist Sound",
    "label": "音",
    "index": 57,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 64,
@@ -639,9 +639,9 @@
    "csvName": "ｦﾍ Resist Nerve",
    "label": "神经",
    "index": 58,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 65,
@@ -649,9 +649,9 @@
    "csvName": "ｦﾍ Resist Chaos",
    "label": "混沌",
    "index": 59,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 66,
@@ -659,9 +659,9 @@
    "csvName": "ｦﾍ Resist Magic",
    "label": "魔法",
    "index": 60,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 67,
@@ -669,9 +669,9 @@
    "csvName": "Heal Light",
    "label": "轻伤治疗",
    "index": 400,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 68,
@@ -679,9 +679,9 @@
    "csvName": "Heal Critical",
    "label": "致命伤治疗",
    "index": 401,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 69,
@@ -689,9 +689,9 @@
    "csvName": "Cure of Eris",
    "label": "爱丽丝之治愈",
    "index": 402,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 70,
@@ -699,9 +699,9 @@
    "csvName": "Cure of Jua",
    "label": "朱亚之治愈",
    "index": 403,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 71,
@@ -709,9 +709,9 @@
    "csvName": "Healing Rain",
    "label": "治愈之雨",
    "index": 404,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 72,
@@ -719,9 +719,9 @@
    "csvName": "Healing Touch",
    "label": "治愈之手",
    "index": 405,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 73,
@@ -729,9 +729,9 @@
    "csvName": "Holy Light",
    "label": "清净圣光",
    "index": 406,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 74,
@@ -739,9 +739,9 @@
    "csvName": "Vanquish Hex",
    "label": "全净化",
    "index": 407,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 75,
@@ -749,9 +749,9 @@
    "csvName": "Teleport",
    "label": "传送",
    "index": 408,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 76,
@@ -759,9 +759,9 @@
    "csvName": "Teleport Other",
    "label": "传送他人",
    "index": 409,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 77,
@@ -769,9 +769,9 @@
    "csvName": "Short Teleport",
    "label": "短距传送",
    "index": 410,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 78,
@@ -779,9 +779,9 @@
    "csvName": "Identify",
    "label": "鉴定",
    "index": 411,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 79,
@@ -789,9 +789,9 @@
    "csvName": "Uncurse",
    "label": "解咒",
    "index": 412,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 80,
@@ -799,9 +799,9 @@
    "csvName": "Oracle",
    "label": "神谕",
    "index": 413,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 81,
@@ -809,9 +809,9 @@
    "csvName": "Magic Dart",
    "label": "魔法之箭",
    "index": 414,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 82,
@@ -819,9 +819,9 @@
    "csvName": "Nether Arrow",
    "label": "地狱之息",
    "index": 415,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 83,
@@ -829,9 +829,9 @@
    "csvName": "Nerve Arrow",
    "label": "神经之针",
    "index": 416,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 84,
@@ -839,9 +839,9 @@
    "csvName": "Chaos eye",
    "label": "混沌之瞳",
    "index": 417,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 85,
@@ -849,9 +849,9 @@
    "csvName": "Dark eye",
    "label": "暗黑之楔",
    "index": 418,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 86,
@@ -859,9 +859,9 @@
    "csvName": "Ice Bolt",
    "label": "冰冷射线",
    "index": 419,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 87,
@@ -869,9 +869,9 @@
    "csvName": "Fire Bolt",
    "label": "炽热射线",
    "index": 420,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 88,
@@ -879,9 +879,9 @@
    "csvName": "Lightning Bolt",
    "label": "雷光射线",
    "index": 421,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 89,
@@ -889,9 +889,9 @@
    "csvName": "Darkness Bolt",
    "label": "暗黑射线",
    "index": 422,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 90,
@@ -899,9 +899,9 @@
    "csvName": "Mind Bolt",
    "label": "幻影射线",
    "index": 423,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 91,
@@ -909,9 +909,9 @@
    "csvName": "Summon Monsters",
    "label": "怪物召唤",
    "index": 424,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 92,
@@ -919,9 +919,9 @@
    "csvName": "Summon Wild",
    "label": "野兽召唤",
    "index": 425,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 93,
@@ -929,9 +929,9 @@
    "csvName": "Return",
    "label": "归还",
    "index": 428,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 94,
@@ -939,9 +939,9 @@
    "csvName": "Magic Map",
    "label": "魔法地图",
    "index": 429,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 95,
@@ -949,9 +949,9 @@
    "csvName": "Sense Object",
    "label": "物质感知",
    "index": 430,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 96,
@@ -959,9 +959,9 @@
    "csvName": "Ice Ball",
    "label": "冰结波动",
    "index": 431,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 97,
@@ -969,9 +969,9 @@
    "csvName": "Fire Ball",
    "label": "灼热风暴",
    "index": 432,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 98,
@@ -979,9 +979,9 @@
    "csvName": "Chaos Ball",
    "label": "混沌漩涡",
    "index": 433,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 99,
@@ -989,9 +989,9 @@
    "csvName": "Raging Roar",
    "label": "轰鸣波动",
    "index": 434,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 100,
@@ -999,9 +999,9 @@
    "csvName": "Dominate",
    "label": "支配",
    "index": 435,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 101,
@@ -1009,9 +1009,9 @@
    "csvName": "Web",
    "label": "蛛网术",
    "index": 436,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 102,
@@ -1019,9 +1019,9 @@
    "csvName": "Mist of Darkness",
    "label": "暗之雾",
    "index": 437,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 103,
@@ -1029,9 +1029,9 @@
    "csvName": "Wall Creation",
    "label": "造墙术",
    "index": 438,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 104,
@@ -1039,9 +1039,9 @@
    "csvName": "Restore Body",
    "label": "肉体复活",
    "index": 439,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 105,
@@ -1049,9 +1049,9 @@
    "csvName": "Restore Spirit",
    "label": "精神复活",
    "index": 440,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 106,
@@ -1059,9 +1059,9 @@
    "csvName": "Wish",
    "label": "许愿",
    "index": 441,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 107,
@@ -1069,9 +1069,9 @@
    "csvName": "Holy Shield",
    "label": "神圣之盾",
    "index": 442,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 108,
@@ -1079,9 +1079,9 @@
    "csvName": "Mist of Silence",
    "label": "沉默之雾",
    "index": 443,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 109,
@@ -1089,9 +1089,9 @@
    "csvName": "Regeneration",
    "label": "再生",
    "index": 444,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 110,
@@ -1099,9 +1099,9 @@
    "csvName": "Attribution Shield",
    "label": "属性保护",
    "index": 445,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 111,
@@ -1109,9 +1109,9 @@
    "csvName": "Speed",
    "label": "加速",
    "index": 446,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 112,
@@ -1119,9 +1119,9 @@
    "csvName": "Slow",
    "label": "迟缓",
    "index": 447,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 113,
@@ -1129,9 +1129,9 @@
    "csvName": "Hero",
    "label": "振奋",
    "index": 448,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 114,
@@ -1139,9 +1139,9 @@
    "csvName": "Mist of frailness",
    "label": "脆弱之雾",
    "index": 449,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 115,
@@ -1149,9 +1149,9 @@
    "csvName": "Element Scar",
    "label": "元素伤痕",
    "index": 450,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 116,
@@ -1159,9 +1159,9 @@
    "csvName": "Holy Veil",
    "label": "圣光加护",
    "index": 451,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 117,
@@ -1169,9 +1169,9 @@
    "csvName": "Nightmare",
    "label": "梦魇",
    "index": 452,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 118,
@@ -1179,9 +1179,9 @@
    "csvName": "Divine Wisdom",
    "label": "智者的加护",
    "index": 453,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 119,
@@ -1189,9 +1189,9 @@
    "csvName": "Mutation",
    "label": "改名",
    "index": 454,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 120,
@@ -1199,9 +1199,9 @@
    "csvName": "Acid Ground",
    "label": "酸之海",
    "index": 455,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 121,
@@ -1209,9 +1209,9 @@
    "csvName": "Fire Wall",
    "label": "火墙术",
    "index": 456,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 122,
@@ -1219,9 +1219,9 @@
    "csvName": "Door Creation",
    "label": "造门术",
    "index": 457,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 123,
@@ -1229,9 +1229,9 @@
    "csvName": "Incognito",
    "label": "避隐",
    "index": 458,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 124,
@@ -1239,9 +1239,9 @@
    "csvName": "Crystal Spear",
    "label": "魔法射线",
    "index": 459,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 125,
@@ -1249,9 +1249,9 @@
    "csvName": "Magic Storm",
    "label": "魔力风暴",
    "index": 460,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 126,
@@ -1259,9 +1259,9 @@
    "csvName": "Resurrection",
    "label": "复活",
    "index": 461,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 127,
@@ -1269,9 +1269,9 @@
    "csvName": "Contingency",
    "label": "契约",
    "index": 462,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 128,
@@ -1279,9 +1279,9 @@
    "csvName": "4-Dimensionl Pocket",
    "label": "四次元空间袋",
    "index": 463,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 129,
@@ -1289,9 +1289,9 @@
    "csvName": "Wizard's Harvest",
    "label": "丰收术",
    "index": 464,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 130,
@@ -1299,9 +1299,9 @@
    "csvName": "Meteor",
    "label": "陨石术",
    "index": 465,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 131,
@@ -1309,9 +1309,9 @@
    "csvName": "Gravity",
    "label": "重力",
    "index": 466,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 132,
@@ -1319,9 +1319,9 @@
    "csvName": "Summon Spirit",
    "label": "精灵召唤",
    "index": 467,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 133,
@@ -1329,9 +1329,9 @@
    "csvName": "Feather",
    "label": "羽化",
    "index": 468,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 134,
@@ -1339,9 +1339,9 @@
    "csvName": "Eclipse",
    "label": "月蚀牢笼",
    "index": 469,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 135,
@@ -1349,9 +1349,9 @@
    "csvName": "Thunder Votex",
    "label": "雷霆漩涡",
    "index": 470,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 136,
@@ -1359,9 +1359,9 @@
    "csvName": "Roar of Hades",
    "label": "冥王咆哮",
    "index": 471,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 137,
@@ -1369,9 +1369,9 @@
    "csvName": "Mist of Light",
    "label": "光之雾",
    "index": 472,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 138,
@@ -1379,9 +1379,9 @@
    "csvName": "Poison Storm",
    "label": "猛毒风暴",
    "index": 473,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 139,
@@ -1389,9 +1389,9 @@
    "csvName": "Concentration",
    "label": "集中",
    "index": 474,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 140,
@@ -1399,9 +1399,9 @@
    "csvName": "Water Bolt",
    "label": "水流射线",
    "index": 475,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 141,
@@ -1409,9 +1409,9 @@
    "csvName": "Bubble Storm",
    "label": "泡沫风暴",
    "index": 476,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 142,
@@ -1419,9 +1419,9 @@
    "csvName": "Gem Power",
    "label": "守护石",
    "index": 477,
-   "store": "var82",
+   "store": "skillpack",
    "min": 0,
-   "max": 2147483647
+   "max": 9999999999
   },
   {
    "row": 143,

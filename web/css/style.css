@@ -215,6 +215,11 @@ html, body {
 }
 .mod-arrow:hover { background: #e8dec4; }
 .mod-hint { color: #6a573a; font-size: 11px; }
+.mod-tip {
+  margin: 2px 0 5px; padding: 3px 5px;
+  border-left: 3px solid #b89a58; background: #efe6cf;
+  color: #5a4526; font-size: 11px; line-height: 15px;
+}
 .mod-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 12px; }
 .mod-field { min-width: 0; }
 .mod-field-line { display: grid; grid-template-columns: minmax(0, 1fr) 96px; gap: 4px; align-items: start; }

@@ -45,6 +45,7 @@
   "itemuse.json",
   "journal.json",
   "kimoti.json",
+  "magicfields.json",
   "materials.json",
   "monster.json",
   "monster_tags.json",
@@ -94,5 +95,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 86
+ "count": 87
 }

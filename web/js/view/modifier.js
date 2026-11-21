@@ -5,9 +5,10 @@
  * 字段表都由 CSV 机械生成，不写死在 JS 里：
  *   tools/gen_itemfields.py   → itemfields.json  （var_99：物品页）
  *   tools/gen_statefields.py  → statefields.json （var_58 / var_65 / var_82：状态页）
- *   tools/gen_skillsfields.py → skillfields.json （var_82：技能页）
+ *   tools/gen_skillsfields.py → skillfields.json （var_82 组合值：等级+经验+潜力）
+ *   tools/gen_magicfields.py  → magicfields.json （var_495：魔法库存页）
  * 打开弹窗 / 切换页签时都重新从当前游戏状态读值，避免显示旧存档。
- * 目前实现「物品」「状态」「技能」三页，其余六页占位但页签切换可用。
+ * 目前实现「物品」「状态」「技能」「魔法库存」四页，其余五页占位但页签切换可用。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -23,6 +24,10 @@
   ];
   const LABEL_MAX = 10;
   const ELLIPSIS = '......';
+  // 技能页组合值：等级 × 1000000 + 3 位经验 × 1000 + 3 位潜力
+  //   例：等级 24 / 经验 234 / 潜力 210 → 24234210；0 表示未习得。
+  const SKILL_PACK = 1000000;
+  const SKILL_PART = 1000;
 
   const Modifier = {
     TABS,
@@ -49,6 +54,10 @@
     skillIndex: 0,
     _skillIndexValid: true,
     _skillFieldInputs: [],
+
+    // 魔法库存页：var_495(id - 400)，写在玩家（角色槽 0）的 spellStock 上
+    magicFields: null,
+    _magicFieldInputs: [],
 
     _built: false,
     _loadPromise: null,
@@ -106,6 +115,7 @@
       if (t.id === 'item' && (force || this.fields)) this.refresh();
       if (t.id === 'status' && (force || this.stateFields)) this.refreshChara();
       if (t.id === 'skill' && (force || this.skillFields)) this.refreshSkill();
+      if (t.id === 'spell' && (force || this.magicFields)) this.refreshSpell();
       return true;
     },
 
@@ -143,6 +153,7 @@
         if (t.id === 'item') page.innerHTML = this._itemPageHtml();
         else if (t.id === 'status') page.innerHTML = this._statusPageHtml();
         else if (t.id === 'skill') page.innerHTML = this._skillPageHtml();
+        else if (t.id === 'spell') page.innerHTML = this._spellPageHtml();
         else page.innerHTML = '<div class="mod-placeholder">【' + t.label + '】页面尚未实现。</div>';
         this.bodyEl.appendChild(page);
       }
@@ -199,6 +210,18 @@
       this.skillForm.addEventListener('submit', (e) => {
         e.preventDefault();
         this._saveSkill();
+      });
+
+      const spellPage = this.bodyEl.querySelector('[data-page="spell"]');
+      this.spellForm = spellPage.querySelector('#mod-spell-form');
+      this.spellFieldsEl = spellPage.querySelector('#mod-spell-fields');
+      this.spellStatusEl = spellPage.querySelector('#mod-spell-status');
+      this.spellSaveBtn = spellPage.querySelector('#mod-spell-save');
+      this.spellOwnerEl = spellPage.querySelector('#mod-spell-owner');
+      spellPage.querySelector('#mod-spell-reset').addEventListener('click', () => this.refreshSpell(true));
+      this.spellForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        this._saveSpell();
       });
     },
 
@@ -267,11 +290,31 @@
         '    <label for="mod-skill-name">人物姓名</label>',
         '    <input id="mod-skill-name" type="text" readonly class="mod-readonly" />',
         '  </div>',
+        '  <div class="mod-tip">值 = 等级 × 1000000 + 3 位经验 × 1000 + 3 位潜力，例 24234210 即 24 级 / 经验 234 / 潜力 210；0 = 未习得。</div>',
         '  <div id="mod-skill-fields" class="mod-fields"></div>',
         '  <div class="mod-actions">',
         '    <button type="submit" id="mod-skill-save">保存</button>',
         '    <button type="button" id="mod-skill-reset">还原</button>',
         '    <span id="mod-skill-status" class="mod-status" role="status"></span>',
+        '  </div>',
+        '</form>',
+      ].join('\n');
+    },
+
+    /** 魔法库存页：只有魔法列表（无人物索引），对应 var_495(id - 400) */
+    _spellPageHtml() {
+      return [
+        '<form id="mod-spell-form" autocomplete="off">',
+        '  <div class="mod-line">',
+        '    <label>库存归属</label>',
+        '    <input id="mod-spell-owner" type="text" readonly class="mod-readonly" />',
+        '  </div>',
+        '  <div class="mod-tip">字段为 var_495(法术 id − 400)，即玩家当前可咏唱的该法术库存次数。</div>',
+        '  <div id="mod-spell-fields" class="mod-fields"></div>',
+        '  <div class="mod-actions">',
+        '    <button type="submit" id="mod-spell-save">保存</button>',
+        '    <button type="button" id="mod-spell-reset">还原</button>',
+        '    <span id="mod-spell-status" class="mod-status" role="status"></span>',
         '  </div>',
         '</form>',
       ].join('\n');
@@ -287,7 +330,7 @@
     /** 统一存储键：var_65 的字段按全局槽分组，var_58 按角色字段号分组 */
     _storeKey(def) {
       if (def.store === 'v65') return ('v65:' + def.v65);
-      if (def.store === 'var82') return ('var82:' + def.index);
+      if (def.store === 'var82' || def.store === 'skillpack') return ('var82:' + def.index);
       return ('var58:' + def.index);
     },
 
@@ -328,8 +371,44 @@
       }
     },
 
+    /** 技能页组合值：等级×1000000 + 3 位经验×1000 + 3 位潜力（0＝未习得） */
+    _readSkillPack(c, def) {
+      const level = Math.trunc(c.skill(def.index) || 0);
+      const raw = Math.trunc((c.potential && c.potential[def.index]) || 0);
+      const exp = Math.floor(raw / SKILL_PART) % SKILL_PART;
+      const pot = Math.floor(raw / SKILL_PACK);
+      return level * SKILL_PACK + exp * SKILL_PART + pot;
+    },
+
+    /**
+     * 拆解组合值写回：等级 → var_82(id)，经验/潜力 → var_82(id+600)。
+     * 低 3 位是成长率（sgrowth），不在表单里显示，原样保留。
+     */
+    _writeSkillPack(c, def, value) {
+      const total = Math.max(0, Math.trunc(Number(value) || 0));
+      const level = Math.floor(total / SKILL_PACK);
+      const rem = total % SKILL_PACK;
+      const exp = Math.floor(rem / SKILL_PART);
+      const pot = rem % SKILL_PART;
+      if (!c.potential) c.potential = {};
+      const old = Math.trunc(c.potential[def.index] || 0);
+      const growth = total === 0 ? 0 : old % SKILL_PART;
+      c.potential[def.index] = total === 0 ? 0 : (pot * SKILL_PACK + exp * SKILL_PART + growth);
+      c.setSkill(def.index, total === 0 ? 0 : level);
+    },
+
+    _validateSkillPack(s) {
+      if (!/^\d+$/.test(s)) return '请输入非负整数（0＝未习得）。';
+      const v = Number(s);
+      if (!Number.isSafeInteger(v)) return '数值过大。';
+      if (v === 0) return null;
+      const level = Math.floor(v / SKILL_PACK);
+      if (level > 9999) return '技能等级超出 0 ~ 9999。';
+      return null;
+    },
+
     async _ensureFields() {
-      if (this.fields && this.stateFields && this.skillFields) return;
+      if (this.fields && this.stateFields && this.skillFields && this.magicFields) return;
       if (!this._loadPromise) {
         this._loadPromise = (async () => {
           const load = async (name) => {
@@ -341,15 +420,17 @@
             }
             return data.fields;
           };
-          const [itemFields, stateFields, skillFields] = await Promise.all([
-            load('itemfields'), load('statefields'), load('skillfields'),
+          const [itemFields, stateFields, skillFields, magicFields] = await Promise.all([
+            load('itemfields'), load('statefields'), load('skillfields'), load('magicfields'),
           ]);
           this.fields = itemFields;
           this.stateFields = stateFields;
           this.skillFields = skillFields;
+          this.magicFields = magicFields;
           this._buildFieldRows(this.fieldsEl, this.fields, 'mod-item', 'item');
           this._buildFieldRows(this.stateFieldsEl, this.stateFields, 'mod-status', 'status');
           this._buildFieldRows(this.skillFieldsEl, this.skillFields, 'mod-skill', 'skill');
+          this._buildFieldRows(this.spellFieldsEl, this.magicFields, 'mod-spell', 'spell');
         })().catch((e) => { this._loadPromise = null; throw e; });
       }
       await this._loadPromise;
@@ -376,9 +457,11 @@
         // title 保留完整中文名 + 原始字段名 + 存储槽，长名字截断后悬停仍看得到
         const storeText = page === 'item'
           ? 'var_99(' + def.index + ')'
-          : (def.store === 'v65' ? 'var_65(' + def.v65 + ')'
-            : (def.store === 'var82' ? 'var_82(' + def.index + ')' : 'var_58(' + def.index + ')'));
+          : (page === 'spell' ? 'var_495(' + def.slot + ')'
+            : (def.store === 'v65' ? 'var_65(' + def.v65 + ')'
+              : (def.store === 'var82' ? 'var_82(' + def.index + ')' : 'var_58(' + def.index + ')')));
         label.title = def.label + '（' + def.sourceName + '，' + storeText + '）'
+          + (page === 'skill' ? '；值＝等级×1000000＋3 位经验×1000＋3 位潜力，0＝未习得' : '')
           + (def.shared ? '；与另一字段共用同一存储槽，修改会同步' : '');
         label.htmlFor = inputId;
         const input = document.createElement('input');
@@ -402,6 +485,7 @@
       }
       if (page === 'status') this._stateFieldInputs = list;
       else if (page === 'skill') this._skillFieldInputs = list;
+      else if (page === 'spell') this._magicFieldInputs = list;
       else this._fieldInputs = list;
       return list;
     },
@@ -603,6 +687,7 @@
     // ---------- 通用校验 / 保存 ----------
     _validateValue(def, raw) {
       const s = String(raw == null ? '' : raw).trim();
+      if (def.store === 'skillpack') return this._validateSkillPack(s);
       if (!/^[+-]?\d+$/.test(s)) return '请输入整数。';
       const v = Number(s);
       if (!Number.isSafeInteger(v)) return '数值超出 32 位整数范围。';
@@ -631,17 +716,22 @@
     },
 
     _updateSaveState(page) {
-      const kind = page === 'status' ? 'status' : (page === 'skill' ? 'skill' : 'item');
+      const kind = page === 'status' ? 'status'
+        : (page === 'skill' ? 'skill' : (page === 'spell' ? 'spell' : 'item'));
       const inputs = kind === 'status' ? this._stateFieldInputs
-        : (kind === 'skill' ? this._skillFieldInputs : this._fieldInputs);
+        : (kind === 'skill' ? this._skillFieldInputs
+          : (kind === 'spell' ? this._magicFieldInputs : this._fieldInputs));
       const btn = kind === 'status' ? this.charaSaveBtn
-        : (kind === 'skill' ? this.skillSaveBtn : this.saveBtn);
+        : (kind === 'skill' ? this.skillSaveBtn
+          : (kind === 'spell' ? this.spellSaveBtn : this.saveBtn));
       if (!btn) return;
       const okIndex = kind === 'status'
         ? (this._charaIndexValid && !!this._currentChara())
         : (kind === 'skill'
           ? (this._skillIndexValid && !!this._currentSkillChara())
-          : (this._indexValid && !!this._currentItem()));
+          : (kind === 'spell'
+            ? !!this._spellOwner()
+            : (this._indexValid && !!this._currentItem())));
       const okFields = inputs.every((f) => {
         const row = f.input.closest ? f.input.closest('.mod-field') : null;
         if (row && row.classList.contains('hidden')) return true;
@@ -738,8 +828,7 @@
           f.input.value = ''; f.input.disabled = true; f.err.textContent = '';
           continue;
         }
-        const v = this._readStatusValue(c, f.def);
-        f.input.value = String(v === undefined || v === null ? 0 : v);
+        f.input.value = String(this._readSkillPack(c, f.def));
         f.input.disabled = false;
         this._validateField(f.def, f.input, false, 'skill');
       }
@@ -800,11 +889,65 @@
         }
         pending.push({ def: f.def, value: Number(f.input.value) });
       }
-      for (const p of pending) this._writeStatusValue(c, p.def, p.value);
+      for (const p of pending) this._writeSkillPack(c, p.def, p.value);
       this.refreshSkill();
       this._setStatus('已保存角色 ' + this.skillIndex + ' 的 ' + pending.length + ' 个技能。', false, 'skill');
       if (Elona.UI && Elona.UI.pushMessage) {
         Elona.UI.pushMessage('修改器：角色 ' + this.skillIndex + ' 的技能已保存。');
+      }
+    },
+
+    // ---------- 魔法库存页（var_495(id - 400)） ----------
+    /** var_495 只有玩家（角色槽 0）在用 */
+    _spellOwner() {
+      const p = this.game && this.game.player;
+      return (p && Array.isArray(p.spellStock)) ? p : null;
+    },
+
+    refreshSpell(force) {
+      if (!this.magicFields) return;
+      const p = this._spellOwner();
+      if (this.spellOwnerEl) {
+        this.spellOwnerEl.value = p
+          ? (this._charaName(p) + '（角色槽 0）') : '没有玩家角色';
+      }
+      for (const f of this._magicFieldInputs) {
+        if (!p) {
+          f.input.value = ''; f.input.disabled = true; f.err.textContent = '';
+          continue;
+        }
+        const v = p.spellStock[f.def.slot] | 0;
+        f.input.value = String(v);
+        f.input.disabled = false;
+        this._validateField(f.def, f.input, false, 'spell');
+      }
+      this._updateSaveState('spell');
+      if (force) {
+        this._setStatus(p ? '已按当前存档重新载入。' : '没有玩家角色，无法修改魔法库存。', !p, 'spell');
+      }
+    },
+
+    _saveSpell() {
+      const p = this._spellOwner();
+      if (!p) {
+        this._setStatus('没有玩家角色，无法修改魔法库存。', true, 'spell');
+        return;
+      }
+      const pending = [];
+      for (const f of this._magicFieldInputs) {
+        const err = this._validateValue(f.def, f.input.value);
+        if (err) {
+          f.input.focus();
+          this._setStatus(f.def.label + '：' + err, true, 'spell');
+          return;
+        }
+        pending.push({ slot: f.def.slot, value: Number(f.input.value) });
+      }
+      for (const s of pending) p.spellStock[s.slot] = s.value;
+      this.refreshSpell();
+      this._setStatus('已保存 ' + pending.length + ' 项魔法库存。', false, 'spell');
+      if (Elona.UI && Elona.UI.pushMessage) {
+        Elona.UI.pushMessage('修改器：魔法库存已保存。');
       }
     },
 
@@ -823,6 +966,7 @@
     _statusElFor(page) {
       if (page === 'status') return this.charaStatusEl;
       if (page === 'skill') return this.skillStatusEl;
+      if (page === 'spell') return this.spellStatusEl;
       return this.statusEl;
     },
     _setStatus(msg, isError, page) {

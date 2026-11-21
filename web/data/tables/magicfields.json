@@ -1,0 +1,897 @@
+{
+ "source": "web/data/tables/skills.json → skillNames[401..499]",
+ "store": "var_495(id - 400)",
+ "note": "修改器魔法库存页字段表，由 tools/gen_magicfields.py 生成；不要手改",
+ "fields": [
+  {
+   "index": 401,
+   "id": 401,
+   "slot": 1,
+   "sourceName": "Heal Critical",
+   "jp": "致命傷治癒",
+   "label": "致命伤治疗",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 402,
+   "id": 402,
+   "slot": 2,
+   "sourceName": "Cure of Eris",
+   "jp": "エリスの癒し",
+   "label": "爱丽丝之治愈",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 403,
+   "id": 403,
+   "slot": 3,
+   "sourceName": "Cure of Jua",
+   "jp": "ジュアの癒し",
+   "label": "朱亚之治愈",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 404,
+   "id": 404,
+   "slot": 4,
+   "sourceName": "Healing Rain",
+   "jp": "治癒の雨",
+   "label": "治愈之雨",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 405,
+   "id": 405,
+   "slot": 5,
+   "sourceName": "Healing Touch",
+   "jp": "癒しの手",
+   "label": "治愈之手",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 406,
+   "id": 406,
+   "slot": 6,
+   "sourceName": "Holy Light",
+   "jp": "清浄なる光",
+   "label": "清净圣光",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 407,
+   "id": 407,
+   "slot": 7,
+   "sourceName": "Vanquish Hex",
+   "jp": "全浄化",
+   "label": "全净化",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 408,
+   "id": 408,
+   "slot": 8,
+   "sourceName": "Teleport",
+   "jp": "テレポート",
+   "label": "传送",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 409,
+   "id": 409,
+   "slot": 9,
+   "sourceName": "Teleport Other",
+   "jp": "テレポートアザー",
+   "label": "传送他人",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 410,
+   "id": 410,
+   "slot": 10,
+   "sourceName": "Short Teleport",
+   "jp": "ショートテレポート",
+   "label": "短距传送",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 411,
+   "id": 411,
+   "slot": 11,
+   "sourceName": "Identify",
+   "jp": "鑑定",
+   "label": "鉴定",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 412,
+   "id": 412,
+   "slot": 12,
+   "sourceName": "Uncurse",
+   "jp": "解呪",
+   "label": "解咒",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 413,
+   "id": 413,
+   "slot": 13,
+   "sourceName": "Oracle",
+   "jp": "神託",
+   "label": "神谕",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 414,
+   "id": 414,
+   "slot": 14,
+   "sourceName": "Magic Dart",
+   "jp": "魔法の矢",
+   "label": "魔法之箭",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 415,
+   "id": 415,
+   "slot": 15,
+   "sourceName": "Nether Sigh",
+   "jp": "地獄の吐息",
+   "label": "地狱之息",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 416,
+   "id": 416,
+   "slot": 16,
+   "sourceName": "Nerve Needle",
+   "jp": "神経の針",
+   "label": "神经之针",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 417,
+   "id": 417,
+   "slot": 17,
+   "sourceName": "Chaos Eye",
+   "jp": "混沌の瞳",
+   "label": "混沌之瞳",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 418,
+   "id": 418,
+   "slot": 18,
+   "sourceName": "Darkness Wedge",
+   "jp": "暗黒の楔",
+   "label": "暗黑之楔",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 419,
+   "id": 419,
+   "slot": 19,
+   "sourceName": "Ice Bolt",
+   "jp": "アイスボルト",
+   "label": "冰冷射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 420,
+   "id": 420,
+   "slot": 20,
+   "sourceName": "Fire Bolt",
+   "jp": "ファイアボルト",
+   "label": "炽热射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 421,
+   "id": 421,
+   "slot": 21,
+   "sourceName": "Lightning Bolt",
+   "jp": "ライトニングボルト",
+   "label": "雷光射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 422,
+   "id": 422,
+   "slot": 22,
+   "sourceName": "Darkness Bolt",
+   "jp": "ダークネスボルト",
+   "label": "暗黑射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 423,
+   "id": 423,
+   "slot": 23,
+   "sourceName": "Mind Bolt",
+   "jp": "マインドボルト",
+   "label": "幻影射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 424,
+   "id": 424,
+   "slot": 24,
+   "sourceName": "Summon Monsters",
+   "jp": "モンスター召喚",
+   "label": "怪物召唤",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 425,
+   "id": 425,
+   "slot": 25,
+   "sourceName": "Summon Wild",
+   "jp": "野生召喚",
+   "label": "野兽召唤",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 428,
+   "id": 428,
+   "slot": 28,
+   "sourceName": "Return",
+   "jp": "帰還",
+   "label": "归还",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 429,
+   "id": 429,
+   "slot": 29,
+   "sourceName": "Magic Map",
+   "jp": "魔法の地図",
+   "label": "魔法地图",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 430,
+   "id": 430,
+   "slot": 30,
+   "sourceName": "Sense Object",
+   "jp": "物質感知",
+   "label": "物质感知",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 431,
+   "id": 431,
+   "slot": 31,
+   "sourceName": "Freezing Wave",
+   "jp": "氷結の波動",
+   "label": "冰结波动",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 432,
+   "id": 432,
+   "slot": 32,
+   "sourceName": "Burning Storm",
+   "jp": "灼熱の嵐",
+   "label": "灼热风暴",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 433,
+   "id": 433,
+   "slot": 33,
+   "sourceName": "Chaos Vortex",
+   "jp": "混沌の渦",
+   "label": "混沌漩涡",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 434,
+   "id": 434,
+   "slot": 34,
+   "sourceName": "Howling Wave",
+   "jp": "轟音の波動",
+   "label": "轰鸣波动",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 435,
+   "id": 435,
+   "slot": 35,
+   "sourceName": "Dominate",
+   "jp": "支配",
+   "label": "支配",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 436,
+   "id": 436,
+   "slot": 36,
+   "sourceName": "Web",
+   "jp": "蜘蛛の巣",
+   "label": "蛛网术",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 437,
+   "id": 437,
+   "slot": 37,
+   "sourceName": "Mist of Darkness",
+   "jp": "闇の霧",
+   "label": "暗之雾",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 438,
+   "id": 438,
+   "slot": 38,
+   "sourceName": "Wall Creation",
+   "jp": "壁生成",
+   "label": "造墙术",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 439,
+   "id": 439,
+   "slot": 39,
+   "sourceName": "Restore Body",
+   "jp": "肉体復活",
+   "label": "肉体复活",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 440,
+   "id": 440,
+   "slot": 40,
+   "sourceName": "Restore Spirit",
+   "jp": "精神復活",
+   "label": "精神复活",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 441,
+   "id": 441,
+   "slot": 41,
+   "sourceName": "Wish",
+   "jp": "願い",
+   "label": "许愿",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 442,
+   "id": 442,
+   "slot": 42,
+   "sourceName": "Holy Shield",
+   "jp": "聖なる盾",
+   "label": "神圣之盾",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 443,
+   "id": 443,
+   "slot": 43,
+   "sourceName": "Mist of Silence",
+   "jp": "沈黙の霧",
+   "label": "沉默之雾",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 444,
+   "id": 444,
+   "slot": 44,
+   "sourceName": "Regeneration",
+   "jp": "リジェネレーション",
+   "label": "再生",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 445,
+   "id": 445,
+   "slot": 45,
+   "sourceName": "Attribution Shield",
+   "jp": "属性保護",
+   "label": "属性保护",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 446,
+   "id": 446,
+   "slot": 46,
+   "sourceName": "Speed",
+   "jp": "加速",
+   "label": "加速",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 447,
+   "id": 447,
+   "slot": 47,
+   "sourceName": "Slow",
+   "jp": "鈍足",
+   "label": "迟缓",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 448,
+   "id": 448,
+   "slot": 48,
+   "sourceName": "Hero",
+   "jp": "英雄",
+   "label": "振奋",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 449,
+   "id": 449,
+   "slot": 49,
+   "sourceName": "Mist of frailness",
+   "jp": "脆弱の霧",
+   "label": "脆弱之雾",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 450,
+   "id": 450,
+   "slot": 50,
+   "sourceName": "Element Scar",
+   "jp": "元素の傷跡",
+   "label": "元素伤痕",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 451,
+   "id": 451,
+   "slot": 51,
+   "sourceName": "Holy Veil",
+   "jp": "ホーリーヴェイル",
+   "label": "圣光加护",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 452,
+   "id": 452,
+   "slot": 52,
+   "sourceName": "Nightmare",
+   "jp": "ナイトメア",
+   "label": "梦魇",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 453,
+   "id": 453,
+   "slot": 53,
+   "sourceName": "Divine Wisdom",
+   "jp": "知者の加護",
+   "label": "智者的加护",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 454,
+   "id": 454,
+   "slot": 54,
+   "sourceName": "Mutation",
+   "jp": "自己の変容",
+   "label": "改名",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 455,
+   "id": 455,
+   "slot": 55,
+   "sourceName": "Acid Ground",
+   "jp": "酸の海",
+   "label": "酸之海",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 456,
+   "id": 456,
+   "slot": 56,
+   "sourceName": "Fire Wall",
+   "jp": "炎の壁",
+   "label": "火墙术",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 457,
+   "id": 457,
+   "slot": 57,
+   "sourceName": "Door Creation",
+   "jp": "ドア生成",
+   "label": "造门术",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 458,
+   "id": 458,
+   "slot": 58,
+   "sourceName": "Incognito",
+   "jp": "インコグニート",
+   "label": "避隐",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 459,
+   "id": 459,
+   "slot": 59,
+   "sourceName": "Magic Bolt",
+   "jp": "マジックボルト",
+   "label": "魔法射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 460,
+   "id": 460,
+   "slot": 60,
+   "sourceName": "Magic Storm",
+   "jp": "魔力の嵐",
+   "label": "魔力风暴",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 461,
+   "id": 461,
+   "slot": 61,
+   "sourceName": "Resurrection",
+   "jp": "復活",
+   "label": "复活",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 462,
+   "id": 462,
+   "slot": 62,
+   "sourceName": "Contingency",
+   "jp": "契約",
+   "label": "契约",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 463,
+   "id": 463,
+   "slot": 63,
+   "sourceName": "4-Dimensional Pocket",
+   "jp": "四次元ポケット",
+   "label": "四次元空间袋",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 464,
+   "id": 464,
+   "slot": 64,
+   "sourceName": "Wizard's Harvest",
+   "jp": "魔術士の収穫",
+   "label": "丰收术",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 465,
+   "id": 465,
+   "slot": 65,
+   "sourceName": "Meteor",
+   "jp": "メテオ",
+   "label": "陨石术",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 466,
+   "id": 466,
+   "slot": 66,
+   "sourceName": "Gravity",
+   "jp": "グラビティ",
+   "label": "重力",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 467,
+   "id": 467,
+   "slot": 67,
+   "sourceName": "Summon spirit",
+   "jp": "精霊召喚",
+   "label": "精灵召唤",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 468,
+   "id": 468,
+   "slot": 68,
+   "sourceName": "Feather",
+   "jp": "フェザー",
+   "label": "羽化",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 469,
+   "id": 469,
+   "slot": 69,
+   "sourceName": "Eclipse Jail",
+   "jp": "月蝕の檻",
+   "label": "月蚀牢笼",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 470,
+   "id": 470,
+   "slot": 70,
+   "sourceName": "Thunder Vortex",
+   "jp": "雷霆の渦",
+   "label": "雷霆漩涡",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 471,
+   "id": 471,
+   "slot": 71,
+   "sourceName": "Nether Roar",
+   "jp": "冥王の咆哮",
+   "label": "冥王咆哮",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 472,
+   "id": 472,
+   "slot": 72,
+   "sourceName": "Mist of Dazzling",
+   "jp": "光の霧",
+   "label": "光之雾",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 473,
+   "id": 473,
+   "slot": 73,
+   "sourceName": "Poison Storm",
+   "jp": "猛毒の嵐",
+   "label": "猛毒风暴",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 474,
+   "id": 474,
+   "slot": 74,
+   "sourceName": "Concentration",
+   "jp": "集中",
+   "label": "集中",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 475,
+   "id": 475,
+   "slot": 75,
+   "sourceName": "Hydro Bolt",
+   "jp": "ハイドロボルト",
+   "label": "水流射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 476,
+   "id": 476,
+   "slot": 76,
+   "sourceName": "Bubble Storm",
+   "jp": "泡沫の嵐",
+   "label": "泡沫风暴",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 477,
+   "id": 477,
+   "slot": 77,
+   "sourceName": "Gem Power",
+   "jp": "守護石",
+   "label": "守护石",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 478,
+   "id": 478,
+   "slot": 78,
+   "sourceName": "Illusion Roar",
+   "jp": "夢幻の咆哮",
+   "label": "梦幻咆哮",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 479,
+   "id": 479,
+   "slot": 79,
+   "sourceName": "Anguish Jail",
+   "jp": "苦悶の檻",
+   "label": "苦闷牢笼",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 480,
+   "id": 480,
+   "slot": 80,
+   "sourceName": "Nether Bolt",
+   "jp": "ネザーボルト",
+   "label": "幽冥射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 481,
+   "id": 481,
+   "slot": 81,
+   "sourceName": "Poison Bolt",
+   "jp": "ポイズンボルト",
+   "label": "剧毒射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 482,
+   "id": 482,
+   "slot": 82,
+   "sourceName": "Sound Bolt",
+   "jp": "サウンドボルト",
+   "label": "声波射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 483,
+   "id": 483,
+   "slot": 83,
+   "sourceName": "Chaos Bolt",
+   "jp": "カオスボルト",
+   "label": "混沌射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 484,
+   "id": 484,
+   "slot": 84,
+   "sourceName": "Nerve Bolt",
+   "jp": "ナーブボルト",
+   "label": "神经射线",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 485,
+   "id": 485,
+   "slot": 85,
+   "sourceName": "Fire Claw",
+   "jp": "火炎の爪",
+   "label": "火焰之爪",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 486,
+   "id": 486,
+   "slot": 86,
+   "sourceName": "Cold Blade",
+   "jp": "冷気の刃",
+   "label": "冰冷之刃",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 487,
+   "id": 487,
+   "slot": 87,
+   "sourceName": "Lightning Spear",
+   "jp": "電撃の槍",
+   "label": "电击之枪",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 488,
+   "id": 488,
+   "slot": 88,
+   "sourceName": "Mind Thorn",
+   "jp": "幻惑の棘",
+   "label": "幻惑之棘",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 489,
+   "id": 489,
+   "slot": 89,
+   "sourceName": "Poison Mucus",
+   "jp": "毒の粘液",
+   "label": "毒之粘液",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 490,
+   "id": 490,
+   "slot": 90,
+   "sourceName": "Sound Cannonball",
+   "jp": "音の砲弾",
+   "label": "声波炮弹",
+   "min": 0,
+   "max": 999999
+  },
+  {
+   "index": 491,
+   "id": 491,
+   "slot": 91,
+   "sourceName": "Hydro Fang",
+   "jp": "水の牙",
+   "label": "水之牙",
+   "min": 0,
+   "max": 999999
+  }
+ ]
+}
