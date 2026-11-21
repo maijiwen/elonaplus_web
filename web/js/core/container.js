@@ -221,6 +221,16 @@
       if (weight(it) + add > cap) return { ok: false, message: '已经装不下了。' };
     }
 
+    // 298905-298930：法师公会的纳品箱（地图 36/56）—— 上交的物品换成公会点数
+    if (Elona.Guild) {
+      const dv = Elona.Guild.deliverBook(g, x);
+      if (dv) {
+        inv.splice(idx, 1);
+        const nm = Elona.ItemDB ? Elona.ItemDB.name(x.id) : '物品';
+        return { ok: true, message: `交付了 ${nm}，获得 ${dv.gp} 公会点数（剩余 ${dv.left}）。` };
+      }
+    }
+
     const FL = Elona.FoodLeft;
     if (FL && FL.isFreezer(it) && FL.freezerConvert) FL.freezerConvert(g, x, 'in');  // 342177
     inv.splice(idx, 1);

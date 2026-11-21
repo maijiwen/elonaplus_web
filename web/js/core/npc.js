@@ -652,6 +652,9 @@
     }
     const fame = player.get(34) | 0;
     v = idiv(v * (limit(idiv(fame, 1000), 1, 100) + 100), 200);
+    // 214737-214740：战士公会成员鉴定费减半（var_65(264)）
+    const g = Elona.game;
+    if (Elona.Guild && g && Elona.Guild.isMember(g, Elona.Guild.FIGHTER)) v = idiv(v, 2);
     return Math.max(1, v);
   }
 

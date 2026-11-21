@@ -481,6 +481,22 @@
       g.setV65(180, (g.getV65(180) | 0) + 3);                 // 旅经验
       g.setV65(250 + 24, (g.getV65(250 + 24) | 0) + 1);      // 通关计数
     }
+    // 609420-609440：战士公会诺玛——类型/层数达标时通关计数 -1
+    if (Elona.Guild && siteId) {
+      const site = find(g, siteId);
+      if (site && site.fields) {
+        const counted = Elona.Guild.onNefiaCleared(g, {
+          danger: site.fields[17] | 0,
+          type: site.fields[0] | 0,
+        });
+        if (counted) {
+          const q = Elona.Guild.quota(g);
+          out.messages.push(q
+            ? `公会诺玛：还差 ${q.left} 座奈菲亚。`
+            : '公会诺玛：已达成，回去向番人报告吧。');
+        }
+      }
+    }
     out.messages.push('地城主被击倒了！这座地城已经没有主人了。');
     out.messages.push('获得 3 点灵感与 3 点旅经验。');
     if (g.log) for (const m of out.messages) g.log(m);

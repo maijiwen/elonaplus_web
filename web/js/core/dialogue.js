@@ -541,8 +541,15 @@
           return len === undefined ? t.slice(a) : t.substr(a, len | 0);
         },
         strlen: (s) => (typeof s === 'string' ? s.length : String(s === undefined ? '' : s).length),
-        /** 214425 calcinvestvalueg：当前展示物品的买入价 */
+        /**
+         * 214425 calcinvestvalueg：公会投资额（376438）。
+         * 源码里该函数只服务于「投資 50」菜单项；非公会会长对话时退回展示物品买价。
+         */
         calcinvestvalueg: () => {
+          const sp = (self.npc && self.npc.get) ? (self.npc.get(27) | 0) : 0;
+          if (Elona.Guild && (sp === 288 || sp === 291 || sp === 292)) {
+            return Elona.Guild.investCost(g) | 0;
+          }
           const it = self.item;
           if (!it) return 0;
           if (Elona.Shop && Elona.Shop.unitPrice) {
@@ -550,6 +557,16 @@
           }
           return (Elona.ItemDB && Elona.ItemDB.value ? Elona.ItemDB.value(it) | 0 : 0);
         },
+        /** 319-333 ranktitle(cat)：var_65(cat+120)/100 → var_66 称号（公会 cat=8） */
+        ranktitle: (cat) => {
+          if (!Elona.Rank || !Elona.Rank.title) return '';
+          try {
+            return Elona.Rank.title(g, cat | 0, self.lang === 'jp' ? 'jp' : 'ch') || '';
+          } catch (e) { return ''; }
+        },
+        /** 364-375 guildname：var_65(263/264/265) → 公会名 */
+        guildname: () => (Elona.Guild
+          ? Elona.Guild.name(g, undefined, self.lang === 'jp' ? 'jp' : 'ch') : ''),
         calcobjlv: () => 1,
         calcfixlv: () => 1,
         sorg: (n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
