@@ -2620,7 +2620,19 @@
   //   所以与 16/17 一样归为「已由其它模块接管」。
 
   /** 101 撒饵（356089-356278）：方向 → 水面 → 引鱼 */
-  function eff101(g, st) { return gaDirChoice(st, '要把饵撒在哪里？', 'main'); }
+  function eff101(g, st) {
+    const p = g.player, it = st.it;
+    const d = { x: (p.x | 0) + st.dir.dx, y: (p.y | 0) + st.dir.dy };
+    if (!gaIsWater(g, d.x, d.y)) { g.log('要撒在水里。'); return { end: 'turnWeight', baited: false }; }
+    consume(g, it);
+    g.log(`${gaItemName(it)}正悠闲地吃着饵…`);
+    const fish = gaSpawn(g, 618, d.x, d.y);
+    if (fish) {
+      fish.f[20] = ((fish.f[20] | 0) + 1) | 0;
+      g.log('有鱼上钩了！');
+    }
+    return { end: 'turnWeight', baited: true, x: d.x, y: d.y };
+  }
   function gaIsWater(g, x, y) {
     try {
       if (g.map && typeof g.map.attr === 'function') return (g.map.attr(x, y) | 0) === 3;
@@ -2813,7 +2825,26 @@
   }
 
   /** 153 佯攻 / 播种（351909-352022）：方向 → 有人则 -5 能量，空地则种下 */
-  function eff153(g, st) { return gaDirChoice(st, '要往哪个方向使用？', 'main'); }
+  function eff153(g, st) {
+    const p = g.player, it = st.it;
+    const d = { x: (p.x | 0) + st.dir.dx, y: (p.y | 0) + st.dir.dy };
+    const c = gaCharaAt(g, d.x, d.y);
+    if (c && c !== p) {
+      c.set(182, Math.max(0, G(c, 182) - 5));
+      consume(g, it);
+      g.log(`你对${nm(c)}使了个假动作。`);
+      return { end: 'turnWeight', feint: true };
+    }
+    if (onWorld(g)) { g.log('这里不能种。'); return { end: 'turnWeight', planted: false }; }
+    if (Elona.MapFeat && Elona.MapFeat.write) {
+      Elona.MapFeat.write(g, d.x, d.y, 9 + 1611, 35, it.f[24] | 0, 0);
+      consume(g, it);
+      g.log(`你种下了${gaItemName(it)}。`);
+      return { end: 'turnWeight', planted: true, x: d.x, y: d.y };
+    }
+    g.log('这里不能种。');
+    return { end: 'turnWeight', planted: false };
+  }
   function eff153res(g, st, v) {
     const d = gaDir(g, v), it = st.it;
     const c = gaCharaAt(g, d.x, d.y);
@@ -2937,7 +2968,7 @@
     84: { name: '狙击枪', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff84 },
     94: { name: '变化道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff94, resolve: (g, st, it) => gaMorphRes(g, st, it, 94) },
     96: { name: '强化道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => gaItem(st, '要强化哪件道具？', null, 'main'), resolve: (g, st, it) => gaMorphRes(g, st, it, 96) },
-    101: { name: '撒饵', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff101, resolve: eff101res },
+    101: { name: '撒饵', tag: null, dirArrow: true, empty: 'none', success: 'turnWeight', run: eff101 },
     106: { name: '栽培管理', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff106, resolve: eff106res },
     110: { name: '记忆碎片', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff110 },
     129: { name: '强化星维', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => gaItem(st, '要强化哪件道具？', null, 'main'), resolve: (g, st, it) => gaMorphRes(g, st, it, 129) },
@@ -2945,7 +2976,7 @@
     134: { name: '异形之友', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff134 },
     136: { name: '粘菌分隔', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff136, resolve: eff136res },
     149: { name: '小型装置', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff149 },
-    153: { name: '佯攻 / 播种', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff153, resolve: eff153res },
+    153: { name: '佯攻 / 播种', tag: null, dirArrow: true, empty: 'none', success: 'turnWeight', run: eff153 },
     154: { name: '体重调整针', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effGun(g, st, 154) },
     155: { name: '眼镜收集', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff155 },
     // 0-GD：魅了系道具（336762-336801）—— 范围内的目标替使用者发起行為 24
@@ -3102,6 +3133,9 @@
     return {
       eff, it, target: undefined, mirror: null, cancelled: false,
       preDone: false, tagPicked: false, phase: 'target', ink: 0,
+      // 0-Z51：101/153 这类「只选方向、不选角色」的效果，由 *label_2893 的
+      // 八方向箭头把 dx/dy 直接带进来，与 target 分开保存。
+      dir: null,
     };
   }
 
@@ -3137,6 +3171,22 @@
       st.preDone = true;
       const r1 = spec.pre(g, st);
       if (r1 && r1.request) { st.phase = 'pre'; return r1; }
+    }
+
+    // 2.5) 只选方向的效果（101 撒饵 / 153 佯攻·播种）
+    //   源码 356098 / 351921 都是 `gosub *label_2893`，选中玩家邻格后
+    //   用 var_451/var_1166 结算，不存在「对谁使用」的角色目标。
+    if (spec.dirArrow) {
+      if (!st.dir) {
+        return {
+          ok: false, effect: st.eff, reason: 'need-direction', neighbor: true,
+          allowSelf: true, allowEmpty: true, passEmpty: true,
+          prompt: (spec.name || ''),
+        };
+      }
+      const rd = spec.run(g, st) || {};
+      if (rd.end === undefined) rd.end = spec.success || 'turnWeight';
+      return done(g, st, rd);
     }
 
     // 3) 目标选择（邻格箭头）
@@ -3217,6 +3267,7 @@
         SESSION = newSession(it, eff);
       }
       if (o.target !== undefined) SESSION.target = o.target;
+      if (o.dir) SESSION.dir = { dx: o.dir.dx | 0, dy: o.dir.dy | 0 };
       return advance(g, SESSION);
     },
 

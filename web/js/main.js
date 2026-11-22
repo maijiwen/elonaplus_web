@@ -381,6 +381,10 @@
     if (r.request === 'analyze' && r.target && Elona.Panels) {
       Elona.Panels.openAnalyze(game, r.target);
     }
+    // 0-Z51：調教鞭选中邻格对象后打开 txtsettamer 管教菜单（355547 → 355600）
+    if (r.action === 'tamer-whip' && r.target && Elona.Panels) {
+      Elona.Panels.openTamerWhip(game, r.target);
+    }
   }
 
   function handleAimKey(e) {

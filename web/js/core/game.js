@@ -4075,11 +4075,22 @@
       if (Elona.Economy && (it.id | 0) === Elona.Economy.TAX_BOX) {
         return { ok: true, action: 'taxbox', idx };
       }
-      // 0-DH：調教鞭（746）→ 同伴管教菜单（txtsettamer，10900-10960）
+      // 0-DH / 0-Z51：調教鞭（746）—— 源码 355547 先用 *label_2893 选相邻一格的角色，
+      //   再进入 txtsettamer 管教菜单；此前直接列全部同伴，跳过了方向箭头。
       if ((it.id | 0) === (Elona.Companion ? Elona.Companion.ITEM.WHIP : 746)) {
-        const list = Elona.Companion ? Elona.Companion.activeAllies(this) : [];
-        if (!list.length) { this.log('附近没有同伴。'); return { ok: false, reason: 'no-ally' }; }
-        return { ok: true, action: 'tamer-whip' };
+        const tg = opts && opts.target;
+        if (!tg) {
+          if (!(opts && opts.dir)) {
+            return { ok: true, action: 'tamer-whip', needTarget: true, idx, allowSelf: false };
+          }
+          this.log('那个方向没有可以管教的对象。');
+          return { ok: false, reason: 'no-target' };
+        }
+        if ((tg.get(9) | 0) === -3) {
+          this.log('敌对着呢，不是调教的时候。');
+          return { ok: false, reason: 'hostile' };
+        }
+        return { ok: true, action: 'tamer-whip', target: tg, idx };
       }
       // 0-FK：能力複合機（684，效果 32，364518-364670）→ 基因合成（同伴二阶段选择）
       if (Elona.GeneMachine && (it.id | 0) === Elona.GeneMachine.ITEM) {

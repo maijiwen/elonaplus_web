@@ -757,9 +757,18 @@
           Elona.Panels.openFishHours(game, r.rodIdx, r.spPaid);
           return;
         }
-        // 0-DH：調教鞭 → 选择同伴 → 管教菜单
+        // 0-DH / 0-Z51：調教鞭 → 先八方向选邻格对象（355547），再开管教菜单
         if (r && r.action === 'tamer-whip' && Elona.Panels) {
           this.closeInventory();
+          if (r.needTarget && Elona.DirSel) {
+            Elona.DirSel.startItem(game, r.idx, 1, null, { allowSelf: false });
+            this.pushMessage('要管教哪个方向的对象？（↖↑↗/←→/↙↓↘，Esc 取消）');
+            return;
+          }
+          if (r.target) {
+            Elona.Panels.openTamerWhip(game, r.target);
+            return;
+          }
           const list = Elona.Companion.activeAllies(game);
           if (list.length === 1) Elona.Panels.openTamerWhip(game, list[0]);
           else Elona.Panels.openAllySelect(game, '谁需要管教？', list, (c) => {
