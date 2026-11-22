@@ -306,7 +306,9 @@
    *   ibit(19)（防腐处理）免疫；背包/地面都扫描。
    *   0-EY：地面冷藏格生肉持续保鲜（223823-223838）、牧场晾晒石干制
    *   （223846-223920，晴天 / mapType 31 / dryrock 格）由 core/foodleft.js 判定。
-   *   【仍未移植】牧场工人特例（223856-223862）与 var_593 完整地面设施表。
+   *   A-R2-05：223850-223855 —— 店铺地图（var_132(16)==102）的地面物品，只要
+   *   getworker 找得到店员，就跳过腐坏结算（店内库存不腐烂）。
+   *   【仍未移植】var_593 完整地面设施表（只用到 0/1/3 三种，见 foodleft.js）。
    */
   function rotTick(g, advancedHours) {
     if (!g) return 0;
@@ -325,6 +327,12 @@
         if (ground && FL && FL.fridgeCheck(g, it, now)) continue;
         if (until > now) continue;                        // 未到期
         if (preserved(it)) continue;                     // 223850 ibit(19)
+        // 223850-223855：店铺（mapType 102）的地面物品有店员看管 → 不腐烂。
+        //   源码的 `cnt >= 5080`（地面槽）在本项目就是 scan(g.groundItems, true)。
+        if (ground && Elona.Ranch && Elona.Ranch.mapType && Elona.Ranch.mapType(g) === 102) {
+          const wid = g.getV65 ? (g.getV65(20) | 0) : 0;
+          if (Elona.Ranch.getWorker(g, wid)) continue;
+        }
         // 223846-223920：晾晒石干制；非晴天时源码 continue（本次既不干制也不腐烂）
         if (ground && FL) {
           const pre = FL.rotCheck(g, it, ground, now);

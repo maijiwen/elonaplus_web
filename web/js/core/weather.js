@@ -40,7 +40,9 @@
   const V_TIMER = 18;        // 距下次天气变化的小时数
   const V_ETHER = 85;        // 以太病累积（千分制）
   const V_LASTETHER = 806;   // 上次以太风所在月份
-  const V_ETHERFREQ = 823;   // 以太风频率修正（本项目未移植，恒 0）
+  // 以太风频率修正 —— 603264/603274 只读；写入点只有 606440（神之间结局重放）与
+  //   603797-603799（每年 +1）。项目的结局演出未移植，见 docs/18 D-013。
+  const V_ETHERFREQ = 823;
   const V_SHELTER = 29;      // 避难所标记
   const V_ETHERBONUS = 800;  // 以太病累积加成
   const V_FEAT168 = 168;     // var_97(168) = 以太耐性（feat）
@@ -205,7 +207,8 @@
         if (g.player.get(140) !== 0) return null;         // 行acted 中不累积（源码在行动结算处）
         if (rnd(2) === 0) {
           if (!this.inShelter(g)) {
-            // var_65(4)/20000 作为强度项；本项目未移植 var_65(4)，缺省 0
+            // var_65(4)/20000 作为强度项；var_65(4) 由 game.js spawnVisitorsHourly 每小时自增
+            //   （603122-603123，与「建筑访客」共用同一计数）
             const bonus = limit(idiv(g.getV65(4) | 0, 20000), 0, 15);
             return this.modCorrupt(g, 5 + bonus);
           }

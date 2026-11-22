@@ -18,9 +18,9 @@
  *   *label_3010 (348233)  发现：cell_featset(id=234 / 254 / 255)
  *   *label_2911 (306052-306511) 进入格子后的陷阱判定与 0..28 号陷阱效果
  *
- * 【未移植】非陷阱类特性（门/楼梯/祭坛/矿脉/隐藏通路 22/小徽章 32 等）的表现与交互，
- *   以及 *label_2222（怪物索敌）、陷阱生成 map_trap、hostileaction/事件系统。
- *   文本/动画/音效均省略。
+ * 【未移植】非陷阱类特性的完整表现（祭坛/矿脉/隐藏通路 22/小徽章 32 等）与
+ *   *label_2222（怪物索敌）、陷阱生成 map_trap、hostileaction/事件系统。
+ *   文本/动画/音效均省略；门/楼梯/封印门 237 的判定已实现（openDoor / stairsAt）。
  *
  * 【0-FB 修正】源码 `cell_featset`（32311-32340）的缺省参数全为 0，因此
  *   `cell_featset(id=0)` 是**连 type/sub 一起清空**，并非只清 id。
@@ -334,6 +334,29 @@
   function openDoor(g, c, x, y) {
     const f = read(g, x, y);
     if (f.type !== TYPE.DOOR_CLOSED) return { ok: false, reason: 'not-door' };
+    // 344511-344583：封印门（var_1609 = 237）。原版不是开锁判定，而是按主线阶段
+    //   `var_65(250+2)` 决定；成功时 cell_featset 成下行楼梯（231/11）。
+    if (f.id === 237) {
+      const SM = Elona.StoryMap;
+      if (!SM || !SM.sealedDoorAllowed(g)) {
+        if (g.log) g.log('上锁的门挡住了去路。');
+        if (Elona.Audio && typeof Elona.Audio.playIndex === 'function') {
+          try { Elona.Audio.playIndex(22); } catch (e) { /* 无声卡 */ }
+        }
+        return { ok: false, locked: true, sealed: true, reason: 'sealed' };
+      }
+      const depth = g.getV65 ? (g.getV65(22) | 0) : 0;
+      if (g.log) {
+        g.log(depth === 44
+          ? '站在严密封印的门前，三颗魔石发出黯淡的光。'
+          : '你打开了通往地下的门。');
+      }
+      write(g, x, y, 231, TYPE.STAIRS_DOWN, 0, 0);       // 344573
+      if (Elona.Audio && typeof Elona.Audio.playIndex === 'function') {
+        try { Elona.Audio.playIndex(23); } catch (e) { /* 无声卡 */ }
+      }
+      return { ok: true, sealed: true, opened: true };
+    }
     if (f.id === 0) return { ok: false, reason: 'broken' };
     if (f.sub > 0) {
       const r = (n) => (g.rng || Elona.rng).rnd(n);

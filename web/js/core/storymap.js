@@ -252,6 +252,7 @@
   function onEnterFloor(g, mapId, depth, opts) {
     const out = { spawned: [], effects: [], blocked: [], skipped: [], floors: 0 };
     if (!g) return out;
+    advanceLesimas(g, mapId, depth);
     const list = floorsFor(mapId, depth, opts);
     if (!list.length) return out;
     const c = makeCtx(g);
@@ -271,8 +272,119 @@
     return out;
   }
 
+  // ================================================================
+  // 344401-344613：主线楼梯屏障 / 封印门 / 173 层 NPC 事件
+  //   原版把「封印门」放在对应楼层的下行楼梯格上（feat 237），开启后
+  //   `cell_featset(x,y,var_1606,11)` 才变成真正的下行楼梯。本项目沿用
+  //   这一结构：enterDungeon 在封印层放 237 而不是 231，开门的判定在
+  //   MapFeat.openDoor；其余「看不见的屏障」直接在 useStairs 拦下。
+  // ================================================================
+  const V = (g, i) => (g && typeof g.getV65 === 'function' ? (g.getV65(i | 0) | 0) : 0);
+
+  /** 344413-344476：下楼前的主线屏障文案（null = 可以通过） */
+  function stairBarrier(g) {
+    const map = V(g, 20), depth = V(g, 22), main = V(g, 252);
+    if (map === 42) {
+      // 240573-240583：var_65(186) 缺省 = 入口层 + 4
+      const limitDepth = V(g, 186) || ((g.dungeonMinDepth | 0) + 4);
+      if (depth >= limitDepth) return '楼梯被奇怪的屏障挡住了。';
+    }
+    if (map === 3) {
+      if (depth === 30 && V(g, 611) < 35) return '楼梯被奇怪的屏障挡住了。「不许你再往前」';
+      if (depth === 40 && V(g, 611) < 55) return '楼梯被奇怪的屏障挡住了。「紧急防御程序启动中」';
+    }
+    if (map === 49 && depth === 114 && main < 270) return '楼梯被混沌之力封住了。';
+    if (map === 76) {
+      if (depth === 143 && main < 382) return '得先把银熊的事报告给艾莉丝缇亚。';
+      if (depth === 146 && main < 455) return '楼梯被混沌之力封住了。';
+      if (depth === 149 && main < 490) return '得先完成委托并报告给加维拉。';
+      if (depth === 154 && main < 525) return '诺恩「神说，现在还不是前进之时……」';
+    }
+    return null;
+  }
+
+  /** 344511-344556：该层是否有封印门（feat 237），以及开启所需的主线阶段 */
+  const SEALED_DOORS = {
+    3: { 3: 65, 17: 115, 25: 125, 44: 125 },
+    49: { 106: 267, 122: 282 },
+    76: { 142: 0, 159: 560 },
+  };
+  function sealedDoorAt(mapId, depth) {
+    const t = SEALED_DOORS[mapId | 0];
+    if (!t) return null;
+    const need = t[depth | 0];
+    return need === undefined ? null : { need: need | 0 };
+  }
+  /** 玩家当前所在位置是否允许开启封印门 */
+  function sealedDoorAllowed(g) {
+    const d = sealedDoorAt(V(g, 20), V(g, 22));
+    if (!d) return false;
+    return V(g, 252) >= d.need;
+  }
+
+  /**
+   * 344604-344613：地图 74 深于 10 层时，魂之限耗尽（var_1290<=0）
+   * 且剧情阶段 var_1853>=2 → 带走同伴（findallyguard(1034)）。
+   * 项目尚未移植 map 74 的魂之限剧情（没有 var_1290/var_1853），
+   * 因此这里只在两个变量存在时才执行；缺失时安全跳过。见 docs/18 D-014。
+   */
+  function stairLeaveAlly(g) {
+    if (V(g, 20) !== 74 || V(g, 22) < 10) return null;
+    if ((g.var1290 | 0) > 0 || (g.var1853 | 0) < 2) return null;
+    g.var1853 = 0;
+    const list = g.charas || [];
+    for (let i = list.length - 1; i >= 0; i--) {
+      const c = list[i];
+      if (!c || !c.get || (c.get(0) | 0) !== 1 || (c.get(27) | 0) !== 1034) continue;
+      if (Elona.Chara && Elona.Chara.vanquish) { try { Elona.Chara.vanquish(g, i); } catch (e) { /* noop */ } }
+      return { k: 'leave-ally', index: i };
+    }
+    return null;
+  }
+
+  /** 344477-344492：地图 76 深度 173 下楼时，物种 886 自爆并把主线推到 640 */
+  function stairNpc886(g) {
+    if (V(g, 20) !== 76 || V(g, 22) !== 173) return null;
+    const list = g.charas || [];
+    for (let i = 0; i < list.length; i++) {
+      const c = list[i];
+      if (!c || !c.get || (c.get(0) | 0) !== 1 || (c.get(27) | 0) !== 886) continue;
+      if (g.log) g.log(`${c.name || '某人'}的身体炸裂开来。`);
+      if (Elona.Audio && typeof Elona.Audio.playIndex === 'function') {
+        try { Elona.Audio.playIndex(34); } catch (e) { /* 无声卡 */ }
+      }
+      if (Elona.Chara && Elona.Chara.vanquish) { try { Elona.Chara.vanquish(g, i); } catch (e) { /* noop */ } }
+      g.setV65(252, 640);
+      g.setV65(575, 1);          // var_65(250+325)
+      return { k: 'npc886', index: i };
+    }
+    return null;
+  }
+
+  /** useStairs 下楼前统一调用：先屏障，再剧情事件。返回 null 表示可继续。 */
+  function onStairDown(g) {
+    const msg = stairBarrier(g);
+    if (msg) return { blocked: true, message: msg };
+    const ev = stairNpc886(g);
+    return ev ? { blocked: false, event: ev } : null;
+  }
+
+  /** 247433-247463：雷希墨苏（地图 3）楼层推进 var_65(250+361)=611 */
+  const LESIMAS_STAGE = { 20: [0, 10], 25: [10, 20], 30: [20, 30], 34: [35, 40], 40: [40, 50] };
+  function advanceLesimas(g, mapId, depth) {
+    if ((mapId | 0) !== 3) return 0;
+    const a = LESIMAS_STAGE[depth | 0];
+    if (!a) return 0;
+    if (V(g, 611) !== a[0]) return 0;
+    g.setV65(611, a[1]);
+    return a[1];
+  }
+
+
   Elona.StoryMap = {
     V_STATE, load, tableSync, floorsFor, onEnterFloor, makeCtx,
+    stairBarrier, sealedDoorAt, sealedDoorAllowed, onStairDown,
+    stairLeaveAlly, stairNpc886, advanceLesimas,
     floors() { const t = tableSync(); return (t && t.floors) || []; },
     _reset() { TABLE = null; loading = null; BY_MAP.clear(); },
   };

@@ -113,6 +113,16 @@
       const sp = target.get(27) | 0;
       if (sp > 0 && g.killCounts) g.killCounts[sp] = (g.killCounts[sp] | 0) + 1;
     }
+    // 201018-201033：雷希墨苏（地图 3）的两只守关 BOSS 推进
+    //   var_65(250+361)=611：925 在阶段 30 → 35；926 在阶段 50 → 55。
+    //   源码同段还有 `var_65(250+298)=6` 与 `evadd 56`（日志刷新），本项目
+    //   没有事件 56，见 docs/18 D-013。
+    if (killer.index === 0 || (killer.get(9) | 0) === 10) {
+      const sp = target.get(27) | 0;
+      const s611 = g.getV65 ? (g.getV65(611) | 0) : 0;
+      if (sp === 925 && s611 === 30) g.setV65(611, 35);
+      else if (sp === 926 && s611 === 50) g.setV65(611, 55);
+    }
     return { exp, targetLevel: tLv, capped };
   }
 

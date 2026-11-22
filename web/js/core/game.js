@@ -291,7 +291,14 @@
       let newMonth = false;
       if (day > 30) { day -= 30; this.setV65(11, (this.getV65(11) | 0) + 1); newMonth = true; }
       this.setV65(12, day);
-      if ((this.getV65(11) | 0) > 12) { this.setV65(11, 1); this.year++; }
+      if ((this.getV65(11) | 0) > 12) {
+        this.setV65(11, 1); this.year++;
+        // 603797-603799：以太风频率修正每年 +1（只在已置 1 后生效）。
+        //   置 1 的剧情点 606440（神之间结局重放）未移植，见 docs/18 D-013。
+        if ((this.getV65(823) | 0) > 0) {
+          this.setV65(823, (this.getV65(823) | 0) + 1);
+        }
+      }
       // 302355-302380：月替时未完成的公会诺玛失效
       if (newMonth && Elona.Guild) {
         for (const m of Elona.Guild.monthlyExpire(this)) this.log(m);
@@ -1587,10 +1594,13 @@
           // 撞门 = 尝试开锁/开门（*label_2991 → *label_3003，343504-343507）
           if (f.type === Elona.MapFeat.TYPE.DOOR_CLOSED) {
             const r = Elona.MapFeat.openDoor(this, p, nx, ny);
-            if (r.ok) {
-              this.log(r.locked ? '你撬开锁，打开了门。' : '你打开了门。');
-            } else {
-              this.log(r.locked ? '门锁着，你没能打开。' : '门打不开。');
+            // 封印门 237 的文案由 openDoor 自己输出，避免重复
+            if (!r.sealed) {
+              if (r.ok) {
+                this.log(r.locked ? '你撬开锁，打开了门。' : '你打开了门。');
+              } else {
+                this.log(r.locked ? '门锁着，你没能打开。' : '门打不开。');
+              }
             }
             this.endTurn();
             return true;
@@ -1755,8 +1765,10 @@
       const f = M.read(this, fx, fy);
       if (f.type === M.TYPE.DOOR_CLOSED) {
         const r = M.openDoor(this, p, fx, fy);
-        if (r.ok) { this.log(r.locked ? '你撬开锁，打开了门。' : '你打开了门。'); }
-        else this.log(r.locked ? '门锁着，你没能打开。' : '门打不开。');
+        if (!r.sealed) {
+          if (r.ok) { this.log(r.locked ? '你撬开锁，打开了门。' : '你打开了门。'); }
+          else this.log(r.locked ? '门锁着，你没能打开。' : '门打不开。');
+        }
         this.endTurn();
         return r;
       }
@@ -1829,15 +1841,32 @@
         return { ok: true, up, arena: true, map: 'town', pending: pr };
       }
       // 委托地图：入口/出口楼梯 → 返回城镇
+      // 344584-344603：非最深层/未完成时先确认「放弃委托？」，已完成（var_132(20)==-1
+      //   等价于委托 status 3）直接离开。本项目委托地图是单层，所以任意上行楼梯即最深层。
       if (this.questMap && up) {
-        this.leaveQuestMap();
-        return { ok: true, up, floor: 0, map: 'town' };
+        const qm = this.questMap;
+        const q = (Elona.Quest && Elona.Quest.activeQuests)
+          ? (Elona.Quest.activeQuests(this) || []).find((x) => x.id === qm.questId) : null;
+        if (q && q.status === 3) this.leaveQuestMap();
+        else this.confirmLeaveMap();
+        return { ok: true, up, floor: 0, map: 'quest', pending: true };
       }
       // 0-FC：野外地图（map id 2）不再有上楼梯 —— 离图走地图边缘（movePlayer 的越界分支）
       const p = this.player;
       const M = Elona.MapFeat;
       const f = M ? M.read(this, p.x, p.y) : { sub: 0 };
       const sub = (f && f.sub) || 0;
+      // 344402 / 344496：脚下必须是对应类型的楼梯。原版在这里就判定
+      //   `var_503(1) != 11 / != 10`；本项目旧实现允许在任意格按 >/< 下楼。
+      if (M) {
+        const need = up ? M.TYPE.STAIRS_UP : M.TYPE.STAIRS_DOWN;
+        if (!f || f.type !== need) {
+          this.log(up ? '没找到上楼的楼梯。' : '没找到下楼的楼梯。');
+          return { ok: false, reason: 'no-stairs' };
+        }
+      }
+      // 344604-344613：地图 74 的魂之限同伴离队（剧情变量缺失时内部跳过）
+      if (Elona.StoryMap && Elona.StoryMap.stairLeaveAlly) Elona.StoryMap.stairLeaveAlly(this);
       if (up) {
         // 0-FA：入口层（var_132(17)）的上行楼梯直接回地面，而不是退到更浅的地下层
         if ((this.dungeonDepth | 0) <= Math.max(1, this.dungeonMinDepth | 0)) {
@@ -1866,6 +1895,15 @@
         return { ok: true, up: false, floor: sub, map: 'townSub', pending: pr };
       }
       const target = sub > 0 ? sub : this.dungeonDepth + 1;
+      // A-R2-01：344413-344476 主线屏障（雷希墨苏 30/40、混沌 114/143/146/149/154 等）
+      //   与 344477-344492 地图 76 深度 173 的物种 886 自爆事件。
+      if (Elona.StoryMap && Elona.StoryMap.onStairDown) {
+        const ev = Elona.StoryMap.onStairDown(this);
+        if (ev && ev.blocked) {
+          this.log(ev.message);
+          return { ok: false, reason: 'barrier', message: ev.message };
+        }
+      }
       // 0-FA：228762 `map_placedownstairs` —— 到达 var_132(10) 最深层后不再放下行楼梯
       if (this.dungeonMaxDepth > 0 && target > this.dungeonMaxDepth) {
         this.log('这里已经是地城的最深层了，没有继续向下的楼梯。');
@@ -2316,7 +2354,16 @@
         if (M) {
           M.write(this, f.up.x, f.up.y, 232, M.TYPE.STAIRS_UP, Math.max(0, depth - 1), 0);
           // 0-FA：228762 最深层不再放下行楼梯
-          if (!f.bottom) M.write(this, f.down.x, f.down.y, 231, M.TYPE.STAIRS_DOWN, depth + 1, 0);
+          // A-R2-01：344511-344574 —— 封印层的下行楼梯格先放 feat 237（关闭的封印门），
+          //   主线阶段足够时直接视为已开启；否则撞上去由 MapFeat.openDoor 转成 231。
+          const mapId = (this.dungeonSiteId | 0) || (this.getV65(20) | 0);
+          const seal = Elona.StoryMap && Elona.StoryMap.sealedDoorAt
+            ? Elona.StoryMap.sealedDoorAt(mapId, depth) : null;
+          const sealLocked = !!(seal && (this.getV65(252) | 0) < seal.need);
+          if (!f.bottom) {
+            if (sealLocked) M.write(this, f.down.x, f.down.y, 237, M.TYPE.DOOR_CLOSED, 0, 0);
+            else M.write(this, f.down.x, f.down.y, 231, M.TYPE.STAIRS_DOWN, depth + 1, 0);
+          }
           for (const sp of (f.spots || [])) M.write(this, sp.x, sp.y, sp.id, sp.type, 0, 0);
         }
         this.mef = new Elona.Mef();
