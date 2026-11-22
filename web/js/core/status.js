@@ -10,9 +10,10 @@
  *   findbuff(chara, id)   (194668-194679) ----------------------------------------------
  *     在 16 个增益槽（每槽 3 个字段，起点 var_58(280)）中查找 id，返回槽号或 -1
  *     槽内布局：280+slot*3 = id；+1 = 参数1；+2 = 参数2
- *   addbuff(chara, id, p1, p2) (194682+) -----------------------------------------------
+ *   addbuff(chara, id, p1, p2) (194682-194797) -----------------------------------------
  *     p2<=0 → 无效；已有同 id 且现有 p2>=新 p2 → 无效；否则占用空槽/同 id 槽
- *     【未移植】原版按 var_75(0,id)==2 等对 p1/p2 的修正与提示文本
+ *     var_75(0,id)==2（debuff）时：高等级/534 种族削弱 power 与 turns、信仰 181 抵抗、
+ *     圣なるヴェール(buff 10) 完全防咒/减弱、玩家施加减益触发 hostileaction（194719-194784）
  *   healcon(chara, kind, amount) (196316-196628) --------------------------------------
  *     按 kind 找到对应状态字段并扣除 amount；归零时清 0（kind==3 麻痺例外，置 -1）
  *   label_2224 每回合结算 (215805-216701) --------------------------------------------
@@ -89,45 +90,93 @@
     return -1;
   }
   /**
-   * 添加增益/减益。返回 1 = 已写入；0 = 无效（原版会给出提示文本，此处省略）。
-   * 【未移植】原版对 var_75(0,id)==2 等类型会改写 p1/p2，且“已有同强度”时提示。
+   * 添加增益/减益。返回 1 = 已写入；0 = 无效。
+   * 194719-194784 的 debuff 结算：
+   *   · 等级>3 或种族 534 → power/4；turns/4+1（16 号除外）
+   *   · 信仰(var_82/181) 抵抗判定；16 号对「无信仰者(58==0)」必中
+   *   · 圣なるヴェール(buff 10) 完全防咒 / 按 veilPower/5 缩短
+   *   · 玩家(var_243==0) 施加减益 → hostileaction 0, target
    *
    * 【0-HZ】194796 `gosub *label_2174`：buff 的效果（`calcbuff` 里的 `var_82(id) += …`）
-   *   只在重算里生效，写完槽位必须立刻重算，否则加速/加力量这类 buff 要等到
-   *   下一次别的操作碰巧触发重算才“显灵”。
+   *   只在重算里生效，写完槽位必须立刻重算。
    */
-  function addbuff(g, c, id, p1, p2) {
+  function addbuff(g, c, id, p1, p2, caster) {
     if (p2 <= 0) return 0;
     let slot = -1;
     for (let cnt = 0; cnt < 16; cnt++) {
       const cur = c.get(280 + cnt * 3);
       if (cur === id) {
         if (c.get(280 + cnt * 3 + 2) < p2) { slot = cnt; break; }
+        if (g && g.log && (c.index | 0) < 16) g.log('しかし、効果はなかった。');
         return 0;   // 已有同强度或更强的同种增益 → 无效
       }
       if (cur === 0) { slot = cnt; break; }
     }
     if (slot === -1) slot = (g.rng ? g.rng.rnd(16) : 0);
+
+    const rnd = (n) => ((g && g.rng) ? g.rng.rnd(n) : 0);
+    const log = (s) => { if (g && g.log && (c.index | 0) < 16) g.log(s); };
+    let power = p1;
+    let turns = p2;
+    const isDeb = !!(Elona.BuffEffects && Elona.BuffEffects.isDebuff
+      && Elona.BuffEffects.isDebuff(id));
+    if (isDeb) {
+      // 194719-194744：高等级/创造物 534 的削弱
+      const strong = (c.get(25) | 0) > 3 || (c.get(27) | 0) === 534;
+      if (strong) power = idiv(p1, 4);
+      let resisted = 0;
+      const faith = (c.skill ? (c.skill(181) | 0) : 0);
+      if (faith * 2 + 100 > rnd(power * 2 + 100)) {           // 194731
+        if (id !== 13) resisted = 1;
+      }
+      if (strong && id !== 16) turns = idiv(p2, 4) + 1;          // 194736-194740
+      if ((c.get(58) | 0) === 0 && strong && id === 16) resisted = 1;  // 194741-194744
+      const veil = findbuff(c, 10);
+      if (veil !== -1 && id !== 13) {                           // 194746-194755
+        const vp = c.get(280 + veil * 3 + 1) | 0;
+        if (vp + 50 > idiv(power * 5, 2) || rnd(vp + 50) > rnd(power + 1)) {
+          log('ホーリーヴェイルが呪いを防いだ。');
+          return 0;
+        }
+      }
+      if (resisted) {                                           // 194758-194767
+        log(`${c.name || '相手'}は抵抗した。`);
+        return 0;
+      }
+      if (veil !== -1 && id !== 13) {                           // 194769-194780
+        const vp = c.get(280 + veil * 3 + 1) | 0;
+        if (id !== 16) turns = limit(p2 - idiv(vp, 5), idiv(p2, 1000) + 1, turns);
+        log('ホーリーヴェイルが呪いを弱めた。');
+      }
+      if (caster && (caster.index | 0) === 0                 // 194782-194783
+        && Elona.Intimacy && Elona.Intimacy.hostileAction) {
+        try { Elona.Intimacy.hostileAction(g, caster, c); } catch (e) { /* 未就绪 */ }
+      }
+    }
     c.set(280 + slot * 3, id);
-    c.set(280 + slot * 3 + 1, p1);
-    c.set(280 + slot * 3 + 2, p2);
+    c.set(280 + slot * 3 + 1, power);
+    c.set(280 + slot * 3 + 2, turns);
     recalcOwner(c, g);                                  // 194796
     return 1;
   }
   /**
-   * 删除增益 —— delbuff(194798-194830)：清空第 slot 槽并把后续槽位整体前移。
-   * 副作用：id 16 → 清 cbit(973)；18 → 清 cbit(980)；36 → var_58(174)=0；63 → var_65(250+419)=0。
-   * 【未移植】id 15 的 incognitoend（UI）、prm_930==0 时的提示文本。
-   * 【近似】var_65(250+419) 为全局值，此处写入角色字段 var_58(250+419) 近似（未确认）。
+   * 删除增益 —— delbuff(194798-194838)：清空第 slot 槽并把后续槽位整体前移。
+   * 副作用：id 15 → incognitoend（194613-194626）；16 → 清 cbit(973)；18 → 清 cbit(980)；
+   *        36 → var_58(174)=0；63 → var_65(250+419)=0（全局）。
    *
    * 【0-HZ】194837 `gosub *label_2174`：buff 到期时同样要重算，把它的技能加成摘掉。
    */
   function delbuff(c, slot, g) {
     const id = c.get(280 + slot * 3);
+    if (g && g.log && (c.index | 0) < 16) g.log('効果が切れた。');   // 194799-194806
+    if (id === 15 && (c.index | 0) === 0) incognitoend(c, g);          // 194807-194811
     if (id === 16) cbitmod(c, 973, false);
     if (id === 18) cbitmod(c, 980, false);
     if (id === 36) c.set(174, 0);
-    if (id === 63) c.set(250 + 419, 0);
+    if (id === 63) {
+      if (g && g.setV65) g.setV65(250 + 419, 0);                      // var_65(250+419)
+      else c.set(250 + 419, 0);
+    }
     c.set(280 + slot * 3, 0);
     for (let cnt = slot; cnt < 16 - 1; cnt++) {              // repeat 15-slot, slot
       if (c.get(280 + cnt * 3) === 0 && c.get(280 + (cnt + 1) * 3) !== 0) {
@@ -135,9 +184,30 @@
           c.set(280 + cnt * 3 + f, c.get(280 + (cnt + 1) * 3 + f));
           c.set(280 + (cnt + 1) * 3 + f, 0);
         }
+      } else {
+        break;                                              // 194831-194833
       }
     }
     recalcOwner(c, g);                                     // 194837
+  }
+  /**
+   * incognitoend（194613-194626）：隐身(buff 15)结束时，若玩家 karma < -30，
+   * 让职业为 14/24 的同伴重新敌对（var_58(9)=-3、var_58(201)=80、var_58(79)=218）。
+   */
+  function incognitoend(p, g) {
+    if (!p) return;
+    if ((p.get(49) | 0) >= -30) return;
+    const list = (g && g.charas) || (p.__game && p.__game.charas);
+    if (!list) return;
+    for (let i = 16; i < 245; i++) {
+      const c = list[i];
+      if (!c || !c.get || (c.get(0) | 0) !== 1) continue;
+      const cls = c.get(150) | 0;
+      if (cls !== 14 && cls !== 24) continue;
+      c.set(9, -3);
+      c.set(201, 80);
+      c.set(79, 218);
+    }
   }
 
   // ================= healcon（196316-196628）=================
@@ -453,16 +523,42 @@
 
   /**
    * 每回合状态结算 —— 逐条对照 label_2224(215805-216701)
-   * 只移植与状态字段直接相关的通用部分；地图/剧情特例（var_65(850)、var_65(20)、
-   * 地形 var_65(250+2)、瘴気(var_691>=16 的 buff71 分支) 等）未移植，见文末说明。
+   * 已移植的地图特例：海域瘴气（215824-215843）、buff71 中毒属性（215862-215884）、
+   * 不死系在特定地图的自然回复反转（216653-216681）。
+   * 仍未移植：var_65(250+2) 地形伤害等个别剧情分支。
    * @returns {Object} { poison, sleep, erosion, bleed } 各状态本回合的效果摘要
    */
   function statusTick(g, c) {
     const rng = g.rng;
+    // var_65(n)：全局变量（无 getV65 的桩对象按 0 处理）
+    const V = (n) => ((g && g.getV65) ? (g.getV65(n) | 0) : 0);
     const out = {};
     // var_1450（215845）：本回合是否允许自然回复；
     //   毒/侵蝕/窒息/病気/麻痺/出血/饥饿/口渴 等结算时清零（源码各块内的 var_1450 = 0）
     let regenBlocked = false;
+
+    // --- 215824-215843：海域（var_65(850)==47）的瘴气/湿气 ---
+    //   地图 2：濡れ(259) 至少 5；rnd(耐性190*10+5) < rnd(50) → 窒息(263)+3
+    //   地图 47 且船等级(694)==0：同样濡れ>=5、rnd(20)、窒息+3，并每回合 dmgsp 1
+    {
+      const region = V(850);
+      const mapId = V(20);
+      if (region === 47 && mapId === 2) {
+        if ((c.get(259) | 0) < 5) c.set(259, 5);
+        if (rng.rnd((c.skill(190) | 0) * 10 + 5) < rng.rnd(50)) {
+          c.set(263, (c.get(263) | 0) + 3);
+        }
+      }
+      if (mapId === 47) {
+        if ((V(250 + 444) | 0) === 0) {
+          if ((c.get(259) | 0) < 5) c.set(259, 5);
+          if (rng.rnd((c.skill(190) | 0) * 10 + 5) < rng.rnd(20)) {
+            c.set(263, (c.get(263) | 0) + 3);
+          }
+          dmgsp(c, 1);
+        }
+      }
+    }
 
     // 603959 + 604638-604651：角色回合计数 var_58(26)++；每 25 个自身回合结算负面附魔
     //   （21 随机传送 / 45 吸血 / 72 吸 MP / 46 妨碍成长 / 47 召唤魔物 → *label_2294）
@@ -537,6 +633,15 @@
       const dmg = idiv(c.hpMax, 15) + 2;
       Elona.Battle.applyDamage(c, dmg);
       if (c.index === 0) g.log(`【毒】${c.name} 受到 ${dmg} 点毒伤害（剩余 HP ${c.hp}）。`);
+      // 215862-215884：毒 + buff 71 → 等级<4 的同伴每回合被瘴气削弱属性
+      if (findbuff(c, 71) !== -1 && (c.get(0) | 0) === 1 && (c.get(25) | 0) < 4) {
+        for (const n of [10, 11, 12, 17, 18, 14, 13, 16, 15, 19]) {
+          const idx = 240 + n;                                  // var_399 = n + 240 - 10
+          c.set(idx, (c.get(idx) | 0) - (idiv(c.skill(n) | 0, 100) + 1));
+        }
+        recalcOwner(c, g);                                      // 215882 gosub *label_2174
+        if (c.index === 0) g.log(`${c.name}は瘴気の毒で弱くなった。`);
+      }
       healcon(c, 1, 1);
       if (c.get(250) > 0) c.set(79, 100 + 8);
       out.poison = dmg;
@@ -698,21 +803,39 @@
     //   饥饿(22<1000，216577)/脱水(446<2000 且未濡れ，216593)回合不回复；
     //   中毒・侵蝕・出血・麻痺回合同样不回复（上面各块的 regenBlocked）。
     //   rnd(1000)==0 且 quality(25)>=4 → 93/257 清零（cure_anorexia 的字段部分，216672-216676）。
-    // 【未移植】不死系种族在特定地图「回复变扣血」的特例（216653-216663，地图依赖）；
-    //           cure_anorexia 的提示文本。
+    //   不死系（435/452/453/454/458/686/702/805）在「以太风 + 室外」或地图 65/68 时
+    //   回复量归零并反向扣 HP（216653-216663）。
     if (!regenBlocked) {
       const starving = (c.get(22) | 0) < 2000;                    // 216577：`22 < 2000` 时 var_1450=0
       const dehydrated = (c.get(446) | 0) < 2000 && (c.get(259) | 0) <= 0;
       if (!starving && !dehydrated && findbuff(c, 9) === -1) {
-        const hAmt = rng.rnd(idiv(c.skill(154), 3) + 1) + 1;
+        let hAmt = rng.rnd(idiv(c.skill(154), 3) + 1) + 1;
+        // 216653-216663：不死系在以太风/特定地图失去回复并扣血
+        const species = c.get(27) | 0;
+        if ([435, 452, 453, 454, 458, 686, 702, 805].includes(species)) {
+          const mapId = V(20);
+          let f14 = 0;
+          const site = (Elona.Sites && Elona.Sites.get) ? Elona.Sites.get(mapId) : null;
+          if (site && site.fields) f14 = site.fields[14] | 0;
+          else if (g.mapVar126 && g.mapVar126[14] !== undefined) f14 = g.mapVar126[14] | 0;
+          else if (g.v126 && g.v126[14] !== undefined) f14 = g.v126[14] | 0;
+          if ((V(17) === 1 && f14 === 2) || mapId === 65 || mapId === 68) {
+            hAmt = 0;
+            if ((c.get(50) | 0) > 0) {                         // 216658-216660
+              const loss = rng.rnd(idiv(c.skill(11) | 0, 5) + 1) + 1;
+              c.set(50, Math.max(0, (c.get(50) | 0) - loss));
+              out.etherUndead = loss;
+            }
+          }
+        }
+        const hAmtFinal = hAmt;
         let hp = 0, mp = 0;
         if (rng.rnd(6) === 0 || findbuff(c, 3) !== -1) {
-          healhp(c, hAmt);
-          hp += hAmt;
+          if (hAmtFinal > 0) { healhp(c, hAmtFinal); hp += hAmtFinal; }
         }
-        if (rng.rnd(6) === 0 && (c.get(22) | 0) >= 10000) {
-          healhp(c, hAmt);
-          hp += hAmt;
+        if (rng.rnd(6) === 0 && (c.get(22) | 0) >= 10000 && hAmtFinal > 0) {
+          healhp(c, hAmtFinal);
+          hp += hAmtFinal;
         }
         if (rng.rnd(5) === 0) {
           const mAmt = rng.rnd(idiv(c.skill(155), 2) + 1) + 1;

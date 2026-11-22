@@ -3068,6 +3068,13 @@
       this.tickEncounterCancel();
       this.advanceClock();
       if (Elona.Quest) Elona.Quest.tick(this);
+      // 378449-378451：海域跳帮成功 → 进入船内白刃战（网页版用野外地图 + 盗贼团近似）
+      if (this.pendingSeaBattle) {
+        const pb = this.pendingSeaBattle;
+        this.pendingSeaBattle = null;
+        this.startWorldEncounter(pb);
+        return true;
+      }
       // 0-DG：站到 site 的入口格**不再自动进入**，改为提示「按回车进入」。
       //   原版世界地图上站在入口格后由确认键（var_577 == 6）触发进入，
       //   见 docs/02-diff-report.md A321；这里只做提示，按 Enter 由 worldEnter() 处理。
@@ -3105,12 +3112,15 @@
       if (!enc || this.transitioning || this.encounterTrip || this._parleying) return false;
       // 378312-378415 / 378660-378730：盗贼团（302）与艾莱亚暴徒团（303）的「谈判」。
       //   这条路在原版是进入地图后强制触发的对话事件；网页版先问，再决定是否进战斗。
-      this._parleying = true;
+      //   skipParley：海域跳帮（378449-378451 → 1012）已在事件 53 内谈过，不再二次询问。
       let parley = 'fight';
-      try {
-        parley = await this.encounterParley(enc);
-      } finally {
-        this._parleying = false;
+      if (!enc.skipParley) {
+        this._parleying = true;
+        try {
+          parley = await this.encounterParley(enc);
+        } finally {
+          this._parleying = false;
+        }
       }
       if (parley === 'leave') return false;
       this.transitioning = true;
@@ -3158,12 +3168,23 @@
           if (sp && sp.message) this.log(sp.message);
           if (sp && sp.created.length) this.log(`有 ${sp.created.length} 个敌人挡住了去路！`);
           else this.log('四周一片寂静……');
+          // 240495-240499：gQuest = 1007,1,委托槽,1 —— 护送袭击交给委托系统计数，
+          //   check_quest(193755-193790) 在敌人全灭后置 73=3 并触发 onMapCleared。
+          if (enc.type === 3 && eq) {
+            const slot = (this.quests || []).findIndex((q) => q && q.id === eq.id);
+            this.setV65(70, 1007);
+            this.setV65(71, 1);
+            this.setV65(72, slot < 0 ? 0 : slot);
+            this.setV65(73, 1);
+            this.encounterTrip.gQuest = true;
+          }
         }
         if (this.onMapChange) this.onMapChange(this.map);
         return true;
       } catch (e) {
         this.log('进入野外失败：' + e.message);
         this.encounterTrip = null;
+        this.clearGQuestAmbush();
         return false;
       } finally {
         this.transitioning = false;
@@ -3252,8 +3273,18 @@
         await this.travelToTown(town);
       }
       this.worldMap = { x: trip.wx | 0, y: trip.wy | 0 };
+      // 591174：离开地图时清空 gQuest 指针（1007 护送袭击用）
+      if (trip.gQuest) this.clearGQuestAmbush();
       this.log('你回到了世界地图。');
       return true;
+    }
+
+    /** 240495-240499 / 591174：清空护送袭击的 gQuest 指针 var_65(70..73) */
+    clearGQuestAmbush() {
+      this.setV65(70, 0);
+      this.setV65(71, 0);
+      this.setV65(72, 0);
+      this.setV65(73, 0);
     }
 
     /** 野外地图里还有活着的敌人吗（用于自动收场） */

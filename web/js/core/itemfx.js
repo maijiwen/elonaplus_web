@@ -461,7 +461,8 @@
      * 「给谁化妆？」→ 准星选人 → `*label_2809`（295248）**隐藏身体部位**面板。
      *
      * 350598  `if ( var_244 < 16 )` —— 只能对玩家/同伴用；NPC（>= 16）最后落到「不可能」。
-     * 350582  目标被载（`var_58(168)`）时会先问「也对骑手用？」—— 需二次确认窗口，未接。
+     * 350582-350596 目标骑乘中（`var_58(168)`）时先问「也对坐骑用？」；
+     *   选「是」则目标改为坐骑 `var_58(167)`，选「取消」则整次取消。
      *
      * 面板本身是 6 项（Done / Chest / Leg / Belt / Glove / Mantle），
      * 开关量写在 `var_508(20..24)`：**0 = 显示，1 = 隐藏**（23863/24008/24032/24054/24075/24121
@@ -471,6 +472,13 @@
       const o = opts || {};
       const c = o.target || g.player;
       if (!c) return null;
+      // 350582-350596：骑乘中 → 二次确认（铁定要对坐骑也整理一次？）
+      if (!o.mountAsk && (c.get(168) | 0) !== 0) {
+        const mi = c.get(167) | 0;
+        const mount = (g.charas && g.charas[mi]) || null;
+        return { ok: true, effect: E.DRESS, action: 'dressup-ask', target: c,
+          mount, item: it, message: '也对坐骑一起整理吗？' };
+      }
       if ((c.index | 0) >= 16) {
         const msg = '不可能。';
         g.log(msg);
@@ -484,7 +492,7 @@
       }
       const nm = c.name || '你';
       g.log(`你替${nm}整理了一下装扮。`);
-      return { ok: true, effect: E.DRESS, action: 'dressup', target: c,
+      return { ok: true, effect: E.DRESS, action: 'dressup', target: c, item: it,
         parts: P.HIDE_PARTS, state: P.hideState(c) };
     },
 

@@ -325,8 +325,36 @@
           ? Elona.CharaFactory.ref(A[0] | 0) : null;
         return (rec && rec.fields) ? (rec.fields[String(A[1])] | 0) : 0;
       }
-      case 'findchara': case 'inv_sum': case 'var_132': case 'var_126': case 'var_99':
-      case 'var_97': case 'var_98': case 'stat': case 'sorg': case 'var_1437':
+      // 2196xx：characreate 里的取值函数
+      //   sorg(id)        → 角色当前技能值（Stats.sorg）
+      //   var_126(n)      → 地图数据列（world_sites fields[n]，优先 g.v126）
+      //   var_132(col,id) → var_132 运行时表（Sites.field）
+      //   findchara(id)   → 角色池中种族/物种为该 id 的槽位（无则 -1）
+      case 'sorg':
+        return (Elona.Stats && Elona.Stats.sorg) ? (Elona.Stats.sorg(c, A[0] | 0) | 0) : 0;
+      case 'var_126': {
+        const n = A[0] | 0;
+        if (this.g && this.g.v126 && this.g.v126[n] !== undefined) return this.g.v126[n] | 0;
+        const mapId = this.get65(20) | 0;
+        const site = (Elona.Sites && Elona.Sites.get) ? Elona.Sites.get(mapId, this.g) : null;
+        return (site && site.fields && site.fields[n] !== undefined) ? (site.fields[n] | 0) : 0;
+      }
+      case 'var_132': {
+        const col = A[0] | 0;
+        const row = A.length >= 2 ? (A[1] | 0) : (this.get65(20) | 0);
+        return (Elona.Sites && Elona.Sites.field) ? (Elona.Sites.field(col, row, this.g) | 0) : 0;
+      }
+      case 'findchara': {
+        const want = A[0] | 0;
+        const list = (this.g && this.g.charas) || [];
+        for (let i = 0; i < list.length; i++) {
+          const cc = list[i];
+          if (cc && cc.get && (cc.get(27) | 0) === want) return i;
+        }
+        return -1;
+      }
+      case 'inv_sum': case 'var_99':
+      case 'var_97': case 'var_98': case 'stat': case 'var_1437':
         this.mark('func:' + name);
         return 0;
       default: break;

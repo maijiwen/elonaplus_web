@@ -667,6 +667,19 @@
           Elona.Panels.openDressPanel(game, r.target);
           return;
         }
+        // AUD-010：梳妆台对骑乘中的目标 → 二次确认（350582-350596）
+        if (r && r.action === 'dressup-ask' && Elona.Panels) {
+          Elona.Panels.openConfirm(r.message || '也对坐骑一起整理吗？', (yes) => {
+            if (!yes) return;                                  // 350590：取消 → 整次取消
+            const t = r.mount || r.target;                     // 350594-350595
+            const res = Elona.ItemFx.dressUse(game, r.item, { target: t, mountAsk: true });
+            if (res && res.action === 'dressup') {
+              this.closeInventory();
+              Elona.Panels.openDressPanel(game, res.target);
+            }
+          });
+          return;
+        }
         // 0-DN：写作台 → 菜单（350092-350099；itemfx effect 114）
         if (r && r.action === 'writing-desk' && Elona.Panels) {
           this.closeInventory();
@@ -2391,6 +2404,13 @@
           if (r.enterMap && game.enterQuestMap) {
             this.closeNPC();
             game.enterQuestMap(r.quest).catch(() => { });
+            return;
+          }
+          // C-5：商队偷渡关所（421666-421683）→ 换到另一侧关所地图
+          if (r.action === 'caravan-go' && Elona.StoryWarp) {
+            if (r.message) this.pushMessage(r.message);
+            this.closeNPC();
+            Elona.StoryWarp.caravanTravel(game, r.dest).catch(() => { });
             return;
           }
           if (r.action === 'shop') {

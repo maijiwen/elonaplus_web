@@ -29,6 +29,14 @@
 
   const idiv = (a, b) => (b === 0 ? 0 : ((a / b) | 0));   // HSP 整数除法（向零截断）
   const limit = (v, a, b) => (v < a ? a : (v > b ? b : v));
+  /** inv_find(id, chara)：背包中是否有某物品（对应 316039/316049）。 */
+  function hasItem(c, id) {
+    if (!c || !c.inv) return false;
+    for (const it of c.inv) {
+      if (it && (it.f ? (it.f[0] | 0) : 1) > 0 && (it.id | 0) === id) return true;
+    }
+    return false;
+  }
 
   // ---- var_83 动作数据表（web/data/tables/actions.json）----
   let ACTIONS = null;
@@ -480,7 +488,8 @@
     const E = (elem === undefined || elem === null) ? 0 : (elem | 0);
     const applied = Elona.Battle.applyDamage(tg, dmg, g, caster, E, 0);
     // 316178-316221：目标存活且主伤害 >= 5 → 复合咏唱追加对应属性伤害
-    if (applied > 0 && dmg >= 5 && tg && tg.get(0) === 1) {
+    //   源码只判「目标存活 + var_1588>=5」，不要求主伤害实际扣血（抗性 0 也追加）。
+    if (dmg >= 5 && tg && tg.get(0) === 1) {
       const co = chorusCoef(caster, id);
       if (co && co.k > 0) {
         const add = CHORUS_ADD[E];
@@ -757,8 +766,7 @@
    * type 8：吐息/放射（318129-318362）——逐字移植。
    * var_2378 判定 →（气力满则转 715，未实现）→ get_route → breath_list → 逐格 fov_los 过滤 →
    * 命中角色求伤害（role + 全力加成 + 30）→ calcmagiccontrol → 完全詠唱×11 → dmghp。
-   * 【未移植】地面元素效果 addmef/delmef/mapitem_fire/mapitem_cold（mef 子系统未纳入）；
-   *   var_2378==100 且气力≥100 时的 715(Converge Breath，type 0) 转换；提示文本与图块动画。
+   * 地面元素效果 addmef/delmef/mapitem_fire/mapitem_cold 已移植（318251-318288，见下）；
    * 【近似】dmghp(197974) 的完整抗性/属性链未移植 → 用 Battle.applyDamage 扣血。
    */
   function effectType8(g, caster, id, tg, power) {
@@ -935,9 +943,9 @@
     return Elona.Resist.dmgcon(g, g.dmgconTable, target, condId, power);
   }
   /**
-   * 把角色放到目标坐标并同步地图占格 —— `*label_2911` 前段（306052-306075）逐字移植。
-   * 【未移植】306076 起的地形/陷阱/门/矿脉处理（依赖 label_2218/2219/2221/2910/3010 与 var_503 feat 表），
-   *   故此处只做「清旧格标记 → 写入坐标 → 标记新格 → 骑乘/被载同步」。
+   * 把角色放到目标坐标并同步地图占格 —— `*label_2911`（306052-306300+）逐字移植。
+   * 落点结算复用 `Game.onEnterCell` → `MapFeat.onEnter`（= label_2218/2219 的侦测/回避/触发），
+   * 覆盖传送、击退、换位等位移法术。`__placing` 防止陷阱传送递归。
    */
   function placeChar(g, c, x, y) {
     if (!g.map.inBounds(x, y)) return false;
@@ -954,13 +962,21 @@
       const rider = g.charas[c.get(167)];
       if (rider) { rider.x = c.x; rider.y = c.y; }
     }
+    // 306076-306300：落点地形/陷阱/门/矿脉（MapFeat 已实现 label_2218/2219 的判定）
+    if (typeof g.onEnterCell === 'function' && !c.__placing) {
+      c.__placing = true;
+      try { g.onEnterCell(c, x, y); } catch (e) { /* 失败不阻断位移 */ }
+      finally { c.__placing = false; }
+    }
     return true;
   }
 
   /**
    * type 1：弹道/直线飞行（315991-316269）——逐字移植（沿 route 前进最多 20 格）。
-   * 【近似】dmghp 完整抗性链 → Battle.applyDamage；【未移植】mapitem_fire/cold、delmef、mef 铺场、
-   *   var_2425-2428（気）追加伤害、label_2174 技能刷新、var_65(175) 守卫。
+   * 【近似】dmghp 完整抗性链 → Battle.applyDamage。
+   * mef 清除（316058-316068）、地面物品火/冰（316038-316056）、
+   *   var_2425-2428 复合咏唱追加伤害（经 applyMagicDamage）、
+   *   var_65(175) 守卫（316002/316147/316222/316240）均已移植。
    */
   function effectType1(g, caster, id, tg, power) {
     const dice = diceOf(g, caster, id, power);
@@ -971,6 +987,8 @@
     if (!gr.ok) return { ok: true, type: 1, implemented: true, noRoute: true };
     const hits = [];
     let realTarget = -1;                                              // var_2438
+    // 316002/316147/316222/316240：var_65(175) 非 0 时关闭几处特殊结算
+    const v175Clear = (((g && g.getV65) ? (g.getV65(175) | 0) : 0) === 0);
     let px = caster.x, py = caster.y;                                 // var_220/var_222（逐格累加）
     for (let i = 0; i < 20; i++) {                                    // 316019 repeat 20
       const ri = routeInfo(g, px, py, i, gr.route);                    // 316020（原地推进 var_220/222）
@@ -982,6 +1000,14 @@
       if (px === caster.x && py === caster.y) continue;                // 316035
       const cell = g.map.cell(px, py);
       if (!cell) continue;
+      // 316038-316056：地面物品的火/冰破坏；施法者持有 941/1172 时免疫
+      if (Elona.ItemDB) {
+        if (dice.elem === 50 && !hasItem(caster, 941)) {
+          Elona.ItemDB.mapitemFire(g, px, py, caster);
+        } else if (dice.elem === 51 && !hasItem(caster, 1172)) {
+          Elona.ItemDB.mapitemCold(g, px, py);
+        }
+      }
       // 316058-316068：清除格上 mef（475 自身系 / type 9 视线型）
       if (cell[8] !== 0 && g.mef) {
         if (id === 475) g.mef.del(g, cell[8] - 1);
@@ -1004,17 +1030,17 @@
         if (gd && g.rng.rnd(t.hp + 1) < g.rng.rnd(gd.hp + 1)) { tIdx = t.get(167); t = g.charas[tIdx] || t; }
       }
       if (realTarget === -1 && isHostile(g, caster, tIdx)) realTarget = tIdx;   // 316123-316146
-      if (Elona.Status.findbuff(caster, 32) !== -1 && (caster.index !== 0 || t.get(9) === -3)) dmg *= 11;  // 316147-316151
+      if (v175Clear && Elona.Status.findbuff(caster, 32) !== -1 && (caster.index !== 0 || t.get(9) === -3)) dmg *= 11;  // 316147-316151
       const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id);   // 316174 dmghp + 复合咏唱
       if (id === 475) Elona.Status.wet(t, 5);                          // 316175-316177
-      if (t.get(94) > 0 && (caster.index >= 16 || tIdx >= 16)) {        // 316222-316225 魔法反射
+      if (v175Clear && t.get(94) > 0 && (caster.index >= 16 || tIdx >= 16)) {        // 316222-316225 魔法反射
         const refl = limit(idiv(dmg * t.get(94), 200) + 1, 1, idiv(caster.hpMax, 10));
         applyMagicDamage(g, t, caster, refl, dice.elem, id);   // 316225/316678 魔法反射
       }
       hits.push({ index: tIdx, dmg: applied });
     }
     const b32 = Elona.Status.findbuff(caster, 32);
-    if (b32 !== -1 && (caster.index !== 0 || tg.get(9) === -3)) Elona.Status.delbuff(caster, b32);  // 316240-316257
+    if (v175Clear && b32 !== -1 && (caster.index !== 0 || tg.get(9) === -3)) Elona.Status.delbuff(caster, b32);  // 316240-316257
     return { ok: true, type: 1, implemented: true, hits, realTarget };   // 316258-316261 var_244=var_2438
   }
 
@@ -1022,7 +1048,8 @@
    * type 3：球/范围（316270-316760 + `*label_2961` 316305-316728）——逐字移植。
    * 半径 = f3\1000+1（644 自爆固定 2）；双层遍历圆域，dist 与 fov_los 过滤。
    * 404=治癒の雨 / 637=狂気治癒の雨（同阵营治疗）；644=自爆（施法者 HP 归零）。
-   * 【未移植】mef 铺场/消除、mapitem_fire/cold、var_2425-2428 追加伤害、644 的 2962/2963 连锁（多人自爆）。
+   * var_2425-2428 复合咏唱追加伤害已由 applyMagicDamage 统一处理。
+   * 【未移植】644 的 2962/2963 连锁（多人自爆）。
    */
   function effectType3(g, caster, id, tg, power) {
     // 637（狂気治癒の雨）无 calcskill 分支，用占位骰（不产生伤害）
@@ -1052,10 +1079,13 @@
           if (id === 476) g.mef.del(g, cell[8] - 1);
           if (cell[8] !== 0 && mefTypeOf(g, cell[8] - 1) === 9) g.mef.del(g, cell[8] - 1);
         }
-        // 316xxx：地面物品的火/冰破坏
+        // 316xxx：地面物品的火/冰破坏（施法者持有 941/1172 时免疫）
         if (Elona.ItemDB && (dice.elem === 50 || dice.elem === 51)) {
-          if (dice.elem === 50) Elona.ItemDB.mapitemFire(g, cx, cy, caster);
-          else Elona.ItemDB.mapitemCold(g, cx, cy);
+          if (dice.elem === 50 && !hasItem(caster, 941)) {
+            Elona.ItemDB.mapitemFire(g, cx, cy, caster);
+          } else if (dice.elem === 51 && !hasItem(caster, 1172)) {
+            Elona.ItemDB.mapitemCold(g, cx, cy);
+          }
         }
         if (cell[1] === 0) continue;                                   // 316357
         let tIdx = cell[1] - 1;
@@ -1212,7 +1242,7 @@
     if (id === 618) dmgconOf(g, tg, 2, dice.elemArg);                   // 317271
     if (id === 615) dmgconOf(g, tg, 1, dice.elemArg);                   // 317274
     if (id === 616) dmgconOf(g, tg, 3, dice.elemArg);                   // 317277
-    if (id === 614) Elona.Status.addbuff(g, tg, 61, 9999999, 100);      // 317280
+    if (id === 614) Elona.Status.addbuff(g, tg, 61, 9999999, 100, caster);   // 317280
     if (id === 613 && tg.get(25) < 4 && Elona.Status.findbuff(tg, 60) === -1) {   // 317283-317318
       const n = g.rng.rnd(10);
       const pot = (Elona.Resist) ? Elona.Resist.sorg(tg, 10 + n) : tg.skill(10 + n);
@@ -1594,8 +1624,12 @@
       return specialAttack(g, caster, tg, id);
     }
     if (id !== 645 && id !== 1114) {
+      // 注：676/684/713/743/767/854 这 6 个真技能不在此处——Ability.use 会在调用
+      // Spell.cast 之前把它们分流到 Perform / Preach / Necro / Companion
+      // （见 core/ability.js 的 676/684/713/743/767/854 分支），
+      // 因此只有绕过 ability.js 直呼 cast 时才会落到这里。
       return { ok: true, type: 0, implemented: false,
-        reason: 'label_2965/2966 的该 id 属玩家侧 UI/元操作，未移植' };
+        reason: '该 id 未经 ability.js 分流时没有 type0 效果实现' };
     }
     if (!tg || tg.get(0) !== 1) return { ok: true, type: 0, implemented: true, noTarget: true };
     let r400 = 75 + tg.skill(19);                                     // 325290
@@ -1812,7 +1846,7 @@
       const dur = (Elona.BuffEffects && Elona.BuffEffects.turnsOf)
         ? Elona.BuffEffects.turnsOf(buffId, pw)
         : ((g.var79 !== undefined) ? g.var79 : 100);
-      const added = Elona.Status ? Elona.Status.addbuff(g, target, buffId, pw, dur) : 0;
+      const added = Elona.Status ? Elona.Status.addbuff(g, target, buffId, pw, dur, caster) : 0;
       return { ok: true, type: f1, implemented: true, buff: { id: buffId, added: !!added, power: pw, turns: dur }, target };
     }
     if (f1 === 0) return effectType0(g, caster, id, target, power);   // type 0 杂项（纯逻辑子集）

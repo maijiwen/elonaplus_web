@@ -1813,7 +1813,92 @@
     return finish(g, ev);
   };
 
-  /* ============ 53 謎の船影（278315-278419）============ */
+  /* ============ 53 謎の船影（278315-278419）+ 302 海战谈判（378333-378625）============ */
+  /** 378472：海战胜利 → 名声 +1000 */
+  function navalVictory(g, ev) {
+    if (g.player) g.player.set(34, (g.player.get(34) | 0) + 1000);
+    ev.lines.push('你赢得了海战，获得了 1000 点名声。');
+    ev.lines.push('「呜哇哇！我们的船要沉了！？」');
+  }
+
+  /**
+   * 海域（var_65(850)==47）的海盗谈判（378338-378625）。
+   * 选项：2=撞船跳帮 / 3=远距离炮击 / 4=全力逃跑 / 0=投降。
+   * 与原版对话框一致，默认光标停在第一项（有船耐久时即跳帮）。
+   * @param {number} enemy0 敌方船耐久 var_1288（4+rnd(2)，先制攻击后可能已 -1）
+   * @returns {boolean} true = 跳帮进入白刃战
+   */
+  function seaParley(g, ev, fameLevel, enemy0) {
+    const p = g.player;
+    if (!p) return false;
+    let enemy = enemy0;
+    const shipLv = V(g, SLOT.SHIP);
+    const own = () => (p.get(197) | 0);            // var_58(197,0)：自船耐久
+    const canRam = () => own() > 1;
+    const canShoot = () => own() > 1 && (shipLv === 3 || shipLv >= 5);
+    for (let round = 0; round < 20; round++) {
+      const rate = 75 - enemy * enemy * 2;          // 378339 var_2384
+      const options = [];
+      if (canRam()) options.push({ value: 2, label: `撞船跳帮（成功率:${rate}%）` });
+      if (canShoot()) options.push({ value: 3, label: '远距离炮击' });
+      options.push({ value: 4, label: '全力逃跑' });
+      options.push({ value: 0, label: '投降' });
+      const sub = { id: 53, title: '', text: '', options, lines: [] };
+      // 默认光标停在第一项（var_763 = -1）；有 chooser 时按它选，找不到也回到第一项。
+      let sel = null;
+      if (typeof Elona.RandomEvent.chooser === 'function') {
+        try { sel = Elona.RandomEvent.chooser(g, sub) | 0; } catch (e) { sel = null; }
+      }
+      const hit = sel === null ? null : options.find((o) => (o.value | 0) === sel);
+      sub.selected = hit ? (hit.value | 0) : (options[0].value | 0);
+      sub.selectedLabel = (hit || options[0]).label;
+      if (!hit && sel !== null) sub.auto = true;
+      if (sub.selected === 2) {                     // 378433
+        if (rate >= R(g, 100)) {
+          ev.lines.push('「想跳上来吗……好胆量！」你跳上了敌船。');
+          // 378449-378451：var_65(70)=1012 → 船内白刃战（网页版用野外地图 + 盗贼团近似）
+          g.pendingSeaBattle = {
+            type: 4, danger: Math.min(999, fameLevel), strength: Math.min(999, fameLevel),
+            skipParley: true, message: '海盗船上的白刃战！',
+          };
+          return true;
+        }
+        enemy--;                                     // 378456
+        p.set(197, Math.max(0, own() - 1));           // 378457
+        ev.lines.push('撞得不准，跳帮失败了……');
+        if (enemy <= 0) { navalVictory(g, ev); return false; }
+        ev.lines.push('「别乱来！想变成海里的碎藻吗！？」');
+        continue;
+      }
+      if (sub.selected === 3) {                      // 378515
+        enemy--;                                     // 378517
+        ev.lines.push('「呜哦！？」');
+        if (enemy <= 0) { navalVictory(g, ev); return false; }
+        if (R(g, 2) === 0) {                         // 378566
+          p.set(197, Math.max(0, own() - 1));         // 378568
+          ev.lines.push('「适可而止！这边也反击了！」');
+        }
+        continue;
+      }
+      if (sub.selected === 4) {                      // 378586
+        if (own() > 1) p.set(197, own() - 1);         // 378588-378590
+        const lost = (Elona.Arena && Elona.Arena.decfame) ? Elona.Arena.decfame(g, p, 40) : 0;
+        ev.lines.push(`总算逃掉了，但失去了 ${lost} 点名声。`);
+        return false;
+      }
+      // 0 投降（378367-378414）
+      const gold = p.get(30) | 0;
+      const cost = idiv(gold, 5);
+      p.set(30, Math.max(0, gold - cost));
+      let n = 0;
+      if (typeof g.handOverCargo === 'function') n = g.handOverCargo() | 0;
+      ev.lines.push(`你交出了 ${cost} gold 与 ${n} 件货物。`);
+      ev.lines.push('「算你识相。」你趁机脱离了战场。');
+      return false;
+    }
+    return false;
+  }
+
   H[53] = function (g) {
     const ship = V(g, SLOT.SHIP);
     const ev = {
@@ -1825,18 +1910,23 @@
     gainIden(g);
     gainTravExp(g);
     ask(g, ev);
-    if (ev.selected === 1) {
-      let hostile = 0;
-      if (R(g, Math.max(1, 22 - limit(idiv((V(g, 80) + 1) * 15, V(g, 82) + 1), 5, 20))) === 0) hostile = 1;
-      ev.lines.push(hostile ? '对方是海盗船！战斗开始了。' : '对方似乎是商船。');
-      if (hostile) {
-        S(g, 26, 7);            // var_65(26) = 7：进入船战（*label_2459 未移植，见 02 A39x）
-      }
-    } else if (ev.selected === 2) {
-      if (ship === 3 || ship === 5 || ship === 6) {
-        ev.lines.push(ship === 6 ? '鱼雷命中！对方的船耐久下降了。' : '炮击命中！对方的船耐久下降了。');
+    // 278348-278351：遇敌判定 var_1454
+    let hostile = 0;
+    if (R(g, Math.max(1, 22 - limit(idiv((V(g, 80) + 1) * 15, V(g, 82) + 1), 5, 20))) === 0) hostile = 1;
+    if (ev.selected === 1) {                        // 278353-278375：靠近
+      ev.lines.push(hostile ? '对方是海盗船！' : '对方似乎是商船。');
+      if (hostile) seaParley(g, ev, idiv(g.player ? (g.player.get(34) | 0) : 0, 1000), 4 + R(g, 2));
+      else ev.lines.push('再靠近一些后，商船渐渐远去了。');
+    } else if (ev.selected === 2) {                 // 278376-278416：先制攻击
+      if (!hostile) {
+        ev.lines.push('攻击被察觉，船慌忙逃走了。');
       } else {
-        ev.lines.push('船被攻击惊到，慌忙逃走了。');
+        let enemy = 4 + R(g, 2);                    // 278352 var_1288
+        if (ship === 3 || ship === 5) ev.lines.push('炮击命中！对方的船耐久下降了。');
+        else if (ship === 6) ev.lines.push('鱼雷命中！对方的船耐久下降了。');
+        enemy--;                                     // 278402
+        // 278403-278415：var_1287=6 → 进入海战；网页版直接接续谈判
+        seaParley(g, ev, idiv(g.player ? (g.player.get(34) | 0) : 0, 1000), enemy);
       }
     } else {
       ev.lines.push('你离开了。');

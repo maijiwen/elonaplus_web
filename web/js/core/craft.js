@@ -301,6 +301,9 @@
             }
             if (slot >= 0) g.player.inv[slot] = product;
             else g.player.inv.push(product);
+            // AUD-008：等价 itemcreate 的 item_stack，避免可堆叠产物占多格
+            const idx = (slot >= 0 ? slot : g.player.inv.length - 1);
+            if (Elona.ItemDB && Elona.ItemDB.stack) Elona.ItemDB.stack(g.player, idx);
           }
         }
       }

@@ -142,11 +142,12 @@
     }
 
     // 343654-343670：护送途中可能被暗杀者袭击。
-    //   1/40 概率；遍历 5 个委托槽（var_65(160..164)）找 type 1007、未完成（var_434(8)==1）、
+    //   源码 `if ( rnd(40) == 0 | 0 )` 因 `| 0` 恒真 → 每次遇敌都扫 5 个委托槽
+    //   （var_65(160..164)），找 type 1007、未完成（var_434(8)==1）、
     //   尚未送达（var_434(4)==0）、且袭击次数 < 2（var_434(10)）的委托。
     let assassins = false;
     let escortQuest = null;
-    if (world && R(g, 40) === 0) {
+    {
       const Q = Elona.Quest;
       const list = (Q && Q.activeQuests) ? Q.activeQuests(g) : [];
       for (const q of list) {
@@ -283,23 +284,24 @@
         push(make(g, 0, lvl, pos.x, pos.y));
       }
     } else if (type === 3) {                        // 护送袭击（240492-240523）
-      // `var_400 = (rnd(3) + 5) / 2` → 2..4 只；`flt var_434(5), 3`（品质 3）；
+      // `var_400 = (rnd(3) + 5) / 2` → 2..3 只；`flt var_434(5), 3`（生成等级=委托难度、品质 3）；
       // `characreate -1, 0`（不指定种，按等级随机）。
       const q = o.quest || null;
       const lvl3 = Math.max(1, q ? (q.difficulty | 0) : lv);
       const n = idiv(R(g, 3) + 5, 2);
       for (let i = 0; i < n; i++) {
         const pos = freeTile(g);
-        const m = make(g, 0, lvl3, pos.x, pos.y);
+        const m = make(g, 0, lvl3, pos.x, pos.y, { var641: 3 });
         if (!m) continue;
         m.set(9, -3);
         m.set(201, 30);
         m.set(69, -3);
         push(m);
       }
-      // 240517-240522：两版台词（`var_65(250+417)==4` 时是「行商人に変装していた暗殺者」）；
-      //   本项目该槽位另有他用，统一用通用台词。
-      out.message = '暗杀者抓住了你。你必须保护委托人。';
+      // 240510-240522：两版台词（`var_65(250+417)==4` 战舰时是「行商人に変装していた暗殺者」）
+      out.message = (V(g, V_BATTLESHIP) === 4)
+        ? '伪装成行商的暗杀者袭击了你。你必须保护委托人。'
+        : '暗杀者抓住了你。你必须保护委托人。';
     } else if (type === 2) {                        // 行商与佣兵（240520-240545）
       const pos = freeTile(g);
       const vendor = make(g, 1, 10, pos.x, pos.y);
@@ -317,14 +319,6 @@
         const m = make(g, 159 + R(g, 3), lv + R(g, 10), pos2.x, pos2.y);
         if (m) { m.set(150, 16); m.set(197, 10); }
         push(m, m ? ` Lv${m.level | 0}` : '');
-      }
-    } else if (type === 3) {                        // 暗杀者（240508-240520，简版）
-      const n = idiv(R(g, 3) + 5, 2);
-      for (let i = 0; i < n; i++) {
-        const pos = freeTile(g);
-        const m = make(g, 0, lv, pos.x, pos.y);
-        if (m) { m.set(201, 30); m.set(9, -3); m.set(69, -3); }
-        push(m);
       }
     } else if (type === 4) {                        // 盗贼团（240487-240505）
       const pos = freeTile(g);

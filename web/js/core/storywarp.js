@@ -173,7 +173,41 @@
     }
   }
 
+  /**
+   * C-5 商队偷渡（421666-421683）：从 43 关所北侧 ↔ 45 关所南侧。
+   *   421666-421669：主线 350 且在 45 → 推进到 351
+   *   421671-421677：var_65(64)/65/79/850 与 var_65(5/6) 落点
+   *   421678-421679：阶段 351 时落点改为 site 12（约温）的坐标
+   * 网页版没有 var_1777 换图分支，直接 enterSite 加载关所地图；
+   * 关所退出时的世界落点由 var_65(5)/(6) 决定。
+   */
+  async function caravanTravel(g, destId) {
+    const dest = destId | 0;
+    if (!g || (dest !== 43 && dest !== 45) || g.transitioning) return false;
+    const S = Elona.Sites;
+    if (!S) return false;
+    let stage = g.getV65(V_STATE) | 0;
+    if (stage === 350 && (g.getV65(20) | 0) === 45) {
+      stage = 351;
+      g.setV65(V_STATE, 351);                          // 421668
+    }
+    const site = S.get(dest, g);
+    if (!site) return false;
+    const world = S.field(30, dest, g);
+    g.setV65(64, world);                               // 421671
+    g.setV65(65, 1);                                   // 421672
+    g.setV65(79, 1);                                   // 421675
+    g.setV65(850, world);                              // 421676
+    const posId = (stage === 351) ? 12 : dest;         // 421678-421679
+    const pos = S.get(posId, g) || site;
+    g.setV65(5, pos.fields[1] | 0);                    // 421677
+    g.setV65(6, pos.fields[2] | 0);
+    const ok = await g.enterSite(site);
+    if (ok) g.log(`你混在商队的货物里，越过了关所（${labelOf(dest)}）。`);
+    return ok;
+  }
+
   Elona.StoryWarp = {
-    V_STATE, WARPS, services, warp, mapNameOf, labelOf,
+    V_STATE, WARPS, services, warp, caravanTravel, mapNameOf, labelOf,
   };
 })(window);

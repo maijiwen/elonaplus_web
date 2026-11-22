@@ -297,6 +297,32 @@
 
 
   /**
+   * C-5 菜单 61「観察する」（421633-421708）：商队偷渡关所。
+   *   主线阶段 < 200 → 队长只是闲聊（421685-421708）
+   *   阶段 >= 200 且当前在 43/45 关所 → 搭商队货车去另一侧（421635-421683）
+   *   决斗诅咒 var_65(250+306) > 0 → 拒绝（421657-421664）
+   * 实际换图由 storywarp.caravanTravel 完成。
+   */
+  function caravanObserve(g, npc) {
+    const stage = (g && g.getV65) ? (g.getV65(252) | 0) : 0;
+    const at = (g && g.getV65) ? (g.getV65(20) | 0) : 0;
+    if (stage < 200) {
+      return { ok: true, message: '（暇そうにしていたキャラバンの隊長は、あなたの視線に気が付いた。）\n'
+        + '「おや？君、ひょっとしてこの国から出ていきたいのかな？それは無理だよ。今は国境が封鎖されていて、'
+        + 'お偉いさんの一団くらいしか通れないんだ。」\n（封鎖が解除されたら交易商たちを運ばねばならず、隊長は毎日ここで待っているらしい。）' };
+    }
+    if (at !== 43 && at !== 45) return { ok: true, message: '' };   // var_400 保持 0 → 只有「やめる」
+    const dest = at === 43 ? 45 : 43;
+    if ((g.getV65(250 + 306) | 0) > 0) {                            // 421657
+      return { ok: true, message: '「決闘の呪いからは逃げられない！」' };
+    }
+    const S = Elona.Sites;
+    const destName = (S && S.nameOf) ? (S.nameOf(dest, 'jp') || S.nameOf(dest)) : ('map ' + dest);
+    return { ok: true, action: 'caravan-go', dest, destName,
+      message: `（キャラバンの隊長は忙しそうでこちらに気付いていない。荷物に紛れ込んで関所を突破できそうだ。行き先：${destName}）` };
+  }
+
+  /**
    * 当前 NPC 可用的服务（0-BX：按原版对话菜单的选项集合与顺序）
    *
    * 【原版依据】start.hsp 415180-416700 的 NPC 对话菜单（var_484/var_485）：
@@ -403,6 +429,12 @@
     // 委托（掲示板 *label_2704 / 委托人对话 *label_3031 / 415663-415745）
     if (g && Elona.Quest) {
       for (const s of Elona.Quest.npcServices(g, npc)) out.push(s);
+    }
+    // C-5 / 415574-415584：キャラバン隊長（职业 23）的「観察する」（菜单 61）
+    //   地图 80 是另一分支（菜单 107「仕事の話がしたい」），本项目未移植。
+    if ((npc.get(150) | 0) === 23) {
+      const at = (g && g.getV65) ? (g.getV65(20) | 0) : 0;
+      if (at !== 80) out.push({ id: 'caravan-observe', label: '观察商队（观客）' });
     }
     // 0-FC：剧情传送（主线 / 支线任务接取后传送到固定地图）。
     //   源码：386376-386380 / 389083-389094 / 408123-408134 / 409371-409378 / 421666-421682
@@ -2045,6 +2077,8 @@
         return { ok: res.ok, action: 'unassign-worker', message: res.message };
       }
       case 'camp-manage': return { ok: true, action: 'camp-manage', message: '' };
+      // C-5：菜单 61「観察する」（421633-421708）
+      case 'caravan-observe': return caravanObserve(g, npc);
       // 0-DC：骑乘（319690-319810）—— 弹出 3 项菜单（乗る / 乗せる / 取消）
       case 'ride': return { ok: true, action: 'ride', target: npc, message: '' };
       // 0-DC：下马（319615-319685）

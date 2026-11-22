@@ -428,31 +428,46 @@
   }
 
   // ---------------------------------------------------------------- 能力 854
-  /** アクセルネクロ（331553-331594）：SP 换死灵加速/咏唱/回避 buff */
+  /**
+   * アクセルネクロ（331553-331594）：给视野内的使役死灵加 加速/咏唱/回避 buff。
+   *   331570：射程 = var_83(3,656)\1000+1（= 7），欧氏距离 dist()（31560-31562）
+   *   331576-331581：跳过 cbit(1035)、cbit(960)==1、index<16、cbit(992)!=1
+   *   331585-331591：SP 消耗固定为 玩家SP/20+1，**只扣一次**（循环内取 var_58(53,0)，
+   *                  dmgsp 在循环之后）；每命中一具各 skillexp 188 +100（331586）
+   */
   function accelNecro(g) {
     const p = g.player;
-    const target = necrosInSight(g, 6);
-    if (!target.length) return { ok: false, reason: 'none', message: '視界内に使役アンデッドはいない。' };
+    // var_83(3,656)=3006（表未加载时 field() 会返回 0，这里回退到源码值）
+    const f656raw = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 0;
+    const reach = ((f656raw || 3006) % 1000) + 1;      // 7
     const mc = skillOf(g, 188), spd = skillOf(g, 15);
-    const a = idiv(mc + spd, 4) + 1;
-    const b = idiv(mc + spd, 2) + 1;
-    const per = idiv(p.get(53) | 0, 20) + 1;      // var_58(53)=SP，每具消耗 SP/20+1
-    let done = 0, cost = 0;
+    const a = idiv(mc + spd, 4) + 1;              // 331582
+    const b = idiv(mc + spd, 2) + 1;              // 331583
+    let done = 0;
     const msgs = [];
-    for (const nc of target) {
-      if ((p.get(53) | 0) < cost + per) break;
-      cost += per;
+    for (const nc of (g.charas || [])) {
+      if (!nc || (nc.get(0) | 0) !== 1 || nc === p) continue;
+      const dx = (nc.x | 0) - (p.x | 0), dy = (nc.y | 0) - (p.y | 0);
+      if (Math.trunc(Math.sqrt(dx * dx + dy * dy)) > reach) continue;                    // 331570
+      if (Elona.Spell && Elona.Spell.fovLos && !Elona.Spell.fovLos(g, p.x, p.y, nc.x, nc.y)) continue;  // 331573
+      if ((cbitOf(nc, 1035) | 0) === 1) continue;   // 331576
+      if ((cbitOf(nc, 960) | 0) === 1) continue;    // 331579
+      if ((nc.index | 0) < 16) continue;            // 331580
+      if ((cbitOf(nc, CG_HOST) | 0) !== 1) continue; // 331581
       if (Elona.Status && Elona.Status.addbuff) {
-        Elona.Status.addbuff(g, nc, 52, a, 50);
-        Elona.Status.addbuff(g, nc, 5, b, 50);
-        Elona.Status.addbuff(g, nc, 17, 20, 50);
+        Elona.Status.addbuff(g, nc, 52, a, 50, p);
+        Elona.Status.addbuff(g, nc, 5, b, 50, p);
+        Elona.Status.addbuff(g, nc, 17, 20, 50, p);
       }
       done++;
-      msgs.push(`${nc.name} が加速した。`);
+      msgs.push(`${nc.name || '死霊'} が加速した。`);
+      // 331586：每命中一具各获得一次 死霊術(188) 经验
+      if (Elona.Stats && Elona.Stats.skillExp) Elona.Stats.skillExp(p, 188, p.index | 0, 100, 0, 0, g);
     }
-    if (!done) return { ok: false, reason: 'no-sp', message: 'SPが足りない。' };
-    p.set(53, (p.get(53) | 0) - cost);
-    if (Elona.Stats && Elona.Stats.skillExp) Elona.Stats.skillExp(p, 188, p.index | 0, 100, 0, 0, g);
+    if (!done) return { ok: false, reason: 'none', message: '視界内に使役アンデッドはいない。' };
+    const cost = idiv(p.get(53) | 0, 20) + 1;     // 331585
+    if (Elona.Status && Elona.Status.dmgsp) Elona.Status.dmgsp(p, cost);
+    else p.set(53, Math.max(0, (p.get(53) | 0) - cost));
     return { ok: true, affected: done, sp: cost, messages: msgs };
   }
 
@@ -550,8 +565,9 @@
     }
     // 355292-355297：`dist > var_83(3,656)\1000+1` 或 `fov_los == 0` 则跳过。
     //   0-Q0 / Q-N1：HSP `\` 取余 → 3006 % 1000 + 1 = 7 格（旧实现硬编码 20 格近似）。
-    const f656 = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 3006;
-    const reach = (f656 % 1000) + 1;
+    // var_83(3,656)=3006（表未加载时 field() 会返回 0，这里回退到源码值）
+    const f656raw = (Elona.Spell && Elona.Spell.field) ? (Elona.Spell.field(656, 3) | 0) : 0;
+    const reach = ((f656raw || 3006) % 1000) + 1;      // 7
     const inSight = (c) => {
       if (!c || (c.get(0) | 0) !== 1) return false;
       if ((c.index | 0) < 16) return false;
