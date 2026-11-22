@@ -98,9 +98,11 @@
     if (Elona.Spell && Elona.Spell.dmgconOf) return Elona.Spell.dmgconOf(g, t, cond, pw | 0) | 0;
     return 0;
   }
-  /** addbuff 的原型是 (g, c, id, p1, p2)（status.js:81） */
-  function buff(g, c, id, pw, dur) {
-    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, id | 0, pw | 0, dur | 0);
+  /** addbuff 的原型是 (g, c, id, p1, p2, caster)（status.js:103） */
+  function buff(g, c, id, pw, dur, caster) {
+    if (Elona.Status && Elona.Status.addbuff) {
+      Elona.Status.addbuff(g, c, id | 0, pw | 0, dur | 0, caster || g._abilityCaster);
+    }
   }
   function hasBuff(c, id) {
     if (!Elona.Status || !Elona.Status.findbuff) return false;
@@ -2345,8 +2347,15 @@
     const fn = T[id];
     if (!fn) return null;
     g._v578 = (power === undefined || power === null) ? (g._v578 || 0) : power;
-    const r = fn(g, caster, tg || caster, power) || {};
-    return Object.assign({ ok: true, type: 0, implemented: true, id }, r);
+    // 194782-194783：源码 addbuff 用全局 var_243 判定敌意，这里把施法者带进 helper
+    const prevCaster = g._abilityCaster;
+    g._abilityCaster = caster;
+    try {
+      const r = fn(g, caster, tg || caster, power) || {};
+      return Object.assign({ ok: true, type: 0, implemented: true, id }, r);
+    } finally {
+      g._abilityCaster = prevCaster;
+    }
   }
 
   Elona.Ability0 = { has, run, IDS: T };

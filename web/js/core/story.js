@@ -59,6 +59,8 @@
 
   let data = null;
   let loading = null;
+  let mapData = null;
+  let mapLoading = null;
 
   async function load() {
     if (data) return data;
@@ -72,6 +74,21 @@
       return data;
     })();
     return loading;
+  }
+
+  /** A-R4-04：进图副作用表（evadd / chara_vanquish / var_58(13)） */
+  async function loadMapEvents() {
+    if (mapData) return mapData;
+    if (mapLoading) return mapLoading;
+    mapLoading = (async () => {
+      try {
+        mapData = await Elona.Data.fetchJson('data/scene/map_events.json');
+      } catch (e) {
+        mapData = { rules: [], meta: {} };
+      }
+      return mapData;
+    })();
+    return mapLoading;
   }
 
   /** 城镇的 var_132(16, id) = id（mapfile 的类型值与城镇地图 id 相同） */
@@ -93,10 +110,16 @@
         return v === undefined || v === null ? 0 : (v | 0);
       },
       v132(col, row) {
-        // 只支持「城镇」这一种可确定的情况
         if ((col | 0) !== 16) return null;
+        // 城镇：id 就是 var_132(16) 的值
         const t = townType(row);
-        return t === null ? null : t;
+        if (t !== null) return t;
+        // 其他地图：查各站点数据表（等价 var_132(16, mapId)）
+        if (Elona.Sites && typeof Elona.Sites.field === 'function') {
+          const v = Elona.Sites.field(16, row | 0, g);
+          return (v === undefined || v === null) ? null : (v | 0);
+        }
+        return null;
       },
       v58(field, chara) {
         const list = (g && g.charas) || [];
@@ -104,6 +127,28 @@
         if (!c || typeof c.get !== 'function') return null;
         const v = c.get(field | 0);
         return v === undefined || v === null ? 0 : (v | 0);
+      },
+      /** var_126(i)：地图头（本项目 map.header，0/1 = 宽高，6 = 地图类型） */
+      v126(i) {
+        const h = g && g.map && g.map.header;
+        if (!h) return null;
+        const v = h[i | 0];
+        return v === undefined || v === null ? 0 : (v | 0);
+      },
+      /** findchara(species)：当前地图内活着的同种角色下标，找不到返回 0 */
+      findchara(species) {
+        const list = (g && g.charas) || [];
+        for (let i = 1; i < list.length; i++) {
+          const c = list[i];
+          if (c && typeof c.get === 'function'
+            && (c.get(0) | 0) === 1 && (c.get(27) | 0) === (species | 0)) return i;
+        }
+        return 0;
+      },
+      /** rnd(n)：与源码一致，条件中的 rnd 也要实际消耗随机数 */
+      rnd(n) {
+        if (!g || !g.rng || typeof g.rng.rnd !== 'function') return null;
+        return g.rng.rnd(n | 0) | 0;
       },
     };
   }
@@ -139,6 +184,18 @@
         if (f === null || c === null) return null;
         return ctx.v58(f, c);
       }
+      case 'v126': {
+        const i = ev(node.i, ctx);
+        return i === null ? null : ctx.v126(i);
+      }
+      case 'findchara': {
+        const sp = ev(node.species, ctx);
+        return sp === null ? null : ctx.findchara(sp);
+      }
+      case 'rnd': {
+        const n = ev(node.n, ctx);
+        return n === null ? null : ctx.rnd(n);
+      }
       case 'cmp': {
         const l = ev(node.l, ctx);
         const r = ev(node.r, ctx);
@@ -154,23 +211,26 @@
         }
       }
       case 'and': {
-        // HSP 的 & 对 0/1 是位与，等价于逻辑与；先判假即可短路
+        // HSP 的 & 不做短路：所有操作数都会求值（含 rnd），最后再判定
         let unknown = false;
+        let all = 1;
         for (const a of node.a) {
           const v = ev(a, ctx);
           if (v === null) { unknown = true; continue; }
-          if (!v) return 0;
+          if (!v) all = 0;
         }
-        return unknown ? null : 1;
+        return all ? (unknown ? null : 1) : 0;
       }
       case 'or': {
+        // 同上：| 也不短路
         let unknown = false;
+        let any = 0;
         for (const a of node.a) {
           const v = ev(a, ctx);
           if (v === null) { unknown = true; continue; }
-          if (v) return 1;
+          if (v) any = 1;
         }
-        return unknown ? null : 0;
+        return any ? 1 : (unknown ? null : 0);
       }
       case 'unsupported':
         return null;
@@ -270,6 +330,55 @@
     return run(g, Object.assign({}, opts, { play: playable && opts && opts.play !== false }));
   }
 
+  /**
+   * A-R4-04：执行地图初始化链里的非剧情副作用。
+   * 原版这些语句与 var_1877 剧情块混在同一个地图初始化函数里（246741-248481），
+   * 由 tools/extract_story_triggers.py 抽成 map_events.json，这里按源码顺序解释执行：
+   *   evadd        → 事件入队（可带参数）
+   *   vanquish     → chara_vanquish findchara(N)
+   *   portrait     → var_58(13) = N（立绘）
+   * @returns {Promise<number>} 本此执行的规则数
+   */
+  async function runMapEvents(g) {
+    if (!g) return 0;
+    await loadMapEvents();
+    const rules = (mapData && mapData.rules) || [];
+    const ctx = makeCtx(g);
+    let fired = 0;
+    for (const r of rules) {
+      if (!r || r.ok === false) continue;
+      if (testRule(r, ctx) !== 'yes') continue;
+      for (const e of r.effects || []) {
+        if (e.k === 'evadd') {
+          const args = (e.args || []).map((a) => ev(a, ctx));
+          if (args.some((a) => a === null)) continue;
+          if (g.events && typeof g.events.add === 'function') {
+            g.events.add(e.id | 0, args[0], args[1]);
+          } else if (Elona.Event && typeof Elona.Event.add === 'function') {
+            Elona.Event.add(e.id | 0, args[0], args[1]);
+          }
+        } else if (e.k === 'vanquish') {
+          const sp = ev(e.species, ctx);
+          if (sp === null) continue;
+          const idx = ctx.findchara(sp);
+          if (idx && Elona.Chara && typeof Elona.Chara.vanquish === 'function') {
+            try { Elona.Chara.vanquish(g, idx); } catch (err) { /* 目标已不在场 */ }
+          }
+        } else if (e.k === 'portrait') {
+          const sp = ev(e.species, ctx);
+          if (sp === null) continue;
+          const idx = ctx.findchara(sp);
+          const c = idx ? g.charas[idx] : null;
+          if (c && typeof c.set === 'function' && (c.get(13) | 0) !== (e.v | 0)) {
+            c.set(13, e.v | 0);
+          }
+        }
+      }
+      fired++;
+    }
+    return fired;
+  }
+
   /** 读取当前主任务状态 */
   function state(g) {
     return g && typeof g.getV65 === 'function' ? (g.getV65(V_STATE) | 0) : 0;
@@ -277,9 +386,10 @@
 
   Elona.Story = {
     V_STATE, V_SUBMAP, V_MAP, MAX_SCENES,
-    load, ev, makeCtx, testRule, diagnose, run, onMapEnter, state,
+    load, loadMapEvents, ev, makeCtx, testRule, diagnose, run, onMapEnter,
+    runMapEvents, state,
     rules() { return (data && data.rules) || []; },
     meta() { return (data && data.meta) || {}; },
-    _reset() { data = null; loading = null; },
+    _reset() { data = null; loading = null; mapData = null; mapLoading = null; },
   };
 })(window);

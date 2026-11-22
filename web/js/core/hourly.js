@@ -101,9 +101,14 @@
       S(g, 1087, 10);
       out.guides.push(10);
     }
-    // 603538-603545：正午的地图类型 3 事件
+    // 603538-603545：正午的地图类型 3 事件（var_126(33) 由 2 → 3，
+    //   随后同一小时的 RandomEvent 依 273258-273262 选取事件 31）
     if (V(g, 13) === 12 && (g.map && g.map.header && (g.map.header[6] | 0) === 3)) {
-      if (V(g, 126 + 33) === 2) { S(g, 126 + 33, 3); out.noon = true; }
+      const RV = Elona.RandomEvent;
+      if (RV && RV.mapVar && RV.setMapVar) {
+        const slot = (RV.MAP_SLOT && RV.MAP_SLOT.RITUAL) || 33;
+        if ((RV.mapVar(g, slot) | 0) === 2) { RV.setMapVar(g, slot, 3); out.noon = true; }
+      }
     }
     // 603546-603559：日记更新提示
     if (V(g, 250 + 312) >= 1 && (V(g, 250 + 312) % 2) === 0 && journalStale(g)) {
@@ -124,8 +129,175 @@
     return false;
   }
 
+  /**
+   * 603686-603751 / 603773-603911：每日与月/年切换的遗漏结算（A-R3-04）。
+   * 逐条对应源码，已由 game.js 承担的部分（823++、505/514、月替公会）不重复。
+   */
+  function newDayExtra(g, opts) {
+    const out = { messages: [] };
+    if (!g) return out;
+    const p = g.player;
+    const R = rndOf(g);
+    const mapId = V(g, 20), depth = V(g, 22);
+
+    // 603560-603568：睡眠债 var_65(814)
+    if (V(g, 814) < 0) S(g, 814, 0);
+    if (V(g, 814) < 3 && R(8 + V(g, 814) * 5) === 0) S(g, 814, V(g, 814) + 1);
+
+    // 603686-603697：每日旗标
+    S(g, 250 + 295, R(10) === 0 ? 0 : 1);                    // 10% → 0，否则 1
+    if (V(g, 250 + 326) === 200) S(g, 250 + 326, 100);
+    if (mapId !== 87 || depth === 1) S(g, 250 + 330, 0);
+
+    // 603698-603751：侦探事件（城镇 var_126(6)==3）
+    detective(g, out, R);
+
+    // 603773-603779：月切 —— var_65(816)=0，偶数月 var_65(250+10)++
+    if (opts && opts.newMonth) {
+      S(g, 816, 0);
+      if ((V(g, 11) % 2) === 0) S(g, 250 + 10, V(g, 250 + 10) + 1);
+    }
+    // 603785-603796：年切 —— 825=0、95--、851-=50
+    if (opts && opts.newYear) {
+      S(g, 825, 0);
+      S(g, 95, Math.max(0, Math.min(3, V(g, 95) - 1)));
+      S(g, 851, Math.max(0, Math.min(99, V(g, 851) - 50)));
+    }
+    // 603787-603796：日期相关旗标
+    const day = V(g, 12), month = V(g, 11);
+    if (day === 10 || day === 20) S(g, 250 + 304, 100);
+    if (month === 11 && day === 1) S(g, 250 + 299, 0);
+    // 603801-603806：1/15 日整店补货（项目在进店时重生成库存，这里只保留旗标）
+    if (day === 1 || day === 15) S(g, 250 + 307, -1);
+    // 603807-603811：日记推进
+    if ((V(g, 250 + 377) % 3) === 1 && day === 30) {
+      S(g, 250 + 377, V(g, 250 + 377) + 1);
+      out.messages.push('日记更新了。');
+    }
+
+    // 603812-603911：剧情事件
+    storyEvents(g, out, R);
+
+    // 246244-246245（A-R3-06）：真实生日的 evadd 69
+    birthday(g, out);
+    return out;
+  }
+
+  /** 603698-603751：城镇的侦探事件（NPC 696/697） */
+  function detective(g, out, R) {
+    if (!(g.map && g.map.header && (g.map.header[6] | 0) === 3)) return;
+    let v2080 = 0, v2843 = 0;
+    for (const c of (g.charas || [])) {
+      if (!c || typeof c.get !== 'function') continue;
+      const sp = c.get(27) | 0;
+      const alive = (c.get(0) | 0) === 1 && (c.get(58) | 0) !== 100;
+      if (sp === 666 || sp === 697) {
+        if (alive && (c.get(69) | 0) === 0) v2080 = 10;
+      }
+      if (sp === 696 || sp === 697) {
+        if (alive) { v2843++; c.set(151, 0); }
+      }
+      if (sp === 1125 || sp === 1126) {
+        if (alive) {
+          if (Elona.RandomEvent && Elona.RandomEvent.setMapVar) {
+            Elona.RandomEvent.setMapVar(g, 34, 0);
+          }
+          v2080 = 0;
+          break;
+        }
+      }
+    }
+    if (v2080 !== 10) return;
+    if (v2843 < 2 && g.player && Elona.CharaFactory && Elona.CharaFactory.create) {
+      out.messages.push('……你在意着某个人的身影。');
+      const species = R(3) === 0 ? 697 : 696;
+      const level = (Elona.ItemDB && Elona.ItemDB.calcObjLv)
+        ? (Elona.ItemDB.calcObjLv(0, g) | 0) : Math.max(1, V(g, 22));
+      const c = Elona.CharaFactory.create(g, species, level, g.player.x | 0, g.player.y | 0);
+      if (c) c.set(86, R(15));
+    }
+    if (Elona.RandomEvent && Elona.RandomEvent.tickHour) Elona.RandomEvent.tickHour(g);
+  }
+
+  /** 603812-603911：ラシエル / ガルジエム / アムルダード / 日记 */
+  function storyEvents(g, out, R) {
+    const mapId = V(g, 20);
+    const site16 = (Elona.Sites && Elona.Sites.field) ? (Elona.Sites.field(16, mapId, g) | 0) : 0;
+
+    // 603812-603843：ラシエル（NPC 56）—— 原版生成临时 NPC 校验后记录 var_65(250+358)，
+    //   这里直接取一只同等级怪物的物种编号作为「变身结果」。
+    if (V(g, 250 + 357) !== 0) {
+      const s358 = V(g, 250 + 358) !== 0;
+      // HSP 的 `&` / `|` 不做短路，两个 rnd 都会被消耗
+      const a = R(20) === 0, b = R(2) === 0;
+      if ((s358 && a) || (!s358 && b)) {
+        if (Elona.CharaFactory && Elona.CharaFactory.pick) {
+          const sp = Elona.CharaFactory.pick(g, 170) | 0;
+          if (sp) S(g, 250 + 358, sp);
+        }
+        out.messages.push('拉西尔的念头似乎改变了。');
+      }
+    }
+    // 603845-603870：ガルジエム救援
+    {
+      const v = V(g, 250 + 274);
+      if (v >= 10 && (v % 10) === 0 && site16 !== 80 && R(10) === 0) {
+        let nv = v;
+        if (nv >= 900) nv = 10;
+        S(g, 250 + 274, nv + 1);
+        out.messages.push('接到了来自加尔杰姆的救援请求。');
+      }
+    }
+    // 603871-603896：アムルダード
+    {
+      const v = V(g, 250 + 440);
+      if (v >= 10 && (v % 10) === 0 && mapId !== 74 && R(10) === 0) {
+        let nv = v;
+        if (nv < 100) nv = 10;
+        if (nv >= 900) nv = 100;
+        S(g, 250 + 440, nv + 1);
+        out.messages.push('收到了来自涅赫尔塔德的委托电波。');
+      }
+    }
+    // 603898-603911：var_65(250+203) 奇数时的日志推进
+    {
+      const v = V(g, 250 + 203);
+      if ((v === 1 || v === 3 || v === 5 || v === 7 || v === 9)
+          && site16 !== 33 && R(20) === 0) {
+        S(g, 250 + 203, v + 1);
+        out.messages.push('日记更新了。');
+      }
+    }
+  }
+
+  /**
+   * 246244-246245：真实生日 → `evadd 69`。
+   * 事件本体 607700-607778：在脚下的 var_58(1/2,0) 生成礼物 1059，
+   * 播报「今天生日」与「有东西滚到脚边」，并把 var_65(250+327) 置为来年。
+   */
+  function birthday(g, out) {
+    const d = new Date();
+    const ry = d.getFullYear(), rm = d.getMonth() + 1, rd = d.getDate();
+    const bm = V(g, 250 + 322), bd = V(g, 250 + 323), by = V(g, 250 + 327);
+    if (bm !== rm || bd !== rd) return;
+    if (by > ry) return;
+    if (g.player && Elona.ItemDB && Elona.ItemDB.createItem && g.groundItems) {
+      const it = Elona.ItemDB.createItem(1059, 1);       // 607748：礼物
+      if (it) {
+        it.f[5] = g.player.x | 0;
+        it.f[6] = g.player.y | 0;
+        it.f[21] = -1;
+        g.groundItems.push(it);
+        if (g.refreshGroundCell) g.refreshGroundCell(it.f[5], it.f[6]);
+        out.messages.push('有什么东西滚到了脚边。');
+      }
+    }
+    out.messages.push('「哎呀，今天是你生日啊？恭喜！」');
+    S(g, 250 + 327, ry + 1);                             // 607775
+  }
+
   /** 603560-603612：跨日 —— 心情重置与日记提示（其余结算由 Daily / Journal 承担） */
-  function newDay(g) {
+  function newDay(g, opts) {
     const out = { messages: ['一天结束了，日期变了。'], mood: 0 };
     if (!g) return out;
     const p = g.player;
@@ -146,8 +318,11 @@
     // 603605-603611：阈值推进与重置
     if (G(p, 194) >= G(p, 195)) { p.set(195, G(p, 195) + 10); out.dream = true; }
     if (G(p, 195) <= 0 || G(p, 195) >= 1010) { p.set(195, 10); p.set(194, 0); }
+    // A-R3-04：跨日主线/剧情/日历结算
+    const extra = newDayExtra(g, opts);
+    for (const m of extra.messages) out.messages.push(m);
     return out;
   }
 
-  Elona.Hourly = { sleepiness, notices, newDay, journalStale, SLEEPY, NAP, GUIDE_FLAG, isWorld };
+  Elona.Hourly = { sleepiness, notices, newDay, newDayExtra, journalStale, SLEEPY, NAP, GUIDE_FLAG, isWorld };
 })(window);

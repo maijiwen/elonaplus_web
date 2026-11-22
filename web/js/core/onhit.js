@@ -448,7 +448,8 @@
           break;
         }
         case 'dying': {
-          if ((def.hp | 0) > 0) break;
+          // 199905：源码 `var_58(50) < 0`，伤害恰好等于剩余 HP 时不触发
+          if (!def._hpOverkill) break;
           SET(def, rule.etherField, Math.min(100, G(def, rule.etherField) + rnd(3) + 1));
           // 199945-199952 的附近同伴斗志 +5 由 Morale.onKill 承担，这里不重复累加。
           out.dying = true;

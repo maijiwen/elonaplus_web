@@ -226,7 +226,7 @@
     if (Elona.Stats && Elona.Stats.modGrowth && c) Elona.Stats.modGrowth(c, skillId, 0, delta, g);
   }
   function addBuff(g, c, id, p1, p2) {
-    if (Elona.Status && Elona.Status.addbuff && c) Elona.Status.addbuff(g, c, id, p1, p2);
+    if (Elona.Status && Elona.Status.addbuff && c) Elona.Status.addbuff(g, c, id, p1, p2, c);
   }
   /** itemcreate 的简化：直接塞进玩家背包 */
   function giveItem(g, id, n, tag) {

@@ -448,9 +448,10 @@
         if (imp >= NEED_AFFECTION) {
           res.leveled = 'angry';
           res.messages.push(`${this.nameOf(c)} can't believe the ear...`);
-          // 290224：dmgcon(5, 1000) —— 愤怒状态
-          if (Elona.Battle && Elona.Battle.dmgcon) Elona.Battle.dmgcon(c, 5, 1000);
-          else c.set(201, 5);
+          // 290224：dmgcon(5, 1000) —— 愤怒状态（走 Resist.dmgcon，含抗性/前置免疫）
+          if (Elona.Resist && Elona.Resist.dmgcon) {
+            Elona.Resist.dmgcon(g, g.dmgconTable, c, 5, 1000);
+          }
         } else if (imp >= 75) {
           res.leveled = 'pity';
           res.messages.push(`${this.nameOf(c)} looked at you with merciful eyes.`);

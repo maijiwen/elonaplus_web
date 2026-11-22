@@ -410,6 +410,42 @@
     },
 
     /**
+     * 多选项菜单（原版 `var_485` 多行 `txtselect`）。
+     *   选项值由调用方给出，onDone 收到 `options[i].value`；取消时收到 -1。
+     * @param {string} title
+     * @param {Array<{text:string,value:any}>} options
+     * @param {function(any)} onDone
+     * @param {{title?:string,note?:string}} [opts]
+     */
+    openChoiceList(title, options, onDone, opts) {
+      const list = (options || []).filter(Boolean);
+      if (!list.length) { if (onDone) onDone(-1); return; }
+      this.rows = list.map((x, i) => ({ v: i, t: x.text }));
+      const note = title ? `<div class="pui-note">${esc(title)}</div>` : '';
+      const html = note + list.map((x, i) =>
+        `<div class="pui-row" data-i="${i}"><span class="pui-key">${i + 1}</span>`
+        + `<span class="pui-name">${esc(x.text)}</span></div>`).join('');
+      let done = false;
+      const finish = (v) => { if (done) return; done = true; if (onDone) onDone(v); };
+      this.open('options', '选择', html, {
+        hint: `1-${list.length} = 选择　Esc = 取消`,
+        onPick: (row) => {
+          this.onClose = null;
+          this.close();
+          finish(list[row.v | 0] ? list[row.v | 0].value : -1);
+        },
+      });
+      this.onKeyFn = (e) => {
+        const n = parseInt(e.key, 10);
+        if (n >= 1 && n <= list.length) {
+          this.onClose = null; this.close(); finish(list[n - 1].value); return true;
+        }
+        return false;
+      };
+      this.onClose = () => finish(-1);
+    },
+
+    /**
      * 搭档（タッグ）二选一 —— 原版 `txtselecttc 2`（11296-11310）+ `*label_2896`。
      *   var_121(0) =「タッグ左側」、var_121(1) =「タッグ右側」；
      *   选 1 时 `var_244 = var_58(167, var_244)`（换成搭档）。

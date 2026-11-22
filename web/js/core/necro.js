@@ -355,7 +355,7 @@
         if ((p.get(55) | 0) < need) break;
         p.set(55, (p.get(55) | 0) - need);
         cost += need;
-        if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, nc, 68, lv, 100);
+        if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, nc, 68, lv, 100, p);
         done++;
         msgs.push(`${nc.name} に「操魔の鎖」をかけた。`);
       }
@@ -373,7 +373,7 @@
         if ((p.get(50) | 0) <= need) break;
         p.set(50, (p.get(50) | 0) - need);
         cost += need;
-        if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, nc, 69, lv, 100);
+        if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, nc, 69, lv, 100, p);
         done++;
         msgs.push(`${nc.name} に「偽命の灯」を燈した。`);
       }

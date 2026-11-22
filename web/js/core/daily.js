@@ -119,7 +119,7 @@
       }
     }
     // 603222-603236：触发
-    if (idiv(month, 3) !== 0 && day >= 15 && day <= 24) {
+    if (month % 3 !== 0 && day >= 15 && day <= 24) {                    // 603222 `\ 3` 为取余
       if (R(14) < day - 10) {
         if (V(g, SLOT_FEVER_MONTH) !== month) {
           S(g, SLOT_FEVER_MONTH, month);

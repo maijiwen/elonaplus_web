@@ -307,9 +307,13 @@
     const stage = (g && g.getV65) ? (g.getV65(252) | 0) : 0;
     const at = (g && g.getV65) ? (g.getV65(20) | 0) : 0;
     if (stage < 200) {
-      return { ok: true, message: '（暇そうにしていたキャラバンの隊長は、あなたの視線に気が付いた。）\n'
-        + '「おや？君、ひょっとしてこの国から出ていきたいのかな？それは無理だよ。今は国境が封鎖されていて、'
-        + 'お偉いさんの一団くらいしか通れないんだ。」\n（封鎖が解除されたら交易商たちを運ばねばならず、隊長は毎日ここで待っているらしい。）' };
+      // 421685-421708：两页对话，项目用 messages 分页呈现
+      return { ok: true, messages: [
+        '（暇そうにしていたキャラバンの隊長は、あなたの視線に気が付いた。）\n'
+          + '「おや？君、ひょっとしてこの国から出ていきたいのかな？それは無理だよ。今は国境が封鎖されていて、'
+          + 'お偉いさんの一団くらいしか通れないんだ。」',
+        '（封鎖が解除されたら交易商たちを運ばねばならず、隊長は毎日ここで待っているらしい。）',
+      ] };
     }
     if (at !== 43 && at !== 45) return { ok: true, message: '' };   // var_400 保持 0 → 只有「やめる」
     const dest = at === 43 ? 45 : 43;
@@ -320,6 +324,63 @@
     const destName = (S && S.nameOf) ? (S.nameOf(dest, 'jp') || S.nameOf(dest)) : ('map ' + dest);
     return { ok: true, action: 'caravan-go', dest, destName,
       message: `（キャラバンの隊長は忙しそうでこちらに気付いていない。荷物に紛れ込んで関所を突破できそうだ。行き先：${destName}）` };
+  }
+
+  /**
+   * 419826-421600：キャラバン隊長（地图 80）的「仕事の話がしたい」（菜单 107）。
+   * 本项目实现分支选择与全部状态效果（工作计数 / 关系 / 期限）；
+   * 原版多层「投票」小剧场属纯台词分支，压缩为单段台词。
+   */
+  function caravanWorkTalk(g, npc) {
+    const V = (n) => (g && g.getV65 ? (g.getV65(n) | 0) : 0);
+    const R = (n) => (g && g.rng && g.rng.rnd ? g.rng.rnd(n) : 0);
+    const hour = V(13);
+    // 419827-419834：上班 / 下班时间标记 + 事件 56
+    g.setV65(250 + 298, hour < 6 ? 7 : 6);
+    if (g.events && g.events.add) g.events.add(56);
+
+    const wA = V(250 + 436), wB = V(250 + 437), wC = V(250 + 438);
+    let which = 0;
+    if (wA <= 0 && wB <= 0 && wC <= 0) which = 1;
+    if (wA <= 300 && hour >= 0 && hour <= 2) which = 2;
+    if (wB <= 600 && hour >= 3 && hour <= 5) which = 3;
+    if (wC <= 900 && hour >= 12 && hour <= 14) which = 4;
+    if ((g.v2385 | 0) > 3) which = 5;
+    if ((npc.get(17) | 0) === 0) which = 6;
+
+    const modimp = (dv) => {
+      if (Elona.Relation && Elona.Relation.modimp) Elona.Relation.modimp(npc, dv, g);
+    };
+
+    if (which === 1) {
+      // 420390-420442：新入职 → 关系 +5、补齐三项工作、期限推进
+      modimp(5);
+      if ((npc.get(17) | 0) <= 0) npc.set(17, 5);
+      g.setV65(250 + 436, 1000 + R(300));
+      g.setV65(250 + 437, 2000 + R(400));
+      g.setV65(250 + 438, 3000 + R(500));
+      if (Math.abs(V(250 + 274)) % 10 === 3) g.setV65(250 + 274, V(250 + 274) + 2);
+      return { ok: true, message: '「おう、来たか。今日からお前もここの一員だ。仕事は山ほどあるぞ。」' };
+    }
+    if (which === 2 || which === 3 || which === 4) {
+      // 420453 / 420507 / 420561：追加工作量 501+rnd(100)
+      const slot = 250 + (which === 2 ? 436 : (which === 3 ? 437 : 438));
+      g.setV65(slot, V(slot) + 501 + R(100));
+      const nm = which === 2 ? '仕事Ａ' : (which === 3 ? '仕事Ｂ' : '仕事Ｃ');
+      return { ok: true, message: `「${nm}の割り当てだ。さっさと片付けろ。」` };
+    }
+    if (which === 5) {
+      g.v2385 = 3;                                  // 420615
+      modimp(-10);                                  // 420616
+      return { ok: true, message: '「お前、働きすぎだ。少し休め。」' };
+    }
+    if (which === 6) {
+      modimp(-5);                                   // 420684
+      return { ok: true, message: '「お前、どこの誰だ？仕事の話なら他を当たれ。」' };
+    }
+    // which == 0：工作中 —— 显示剩余工作量（419866）
+    return { ok: true, message: `お前の仕事の残り具合は…仕事Ａ：${wA}、仕事Ｂ：${wB}、仕事Ｃ：${wC}と言ったところだな。`
+      + '\n「あ？そんなの当たり前だろうが。頑張るのは誰にでもできるんだよ！」' };
   }
 
   /**
@@ -431,10 +492,11 @@
       for (const s of Elona.Quest.npcServices(g, npc)) out.push(s);
     }
     // C-5 / 415574-415584：キャラバン隊長（职业 23）的「観察する」（菜单 61）
-    //   地图 80 是另一分支（菜单 107「仕事の話がしたい」），本项目未移植。
+    //   地图 80 是另一分支（菜单 107「仕事の話がしたい」，419826-421600）。
     if ((npc.get(150) | 0) === 23) {
       const at = (g && g.getV65) ? (g.getV65(20) | 0) : 0;
       if (at !== 80) out.push({ id: 'caravan-observe', label: '观察商队（观客）' });
+      else out.push({ id: 'caravan-work-talk', label: '仕事の話がしたい' });
     }
     // 0-FC：剧情传送（主线 / 支线任务接取后传送到固定地图）。
     //   源码：386376-386380 / 389083-389094 / 408123-408134 / 409371-409378 / 421666-421682
@@ -1452,7 +1514,7 @@
     return out;
   }
   function applyGrowthBuff(g, c, id, power) {
-    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, id, power, 5000);
+    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, id, power, 5000, c);
     if (Elona.BuffEffects) Elona.BuffEffects.apply(c, id, power);
   }
   /** 旅店「スペシャルメニュー」（415864-415926）：青铜币 1 枚，满腹度 < 15000 */
@@ -2079,6 +2141,8 @@
       case 'camp-manage': return { ok: true, action: 'camp-manage', message: '' };
       // C-5：菜单 61「観察する」（421633-421708）
       case 'caravan-observe': return caravanObserve(g, npc);
+      // C-5：菜单 107「仕事の話がしたい」（419826-421600）
+      case 'caravan-work-talk': return caravanWorkTalk(g, npc);
       // 0-DC：骑乘（319690-319810）—— 弹出 3 项菜单（乗る / 乗せる / 取消）
       case 'ride': return { ok: true, action: 'ride', target: npc, message: '' };
       // 0-DC：下马（319615-319685）

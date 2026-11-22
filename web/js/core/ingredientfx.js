@@ -92,8 +92,8 @@
     if (id === 1136 && isPlayer) {
       if (g.playSnd) g.playSnd(64);
       log('以太之根开始从你的体内消融……（以太病侵蚀度减轻）');
-      if (g.modCorrupt) {
-        g.modCorrupt(-1000);
+      if (Elona.Weather && Elona.Weather.modCorrupt) {
+        Elona.Weather.modCorrupt(g, -1000);
       } else {
         const cur = g.getV65 ? g.getV65(85) | 0 : 0;
         if (g.setV65) g.setV65(85, Math.max(0, cur - 1000));
@@ -231,8 +231,8 @@
       log(`温柔的魔力包裹了${who}的身体。`);
       if (g.playSnd) g.playSnd(88);
       if (Elona.Status && Elona.Status.addbuff) {
-        Elona.Status.addbuff(c, 30, 2500, 15);
-        Elona.Status.addbuff(c, 3, 500, 15);
+        Elona.Status.addbuff(g, c, 30, 2500, 15, c);
+        Elona.Status.addbuff(g, c, 3, 500, 15, c);
       }
       const maxHp = c.get(51) | 0;
       const curHp = c.get(50) | 0;

@@ -592,7 +592,7 @@
       [12, Math.trunc(lv * 5 * root) + 10],
     ];
     const addb = (id, p1, p2) => {
-      if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, id, p1, p2);
+      if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, id, p1, p2, g.player);
     };
     if ((it.id | 0) >= 1000) for (const b of buffs) addb(b[0], b[1], 200);
     if ((it.id | 0) === 999) for (const b of buffs) addb(b[0], b[1], 150);
@@ -768,7 +768,7 @@
       }
       recalc(g, c);
     } else {
-      if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, 59, 25, 25);
+      if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, 59, 25, 25, g.player);
       c.set(268, G(c, 268) + 25);
     }
     return { end: 'turnWeight' };
@@ -916,7 +916,7 @@
       if (q <= 1) line = SOCK_LINES[SOCK_LINES.length - 1][2];
       else for (const s of SOCK_LINES) if (q >= s[0] && q <= s[1]) { line = s[2]; break; }
       g.log(line);
-      if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, 17, 20, 3);
+      if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, 17, 20, 3, g.player);
     }
     return { end: 'turnWeight' };
   }
@@ -1848,7 +1848,7 @@
   /** 119（350975-351008）：觉悟 → addbuff 37 / 士气 -25 / 效果 619 */
   function eff119(g, st) {
     const p = g.player;
-    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, p, 37, 50, 50);
+    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, p, 37, 50, 50, p);
     p.set(182, (p.get(182) | 0) - 25);
     castEffect(g, 619, 100, p);
     g.log('你下定了决心！');
@@ -2015,7 +2015,7 @@
           for (const c of (g.charas || [])) {
             if (!c || (c.get(0) | 0) !== 1) continue;
             if (Math.max(Math.abs(c.x - p.x), Math.abs(c.y - p.y)) > 5) continue;
-            Elona.Status.addbuff(g, c, 4, 2400, 100);
+            Elona.Status.addbuff(g, c, 4, 2400, 100, p);
           }
         }
         break;

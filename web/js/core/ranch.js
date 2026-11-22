@@ -874,7 +874,7 @@
         }
         if (Elona.Status && Elona.Status.addbuff && Elona.Status.findbuff
           && Elona.Status.findbuff(c, 60) === -1) {
-          Elona.Status.addbuff(g, c, 60, 50, 600);              // 233996-233998
+          Elona.Status.addbuff(g, c, 60, 50, 600, c);              // 233996-233998
         }
         // 0-FO：清掉本模块的生病计数（源码靠 healcon 的病気状态）
         c.set(F_SICK, 0); c.set(F_SICK_BUFF, 0);

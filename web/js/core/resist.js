@@ -111,44 +111,258 @@
   }
 
   /**
-   * 施加异常状态 —— dmgcon
-   * @param {object} condTable data/tables/dmgcon.json 的 conditions
-   * @returns {number} 1 = 已施加, 0 = 被抗性完全免疫
+   * 施加异常状态 —— dmgcon（start.hsp 195725-196265）
+   *
+   * 逐条件照抄。每个条件有自己的：
+   *   · 前置完全免疫（cbit / findbuff / 精英(quality>3)或种族534 的等级抵抗 / 种族名）
+   *   · 抗性技能（label_2019）与除数
+   *   · 写入规则（仅在字段为 0 时写；毒/侵蚀/流血/醉酒/发狂/生病会累加）
+   * 注意：前置判定为真时，源码仍会调用 label_2019 消耗随机数，之后才 return 0。
+   *
+   * @param {object} condTable data/tables/dmgcon.json（保留参数以兼容调用方）
+   * @returns {number} 1 = 已施加, 0 = 被完全免疫/未生效
    */
   function dmgcon(g, condTable, target, condId, power) {
-    const entry = condTable[String(condId)];
-    if (!entry) return 0;                       // 未提取到的条件：不做处理（不臆造）
-    const resistSkill = entry.resistSkills[0];
-    const r = resistCheck(g, target, resistSkill, power);
-    if (r.immune) return 0;
-    // 195925-195965：冥界（cond 21）特判 —— 与通用「直接写入」不同：
-    //   首次（445==0）：445 = 强度/10，提示「は冥界の冷気に侵蝕された。」；
-    //   已有侵蚀：445 += 强度/30 + 3（累加）。
-    //   侵蚀会让后续所有 MP 损耗放大并在 MP 变负时触发魔力反噬（core/status.js dmgmp）。
-    if ((condId | 0) === 21) {
-      const v = idiv(r.power, 10);
+    if (!target || !target.get) return 0;
+    const id = condId | 0;
+    const pw = power | 0;
+    const rnd = (n) => ((g && g.rng) ? g.rng.rnd(n) : 0);
+    const V = (n) => ((g && g.getV65) ? (g.getV65(n) | 0) : 0);
+    const f = (n) => target.get(n) | 0;
+    const st = (n, v) => target.set(n, v | 0);
+    const cbit = (b) => ((Elona.Status && Elona.Status.cbit) ? (Elona.Status.cbit(target, b) | 0) : 0);
+    const hasBuff = (b) => ((Elona.Status && Elona.Status.findbuff)
+      ? ((Elona.Status.findbuff(target, b) | 0) !== -1) : false);
+    const log = (s) => { if (g && g.log) g.log(s); };
+    const lv = () => (f(38) | 0);
+    const elite = () => (f(25) > 3 || f(27) === 534);
+
+    // 195726-195734：强度为 0 无效；剧情期（250+387）玩家免疫
+    if (pw < 1) return 0;
+    if (V(250 + 387) > 0 && (target.index | 0) === 0) return 0;
+
+    /** 精英/创造物的等级抵抗；arg 为 2 / 4 / 0.25（38/4） */
+    const eliteRoll = (arg) => {
+      if (!elite()) return false;
+      const n = (arg === 0.25) ? (idiv(lv(), 4) + 1) : (lv() * arg + 1);
+      return rnd(n) !== 0;
+    };
+    /** *label_2019：返回削减后的强度（0 = 抗性完全免疫） */
+    const roll = (skill) => {
+      let p = rnd(idiv(pw, 2) + 1) + idiv(pw, 2);
+      const r = idiv(target.skill ? (target.skill(skill) | 0) : 0, 50);
+      p = idiv(p * 100, 50 + r * 50);
+      return (r >= 3 && p < 40) ? 0 : p;
+    };
+
+    // ---- 4 盲目（195735-195768）----
+    if (id === 4) {
+      let bad = false;
+      if (cbit(9)) bad = true;
+      if (hasBuff(55)) bad = true;
+      if (eliteRoll(2)) bad = true;
+      const p = roll(53);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 10);
+      if (v > 0 && f(253) === 0) st(253, v);
+      return 1;
+    }
+    // ---- 22 怯懦（195770-195801）----
+    if (id === 22) {
+      let bad = false;
+      if (hasBuff(10)) bad = true;
+      if (eliteRoll(0.25)) bad = true;
+      const p = roll(50);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 6);
+      if (v > 0 && f(175) === 0) st(175, v);
+      return 1;
+    }
+    // ---- 23 颤抖（195802-195833）----
+    if (id === 23) {
+      let bad = false;
+      if (hasBuff(3)) bad = true;
+      if (eliteRoll(0.25)) bad = true;
+      const p = roll(51);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 6);
+      if (v > 0 && f(176) === 0) st(176, v);
+      return 1;
+    }
+    // ---- 20 転倒（195834-195852）：无前置、无抗性 ----
+    if (id === 20) {
+      if (rnd(idiv(pw, 2) + 1) + 1 > 0 && f(434) === 0) st(434, 2);
+      return 1;
+    }
+    // ---- 5 混乱（195853-195893）----
+    if (id === 5) {
+      let bad = false;
+      if (cbit(8)) bad = true;
+      if (hasBuff(7)) bad = true;
+      if (hasBuff(43)) bad = true;
+      if (hasBuff(40)) bad = true;
+      if (eliteRoll(2)) bad = true;
+      const p = roll(59);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 7);
+      if (v > 0 && f(254) === 0) st(254, v);
+      return 1;
+    }
+    // ---- 3 麻痺（195894-195928）----
+    if (id === 3) {
+      let bad = false;
+      if (cbit(12)) bad = true;
+      if (hasBuff(55)) bad = true;
+      if (eliteRoll(2)) bad = true;
+      const p = roll(52);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 10);
+      if (v > 0 && f(252) === 0) st(252, v);
+      return 1;
+    }
+    // ---- 21 冥界侵蚀（195929-195963）----
+    if (id === 21) {
+      let bad = false;
+      if (eliteRoll(0.25)) bad = true;
+      if (hasBuff(10)) bad = true;
+      const p = roll(56);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 5);
       if (v > 0) {
-        if ((target.get(445) | 0) === 0) {
-          target.set(445, v);                   // 195946
-        } else {
-          target.set(445, (target.get(445) | 0) + idiv(v, 3) + 3);   // 195958
+        if (f(445) === 0) st(445, v);
+        else st(445, f(445) + idiv(v, 3) + 3);
+      }
+      return 1;
+    }
+    // ---- 1 毒（195964-196001）----
+    if (id === 1) {
+      let bad = false;
+      if (cbit(13)) bad = true;
+      if (eliteRoll(0.25)) bad = true;
+      if (hasBuff(60)) bad = true;
+      const p = roll(55);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 5);
+      if (v > 0) {
+        if (f(250) === 0) st(250, v);
+        else st(250, f(250) + idiv(v, 3) + 3);
+      }
+      return 1;
+    }
+    // ---- 2 睡眠（196002-196036）----
+    if (id === 2) {
+      let bad = false;
+      if (cbit(11)) bad = true;
+      if (hasBuff(43)) bad = true;
+      if (eliteRoll(4)) bad = true;
+      const p = roll(58);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 4);
+      if (v > 0 && f(251) === 0) st(251, v);
+      return 1;
+    }
+    // ---- 6 恐惧（196037-196105）----
+    if (id === 6) {
+      let bad = false;
+      if (cbit(10)) bad = true;
+      if (hasBuff(1)) bad = true;
+      if (hasBuff(7)) bad = true;
+      if (hasBuff(64)) bad = true;
+      if (eliteRoll(4)) bad = true;
+      const p = roll(54);
+      if (bad || p === 0) return 0;
+      const v = idiv(p, 7);
+      if (v > 0) {
+        if (f(255) === 0) st(255, v);
+        if (f(446) > 12000) {                       // 196073
+          if ((target.index | 0) === 0) log('你失禁了。');
+          if (((g && g.map && g.map.header) ? (g.map.header[6] | 0) : 0) !== 1) {
+            if (Elona.ItemDB && Elona.ItemDB.createItem && g.groundItems) {
+              const it = Elona.ItemDB.createItem(1115, 1);
+              if (it) {
+                it.f[5] = target.x | 0;
+                it.f[6] = target.y | 0;
+                it.f[21] = -1;
+                it.f[23] = f(27);                   // 196095：var_99(23) = 种族
+                g.groundItems.push(it);
+                if (g.refreshGroundCell) g.refreshGroundCell(it.f[5], it.f[6]);
+              }
+            }
+          }
+          st(446, 5000);                            // 196101
         }
       }
       return 1;
     }
-    const div = entry.divisor || 1;
-    let v = idiv(r.power, div);
-    if (v > 0) {
-      // 196073-196100：**新**受到恐惧（var_58(255) 原本为 0）且水分 > 12000 → 失禁
-      const wasFear = ((condId | 0) === 6) ? (target.get(255) | 0) : 0;
-      for (const f of entry.statusFields) target.set(f, v);
-      if ((condId | 0) === 6 && wasFear === 0 && (target.get(446) | 0) > 12000
-        && Elona.Potion && Elona.Potion.morasi) {
-        const msgs = Elona.Potion.morasi(g, target);
-        for (const m of msgs) { if (g && g.log) g.log(m); }
+    // ---- 7 朦朧（196106-196146）----
+    if (id === 7) {
+      let bad = false;
+      if (hasBuff(35)) bad = true;
+      if (eliteRoll(2)) bad = true;
+      if ((target.raceName || '') === 'golem') bad = true;
+      const p = roll(57);
+      if (bad || p === 0) return 0;
+      let v = rnd(idiv(p, 16) + 1);
+      if (v > 0) {
+        if (f(256) === 0) st(256, limit(v, 1, 63));
+        else if (v > f(256)) st(256, limit(v, 1, 63));
       }
+      return 1;
     }
-    return 1;
+    // ---- 9 出血（196147-196171）：无抗性判定 ----
+    if (id === 9) {
+      let v = idiv(pw, 25);
+      if (elite()) v = idiv(v, 5);
+      if (v > 0) {
+        if (f(258) === 0) st(258, v);
+        else st(258, f(258) + v);
+      }
+      return 1;
+    }
+    // ---- 8 醉酒（196172-196192）：无抗性判定，404 每回合累加 ----
+    if (id === 8) {
+      const v = idiv(pw, 10);
+      st(404, f(404) + 1);                          // 196174
+      if (v > 0) {
+        if (f(257) === 0) st(257, v);
+        else st(257, f(257) + v);
+      }
+      return 1;
+    }
+    // ---- 11 发狂（196193-196226）----
+    if (id === 11) {
+      if (f(86) > 100) st(86, 100);                 // 196194
+      let v = idiv(pw, 8) + f(86);
+      if (f(257) > 0) v = idiv(v, 4);
+      if (elite()) v = idiv(v, 8);
+      if (hasBuff(41)) v = idiv(v, 2);
+      if (v > 0) {
+        if (f(260) === 0) st(260, v);
+        else st(260, f(260) + idiv(v, 3) + 1);
+      }
+      return 1;
+    }
+    // ---- 12 生病（196227-196264）----
+    if (id === 12) {
+      const v = idiv(pw, 10);
+      if (v > 0) {
+        if (f(261) === 0) {
+          st(261, v);
+          if ((target.index | 0) === 0) {           // 196241：玩家的健康护符
+            const has = (target.inv || []).some((it) => it
+              && (it.id | 0) === 1018 && (it.f && (it.f[0] | 0) >= 1));
+            if (has && rnd(64) >= 1) {              // 196245
+              st(261, 0);
+              log('但是健康护符发出了光芒，疾病瞬间痊愈了。');
+            }
+          }
+        } else {
+          st(261, f(261) + idiv(v, 10) + 1);
+        }
+      }
+      return 1;
+    }
+    return 0;                                       // 未定义的条件：不处理
   }
 
   // ---------------------------------------------------------------------------

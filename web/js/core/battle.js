@@ -101,21 +101,34 @@
    * 护甲/回避相关量（calcattackdmg 213061-213105）
    * 返回 { pvArmor: var_1391, dice: var_1393, sides: var_1394, bonus: var_1395 }
    */
-  function calcArmor(def) {
+  function calcArmor(def, mode, att) {
+    mode = mode | 0;
     let r1275 = def.get(76);
     if (def.get(70) < 0) r1275 = 100;
     let r1390 = idiv((def.get(70) + idiv(r1275, 25)) * r1275, 100);
     if (def.get(60) >= 100) r1390 = 0;          // 睡意>=100（睡着）→ 护甲无效
+    // 213069-213076：var_1377（回避槽）—— 与 var_1390 同结构的另一口径
+    let r1274 = def.get(77);
+    if (def.get(71) < 0) r1274 = 100;
+    let r1377 = idiv(def.get(71) * r1274, 100) + r1274 - 100;
+    if (def.get(60) >= 100) r1377 = 0;
 
-    let r1391 = r1390
-      + limit(idiv(def.skill(carmor(def)), 4) - def.get(179) * 100, 0, 2000)
-      + idiv(def.skill(12), 10);
-    // * 跳过 cbit(1003, def) 的低血量加成分支（位标志系统未移植）
+    const armorSk = limit(idiv(def.skill(carmor(def)), 4) - def.get(179) * 100, 0, 2000);
+    const sk12 = idiv(def.skill(12), 10);
+    let r1391 = r1390 + armorSk + sk12;
+    // 213079-213081：攻击者 cbit(1028) → 用 var_1377 取代 var_1390
+    if (mode === 0 && att && cbit(att, 1028)) r1391 = r1377 + armorSk + sk12;
+    // 213083-213087：防御方 cbit(1003)（低血量）→ 护甲按 maxHP/(HP+1) 放大
+    if (cbit(def, 1003) && (def.get(50) | 0) >= 0) {
+      const ratio = idiv(def.get(51) | 0, (def.get(50) | 0) + 1);
+      r1391 = idiv(r1391 * (100 + limit((ratio - 1) * 10, 0, 50)), 100);
+    }
 
     let dice = 0, sides = 1, bonus = 0;
     if (r1391 > 0) {
       const r1392 = idiv(r1391, 4);
-      const r1393 = idiv(r1392, 10) + 1;
+      let r1393 = idiv(r1392, 10) + 1;
+      if (r1393 < 0) r1393 = 1;                 // 213091-213093
       dice = r1393;
       sides = idiv(r1392, r1393) + 2;
       bonus = 0;
@@ -548,11 +561,18 @@
         r1386 += weapon2.f[12] + weapon2.f[20] + idiv(weapon2.f[10] * weapon2.f[11], 2);
         r1387 = 0.5 + ((idiv(sx(att, 12), 2) + idiv(sx(att, 13), 2) + idiv(sx(att, wskill), 4)
           + idiv(sx(att, skillId), 4) + sx(att, 189) * 3) / 40);
+        // 212949-212952：双持（buff 59）→ ×1.5 + 0.03×护甲技能
+        if (findbuff(att, 59) !== -1) { r1387 *= 1.5; r1387 += 0.03 * sx(att, carmor(att)); }
       } else {
         r1387 = 0.6 + ((sx(att, 10) + idiv(sx(att, wskill), 5) + idiv(sx(att, skillId), 5)
           + sx(att, 152) * 3) / 45);
         if (wskill === 110 || wskill === 109 || wskill === 108 || skillId === 111) {
           r1387 = 0.6 + ((sx(att, 10) + idiv(sx(att, skillId), 5) * 2 + sx(att, 152) * 3) / 45);
+        }
+        // 212959-212963：远程（var_1323）且 buff 62 → ×1.5 + 0.03×技能 155
+        if (g.var1323 && findbuff(att, 62) !== -1) {
+          r1387 *= 1.5;
+          r1387 += 0.03 * sx(att, 155);
         }
       }
     }
@@ -560,12 +580,25 @@
     if (!g.var1323 && atkType === 0 && mode === 0) {
       r1387 = r1387 * (10 - limit(D - 1, 0, 5)) / 10;
     }
-    // 弓/投掷距离修正（212973-213008）：伤害倍率 = 表值/2 + 50（%）
-    // * 跳过 cbit(1044)/var_65(194) 的额外加成与 var_1372==100 分支
+    // 212973-213008：弓/投掷距离修正（var_1017 表值 /2 + 50 或 +150）
+    //   var_1372==100 的分支在源码中无写入点（恒 0），故不实现。
     if (g.var1323 && skillId !== 103 && mode === 0) {
       const idx = limit(D - 1, 0, 8);
-      const dist = (rangeOf(weapon).dist || [])[idx];
-      if (dist) r1387 = r1387 * (dist / 2 + 50) / 100;
+      const tbl = rangeOf(weapon).dist || [];
+      const v1017 = tbl[idx] === undefined ? 100 : (tbl[idx] | 0);
+      const v194 = (g.getV65 ? (g.getV65(194) | 0) : 0);
+      const heavy = !!(weapon && (weapon.id === 210 || weapon.id === 716));
+      if (cbit(att, 1044) && heavy) {
+        r1387 = r1387 * (idiv(v1017, 2) + 150) / 100;
+      } else if (v194 !== 0) {
+        r1387 = r1387 * (idiv(v1017, 2) + 150) / 100;
+      } else {
+        r1387 = r1387 * (idiv(v1017, 2) + 50) / 100;
+      }
+      if (v194 !== 0) r1387 += 0.03 * sx(att, skillId);                 // 213009-213011
+      if ((g.getV65 ? (g.getV65(175) | 0) : 0) === 100) {               // 213013-213015
+        r1387 += 0.03 * sx(att, skillId);
+      }
     }
 
     // 213018-213038：非远程（源码 212973 的 else 分支）的战斗风格伤害倍率。
@@ -585,8 +618,17 @@
       }
     }
 
+    // 213039-213048：feat 207（var_97(207)）—— 攻击/受击方为玩家时的固定加值
+    const hasFeat207 = (c) => !!(Elona.Feat && Elona.Feat.get && Elona.Feat.get(c, 207));
+    if ((att.index | 0) === 0 && hasFeat207(att)) {
+      r1386 += limit(5 + idiv((att.get(38) | 0) * 2, 3), 0, 100);
+    }
+    if ((def.index | 0) === 0 && hasFeat207(def)) {
+      r1386 += idiv(limit(5 + idiv((def.get(38) | 0) * 2, 3), 0, 100), 4);
+    }
+
     // ---- 护甲(PV) ----
-    const armor = calcArmor(def);
+    const armor = calcArmor(def, mode, att);
     const r1391 = armor.pvArmor;
     // mode 3：人物信息窗的「各种修正」用 —— 只要骰子/固定加值/倍率，
     //   在 role() 之前返回，**不消耗随机数**（源码 label_2813 读的是 var_89/90/1386/1387）。
@@ -606,6 +648,13 @@
       for (let i = 0; i < ((g.var1374 | 0) - 2); i++) r1386 = (r1386 * 3) / 5;
     }
     r1387 = Math.trunc(r1387 * 100);      // 213110：int(var_1387*100) 倍率转为 ×100 整数
+    // 213111-213115：武器 1010 且 var_58(55) > 20 → 骰/固定值加成并消耗充能
+    if (weapon && weapon.id === 1010 && (att.get(55) | 0) > 20) {
+      const v55 = att.get(55) | 0;
+      r90 += limit(idiv(v55, 200), 1, 200);
+      r1386 += limit(idiv(v55, 400), 1, 100);
+      att.set(55, v55 - idiv(v55, 20));
+    }
 
     let r1389 = role(rng, r89, r90, r1386);
     if (critical) {
@@ -618,7 +667,17 @@
     }
     r1389 = idiv(r1389 * r1387, 100);
     if (critical) r1389 += sx(att, 186) * Math.trunc(Math.sqrt(sx(att, 186) + 1));
-    // * 跳过：findbuff(var_243,32) 的 10 倍暴走分支、毒/属性附加伤害
+    // 213142-213183：暴走（buff 32）→ 最终伤害 ×10 并消耗全部该 buff
+    if (findbuff(att, 32) !== -1 && ((att.index | 0) !== 0 || (def.get(9) | 0) === -3)) {
+      r1389 *= 10;
+      if (Elona.Status && Elona.Status.delbuff) {
+        for (let n = 0; n < 16; n++) {
+          const slot = findbuff(att, 32);
+          if (slot === -1) break;
+          Elona.Status.delbuff(att, slot);
+        }
+      }
+    }
 
     // 213273-213274：特殊弹 type 5（散弹）→ 每发伤害 1/5
     if (atkType === 5) r1389 = idiv(r1389, 5);
@@ -638,7 +697,34 @@
     // 其余乘算修正（213289-213352）
     if (def.get(434) > 0) r1389 = idiv(r1389 * 7, 4);
     if (def.get(90) !== 0) r1389 = idiv(r1389 * 100, limit(100 + def.get(90), 25, 1000));
-    // * 跳过：findbuff 系列、cbit(28/33) 的伤害折算
+    // 213295-213302：buff 52（攻击方 ×11/10，受击方 ×19/20）
+    if (findbuff(att, 52) !== -1) r1389 = idiv(r1389 * 11, 10);
+    if (findbuff(def, 52) !== -1 && r1389 > 19) r1389 = idiv(r1389 * 19, 20);
+    // 213303-213317：cbit(1029)/cbit(1030) 相互克制
+    if (cbit(att, 1029)) {
+      if (cbit(def, 1029)) r1389 = idiv(r1389 * 9, 10);
+      if (cbit(def, 1030)) r1389 = idiv(r1389 * 11, 10);
+    }
+    if (cbit(att, 1030)) {
+      if (cbit(def, 1030)) r1389 = idiv(r1389 * 9, 10);
+      if (cbit(def, 1029)) r1389 = idiv(r1389 * 11, 10);
+    }
+    // 213319-213323：玩家 var_58(61)==1 → ×6/5
+    if ((att.index | 0) === 0 && (att.get(61) | 0) === 1) r1389 = idiv(r1389 * 6, 5);
+    // 213324-213339：buff 35（重装）且 maxHP≥35000 → 把伤害量化到 maxHP 档位
+    if (findbuff(def, 35) !== -1 && (def.get(64) | 0) >= 35000) {
+      const mh = def.get(51) | 0;
+      if (r1389 < idiv(mh, 10) && r1389 > idiv(mh, 20)) r1389 = idiv(mh, 20);
+      if (r1389 < idiv(mh, 5) && r1389 > idiv(mh, 10)) r1389 = idiv(mh, 10);
+      if (r1389 < idiv(mh, 2) && r1389 > idiv(mh, 5)) r1389 = idiv(mh, 5);
+      if (r1389 < idiv(mh * 3, 4) && r1389 > idiv(mh, 2)) r1389 = idiv(mh, 2);
+      if (r1389 > idiv(mh * 3, 4)) r1389 = idiv(mh * 3, 4);
+    }
+    // 213341-213343：buff 33（轻装）且 maxHP<15000 → ×4/5
+    if (findbuff(def, 33) !== -1 && (def.get(64) | 0) < 15000) r1389 = idiv(r1389 * 4, 5);
+    // 213344-213349：cbit(28)/cbit(33) 的伤害折算
+    if (cbit(def, 28)) r1389 = idiv(r1389 + 1, 10) + 1;
+    if (cbit(def, 33)) r1389 = idiv(r1389 + 1, 4) + 1;
 
     // 199004-199010：觉醒天赋「底力」(cbit 1004) —— 攻击者 HP 越少最终伤害越高
     //   if (var_1134 >= 10 && HP < maxHP/2 && HP >= 0)
@@ -1053,8 +1139,10 @@
       }
     }
 
-    def.hp -= d;
-    if (def.hp <= 0) def.hp = 0;
+    const rawHp = (def.hp | 0) - d;
+    def.hp = rawHp > 0 ? rawHp : 0;
+    // 199905：濒死判定是 `var_58(50) < 0`（严格小于 0），记录溢出伤害供 OnHit 使用
+    def._hpOverkill = rawHp < 0;
 
     // 0-GH：死亡结算统一入口 —— 不论伤害来自近战 / 远程 / 法术 / 能力 /
     //   地面效果（mef）/ 环境，都在 HP 归零处结算一次（幂等）。
@@ -1075,6 +1163,7 @@
           for (const m of hr.messages) g.log(m);
         }
       } catch (e) { /* 副作用失败不影响伤害结算 */ }
+      def._hpOverkill = false;
     }
 
     // ================= 199131-199231：斗志（var_58(182)）结算 =================
@@ -1671,7 +1760,7 @@
     const pv = calcAttackDmg(g, ch, ch, null, null, 106, 0, false, 0, 2);
     out.armor = (pv && pv.armor) | 0;
     if (out.armor > 0) {
-      const arm = calcArmor(ch);
+      const arm = calcArmor(ch, 2);
       out.protPct = 100 - idiv(10000, out.armor + 100);
       out.protN = arm.dice | 0;
       out.protS = arm.sides | 0;

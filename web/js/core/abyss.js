@@ -263,7 +263,7 @@
     const targets = hostileInSight(g, 6);
     const power = skillOf(g, 150) * 200;
     for (const t of targets) {
-      if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, t, 2, power, 200);
+      if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, t, 2, power, 200, p);
       if ((t.get(263) | 0) < 15) t.set(263, 15);
     }
     return { ok: true, hit: targets.length,

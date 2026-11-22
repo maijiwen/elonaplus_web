@@ -48,7 +48,7 @@
 
   function buff(g, c, id, power, dur) {
     if (!c || !Elona.Status || !Elona.Status.addbuff) return 0;
-    return Elona.Status.addbuff(g, c, id, power, dur) | 0;
+    return Elona.Status.addbuff(g, c, id, power, dur, g && g._buffCaster) | 0;
   }
 
   function skillOf(c, id) {
@@ -178,7 +178,7 @@
     const left = c.get(F_ROWLEFT) | 0;
     if (left > 0) {
       // 308041-308048：每 5 回合提示一次
-      if (g && g.log && idiv(left, 5) === 0 && syncCheck(g, c)) g.log(`${c.name} 正在蓄力。`);
+      if (g && g.log && left % 5 === 0 && syncCheck(g, c)) g.log(`${c.name} 正在蓄力。`); // 308069 取余
       return { type: ROWACT_CHARGE, left };
     }
     const r = chargeFinish(g, c);
@@ -190,6 +190,16 @@
   // ==========================================================================
 
   function run(g, caster, id, tg) {
+    const prevCaster = g._buffCaster;
+    g._buffCaster = caster;
+    try {
+      return runInner(g, caster, id, tg);
+    } finally {
+      g._buffCaster = prevCaster;
+    }
+  }
+
+  function runInner(g, caster, id, tg) {
     const self = caster;
     switch (id | 0) {
       // ---------------------------------------------------------------- 673 明镜止水

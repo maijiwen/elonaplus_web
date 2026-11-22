@@ -243,7 +243,34 @@
       const after = idiv(cur, 1000);
       const gained = after - before;
       const out = { before, after, gained, symptoms: [], amount: add };
-      if (gained <= 0) return out;
+      // 195607-195656：侵蚀值下降 → 逐级缓解病征（var_97(id)++ 直到不再是病征）
+      if (gained < 0) {
+        let n = (before + gained < 0) ? before : Math.abs(gained);
+        if (n < 0) n = 0;
+        const relieved = [];
+        for (let i = 0; i < n; i++) {
+          for (let t = 0; t < 1000; t++) {
+            let id = MUT_MIN + g.rng.rnd(MUT_MAX - MUT_MIN + 1);
+            if (i === 0) {
+              const stored = g.getV65(700 + before - i - 1) | 0;
+              if (stored !== 0) id = stored;
+            }
+            if (!p || !Elona.Feat || (Elona.Feat.get(p, id) | 0) === 0) continue;
+            Elona.Feat.set(p, id, 0);
+            relieved.push(id);
+            g.log('你的以太侵蚀缓解了。');
+            const nm = Elona.Feat.name ? Elona.Feat.name(id) : '';
+            if (nm) g.log(nm);
+            if (Elona.Feat.apply) {
+              try { Elona.Feat.apply(p, g); } catch (e) { /* 单条失败不影响整体 */ }
+            }
+            break;
+          }
+        }
+        out.relieved = relieved;
+        return out;
+      }
+      if (gained === 0) return out;
 
       // ---- 发病（195498）----
       g.log('以太病的症状开始显现了。');

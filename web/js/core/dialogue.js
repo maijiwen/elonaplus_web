@@ -1393,7 +1393,7 @@
             this.pullScope();
             const c = (this.g && this.g.charas) ? this.g.charas[ci] : null;
             if (c && Elona.Status && Elona.Status.addbuff) {
-              try { Elona.Status.addbuff(this.g, c, id, p1, p2); }
+              try { Elona.Status.addbuff(this.g, c, id, p1, p2, this.g && this.g.player); }
               catch (e) { this.noteSkip('addbuff'); }
             }
             this.pc++;

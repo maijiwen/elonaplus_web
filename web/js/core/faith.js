@@ -207,7 +207,7 @@
   function punish(g, c) {
     if (!c) return { ok: false };
     if (Elona.Status && Elona.Status.addbuff) {
-      Elona.Status.addbuff(g, c, BUFF_PUNISH, 10000, 10000);
+      Elona.Status.addbuff(g, c, BUFF_PUNISH, 10000, 10000, c);
       recalc(c, g);
       return { ok: true, buff: BUFF_PUNISH, power: 10000, turns: 10000 };
     }
@@ -371,7 +371,7 @@
     // 但本项目的 buff 生效要靠 recalc 重算，重算会把刚补满的 HP 按新上限裁一刀，
     // 所以这里先加 buff 并重算，再做全回复 —— 结果状态与源码一致。
     if (Elona.Status && Elona.Status.addbuff) {
-      Elona.Status.addbuff(g, c, BUFF_HOLY_VEIL, 200, 55);    // 451：15 + 200/5
+      Elona.Status.addbuff(g, c, BUFF_HOLY_VEIL, 200, 55, c);    // 451：15 + 200/5
       recalc(c, g);
     }
     const healed = fullRestore(c);

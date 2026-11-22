@@ -252,7 +252,7 @@
     const left = p.get(F_ROWLEFT) | 0;
     if (left <= 0) return finish(g);
     let res = null;
-    if (idiv(left, EFFECT_LEFT) === 0) res = settle(g);         // 307638
+    if (left % EFFECT_LEFT === 0) res = settle(g);              // 307638 `var_58(141) \ 20 == 0`
     p.set(F_ROWLEFT, left - 1);
     return Object.assign({ type: ACTION, left: left - 1 }, res || {});
   }

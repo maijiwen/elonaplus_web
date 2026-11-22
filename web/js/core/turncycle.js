@@ -156,7 +156,7 @@
     const out = { ok: true, phase: 0, skills: [], healed: [], counts: { p1: 0, p2: 0, p3: 0, p4: 0 } };
     if (!active(p)) return out;
     const list = (g.charas && g.charas.length) ? g.charas : [p];
-    const phase = idiv(G(p, 26), 10);
+    const phase = G(p, 26) % 10;                                        // 603965 `\ 10` 为取余
     out.phase = phase;
     const each = (max, fn) => {
       const n = Math.min(max, list.length);
@@ -191,8 +191,7 @@
       });
     }
     // 604011-604020：全体每 4 回合、不在持续动作中 → healsp 2。
-    //   源码字面是 `var_58(26,cnt) \ 4 == 0`（整除为 0），与 603965 的
-    //   `\ 10` 分档口径一致但只在计数 <4 时成立，项目按「每 4 回合」取模近似。
+    //   源码 `var_58(26,cnt) \ 4 == 0` 中 `\` 为取余，即每 4 回合触发一次。
     each(245, (c) => {
       if (G(c, 26) % 4 === 0 && G(c, 140) === 0) {
         healsp(g, c, 2); out.healed.push([c.index | 0, 2]);

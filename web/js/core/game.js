@@ -131,6 +131,10 @@
       this.stairBack = null;  // 暂定的楼梯返回点
       this.dungeonDepth = 0;  // var_65(22)：0 = 地表/城镇
       this.dungeonFloors = {}; // 已生成的楼层缓存 { depth: {json, up, down, monsters, items} }
+      // D-015：本会话内已开启的封印门（键 `mapId:depth`）。原版把 231 写回持久
+      //   地图数据，开一次即保持；本项目楼层地图每次进层都从缓存 json 重建，
+      //   故用内存标记保持「开过就开着」，不写入存档格式。
+      this.sealOpened = Object.create(null);
       this.townSnapshot = null; // 进入地下时的城镇快照（NPC/地面物品）
       this.transitioning = false;
       this.pendingInteraction = null;  // 撞到中立 NPC 后由表现层消费（打开对话）
@@ -289,10 +293,12 @@
       this.spreadFireHourly();
       this.spawnVisitorsHourly();
       let newMonth = false;
+      let newYear = false;
       if (day > 30) { day -= 30; this.setV65(11, (this.getV65(11) | 0) + 1); newMonth = true; }
       this.setV65(12, day);
       if ((this.getV65(11) | 0) > 12) {
         this.setV65(11, 1); this.year++;
+        newYear = true;
         // 603797-603799：以太风频率修正每年 +1（只在已置 1 后生效）。
         //   置 1 的剧情点 606440（神之间结局重放）未移植，见 docs/18 D-013。
         if ((this.getV65(823) | 0) > 0) {
@@ -311,7 +317,7 @@
       }
       // 0-GS / 603560-603612：跨日的播报、心情档位重掷与日记提示
       if (Elona.Hourly) {
-        const nd = Elona.Hourly.newDay(this);
+        const nd = Elona.Hourly.newDay(this, { newMonth, newYear });
         for (const m of nd.messages) this.log(m);
       }
       // 跨日：冒险日和轮换（603613-603685）
@@ -469,6 +475,29 @@
       this.messages.push(line);
       if (this.messages.length > this.maxLog) this.messages.shift();
       if (this.onMessage) this.onMessage(line);
+    }
+
+    /**
+     * modkarma（HSP 31689-31760）：改变玩家的业值 `var_58(49)`。
+     * 特性 162（Ascetic）把负向变动缩到 75%，特性 169（Faith）扩到 150%；
+     * 由负转正跨过 -30 时追加「罪减轻」提示。
+     * 此前多个模块（turncycle / actions / container / gamble / economy）都调用
+     * `g.modkarma`，但 Game 上一直没有该方法，`typeof` 守卫导致扣业值被静默跳过。
+     * @param {number} v 增减值
+     * @returns {number} 实际变动量
+     */
+    modkarma(v) {
+      const p = this.player;
+      if (!p) return 0;
+      let d = v | 0;
+      const has = (id) => (Elona.Feat && Elona.Feat.get) ? !!Elona.Feat.get(p, id) : false;
+      if (has(162) && d < 0) { d = idiv(d * 75, 100); if (d === 0) return 0; }
+      if (has(169) && d < 0) d = idiv(d * 150, 100);
+      const before = p.get(49) | 0;
+      if (d > 0 && before < -30 && before + d >= -30) this.log('你的罪减轻了。');
+      p.set(49, before + d);
+      this.log(`业值变动(${d})`);
+      return d;
     }
 
     // ---------- 新游戏 ----------
@@ -1186,6 +1215,10 @@
       // 只在游戏进行中才跑，避免读档/建角色的过渡里弹剧情。
       if (this.state === STATE.PLAY && Elona.Story) {
         Elona.Story.onMapEnter(this).catch(() => { /* 剧情失败不阻塞移动 */ });
+        // A-R4-04：同一初始化函数里的非剧情副作用（evadd / chara_vanquish / 立绘）
+        if (Elona.Story.runMapEvents) {
+          Elona.Story.runMapEvents(this).catch(() => { /* 副作用失败不阻塞移动 */ });
+        }
       }
       return this.map;
     }
@@ -1594,6 +1627,12 @@
           // 撞门 = 尝试开锁/开门（*label_2991 → *label_3003，343504-343507）
           if (f.type === Elona.MapFeat.TYPE.DOOR_CLOSED) {
             const r = Elona.MapFeat.openDoor(this, p, nx, ny);
+            // D-015：原版把开启后的 231 写回持久地图；这里记到内存表，
+            //   让本会话内再进同一层时直接放下行楼梯。
+            if (r.sealed && r.opened) {
+              const mid = (this.dungeonSiteId | 0) || (this.getV65(20) | 0);
+              this.sealOpened[mid + ':' + (this.getV65(22) | 0)] = 1;
+            }
             // 封印门 237 的文案由 openDoor 自己输出，避免重复
             if (!r.sealed) {
               if (r.ok) {
@@ -2354,14 +2393,15 @@
         if (M) {
           M.write(this, f.up.x, f.up.y, 232, M.TYPE.STAIRS_UP, Math.max(0, depth - 1), 0);
           // 0-FA：228762 最深层不再放下行楼梯
-          // A-R2-01：344511-344574 —— 封印层的下行楼梯格先放 feat 237（关闭的封印门），
-          //   主线阶段足够时直接视为已开启；否则撞上去由 MapFeat.openDoor 转成 231。
+          // A-R2-01 / D-015：231084-231097 的地图生成阶段**总是**把下行楼梯格写成
+          //   feat 237（封印门），与主线阶段无关；阶段只决定 344511-344583 撞门时
+          //   是开门（snd 23 → 231/11）还是提示上锁（snd 22）。
           const mapId = (this.dungeonSiteId | 0) || (this.getV65(20) | 0);
           const seal = Elona.StoryMap && Elona.StoryMap.sealedDoorAt
             ? Elona.StoryMap.sealedDoorAt(mapId, depth) : null;
-          const sealLocked = !!(seal && (this.getV65(252) | 0) < seal.need);
+          const opened = !!(seal && this.sealOpened[mapId + ':' + depth]);
           if (!f.bottom) {
-            if (sealLocked) M.write(this, f.down.x, f.down.y, 237, M.TYPE.DOOR_CLOSED, 0, 0);
+            if (seal && !opened) M.write(this, f.down.x, f.down.y, 237, M.TYPE.DOOR_CLOSED, 0, 0);
             else M.write(this, f.down.x, f.down.y, 231, M.TYPE.STAIRS_DOWN, depth + 1, 0);
           }
           for (const sp of (f.spots || [])) M.write(this, sp.x, sp.y, sp.id, sp.type, 0, 0);
@@ -3262,30 +3302,67 @@
           : '「你这穷光蛋，别在这里碍事！」艾莱亚的煽动者带着人走了。');
         return 'leave';
       }
-      const fight = await this.askParley(type, idiv(gold, type === 4 ? 5 : 20));
-      if (fight) return 'fight';
       const cost = idiv(gold, type === 4 ? 5 : 20);
+      const choice = await this.askParley(type, cost);
+      if (choice !== 0) {
+        // 378709/378725/378741/378757/378773（暴徒团）与 378418（盗贼团）
+        this.log(this.parleyRefusal(type, choice));
+        return 'fight';
+      }
       p.set(30, Math.max(0, gold - cost));
       const given = this.handOverCargo();
       this.log(`你交出了 ${cost} gold 与 ${given} 件货物（含旅粮）。`);
-      this.log('「算你识相。」对方放你过去了。');
+      this.log(type === 4
+        ? '「算你识相。」对方放你过去了。'
+        : '「你认罪认得不错！但不管你捐多少，艾莱亚受过的苦都不会消失！别以为这样就能被原谅，你这个渣滓！」');
       return 'leave';
     }
 
-    /** 弹出「战斗 / 投降」确认；没有 UI 时按源码默认光标（第一项 = 战斗） */
+    /** 谈判拒绝时首领的台词（378418 / 378709-378773） */
+    parleyRefusal(type, choice) {
+      if (type === 4) {
+        return '「有点胆量……但这不是明智的选择。这里就是你的坟墓。」';
+      }
+      const lines = {
+        1: '「什么？你敢阻止我们的正义行动！你和扎南的走狗是一伙的吧！」',
+        2: '「我们是在为受迫害的艾莱亚人募捐！你反抗就是赤裸裸的艾莱亚歧视！」',
+        3: '「那就拿出你没有迫害过艾莱亚的证据来！拿不出来吧，你这个骗子！」',
+        4: '「你打心底看不起艾莱亚吧？像你这种渣滓，就地私刑处死！」',
+        5: '「就因为我们是艾莱亚就怀疑我们？种族主义者挨打也活该，把你慢慢折磨死！」',
+      };
+      return lines[choice | 0] || lines[1];
+    }
+
+    /** 弹出谈判选项；返回选项值（0 = 投降，1..5 = 拒绝/战斗） */
     askParley(type, cost) {
       const P = Elona.Panels;
-      if (!P || typeof P.openConfirm !== 'function') return Promise.resolve(true);
+      // 378333-378357：盗贼团只有「返り討ち / 降参」（船内追击分支不在此处）
+      // 378650-378666：暴徒团六个选项，0（捐款）固定排在最后
+      const opts = type === 4
+        ? [{ text: '返り討ちにする（迎击）', value: 1 },
+          { text: '降参する（投降）', value: 0 }]
+        : [
+          { text: 'こんな蛮行やめさせる（阻止这种暴行）', value: 1 },
+          { text: 'こちらも力づくで拒否する（用武力拒绝）', value: 2 },
+          { text: '迫害していないので拒否する（我没迫害过）', value: 3 },
+          { text: '金が惜しいので拒否する（舍不得钱）', value: 4 },
+          { text: 'なんだか怪しいので拒否する（总觉得可疑）', value: 5 },
+          { text: '言われた通り寄付する（照做捐款）', value: 0 },
+        ];
+      if (!P || typeof P.openChoiceList !== 'function') return Promise.resolve(1);
       const title = (type === 4 ? '盗贼团挡住了去路。' : '艾莱亚暴徒团围了上来。')
-        + `\n「把货车里的货和 ${cost} gold 交出来，就饶你一命。」`;
+        + `\n「交出 ${cost} gold 和货车里的全部货物！」`;
       return new Promise((resolve) => {
         let settled = false;
-        const done = (v) => { if (!settled) { settled = true; resolve(!!v); } };
+        const done = (v) => {
+          if (settled) return;
+          settled = true;
+          resolve((v === undefined || v === null || v < 0) ? 1 : (v | 0));
+        };
         try {
-          P.openConfirm(title, done, { title: type === 4 ? '盗贼团' : '艾莱亚暴徒团',
-            yes: '战斗', no: '投降' });
+          P.openChoiceList(title, opts, done, { title: type === 4 ? '盗贼团' : '艾莱亚暴徒团' });
         } catch (e) {
-          done(true);
+          done(1);
         }
       });
     }
@@ -5729,9 +5806,10 @@
         Elona.Feat.setFlag(p, 269, 1);
         msgs.push('あなたは新しい能力を得た。（你习得了新的能力。）');
       }
-      // modcorrupt -2000（609877）
+      // modcorrupt -2000（609877）—— 走 Weather.modCorrupt 以触发 195607-195656 的病征缓解
       if ((this.getV65(85) | 0) >= 20000) {
-        this.setV65(85, Math.max(0, (this.getV65(85) | 0) - 2000));
+        if (Elona.Weather && Elona.Weather.modCorrupt) Elona.Weather.modCorrupt(this, -2000);
+        else this.setV65(85, Math.max(0, (this.getV65(85) | 0) - 2000));
       }
       // 丢失「掉落 flag」物品（refitem(id,10)==1，除 333，609880-609896）
       for (const it of (p.inv || [])) {
@@ -5975,7 +6053,20 @@
             const nm = (Elona.ItemDB && Elona.ItemDB.instanceName)
               ? Elona.ItemDB.instanceName(it) : (iid === 54 ? '金币' : '白金币');
             it.f[0] = 0;
-            if (iid === 54) c.set(30, (c.get(30) | 0) + n);
+            if (iid === 54) {
+              c.set(30, (c.get(30) | 0) + n);
+              // 341920-341934：数量 >1、体力满(var_58(58)==100)且骑乘中(var_58(168)!=0)
+              //   → 把一半金币分给坐骑 var_58(30, var_58(167))
+              if (n > 1 && (c.get(58) | 0) === 100 && (c.get(168) | 0) !== 0) {
+                const mount = this.charas ? this.charas[c.get(167) | 0] : null;
+                if (mount && typeof mount.set === 'function') {
+                  const half = Math.trunc(n / 2);
+                  mount.set(30, (mount.get(30) | 0) + half);
+                  c.set(30, (c.get(30) | 0) - half);
+                  this.log(`${c.name || '你'}将金币分给了伙伴。`);
+                }
+              }
+            }
             else {
               c.set(31, (c.get(31) | 0) + n);
               if (this.setV65) this.setV65(291, (this.getV65(291) | 0) + n);
@@ -6350,6 +6441,9 @@
           return;
         }
       }
+      // 0-R3 / 251443-252302：*label_2476 的每回合地图事件（源码 604168 处 gosub）。
+      //   按地图 id / 深度分派（诺伊尔的守卫、地图 41 监狱、地图 81 跟踪者、地图 11 传令等）。
+      if (Elona.MapTurnEvent) Elona.MapTurnEvent.tick(this);
       // 时间推进（603094-603157）：每个行动约 7~21 时间单位，60 单位 = 1 分钟
       this.advanceClock();
       // 0-FY：行动计累加（603075-603092）+ *label_4353 的行动次数结算。

@@ -318,7 +318,7 @@
         if (Elona.Stats && Elona.Stats.skillExp) {
           for (const s of [181, 16, 19]) Elona.Stats.skillExp(c, s, c, 1000, 1, 0, g);
         }
-        if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, 19, 250, 1000);
+        if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, 19, 250, 1000, c);
       }
     }
 

@@ -579,8 +579,8 @@
     const r = healRoutine(g, caster, tg, dice);                        // 316945
     if (id === 623) {                                                  // 316946-316951
       if (tg.index === 0) Elona.Status.healhp(tg, idiv(tg.hpMax, 5));  // 316948
-      Elona.Status.addbuff(g, tg, 10, idiv(tg.get(62), 2), 50);        // 316950
-      Elona.Status.addbuff(g, tg, 3, 30, 50);                          // 316951
+      Elona.Status.addbuff(g, tg, 10, idiv(tg.get(62), 2), 50, caster); // 316950
+      Elona.Status.addbuff(g, tg, 3, 30, 50, caster);                   // 316951
     }
     const nm = actionName(id);
     if (g.log) {
@@ -1640,6 +1640,11 @@
     }
     if (g.rng.rnd(r400) > idiv(power, 2) + ((g.var2362 <= -1) ? 100 : 0)) {
       return { ok: true, type: 0, implemented: true, cursed: false, reason: 'resisted' };   // 325294-325295
+    }
+    // 325297-325308：玩家/同伴（<16）拥有「祈祷」特性(42) 时，2/3 概率免除诅咒
+    if ((tg.index | 0) < 16 && g.rng.rnd(3) !== 0 && Elona.Feat && Elona.Feat.get(tg, 42)) {
+      if (g.log) g.log('你献上祈祷，无效化了诅咒的低语。');
+      return { ok: true, type: 0, implemented: true, cursed: false, reason: 'prayer' };
     }
     const inv = tg.inv || [];
     if (!inv.length) return { ok: true, type: 0, implemented: true, cursed: false, reason: 'no_item' };

@@ -74,7 +74,7 @@
 
   function buff(g, c, id, power, dur) {
     if (!c || !Elona.Status || !Elona.Status.addbuff) return 0;
-    return Elona.Status.addbuff(g, c, id, power, dur) | 0;
+    return Elona.Status.addbuff(g, c, id, power, dur, g && g._gaugeCaster) | 0;
   }
 
   function heal(c, n) {
@@ -283,13 +283,19 @@
   // 主分派
   // ==========================================================================
   function run(g, caster, id, tg) {
-    switch (id | 0) {
-      case 750: return gaugeToggle(g, caster);
-      case 741: return comboPower(g, caster, tg);
-      case 803: return purge(g, caster);
-      case 804: return tagForce(g, caster, tg);
-      default:
-        return { ok: true, type: 0, implemented: false, reason: 'gauge 未收录该 id' };
+    const prevCaster = g._gaugeCaster;
+    g._gaugeCaster = caster;
+    try {
+      switch (id | 0) {
+        case 750: return gaugeToggle(g, caster);
+        case 741: return comboPower(g, caster, tg);
+        case 803: return purge(g, caster);
+        case 804: return tagForce(g, caster, tg);
+        default:
+          return { ok: true, type: 0, implemented: false, reason: 'gauge 未收录该 id' };
+      }
+    } finally {
+      g._gaugeCaster = prevCaster;
     }
   }
 

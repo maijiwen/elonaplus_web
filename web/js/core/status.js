@@ -763,18 +763,32 @@
     if (c.get(176) > 0) { if (c.get(176) > 100) c.set(176, 100); c.set(79, 100 + 29); }
 
     // --- 饥饿 / 脱水（216562-216596）：源码只对主角（var_691==0）扣血/扣 SP，
-    //     且 food<2000 / water<2000 时清零 var_1450（停止自然回复）---
+    //     且 food<2000 / water<2000 时清零 var_1450（停止自然回复）。
+    //     两段都包在 `var_65(250+23) != 5` 内（216564 / 216582）：肃清模式下
+    //     既不挨饿掉血、也不停止自然回复。---
     if ((c.index | 0) === 0) {
+      const purge = ((g && g.getV65 ? (g.getV65(250 + 23) | 0) : 0) === 5);
       const food = c.get(22) | 0, water = c.get(446) | 0, wet = c.get(259) | 0;
-      if (food < 2000) {
+      if (!purge && food < 2000) {
         regenBlocked = true;
         if (food < 1000 && (c.get(140) | 0) !== 1 && (c.get(140) | 0) !== 16) {
           const d = rng.rnd(2) + idiv(c.hpMax, 50) + 1;   // 216577：`var_58(51,0)` = 玩家最大 HP
           if (Elona.Battle && Elona.Battle.applyDamage) Elona.Battle.applyDamage(c, d, g, null, 0, 0);
           out.hunger = d;
+          // 216569-216574：`var_65(4) \ 10 == 0` 时 rowact_check + rnd(50)==0 → modweight -1
+          const play = (g && g.getV65) ? (g.getV65(4) | 0) : 0;
+          if (play % 10 === 0) {
+            const ra = c.get(140) | 0;
+            if (ra !== 0 && ra !== 3) c.set(143, 1);       // rowact_check（194534-194539）
+            if (rng.rnd(50) === 0) {
+              const w = c.get(20) | 0;                     // 201568：w*99/100 -1，下限 0
+              if (w > 0) c.set(20, Math.max(0, idiv(w * 99, 100) - 1));
+              out.weightLoss = 1;
+            }
+          }
         }
       }
-      if (water < 2000 && wet <= 0) {
+      if (!purge && water < 2000 && wet <= 0) {
         regenBlocked = true;
         if (water < 1000 && (c.get(52) | 0) > -100) {
           const s = rng.rnd(10) + 10;                       // 216590-216594

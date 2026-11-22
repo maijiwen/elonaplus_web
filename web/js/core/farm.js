@@ -209,7 +209,7 @@
       const st = { id: f.id | 0, species: f.sub | 0, isField: this.isField(g, x, y), care: f.arg3 | 0 };
       if (st.id === ST.FERTILIZED) return { skipped: 'fertilized' };    // 364959-364961
       st.care -= 1;                                                     // 364962
-      if (idiv(st.care, 50) === 0) {                                    // 364963 `var_503(3) \ 50 == 0`
+      if (st.care % 50 === 0) {                                         // 364963 `var_503(3) \ 50 == 0`（`\` 为取余）
         if (st.care >= 50) {
           st.id = ST.WITHERED;                                          // 364964-364966
         } else {

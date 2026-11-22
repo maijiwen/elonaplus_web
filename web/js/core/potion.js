@@ -146,7 +146,7 @@
     if (Elona.Status) {
       Elona.Status.healcon(target, 1, amt);
       Elona.Status.healcon(target, 12, amt);
-      Elona.Status.addbuff(g, target, 60, 50, 3000);
+      Elona.Status.addbuff(g, target, 60, 50, 3000, target);
     }
     return { ok: true, messages };
   };
@@ -337,7 +337,7 @@
   };
   // 1180 劳动能量饮料（321089-321097）：buff 70, p1=10, turns=10；index>=16 置 cbit 1042
   SPECIAL[1180] = function (g, target) {
-    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, target, 70, 10, 10);
+    if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, target, 70, 10, 10, target);
     if ((target.index | 0) >= 16 && Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(target, 1042, 1);
     return { ok: true, messages: [`${target.name || '它'}充满了干劲。`] };
   };

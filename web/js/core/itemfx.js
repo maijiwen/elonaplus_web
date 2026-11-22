@@ -777,7 +777,7 @@
         // 352902：addbuff 43，强度 = (10+品质)*器用潜力/2，持续 (10+品质)*20 回合
         const power = Math.floor((10 + q) * ((Elona.Stats ? (Elona.Stats.sorg(c, 13) | 0) : 100)) / 2);
         const turns = (10 + q) * 20;
-        if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, 43, power, turns);
+        if (Elona.Status && Elona.Status.addbuff) Elona.Status.addbuff(g, c, 43, power, turns, c);
         // 352903-352908：烟瘾 +20，并播报依赖度
         c.set(442, dep0 + 20);
         const dep1 = c.get(442) | 0;

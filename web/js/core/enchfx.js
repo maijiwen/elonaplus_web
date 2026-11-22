@@ -340,7 +340,7 @@
       }
       if (type === 6 && skill !== 19) {
         const power = limit((idiv(pw, 50) + 1), -1000, 1000) * 5 * (1 + isNpc * 2);
-        if (st && st.addbuff) st.addbuff(g, c, 20 + (skill - 10), power, 2000);
+        if (st && st.addbuff) st.addbuff(g, c, 20 + (skill - 10), power, 2000, g.player);
         out.push({ kind: 'growth-buff', skill });
         continue;
       }
