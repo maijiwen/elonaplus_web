@@ -266,12 +266,22 @@
     const modes = cfg.api.modes();
     const items = modes.map(m => m.key);
     const m = modes[Math.min(S.sel | 0, modes.length - 1)] || modes[0];
+    // A132 冒险家的传承（源码开局菜单 var_1481 非空 → label_2246/2857）：
+    //   有上一代遗产时才可选；传承不是游戏模式而是独立的开局方式，故做成开关。
+    const hasLegacy = !!(cfg.api.hasLegacy && cfg.api.hasLegacy());
+    const inheritRow = `<div class="cc-row${S.inherit ? ' on' : ''}${hasLegacy ? '' : ' dim'}"`
+      + ` data-act="inherit" style="margin-top:10px">`
+      + `<span>冒险家的传承${hasLegacy ? '（使用上一代遗产）' : '（无遗产）'}</span></div>`;
     return `<div class="cc-topic" style="position:absolute;left:28px;top:52px">模式候选</div>`
       + `<div class="cc-topic" style="position:absolute;left:240px;top:52px">各模式说明</div>`
-      + `<div class="cc-list" style="left:28px;top:82px;width:200px">`
-      + `${listHtml(items, S.sel, 'moderow')}</div>`
+      + `<div class="cc-list" style="left:28px;top:82px;width:240px">`
+      + `${listHtml(items, S.sel, 'moderow')}${inheritRow}</div>`
       + `<div class="cc-mode-desc"><b>★ ${esc(m.zh)}模式</b><br>`
-      + `${(m.desc || []).map(esc).join('<br>')}</div>`;
+      + `${(m.desc || []).map(esc).join('<br>')}`
+      + (hasLegacy
+        ? `<br><br>【传承】${S.inherit ? '已开启：继承上一代的白金币/技能点/金币与遗产。' : '未开启：普通新开局，不继承。'}`
+        : '')
+      + `</div>`;
   }
 
   /** 0-FI：*label_3103 的 76 个种族，按 16 项一页；光标项决定右栏内容 */
@@ -942,6 +952,13 @@
         adjustLook(i, 1);
         return;
       }
+      case 'inherit': {
+        // A132：切换「冒险家的传承」开关（无遗产时不可选，对应源码无 gene 文件时开局项不可用）
+        if (!(cfg.api.hasLegacy && cfg.api.hasLegacy())) return;
+        S.inherit = !S.inherit;
+        render();
+        return;
+      }
       case 'mode': {
         const m = items[i];
         if (m) S.mode = m.value;
@@ -1246,6 +1263,7 @@
       locked: new Set(), feats: [],
       profile: options.api.rollProfile(),
       mode: 0,
+      inherit: false,          // A132：冒险家的传承（有上一代遗产时才可选）
       portrait: 0, lookPage: 0, lookSel: 0,
       player: null, busy: false, notice: '',
       age: 17, height: 165, weight: 55, speed: 110,

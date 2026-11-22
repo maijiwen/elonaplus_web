@@ -684,6 +684,8 @@
         // 0-HS：`animeload N`（角色动画）与 `var_1117 = 15`（投掷飞行）
         if (e.kind === 'anime') { this.drawCharaAnime(e, now, sx, sy); continue; }
         if (e.kind === 'throwfly') { this.drawThrowFly(e, now, sx, sy); continue; }
+        // A522：能力过场立绘（210326-210350 的 10 帧 grotate 演出）
+        if (e.kind === 'cutin') { this.drawCutin(e, now); continue; }
         if (e.kind !== 'particles') continue;
         const age = (now - e.t) / 900;                 // 0 → 1
         if (age < 0 || age > 1) continue;
@@ -736,6 +738,47 @@
       ctx.save();
       ctx.globalCompositeOperation = 'lighter';
       ctx.drawImage(img, sx0, sy0, F, F, dx, dy, F, F);
+      ctx.restore();
+    }
+
+    /**
+     * A522：能力过场立绘（源码 210326-210475，*label_2111 的 var_1302==66 分支）。
+     * 原版把 user/graphic2/cutinN.bmp 贴进缓冲，随后 10 帧 grotate 旋转放大
+     * （角度 200/400/500/600…×var_1331，尺寸 200→600），并 snd 177（在 game.playCutin）。
+     * 网页用 Canvas translate/rotate/scale 复现这 10 帧；gmode 4 的 alpha 250 ≈ 0.98。
+     */
+    cutinSheet(no) {
+      if (!this._cutinCache) this._cutinCache = Object.create(null);
+      const k = no | 0;
+      if (this._cutinCache[k] === undefined) {
+        const im = new Image();
+        im.src = 'assets/user/graphic2/cutin' + k + '.bmp';
+        this._cutinCache[k] = im;
+      }
+      return this._cutinCache[k];
+    }
+
+    drawCutin(e, now) {
+      const img = this.cutinSheet(e.no);
+      if (!img || !img.complete || !img.naturalWidth) return;
+      const age = now - e.t;
+      const dur = (e.dur | 0) || 1000;
+      if (age < 0 || age > dur) return;
+      const FRAMES = 10;
+      let fi = Math.floor(age / (dur / FRAMES));
+      if (fi >= FRAMES) fi = FRAMES - 1;
+      // 源码 210355-210410 的 grotate 尺寸序列（200,400,500,600,600…）；
+      // 角度按帧线性放大，模拟绕中心旋转切入。var_1331 原版取 1（正常演出）。
+      const scale = [0.67, 1.0, 1.33, 1.6, 1.73, 1.8, 1.87, 1.93, 2.0, 2.0][fi];
+      const spin = (200 + fi * 80) * Math.PI / 180;
+      const ctx = this.ctx;
+      const W = ctx.canvas.width, H = ctx.canvas.height;
+      ctx.save();
+      ctx.globalAlpha = 0.98;                    // gmode 4, alpha 250
+      ctx.translate(W / 2, H / 2 - 40);          // 源码 y 偏移 -88
+      ctx.rotate(Math.sin(spin) * 0.45);         // 旋转切入，避免整圈倒置
+      const dw = 300 * scale, dh = 250 * scale;
+      ctx.drawImage(img, -dw / 2, -dh / 2, dw, dh);
       ctx.restore();
     }
 

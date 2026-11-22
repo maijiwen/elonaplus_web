@@ -142,9 +142,10 @@
       this.stairBack = null;  // 暂定的楼梯返回点
       this.dungeonDepth = 0;  // var_65(22)：0 = 地表/城镇
       this.dungeonFloors = {}; // 已生成的楼层缓存 { depth: {json, up, down, monsters, items} }
-      // D-015：本会话内已开启的封印门（键 `mapId:depth`）。原版把 231 写回持久
-      //   地图数据，开一次即保持；本项目楼层地图每次进层都从缓存 json 重建，
-      //   故用内存标记保持「开过就开着」，不写入存档格式。
+      // D-015：已开启的封印门（键 `mapId:depth`）。原版 344573 把 231 写回持久
+      //   地图数据（mdata），开一次即跨存档保持；本项目楼层地图每次进层都从缓存
+      //   json 重建，故用此标记等价模拟「开过就开着」。0-Z52 起该表纳入 serialize/
+      //   deserialize，读档后不再退回「未开过」，与源码的持久地图行为一致。
       this.sealOpened = Object.create(null);
       this.townSnapshot = null; // 进入地下时的城镇快照（NPC/地面物品）
       this.transitioning = false;
@@ -699,6 +700,22 @@
       // 种族初始 feat（*label_0044：var_97 种族特性）+ 创建时选的天赋
       Elona.Feat.applyRaceFeats(p);
       this.applyBirthFeats(p, opts.feats);
+      // A132 继承点数（0-Z57）：源码「冒险家的传承」开局（var_1481 非空）→ *label_2857
+      //   302534-302557：把上一代遗产的白金币/技能点/金币/材料折算加到新角色。
+      //   本项目的 opts.inherit 由角色创建页「冒险家的传承」选项传来；只有显式选择才继承，
+      //   与源码「普通开局 var_1481=='' 不继承」一致。字段 41 在此直接 +=（按用户裁定「按源码叠加」）。
+      if (opts.inherit && Elona.Heirloom && Elona.Heirloom.applyBonus) {
+        try {
+          this._inheritance = Elona.Heirloom.applyBonus(this);
+          if (this._inheritance && this._inheritance.applied) {
+            this.log('你继承了上一代的遗产：白金币、技能点与金币。');
+          }
+        } catch (e) { this._inheritance = null; }
+      }
+      // 301545/602351：var_65(97) 继承权 < 0 → 1（新档兜底，源码对所有开局生效）
+      if (Elona.Heirloom && Elona.Heirloom.ensurePositive) {
+        try { Elona.Heirloom.ensurePositive(this); } catch (e) { /* noop */ }
+      }
       // 442505 / 827531：创建时选的专长技能，进入游戏后立刻结算
       this.applyBirthSkill(p, opts.skill);
       // 装备加成重算（*label_2175 的 213461-213793）：DV/PV/命中/伤害/武器类型
@@ -4723,7 +4740,11 @@
       if (shared) gain = idiv(gain, 2);
       // 0-GX / 226061-226065：非腐烂尸体的「物种被吃效果」（var_59 = 12 → *label_3105）。
       //   例：硬如铁的肉 dmgcon、有毒肉、马肉 / 巨魔肉技能经验、以太腐蚀、寄生等。
-      if (id === 204 && !rotten && Elona.EatFX && Elona.EatFX.ready()) {
+      // A173（本轮修正）：源码条件为 `var_99(3)==204 & var_99(31)!=1`——
+      //   f[31]==1 表示尸体已被处理过（见 itemfx_use.js:749），处理后不再触发物种效果。
+      //   此前只判了 id==204 && !rotten（rotten 是 f[24]/f[27] 的另一回事），漏了 f[31]，
+      //   导致处理过的尸体仍会触发 417 等种族的 resistmod 等特殊效果。
+      if (id === 204 && !rotten && (it.f[31] | 0) !== 1 && Elona.EatFX && Elona.EatFX.ready()) {
         const efx = Elona.EatFX.apply(this, p, it.f[23] | 0);
         if (efx) {
           if (efx.nutrition !== null && efx.nutrition !== undefined) gain = efx.nutrition | 0;
@@ -5141,6 +5162,8 @@
       // 0-Z16 / 326218-326245：遗产权书 511（效果 1128）——var_65(97)+=3。
       //   源码在 var_243 != 0（NPC 使用）时无事发生；玩家侧给 3 次继承权。
       if ((spellId | 0) === 1128 || eid === 511) {
+        // 326229：源码读权书时 `snd 24`（音效素材在 sndtable 24 项）
+        this.playSnd(24);
         if (Elona.Heirloom && Elona.Heirloom.claim) {
           const r = Elona.Heirloom.claim(this);
           if (r && r.ok) {
@@ -5585,6 +5608,45 @@
         x0: r.from.x | 0, y0: r.from.y | 0,
         x1: r.target ? (r.target.x | 0) : (r.from.x | 0),
         y1: r.target ? (r.target.y | 0) : (r.from.y | 0) });
+    }
+
+    /**
+     * A522：能力过场立绘（源码 210326-210350 / 317679 / 321438）。
+     *   var_1330 = var_58(7,c)%1000 + var_58(435,c)*1000 + refchara(var_58(27,c),5)*10000
+     *   （`%` 是源码的 `\` 取余）；玩家自己（槽 0）时 var_1330 = -1，不显示。
+     *   源码 `exist user\graphic2\cutinN.bmp`：文件不存在则退化为 snd 177 + animeload 92，
+     *   存在则设 var_1117=66 走 *label_2111 的 10 帧旋转演出。
+     *   本项目素材已镜像 9 张（cutin4/222/253/254/447/50447/525/526/60222），
+     *   编号计算与存在性检测在此完成；实际绘制由 renderer.drawCutin 按帧复现 grotate。
+     * @param {object} c 能力使用者（var_243）
+     * @returns {number} 算出的 cutin 编号（-1 表示不显示）
+     */
+    playCutin(c) {
+      if (!c || (c.index | 0) === 0) return -1;   // 源码：var_243==0 → -1
+      const idiv = (a, b) => (b === 0 ? 0 : Math.trunc(a / b));
+      const field7 = c.get ? (c.get(7) | 0) : 0;
+      const field435 = c.get ? (c.get(435) | 0) : 0;
+      const species = c.get ? (c.get(27) | 0) : 0;
+      // refchara(种族,5) 走 *label_3105 的 creature-special 分派；本项目只对
+      // 已有 cutin 素材的种族还原高位，其余返回 0（= 没有对应过场图）。
+      let hi = 0;
+      if (Elona.CharaFactory && Elona.CharaFactory.ref) {
+        try {
+          const rec = Elona.CharaFactory.ref(species);
+          hi = rec && rec.fields ? (rec.fields['5'] | 0) : 0;
+        } catch (e) { hi = 0; }
+      }
+      const no = ((field7 % 1000) + 1000) % 1000 + field435 * 1000 + hi * 10000;
+      // 素材存在性：本项目已知 9 张；未在集合内的编号按源码 exist 失败处理。
+      const KNOWN = [4, 222, 253, 254, 447, 50447, 525, 526, 60222];
+      if (KNOWN.indexOf(no) < 0) {
+        this.playSnd(177);                       // 源码：文件不存在 → snd 177
+        return no;
+      }
+      const now = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+      this.playSnd(177);                         // 210340 / 317683：切图同时 snd 177
+      this.effects.push({ kind: 'cutin', t: now, dur: 1000, no: no | 0 });
+      return no;
     }
 
     // ---------- 地面物品 ----------
@@ -7014,6 +7076,9 @@
         farmRenew: this.farmRenew || {},
         // 0-FA：随机地城站点（槽位 450..499）与当前地城上下文
         randDungeon: Elona.RandDungeon ? Elona.RandDungeon.snapshot(this) : null,
+        // D-015：已开启的封印门（键 `mapId:depth`），对应原版写回 mdata 的 231/11。
+        //   不写入的话读档后封印门会复原、被迫再撞一次开门（与源码持久地图不一致）。
+        sealOpened: this.sealOpened || {},
         dungeonSiteId: this.dungeonSiteId,
         dungeonMinDepth: this.dungeonMinDepth,
         dungeonMaxDepth: this.dungeonMaxDepth,
@@ -7225,6 +7290,13 @@
       // 0-FA：随机地城站点与当前地城上下文（旧存档缺字段时按空表处理）
       if (Elona.RandDungeon) Elona.RandDungeon.restore(this, data.randDungeon);
       if (Elona.Sites && Elona.Sites.bindGame) Elona.Sites.bindGame(this);
+      // D-015：恢复已开启的封印门（旧存档无该字段时按「都没开过」处理，保持兼容）。
+      this.sealOpened = Object.create(null);
+      if (data.sealOpened && typeof data.sealOpened === 'object') {
+        for (const k of Object.keys(data.sealOpened)) {
+          if (data.sealOpened[k]) this.sealOpened[k] = 1;
+        }
+      }
       this.dungeonSiteId = data.dungeonSiteId | 0;
       this.dungeonMinDepth = Math.max(1, data.dungeonMinDepth | 0 || 1);
       this.dungeonMaxDepth = data.dungeonMaxDepth | 0;

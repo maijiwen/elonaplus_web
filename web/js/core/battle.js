@@ -873,6 +873,15 @@
         Elona.DeathMsg.cleanup(g, dead, src);
       } catch (e) { /* 死因文案失败不影响结算 */ }
     }
+    // A148 / 源码 200428（customtalk 攻击者,103 txtKilled）+ 201204（customtalk 死者,102 txtDead）
+    //   只在有台词表时输出，缺表静默；不影响死亡结算。
+    if (Elona.Talk && Elona.Talk.speak) {
+      const src = Elona.DeathMsg ? Elona.DeathMsg.sourceOf(att, null) : (att ? att.index | 0 : -1);
+      try {
+        if (src >= 0 && att) Elona.Talk.speak(g, att, 103);                  // 击杀者
+        if (src !== -31 && src !== -30) Elona.Talk.speak(g, dead, 102);      // 死者
+      } catch (e) { /* 无台词表静默 */ }
+    }
     // 200401-200418：地图 74「魂之限」中玩家或护送对象 1034 死亡 → 任务失败
     if (Elona.StoryMap && Elona.StoryMap.soulcageOnDeath) {
       try { out.soulcage = Elona.StoryMap.soulcageOnDeath(g, dead, (dead.index | 0) === 0); } catch (e) { /* noop */ }

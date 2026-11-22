@@ -409,6 +409,12 @@
         t.set(201, 80);
         t.set(29, uidx);                                     // 锁定攻击者
       }
+      // A148 / 源码 194502-194508：非决斗(var_65(193)<1000)、非 628 特殊角色 →
+      //   `customtalk prm_913, 101`（txtAggro：被攻击后的自定义喊话）+ *label_0258。
+      const inDuel = (g.getV65 ? (g.getV65(193) | 0) : 0) >= 1000;
+      if (!inDuel && (t.get(27) | 0) !== 628 && Elona.Talk && Elona.Talk.speak) {
+        try { Elona.Talk.speak(g, t, 101); } catch (e) { /* 无台词表静默 */ }
+      }
     }
     // 194511-194527：cbit 960 的动物群兴奋（地图 67 除外）
     if (hasCbit(t, 960) && (g.getV65 ? (g.getV65(20) | 0) : 0) !== 67) {

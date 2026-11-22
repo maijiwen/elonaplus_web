@@ -1446,6 +1446,8 @@
         modes: () => (Elona.GameMode ? Elona.GameMode.MODES : []),
         modeByValue: (v) => (Elona.GameMode
           ? Elona.GameMode.byValue(v) : { zh: '本质', key: 'Essential', value: 0 }),
+        // A132：是否存在上一代遗产（决定「冒险家的传承」开局项是否可用）
+        hasLegacy: () => !!(Elona.Heirloom && Elona.Heirloom.has && Elona.Heirloom.has()),
         profileText, profileOf, rollProfile,
         rng: () => game.rng,
         bindState: (s) => { createState = s; },
@@ -1549,6 +1551,7 @@
       await game.startGame(p, p.className, {
         feats: (cs.feats || []).slice(),
         skill: cs.skill | 0,
+        inherit: !!cs.inherit,     // A132：冒险家的传承（var_1481 非空 → *label_2857）
       });
       await renderer.loadSheet(game.map.tileset);
       await renderer.loadCharacterSheet();

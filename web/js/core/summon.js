@@ -277,6 +277,11 @@
         if ((g.getV65 ? (g.getV65(801) | 0) : 0) === 0 && g.setV65) g.setV65(801, 2);
       }
       if (syncCheck(g, caster) && g.log) g.log('「啊哈哈！被龙卷风吞掉消失吧！」');
+      // A522：源码 317675-317690，663 召唤收尾按 var_1330 播放 cutinN.bmp 过场立绘
+      //   （文件不存在时退化为 snd 177 + animeload 92）。playCutin 内部完成编号计算与存在性检测。
+      if (g && typeof g.playCutin === 'function') {
+        try { g.playCutin(caster); } catch (e) { /* 纯表现，失败不影响召唤 */ }
+      }
     } else if (syncCheck(g, caster) && g.log) {
       g.log('魔法でモンスターが召喚された。');
     }

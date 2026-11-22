@@ -638,12 +638,22 @@
         break;
       }
       if (!pos) continue;
-      const cid = VISITOR_FOLK[g.rng.rnd(VISITOR_FOLK.length)];
-      const lv = 1 + g.rng.rnd(3);           // calcobjlv：1..3
+      // A283（0-Z56 按源码修正）：label_2458 的 `gosub *label_2457` →
+      //   `flt calcobjlv(var_58(38,0)), calcfixlv(2)` + `characreate -1, var_60, -2, 0`。
+      //   自建建筑的 var_65(20) 通常不匹配 label_2457 的具体城镇分支，落到通用兜底
+      //   236832：`flt calcobjlv(玩家等级), calcfixlv(2)` —— 按玩家等级加权选怪（非固定物种池）。
+      //   CharaFactory.create(speciesId=0) 内部即调 pick(level)（= flt），var641 传 calcfixlv(2)。
+      const playerLevel = (p && p.get) ? (p.get(38) | 0) : 1;
+      const lv = (Elona.ItemDB && Elona.ItemDB.calcObjLv)
+        ? Elona.ItemDB.calcObjLv(playerLevel, g) : Math.max(1, playerLevel);
+      const fix = (Elona.ItemDB && Elona.ItemDB.calcFixLv)
+        ? Elona.ItemDB.calcFixLv(2, g) : 2;
       let c = null;
       try {
-        c = Elona.CharaFactory.create(g, cid, lv, pos.x, pos.y, {});
+        c = Elona.CharaFactory.create(g, 0, lv, pos.x, pos.y, { var641: fix });
       } catch (_) { c = null; }
+      // 选怪失败（pick 无候选）时，源码 characreate 用 56 号临时槽收尾且不留角色；
+      // 项目 create 会返回 null，此处跳过即可（等价）。
       if (!c) continue;
       c.set(9, 0);                            // 中立
       c.set(69, 0);

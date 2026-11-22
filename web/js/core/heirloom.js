@@ -48,13 +48,17 @@
     return s;
   }
 
-  /** 物品是否属于「不可继承」清单（源码 302603-302620） */
+  /** 物品是否属于「不可继承」清单（源码 302595-302626） */
   function isExcluded(id, it) {
+    // A132 修正：源码 302610 `if ( var_99(3,cnt) == 511 | refitem(var_99(3,cnt),9) == 53100 ) continue`
+    //   排除继承权书本身 **以及全部产权书**（refitem f9==53100：家/店/博物馆/农田/仓库/牧场/迷宫/搬家）。
+    //   此前只排 511，漏了其它产权书 —— wiki 也明确「各类产权书不可继承」。
     if (id === DEED_ITEM) return true;                 // 511 继承权书本身
-    if (id === 1210 || id === 1211 || id === 1212) return true;  // 三碎片
+    const IDB = Elona.ItemDB;
+    if (IDB && typeof IDB.ref === 'function' && (IDB.ref(id, 9) | 0) === 53100) return true; // 各类产权书
+    if (id === 1210 || id === 1211 || id === 1212) return true;  // 三碎片（同时由 specialFlag 记元数据）
     if (id === 578) return true;                       // 存钱罐
     if (((it.f && it.f[4]) | 0) === 6) return true;    // 品质6（黑星）
-    const IDB = Elona.ItemDB;
     if (IDB && typeof IDB.ibit === 'function' && IDB.ibit(5, it) !== 0) return true; // 唯一物品
     return false;
   }

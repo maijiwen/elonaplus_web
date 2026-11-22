@@ -238,31 +238,33 @@
     },
 
     /**
-     * getworker（32233-32249）：`repeat 16` 跳过 cnt==0 → 只查 1..15 号角色里
-     *   `var_58(80) == prm_680` 的那个，返回槽位号，找不到返回 -1。
+     * getworker（32233-32249）：`repeat 16` 跳过 cnt==0 → **严格只查 1..15 号角色**里
+     *   `var_58(80) == prm_680` 的那个，找不到返回 -1/null。
      *   第二参 `prm_681 != 0` 时**只查该槽位**（233749 用它判定指定店员是否还在）。
-     * 0-Q0 / A95：本项目 charas 是动态数组（NPC 从 57 起），严格 1..15 会永远找不到
-     *   种畜，故保留「1..15 优先 + 全表兜底」；但补上第二参的限定槽位语义，
-     *   让 233749 这类调用能按源码口径判定。
+     * A95 严格化（0-Z58）：原版工人/种畜必须占队伍槽 1..15（label_2683 的 `repeat 16`
+     *   只从队伍里选人），故 g.charas 严格扫 1..15。项目把角色生成在 57+，所以在
+     *   `assignBreeder` 任命时用 `Party.moveToSlot` 把角色搬进 1..15 空槽；无法搬入时
+     *   退而加入 g.party（项目队伍等价物），这里对 g.party 兜底以保持旧存档可用。
      */
     getWorker(g, mapId, slot) {
       const id = (mapId === undefined) ? this.workerKey(g) : (mapId | 0);
       if (id <= 0) return null;
       const only = slot | 0;
+      const matches = (c) => !!c && (c.get(0) | 0) === 1 && (c.get(80) | 0) === id;
       if (only > 0) {
         const c = g.charas[only];
-        if (!c || (c.get(0) | 0) !== 1 || (c.get(80) | 0) !== id) return null;
-        return c;
+        return matches(c) ? c : null;
       }
-      let fallback = null;
-      for (let i = 0; i < g.charas.length; i++) {
-        const c = g.charas[i];
-        if (!c || (c.get(0) | 0) !== 1) continue;
-        if ((c.get(80) | 0) !== id) continue;
-        if (i >= 1 && i <= 15) return c;      // 原版槽位优先
-        if (!fallback) fallback = c;
+      // 原版 repeat 16：严格 1..15
+      for (let i = 1; i <= 15; i++) {
+        const c = g.charas && g.charas[i];
+        if (matches(c)) return c;
       }
-      return fallback;
+      // 项目队伍等价物兜底（原版队伍就在 1..15；项目的 g.party 是独立数组）
+      if (Array.isArray(g.party)) {
+        for (const c of g.party) if (matches(c)) return c;
+      }
+      return null;
     },
 
     /** 把某只角色登记为该地图的「牧场主/种畜」（相当于写入 var_58(80)） */
@@ -980,6 +982,9 @@
       if (!chara) return { ok: false, reason: 'no-chara' };
       this.removeBreeder(g);
       this.setWorker(chara, this.workerKey(g));
+      // A95 严格化：原版 getworker 只查队伍槽 1..15（label_2683 从队伍选人），
+      //   故被任命者必须属于队伍。项目用 g.party 作队伍等价物，这里补登记。
+      if (Elona.Party && Elona.Party.addToParty) Elona.Party.addToParty(g, chara);
       const msg = `已任命 ${nameOfC(chara)} 为本牧场的种畜。`;
       logMsg(g, msg);
       return { ok: true, message: msg };

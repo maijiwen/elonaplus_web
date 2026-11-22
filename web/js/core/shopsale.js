@@ -94,25 +94,22 @@
   // ------------------------------------------------------------------
   /**
    * getworker(32233-32249)：在角色表里找 `var_58(80) == mapId` 的角色。
-   * 原版只扫 1..15 号槽；本项目的同伴常驻 `g.party`、NPC 下标不固定，
-   * 所以先按原版槽位、再扫角色池、最后扫同伴（与 ranch.getWorker 同一策略）。
+   * A95 严格化（0-Z58）：原版 `repeat 16` **严格只扫 1..15 号槽**（队伍成员才能当店番），
+   *   故 g.charas 只查 1..15；任命时已把店番搬入该区间。项目的 g.party 是队伍等价物，
+   *   作为兜底兼容（旧存档里可能仍留在 party 数组）。
    */
   function workerOf(g, mapId) {
     const id = mapId | 0;
     if (!g || id <= 0) return null;
-    const from = (arr, preferSlot) => {
-      let fallback = null;
-      for (let i = 0; i < arr.length; i++) {
-        const c = arr[i];
-        if (!c || (c.get(0) | 0) !== 1) continue;
-        if ((c.get(F_WORKER) | 0) !== id) continue;
-        if (!preferSlot) return c;
-        if (i >= 1 && i <= 15) return c;
-        if (!fallback) fallback = c;
-      }
-      return fallback;
-    };
-    return from(g.charas || [], true) || from(g.party || [], false);
+    const matches = (c) => !!c && (c.get(0) | 0) === 1 && (c.get(F_WORKER) | 0) === id;
+    for (let i = 1; i <= 15; i++) {
+      const c = (g.charas || [])[i];
+      if (matches(c)) return c;
+    }
+    if (Array.isArray(g.party)) {
+      for (const c of g.party) if (matches(c)) return c;
+    }
+    return null;
   }
 
   /** 任命 / 卸任店番（233797 / 233761 / removeworker 32250-32259） */
@@ -127,6 +124,9 @@
       if (o && o !== c && (o.get(F_WORKER) | 0) === (mapId | 0)) o.set(F_WORKER, 0);
     }
     c.set(F_WORKER, mapId | 0);
+    // A95 严格化：原版店番必须来自队伍槽 1..15（label_2683 repeat 16），
+    //   项目用 g.party 作队伍等价物，任命时补登记，使严格化后的 workerOf 能找到。
+    if (Elona.Party && Elona.Party.addToParty) Elona.Party.addToParty(g, c);
     return { ok: true, worker: c, message: `任命 ${c.name} 为这家店的店番。` };
   }
 

@@ -158,6 +158,51 @@
   }
 
   /**
+   * A28 逐槽选料：返回某材料槽可选的具体物品实例（源码 279880-279960 的逐槽选择窗）。
+   *   候选 = 背包 + 4 格内地面里匹配该材料 id 的可用实例（与 pool/matMatches 同源）。
+   * @param {object} g
+   * @param {object} recipe 配方对象（含 mats 数组）
+   * @param {number} slot 材料槽下标（0-based）
+   * @param {Set} [exclude] 已被其它槽占用的实例
+   * @returns {Array<{item:object,where:string,idx:number}>}
+   */
+  function candidatesFor(g, recipe, slot, exclude) {
+    const mats = (recipe && recipe.mats) || [];
+    const mid = mats[slot] | 0;
+    if (!mid || mid === UNSAFE_PRODUCT) return [];
+    const used = exclude || new Set();
+    const out = [];
+    for (const cand of pool(g)) {
+      if (used.has(cand.item)) continue;
+      if (matMatches(mid, cand.item)) out.push(cand);
+    }
+    return out;
+  }
+
+  /**
+   * A28：把 UI 传来的 {where,idx} 还原为候选对象，并校验仍匹配配方槽位。
+   * @returns {{ok:boolean, picks:Array, missing:number[]}}
+   */
+  function resolvePicks(g, refs) {
+    const poolList = pool(g);
+    const picks = [];
+    const missing = [];
+    const used = new Set();
+    for (const ref of refs) {
+      if (!ref) continue;
+      let found = null;
+      for (const cand of poolList) {
+        if (cand.where !== ref.where || (cand.idx | 0) !== (ref.idx | 0)) continue;
+        if (used.has(cand.item)) continue;
+        found = cand; break;
+      }
+      if (found) { used.add(found.item); picks.push(found); }
+      else missing.push(0);
+    }
+    return { ok: missing.length === 0, picks, missing };
+  }
+
+  /**
    * 成功率 —— rpdiff（279498-279570）。
    * @param {object} g
    * @param {object} recipe
@@ -267,7 +312,15 @@
     //   所以只有「立即结算」路径才需要拒绝进行中的其它行动。
     if (!o.rowact && (g.player.get(140) | 0) !== 0) return { ok: false, message: '你正忙着别的事情。' };
 
-    const pick = pickMaterials(g, r);
+    // A28：优先使用 UI 逐槽选定的实例（payload.picks，元素为 {where,idx}），
+    //   没有则退回自动挑料（原「自动选料」路径仍兼容）。
+    let pick;
+    if (Array.isArray(o.picks)) {
+      const named = resolvePicks(g, o.picks);
+      pick = named.ok ? named : pickMaterials(g, r);
+    } else {
+      pick = pickMaterials(g, r);
+    }
     if (!pick.ok) {
       const names = pick.missing.map(matName).join('、');
       return { ok: false, message: `材料不足：还需要 ${names}。` };
@@ -382,20 +435,29 @@
    *   回合里每 1/30 概率显示「*こねこね*」，141 归零才 gosub *label_2658 结算。
    *   高位（必要时间 / 10000，即小时）在结束时由 advanceHours 补上。
    */
-  async function begin(g, recipeId) {
+  async function begin(g, recipeId, opts) {
     await load();
+    const o = opts || {};
     const r = DATA.recipes[String(recipeId)];
     if (!r) return { ok: false, message: '没有这个配方。' };
     if ((g.player.get(140) | 0) !== 0) return { ok: false, message: '你正忙着别的事情。' };
-    const pick = pickMaterials(g, r);
+    // A28：逐槽选料结果（{where,idx}[]）；未传则沿用自动挑料校验
+    let pick;
+    if (Array.isArray(o.picks)) {
+      const named = resolvePicks(g, o.picks);
+      pick = named.ok ? named : { ok: false, missing: (r.mats || []).slice(0, named.picks.length) };
+    } else {
+      pick = pickMaterials(g, r);
+    }
     if (!pick.ok) {
       return { ok: false, message: `材料不足：还需要 ${pick.missing.map(matName).join('、')}。` };
     }
     const tm = timeOf(r);
     const turns = Math.max(1, tm.turns | 0);
     const A = Elona.Actions;
-    if (!A) return settle(g, recipeId, {});        // 没有动作层时退回即时结算
-    const st = A.begin(g, 12, turns, { recipeId, hours: tm.hours, turns: tm.turns });
+    // 没有动作层时即时结算，同样要把 picks 传下去
+    if (!A) return settle(g, recipeId, { picks: o.picks });
+    const st = A.begin(g, 12, turns, { recipeId, hours: tm.hours, turns: tm.turns, picks: o.picks });
     if (!st.ok) return { ok: false, message: st.message || '现在不能调合。' };
     g.log(`你开始调合 ${r.en || r.jp}。（${tm.text}）`);
     g.endTurn();
@@ -411,7 +473,7 @@
 
   Elona.Craft = {
     load, list, craft, begin, finish, successRate, rateText, timeOf, matMatches, matName, countMat,
-    pickMaterials, tagOf,
+    pickMaterials, candidatesFor, resolvePicks, tagOf,
     get data() { return DATA; },
     get tags() { return TAGS; },
     MAX_MATS, MATERIAL_RANGE,

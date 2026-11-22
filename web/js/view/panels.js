@@ -427,7 +427,8 @@
         + `<span class="pui-name">${esc(x.text)}</span></div>`).join('');
       let done = false;
       const finish = (v) => { if (done) return; done = true; if (onDone) onDone(v); };
-      this.open('options', '选择', html, {
+      // Z90：允许调用方指定标题（源码 label_3068 的菜单由 NPC 名作标题）
+      this.open('options', (opts && opts.title) || '选择', html, {
         hint: `1-${list.length} = 选择　Esc = 取消`,
         onPick: (row) => {
           this.onClose = null;
@@ -3230,21 +3231,67 @@
       this.open('craft', `调合 / 炼金（${rows.length} 个配方）`, html, {
         wide: true, hint: '↑↓ 选择　Enter 调合　Esc 关闭',
         onPick: async (row) => {
-          // 0-FY：*label_2659 —— 选中配方只是「开始调合」，要等 rowact 12
-          //   跑完必要回合数才在 Game.completeRowAct 里结算成功/失败。
-          const res = await Elona.Craft.begin(g, row.id);
-          if (res && res.started) {
-            Elona.UI.pushMessage(`开始调合（约 ${res.turns} 回合，移动会中断）。`);
-            this.close();
-            return;
-          }
-          Elona.UI.pushMessage(res ? res.message : '无法调合。');
-          await this.openCraft(g, this.sel);
+          // A28：原版选中配方后进入逐槽选料窗（279880-279960），逐个材料槽挑具体物品。
+          await this.openCraftMaterials(g, row.id);
         },
       });
       this.sel = Math.min(sel, Math.max(0, rows.length - 1));
       this.renderSel();
       return rows;
+    },
+
+    /**
+     * A28 逐槽选料：源码 279880-279960 的调合菜单 —— 每个材料槽从背包/地面挑具体实例。
+     *   逐槽用 openChoiceList 列出该槽候选（显示库存数），全部选定后开始调合。
+     * @param {object} g
+     * @param {number} recipeId
+     */
+    async openCraftMaterials(g, recipeId) {
+      const C = Elona.Craft;
+      const recipe = C.data && C.data.recipes && C.data.recipes[String(recipeId)];
+      if (!recipe) { Elona.UI.pushMessage('没有这个配方。'); return; }
+      // 有效材料槽索引（跳过空槽与 208 占位），但保留原 slot 以对齐 candidatesFor
+      const rawMats = (recipe.mats || []).slice(0, C.MAX_MATS);
+      const slots = [];
+      for (let i = 0; i < rawMats.length; i++) {
+        const m = rawMats[i] | 0;
+        if (m && m !== 208) slots.push(i);
+      }
+      const picks = [];
+      const used = new Set();
+      // 逐槽收集（串行，每槽一个选择窗）
+      const pickSlot = (slot) => new Promise((resolve) => {
+        const mid = rawMats[slot] | 0;
+        const cands = C.candidatesFor(g, recipe, slot, used);
+        const name = C.matName(mid);
+        if (!cands.length) {
+          Elona.UI.pushMessage(`材料不足：缺少 ${name}。`);
+          resolve(null); return;
+        }
+        const opts = cands.map((c, i) => ({
+          text: `${Elona.ItemDB ? Elona.ItemDB.name(c.item.id) : 'item ' + c.item.id}${c.where === 'ground' ? '（地面）' : ''} ×${c.item.f[0] | 0}`,
+          value: i,
+        }));
+        this.openChoiceList(`为「${esc(name)}」选择材料（源码逐槽选料）`, opts, (sel) => {
+          if (sel < 0) { resolve(null); return; }
+          const cand = cands[sel];
+          used.add(cand.item);
+          picks.push({ where: cand.where, idx: cand.idx });
+          resolve({ where: cand.where, idx: cand.idx });
+        }, { title: `调合材料 ${picks.length + 1}/${slots.length}` });
+      });
+      for (const slot of slots) {
+        const got = await pickSlot(slot);
+        if (!got) return;   // 取消 / 材料不足 → 中止
+      }
+      // 0-FY：*label_2659 —— 选中全部材料后才开始调合，等 rowact 12 结算
+      const res = await C.begin(g, recipeId, { picks });
+      if (res && res.started) {
+        Elona.UI.pushMessage(`开始调合（约 ${res.turns} 回合，移动会中断）。`);
+        this.close();
+      } else {
+        Elona.UI.pushMessage(res ? res.message : '无法调合。');
+      }
     },
 
     // ======================================================================

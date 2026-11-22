@@ -447,6 +447,11 @@
       if (tipSum !== 0) {
         p.set(145, (p.get(145) | 0) + tipSum);
         res.tips = tipSum;
+        // A86：源码 306915-306919 收到おひねり且 synccheck 通过时 `snd 11`
+        //   （getgold1.wav，素材齐备）。演奏者此刻在演奏＝清醒，直接播放。
+        if (Elona.Audio && typeof Elona.Audio.playIndex === 'function') {
+          try { Elona.Audio.playIndex(11); } catch (e) { /* 无声卡 */ }
+        }
         res.messages.push(`${TEXT.tip}（+${tipSum} gp）`);
       }
       return res;

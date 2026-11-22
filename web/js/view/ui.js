@@ -2482,14 +2482,22 @@
                   this.pushMessage(`「要把它叫回来的话需要 ${cost} gold。」（你只有 ${gold} gold）`);
                   return;
                 }
-                Elona.Panels.openConfirm(
-                  `「そいつを呼び戻すには、${cost} gold 必要だ。」\n要支付 ${cost} gold 叫回 ${c.name} 吗？`,
-                  (yes) => {
-                    if (!yes) { this.pushMessage('「冷やかし？」'); return; }   // 417476
-                    const rr = Elona.Companion.revive(game, c);
-                    this.pushMessage(rr.message || '');
-                  },
-                  { title: '調酒師', yes: `呼び戻す（${cost} gold）`, no: 'やめる' });
+                // Z90：源码 417456-417477 用 *label_3068 的两行菜单（数字键 1/2），
+              //   而非 y/n 确认窗。var_122 先报费用；var_484(0,0)=1「呼び戻す」仅在
+              //   钱够时追加，随后追加 var_484(0,1)=0「やめる」；var_506==1 才扣钱+snd 12。
+              const opts = [];
+              if (gold >= cost) opts.push({ text: '呼び戻す', value: 1 });
+              opts.push({ text: 'やめる', value: 0 });
+              Elona.Panels.openChoiceList(
+                `「そいつを呼び戻すには、${cost} gold 必要だ。」`,
+                opts,
+                (sel) => {
+                  if (sel !== 1) { this.pushMessage('「冷やかし？」'); return; }   // 417476 var_506==0
+                  const rr = Elona.Companion.revive(game, c);                       // 扣钱+复活由 revive 内部完成
+                  if (rr && rr.ok && game.playSnd) game.playSnd(12);               // 417469 snd 12
+                  this.pushMessage(rr.message || '');
+                },
+                { title: '調酒師' });
               }, 'a~p 选择　Esc 关闭',
               // 284372-284374 / 286767-286770：额度用尽时人物窗标注「切换地图前无法复活」
               (c) => ((c.get(Elona.Companion.REVIVE_FLAG) | 0) <= 0

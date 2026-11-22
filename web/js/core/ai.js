@@ -121,6 +121,39 @@
   }
 
   /**
+   * A148 / 源码 592858-592900（*label_4302 内，靠近玩家时的喊话）：
+   *   `rnd(4)==0` 且 NPC 在玩家 ±10 格内、var_140!=6、cbit(1049)==0：
+   *     · cbit(985)==1 → customtalk 149（txtClementia，曾被赦免）
+   *     · var_201>0（有戒心）且无 buff 40 → customtalk 101（txtAggro）
+   *     · 否则 → customtalk 100（txtCalm）
+   *   与 hostileaction 的 101 是不同触发点（那里是被攻击，这里是靠近）。
+   * @returns {number|null} 实际播放的 talkType（无台词表时 speak 静默，仍返回 type）
+   */
+  function greetTalk(g, c) {
+    const p = g && g.player;
+    if (!p || !Elona.Talk || !Elona.Talk.speak) return null;
+    const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
+    if (R(4) !== 0) return null;                                   // 592858
+    if (Math.abs((c.x | 0) - (p.x | 0)) > 10) return null;         // 592860-861
+    if (Math.abs((c.y | 0) - (p.y | 0)) > 10) return null;
+    if ((c.get(140) | 0) === 6) return null;                       // 592864
+    const cb = (n) => (Elona.Status && Elona.Status.cbit ? (Elona.Status.cbit(c, n) | 0) : 0);
+    if (cb(1049) !== 0) return null;                               // 592865 已求饶
+    let type;
+    if (cb(985) === 1) {
+      type = 149;                                                  // 曾被赦免
+    } else {
+      const guard = (Elona.Status && Elona.Status.findbuff)
+        ? (Elona.Status.findbuff(c, 40) >= 0) : false;             // findbuff 40
+      if ((c.get(201) | 0) > 0) type = guard ? null : 101;         // 有戒心 → Aggro
+      else type = 100;                                             // Calm
+    }
+    if (type === null) return null;
+    try { Elona.Talk.speak(g, c, type); } catch (e) { /* 无台词表静默 */ }
+    return type;
+  }
+
+  /**
    * 求饶/怜悯 —— 忠实实现 *label_4302 开头（592173-196）
    *
    *   若 `var_58(50) <= var_58(51)/20`（HP <= 最大HP/20）且 `rnd(5)==0`（每回合 20%），
@@ -783,6 +816,10 @@
 
     // ① 求饶/怜悯（*label_4302 592173-196）—— 副作用，不终止本回合
     const mercy = mercyCheck(g, c);
+    // ①-a A148 / 592858-592900：靠近玩家时的喊话（100 calm / 101 aggro / 149 clementia）
+    const greet = greetTalk(g, c);
+    // 记一份最近喊话类型，供 verify 断言（不影响存档/逻辑）
+    if (greet !== null) c.__lastGreet = greet;
     // ② 坐骑坐标同步（592289-291）
     const mounted = mountSync(g, c);
     // ②-a 0-DH：同伴的拾い食い / アイテム拾い（调教鞭 746 的 cbit 1032 / 1033 门控）

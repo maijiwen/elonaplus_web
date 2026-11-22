@@ -60,6 +60,21 @@
   /** 小游戏状态（var_2411） */
   const STATE = { IDLE: 0, WAIT: 1, HOOK: 2, FIGHT: 3, LAND: 4 };
 
+  /**
+   * A78 音效（原版 snd 编号，素材已齐备于 web/assets/sound/）：
+   *   312785/312795 snd 87 抛竿、312819 snd 88 マシンルアー、
+   *   312888 snd 46 咬钩、312909 snd 89 挣扎、312929 snd 88 上钩、
+   *   312941 snd 14+rnd(2) 收线。
+   * 项目保留 lastSnd 供测试桩断言；有 Elona.Audio 时按编号播放原版 wav。
+   */
+  let lastSnd = 0;
+  function snd(g, id) {
+    lastSnd = id | 0;
+    if (Elona.Audio && typeof Elona.Audio.playIndex === 'function') {
+      try { Elona.Audio.playIndex(id | 0); } catch (e) { /* 无声卡 */ }
+    }
+  }
+
   /** 朝向 → 位移（与 core/actions.js 的 FACE 保持一致：0 上 1 右 2 左 3 下） */
   const FACE = [[0, -1], [1, 0], [-1, 0], [0, 1]];
 
@@ -278,12 +293,14 @@
       p.set(141, TURNS);
       p.set(142, idx);
       g.log(h > 1 ? `${TEXT.start}（${h} 小时）` : TEXT.start);   // 312793
+      snd(g, 87);   // 312785/312795：抛竿
 
       // マシンルアー（312803-312827）：有 890 就用上，直接上一条鱼并收竿
       const hasLure = this.findItem(p, SUPER_LURE) >= 0;
       g.setV65(824, hasLure ? 1 : 0);
       if (hasLure) {
         g.log(TEXT.lure);
+        snd(g, 46); snd(g, 88);   // 312818-312819：ルアー提示音
         const picked = this.pickFish(g, idx);
         if (picked) this.createCatch(g, picked);
         this.rowActEnd(g, p);
@@ -443,10 +460,12 @@
         }
         if (run.state === STATE.HOOK) {         // 312886
           out.messages.push(TEXT.hook);
+          snd(g, 46);                          // 312888：咬钩音
           run.state = R(10) !== 0 ? STATE.FIGHT : STATE.IDLE;   // 312897
         }
         if (run.state === STATE.FIGHT) {        // 312905
           out.messages.push(TEXT.fight);
+          snd(g, 89);                          // 312909：挣扎音
           const e = this.entries()[run.fishIdx];
           if (!e || (e.diff | 0) >= R((p.skill(SKILL_FISH) | 0) + 1)) run.state = STATE.IDLE;   // 312919
           else run.state = STATE.LAND;
@@ -457,6 +476,8 @@
             this.createCatch(g, { index: run.fishIdx, entry: e });
             out.caught++;
           }
+          snd(g, 88);                          // 312929：上钩音
+          snd(g, 14 + R(2));                   // 312941：收线/得鱼音
           out.messages.push(TEXT.land);
           // 312944：还有时间也有饵 → 重置 30 回合继续钓
           if (run.deadline > this.absTime(g) && (rod.f[9] | 0) > 0) {
@@ -495,4 +516,6 @@
   Elona.Fishing.SKILL = SKILL_FISH;
   Elona.Fishing.ROWACT = ROWACT_FISH;
   Elona.Fishing.TEXT = TEXT;
+  // A78 测试钩子：读取最近一次播放的原版音效编号（无 Audio 时也记录）
+  Object.defineProperty(Elona.Fishing, 'lastSnd', { get: () => lastSnd });
 })(window);
