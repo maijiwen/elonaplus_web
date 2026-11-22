@@ -496,6 +496,12 @@
           if ((op.label | 0) === 4293 && Elona.QuestCheck && Elona.QuestCheck.onMapCleared) {
             try { out.cleared = Elona.QuestCheck.onMapCleared(g); } catch (e) { /* noop */ }
           }
+          // 0-EN：结局演出（4365 レシマス / 4368 レミード / 4371 神の間）
+          if (Elona.Ending && typeof Elona.Ending.play === 'function') {
+            const lab = op.label | 0;
+            const which = lab === 4365 ? 'lesimas' : (lab === 4368 ? 'rehmido' : (lab === 4371 ? 'god' : null));
+            if (which) { try { Elona.Ending.play(g, which); out.ending = which; } catch (e) { /* noop */ } }
+          }
           break;
         case 'skillexp': {
           const c = charaOf(g, ctx, op.t) || (g && g.player);

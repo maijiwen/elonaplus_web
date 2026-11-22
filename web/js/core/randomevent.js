@@ -1856,11 +1856,12 @@
       if (sub.selected === 2) {                     // 378433
         if (rate >= R(g, 100)) {
           ev.lines.push('「想跳上来吗……好胆量！」你跳上了敌船。');
-          // 378449-378451：var_65(70)=1012 → 船内白刃战（网页版用野外地图 + 盗贼团近似）
-          g.pendingSeaBattle = {
-            type: 4, danger: Math.min(999, fameLevel), strength: Math.min(999, fameLevel),
-            skipParley: true, message: '海盗船上的白刃战！',
-          };
+          // 378449-378451：var_65(70)=1012,1,委托槽,1 → 船内白刃战（地图 47 / 子图 701）。
+          g.setV65(70, 1012);
+          g.setV65(71, 1);
+          g.setV65(72, 0);
+          g.setV65(73, 1);
+          g.pendingShipInterior = { sub: 701 };
           return true;
         }
         enemy--;                                     // 378456

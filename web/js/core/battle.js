@@ -873,6 +873,10 @@
         Elona.DeathMsg.cleanup(g, dead, src);
       } catch (e) { /* 死因文案失败不影响结算 */ }
     }
+    // 200401-200418：地图 74「魂之限」中玩家或护送对象 1034 死亡 → 任务失败
+    if (Elona.StoryMap && Elona.StoryMap.soulcageOnDeath) {
+      try { out.soulcage = Elona.StoryMap.soulcageOnDeath(g, dead, (dead.index | 0) === 0); } catch (e) { /* noop */ }
+    }
     // 玩家死亡走 game 的主循环（0-CQ / 0-FI），这里只记账
     if ((dead.index | 0) === 0) { dead.__death = out; return out; }
 

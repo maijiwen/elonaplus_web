@@ -154,6 +154,10 @@
   function playerPeriodic(g) {
     const p = g && g.player;
     const out = { ok: true, phase: 0, skills: [], healed: [], counts: { p1: 0, p2: 0, p3: 0, p4: 0 } };
+    // 204222-204238：地图 74「魂之限」的倒计时（每个行动回合 -1，归零即失败）
+    if (Elona.StoryMap && Elona.StoryMap.soulcageOnTurn) {
+      try { out.soul = Elona.StoryMap.soulcageOnTurn(g); } catch (e) { /* noop */ }
+    }
     if (!active(p)) return out;
     const list = (g.charas && g.charas.length) ? g.charas : [p];
     const phase = G(p, 26) % 10;                                        // 603965 `\ 10` 为取余

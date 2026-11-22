@@ -378,6 +378,19 @@
       //   （talkscripts 368673），此前 VX 全为 0 → 写进格子的是空图块，入口看不见。
       VX[1606] = 231;
       VX[1607] = 232;
+      // D-014：var_1290 / var_1853 是「魂之限」（地图 74）的剧情变量。
+      //   原版是全局数组，对话脚本用 `var_1290 = …` / `var_1853 = …` 直接写；
+      //   本项目对话变量默认只在会话内（VX），导致 storymap.stairLeaveAlly
+      //   （344604-344613）永远读不到。这里把这两个槽同步到 g，离层判定即可生效。
+      for (const [key, field] of [[1290, 'var1290'], [1853, 'var1853']]) {
+        // 跨会话：脚本再次对话时要接着上一次的进度（1034 的 2→3→4→5、637 领奖）。
+        let val = (g && (g[field] | 0)) || 0;
+        Object.defineProperty(VX, key, {
+          enumerable: true, configurable: true,
+          get: () => val,
+          set: (nv) => { val = nv | 0; if (g) g[field] = val; },
+        });
+      }
       const rnd = (n) => ((g && g.rng) ? g.rng.rnd(n) : Math.floor(Math.random() * Math.max(1, n | 0)));
 
       // ---- 0-Z34：源码 #defcfunc 需要的局部工具 ----

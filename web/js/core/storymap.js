@@ -253,6 +253,7 @@
     const out = { spawned: [], effects: [], blocked: [], skipped: [], floors: 0 };
     if (!g) return out;
     advanceLesimas(g, mapId, depth);
+    soulcageSpawn(g, mapId, depth, out);
     const list = floorsFor(mapId, depth, opts);
     if (!list.length) return out;
     const c = makeCtx(g);
@@ -381,10 +382,110 @@
   }
 
 
+  // ================================================================
+  // 地图 74「魂之限」（阿穆尔暗笼 / 冥宮）
+  //   源码：map_init 242665-243608、637 分支 392869-393040、1034 分支
+  //   392680-392868、1037 分支 392655-392679、计时 204222-204238、
+  //   失败 200401-200418、离层 344604-344613。
+  //   本项目沿用地图 3/49/76 的口径：楼层随机生成，这里只负责**剧情语义**
+  //   —— 在对应层摆出任务 NPC，并维护 1290/1853/250+440 三个状态。
+  // ================================================================
+  const SOUL_MAP = 74;
+
+  function soulSpecies(g, sp) {
+    const list = g.charas || [];
+    for (let i = 0; i < list.length; i++) {
+      const c = list[i];
+      if (c && typeof c.get === 'function' && (c.get(0) | 0) === 1 && (c.get(27) | 0) === (sp | 0)) return c;
+    }
+    return null;
+  }
+
+  function soulSpawn(g, sp, depth, out) {
+    if (soulSpecies(g, sp)) return null;
+    const CF = Elona.CharaFactory;
+    if (!CF || typeof CF.create !== 'function') return null;
+    const p = g.player || { x: 0, y: 0 };
+    const m = g.map;
+    let pos = null;
+    if (m) {
+      const dirs = [[0, 1], [1, 0], [0, -1], [-1, 0], [1, 1], [-1, -1], [1, -1], [-1, 1], [0, 2], [2, 0]];
+      for (const d of dirs) {
+        const x = (p.x | 0) + d[0], y = (p.y | 0) + d[1];
+        if (x < 1 || y < 1 || x >= m.width - 1 || y >= m.height - 1) continue;
+        if (typeof m.walkable === 'function' && !m.walkable(x, y)) continue;
+        if ((g.charas || []).some((c) => c && (c.get(0) | 0) === 1 && c.x === x && c.y === y)) continue;
+        pos = { x, y }; break;
+      }
+    }
+    if (!pos) pos = { x: p.x | 0, y: p.y | 0 };
+    let c = null;
+    try { c = CF.create(g, sp | 0, Math.max(1, depth | 0), pos.x, pos.y); } catch (e) { c = null; }
+    if (c && out) out.spawned.push({ sp: sp | 0, index: c.index | 0, x: pos.x, y: pos.y });
+    return c;
+  }
+
+  /** 进入地图 74 的某层时摆放任务 NPC（onEnterFloor 调用） */
+  function soulcageSpawn(g, mapId, depth, out) {
+    if ((mapId | 0) !== SOUL_MAP) return;
+    const d = depth | 0;
+    const v1853 = (g.var1853 | 0) || 0;
+    if (d === 1) {
+      // 242672：入口层的《永遠のネヘルタード》637（委托者 / 领奖）。
+      soulSpawn(g, 637, 1, out);
+    } else if (d === 60) {
+      // 242809：最深层的迷子 1034；已开始护送（1853>=2）就不再重复生成。
+      if (v1853 < 2) soulSpawn(g, 1034, d, out);
+    } else if (d === 11 || d === 12 || d === 16 || d === 26 || d === 36 || d === 46) {
+      // 242132-243142 / 243310：？？？？ 1037；剧情推进到 5 之后不再出现。
+      if (v1853 < 5) soulSpawn(g, 1037, d, out);
+    }
+  }
+
+  /**
+   * 每回合：魂之限倒计时（204222-204238）。
+   *   深度 >=10 且 var_1290>0 时递减；归零 → 250+440 += 9（失败），提示。
+   */
+  function soulcageOnTurn(g) {
+    if (!g || typeof g.getV65 !== 'function') return null;
+    if ((g.getV65(20) | 0) !== SOUL_MAP) return null;
+    if ((g.getV65(22) | 0) < 10) return null;
+    if ((g.var1290 | 0) <= 0) return null;
+    g.var1290 = (g.var1290 | 0) - 1;
+    if (g.var1290 === 0) {
+      g.setV65(250 + 440, (g.getV65(250 + 440) | 0) + 9);
+      if (g.log) g.log('ネヘルタード「間に合わなかった…。救済すべき魂はもう助からない…」');
+      return { failed: true };
+    }
+    return { tick: g.var1290 };
+  }
+
+  /**
+   * 死亡：地图 74 深度 >=10 时玩家或护送对象 1034 死亡 → 250+440 += 9（200401-200418）。
+   * @param {boolean} isPlayer
+   */
+  function soulcageOnDeath(g, dead, isPlayer) {
+    if (!g || typeof g.getV65 !== 'function') return null;
+    if ((g.getV65(20) | 0) !== SOUL_MAP) return null;
+    if ((g.getV65(22) | 0) < 10) return null;
+    const sp = (dead && typeof dead.get === 'function') ? (dead.get(27) | 0) : 0;
+    if (!isPlayer && sp !== 1034) return null;
+    if (isPlayer && (g.var1853 | 0) >= 2) {
+      const escort = soulSpecies(g, 1034);
+      if (escort && typeof g.charaVanquish === 'function') {
+        try { g.charaVanquish(escort.index | 0); } catch (e) { /* noop */ }
+      }
+    }
+    g.setV65(250 + 440, (g.getV65(250 + 440) | 0) + 9);
+    if (g.log) g.log('ネヘルタード「もう駄目…残念…」');
+    return { failed: true };
+  }
+
   Elona.StoryMap = {
     V_STATE, load, tableSync, floorsFor, onEnterFloor, makeCtx,
     stairBarrier, sealedDoorAt, sealedDoorAllowed, onStairDown,
     stairLeaveAlly, stairNpc886, advanceLesimas,
+    soulcageSpawn, soulcageOnTurn, soulcageOnDeath,
     floors() { const t = tableSync(); return (t && t.floors) || []; },
     _reset() { TABLE = null; loading = null; BY_MAP.clear(); },
   };

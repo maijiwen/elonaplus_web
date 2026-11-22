@@ -57,6 +57,17 @@
   };
 
   /**
+   * 241260-241291：地图 16/17/18 的**最深层**是 `map_initcustom` 手工地图，
+   *   不走 `*label_2413` 的随机生成。三魔石的 BOSS 就摆在这些地图的 kind==1 对象里：
+   *     16 灼热之塔 (最深层 18) → firet1  : 144 赤き義眼クルイツゥア → var_65(250+4) 贤者 (254)
+   *     17 死者洞窟 (最深层 30) → undeadt1: 141 闇の奇形イスシズル   → var_65(250+3) 愚者 (253)
+   *     18 古城     (最深层 22) → roguet1 : 143 古城の主ワイナン     → var_65(250+5) 霸者 (255)
+   *   击杀规则见 200616-200644（storykill.json）；200603 排除 35/74/42/40 只是
+   *   展示屋/阿穆尔暗笼/虚空/宠物竞技场这些「可任意生成该物种」的地图，与本三图无关。
+   */
+  const BOTTOM_CUSTOM_MAPS = { 16: 'firet1', 17: 'undeadt1', 18: 'roguet1' };
+
+  /**
    * 0-FY：书页消耗 —— 313908-313928。
    *   源码动的是 `var_99(9, 书)`（可阅读次数），不是堆叠数 `var_99(0)`；
    *   页数减到 0 才 removeitem（书散成灰）。0-FX 之前本项目误用 f[0]，
@@ -1538,6 +1549,12 @@
           this.leaveEncounter();
           return true;
         }
+        // 跳帮白刃战：走到甲板边缘即撤回海面
+        if (this.shipTrip) {
+          this.endTurn();
+          this.leaveShipInterior();
+          return true;
+        }
         // 0-FC：野外 / 委托地图 —— 朝地图外走即离开（原版 343336-343419）。
         //   `var_58(3/4,var_243)` 越界且 `var_65(22)==1` →「「<地图名>」を去る？」→ y →
         //   `var_65(22)--` + `var_1777=4` 重新载入：野外回世界地图原坐标（237463），
@@ -2376,6 +2393,51 @@
       return null;
     }
 
+    /**
+     * 241260-241291：进入地图 16/17/18 的固定最深层（firet1 / undeadt1 / roguet1）。
+     *   对应原版 `map_initcustom`：
+     *   - kind==1 的地图对象 → `characreate`（227712-227715），本作按地城怪物置敌对；
+     *   - kind==2 → 地形特性（台阶等，由 MapFeat.applyObjects 写入，同时回填 header[5]）；
+     *   - `map_placeplayer` 落在上行楼梯；本层没有下行楼梯（228762）。
+     * BOSS 141/143/144 被击杀时由 storykill 规则写入 253/254/255 三个魔石标志。
+     */
+    async enterCustomDungeonFloor(file, depth) {
+      const json = await Elona.Data.map(file);
+      this.map = new Elona.GameMap(json, this.tileAttrs);
+      this.mef = new Elona.Mef();
+      if (Elona.MapFeat && Elona.MapFeat.applyObjects) {
+        Elona.MapFeat.applyObjects(this, json.objects);
+      }
+      this.groundItems = [];
+      this.charas = [this.player];
+      // 玩家落点：applyObjects 已把上行楼梯坐标写进 header[5]（227723-227724）
+      let spot = null;
+      const ent = this.map.header[5] | 0;
+      if (ent > 0) {
+        const x = ent % 1000, y = Math.floor(ent / 1000);
+        if (this.map.walkable(x, y)) spot = { x, y };
+      }
+      if (!spot) spot = this.findStairCell();
+      if (spot) { this.player.x = spot.x; this.player.y = spot.y; }
+      this.dungeonDepth = depth | 0;
+      this.setV65(22, depth | 0);
+      this.syncCharaCells();
+      this.restoreParty();
+      const level = Math.max(1, depth | 0);
+      for (const o of (json.objects || [])) {
+        if (!o || (o[4] | 0) !== 1) continue;
+        try {
+          const c = Elona.CharaFactory.create(this, o[0] | 0, level, o[1] | 0, o[2] | 0);
+          if (c) { c.set(9, -3); c.set(69, 0); }
+        } catch (_) { /* 单只生成失败不影响楼层 */ }
+      }
+      this.map.header[4] = 0;                 // 228762：最深层没有下行楼梯
+      this.syncCharaCells();
+      if (this.onMapChange) this.onMapChange(this.map);
+      this.log('看来已经到达这座地城的最深层了……');
+      this.log(`你进入了地下 ${depth} 层。`);
+    }
+
     /** 进入/切换地下楼层（缓存已生成的地图） */
     async enterDungeon(depth, fromBelow) {
       if (this.transitioning) return;
@@ -2383,6 +2445,13 @@
       try {
         if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
         if (!Elona.ItemDB.data) await this.loadAllTables();
+        // 241260-241291：地图 16/17/18 的最深层是手工地图（firet1/undeadt1/roguet1），
+        //   直接载入，不走 generateDungeon 的随机楼层。
+        const customBottom = BOTTOM_CUSTOM_MAPS[(this.dungeonSiteId | 0) || (this.getV65(20) | 0)];
+        if (customBottom && (depth | 0) === (this.dungeonMaxDepth | 0)) {
+          await this.enterCustomDungeonFloor(customBottom, depth);
+          return;
+        }
         let f = this.dungeonFloors[depth];
         if (!f) {
           f = this.generateDungeon(depth);
@@ -3155,11 +3224,11 @@
       this.tickEncounterCancel();
       this.advanceClock();
       if (Elona.Quest) Elona.Quest.tick(this);
-      // 378449-378451：海域跳帮成功 → 进入船内白刃战（网页版用野外地图 + 盗贼团近似）
-      if (this.pendingSeaBattle) {
-        const pb = this.pendingSeaBattle;
-        this.pendingSeaBattle = null;
-        this.startWorldEncounter(pb);
+      // 378449-378451：海域跳帮成功 → 进入船内白刃战（地图 47 / 子图 701）
+      if (this.pendingShipInterior) {
+        const psi = this.pendingShipInterior;
+        this.pendingShipInterior = null;
+        this.enterShipInterior(psi.sub | 0 || 701);
         return true;
       }
       // 0-DG：站到 site 的入口格**不再自动进入**，改为提示「按回车进入」。
@@ -3411,6 +3480,121 @@
       this.setV65(73, 0);
     }
 
+    /**
+     * 378449-378451 / 247313-247352：跳帮成功 → 进入船内白刃战。
+     *   原版用地图 47 的子图 700（自船）/ 701（敌船）；网页版的海面就是世界地图，
+     *   因此直接加载 sea700 / sea701，并把世界坐标记在 shipTrip 里，
+     *   敌人全灭或走到边缘时用 leaveShipInterior() 回到海面。
+     * @param {number} sub 700 | 701
+     */
+    async enterShipInterior(sub) {
+      if (this.transitioning || this.shipTrip) return false;
+      const subId = (sub | 0) === 700 ? 700 : 701;
+      const file = subId === 701 ? 'sea701' : 'sea700';
+      const S = Elona.Sites;
+      if (!S || !S.mapNames) { this.log('船内地图不可用。'); return false; }
+      await S.mapNames();
+      if (!S.hasMapSync(file)) {
+        this.log(`船内地图（${file}）尚未提取，无法进入。`);
+        return false;
+      }
+      this.transitioning = true;
+      try {
+        const w = this.worldMap || { x: 0, y: 0 };
+        this.shipTrip = {
+          wx: w.x | 0, wy: w.y | 0,
+          wid: (this.getV65(850) | 0) || 4,
+          town: (Elona.Towns && this.map && Elona.Towns.isTown && Elona.Towns.isTown(this.map.name))
+            ? this.map.name : null,
+        };
+        this.worldMap = null;
+        await this.loadMap(file);
+        this.setV65(20, 47);
+        this.setV65(22, subId);
+        this.dungeonDepth = 0;
+        this.questMap = null;
+        this.mef = new Elona.Mef();
+        this.charas = [this.player];
+        this.syncCharaCells();
+        this.restoreParty();
+        if (subId === 701) this.spawnPirateCrew();
+        this.log(subId === 701
+          ? '你跳上了海盗船！甲板上涌来一群海盗。'
+          : '你登上了自己的船。');
+        if (this.onMapChange) this.onMapChange(this.map);
+        return true;
+      } catch (e) {
+        this.log('进入船内失败：' + e.message);
+        this.shipTrip = null;
+        return false;
+      } finally {
+        this.transitioning = false;
+      }
+    }
+
+    /** 247313-247352：海盗船甲板的固定成员（船长 302 + 三组杂兵），关系 -3。 */
+    spawnPirateCrew() {
+      const CF = Elona.CharaFactory;
+      if (!CF || typeof CF.create !== 'function') return;
+      const R = (n) => (this.rng && this.rng.rnd ? this.rng.rnd(n) : 0);
+      const place = (c, x, y) => {
+        if (!c) return;
+        c.x = x; c.y = y;
+        c.set(9, -3);            // var_58(9)：敌对
+        c.set(69, 0);            // var_58(69)：不主动追击
+      };
+      const plv = this.player ? Math.max(1, this.player.get(1) | 0) : 1;
+      place(CF.create(this, 302, plv, 29, 10), 29, 10);
+      const groups = [
+        { sp: 442, n: 3 + R(3), lv: 1 },
+        { sp: 1086, n: 3 + R(3), lv: 25 },
+        { sp: 1086, n: 3 + R(3), lv: 15 },
+        { sp: 1087, n: 3 + R(3), lv: 15 },
+      ];
+      const spots = [[26, 8], [26, 12], [24, 9], [24, 11], [22, 10], [20, 8],
+        [20, 12], [18, 10], [16, 9], [16, 11], [14, 10], [12, 9]];
+      let si = 0;
+      for (const grp of groups) {
+        for (let k = 0; k < grp.n && si < spots.length; k++, si++) {
+          const s = spots[si];
+          place(CF.create(this, grp.sp, grp.lv, s[0], s[1]), s[0], s[1]);
+        }
+      }
+      // 247352：evadd 94（船内白刃战的剧情事件；未编译该脚本时由队列空操作）
+      if (this.events && typeof this.events.add === 'function') {
+        try { this.events.add(94); } catch (e) { /* noop */ }
+      }
+    }
+
+    /** 船内还活着的敌对角色数（用于胜利后自动返回海面） */
+    shipEnemiesLeft() {
+      let n = 0;
+      for (const c of (this.charas || [])) {
+        if (!c || (c.index | 0) === 0) continue;
+        if ((c.get(0) | 0) !== 1) continue;
+        if ((c.get(9) | 0) > -1) continue;
+        n++;
+      }
+      return n;
+    }
+
+    /** 离开船内 → 回到原来的海面世界坐标（跳帮白刃战的收场） */
+    async leaveShipInterior() {
+      const t = this.shipTrip;
+      if (!t) return false;
+      this.shipTrip = null;
+      this.setV65(22, 0);
+      this.clearGQuestAmbush();
+      if (t.town && Elona.Towns && Elona.Towns.isTown(t.town)) {
+        await this.travelToTown(t.town);
+      }
+      this.setV65(850, t.wid | 0 || 4);
+      this.worldMap = { x: t.wx | 0, y: t.wy | 0 };
+      this.log('你回到了海面上。');
+      if (this.onMapChange) this.onMapChange(this.map);
+      return true;
+    }
+
     /** 野外地图里还有活着的敌人吗（用于自动收场） */
     encounterEnemiesLeft() {
       if (!this.encounterTrip || !this.charas) return 0;
@@ -3500,7 +3684,8 @@
       }
       const cur = Elona.Towns && Elona.Towns.byId(site.id);
       const kind = site.fields ? (site.fields[0] | 0) : 0;
-      if (!cur && kind >= 20 && kind <= 27) {
+      const siteType = site.fields ? (site.fields[16] | 0) : 0;
+      if (!cur && ((kind >= 20 && kind <= 27) || siteType === 74)) {
         this.dungeonFromWorld = { x: w.x | 0, y: w.y | 0, worldId: wid };
       }
       this.worldMap = null;                          // 进入 site = 离开世界地图
@@ -3764,6 +3949,35 @@
         const ok = await Elona.Home.enter(this, 1);
         if (ok) this.log(`你进入了${siteLabel}。`);
         return ok;
+      }
+
+      // 魂之限（site 74 / 阿穆尔暗笼）：原版是 60 层固定地图（3haka / 3haka2 / meiqNNN，
+      //   242665-243608）。本项目沿用「地城 + 剧情层摆放」的既有口径（与地图 3/49/76 相同），
+      //   层数上限取源码 242667 的 var_126(10)=60。
+      if ((site.fields[16] | 0) === 74) {
+        const start = 1, bottom = 60;
+        this.dungeonFloors = {};
+        this.dungeonSiteId = 74;
+        this.dungeonMinDepth = start;
+        this.dungeonMaxDepth = bottom;
+        this.dungeonCleared = false;
+        this.dungeonAwake = false;
+        this.dungeonKind = 20;
+        this.isRandomDungeon = false;
+        this.dungeonMedalSeed = 0;
+        this.dungeonCoreSeed = 0;
+        const p = this.player;
+        if (!this.townSnapshot) {
+          this.townSnapshot = {
+            map: this.map ? this.map.name : 'vernis', x: p.x, y: p.y,
+            charas: this.charas.slice(), items: this.groundItems.slice(),
+          };
+        }
+        this.setV65(20, 74);
+        await this.enterDungeon(start, false);
+        this.setV65(20, 74);
+        this.log(`你进入了${siteLabel}。`);
+        return true;
       }
 
       if (kind >= 20 && kind <= 27) {
@@ -6619,6 +6833,11 @@
       if (this.encounterTrip && this.encounterTrip.type && this.encounterEnemiesLeft() === 0) {
         this.log('敌人已经全部倒下。');
         this.leaveEncounter();
+      }
+      // 跳帮白刃战：甲板上的海盗全灭 → 回到海面
+      if (this.shipTrip && this.shipEnemiesLeft() === 0) {
+        this.log('海盗已经全部倒下。');
+        this.leaveShipInterior();
       }
       // 0-GM / 604861-605014：turn_end:pc 的收尾状态（日志更新 / 801 计时 / 伏兵事件）
       this.turnEndTail();
