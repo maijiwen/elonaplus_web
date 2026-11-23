@@ -653,6 +653,8 @@
    * 然后才跑兴趣扣减 / 好感掷骰。所以这里先取文本，再结算。
    */
   function talk(g, npc) {
+    // 每日任务「和人对话」（365854）
+    if (Elona.DailyQuest && Elona.DailyQuest.checkDialogue) Elona.DailyQuest.checkDialogue(g);
     const text = talkText(g, npc);
     // 414135-414153：会话窗（var_122 == "" 的分支）重建一次就结算一次 ——
     //   「打开对话窗」与「点一次来聊聊天吧」各一次，两条路都过本函数，等价。

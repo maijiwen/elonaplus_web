@@ -484,9 +484,9 @@
    * @param {number} id     法术 id（var_396）
    * @returns {number} 主伤害实际扣除量
    */
-  function applyMagicDamage(g, caster, tg, dmg, elem, id) {
+  function applyMagicDamage(g, caster, tg, dmg, elem, id, opts) {
     const E = (elem === undefined || elem === null) ? 0 : (elem | 0);
-    const applied = Elona.Battle.applyDamage(tg, dmg, g, caster, E, 0);
+    const applied = Elona.Battle.applyDamage(tg, dmg, g, caster, E, 0, opts);
     // 316178-316221：目标存活且主伤害 >= 5 → 复合咏唱追加对应属性伤害
     //   源码只判「目标存活 + var_1588>=5」，不要求主伤害实际扣血（抗性 0 也追加）。
     if (dmg >= 5 && tg && tg.get(0) === 1) {
@@ -494,7 +494,7 @@
       if (co && co.k > 0) {
         const add = CHORUS_ADD[E];
         if (add !== undefined) {
-          Elona.Battle.applyDamage(tg, idiv(dmg, 5) * co.k + 1, g, caster, add, 0);
+          Elona.Battle.applyDamage(tg, idiv(dmg, 5) * co.k + 1, g, caster, add, 0, opts);
         }
       }
     }
@@ -1114,7 +1114,35 @@
           * 4 * Math.sqrt(limit(caster.level, 1, 2000) * 3) + 30 + 1, 3);
         if (Elona.Status.findbuff(caster, 32) !== -1 && (caster.index !== 0 || t.get(9) === -3)) dmg *= 11;  // 316579-316581
         if (realTarget === -1 && isHostile(g, caster, tIdx)) realTarget = tIdx;   // 316377-316400
-        const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id);   // 316507 dmghp + 复合咏唱
+        const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id, { deferDeath: true });   // 316507 dmghp + 复合咏唱
+        // 316585-316629 + dmghp(199418-199505)：球形/范围魔法命中与伤势提示
+        if (g && g.log) {
+          const subj = id === 644 ? '爆炸' : (id === 655 ? '电击' : '能量球');
+          const tName = tIdx === 0 ? '你' : t.name;
+          let sev = -1;
+          if (applied > 0) {
+            sev = idiv(applied * 6, Math.max(1, t.hpMax | 1));
+            if (t.hp < idiv(t.hpMax, 2)) sev++;
+            if (t.hp < idiv(t.hpMax, 4)) sev++;
+            if (t.hp < idiv(t.hpMax, 10)) sev++;
+          }
+          if (tIdx >= 16) {
+            const inj = sev < 0 ? '使其擦伤。'
+              : sev === 0 ? '使其受了轻伤。'
+              : sev === 1 ? '使其受了中伤。'
+              : sev === 2 ? '使其受了重伤。'
+              : '使其受了致命伤！';
+            g.log(`${subj}命中了${tName}，${inj}`);
+          } else {
+            g.log(`${subj}命中了${tName}。`);
+            if (sev === 1) g.log(`${tName}受了不轻的伤。`);
+            else if (sev === 2) g.log(`${tName}痛苦地扭动着。`);
+            else if (sev >= 3) g.log(`${tName}发出了惨痛的哀号！`);
+          }
+        }
+        if (applied > 0 && t.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+          Elona.Battle.onDeath(g, t, caster);
+        }
         if (t.get(94) > 0 && id !== 655 && (caster.index >= 16 || tIdx >= 16)) {   // 316678-316680 反射
           const refl = limit(idiv(dmg * t.get(94), 200) + 1, 1, idiv(caster.hpMax, 10));
           applyMagicDamage(g, t, caster, refl, dice.elem, id);   // 316225/316678 魔法反射

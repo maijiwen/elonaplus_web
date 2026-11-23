@@ -282,6 +282,13 @@
     } else done(false);
   };
 
+  // *label_2838（300397）：对非敌对目标施放攻击性法术前的确认
+  Elona.attackConfirm = (g, target, done) => {
+    if (Elona.Panels && Elona.Panels.openConfirm && target) {
+      Elona.Panels.openConfirm(`真的要攻击 ${target.name} 吗？`, done);
+    } else done(true);
+  };
+
   // 0-FY：*label_2844（300691-300700）——「読書を中断したほうがいいだろうか？」。
   //   核心层 core/actions.js 只发请求，这里接到 y/n 面板；选「否」等于继续当前行动。
   Elona.rowactInterruptConfirm = (g, name, done) => {
@@ -543,9 +550,9 @@
         //   再按 / 复原；Esc 也可复原（见下面的 case 'esc'）。
         if (Elona.Hud && Elona.Hud.toggleMsgExpand) {
           const n = Elona.Hud.toggleMsgExpand();
-          UI.pushMessage(n > 0
-            ? `消息栏加高到 ${Elona.Hud.MSG_BASE_LINES + n} 行（再按 / 或 Esc 复原）。`
-            : '消息栏恢复原来的高度。');
+          // UI.pushMessage(n > 0
+          //   ? `消息栏加高到 ${Elona.Hud.MSG_BASE_LINES + n} 行（再按 / 或 Esc 复原）。`
+          //   : '消息栏恢复原来的高度。');
         }
         return true;
       case 'help': P.openHelp(); return true;

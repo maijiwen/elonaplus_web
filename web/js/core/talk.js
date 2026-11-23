@@ -44,17 +44,31 @@
 
   /** 会「喊出来」（txtef 9）的类型：除对话/EXAct 之外的都算（193141） */
   const QUIET_TYPES = [106, 135, 137, 138, 139, 140, 141];
-  /** 找不到台词时直接返回 0 的类型（193155） */
-  const NO_FALLBACK = [106, 137, 138, 139, 140, 141, 146];
+  /** 找不到台词时直接返回 0 的类型（193155）。源码含 147(txtTagEvo)，此前漏了。 */
+  const NO_FALLBACK = [106, 137, 138, 139, 140, 141, 146, 147];
 
   const cache = new Map();       // key → { tags }
   let fileList = [];             // data/talk/index.json 里的文件名（口調一覧用）
+  // 种族固有台词（源码 *label_4269，creature-special 的 var_59==100..151 分支）
+  let CREATURE_TALK = null;
+
+  /** 懒加载 data/tables/creature_talk.json（{ 种族: { type: 台词 } }） */
+  function creatureTalkTable() {
+    if (CREATURE_TALK) return CREATURE_TALK;
+    if (Elona.Data && Elona.Data.tableSync) {
+      try { CREATURE_TALK = Elona.Data.tableSync('creature_talk'); } catch (e) { CREATURE_TALK = null; }
+    }
+    return CREATURE_TALK;
+  }
+  /** 清空缓存（测试 / 重载用） */
+  function clearCreatureTalk() { CREATURE_TALK = null; }
 
   /** 台词里的 {Question} {Angry} {se0} 等是对话特效标记 */
   const MARK_RE = /\{[A-Za-z0-9_]+\}/g;
 
   const Talk = {
     TYPES, QUIET_TYPES, NO_FALLBACK, CBIT_CUSTOM,
+    clearCreatureTalk,
 
     /** 去掉特效标记，只留可读文本 */
     stripMarks(text) {
@@ -188,6 +202,9 @@
       const k = String(key || '').replace(/\.txt$/i, '');
       npc.talkFile = k || null;
       npc.talkData = (k && data) ? data : null;
+      // 源码 var_63(4) 同时承担「口吻文件名」(cbit989=1) 与「教说话文本」(cbit989=0)，
+      //   两者互斥：绑定口吻即覆盖掉之前教的文本。
+      npc.talkText = null;
       if (Elona.Status && Elona.Status.cbitmod) {
         Elona.Status.cbitmod(npc, CBIT_CUSTOM, k ? true : false);
       }
@@ -220,6 +237,25 @@
         const arr = npc.talkLines || (npc.get(157) ? null : null);
         if (!arr) return null;
         tags = arr;
+      } else if (npc && (npc.get(23) | 0) !== 0) {
+        // 193155-193162：无自定义口吻、非种族 343 时，走 *label_3105 → *label_4269
+        //   的「种族固有台词」（creature-special 的 var_59==type 分支）。
+        //   对话类（106/137-141/146/147）源码先 `return 0`，不说。
+        if (NO_FALLBACK.indexOf(t) >= 0) return null;
+        const tbl = creatureTalkTable();
+        const rec = tbl && tbl[String(npc.get(27) | 0)];
+        const line = rec && rec[String(t)];
+        if (!line) return null;
+        // 种族台词是原版日文/英文硬编码，清理提取残留的转义引号后返回；
+        //   quiet 按 QUIET_TYPES 判定（100/101/102/103 会喊）。
+        const clean = String(line).replace(/\\"/g, '"');
+        return {
+          text: this.stripMarks(clean),
+          raw: clean,
+          tag,
+          quiet: QUIET_TYPES.indexOf(t) >= 0,
+          effects: { sounds: [], emotes: [] },
+        };
       } else {
         return null;
       }

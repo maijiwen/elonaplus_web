@@ -452,13 +452,14 @@
       const level = Math.trunc(c.skill(def.index) || 0);
       const raw = Math.trunc((c.potential && c.potential[def.index]) || 0);
       const exp = Math.floor(raw / SKILL_PART) % SKILL_PART;
-      const pot = Math.floor(raw / SKILL_PACK);
+      const pot = raw % SKILL_PART;
       return level * SKILL_PACK + exp * SKILL_PART + pot;
     },
 
     /**
-     * 拆解组合值写回：等级 → var_82(id)，经验/潜力 → var_82(id+600)。
-     * 低 3 位是成长率（sgrowth），不在表单里显示，原样保留。
+     * 拆解组合值写回：等级 → var_82(id)，基础等级×1000000 + 经验×1000 + 潜力 → var_82(id+600)。
+     * 必须同时把 level 写入 var_82(id+600) 的高位，否则 recalcStats -> syncSkillValues
+     * 会用高位基础等级覆盖 c.skillVals[id]，导致几回合后变回修改前的数值。
      */
     _writeSkillPack(c, def, value) {
       const total = Math.max(0, Math.trunc(Number(value) || 0));
@@ -467,9 +468,7 @@
       const exp = Math.floor(rem / SKILL_PART);
       const pot = rem % SKILL_PART;
       if (!c.potential) c.potential = {};
-      const old = Math.trunc(c.potential[def.index] || 0);
-      const growth = total === 0 ? 0 : old % SKILL_PART;
-      c.potential[def.index] = total === 0 ? 0 : (pot * SKILL_PACK + exp * SKILL_PART + growth);
+      c.potential[def.index] = total === 0 ? 0 : (level * SKILL_PACK + exp * SKILL_PART + pot);
       c.setSkill(def.index, total === 0 ? 0 : level);
     },
 
@@ -987,6 +986,9 @@
         pending.push({ def: f.def, value: Number(f.input.value) });
       }
       for (const p of pending) this._writeSkillPack(c, p.def, p.value);
+      if (Elona.Stats && Elona.Stats.recalcStats) {
+        try { Elona.Stats.recalcStats(c, this.game); } catch (e) { /* noop */ }
+      }
       this.refreshSkill();
       this._setStatus('已保存角色 ' + this.skillIndex + ' 的 ' + pending.length + ' 个技能。', false, 'skill');
       if (Elona.UI && Elona.UI.pushMessage) {

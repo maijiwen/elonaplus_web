@@ -121,32 +121,51 @@
   }
 
   /**
-   * A148 / 源码 592858-592900（*label_4302 内，靠近玩家时的喊话）：
-   *   `rnd(4)==0` 且 NPC 在玩家 ±10 格内、var_140!=6、cbit(1049)==0：
-   *     · cbit(985)==1 → customtalk 149（txtClementia，曾被赦免）
-   *     · var_201>0（有戒心）且无 buff 40 → customtalk 101（txtAggro）
-   *     · 否则 → customtalk 100（txtCalm）
-   *   与 hostileaction 的 101 是不同触发点（那里是被攻击，这里是靠近）。
-   * @returns {number|null} 实际播放的 talkType（无台词表时 speak 静默，仍返回 type）
+   * 过回合闲聊 —— 忠实实现 *label_4302 的两段（592841-592912）。
+   *
+   * 【第一段：教说话独白】592841-592855
+   *   `var_63(4) != ""`（玩家教过它一句话，cbit 989 == 0 表示不是口吻文件）且 `rnd(30)==0`
+   *   → 直接把这句独白显示到消息栏（`txt_select var_63(4)`），然后 `goto *label_4303`。
+   *
+   * 【第二段：台词闲聊】592871-592912
+   *   门控：`var_58(23)!=0`（能说话）或 `cbit(989)`（有自定义口吻）；`cbit(965)==0`（未静音）；
+   *         `var_58(26) \ 5 == 0`（每 5 回合）；`rnd(4)==0`；玩家在 ±10 格；玩家 var_140!=6。
+   *   类型：`cbit(1049)==0`（未求饶）时，按 `var_201>0`（有戒心）+ 无 buff40 → 101，否则 100；
+   *         `cbit(1049)!=0`（求饶过）→ 149（txtClementia）。
+   *   台词来源：自定义口吻文件 / 种族固有台词（label_4269，见 talk.js 第 5 层）。
+   *
+   * @returns {string|null} 'talk'（教说话独白）或 talkType（数字）或 null
    */
   function greetTalk(g, c) {
     const p = g && g.player;
     if (!p || !Elona.Talk || !Elona.Talk.speak) return null;
     const R = (n) => (g.rng ? g.rng.rnd(n) : 0);
-    if (R(4) !== 0) return null;                                   // 592858
-    if (Math.abs((c.x | 0) - (p.x | 0)) > 10) return null;         // 592860-861
-    if (Math.abs((c.y | 0) - (p.y | 0)) > 10) return null;
-    if ((c.get(140) | 0) === 6) return null;                       // 592864
     const cb = (n) => (Elona.Status && Elona.Status.cbit ? (Elona.Status.cbit(c, n) | 0) : 0);
-    if (cb(1049) !== 0) return null;                               // 592865 已求饶
-    let type;
-    if (cb(985) === 1) {
-      type = 149;                                                  // 曾被赦免
-    } else {
+
+    // ---- 第一段：教说话独白（592841-592855）----
+    const talkText = c.talkText || '';
+    if (talkText && cb(989) === 0 && R(30) === 0) {
+      if (g.log) g.log(`${c.name}「${talkText}」`);
+      return 'talk';
+    }
+
+    // ---- 第二段：台词闲聊（592871-592912）----
+    if ((c.get(23) | 0) === 0 && cb(989) === 0) return null;       // 592871
+    if (cb(965) !== 0) return null;                                // 592872 静音
+    if (((c.get(26) | 0) % 5) !== 0) return null;                  // 592874 每5回合
+    if (R(4) !== 0) return null;                                   // 592875
+    if (Math.abs((c.x | 0) - (p.x | 0)) > 10) return null;         // 592876-877
+    if (Math.abs((c.y | 0) - (p.y | 0)) > 10) return null;
+    if ((p.get(140) | 0) === 6) return null;                       // 592879 玩家行动中
+
+    let type = null;
+    if (cb(1049) === 0) {                                          // 未求饶
       const guard = (Elona.Status && Elona.Status.findbuff)
         ? (Elona.Status.findbuff(c, 40) >= 0) : false;             // findbuff 40
       if ((c.get(201) | 0) > 0) type = guard ? null : 101;         // 有戒心 → Aggro
       else type = 100;                                             // Calm
+    } else {
+      type = 149;                                                  // 求饶过 → Clementia
     }
     if (type === null) return null;
     try { Elona.Talk.speak(g, c, type); } catch (e) { /* 无台词表静默 */ }
@@ -1324,6 +1343,9 @@
       let didAct = false;
       for (let k = 0; k < n; k++) {
         if (c.hp <= 0 || g.player.hp <= 0) break;
+        // 604（label_4354）`var_58(26, var_243)++`：角色每次取得行动时递增「经过回合数」。
+        //   greetTalk 的 `var_58(26)\5==0` 门依赖它（每 5 次行动闲聊一次）。
+        c.set(26, (c.get(26) | 0) + 1);
         // 0-FY：验证/调试用的可选观察钩子（生产环境不设置，零开销）；
         //   返回 false 可跳过本次行动，便于测试只统计行动次数。
         if (g.__aiTurnSpy && g.__aiTurnSpy(c.index | 0, k) === false) continue;
@@ -1352,7 +1374,7 @@
   Elona.AI = {
     adjacentCheck, npcTurn, runAll, childAiPre, findNearestHostile, castBranch,
     tryHealPotion, tryIdle, tryUseItem, findInvItem, sightRange, tryPetPickup,
-    mercyCheck, mountSync, tamerIdle, TAMER_ABILITY, TAMER_SPECIES,
+    mercyCheck, mountSync, greetTalk, tamerIdle, TAMER_ABILITY, TAMER_SPECIES,
     isHostile, hostileTowards, stepToward, stepAway, randomStep, combatMove,
     preferredDistance, combatStatusSkip, idleModeBlocked, idleGate, drunkCatIdle,
     nightSleepIdle, pocketSupplyIdle, snowPlayIdle, allyEatIdle, specialIdle,

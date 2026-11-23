@@ -300,24 +300,14 @@
   function newDay(g, opts) {
     const out = { messages: ['一天结束了，日期变了。'], mood: 0 };
     if (!g) return out;
-    const p = g.player;
-    const R = rndOf(g);
-    // 603575-603580：心情累积（var_58(191/190) >= 1000 时 var_58(194)++）
-    if (G(p, 191) >= 1000) { p.set(194, G(p, 194) + 1); out.mood++; }
-    if (G(p, 190) >= 1000) { p.set(194, G(p, 194) + 1); out.mood++; }
-    out.messages.push('日记更新了。');
-    // 603588-603603：重掷 var_58(191/190) 的档位（1..8，避开上月同值）
-    for (let n = 0; n < 10; n++) {
-      const v = R(8) + 1;
-      if (v !== Math.trunc(G(p, 191) / 1000)) { p.set(191, v); break; }
+    // 603575-603611：每日任务刷新（进度累积 / 日期种子重掷 / 阈值推进 + 奖励发放）。
+    //   逻辑集中在 core/dailyquest.js（DailyQuest），这里只做编排。
+    if (Elona.DailyQuest && Elona.DailyQuest.newDayRefresh) {
+      const q = Elona.DailyQuest.newDayRefresh(g);
+      for (const m of q.messages) out.messages.push(m);
+      out.mood = q.mood || 0;
+      if (q.reward) { out.dream = true; out.reward = q.reward; }
     }
-    for (let n = 0; n < 10; n++) {
-      const v = R(8) + 1;
-      if (v !== Math.trunc(G(p, 190) / 1000)) { p.set(190, v); break; }
-    }
-    // 603605-603611：阈值推进与重置
-    if (G(p, 194) >= G(p, 195)) { p.set(195, G(p, 195) + 10); out.dream = true; }
-    if (G(p, 195) <= 0 || G(p, 195) >= 1010) { p.set(195, 10); p.set(194, 0); }
     // A-R3-04：跨日主线/剧情/日历结算
     const extra = newDayExtra(g, opts);
     for (const m of extra.messages) out.messages.push(m);

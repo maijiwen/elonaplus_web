@@ -14,6 +14,7 @@
   "craft_upgrade.json",
   "creature.json",
   "creature_bits.json",
+  "creature_talk.json",
   "deathtexts.json",
   "dishimage.json",
   "dishnames.json",
@@ -90,6 +91,7 @@
  ],
  "scene": [
   "index.json",
+  "map_events.json",
   "scene1.json",
   "scene2.json",
   "triggers.json"
@@ -97,5 +99,5 @@
  "talk": [
   "sample.json"
  ],
- "count": 89
+ "count": 91
 }

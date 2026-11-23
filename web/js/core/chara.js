@@ -124,6 +124,10 @@
         __tempDays: this.__tempDays,
         __dominated: this.__dominated ? 1 : 0,
         __escortQuest: this.__escortQuest,
+        // var_63(4) 自定义台词：口吻文件名（cbit989=1）或教说话文本（cbit989=0）。
+        //   不存档会导致读档后口吻/教说话全部丢失（cbit 989 却在 v[] 里保留）。
+        talkFile: this.talkFile || null,
+        talkText: this.talkText || null,
       };
     }
     static fromJSON(o) {
@@ -146,6 +150,9 @@
       if (o.__tempDays !== undefined && o.__tempDays !== null) c.__tempDays = o.__tempDays;
       if (o.__dominated) c.__dominated = true;
       if (o.__escortQuest !== undefined && o.__escortQuest !== null) c.__escortQuest = o.__escortQuest;
+      // var_63(4)：口吻文件名 / 教说话文本
+      if (o.talkFile) c.talkFile = o.talkFile;
+      if (o.talkText) c.talkText = o.talkText;
       if (Array.isArray(o.spellStock)) {
         for (let i = 0; i < 200; i++) c.spellStock[i] = o.spellStock[i] | 0;
       }

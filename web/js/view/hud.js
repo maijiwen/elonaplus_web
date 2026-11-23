@@ -252,7 +252,20 @@
       const st = p.spellStock || [];
       return st[w.id] | 0;
     }
-    return p.skill(w.id) | 0;
+    const lv = p.skill(w.id) | 0;
+    const raw = (p.potential && p.potential[w.id]) | 0;
+    const exp = ((raw % 1000000) / 1000) | 0;
+    return lv * 1000 + exp;
+  }
+
+  /** 监视列表显示文本：主属性/技能显示「等级.三位经验」（205268-205271），耐性/法术显示整数 */
+  function watchText(game, w, v) {
+    if (w.kind === 'resist' || w.kind === 'spell') return String(v);
+    const p = game && game.player;
+    const lv = p ? (p.skill(w.id) | 0) : ((v / 1000) | 0);
+    const raw = (p && p.potential && p.potential[w.id]) | 0;
+    const exp = ((raw % 1000000) / 1000) | 0;
+    return `${lv}.${String(exp).padStart(3, '0')}`;
   }
 
   /** 带描边的文字（8 邻域黑边，保证在浅色地砖上也读得清；不加底板） */
@@ -295,14 +308,14 @@
       prevSkill[key] = v;
       const ry = y0 + i * rowH;
       strokeText(ctx, w.label, x, ry, COL.text);
-      const txt = String(v);
+      const txt = watchText(game, w, v);
       ctx.textAlign = 'right';
-      strokeText(ctx, txt, x + 106, ry, '#ffffff');
+      strokeText(ctx, txt, x + 118, ry, '#ffffff');
       ctx.textAlign = 'left';
       const d = delta[key];
       if (d && d.ttl > 0) {
         if (tick) d.ttl--;
-        strokeText(ctx, d.d > 0 ? '▲' : '▼', x + 110, ry, d.d > 0 ? COL.up : COL.down);
+        strokeText(ctx, d.d > 0 ? '▲' : '▼', x + 122, ry, d.d > 0 ? COL.up : COL.down);
       }
     }
     ctx.restore();

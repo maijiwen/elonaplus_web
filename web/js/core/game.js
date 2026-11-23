@@ -716,6 +716,10 @@
       if (Elona.Heirloom && Elona.Heirloom.ensurePositive) {
         try { Elona.Heirloom.ensurePositive(this); } catch (e) { /* noop */ }
       }
+      // 每日任务初始化（302351-302355：195=10、194=0、191=1、190=1）。
+      //   新档必须给 190/191 一个 1..8 的初值，否则类型判定 `%1000===type` 永不成立。
+      //   过夜时 DailyQuest.newDayRefresh 会用日期种子重掷为随机类型。
+      p.set(195, 10); p.set(194, 0); p.set(191, 1); p.set(190, 1);
       // 442505 / 827531：创建时选的专长技能，进入游戏后立刻结算
       this.applyBirthSkill(p, opts.skill);
       // 装备加成重算（*label_2175 的 213461-213793）：DV/PV/命中/伤害/武器类型
@@ -1247,6 +1251,13 @@
         if (Elona.Story.runMapEvents) {
           Elona.Story.runMapEvents(this).catch(() => { /* 副作用失败不阻塞移动 */ });
         }
+      }
+      // 每日任务：探索随机奈菲亚（237768 `var_132(16)==8`）/ 游历野外（237780 `var_65(20)==2`）
+      if (this.state === STATE.PLAY && Elona.DailyQuest) {
+        const mid = this.getV65(20) | 0;
+        const st = (Elona.Sites && Elona.Sites.field) ? (Elona.Sites.field(16, mid, this) | 0) : 0;
+        if (st === 8 && Elona.DailyQuest.checkNefia) Elona.DailyQuest.checkNefia(this);
+        if (mid === 2 && Elona.DailyQuest.checkWild) Elona.DailyQuest.checkWild(this);
       }
       return this.map;
     }
@@ -3224,6 +3235,8 @@
         return false;
       }
       w.x = nx; w.y = ny;
+      // 每日任务「在世界地图上走走」（312467）
+      if (Elona.DailyQuest && Elona.DailyQuest.checkWorldMap) Elona.DailyQuest.checkWorldMap(this);
       // 0-Z3：旅行里数每格 +4（wiki 口径；源码 248731 负累计 -300 的等价正累计）
       if (Elona.Travel) Elona.Travel.worldStep(this);
       // 602322-602323：var_65(5)/(6) 与步行坐标同步（603171 的下雪判定用这两个值）
@@ -4753,6 +4766,12 @@
       }
       p.set(22, (p.get(22) | 0) + gain);
 
+      // 每日任务（225180-225470 吃食 / 313572 喝饮料）：只有玩家自己吃才判定（源码 var_243==0）。
+      if ((p.index | 0) === 0 && Elona.DailyQuest) {
+        if (Elona.DailyQuest.checkEat) Elona.DailyQuest.checkEat(this, it);
+        if (Elona.DailyQuest.checkDrink) Elona.DailyQuest.checkDrink(this, it);
+      }
+
       // 0-Z13 / 226805-226831：妊娠阶段 2 —— 每次进食按营养推进怀孕进度，
       //   到 -12000000 登记出生事件（由 endTurn 的 Birth.tickBirths 消费）。
       if (Elona.Birth && Elona.Birth.onEat) Elona.Birth.onEat(this, p, gain);
@@ -5130,8 +5149,15 @@
       if (!bad) return { failed: false };
       // 失败演出（215525-215570 的三选一；召唤怪物分支本项目不生成怪，折算为提示）
       if (r(4) === 0) {
-        p.mp = Math.max(0, (p.mp | 0) - Math.max(1, idiv(p.mp | 0, 4)));
+        // 215530-215534：先提示被吸魔，再对玩家执行 dmgmp var_243, var_58(56, var_243)
+        //   （按最大 MP 扣除，MP 扣成负值时在 dmgmp 内触发魔力反噬）
         this.log('你被吸走了魔力！');
+        const drain = Math.max(1, p.mpMax | 0);
+        if (Elona.Status && Elona.Status.dmgmp) {
+          Elona.Status.dmgmp(p, drain, this);
+        } else {
+          p.mp = (p.mp | 0) - drain;
+        }
       } else if (r(4) === 0) {
         this.log('太难懂了！头脑一片混乱。');
       } else {
@@ -5279,15 +5305,18 @@
       if (stock <= 0) { this.log('你还没有习得这个法术。'); return { ok: false, reason: 'no-stock' }; }
 
       const f1 = S.field(id, 1);
-      let target = p;
-      const selfOnly = f1 === 0 || f1 === 4 || f1 === 5 || idiv(f1, 1000) === 1;
       const f3cls = idiv(S.field(id, 3) | 0, 1000) * 1000;      // var_938 目标类别
+      let target = p;
+      // 315755-315770：var_938 == 3000 || 10000（自身/以自身为中心的球形范围魔法，如 431/432/433）
+      //   无需事先锁定敌人，直接以施法者自身为中心发动。
+      const selfOnly = f1 === 0 || f1 === 4 || f1 === 5 || idiv(f1, 1000) === 1
+        || f3cls === 3000 || f3cls === 10000;
       if (!selfOnly) {
         // 【A115】目标选择统一走瞄准 UI：源码 315663-315707 在 `var_938 == 8000`
         //   时先「どの方向？」（*label_2893 八方向箭头）取该格角色，邻格没人则
         //   `var_2421 = 1` 继续咏唱（对地/落空）。因此优先使用瞄准结果
         //   `opts.target`（可能是 null = 那一格没人）；没有瞄准信息时
-        //   （快捷槽直发 / AI / 控制台）才退化成「最近的敌人」。
+        //   （快捷槽直发 / AI / 控制台）才先取手动锁定目标，再退化成「最近的敌人」。
         const hasAim = !!(opts && 'target' in opts);
         if (hasAim) {
           const t = opts.target;
@@ -5300,8 +5329,18 @@
         } else if (f3cls === 8000) {
           // 玩家还没有选方向 —— 交给 UI 打开箭头（315670「どの方向？」）
           return { ok: false, reason: 'need-direction', spell: id };
+        } else if (f3cls === 7000) {
+          // 地面指定（7000）：无 opts.tile 时交给下面的 precheck 返回 need-tile
+          target = null;
         } else {
-          target = Elona.Throw ? Elona.Throw.nearestEnemy(this, p, 20) : null;
+          // 300335-300366 / 315773（*label_2836）：优先使用玩家手动锁定的目标（var_58(29, 0)），
+          //   没有锁定或目标已不在场时才自动索敌最近的敌人。
+          const lock = Elona.Aim ? Elona.Aim.target(this) : null;
+          if (lock && lock.chara && (lock.chara.get(0) | 0) === 1 && (lock.chara.hp | 0) > 0) {
+            target = lock.chara;
+          } else {
+            target = Elona.Throw ? Elona.Throw.nearestEnemy(this, p, 20) : null;
+          }
           if (!target) { this.log('没有可以瞄准的目标。'); return { ok: false, reason: 'no-target' }; }
         }
       }
@@ -5314,6 +5353,20 @@
         this.log(pre.reason === 'out_of_range' ? '射程距离外。'
           : (pre.reason === 'no_los' ? '那个地方看不见。' : '咏唱中止。'));
         return { ok: false, reason: pre.reason };
+      }
+      // 315779-315785（*label_2838）：对非敌对目标（var_58(9, target) >= 0）施放单体攻击/指向法术前确认
+      const finalTarget = pre.target || target;
+      if (!selfOnly && finalTarget && finalTarget !== p && (finalTarget.get(9) | 0) >= 0
+        && (f3cls === 2000 || f3cls === 6000 || f3cls === 9000)
+        && !(opts && opts.confirmed)) {
+        if (Elona.attackConfirm) {
+          Elona.attackConfirm(this, finalTarget, (ok) => {
+            if (ok) {
+              this.castPlayerSpell(id, Object.assign({}, opts || {}, { target: finalTarget, confirmed: true }));
+            }
+          });
+          return { ok: false, reason: 'confirm-attack', spell: id, target: finalTarget };
+        }
       }
       // 214650-314656：艾赫卡托尔（神 4）信徒 —— 消耗 = cost/10 + rnd(cost+1)，最低 1
       //（wiki「魔法技能」页记作「艾赫卡托尔流魔术：咏唱消耗在 0.1~1.1 倍间浮动」）

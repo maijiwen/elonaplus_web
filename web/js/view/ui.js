@@ -1818,19 +1818,22 @@
           afterPanel();
           return;
 
-        // 7 言葉を教える（289837-289860）：输入一句/一个台词文件名，写进 var_63(4)
+        // 7 言葉を教える（289837-289860）：教它一句自由文本 → var_63(4) = 文本，cbit 989 = 0。
+        //   之后过回合时它会按 rnd(30) 随机把这句说给消息栏（源码 592841-592855）。
+        //   【与「改变口吻」区分】口吻是给 `var_63(4)` 一个 user/talk 文件名、cbit 989 = 1。
         case 7: {
           if (!P || !P.openTextInput) { pending('教它说话'); return; }
-          P.openTextInput('教它说话', (npc.talkFile || ''), (v) => {
+          P.openTextInput('教它说话', (npc.talkText || ''), (v) => {
             if (v === null) { reopen(); return; }
-            const key = String(v || '').trim();
-            // 289846：先清 cbit 989；Talk.bind 会按有无文件名重新置位
-            if (Elona.Talk && Elona.Talk.bind) Elona.Talk.bind(npc, key);
-            else { npc.talkFile = key || null; }
-            if (!key) { reopen(`${npc.name}不再说话了。`); return; }
-            if (game.log) game.log(`${npc.name}「${key}」`);
-            reopen(`${npc.name}学会了「${key}」。`);
-          }, { note: '原版这里是台词文件名（user/talk/<名字>.txt）。留空则清除。' });
+            const text = String(v || '').trim();
+            // 289846：教说话不置 cbit 989；var_63(4) 与口吻文件名互斥，先清 talkFile
+            npc.talkText = text || null;
+            npc.talkFile = null;
+            if (Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(npc, 989, false);
+            if (!text) { reopen(`${npc.name}不再说话了。`); return; }
+            if (game.log) game.log(`${npc.name}「${text}」`);
+            reopen(`${npc.name}学会了「${text}」。`);
+          }, { note: '输入一句想让它重复的话。留空则清除。' });
           afterPanel();
           return;
         }
