@@ -571,7 +571,7 @@
       p.potential = pot;
       S.syncSkillValues(p, pot);   // 潜力 → 当前属性值
       p.bodySlots = body;          // 供 startGame 的 *label_2235 初始化
-      // 3) 计算 HP/MP/SP 上限（cnvbonus）
+      // 3) 计算 HP/MP/SP 上限（cnvbonus）与 INIT 快照（220008-220010）
       const st = S.calcMaxStats(p, { creatureId: 0 });
       p.hpMax = st.hpMax; p.mpMax = st.mpMax; p.spMax = st.spMax;
       p.hp = st.hpMax; p.mp = st.mpMax; p.sp = st.spMax;   // 对应 220004-220006
@@ -579,10 +579,19 @@
       p.set(446, 9000);                   // 219710：初始水分
       if (opts) {
         if (opts.gender !== undefined) p.set(8, opts.gender | 0);
+        if (opts.age !== undefined && (p.get(21) | 0) === 0) {
+          p.set(21, (this.year | 0) - (opts.age | 0));
+        }
+        if (opts.height !== undefined && (p.get(19) | 0) === 0) p.set(19, opts.height | 0);
+        if (opts.weight !== undefined && (p.get(20) | 0) === 0) p.set(20, opts.weight | 0);
         if (opts.profile) {
           for (let i = 0; i < 5; i++) p.set(161 + i, opts.profile[i] | 0);
         }
       }
+      if ((p.get(19) | 0) === 0) p.set(19, 140 + this.rng.rnd(45));
+      if ((p.get(20) | 0) === 0) p.set(20, 38 + this.rng.rnd(42));
+      if ((p.get(21) | 0) === 0) p.set(21, (this.year | 0) - (16 + this.rng.rnd(20)));
+      if (Elona.AP && Elona.AP.snapshot) Elona.AP.snapshot(p);
       return p;
     }
 
@@ -859,22 +868,6 @@
           [16, 4, 3],
         ];
         for (const [id, role, lv] of generic) spawn(id, -3, 0, role, lv);
-      }
-
-      // 0-FU：城镇放一口井（物品 109「井戸」，*label_2954 的喝水事件对象）。
-      //   原版井是地图自带的家具；本项目地图数据没带，运行时补一口。
-      if (Elona.Well && Elona.ItemDB) {
-        const spot = randomSpot();
-        if (spot) {
-          try {
-            const well = Elona.ItemDB.createItem(Elona.Well.WELL, 1, this.rng);
-            if (well) {
-              well.f[5] = spot.x; well.f[6] = spot.y;
-              const wcell = this.map.cell(spot.x, spot.y);
-              if (wcell && this.pushGroundItem(well)) wcell[4] = 1;
-            }
-          } catch (e) { /* 生成失败不阻塞建城 */ }
-        }
       }
 
       // 0-Z18：252304-252632 的节日临时 NPC / 祭品。原版由 *label_2477/2478
@@ -5407,22 +5400,7 @@
       const nm = nameObj ? (nameObj.ch || nameObj.en || nameObj.jp || `#${id}`) : `#${id}`;
       this.log(`你咏唱了 ${nm}。`);
       const r = S.cast(this, p, id, pre.target || target, tile);
-      // 0-GW：射线类魔法（`var_83(1,id) == 1` = Line）沿 `get_route` 的路径播放动画。
-      //   原版 315993-316261 用 route_info 逐格推进伤害，画面上的射线也是一格一格飞出去的；
-      //   这里只在玩家咏唱成功时生成一条视觉轨迹（伤害仍由 Spell.effectType1 结算）。
-      if ((!r || r.ok !== false) && (S.field(id, 1) | 0) === 1) {
-        const tg = pre.target || target;
-        if (tg && tg.x !== undefined && Elona.Aim && Elona.Aim.pathCells) {
-          const cells = Elona.Aim.pathCells(this, p.x | 0, p.y | 0, tg.x | 0, tg.y | 0, 20);
-          if (cells.length) {
-            this.effects.push({
-              kind: 'beam', cells,
-              t: (typeof performance !== 'undefined' ? performance.now() : Date.now()),
-              dur: 420, color: this.beamColor(id),
-            });
-          }
-        }
-      }
+      // 射线/球形/吐息/单体魔法箭/治疗/buff 等动画统一由 Spell.effectType* 内部 pushEffect 触发。
       // 314529-314536 → *label_2157：咏唱成功后练「法术技能」+「咏唱」，
       //   属性经验由 skillexp 按 var_83(0, 法术id) 递归给出（31933-31937）。
       if ((!r || r.ok !== false) && S.grantCastExp) {

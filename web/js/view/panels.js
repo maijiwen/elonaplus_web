@@ -1173,6 +1173,43 @@
         const names = (Elona.Vehicle && Elona.Vehicle.SHIP_CONDITION) || null;
         misc.push(`船只状态：${names ? (names[cond] || '') : ''}（${cond}）`);
       }
+      // 293787 calcage(var_243)：当前年 var_65(10) - 出生年 var_58(21)；cbit(1026) 直接用 var_58(21)；种族 207 为「不明」
+      //   旧档若出生年(21)/身高(19)/体重(20)仍为 0，在面板显示前兜底补齐。
+      const curYear = g.getV65 ? (g.getV65(10) | 0) : (g.year | 0);
+      let birthYear = p.get(21) | 0;
+      if (birthYear === 0 && (p.index | 0) === 0 && curYear > 0) {
+        birthYear = curYear - 17;
+        p.set(21, birthYear);
+      }
+      if ((p.get(19) | 0) === 0 && (p.index | 0) === 0) p.set(19, 165);
+      if ((p.get(20) | 0) === 0 && (p.index | 0) === 0) p.set(20, 55);
+      if (Elona.AP && Elona.AP.snapshot
+        && ((p.get(160) | 0) === 0 || (p.get(198) | 0) === 0 || (p.get(199) | 0) === 0)) {
+        Elona.AP.snapshot(p);
+      }
+      const ageText = (() => {
+        if ((p.get(27) | 0) === 207 || curYear - birthYear < 0) return '不明';
+        const ageless = !!(Elona.Status && Elona.Status.cbit && Elona.Status.cbit(p, 1026));
+        return `${ageless ? birthYear : (curYear - birthYear)} 岁`;
+      })();
+      // 293888-293926：祝福与诅咒 15 格实时状态（var_58(280 + cnt * 3)）
+      const blessList = [];
+      for (let i = 0; i < 15; i++) {
+        const bid = p.get(280 + i * 3) | 0;
+        const bp = p.get(280 + i * 3 + 1) | 0;
+        const bturns = p.get(280 + i * 3 + 2) | 0;
+        if (!bid || bturns <= 0) { blessList.push(null); continue; }
+        const bname = (Elona.Hud && Elona.Hud.buffName) ? Elona.Hud.buffName(bid) : ('#' + bid);
+        const isDeb = !!(Elona.BuffEffects && Elona.BuffEffects.isDebuff && Elona.BuffEffects.isDebuff(bid));
+        const bTable = Elona.BuffEffects && Elona.BuffEffects.table;
+        const bRec = bTable && bTable[String(bid)];
+        const bDesc = (bRec && bRec.desc && (bRec.desc.ch || bRec.desc.jp || bRec.desc.en)) || '';
+        blessList.push({ id: bid, power: bp, turns: bturns, name: bname, debuff: isDeb, desc: bDesc });
+      }
+      const activeBless = blessList.filter(Boolean);
+      const blessHint = activeBless.length
+        ? activeBless.map((b) => `${b.name}(${b.turns}回合)`).join('、')
+        : '没有受到任何祝福或诅咒效果。';
       const html = Elona.CharCreate.summaryHtml({
         face, name: p.name || '—', nameInput: false,
         head: [
@@ -1180,7 +1217,7 @@
             ['种族', esc(Elona.RaceName ? Elona.RaceName.zh(p.raceName) : (p.raceName || '—'))],
             ['性别', (p.get(8) | 0) === 1 ? '女性' : '男性'],
             ['职业', esc(Elona.RaceName ? Elona.RaceName.classZh(p.className) : (p.className || '—'))]]],
-          ['cc-sum-c2', [['年龄', '—'], ['身高', `${p.get(19) | 0} cm`],
+          ['cc-sum-c2', [['年龄', ageText], ['身高', `${p.get(19) | 0} cm`],
             ['体重', `${p.get(20) | 0} kg`],
             ['INIT', `${(p.get(160) | 0) + (p.get(198) | 0)}/${p.get(199) | 0}`],
             ['AP', `${p.get(173) | 0}(${p.get(159) | 0})`]]],
@@ -1208,6 +1245,8 @@
         ],
         profile: this.profileLines(p, g).length ? this.profileLines(p, g) : ['（还没有记录）'],
         bless: 15,
+        blessList,
+        blessHint,
         // 293853-293900 + *label_2811/2813：全部由 battle.js 的正式公式算出
         fix: this.correctionFix(g, p),
       });

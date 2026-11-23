@@ -679,8 +679,22 @@
       const ox = 8, oy = 5;
       const sx = (startX === undefined) ? (px - ox) : startX;
       const sy = (startY === undefined) ? (py - oy) : startY;
+      // 定期清理已结束的动画，避免 game.effects 无限累积
+      for (let i = game.effects.length - 1; i >= 0; i--) {
+        const ef = game.effects[i];
+        const maxDur = ef.kind === 'beam' ? ((ef.dur | 0) || 500) * 1.85
+          : ef.kind === 'particles' ? 950
+          : ((ef.dur | 0) || 900) + 120;
+        if (now - (ef.t || 0) > maxDur) game.effects.splice(i, 1);
+      }
       for (const e of game.effects) {
         if (e.kind === 'beam') { this.drawBeam(e, now, sx, sy); continue; }
+        if (e.kind === 'ball') { this.drawBall(e, now, sx, sy); continue; }
+        if (e.kind === 'breath') { this.drawBreath(e, now, sx, sy); continue; }
+        if (e.kind === 'bolt') { this.drawBolt(e, now, sx, sy); continue; }
+        if (e.kind === 'sparkle') { this.drawSparkle(e, now, sx, sy); continue; }
+        if (e.kind === 'rain') { this.drawRain(e, now, sx, sy); continue; }
+        if (e.kind === 'meteor') { this.drawMeteor(e, now, sx, sy); continue; }
         // 0-HS：`animeload N`（角色动画）与 `var_1117 = 15`（投掷飞行）
         if (e.kind === 'anime') { this.drawCharaAnime(e, now, sx, sy); continue; }
         if (e.kind === 'throwfly') { this.drawThrowFly(e, now, sx, sy); continue; }
@@ -869,6 +883,238 @@
       ctx.beginPath();
       ctx.arc(hx, hy, TILE * 0.45, 0, Math.PI * 2);
       ctx.fill();
+      ctx.restore();
+    }
+
+    /**
+     * 离屏缓存一张带元素调色的单帧动画切片（模拟源码 `gfdec2` 按元素 RGB 染色）。
+     * 原版 anime5/34/51 等是灰度/白底发光贴图，先用 multiply 染上元素色，再用 lighter 叠到主画布。
+     */
+    _tintedFrame(img, sx, sy, sw, sh, color) {
+      const key = `${img.src}|${sx},${sy},${sw},${sh}|${color}`;
+      if (!this._tintCache) this._tintCache = Object.create(null);
+      if (this._tintCache[key]) return this._tintCache[key];
+      const cv = document.createElement('canvas');
+      cv.width = sw; cv.height = sh;
+      const cx = cv.getContext('2d');
+      cx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+      if (color && color !== '#ffffff') {
+        cx.globalCompositeOperation = 'multiply';
+        cx.fillStyle = color;
+        cx.fillRect(0, 0, sw, sh);
+        cx.globalCompositeOperation = 'destination-in';
+        cx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+      }
+      this._tintCache[key] = cv;
+      return cv;
+    }
+
+    /**
+     * 球形/范围魔法动画（源码 *label_2111 `var_1302 == 2`，206145-206229）。
+     * 使用 `anime5.bmp`（960×144）：
+     *   · 第 0 行 (0..96)：10 帧 96×96 中心爆发；
+     *   · 第 2 行 (y=96)：10 帧 48×48 范围内每格能量球贴图；
+     *   按元素主色调染色后以 `lighter` 加算绘制。
+     */
+    drawBall(e, now, startX, startY) {
+      const dur = (e.dur | 0) || 520;
+      const age = now - e.t;
+      if (age < 0 || age > dur) return;
+      const fi = Math.min(9, Math.floor((age / dur) * 10));
+      const col = e.color || '#dff0ff';
+      const img = this.animeSheet(5);
+      const ctx = this.ctx;
+      const cells = e.cells || [];
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      if (img && img.complete && img.naturalWidth >= 960 && img.naturalHeight >= 144) {
+        // 范围内每格 48×48（anime5.bmp y=96）
+        const cellFr = this._tintedFrame(img, fi * 48, 96, 48, 48, col);
+        for (const c of cells) {
+          const vx = c.x - startX, vy = c.y - startY;
+          if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
+          ctx.drawImage(cellFr, vx * TILE, vy * TILE, TILE, TILE);
+        }
+        // 中心 96×96 爆发（anime5.bmp y=0）
+        const cx = (e.x - startX + 0.5) * TILE;
+        const cy = (e.y - startY + 0.5) * TILE;
+        const centerFr = this._tintedFrame(img, fi * 96, 0, 96, 96, col);
+        ctx.globalAlpha = Math.max(0.2, 1 - (fi * fi * 2) / 250);
+        ctx.drawImage(centerFr, cx - 48, cy - 48, 96, 96);
+      } else {
+        // 贴图未就绪时的矢量兜底
+        const t = age / dur;
+        const alpha = (1 - t) * 0.65;
+        ctx.fillStyle = this._rgba(col, alpha);
+        for (const c of cells) {
+          const vx = c.x - startX, vy = c.y - startY;
+          if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
+          ctx.fillRect(vx * TILE + 4, vy * TILE + 4, TILE - 8, TILE - 8);
+        }
+      }
+      ctx.restore();
+    }
+
+    /**
+     * 吐息/放射动画（源码 *label_2111 `var_1302 == 3`，205780-205869）。
+     * 使用 `anime51.bmp`（576×96，6 帧 96×96，音波系用 `anime34.bmp`），沿目标方向旋转铺在每个扩散格上。
+     */
+    drawBreath(e, now, startX, startY) {
+      const dur = (e.dur | 0) || 340;
+      const age = now - e.t;
+      if (age < 0 || age > dur) return;
+      const fi = Math.min(5, Math.floor((age / dur) * 6));
+      const col = e.color || '#dff0ff';
+      const img = this.animeSheet(e.isSound ? 34 : 51);
+      const cells = e.cells || [];
+      if (!cells.length) return;
+      const ang = Math.atan2((e.y1 | 0) - (e.y0 | 0), (e.x1 | 0) - (e.x0 | 0)) + Math.PI / 2;
+      const ctx = this.ctx;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalAlpha = Math.max(0.25, 1 - (fi * fi * 2) / 250);
+      if (img && img.complete && img.naturalWidth >= 576 && img.naturalHeight >= 96) {
+        const fr = this._tintedFrame(img, fi * 96, 0, 96, 96, col);
+        for (const c of cells) {
+          const vx = c.x - startX, vy = c.y - startY;
+          if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
+          const cx = (vx + 0.5) * TILE, cy = (vy + 0.5) * TILE;
+          ctx.save();
+          ctx.translate(cx, cy);
+          ctx.rotate(ang);
+          ctx.drawImage(fr, -48, -48, 96, 96);
+          ctx.restore();
+        }
+      } else {
+        ctx.fillStyle = this._rgba(col, 0.55 * (1 - age / dur));
+        for (const c of cells) {
+          const vx = c.x - startX, vy = c.y - startY;
+          if (vx < 0 || vy < 0 || vx >= this.viewW || vy >= this.viewH) continue;
+          ctx.fillRect(vx * TILE + 6, vy * TILE + 6, TILE - 12, TILE - 12);
+        }
+      }
+      ctx.restore();
+    }
+
+    /** 单体魔法箭/投射物飞行动画（源码 *label_2111 `var_1302 == 1 / 17`，208134-208163） */
+    drawBolt(e, now, startX, startY) {
+      const dur = (e.dur | 0) || 220;
+      const age = now - e.t;
+      if (age < 0 || age > dur) return;
+      const t = age / dur;
+      const col = e.color || '#dff0ff';
+      const x0 = (e.x0 - startX + 0.5) * TILE;
+      const y0 = (e.y0 - startY + 0.5) * TILE;
+      const x1 = (e.x1 - startX + 0.5) * TILE;
+      const y1 = (e.y1 - startY + 0.5) * TILE;
+      const cx = x0 + (x1 - x0) * t;
+      const cy = y0 + (y1 - y0) * t;
+      const ctx = this.ctx;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      // 尾迹
+      ctx.strokeStyle = this._rgba(col, 0.65 * (1 - t * 0.4));
+      ctx.lineWidth = 4;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x0 + (x1 - x0) * Math.max(0, t - 0.32), y0 + (y1 - y0) * Math.max(0, t - 0.32));
+      ctx.lineTo(cx, cy);
+      ctx.stroke();
+      // 光球弹头
+      const g = ctx.createRadialGradient(cx, cy, 1, cx, cy, 14);
+      g.addColorStop(0, '#ffffff');
+      g.addColorStop(0.35, this._rgba(col, 0.9));
+      g.addColorStop(1, this._rgba(col, 0));
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(cx, cy, 14, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    /** 治疗/Buff/Debuff/传送星尘粒子（源码 *label_2111 `var_1302 == 5 / 6 / 11`，205752-205776） */
+    drawSparkle(e, now, startX, startY) {
+      const dur = (e.dur | 0) || 460;
+      const age = now - e.t;
+      if (age < 0 || age > dur) return;
+      const t = age / dur;
+      const col = e.color || '#ffe878';
+      const vx = e.x - startX, vy = e.y - startY;
+      if (vx < -1 || vy < -1 || vx > this.viewW || vy > this.viewH) return;
+      const bx = vx * TILE + TILE / 2;
+      const by = vy * TILE + TILE / 2;
+      const dir = e.up === false ? 1 : -1;
+      const ctx = this.ctx;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.fillStyle = this._rgba(col, (1 - t) * 0.9);
+      for (let i = 0; i < 14; i++) {
+        const seed = (i * 73 + (e.x | 0) * 19 + (e.y | 0) * 31) % 360;
+        const a = (seed * Math.PI) / 180;
+        const rx = Math.cos(a) * (6 + (i % 4) * 5);
+        const ry = dir * t * (18 + (i % 5) * 4) + Math.sin(a) * 6;
+        const sz = Math.max(1.5, (1 - t) * 4.5);
+        ctx.fillRect(bx + rx - sz / 2, by + ry - sz / 2, sz, sz);
+      }
+      ctx.restore();
+    }
+
+    /** 治愈之雨/狂气治愈之雨（源码 *label_2111 `var_1302 == 46`） */
+    drawRain(e, now, startX, startY) {
+      const dur = (e.dur | 0) || 650;
+      const age = now - e.t;
+      if (age < 0 || age > dur) return;
+      const t = age / dur;
+      const col = e.color || '#ffd878';
+      const ctx = this.ctx;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.strokeStyle = this._rgba(col, (1 - t) * 0.7);
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 40; i++) {
+        const rx = ((i * 97 + Math.floor(t * 20)) % Math.max(1, UI_W));
+        const ry = (((i * 53) % UI_TOP) + t * 140) % UI_TOP;
+        ctx.beginPath();
+        ctx.moveTo(rx, ry);
+        ctx.lineTo(rx - 4, ry + 14);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    /** 流星魔法（源码 *label_2111 `var_1302 == 22`，209793-209860，anime17.bmp） */
+    drawMeteor(e, now) {
+      const dur = (e.dur | 0) || 950;
+      const age = now - e.t;
+      if (age < 0 || age > dur) return;
+      const t = age / dur;
+      const img = this.animeSheet(17);
+      const ctx = this.ctx;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      const count = 18;
+      for (let i = 0; i < count; i++) {
+        const phase = t * 1.4 - (i % 5) * 0.08;
+        if (phase < 0 || phase > 1) continue;
+        const tx = ((i * 137 + 80) % Math.max(1, UI_W - 60)) + 30;
+        const ty = ((i * 89 + 60) % Math.max(1, UI_TOP - 60)) + 30;
+        const mx = tx + (1 - Math.min(1, phase * 1.4)) * 180;
+        const my = ty - (1 - Math.min(1, phase * 1.4)) * 220;
+        if (img && img.complete && img.naturalWidth >= 960 && img.naturalHeight >= 192) {
+          if (phase < 0.7) {
+            const fi = Math.min(7, Math.floor((phase / 0.7) * 8));
+            ctx.drawImage(img, fi * 96, 0, 96, 96, mx - 48, my - 48, 96, 96);
+          } else {
+            const ei = Math.min(4, Math.floor(((phase - 0.7) / 0.3) * 5));
+            ctx.drawImage(img, ei * 192, 96, 192, 96, tx - 96, ty - 48, 192, 96);
+          }
+        } else {
+          ctx.fillStyle = this._rgba('#ff7830', 1 - phase);
+          ctx.beginPath();
+          ctx.arc(mx, my, 8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
       ctx.restore();
     }
 

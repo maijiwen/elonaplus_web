@@ -613,7 +613,26 @@
       + `<div class="cc-sum-profile">${d.profile.map(esc).join('<br>')}</div></div>`
       + `<div class="cc-sum-rcol">`
       + topic('祝福与诅咒')
-      + `<div class="cc-bless-grid">${'<i></i>'.repeat(d.bless || 15)}</div>`
+      + `<div class="cc-bless-grid">${(() => {
+        const slots = Array.isArray(d.blessList) ? d.blessList : [];
+        let out = '';
+        for (let i = 0; i < 15; i++) {
+          const b = slots[i];
+          if (b && b.id) {
+            const rect = (Elona.Hud && Elona.Hud.buffIconRect) ? Elona.Hud.buffIconRect(b.id) : null;
+            const cls = b.debuff ? 'cc-bless-slot active debuff' : 'cc-bless-slot active';
+            const title = esc(`${b.name || ('#' + b.id)}（剩余 ${b.turns | 0} 回合）${b.desc ? '：' + b.desc : ''}`);
+            const bg = rect
+              ? `<span class="cc-bless-ico" style="background-position:-${rect.x}px -${rect.y}px"></span>`
+              : `<span class="cc-bless-id">#${b.id}</span>`;
+            out += `<i class="${cls}" title="${title}">${bg}<b class="cc-bless-turn">${b.turns | 0}</b></i>`;
+          } else {
+            out += `<i class="cc-bless-slot"></i>`;
+          }
+        }
+        return out;
+      })()}</div>`
+      + (d.blessHint ? `<div class="cc-bless-hint">${esc(d.blessHint)}</div>` : '')
       + topic('各种修正')
       + `<div class="cc-sum-fix">`
       + `<div>${d.fix[0].map(esc).join('<br>')}</div>`
@@ -667,7 +686,19 @@
         ['cc-sum-c1', [['姓名', ''], ['别名', esc(S.alias || '无')],
           ['种族', esc(rn)], ['性别', esc(gd.zh)], ['职业', esc(cn)]]],
         ['cc-sum-c2', [['年龄', `${S.age | 0} 岁`], ['身高', `${S.height | 0} cm`],
-          ['体重', `${S.weight | 0} kg`], ['INIT', '230/120'], ['AP', '0(0)']]],
+          ['体重', `${S.weight | 0} kg`], ['INIT', (() => {
+            if (p) {
+              const idiv = (a, b) => Math.trunc(a / b);
+              const lim = (v, a, b) => (v < a ? a : (v > b ? b : v));
+              const sorg = (id) => (Elona.Stats && Elona.Stats.sorg) ? (Elona.Stats.sorg(p, id) | 0) : (p.skill(id) | 0);
+              let aSum = 0;
+              for (let k = 10; k <= 17; k++) aSum += sorg(k);
+              const vitMana = lim(sorg(2), 50, 200) * 2 + idiv(lim(sorg(3), 50, 200), 2);
+              const spd = sorg(18);
+              return `${vitMana + aSum}/${spd}`;
+            }
+            return '230/120';
+          })()], ['AP', '0(0)']]],
         ['cc-sum-c3', [['等级', '1'], ['经验', '0'],
           ['所需经验', `${p ? (p.get(36) | 0) : 3024}`],
           ['信仰', '无之艾斯'], ['所属', '无']]],
@@ -1268,6 +1299,7 @@
       player: null, busy: false, notice: '',
       age: 17, height: 165, weight: 55, speed: 110,
     };
+    rollBody();
     cfg.api.bindState(S);
     global.removeEventListener('keydown', onKey);
     global.addEventListener('keydown', onKey);

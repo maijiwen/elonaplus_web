@@ -79,6 +79,16 @@
     const gr = S.getRoute(g, caster.x, caster.y, tg.x, tg.y);
     if (!gr || !gr.ok) return { ok: true, type: 0, implemented: true, noRoute: true };
     const bl = S.breathList(g, caster, id, gr.route);
+    if (bl && bl.cells && bl.cells.length && S.pushEffect) {
+      S.pushEffect(g, {
+        kind: 'breath',
+        cells: bl.cells.map((c) => ({ x: c.x | 0, y: c.y | 0 })),
+        x0: caster.x | 0, y0: caster.y | 0, x1: tg.x | 0, y1: tg.y | 0,
+        dur: 340,
+        color: S.elemColorHex ? S.elemColorHex(dice.elem) : '#d8c088',
+        isSound: (dice.elem === 57),
+      });
+    }
     const lv = caster.get(38) | 0;
     const lvBonus = ((limit(lv - 50, 1, 2000) + limit(lv - 100, 1, 2000)) * 4 * Math.sqrt(limit(lv, 1, 2000) * 3) + 30 + 1);
     const hits = [];

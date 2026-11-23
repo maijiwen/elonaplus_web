@@ -1514,6 +1514,13 @@
     p.hpMax = st.hpMax; p.mpMax = st.mpMax; p.spMax = st.spMax;
     p.hp = p.hpMax; p.mp = p.mpMax; p.sp = p.spMax;
     p.set(13, state.portrait | 0);
+    if (state.height) p.set(19, state.height | 0);
+    if (state.weight) p.set(20, state.weight | 0);
+    if (state.age) p.set(21, (game.year | 0) - (state.age | 0));
+    if (Elona.AP && Elona.AP.snapshot) {
+      p.set(160, 0); p.set(198, 0); p.set(199, 0);
+      Elona.AP.snapshot(p);
+    }
     state.player = p;
     return p;
   }
@@ -1559,6 +1566,9 @@
         feats: (cs.feats || []).slice(),
         skill: cs.skill | 0,
         inherit: !!cs.inherit,     // A132：冒险家的传承（var_1481 非空 → *label_2857）
+        age: cs.age | 0,
+        height: cs.height | 0,
+        weight: cs.weight | 0,
       });
       await renderer.loadSheet(game.map.tileset);
       await renderer.loadCharacterSheet();

@@ -29,6 +29,31 @@
 
   const idiv = (a, b) => (b === 0 ? 0 : ((a / b) | 0));   // HSP 整数除法（向零截断）
   const limit = (v, a, b) => (v < a ? a : (v > b ? b : v));
+  /** 原版 eleinfo + var_223 属性主色调（用于魔法/吐息/球/射线渲染染色） */
+  const ELEM_COLORS = {
+    50: '#ff6e3a', // 火 (var_223 index 3)
+    51: '#68b8ff', // 冰 (12)
+    52: '#ffe75a', // 电 (5)
+    53: '#8868ff', // 暗 (4)
+    54: '#ff88d0', // 幻 (10)
+    55: '#6ad048', // 毒 (2)
+    56: '#c84040', // 地狱 (7)
+    57: '#d8e8a8', // 音 (11)
+    58: '#a890ff', // 神经 (9)
+    59: '#ff70b8', // 混沌 (8)
+    60: '#b48cff', // 魔法 (无属性/魔法)
+    61: '#d87050', // 出血
+    62: '#f0b0e0', // 以太
+    63: '#80e060', // 酸
+  };
+  function elemColorHex(elem) {
+    return ELEM_COLORS[elem | 0] || '#dff0ff';
+  }
+  function pushEffect(g, fx) {
+    if (!g || !g.effects || !fx) return;
+    fx.t = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+    g.effects.push(fx);
+  }
   /** inv_find(id, chara)：背包中是否有某物品（对应 316039/316049）。 */
   function hasItem(c, id) {
     if (!c || !c.inv) return false;
@@ -555,6 +580,13 @@
     if (Elona.Status && Elona.Status.findbuff(caster, 32) !== -1) {         // 316792 完全詠唱
       if (caster.index !== 0 || tg.get(9) === -3) dmg = dmg * 11;           // 316794 ×11
     }
+    // 316765：var_1117 = 1 单体魔法箭飞行动画（caster 与目标不同格时）
+    if (caster && (caster.x !== tg.x || caster.y !== tg.y)) {
+      pushEffect(g, {
+        kind: 'bolt', x0: caster.x | 0, y0: caster.y | 0,
+        x1: tg.x | 0, y1: tg.y | 0, dur: 220, color: elemColorHex(dice.elem),
+      });
+    }
     // 316822-316841：命中播报 + dmghp 带属性 id（dice.elem）+ 复合咏唱追加伤害
     const applied = applyMagicDamage(g, caster, tg, dmg, dice.elem, id, { deferDeath: true });
     logHitAndInjury(g, tg, applied, '魔法箭');
@@ -616,6 +648,11 @@
     if (!tg || tg.get(0) !== 1) return { ok: true, type: 4, implemented: true, noTarget: true };
 
     const r = healRoutine(g, caster, tg, dice);                        // 316945
+    // 316973：var_1117 = 5 治疗粒子动画
+    pushEffect(g, {
+      kind: 'sparkle', x: tg.x | 0, y: tg.y | 0,
+      dur: 460, color: '#ffe878', up: true,
+    });
     if (id === 623) {                                                  // 316946-316951
       if (tg.index === 0) Elona.Status.healhp(tg, idiv(tg.hpMax, 5));  // 316948
       Elona.Status.addbuff(g, tg, 10, idiv(tg.get(62), 2), 50, caster); // 316950
@@ -838,6 +875,14 @@
 
     const v183B = (g && g.getV65) ? (g.getV65(183) | 0) : 0;            // 318223
     const bl = breathList(g, caster, id, gr.route);                    // 318211
+    // 318212：var_1117 = 3 吐息/放射动画（沿 bl.cells 铺开）
+    if (bl && bl.cells && bl.cells.length) {
+      pushEffect(g, {
+        kind: 'breath', cells: bl.cells.map((c) => ({ x: c.x | 0, y: c.y | 0 })),
+        x0: caster.x | 0, y0: caster.y | 0, x1: tg.x | 0, y1: tg.y | 0,
+        dur: 340, color: elemColorHex(dice.elem), isSound: (dice.elem === 57),
+      });
+    }
     const var801 = g.var801 || 0;
     const results = [];
     for (const cell of bl.cells) {                                     // 318214 repeat var_799
@@ -1027,6 +1072,15 @@
     if (!gr.ok) return { ok: true, type: 1, implemented: true, noRoute: true };
     const hits = [];
     let realTarget = -1;                                              // var_2438
+    // 315997：var_1117 = 0 射线动画（无论玩家还是 NPC 施放，沿路线逐格飞出）
+    if (Elona.Aim && Elona.Aim.pathCells) {
+      const cells = Elona.Aim.pathCells(g, caster.x | 0, caster.y | 0, tg.x | 0, tg.y | 0, range);
+      if (cells && cells.length) {
+        pushEffect(g, {
+          kind: 'beam', cells, dur: 420, color: elemColorHex(dice.elem),
+        });
+      }
+    }
     // 316002/316147/316222/316240：var_65(175) 非 0 时关闭几处特殊结算
     const v175Clear = (((g && g.getV65) ? (g.getV65(175) | 0) : 0) === 0);
     let px = caster.x, py = caster.y;                                 // var_220/var_222（逐格累加）
@@ -1113,6 +1167,30 @@
     if (id === 644) radius = 2;                                       // 316308-316310
     const vx = (tg && tg.get(0) === 1) ? tg.x : g.dirTile.x;
     const vy = (tg && tg.get(0) === 1) ? tg.y : g.dirTile.y;          // var_1311/1312
+    // 316311-316330：球形/范围魔法动画
+    //   · 404/637（治癒の雨/狂気治癒の雨）→ var_1117 = 46（全屏降雨粒子）
+    //   · 其余球形魔法（431/432/433/476/644/655 等）→ var_1117 = 2（中心 96×96 + 范围内 48×48 球体扩散，anime5.bmp）
+    if (id === 404 || id === 637) {
+      pushEffect(g, {
+        kind: 'rain', x: vx | 0, y: vy | 0, radius: radius | 0,
+        dur: 650, color: id === 637 ? '#a8d8ff' : '#ffd878',
+      });
+    } else {
+      const losCells = [];
+      for (let cy = vy - radius; cy <= vy + radius; cy++) {
+        if (cy < 0 || cy >= g.map.height) continue;
+        for (let cx = vx - radius; cx <= vx + radius; cx++) {
+          if (cx < 0 || cx >= g.map.width) continue;
+          if (Elona.Battle.dist(vx, vy, cx, cy) > radius) continue;
+          if (!fovLos(g, vx, vy, cx, cy)) continue;
+          losCells.push({ x: cx, y: cy });
+        }
+      }
+      pushEffect(g, {
+        kind: 'ball', x: vx | 0, y: vy | 0, radius: radius | 0,
+        cells: losCells, dur: 520, color: elemColorHex(dice.elem),
+      });
+    }
     const hits = [];
     let realTarget = -1;
     for (let cy = vy - radius; cy <= vy + radius; cy++) {              // 316331
@@ -1232,7 +1310,9 @@
       ok = true; break;
     }
     if (!ok) return { ok: true, type: 5, implemented: true, moved: false };
+    pushEffect(g, { kind: 'sparkle', x: target.x | 0, y: target.y | 0, dur: 380, color: '#98d8ff', up: true });
     placeChar(g, target, nx, ny);                                       // 318116 label_2911
+    pushEffect(g, { kind: 'sparkle', x: nx | 0, y: ny | 0, dur: 420, color: '#b8ecff', up: true });
     return { ok: true, type: 5, implemented: true, moved: true, targetIndex: target.index, x: nx, y: ny };
   }
 
@@ -1914,6 +1994,13 @@
         ? Elona.BuffEffects.turnsOf(buffId, pw)
         : ((g.var79 !== undefined) ? g.var79 : 100);
       const added = Elona.Status ? Elona.Status.addbuff(g, target, buffId, pw, dur, caster) : 0;
+      // 315884 / *label_2111：var_1117 = 6（debuff 向下旋落）/ 11（buff 向上升起）
+      if (target && (target.get(0) | 0) === 1) {
+        pushEffect(g, {
+          kind: 'sparkle', x: target.x | 0, y: target.y | 0,
+          dur: 460, color: deb ? '#b068e8' : '#ffe878', up: !deb,
+        });
+      }
       return { ok: true, type: f1, implemented: true, buff: { id: buffId, added: !!added, power: pw, turns: dur }, target };
     }
     if (f1 === 0) return effectType0(g, caster, id, target, power);   // type 0 杂项（纯逻辑子集）
@@ -1937,6 +2024,7 @@
     healRoutine, getRoute, routeInfo, breathList, calcMagicControl, calcMagicCrit, isHostile, sameGroup, placeChar, mefTypeOf, cast, dispatchEffect,
     dmgconOf,   // 0-EL：此前漏导出，导致 battle/abyss/itemfx 里的 dmgcon 调用全部静默跳过
     applyMagicDamage, logHitAndInjury, chorusCoef, CHORUS_GROUPS, CHORUS_ADD,
+    elemColorHex, pushEffect,
     idiv, limit,
   };
 })(window);

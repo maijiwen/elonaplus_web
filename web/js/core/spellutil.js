@@ -596,6 +596,9 @@
     const root = Math.sqrt(magic + 1);
     let destroyed = 0, burned = 0;
     const hits = [];
+    if (Elona.Spell && Elona.Spell.pushEffect) {
+      Elona.Spell.pushEffect(g, { kind: 'meteor', dur: 950 });
+    }
     for (let y = 0; y < h; y++) {
       for (let x = 0; x < w; x++) {
         const cell = g.map.cell(x, y);

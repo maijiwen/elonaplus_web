@@ -90,6 +90,21 @@
       const applied = Elona.Battle.applyDamage(t, dmgVal, g, caster || null,
         elem === undefined ? 0 : (elem | 0), arg === undefined ? 0 : (arg | 0), useOpts) | 0;
       if (shouldLog) {
+        if (Elona.Spell && Elona.Spell.pushEffect) {
+          const col = Elona.Spell.elemColorHex ? Elona.Spell.elemColorHex(elem | 0) : '#dff0ff';
+          const dist = Math.max(Math.abs((caster.x | 0) - (t.x | 0)), Math.abs((caster.y | 0) - (t.y | 0)));
+          if (dist > 1) {
+            Elona.Spell.pushEffect(g, {
+              kind: 'bolt', x0: caster.x | 0, y0: caster.y | 0,
+              x1: t.x | 0, y1: t.y | 0, dur: 220, color: col,
+            });
+          } else {
+            Elona.Spell.pushEffect(g, {
+              kind: 'sparkle', x: t.x | 0, y: t.y | 0,
+              dur: 360, color: col, up: false,
+            });
+          }
+        }
         Elona.Spell.logHitAndInjury(g, t, applied, (opts && opts.hitSubj) || '攻击');
         if (!callerDefer && applied > 0 && (t.hp | 0) <= 0 && Elona.Battle.onDeath) {
           Elona.Battle.onDeath(g, t, caster);
