@@ -685,6 +685,12 @@
     if (mode === 1) return { dmg: r1389, armor: r1391, critical: !!critical };
 
     // ---- 护甲减伤（213277-213288）----
+    // 213199-213207：受击方是玩家且持有 feat 164（你受到的物理伤害会减轻）
+    //   → 穿甲率 var_1016 再 -3（低于 0 按 0）。护甲减伤公式里 150-var_1016，
+    //   穿甲率下降 = 这部分伤害重新被护甲吃掉。
+    if ((def.index | 0) === 0 && Elona.Feat && Elona.Feat.get && Elona.Feat.get(def, 164)) {
+      pierce = Math.max(0, (pierce | 0) - 3);
+    }
     if (r1391 > 0) r1389 = idiv(r1389 * 100, 100 + idiv(r1391 * (150 - pierce), 150));
     const r1401 = idiv(r1389 * pierce, 100);        // 穿甲部分不受护甲骰子影响
     let r1402 = r1389 - r1401;

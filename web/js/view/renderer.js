@@ -401,11 +401,10 @@
         if (vx < 0 || vy < -1 || vx >= this.viewW || vy >= this.viewH + 1) continue;
         // 0-DW：视野外的地面物品不画（原版 var_704(x,y,5) 只在可见时同步）
         if (game.map && game.map.isVisible && !game.map.isVisible(x, y)) continue;
-        // 同格有角色 → 不画（角色图层优先）
-        if (game.map && game.map.cell) {
-          const c = game.map.cell(x, y);
-          if (c && c[1] !== 0) continue;
-        }
+        // 同格站着角色时**照常绘制**：原版的物品层（map 对象 kind==0）先画，
+        //   角色层随后叠上去；角色贴图的黑色背景已抠成透明，因此物品未与角色
+        //   重叠的部分会露出来，只有重叠部分被角色挡住（用户要求的表现）。
+        //   此前这里 `continue` 跳过整格，导致物品被完全隐藏。
         const gid = Elona.ItemDB.graphic(it.id);
         if (!Number.isFinite(gid) || gid < 0) continue;
         const ih = (Elona.ItemDB.iconHeight ? Elona.ItemDB.iconHeight(gid) : TILE) | 0;

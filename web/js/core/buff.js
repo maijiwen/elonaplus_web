@@ -134,7 +134,9 @@
       case 'prm_274': return c.index;
       case 'prm_275': return this.id;
       case 'prm_276': return this.power;
-      case 'var_79': case 'var_80': return this.vars[name] || 0;
+      case 'var_79': case 'var_80':
+        // var_80 / var_80(1) 在 HSP 里是「标量 + 数组元素」两套存储
+        return A.length ? (this.vars[name + '(' + A[0] + ')'] || 0) : (this.vars[name] || 0);
       case 'var_82': return c.skill(A[0]);
       case 'var_58': return c.get(A[0]);
       case 'limit': return limit(A[0], A[1], A[2]);
@@ -152,11 +154,66 @@
   }
 
   // ---------- 语句 ----------
+  /** 按顶层分隔符切分（跳过引号内与括号内） */
+  function splitTop(s, sep) {
+    const out = [];
+    let cur = '';
+    let depth = 0;
+    let q = false;
+    for (let i = 0; i < s.length; i++) {
+      const ch = s[i];
+      if (q) { cur += ch; if (ch === '"') q = false; continue; }
+      if (ch === '"') { q = true; cur += ch; continue; }
+      if (ch === '(') depth++;
+      else if (ch === ')') depth--;
+      if (ch === sep && depth === 0) { out.push(cur); cur = ''; continue; }
+      cur += ch;
+    }
+    out.push(cur);
+    return out;
+  }
+
+  /**
+   * 求值 `var_78 = lang(JP, EN)` 里的**日文**分支（项目 UI 与原版日文一致）。
+   * 只做字符串拼接 + var_79 / var_80 / var_80(n) 代入。
+   */
+  function evalLangText(stmt, vars) {
+    const m = /^var_78\s*=\s*lang\(([\s\S]*)\)\s*$/.exec(stmt);
+    if (!m) return '';
+    const args = splitTop(m[1], ',');
+    const expr = args.length ? args[0] : '';
+    return splitTop(expr, '+').map((t) => {
+      const s = t.trim();
+      if (!s) return '';
+      if (s[0] === '"') return s.slice(1, s.length - 1);
+      let mm = /^(var_\d+)\((\d+)\)$/.exec(s);
+      if (mm) return String((vars[mm[1] + '(' + mm[2] + ')'] || 0) | 0);
+      mm = /^(var_\d+)$/.exec(s);
+      if (mm) return String((vars[mm[1]] || 0) | 0);
+      if (/^\d+$/.test(s)) return s;
+      return '';
+    }).join('');
+  }
+
   function execStmt(s, ctx) {
     let m;
-    if (/^var_78 = /.test(s)) return;                     // 说明文本，忽略
+    if (/^var_78 = /.test(s)) { ctx.var78 = s; return; }   // 说明文本，留到 descOf 求值
+    // 数组元素赋值：var_80(1) = …（HSP 里是独立元素，不能与 var_80 混用）
+    m = /^(var_\d+)\((\d+)\) = (.*)$/.exec(s);
+    if (m) { ctx.vars[m[1] + '(' + m[2] + ')'] = evalExpr(m[3], ctx); return; }
     m = /^(var_\d+) = (.*)$/.exec(s);
-    if (m) { ctx.vars[m[1]] = evalExpr(m[2], ctx); return; }
+    if (m) {
+      // HSP 的多重赋值 `var_80 = a, b` 等价于 var_80 = a ; var_80(1) = b
+      const parts = splitTop(m[2], ',');
+      if (parts.length > 1) {
+        parts.forEach((p, i) => {
+          ctx.vars[i === 0 ? m[1] : (m[1] + '(' + i + ')')] = evalExpr(p, ctx);
+        });
+      } else {
+        ctx.vars[m[1]] = evalExpr(m[2], ctx);
+      }
+      return;
+    }
     m = /^var_82\((\d+), prm_274\)\s*(\+=|=)\s*(.*)$/.exec(s);
     if (m) {
       const id = parseInt(m[1], 10), v = evalExpr(m[3], ctx);
@@ -229,6 +286,30 @@
     },
 
     /**
+     * 对应 `calcbuff -2, id, power`（294144 / 293914）：只求说明用的
+     *   `var_79`（显示威力）与 `var_78`（效果说明），不改角色。
+     * 用 index = -2 的假角色跑一遍：每个 id 的 ops 都在 `prm_274 < 0` 分支里
+     *   先算 var_79 / var_80，再给 var_78 赋值并 return。
+     */
+    descOf(id, power) {
+      const e = TABLE && TABLE[String(id)];
+      if (!e) return { power: 0, text: '' };
+      const fake = {
+        index: -2,
+        get: () => 0,
+        set: () => {},
+        skill: () => 0,
+        setSkill: () => {},
+      };
+      const ctx = new Ctx(fake, id | 0, power | 0);
+      runOps(e.ops, ctx);
+      const text = ctx.var78
+        ? evalLangText(ctx.var78, ctx.vars)
+        : ((e.desc && (e.desc.jp || e.desc.en)) || '');
+      return { power: ctx.vars.var_79 | 0, text };
+    },
+
+    /**
      * 对应 calcbuff(chara, buffId, power)。会直接修改角色技能/字段/位标志。
      * @returns {{applied:boolean, desc:object|null, unimpl:string[]}}
      */
@@ -250,7 +331,7 @@
       runOps(e.ops, ctx);
       return { applied: true, desc: e.desc || null, unimpl: ctx.unimpl };
     },
-    _internals: { Parser, Ctx, runOps, execStmt, evalExpr },
+    _internals: { Parser, Ctx, runOps, execStmt, evalExpr, evalLangText },
   };
 
   Elona.BuffEffects = BuffEffects;

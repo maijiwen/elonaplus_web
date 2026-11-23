@@ -209,9 +209,9 @@
   function modKarma(g, v) {
     const p = g && g.player;
     if (!p) return 0;
-    let d = v | 0;
-    if (d < 0 && (p.get(97 + 162) | 0)) { d = idiv(d * 75, 100); if (d === 0) return 0; }
-    if (d < 0 && (p.get(97 + 169) | 0)) d = idiv(d * 150, 100);
+    // 31691-31703：feat 162 / 169 对负面业值变动的修正（原来误读成 var_58(97+n)）
+    let d = (Elona.Feat && Elona.Feat.karmaDelta) ? Elona.Feat.karmaDelta(p, v | 0) : (v | 0);
+    if (!d) return 0;
     p.set(49, (p.get(49) | 0) + d);
     log(g, `业值变动（${d >= 0 ? '+' : ''}${d}）`);
     return d;

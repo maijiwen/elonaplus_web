@@ -442,10 +442,12 @@
     modifyKarmaValue(p, n, g);
   }
 
-  /** 31689-31757 modkarma：只处理 karma 值与犯罪门槛（缺 trait 162/169 的修正） */
+  /** 31689-31757 modkarma：karma 值 + 犯罪门槛；trait 162/169 的修正走 Feat.karmaDelta */
   function modifyKarmaValue(c, n, g) {
     const before = c.get(49) | 0;
-    const delta = n | 0;
+    // 31691-31703：feat 162 负面 ×75%，feat 169 负面 ×150%
+    const delta = (Elona.Feat && Elona.Feat.karmaDelta) ? Elona.Feat.karmaDelta(c, n | 0) : (n | 0);
+    if (!delta) return;
     if (g && g.log) g.log(`业力(${delta})`);
     if (delta < 0 && before >= -30 && before + delta < -30) {
       if (g && g.log) g.log('你现在是犯人了。');              // 31737

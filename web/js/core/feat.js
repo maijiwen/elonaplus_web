@@ -208,6 +208,34 @@
     }
   }
 
+  /**
+   * 31689-31703 `modkarma` 的 feat 修正：
+   *   feat 162（感觉不到罪恶感）→ 负面变动 ×75/100，取整为 0 时直接不生效
+   *   feat 169（善良之心）      → 负面变动 ×150/100
+   * 调用方负责把结果写回 var_58(49) 并处理上下限/犯罪化。
+   */
+  function karmaDelta(c, v) {
+    let d = v | 0;
+    if (!c) return d;
+    if (d < 0 && get(c, 162)) {
+      d = idiv(d * 75, 100);
+      if (d === 0) return 0;
+    }
+    if (d < 0 && get(c, 169)) d = idiv(d * 150, 100);
+    return d;
+  }
+
+  /**
+   * 295528-295575（装备选择）/ 301270-301316（装备一览）：某些 feat 让对应部位
+   * 完全不能装备。键 = 槽类型（1 頭 / 2 首 / 3 背 / 4 体 / 5 手 / 6 指 / 7 腕 / 8 腰 / 9 足）。
+   */
+  const SLOT_FEAT = { 1: 217, 2: 206, 3: 205, 4: 218, 5: 223, 6: 221, 7: 222, 8: 219, 9: 203 };
+  /** 该部位是否被 feat 封锁（true = 不能装备） */
+  function slotBlocked(c, type) {
+    const f = SLOT_FEAT[type | 0];
+    return !!(f && c && get(c, f));
+  }
+
   // ------------------------------------------------------------------
   // *label_0043 效果应用（213855-213863）
   // ------------------------------------------------------------------
@@ -238,6 +266,13 @@
       runOps(f.ops, ctx);
       applied.push(id);
       for (const u of ctx.unimpl) unimpl.push('feat' + id + ':' + u);
+    }
+    // 213815-213826（*label_2174 末尾）：用 feat 直接开关两条能力。
+    //   手变成刀刃(223) → 能力 658「斬首」；嘴裂开(224) → 能力 748。
+    //   源码是 `var_98(658-600) = 1/0`，所以这里也要能**关掉**。
+    if ((c.index | 0) === 0) {
+      setFlag(c, 658 - 600, get(c, 223) ? 1 : 0);
+      setFlag(c, 748 - 600, get(c, 224) ? 1 : 0);
     }
     return { unimpl, applied };
   }
@@ -448,6 +483,7 @@
     textStat, catOf, maxLevelOf, available, take,
     applyRaceFeats, apply, applyGodBonus, unlockAbilities,
     invWeight, applyWeight,
+    karmaDelta, SLOT_FEAT, slotBlocked,
     name,
     _internals: { FeatCtx, runOps, execStmt, evalExpr },
   };

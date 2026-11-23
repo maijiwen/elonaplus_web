@@ -172,6 +172,10 @@
     if (!it || (it.f[0] | 0) <= 0) return false;
     if ((it.eqSlot | 0) >= 0) return false;
     if (!Elona.ItemDB) return false;
+    // 295528-295575 / 301270-301316：feat 封锁的部位不能装备
+    //   （217 兽耳→头 / 206 粗脖→首 / 205 翅膀→背 / 218→体 / 223 刀刃→手 /
+    //    221 蹼→指 / 222 粗臂→腕 / 219 尾巴→腰 / 203 蹄→足）
+    if (Elona.Feat && Elona.Feat.slotBlocked && Elona.Feat.slotBlocked(c, type)) return false;
     const loc = Elona.ItemDB.equipLocById(it.id) | 0;
     if (!loc) return false;
     if (loc === type) return true;

@@ -6707,6 +6707,36 @@
      *   「行动被跳过」在原版是 goto *label_4358，本项目由 TurnGauge.tick 的
      *   行动计返回 0 次来等效表达，详见 docs/02 A492。
      */
+    /**
+     * 605294-605313：主循环里每回合检查的 feat 触发。
+     *   · feat 210「药物成瘾」：`rnd(5) == 0` → 随手抓起背包里的一瓶药水喝掉
+     *     （源码 `var_59 = 15 ; var_60 = item id ; gosub *label_0598`，即饮用路径）
+     *   · feat 214「周围空间扭曲」：`rnd(250) == 0` → 施放 408（随机传送自己）
+     * 两者都只对玩家生效，且失败不阻塞回合。
+     */
+    tickFeatTurnEvents() {
+      const p = this.player;
+      if (!p || !Elona.Feat || !Elona.Feat.get) return;
+      // ---- feat 210 ----
+      if (Elona.Feat.get(p, 210) && this.rng.rnd(5) === 0) {
+        try {
+          const inv = p.inv || [];
+          const idx = inv.findIndex((it) => it && (it.f[0] | 0) > 0
+            && Elona.ItemDB && Elona.ItemDB.ref(it.id, 5) === 52000);
+          if (idx >= 0) {
+            this.log('你忍不住喝掉了什么……');
+            this.useItem(idx, 15);
+          }
+        } catch (e) { /* 忽略，不让成瘾把回合卡死 */ }
+      }
+      // ---- feat 214 ----
+      if (Elona.Feat.get(p, 214) && this.rng.rnd(250) === 0) {
+        try {
+          if (Elona.Spell && Elona.Spell.cast) Elona.Spell.cast(this, p, 408, p);
+        } catch (e) { /* 忽略 */ }
+      }
+    }
+
     endTurn() {
       this.turn++;
       // 609737：难度（var_65(189)）取到达过的最高地图层数，只升不降（遭遇的危险度基准）
@@ -6751,6 +6781,8 @@
       // 0-R3 / 251443-252302：*label_2476 的每回合地图事件（源码 604168 处 gosub）。
       //   按地图 id / 深度分派（诺伊尔的守卫、地图 41 监狱、地图 81 跟踪者、地图 11 传令等）。
       if (Elona.MapTurnEvent) Elona.MapTurnEvent.tick(this);
+      // 605294-605313：每回合的 feat 触发（药物成瘾 / 空间扭曲）
+      this.tickFeatTurnEvents();
       // 时间推进（603094-603157）：每个行动约 7~21 时间单位，60 单位 = 1 分钟
       this.advanceClock();
       // 0-FY：行动计累加（603075-603092）+ *label_4353 的行动次数结算。

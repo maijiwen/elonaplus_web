@@ -116,6 +116,7 @@
     sel: 0,
     charaPage: 0,
     charaCursor: 0,   // 人物信息窗列表页的光标行
+    blessCursor: 0,   // 人物信息窗第 1 页「祝福与诅咒」的光标（var_2230）
     rows: [],          // 当前面板的可选行
     onPick: null,      // 物品选择器的回调
     keyCapture: null,  // 键位设置：正在等待输入的 action id
@@ -953,8 +954,15 @@
         this.rows = [];
         this.open('charainfo', `角色信息　Page.${cur + 1}/${total}`,
           this.charaInfoPage1(g, p),
-          { wide: true, cls: 'ci-sheet', hint: '← → 翻页　Esc 关闭' });
-        this.onKeyFn = (e) => this.charaNav(e, g, cur, total);
+          { wide: true, cls: 'ci-sheet', hint: '↑ ↓ 选择祝福　← → 翻页　Esc 关闭' });
+        // 294161-294174：第 1 页里上下键移动「祝福与诅咒」的光标（var_2230），
+        //   光标指向的项在左下角 Hint 里显示名称 / 回合 / 威力 / 说明。
+        this.onKeyFn = (e) => {
+          if (this.charaNav(e, g, cur, total)) return true;
+          if (e.key === 'ArrowUp' || e.key === '8') { this.moveBlessCursor(-1, p); return true; }
+          if (e.key === 'ArrowDown' || e.key === '2') { this.moveBlessCursor(1, p); return true; }
+          return false;
+        };
         return;
       }
 
@@ -1099,7 +1107,58 @@
       }
     },
 
-    /** 第 1 页：基本信息 / 能力 / Essential / その他 / プロフィール / 祝福 / 修正 */
+    /**
+     * 第 1 页「祝福与诅咒」的槽位表（var_58(280 + i*3) / +1 强度 / +2 剩余回合）。
+     *   只返回仍在生效的项，顺序 = 槽位顺序 = 原版 var_2237 的计数顺序。
+     */
+    blessSlots(p) {
+      const out = [];
+      if (!p) return out;
+      for (let i = 0; i < 15; i++) {
+        const id = p.get(280 + i * 3) | 0;
+        const power = p.get(280 + i * 3 + 1) | 0;
+        const turns = p.get(280 + i * 3 + 2) | 0;
+        if (!id || turns <= 0) continue;
+        out.push({ slot: i, id, power, turns });
+      }
+      return out;
+    },
+
+    /**
+     * 293913-293915 的 Hint 文本：
+     *   `var_76(id) + ": " + 剩余回合 + "(" + var_79 + ")ターンの間、" + var_78`
+     *   var_76 = 名称表，var_79 / var_78 由 `calcbuff -2, id, power` 求出。
+     */
+    blessDescText(b) {
+      if (!b) return '这个角色现在没有受到任何祝福或诅咒。';
+      const nm = (Elona.Hud && Elona.Hud.buffName) ? Elona.Hud.buffName(b.id) : ('#' + b.id);
+      const d = (Elona.BuffEffects && Elona.BuffEffects.descOf)
+        ? Elona.BuffEffects.descOf(b.id, b.power) : null;
+      const pw = d ? (d.power | 0) : 0;
+      const txt = (d && d.text) ? d.text : '';
+      return txt
+        ? `${nm}：剩余 ${b.turns | 0} 回合（${pw}）、${txt}`
+        : `${nm}：剩余 ${b.turns | 0} 回合（${pw}）`;
+    },
+
+    /**
+     * 294161-294174：上下键在已取得的祝福/诅咒之间循环移动光标，
+     *   只改高亮与左下角 Hint，不重建整页 DOM。
+     */
+    moveBlessCursor(d, p) {
+      const list = this.blessSlots(p);
+      if (!list.length || !this.root) return;
+      let i = (this.blessCursor | 0) + (d < 0 ? -1 : 1);
+      if (i < 0) i = list.length - 1;
+      if (i >= list.length) i = 0;
+      this.blessCursor = i;
+      this.root.querySelectorAll('.cc-bless-slot.active').forEach((n, k) => {
+        n.classList.toggle('sel', k === i);
+      });
+      const el = this.root.querySelector('#ci-bless-desc');
+      if (el) el.innerHTML = `<span class="k">Hint:</span> ${esc(this.blessDescText(list[i]))}`;
+    },
+
     /** 0-FH：var_58(161..165) → 中文经历 5 行（profiletext.js） */
     profileLines(p, g) {
       if (Elona.ProfileText) {
@@ -1207,6 +1266,11 @@
         blessList.push({ id: bid, power: bp, turns: bturns, name: bname, debuff: isDeb, desc: bDesc });
       }
       const activeBless = blessList.filter(Boolean);
+      // 294161-294174：var_2230 在「已取得的祝福」之间循环（0..var_2237-1），
+      //   数量变化（buff 到期）后要夹紧，避免光标指向不存在的项。
+      this.blessCursor = activeBless.length
+        ? Math.max(0, Math.min(activeBless.length - 1, this.blessCursor | 0))
+        : 0;
       const blessHint = activeBless.length
         ? activeBless.map((b) => `${b.name}(${b.turns}回合)`).join('、')
         : '没有受到任何祝福或诅咒效果。';
@@ -1247,6 +1311,8 @@
         bless: 15,
         blessList,
         blessHint,
+        blessSel: this.blessCursor | 0,
+        blessDesc: this.blessDescText(activeBless[this.blessCursor | 0] || null),
         // 293853-293900 + *label_2811/2813：全部由 battle.js 的正式公式算出
         fix: this.correctionFix(g, p),
       });

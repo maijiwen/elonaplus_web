@@ -182,7 +182,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "你的腹部被寄生了。",
+      "jp": "你被寄生了。",
       "en": "You are parasitic in the belly."
     },
     {
@@ -195,7 +195,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "你的脑髓被寄生了。",
+      "jp": "你被脑部寄生了。",
       "en": "You are parasitic in the brain."
     },
     {
@@ -260,7 +260,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "混乱对你无效。",
+      "jp": "混乱无效。",
       "en": "You negates the effect of confusion."
     },
     {
@@ -273,7 +273,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "失明对你无效。",
+      "jp": "失明无效。",
       "en": "You negates the effect of blindness."
     },
     {
@@ -286,7 +286,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "恐惧对你无效。",
+      "jp": "恐惧无效。",
       "en": "You negates the effect of fear."
     },
     {
@@ -299,7 +299,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "睡眠对你无效。",
+      "jp": "睡眠无效。",
       "en": "You negates the effect of sleep."
     },
     {
@@ -312,7 +312,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "麻痹对你无效。",
+      "jp": "麻痹无效。",
       "en": "You negates the effect of paralysis."
     },
     {
@@ -325,7 +325,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "毒对你无效。",
+      "jp": "毒无效。",
       "en": "You negates the effect of poison."
     },
     {
@@ -377,7 +377,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "你司掌死亡。",
+      "jp": "死亡主宰。",
       "en": "You govern death word."
     },
     {
@@ -403,7 +403,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "你能使用雷手。",
+      "jp": "你可以救助友军。",
       "en": "You can use Layhand."
     },
     {
@@ -416,7 +416,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "你适合骑马。",
+      "jp": "利于骑乘。",
       "en": "You are suitable for riding."
     },
     {
@@ -468,7 +468,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "你能中和双方的属性攻击。",
+      "jp": "属性中和。",
       "en": "You neutralize each other's attribute attacks."
     },
     {
@@ -585,7 +585,7 @@
         "jp": "[bit]",
         "en": "[bit]"
       },
-      "jp": "咏唱时你会情绪高涨。",
+      "jp": "昂扬咏唱。",
       "en": "You feel uplifted while casting."
     },
     {
@@ -733,7 +733,7 @@
         "jp": "[觉醒]",
         "en": "[AWAKE]"
       },
-      "jp": "你已掌握魔力聚集。",
+      "jp": "你已掌握聚魔射线。",
       "en": "You got Crystal Spear."
     },
     {

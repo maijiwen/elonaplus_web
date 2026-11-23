@@ -246,6 +246,36 @@
     const S = Elona.Spell;
     if (!S) return { ok: false, reason: 'no-spell' };
 
+    // 342070-342099：feat 215「活体玛娜电池」—— 玩家使用有充能的魔杖时，
+    //   先被自己吸干：效果 id 落在 400..491 → 获得该魔法的库存（并练该法术）；
+    //   否则 → 回复 MP（充能 × 5 × 数量；源码 healmp 没有 +10）。
+    //   之后 `var_99(9) = 0`，所以紧接着的 *label_2956 只会「何もおきない」——
+    //   等于这次挥杖被「吸取」顶替掉。
+    if ((p.index | 0) === 0 && Elona.Feat && Elona.Feat.get && Elona.Feat.get(p, 215)) {
+      const chg = chargesOf(it) | 0;
+      if (chg > 0) {
+        const cnt = it.f[0] | 0 || 1;
+        it.f[9] = 0;
+        g.log(`你从 ${nm} 吸取了魔力！`);
+        if (eid >= 400 && eid < 492) {
+          const gain = chg * 5 * cnt + 10;
+          const st = p.spellStock || (p.spellStock = []);
+          st[eid - 400] = (st[eid - 400] | 0) + gain;
+          if (Elona.Stats && Elona.Stats.skillExp) {
+            try { Elona.Stats.skillExp(p, eid, 0, gain, 2, 1000, g); } catch (e) { /* 忽略 */ }
+          }
+          const sn = S.actionName ? S.actionName(eid) : null;
+          g.log(`你获得了「${sn ? (sn.ch || sn.jp || eid) : eid}」的魔法库存。`);
+        } else {
+          const add = chg * 5 * cnt;
+          if (Elona.Status && Elona.Status.healmp) Elona.Status.healmp(p, add, g);
+          else p.mp = Math.min(p.mpMax | 0, (p.mp | 0) + add);
+          g.log('你的魔力恢复了。');
+        }
+        return { ok: true, absorbed: true, effectId: eid, charges: chg };
+      }
+    }
+
     // 0-Z50 / 315580-315590：类别由效果表 field3 决定。
     //   玩家挥 3000（自身系）的杖 → 改判 8000（方向系）→ 八方向箭头；
     //   409 瞬移他人本是 8000 / f1=5，旧代码误按 f1 判成自身系，所以没有箭头。

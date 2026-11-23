@@ -595,7 +595,7 @@
       if (i === 0) pairs = pairs.map(([k, v], j) => (j === 0 ? [k, nameCell] : [k, v]));
       return group(cls, pairs);
     }).join('');
-    return `<div class="cc-summary">`
+    return `<div class="cc-summary${d.blessDesc ? ' has-bless-desc' : ''}">`
       + `<div class="cc-sum-head">${head}</div>`
       + `<div class="cc-sum-portrait"><div class="cc-face-tile" id="cc-face"`
       + ` style="background-image:url('assets/graphic/${face.img}');`
@@ -615,17 +615,23 @@
       + topic('祝福与诅咒')
       + `<div class="cc-bless-grid">${(() => {
         const slots = Array.isArray(d.blessList) ? d.blessList : [];
+        // 294161-294174：var_2230 是在**取得的祝福**之间循环的光标，
+        //   与 15 个槽位无关；这里 d.blessSel 是按 active 顺序的下标。
+        const sel = (d.blessSel === undefined || d.blessSel === null) ? -1 : (d.blessSel | 0);
+        let ai = 0;
         let out = '';
         for (let i = 0; i < 15; i++) {
           const b = slots[i];
           if (b && b.id) {
             const rect = (Elona.Hud && Elona.Hud.buffIconRect) ? Elona.Hud.buffIconRect(b.id) : null;
-            const cls = b.debuff ? 'cc-bless-slot active debuff' : 'cc-bless-slot active';
+            const cls = (b.debuff ? 'cc-bless-slot active debuff' : 'cc-bless-slot active')
+              + (ai === sel ? ' sel' : '');
             const title = esc(`${b.name || ('#' + b.id)}（剩余 ${b.turns | 0} 回合）${b.desc ? '：' + b.desc : ''}`);
             const bg = rect
               ? `<span class="cc-bless-ico" style="background-position:-${rect.x}px -${rect.y}px"></span>`
               : `<span class="cc-bless-id">#${b.id}</span>`;
             out += `<i class="${cls}" title="${title}">${bg}<b class="cc-bless-turn">${b.turns | 0}</b></i>`;
+            ai++;
           } else {
             out += `<i class="cc-bless-slot"></i>`;
           }
@@ -638,7 +644,14 @@
       + `<div>${d.fix[0].map(esc).join('<br>')}</div>`
       + `<div>${d.fix[1].map(esc).join('<br>')}</div>`
       + `</div></div>`
-      + `</div></div>`;
+      + `</div>`
+      // 293913-293926：窗口左下角的「Hint:」，显示光标所指祝福/诅咒的名称、
+      //   剩余回合、显示威力（var_79）与效果说明（var_78）。只在传入 blessDesc 时渲染
+      //   （建角总览没有 buff，不占位）。
+      + (d.blessDesc
+        ? `<div class="cc-bless-desc" id="ci-bless-desc"><span class="k">Hint:</span> ${esc(d.blessDesc)}</div>`
+        : '')
+      + `</div>`;
   }
 
   function stepSummary() {

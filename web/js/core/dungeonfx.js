@@ -579,9 +579,11 @@
   function modKarma(g, v) {
     const p = g && g.player;
     if (!p) return 0;
-    const cur = p.get(49) | 0;
-    p.set(49, cur + (v | 0));
-    return v;
+    // 31691-31703：feat 162 / 169 修正（负面变动才有折扣/加成）
+    const d = (Elona.Feat && Elona.Feat.karmaDelta) ? Elona.Feat.karmaDelta(p, v | 0) : (v | 0);
+    if (!d) return 0;
+    p.set(49, (p.get(49) | 0) + d);
+    return d;
   }
 
   /**
