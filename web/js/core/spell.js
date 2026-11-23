@@ -475,6 +475,40 @@
   }
 
   /**
+   * 统一输出魔法/范围攻击的命中与伤势日志（对应 HSP `var_65(809) = 2` + dmghp 199418-199505）。
+   *   - 敌对/中立 NPC（index >= 16）：`<主语>命中了<目标>，使其擦伤 / 受了轻伤 / 受了中伤 / 受了重伤 / 受了致命伤！`
+   *   - 玩家或同伴（index < 16）：`<主语>命中了<目标>。` +（存活时按伤势追加痛呼）
+   */
+  function logHitAndInjury(g, t, applied, subj, opts) {
+    if (!g || !g.log || !t) return;
+    const tIdx = t.index | 0;
+    const tName = tIdx === 0 ? '你' : (t.name || '目标');
+    let sev = -1;
+    if (applied > 0) {
+      sev = idiv(applied * 6, Math.max(1, t.hpMax | 1));
+      if (t.hp < idiv(t.hpMax, 2)) sev++;
+      if (t.hp < idiv(t.hpMax, 4)) sev++;
+      if (t.hp < idiv(t.hpMax, 10)) sev++;
+    }
+    const prefix = (opts && opts.prefix) ? opts.prefix : `${subj || '魔法'}命中了${tName}`;
+    if (tIdx >= 16) {
+      const inj = sev < 0 ? '使其擦伤。'
+        : sev === 0 ? '使其受了轻伤。'
+        : sev === 1 ? '使其受了中伤。'
+        : sev === 2 ? '使其受了重伤。'
+        : '使其受了致命伤！';
+      g.log(`${prefix}，${inj}`);
+    } else {
+      g.log(`${prefix}。`);
+      if (t.hp > 0) {
+        if (sev === 1) g.log(`${tName}受了不轻的伤。`);
+        else if (sev === 2) g.log(`${tName}痛苦地扭动着。`);
+        else if (sev >= 3) g.log(`${tName}发出了惨痛的哀号！`);
+      }
+    }
+  }
+
+  /**
    * 统一的魔法伤害结算：dmghp（带属性 id）+ 复合咏唱追加伤害。
    * @param {object} g
    * @param {object} caster 施法者（复合咏唱的装备来源）
@@ -521,12 +555,17 @@
     if (Elona.Status && Elona.Status.findbuff(caster, 32) !== -1) {         // 316792 完全詠唱
       if (caster.index !== 0 || tg.get(9) === -3) dmg = dmg * 11;           // 316794 ×11
     }
-    // 316841：dmghp 带属性 id（dice.elem）+ 复合咏唱追加伤害
-    const applied = applyMagicDamage(g, caster, tg, dmg, dice.elem, id);
-    const nm = actionName(id);
-    if (g.log) {
-      g.log(`${caster.name} 施放「${nm ? (nm.ch || nm.jp) : id}」命中${tg.index === 0 ? '你' : tg.name} —— `
-        + `${applied} 点伤害（剩余 HP ${tg.hp}）。`);
+    // 316822-316841：命中播报 + dmghp 带属性 id（dice.elem）+ 复合咏唱追加伤害
+    const applied = applyMagicDamage(g, caster, tg, dmg, dice.elem, id, { deferDeath: true });
+    logHitAndInjury(g, tg, applied, '魔法箭');
+    if (applied > 0 && tg.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+      Elona.Battle.onDeath(g, tg, caster);
+    }
+    if (id === 491 && Elona.Status && Elona.Status.wet) Elona.Status.wet(tg, 5);
+    if (tg.get(94) > 0 && (caster.index >= 16 || tg.index >= 16)) {
+      const refl = limit(idiv(dmg * tg.get(94), 200) + 1, 1, idiv(caster.hpMax, 10));
+      if (g.log) g.log(`${tg.index === 0 ? '你' : tg.name}反射了一部分魔法。`);
+      applyMagicDamage(g, tg, caster, refl, dice.elem, id);
     }
     return { ok: true, type: 2, implemented: true, dmg: applied, elem: dice.elem, target: tg, destroyed: tg.hp <= 0 };
   }
@@ -847,7 +886,12 @@
       if (mc.avoided) continue;                                         // 318312
       dmg = mc.dmg;
       if (Elona.Status.findbuff(caster, 32) !== -1 && (caster.index !== 0 || t.get(9) === -3)) dmg *= 11;  // 318315-318320
-      const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id);   // 318340 dmghp + 复合咏唱
+      const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id, { deferDeath: true });   // 318340 dmghp + 复合咏唱
+      // 318321-318340：吐息命中与伤势日志
+      logHitAndInjury(g, t, applied, '吐息');
+      if (applied > 0 && t.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+        Elona.Battle.onDeath(g, t, caster);
+      }
       // dmghp 内的 199644-199656（火/冰破坏目标道具、攻击者持有 941/1172 时免疫）
       // 已在 Battle.applyDamage → OnHit.onDamage 的 elemental() 里统一处理，
       // 这里不再重复调用，避免同一件物品被破坏两次。
@@ -858,10 +902,6 @@
     const b32 = Elona.Status.findbuff(caster, 32);
     if (b32 !== -1 && (caster.index !== 0 || (tg && tg.get(9) === -3))) {
       Elona.Status.delbuff(caster, b32);
-    }
-    const nm = actionName(id);
-    if (g.log && results.length) {
-      g.log(`${caster.name} 喷出「${nm ? (nm.ch || nm.jp) : id}」，波及 ${results.length} 个目标。`);
     }
     return { ok: true, type: 8, implemented: true, cells: bl.cells.length, hits: results };
   }
@@ -1021,7 +1061,10 @@
       if (((g && g.getV65) ? (g.getV65(183) | 0) : 0) !== 0 && ((g && g.getV65) ? (g.getV65(183) | 0) : 0) === caster.index && tIdx === 0) continue;   // 316072-316078
       if (t.get(140) === 30 || t.get(140) === 31) continue;            // 316079
       let dmg = Elona.Battle.role(g.rng, dice.dice, dice.sides, dice.bonus);     // 316082
-      if (calcMagicCrit(g, caster, t)) dmg = Elona.Battle.rolemax(dice.dice, dice.sides, dice.bonus);  // 316084
+      if (calcMagicCrit(g, caster, t)) {
+        dmg = Elona.Battle.rolemax(dice.dice, dice.sides, dice.bonus);  // 316084
+        if (g.log) g.log('会心の一撃！');
+      }
       const mc1 = calcMagicControl(g, caster, t, dmg);                  // 316107-316109
       if (mc1.avoided) continue;
       dmg = mc1.dmg;                                                    // 0-EX：必须用减伤后的值
@@ -1031,10 +1074,16 @@
       }
       if (realTarget === -1 && isHostile(g, caster, tIdx)) realTarget = tIdx;   // 316123-316146
       if (v175Clear && Elona.Status.findbuff(caster, 32) !== -1 && (caster.index !== 0 || t.get(9) === -3)) dmg *= 11;  // 316147-316151
-      const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id);   // 316174 dmghp + 复合咏唱
+      const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id, { deferDeath: true });   // 316174 dmghp + 复合咏唱
+      // 316155-316174：射线命中与伤势日志
+      logHitAndInjury(g, t, applied, '射线');
+      if (applied > 0 && t.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+        Elona.Battle.onDeath(g, t, caster);
+      }
       if (id === 475) Elona.Status.wet(t, 5);                          // 316175-316177
       if (v175Clear && t.get(94) > 0 && (caster.index >= 16 || tIdx >= 16)) {        // 316222-316225 魔法反射
         const refl = limit(idiv(dmg * t.get(94), 200) + 1, 1, idiv(caster.hpMax, 10));
+        if (g.log) g.log(`${tIdx === 0 ? '你' : t.name}反射了一部分魔法。`);
         applyMagicDamage(g, t, caster, refl, dice.elem, id);   // 316225/316678 魔法反射
       }
       hits.push({ index: tIdx, dmg: applied });
@@ -1116,35 +1165,13 @@
         if (realTarget === -1 && isHostile(g, caster, tIdx)) realTarget = tIdx;   // 316377-316400
         const applied = applyMagicDamage(g, caster, t, dmg, dice.elem, id, { deferDeath: true });   // 316507 dmghp + 复合咏唱
         // 316585-316629 + dmghp(199418-199505)：球形/范围魔法命中与伤势提示
-        if (g && g.log) {
-          const subj = id === 644 ? '爆炸' : (id === 655 ? '电击' : '能量球');
-          const tName = tIdx === 0 ? '你' : t.name;
-          let sev = -1;
-          if (applied > 0) {
-            sev = idiv(applied * 6, Math.max(1, t.hpMax | 1));
-            if (t.hp < idiv(t.hpMax, 2)) sev++;
-            if (t.hp < idiv(t.hpMax, 4)) sev++;
-            if (t.hp < idiv(t.hpMax, 10)) sev++;
-          }
-          if (tIdx >= 16) {
-            const inj = sev < 0 ? '使其擦伤。'
-              : sev === 0 ? '使其受了轻伤。'
-              : sev === 1 ? '使其受了中伤。'
-              : sev === 2 ? '使其受了重伤。'
-              : '使其受了致命伤！';
-            g.log(`${subj}命中了${tName}，${inj}`);
-          } else {
-            g.log(`${subj}命中了${tName}。`);
-            if (sev === 1) g.log(`${tName}受了不轻的伤。`);
-            else if (sev === 2) g.log(`${tName}痛苦地扭动着。`);
-            else if (sev >= 3) g.log(`${tName}发出了惨痛的哀号！`);
-          }
-        }
+        logHitAndInjury(g, t, applied, id === 644 ? '爆炸' : (id === 655 ? '电击' : '能量球'));
         if (applied > 0 && t.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
           Elona.Battle.onDeath(g, t, caster);
         }
         if (t.get(94) > 0 && id !== 655 && (caster.index >= 16 || tIdx >= 16)) {   // 316678-316680 反射
           const refl = limit(idiv(dmg * t.get(94), 200) + 1, 1, idiv(caster.hpMax, 10));
+          if (g.log) g.log(`${tIdx === 0 ? '你' : t.name}反射了一部分魔法。`);
           applyMagicDamage(g, t, caster, refl, dice.elem, id);   // 316225/316678 魔法反射
         }
         hits.push({ index: tIdx, dmg: applied });
@@ -1221,12 +1248,19 @@
     if (!tg || tg.get(0) !== 1) return { ok: true, type: 6, implemented: true, noTarget: true };
     const hits = [];
     const hit = (t, d) => {
-      const applied = applyMagicDamage(g, caster, t, d, dice.elem, id);
-      // 317190 dmghp 的伤害播报：type 6 此前完全没有反馈，玩家会以为技能没生效
-      if (g.log && t && (t.get(0) | 0) === 1) {
-        const nm = actionName(id);
-        g.log(`${caster.name} 施放「${nm ? (nm.ch || nm.jp) : id}」命中${t.index === 0 ? '你' : t.name} —— `
-          + `${applied} 点伤害（剩余 HP ${t.hp}）。`);
+      const applied = applyMagicDamage(g, caster, t, d, dice.elem, id, { deferDeath: true });
+      // 317039-317190：吸血/啃咬/记忆毒/接触的命中与伤势播报
+      if (t && (t.get(0) | 0) === 1) {
+        const cName = caster.index === 0 ? '你' : caster.name;
+        const tName = t.index === 0 ? '你' : t.name;
+        const prefix = id === 748 ? `${cName}咬下了${tName}的血肉`
+          : id === 758 ? `${cName}啃食了${tName}的记忆`
+          : id === 601 ? `${cName}吸取了${tName}的鲜血`
+          : `${cName}触碰了${tName}`;
+        logHitAndInjury(g, t, applied, null, { prefix });
+        if (applied > 0 && t.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+          Elona.Battle.onDeath(g, t, caster);
+        }
       }
       hits.push({ index: t.index, dmg: applied });
       return applied;
@@ -1902,7 +1936,7 @@
     effectType0, effectType1, effectType2, effectType3, effectType4, effectType5, effectType6, effectType7, effectType8, effectType10,
     healRoutine, getRoute, routeInfo, breathList, calcMagicControl, calcMagicCrit, isHostile, sameGroup, placeChar, mefTypeOf, cast, dispatchEffect,
     dmgconOf,   // 0-EL：此前漏导出，导致 battle/abyss/itemfx 里的 dmgcon 调用全部静默跳过
-    applyMagicDamage, chorusCoef, CHORUS_GROUPS, CHORUS_ADD,
+    applyMagicDamage, logHitAndInjury, chorusCoef, CHORUS_GROUPS, CHORUS_ADD,
     idiv, limit,
   };
 })(window);

@@ -443,11 +443,11 @@
       }
 
       // 5. 效果分派（315558-315569）
+      if (aid !== 750) g.log(`你发动了 ${this.name(aid)}。`);
       const r = S.cast(g, p, aid, pre.target || null, o.tile);
       // 不消耗回合的能力（如 750 力之解放：322516 直接 `return 0`，只切换方针）
       if (r && r.noTurn) return Object.assign({ ok: true }, r);
       if (mgate.need > 0 && Elona.Morale && Elona.Morale.spend) Elona.Morale.spend(p, aid);
-      g.log(`你发动了 ${this.name(aid)}。`);
       if (g.endTurn) g.endTurn();
       return Object.assign({ ok: true }, r || {});
     },

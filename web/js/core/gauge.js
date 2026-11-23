@@ -250,7 +250,13 @@
     let applied = 0;
     if (tg && (tg.get(0) | 0) === 1) {
       applied = (Elona.Battle && Elona.Battle.applyDamage)
-        ? Elona.Battle.applyDamage(tg, dmg, g, caster, 702, 0) : dmg;
+        ? Elona.Battle.applyDamage(tg, dmg, g, caster, 702, 0, { deferDeath: true }) : dmg;
+      if (Elona.Spell && Elona.Spell.logHitAndInjury) {
+        Elona.Spell.logHitAndInjury(g, tg, applied, '合体攻击');
+      }
+      if (applied > 0 && tg.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+        Elona.Battle.onDeath(g, tg, caster);
+      }
       // 333536-333543：被打的目标怒气 +30（满 100 记作 120）
       if ((tg.get(0) | 0) === 1) {
         const rg = tg.get(F_RAGE) | 0;

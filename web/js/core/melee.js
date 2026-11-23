@@ -109,7 +109,13 @@
     // dmghp var_244, var_82(10,var_243)/10 * (var_82(106,var_243)+1)/10 + 5
     const dmg = idiv(idiv(sk(caster, A_STR), 10) * (sk(caster, SK_MARTIAL) + 1), 10) + 5;
     const applied = (Elona.Battle && Elona.Battle.applyDamage)
-      ? Elona.Battle.applyDamage(tg, dmg, g, caster, 0, 0) : dmg;
+      ? Elona.Battle.applyDamage(tg, dmg, g, caster, 0, 0, { deferDeath: true }) : dmg;
+    if (Elona.Spell && Elona.Spell.logHitAndInjury) {
+      Elona.Spell.logHitAndInjury(g, tg, applied, '腹部重击');
+    }
+    if (applied > 0 && tg.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+      Elona.Battle.onDeath(g, tg, caster);
+    }
     // raw = 公式值，dmg = 经抗性/减伤结算后的实际值（测试对比用 raw）
     const out = { ok: true, type: 0, implemented: true, raw: dmg, dmg: applied, vomited: false };
     if ((tg.get(50) | 0) >= 0) {                             // 347183：还活着才呕吐
@@ -167,7 +173,13 @@
     const dmg = (idiv(dex, 5) + 5) * (idiv(wire + 1, 5) + 5)
       + R(g, wire * 2 + 5) + idiv(levelBonus(caster), 2);
     const applied = (Elona.Battle && Elona.Battle.applyDamage)
-      ? Elona.Battle.applyDamage(tg, dmg, g, caster, 64, 1000) : dmg;
+      ? Elona.Battle.applyDamage(tg, dmg, g, caster, 64, 1000, { deferDeath: true }) : dmg;
+    if (Elona.Spell && Elona.Spell.logHitAndInjury) {
+      Elona.Spell.logHitAndInjury(g, tg, applied, '钢丝');
+    }
+    if (applied > 0 && tg.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+      Elona.Battle.onDeath(g, tg, caster);
+    }
     const out = { ok: true, type: 0, implemented: true, raw: dmg, dmg: applied, bleeding: 0, beheaded: false };
     // 338347-338349：目标处于束缚（268）→ dmgcon 9（出血）强度 (钢丝+1)/2+1
     if ((tg.get(268) | 0) > 0 && Elona.Resist && Elona.Resist.dmgcon) {
@@ -255,7 +267,13 @@
         + R(g, sk(caster, A_STR) * 2 + 5) + idiv(levelBonus(caster), 2);
     }
     const applied = (Elona.Battle && Elona.Battle.applyDamage)
-      ? Elona.Battle.applyDamage(tg, dmg, g, caster, 68, 1000) : dmg;
+      ? Elona.Battle.applyDamage(tg, dmg, g, caster, 68, 1000, { deferDeath: true }) : dmg;
+    if (Elona.Spell && Elona.Spell.logHitAndInjury) {
+      Elona.Spell.logHitAndInjury(g, tg, applied, '紧抱');
+    }
+    if (applied > 0 && tg.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+      Elona.Battle.onDeath(g, tg, caster);
+    }
     return { ok: true, type: 0, implemented: true, raw: dmg, dmg: applied, jutsu };
   }
 

@@ -123,7 +123,13 @@
       const mc = S.calcMagicControl(g, caster, t, dmg);
       if (mc.avoided) continue;
       dmg = mc.dmg;
-      const applied = S.applyMagicDamage(g, caster, t, dmg, dice.elem, id);
+      const applied = S.applyMagicDamage(g, caster, t, dmg, dice.elem, id, { deferDeath: true });
+      if (S.logHitAndInjury) {
+        S.logHitAndInjury(g, t, applied, (id | 0) === 837 ? '沙尘' : '吐息');
+      }
+      if (applied > 0 && t.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+        Elona.Battle.onDeath(g, t, caster);
+      }
       // 327993-327996：命中计数（263）+ 朦朧
       if (opt.confuse) {
         if ((t.get(263) | 0) === 0) t.set(263, (t.get(263) | 0) + 1);

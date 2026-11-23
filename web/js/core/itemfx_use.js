@@ -2172,11 +2172,11 @@
     }
     return best;
   }
-  function gaDamage(g, c, dmg, attr, att) {
+  function gaDamage(g, c, dmg, attr, att, opts) {
     if (!c) return 0;
     const d = Math.max(0, dmg | 0);
     if (Elona.Battle && Elona.Battle.applyDamage) {
-      try { return Elona.Battle.applyDamage(c, d, g, att || g.player, attr | 0, 1000); }
+      try { return Elona.Battle.applyDamage(c, d, g, att || g.player, attr | 0, 1000, opts); }
       catch (e) { /* 退回直接扣血 */ }
     }
     c.hp = Math.max(0, (c.hp | 0) - d);
@@ -2281,8 +2281,15 @@
     let hits = 0;
     for (const c of (g.charas || [])) {
       if (!c || c === p || G(c, 0) !== 1) continue;
-      g.log(`荷电粒子命中了${nm(c)}。`);
-      gaDamage(g, c, dmg, 0, p);
+      const applied = gaDamage(g, c, dmg, 0, p, { deferDeath: true });
+      if (Elona.Spell && Elona.Spell.logHitAndInjury) {
+        Elona.Spell.logHitAndInjury(g, c, applied, '荷电粒子');
+      } else {
+        g.log(`荷电粒子命中了${nm(c)}。`);
+      }
+      if (applied > 0 && c.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+        Elona.Battle.onDeath(g, c, p);
+      }
       hits++;
     }
     return { end: 'turnWeight', fired: true, hits, damage: dmg };
@@ -2546,9 +2553,16 @@
     if (!t) { g.log('看不见那个地方。'); return { end: 'turnWeight', fired: false }; }
     const p = g.player;
     const dmg = 1000 + gaGunPower(g, p, 176);
-    gaDamage(g, t, dmg, 64, p);
+    const applied = gaDamage(g, t, dmg, 64, p, { deferDeath: true });
     if (g.setV65) g.setV65(250 + 29, (g.getV65(250 + 29) | 0) + 1);
-    g.log(`子弹命中了${nm(t)}。`);
+    if (Elona.Spell && Elona.Spell.logHitAndInjury) {
+      Elona.Spell.logHitAndInjury(g, t, applied, '子弹');
+    } else {
+      g.log(`子弹命中了${nm(t)}。`);
+    }
+    if (applied > 0 && t.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+      Elona.Battle.onDeath(g, t, p);
+    }
     return { end: 'turnWeight', fired: true, damage: dmg };
   }
 

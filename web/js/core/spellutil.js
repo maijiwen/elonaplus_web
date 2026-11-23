@@ -617,10 +617,17 @@
         }
         const dmg = limit(Math.trunc(root) + R(g, Math.trunc(root) + 1), 1, 60) * power;  // 327835
         const applied = (Elona.Battle && Elona.Battle.applyDamage)
-          ? Elona.Battle.applyDamage(t, dmg, g, caster, 50, 0)
+          ? Elona.Battle.applyDamage(t, dmg, g, caster, 50, 0, { deferDeath: true })
           : 0;
+        if (Elona.Spell && Elona.Spell.logHitAndInjury) {
+          Elona.Spell.logHitAndInjury(g, t, applied, '陨石');
+        }
+        if (applied > 0 && t.hp <= 0 && Elona.Battle && Elona.Battle.onDeath) {
+          Elona.Battle.onDeath(g, t, caster);
+        }
         if ((t.get(94) | 0) > 0 && ((caster.index | 0) >= 16 || tIdx >= 16)) {  // 327837
           const refl = limit(idiv(dmg * (t.get(94) | 0), 200) + 1, 1, idiv(caster.get(51) | 0, 10));
+          if (g && g.log) g.log(`${tIdx === 0 ? '你' : t.name}反射了一部分魔法。`);
           if (Elona.Battle && Elona.Battle.applyDamage) {
             Elona.Battle.applyDamage(caster, refl, g, t, 50, 0);
           }

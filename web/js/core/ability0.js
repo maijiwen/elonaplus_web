@@ -83,8 +83,19 @@
       dmgVal = mc.dmg;
     }
     if (Elona.Battle && Elona.Battle.applyDamage) {
-      return Elona.Battle.applyDamage(t, dmgVal, g, caster || null,
-        elem === undefined ? 0 : (elem | 0), arg === undefined ? 0 : (arg | 0), opts) | 0;
+      const callerDefer = !!(opts && opts.deferDeath);
+      const shouldLog = !!(caster && caster !== t && (caster.index | 0) >= 0
+        && g && g.log && Elona.Spell && Elona.Spell.logHitAndInjury && !(opts && opts.noHitLog));
+      const useOpts = shouldLog ? Object.assign({}, opts || {}, { deferDeath: true }) : opts;
+      const applied = Elona.Battle.applyDamage(t, dmgVal, g, caster || null,
+        elem === undefined ? 0 : (elem | 0), arg === undefined ? 0 : (arg | 0), useOpts) | 0;
+      if (shouldLog) {
+        Elona.Spell.logHitAndInjury(g, t, applied, (opts && opts.hitSubj) || '攻击');
+        if (!callerDefer && applied > 0 && (t.hp | 0) <= 0 && Elona.Battle.onDeath) {
+          Elona.Battle.onDeath(g, t, caster);
+        }
+      }
+      return applied;
     }
     t.set(50, Math.max(0, (t.get(50) | 0) - dmgVal));
     return dmgVal;

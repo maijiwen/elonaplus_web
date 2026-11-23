@@ -5397,12 +5397,15 @@
       if (!freeCast) Elona.Status.dmgmp(p, mpCost, this);
       p.spellStock[slot] = Math.max(0, stock - stockCost);
 
-      const fail = S.calcSpellFail(id, p, this);
-      if (this.rng.rnd(100) < fail) {
+      const succRate = S.calcSpellFail(id, p, this);
+      if (this.rng.rnd(100) >= succRate) {
         this.log('咏唱失败了。');
         this.endTurn();
         return { ok: false, reason: 'fail', failed: true };
       }
+      const nameObj = S.actionName(id);
+      const nm = nameObj ? (nameObj.ch || nameObj.en || nameObj.jp || `#${id}`) : `#${id}`;
+      this.log(`你咏唱了 ${nm}。`);
       const r = S.cast(this, p, id, pre.target || target, tile);
       // 0-GW：射线类魔法（`var_83(1,id) == 1` = Line）沿 `get_route` 的路径播放动画。
       //   原版 315993-316261 用 route_info 逐格推进伤害，画面上的射线也是一格一格飞出去的；
@@ -5425,9 +5428,6 @@
       if ((!r || r.ok !== false) && S.grantCastExp) {
         S.grantCastExp(this, p, id, pre.target || target);
       }
-      const nameObj = S.actionName(id);
-      const nm = nameObj ? (nameObj.ch || nameObj.en || nameObj.jp || `#${id}`) : `#${id}`;
-      this.log(`你咏唱了 ${nm}。`);
       // 效果自带的台词（406/407/412/429/430/461/464/465/466 …）
       if (r && r.message) this.log(r.message);
       for (const m of ((r && r.messages) || [])) this.log(m);
