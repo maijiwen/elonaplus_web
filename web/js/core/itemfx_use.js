@@ -2105,6 +2105,10 @@
       p.set(446, (p.get(446) | 0) + 2000);
       p.set(22, (p.get(22) | 0) + 150);
       g.log('你喝了一口水。');
+      // 350799-350807：每日任务 1「喝些饮料」（净水筒饮水）
+      if (Elona.DailyQuest && Elona.DailyQuest.complete) {
+        Elona.DailyQuest.complete(g, 'q1', 1);
+      }
     } else {
       g.log('净水筒是空的。');
     }

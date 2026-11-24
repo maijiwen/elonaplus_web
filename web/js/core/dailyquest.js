@@ -48,6 +48,10 @@
 
   /**
    * 完成任务判定：`类型匹配 → += 1000`（源码各判定点）。
+   *
+   * 源码每个判定点都写成**精确等值** `var_58(191,0) == N`（196682 / 225188 / 312467 …），
+   * 不是 `\1000` 取余 —— 只有 `*label_0269` 的日记载入才用 `\1000` 读类型。
+   * 所以这里必须比 `cur === type`：已完成（type+1000）后再触发不能继续累加。
    * @param {object} g
    * @param {'q1'|'q2'} which 191(行动) / 190(吃食)
    * @param {number} type 任务类型 1..8
@@ -58,7 +62,7 @@
     if (!p) return false;
     const field = which === 'q2' ? 190 : 191;
     const cur = G(p, field);
-    if ((cur % 1000) === type) {                      // 源码 `\1000` 是取余：类型吻合
+    if (cur === type) {                               // 源码 `== N` 精确匹配
       p.set(field, cur + 1000);                     // 完成标志
       if (g.log) g.log('日志更新了。');
       return true;
@@ -67,7 +71,24 @@
   }
 
   /**
-   * 吃食物判定（源码 225180-225470）。var_399 = 食物字段25 / 1000。
+   * 吃食物判定（源码 225173-225468）。var_399 = 食物字段25 / 1000。
+   *
+   * 源码是一串**独立 if**，顺序为：
+   *   225173 `var_399==1 | id==571`          → 类型 1（肉）
+   *   225200 `var_399==8`                    → 类型 2（蛋）
+   *   225227 `var_399==2 | id==1103`          → 类型 3（蔬菜）
+   *   225250 `var_399==3 | id==1102`          → 类型 4（水果）
+   *   225277 `var_399==7`                    → 类型 5（面包）
+   *   2253xx `var_399==4`                    → 类型 6（树果）
+   *   225335 `var_399==6 | id==1104`          → 类型 7（水产）
+   *   225362 `var_399==5`                    → 类型 8（面条）
+   *   225385 `id==1050 | id==852`            → **只算类型 1**
+   *   225398 `id==979|894|498|497`           → 类型 3
+   *   225413 `id==662|639`                   → 类型 4
+   *   225427 `id==258|787`                   → 类型 5
+   *   225441 `id==943|932`                   → 类型 6
+   *   225455 `id==220`                       → 类型 7
+   * 命中后 `190 += 1000`，后续块的 `== 类型` 等值判定自然失败，所以等于「首条命中即止」。
    * @param {object} g
    * @param {object} it 食物物品
    */
@@ -77,16 +98,20 @@
     if (!p) return false;
     const id = it.id | 0;
     const cat = Math.trunc((it.f[25] | 0) / 1000);   // var_399
-    // 单一类别映射（类别 → 任务类型）
-    const map = { 1: 1, 8: 2, 2: 3, 3: 4, 7: 5, 4: 6, 6: 7, 5: 8 };
-    // 特殊物品：571(肉)、1103(蔬菜)、1102(水果)、1104(水产)
-    const special = { 571: 1, 1103: 3, 1102: 4, 1104: 7 };
-    if (special[id]) return complete(g, 'q2', special[id]);
-    if (map[cat]) return complete(g, 'q2', map[cat]);
-    // 1050 / 852（旅粮类）满足 肉/蔬菜/水果/面包/树果/水产
-    if (id === 1050 || id === 852) {
-      for (const t of [1, 3, 4, 5, 6, 7]) if (complete(g, 'q2', t)) return true;
-    }
+    if (cat === 1 || id === 571) return complete(g, 'q2', 1);
+    if (cat === 8) return complete(g, 'q2', 2);
+    if (cat === 2 || id === 1103) return complete(g, 'q2', 3);
+    if (cat === 3 || id === 1102) return complete(g, 'q2', 4);
+    if (cat === 7) return complete(g, 'q2', 5);
+    if (cat === 4) return complete(g, 'q2', 6);
+    if (cat === 6 || id === 1104) return complete(g, 'q2', 7);
+    if (cat === 5) return complete(g, 'q2', 8);
+    if (id === 1050 || id === 852) return complete(g, 'q2', 1);   // 旅粮：只算「肉」
+    if (id === 979 || id === 894 || id === 498 || id === 497) return complete(g, 'q2', 3);
+    if (id === 662 || id === 639) return complete(g, 'q2', 4);
+    if (id === 258 || id === 787) return complete(g, 'q2', 5);
+    if (id === 943 || id === 932) return complete(g, 'q2', 6);
+    if (id === 220) return complete(g, 'q2', 7);
     return false;
   }
 
@@ -106,6 +131,35 @@
   function checkWild(g) { return complete(g, 'q1', 7); }
   /** 世界地图走走（312467） */
   function checkWorldMap(g) { return complete(g, 'q1', 2); }
+
+  /**
+   * 打败更高等级的对手（196682 `check_talk` / 196835 `check_kill`）。
+   *   条件：玩家等级 `var_58(38,0)` < 对方等级 `var_58(38, 对手)`。
+   *   源码两处同构（NPC 主动搭话 / 击杀结算），判定与文案完全一致。
+   * @param {object} g
+   * @param {number} otherLevel 对方（被击杀者 / 搭话者）的等级
+   */
+  function checkHigherLevel(g, otherLevel) {
+    const p = g && g.player;
+    if (!p) return false;
+    if ((p.get(38) | 0) < (otherLevel | 0)) return complete(g, 'q1', 4);
+    return false;
+  }
+
+  /** 向某人传达自己的感受（290169，relation.js 的 talk() 内调用） */
+  function checkConvey(g) { return complete(g, 'q1', 5); }
+
+  /**
+   * 运动到轻度疲劳（604879-604889）。
+   *   条件：`var_58(191,0)==8` 且 `var_58(52,0) < 50`（体力 SP 低于 50）。
+   * @param {object} g
+   */
+  function checkExercise(g) {
+    const p = g && g.player;
+    if (!p) return false;
+    if ((p.get(52) | 0) < 50) return complete(g, 'q1', 8);
+    return false;
+  }
 
   /** 把奖励放进家的库存：正在家第一层 → groundItems；否则 homeFloors['1'] */
   function deliverToHome(g, item) {
@@ -181,6 +235,7 @@
   Elona.DailyQuest = {
     QUEST1, QUEST2,
     complete, checkEat, checkDrink, checkDialogue, checkNefia, checkWild, checkWorldMap,
+    checkHigherLevel, checkConvey, checkExercise,
     reward, deliverToHome, newDayRefresh, seededRnd,
     describe(g) {
       const p = g && g.player;

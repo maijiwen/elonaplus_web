@@ -407,10 +407,12 @@
         return this.finish(res, c);
       }
 
-      // 290169-290177：マスター说明（var_58(191,0) == 5）—— 只影响日志，不参与判定
-      if ((p.get(191) | 0) === 5) {
+      // 290169-290177：日记更新（var_58(191,0) == 5）—— 只影响日志，不参与判定
+      if (Elona.DailyQuest && Elona.DailyQuest.checkConvey) {
+        if (Elona.DailyQuest.checkConvey(g)) res.messages.push('日志更新了。');
+      } else if ((p.get(191) | 0) === 5) {
         p.set(191, (p.get(191) | 0) + 1000);
-        res.messages.push('ジャーナルが更新された。');
+        res.messages.push('日志更新了。');
       }
 
       const imp = this.impression(c);

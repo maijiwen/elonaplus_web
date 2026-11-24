@@ -758,7 +758,8 @@
       const bleedCure = 1 + ((Elona.Status && Elona.Status.cbit)
         ? (Elona.Status.cbit(c, 29) | 0) * 3 : 0);
       healcon(c, 9, bleedCure);
-      c.set(79, 100 + 9);
+      // 216164-216166：只有出血仍未消退时才切到出血的动作贴图
+      if (c.get(258) > 0) c.set(79, 100 + 9);
       regenBlocked = true;                   // 216167
     }
 

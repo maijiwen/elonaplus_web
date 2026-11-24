@@ -320,11 +320,54 @@
     const hits = projLine(g, c, pw);
     return { implemented: true, type: 0, hits };
   };
+  T[635] = (g, c, t) => {                                   // 顺手牵羊（偷金币）317880
+    // 317881-317890：对自己使用 → 不生效
+    if (!t || (t.get(0) | 0) !== 1 || (t.index | 0) === (c.index | 0)) {
+      return { implemented: true, nothing: true };
+    }
+    const R = rndOf(g);
+    // 317891-317893：施术者是召唤物（cbit 964）→ 不执行
+    if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(c, 964)) {
+      return { implemented: true, nothing: true };
+    }
+    // 317895-317902：目标被绳子绑着（cbit 985）→ 钱包抽不出来
+    if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(t, 985)) {
+      if (visible(g, t)) say(g, `${nm(c)}挣扎着，绳子太紧，钱包抽不出来。`);
+      return { implemented: true, nothing: true, bound: true };
+    }
+    const gold = t.get(30) | 0;
+    let amt = R(idiv(gold, 10) + 1);                        // 317903：rnd(gold/10+1)
+    // 317907：目标知觉 var_82(13) vs 窃贼器用 var_82(12)*4；附魔 41（cbit15）→ 必定守住
+    const guard = (Elona.Status && Elona.Status.cbit)
+      ? (Elona.Status.cbit(t, 15) | 0) : 0;
+    if (guard
+      || R(Math.max(1, t.skill(13) | 0)) > R(Math.max(1, (c.skill(12) | 0) * 4))) {
+      if (visible(g, t)) say(g, `${nm(t)}守住了自己的钱包。`);
+      amt = 0;
+    }
+    if (amt > 0) {
+      t.set(30, gold - amt);
+      c.set(30, (c.get(30) | 0) + amt);
+      if (visible(g, t)) say(g, `${nm(c)}从${nm(t)}那里夺走了 ${amt} 枚金币。`);
+    }
+    return { implemented: true, stolen: amt, guarded: amt === 0 };
+  };
+
   T[651] = (g, c, t) => {                                   // 胡吃海喝 340260
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
     if (visible(g, t)) say(g, `${nm(c)}翻找了${nm(t)}的背包。`);
     const foods = (t.inv || []).filter((e) => e && (e.id | 0) === 618);
     if (!foods.length) return { implemented: true, nothing: true };
+    // 340299：目标知觉 var_82(13) vs 窃贼腕力 var_82(10)*4；
+    //   附魔 41「防止财物被盗窃」（cbit15）→ 必定守住食物，本次偷食无效。
+    const R = rndOf(g);
+    const guard = (Elona.Status && Elona.Status.cbit)
+      ? (Elona.Status.cbit(t, 15) | 0) : 0;
+    if (guard
+      || R(Math.max(1, t.skill(13) | 0)) > R(Math.max(1, (c.skill(10) | 0) * 4))) {
+      if (visible(g, t)) say(g, `${nm(t)}守住了自己的食物。`);
+      return { implemented: true, nothing: true, guarded: true };
+    }
     healHp(c, idiv(c.get(51) | 0, 3));
     return { implemented: true, ate: foods.length };
   };

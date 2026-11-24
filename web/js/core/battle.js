@@ -1373,6 +1373,11 @@
         g.var1452 = 100;
         if ((att.get(175) | 0) < 2) att.set(175, 2);
         applyDamage(att, qd, g, def);
+        // 346082：先制射击打死攻击者后，本次攻击序列就此结束（不再进入命中/伤害）
+        if ((att.get(0) | 0) !== 1 || (att.hp | 0) <= 0) {
+          return { hit: false, dmg: 0, killed: false, preempted: true,
+            hitPower: 0, evaPower: 0, extra: [] };
+        }
       }
 
       // ---- 346085-346099：雾中幻影 ----

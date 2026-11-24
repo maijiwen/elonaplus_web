@@ -4759,10 +4759,11 @@
       }
       p.set(22, (p.get(22) | 0) + gain);
 
-      // 每日任务（225180-225470 吃食 / 313572 喝饮料）：只有玩家自己吃才判定（源码 var_243==0）。
+      // 每日任务（225173-225468 吃食）：只有玩家自己吃才判定（源码 var_243==0）。
+      //   喝饮料（313572）在下面「附带的饮料」分支里判定——源码同样嵌在那个
+      //   `refitem(id,10)==1 && var_58(446) < 12000` 的块内。
       if ((p.index | 0) === 0 && Elona.DailyQuest) {
         if (Elona.DailyQuest.checkEat) Elona.DailyQuest.checkEat(this, it);
-        if (Elona.DailyQuest.checkDrink) Elona.DailyQuest.checkDrink(this, it);
       }
 
       // 0-Z13 / 226805-226831：妊娠阶段 2 —— 每次进食按营养推进怀孕进度，
@@ -4797,6 +4798,10 @@
       if (Elona.ItemDB.ref(id, 10) === 1 && (p.get(446) | 0) < 12000) {
         p.set(446, (p.get(446) | 0) + 2000);
         this.log(`${who}连附带的饮料也喝完了。`);
+        // 313572：每日任务 1「喝些饮料」（源码嵌在同一块内，且要求 var_243==0）
+        if ((p.index | 0) === 0 && Elona.DailyQuest && Elona.DailyQuest.checkDrink) {
+          Elona.DailyQuest.checkDrink(this, it);
+        }
       }
 
       // 食物技能成长（*label_2304）：先按食物类型取基础值，再按味道 f26 修正
@@ -5868,7 +5873,14 @@
       return power;
     }
 
-    /** 一轮目击判定（311478-311520）→ {discovered, by, shout} */
+    /**
+     * 一轮目击判定（311478-311520）→ {discovered, by, shout}
+     *
+     * 注意：源码这段目击判定**不读附魔 41**（cbit15）。附魔 41「防止财物被盗窃」
+     * 只出现在被偷者一侧的两个结算点：317907（偷金币 `*label_2960` 的 635 分支）
+     * 与 340299（胡吃海喝 651 偷食物）。那两处命中时是「守住财物、偷窃无效」，
+     * 不是「发现小偷」，所以不要把 cbit15 接在这里。
+     */
     stealWitness(c, item) {
       const R = (n) => (this.rng ? this.rng.rnd(Math.max(1, n | 0)) : 0);
       const out = { discovered: false, by: null, shout: '' };
@@ -5889,17 +5901,6 @@
         if (ownerHostile && i !== ownerIdx) continue;
         if (i !== ownerIdx) {
           // 311466-311473：有 1098（监控?）物品的格子旁的角色不参与（简化跳过）
-        }
-        // 317907 / 340299：附魔 41「防止财物被盗窃」→ 物主自己必定护住财物。
-        if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(n, 15)) {
-          out.discovered = true;
-          out.by = n;
-          out.shout = (n.get(150) | 0) === 14
-            ? `「貴様、何をしている！」（${n.name}）` : `「ガード！ガード！」（${n.name}）`;
-          if (Elona.NPC && Elona.NPC.modImp) Elona.NPC.modImp(n, -5, this);
-          else n.set(17, (n.get(17) | 0) - 5);
-          n.set(79, 20 + 100 * 5);
-          break;
         }
         const canSee = !(Elona.Spell && Elona.Spell.fovLos) || Elona.Spell.fovLos(this, n.x, n.y, c.x, c.y);
         let pr = idiv(R(power + 1) * (80 + (canSee ? 0 : 50) + d * 20), 100);
@@ -6596,7 +6597,7 @@
       if (!pc || typeof pc.get !== 'function') return null;
       const out = { journal: false, timer98: false, crush: 0, timer801: 0, tracker: 0, ambush: false };
 
-      // 604869-604879：日志有更新
+      // 604869-604879：日志有更新（任务 8「运动到轻度疲劳」：SP < 50）
       if ((pc.get(191) | 0) === 8 && (pc.get(52) | 0) < 50) {
         pc.set(191, (pc.get(191) | 0) + 1000);
         this.log('日志已更新。');

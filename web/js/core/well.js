@@ -224,6 +224,10 @@
     if (p) {
       p.set(22, (p.get(22) | 0) + 500);          // 饱腹（玩家 +500；NPC +4000 不做）
       p.set(446, (p.get(446) | 0) + 2000);       // 水分
+      // 315001-315011：每日任务 1「喝些饮料」（源码 var_243==0 → 玩家）
+      if (Elona.DailyQuest && Elona.DailyQuest.complete) {
+        Elona.DailyQuest.complete(g, 'q1', 1);
+      }
     }
     if (id === 602) {
       if (g.setV65) g.setV65(260, (g.getV65(260) | 0) - 1);

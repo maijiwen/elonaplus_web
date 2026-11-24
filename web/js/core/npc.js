@@ -729,6 +729,10 @@
     player.set(30, player.get(30) - cost);
     player.set(446, 15000);
     if ((player.get(22) | 0) < 14000) player.set(22, (player.get(22) | 0) + 1000);
+    // 415943-415951：每日任务 1「喝些饮料」（摊主给的饮料）
+    if (Elona.DailyQuest && Elona.DailyQuest.complete) {
+      Elona.DailyQuest.complete(g, 'q1', 1);
+    }
     return { ok: true, cost, message: '你喝了一杯，水分补满了。' };
   }
 

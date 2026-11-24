@@ -966,6 +966,11 @@
     else moraleBonus(t);
     t.set(446, (t.get(446) | 0) + (thrown ? 400 : 2000));
     t.set(22, (t.get(22) | 0) + (thrown ? 30 : 150));
+    // 314839-314849：每日任务 1「喝些饮料」—— 源码在 `*label_2953` 里对
+    //   `var_244 == 0`（承受者是玩家）且**非投掷**的饮用无条件判定一次。
+    if (!thrown && (t.index | 0) === 0 && Elona.DailyQuest && Elona.DailyQuest.complete) {
+      Elona.DailyQuest.complete(g, 'q1', 1);
+    }
     if ((t.get(22) | 0) > 24000 && R(5) === 0) {
       const v = (Elona.Vomit && Elona.Vomit.vomit) ? Elona.Vomit.vomit(g, t) : null;
       if (v && v.messages) messages.push.apply(messages, v.messages);

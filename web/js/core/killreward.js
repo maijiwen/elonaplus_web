@@ -190,10 +190,19 @@
     if (atk) {
       const isPlayerSide = atk.index === 0 || (atk.get(9) | 0) >= 10;
       if (isPlayerSide) {
-        // 196681-196692：击杀强敌 → 转生计数
-        if ((atk.get(38) | 0) < tLv && (atk.get(191) | 0) === 4) {
-          atk.set(191, (atk.get(191) | 0) + 1000);
-          out.rebirth = true;
+        // 196681-196692：击杀强敌 → 转生计数。
+        //   源码比较的是**玩家**的等级与字段（`var_58(38,0) < var_58(38, 死者)`、
+        //   `var_58(191,0) == 4`），与补刀者是不是同伴无关，所以这里固定取 g.player。
+        const pl = g.player || atk;
+        if ((pl.get(38) | 0) < tLv) {
+          let done = false;
+          if (Elona.DailyQuest && Elona.DailyQuest.checkHigherLevel) {
+            done = Elona.DailyQuest.checkHigherLevel(g, tLv);
+          } else if ((pl.get(191) | 0) === 4) {
+            pl.set(191, (pl.get(191) | 0) + 1000);
+            done = true;
+          }
+          if (done) out.rebirth = true;
         }
         // 196693-196711
         if (cbit(target, 992) !== 1 && (target.get(9) | 0) !== 10 && (g.getV65(250 + 2) | 0) !== 900) {
