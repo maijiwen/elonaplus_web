@@ -221,7 +221,13 @@
     } else if (f.sub === 5) {
       clear(g, x, y); cond(g, c, 5, 100 + day * 2);          // 恶臭 → 混乱
     } else if (f.sub === 3) {
-      clear(g, x, y);                                        // 传送（encfind(22) 防传送未移植）
+      clear(g, x, y);
+      // 306267-306278：附魔 22「会妨碍传送」挡下陷阱传送。
+      if (Elona.ItemDB && Elona.ItemDB.encfind && Elona.ItemDB.encfind(c, 22) !== -1) {
+        if (g.log) g.log('魔法场阻止了传送。');
+        out.blocked = 'anti-teleport';
+        return out;
+      }
       for (let i = 0; i < 200; i++) {
         const nx = r(Math.max(1, g.map.width - 2)) + 1;
         const ny = r(Math.max(1, g.map.height - 2)) + 1;

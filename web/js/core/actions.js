@@ -1044,6 +1044,10 @@
         if (p) { p.set(F_ROWACT, 0); p.set(F_ROWLEFT, 0); p.set(F_ROWARG, 0); }
         return { ok: false, reason: 'urgent' };
       }
+      // 311820-311822：附魔 56 的起床神谕。
+      if (p && (g.getV65(185) | 0) && Elona.Faith && Elona.Faith.godMessage) {
+        Elona.Faith.godMessage(g, p, 10);
+      }
       for (const c of (g.charas || [])) {
         if (!c || (c.get(0) | 0) === 0) continue;
         for (let i = 250; i <= 259; i++) c.set(i, 0);

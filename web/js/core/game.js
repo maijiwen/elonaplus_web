@@ -4885,7 +4885,17 @@
         p.set(263, 100 + this.rng.rnd(100));
         this.log(`${who}被饼噎住了！`);
       }
-      if (rotten) this.log(`${who}吃下了腐烂的食物……`);
+      if (rotten) {
+        this.log(`${who}吃下了腐烂的食物……`);
+        // 225511-225519 / 224970-225015：腐烂食物 → 麻痹 100 + 混乱 200；
+        // 附魔 42「可以令你消化腐烂的食物」(cbit14) 完全免疫。
+        if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(p, 14)) {
+          this.log('但是，你并没有吃坏肚子。');
+        } else if (Elona.Resist && this.dmgconTable) {
+          Elona.Resist.dmgcon(this, this.dmgconTable, p, 3, 100);
+          Elona.Resist.dmgcon(this, this.dmgconTable, p, 5, 200);
+        }
+      }
 
       // 0-HW / 226178-226708: 食材/食品固有效果（耐性、混乱、SAN、经验、以太病减轻等）
       if (Elona.IngredientFX && Elona.IngredientFX.apply) {
@@ -5880,6 +5890,17 @@
         if (i !== ownerIdx) {
           // 311466-311473：有 1098（监控?）物品的格子旁的角色不参与（简化跳过）
         }
+        // 317907 / 340299：附魔 41「防止财物被盗窃」→ 物主自己必定护住财物。
+        if (Elona.Status && Elona.Status.cbit && Elona.Status.cbit(n, 15)) {
+          out.discovered = true;
+          out.by = n;
+          out.shout = (n.get(150) | 0) === 14
+            ? `「貴様、何をしている！」（${n.name}）` : `「ガード！ガード！」（${n.name}）`;
+          if (Elona.NPC && Elona.NPC.modImp) Elona.NPC.modImp(n, -5, this);
+          else n.set(17, (n.get(17) | 0) - 5);
+          n.set(79, 20 + 100 * 5);
+          break;
+        }
         const canSee = !(Elona.Spell && Elona.Spell.fovLos) || Elona.Spell.fovLos(this, n.x, n.y, c.x, c.y);
         let pr = idiv(R(power + 1) * (80 + (canSee ? 0 : 50) + d * 20), 100);
         if ((i | 0) < 57) pr = idiv(pr * 2, 3);
@@ -6673,7 +6694,10 @@
       const pc = this.player;
       const out = { oracle: false, followers: 0 };
       if (!pc) return out;
-      if ((this.getV65(185) | 0) && this.rng && this.rng.rnd(1000) === 0) out.oracle = true;
+      if ((this.getV65(185) | 0) && this.rng && this.rng.rnd(1000) === 0) {
+        out.oracle = true;
+        if (Elona.Faith && Elona.Faith.godMessage) Elona.Faith.godMessage(this, pc, 12); // 605020
+      }
       this.setV65(808, 0);
       // 随从 / 坐骑坐标跟随玩家
       const ids = [this.getV65(183) | 0, pc.get(167) | 0];

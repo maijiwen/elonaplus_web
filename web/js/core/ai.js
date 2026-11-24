@@ -1029,6 +1029,17 @@
         return { acted: true, attacked: true, ranged: true, target, result: r, mercy, mounted };
       }
     }
+    // 595060-595064：附魔 63「可以远程打击」→ 能力 734（远距离打击）。
+    const v57 = c.get(57) | 0;
+    const remoteRoll = g.rng ? g.rng.rnd(600) : 0;
+    if (v57 !== 0 && Math.min(Math.max(v57, 1), 540) >= remoteRoll && hasLos(g, c, target)) {
+      const prev175 = (g.getV65 ? (g.getV65(175) | 0) : 0);
+      if (g.setV65) g.setV65(175, 200);
+      let r;
+      try { r = attackTarget(g, c, target); }
+      finally { if (g.setV65) g.setV65(175, prev175); }
+      return { acted: true, attacked: true, remoteBlow: true, target, result: r, mercy, mounted };
+    }
     if (d === 1) {
       // 相邻 → 攻击（原版 gosub *label_2111）
       const r = attackTarget(g, c, target);

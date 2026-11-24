@@ -648,11 +648,19 @@
   };
   T[725] = (g, c, t) => {                                   // 咒装豪身 336911
     if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
+    const R = rndOf(g);
+    // 336941-336947：附魔 43「保护你免受诅咒」按强度提高抗诅咒阈值。
+    let resist = 75 + (c.skill(19) | 0);
+    if (Elona.ItemDB && Elona.ItemDB.encfind) {
+      const e43 = Elona.ItemDB.encfind(c, 43);
+      if (e43 !== -1) resist += idiv(e43, 2);
+    }
     say(g, `${nm(c)}给自己施下了强烈的诅咒！`);
     let n = 0;
     for (const e of (t.inv || [])) {
       if (!e || !(e.id | 0)) continue;
-      if ((e.cursed | 0) >= 1 && rndOf(g)(10)) continue;
+      if ((e.cursed | 0) >= 1 && R(10)) continue;
+      if (R(Math.max(1, resist)) <= (c.skill(15) | 0)) continue;   // 336945：rnd(r400) <= 意志 → 跳过
       e.cursed = ((e.cursed | 0) === -1) ? -2 : -1;
       n++;
     }
@@ -663,6 +671,19 @@
     }
     say(g, '什么也没有发生……');
     return { implemented: true, nothing: true };
+  };
+  T[734] = (g, c, t) => {                                   // 远距离打击 315977（附魔 63）
+    if (!t || (t.get(0) | 0) !== 1) return { implemented: true, nothing: true };
+    const prev175 = (g && g.getV65) ? (g.getV65(175) | 0) : 0;
+    if (g && g.setV65) g.setV65(175, 200);                  // var_65(175)=200：远距离打击表现
+    try {
+      const result = (Elona.Battle && Elona.Battle.attackSeq)
+        ? Elona.Battle.attackSeq(g, c, t) : null;
+      if (g.log) g.log(`${nm(c)}对${nm(t)}发动了远距离打击。`);
+      return { implemented: true, remoteBlow: true, result };
+    } finally {
+      if (g && g.setV65) g.setV65(175, prev175);
+    }
   };
   T[728] = (g, c, t) => {                                   // 精神破坏光 339669
     if (morale(c) < 100) return { implemented: true, nothing: true };

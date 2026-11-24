@@ -864,6 +864,11 @@
     if (!dead || typeof dead.get !== 'function') return null;
     if ((dead.get(0) | 0) !== 1) return null;
     if ((dead.hp | 0) > 0) return null;
+    // 201349-201353：玩家击杀时，附魔 56 有 1/20 概率触发神谕。
+    if (att && (att.index | 0) === 0 && g && g.getV65 && (g.getV65(185) | 0)
+      && g.rng && g.rng.rnd(20) === 0 && Elona.Faith && Elona.Faith.godMessage) {
+      Elona.Faith.godMessage(g, att, 9);
+    }
     if (dead.__death) return dead.__death;
     const out = {
       exp: null, loot: null, recruit: null, arena: null, necro: null,
@@ -1325,6 +1330,7 @@
     const prev = g.var1374;
     g.var1374 = var1374 === undefined ? 1 : var1374;
     const rng = g.rng;
+    const v65 = (n) => ((g && g.getV65) ? (g.getV65(n) | 0) : 0);
     try {
       if (att.get(0) !== 1 || def.get(0) !== 1) return null;      // 346018-346023
 
@@ -1353,6 +1359,21 @@
           && (att.get(25) < 4 || att.index < 16)) att.set(182, 100);
       }
       if (att.get(182) > 200) att.set(182, 200);
+
+      // ---- 346048-346081：附魔 70「令你能抢先射击」(cbit34) ----
+      // 防守方在攻击者出手前反射性先制射击；只对远程攻击生效，且本回合只触发一次。
+      if (cbit(def, 34) && cbit(def, 985) !== 1 && (g.var1452 | 0) === 0
+        && (g.var1323 | 0) !== 0
+        && v65(194) === 0 && v65(193) === 0
+        && (def.get(256) | 0) < 60 && (def.get(251) | 0) === 0
+        && (def.get(252) | 0) === 0 && (def.get(253) | 0) === 0
+        && v65(801) === 0 && v65(663) === 0) {
+        const qd = (def.skill(189) | 0) + rng.rnd(10) + 1;
+        if (g.log) g.log(`${def.name} 反射性地先制射击，${att.name} 畏缩了。`);
+        g.var1452 = 100;
+        if ((att.get(175) | 0) < 2) att.set(175, 2);
+        applyDamage(att, qd, g, def);
+      }
 
       // ---- 346085-346099：雾中幻影 ----
       if (g.mef && g.mef.typeAt && g.mef.typeAt(g, def.x, def.y) === 2) {
@@ -1652,6 +1673,7 @@
     // var_1323=1（远程）/ var_1322=技能 / var_1368/1369（武器/弹药下标）
     const p1322 = g.var1322, p1323 = g.var1323, p1368 = g.var1368, p1369 = g.var1369;
     const pSp = g.var1321;
+    const p192 = g.getV65 ? (g.getV65(192) | 0) : 0;
     g.var1323 = 1; g.var1322 = r.skill;
     g.var1368 = r.weaponIndex; g.var1369 = r.ammoIndex;
     g.var1321 = sp;
@@ -1664,6 +1686,7 @@
         return res;
       };
       if (sp === 0) {                            // 345769-345789：连射 6 发
+        if (g.setV65) g.setV65(192, 100);        // 345770：伤害减半标记（applyDamage 198516）
         let target = def;
         for (let i = 0; i < 6; i++) {
           if (!target || target.get(0) !== 1 || target.hp <= 0) {
@@ -1691,6 +1714,7 @@
     } finally {
       g.var1322 = p1322; g.var1323 = p1323; g.var1368 = p1368; g.var1369 = p1369;
       g.var1321 = pSp;
+      if (g.setV65) g.setV65(192, p192);
     }
     return { ok: true, special: sp, shots: shots.map((s) => s.result || s),
       result: shots[0] ? shots[0].result : null, weapon: r.weapon, ammo: r.ammo, skill: r.skill };

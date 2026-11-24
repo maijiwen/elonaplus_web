@@ -591,6 +591,10 @@
     c.set(35, Math.max(0, (c.get(35) | 0) - need));     // 211855-211858
     if (cbitOf(c, 960) === 1) return { leveled: false, level: c.level, unimpl };   // 211859
     c.level = (c.level | 0) + 1;                        // 211860
+    // 605330-605334（var_2836 提示位）：附魔 56 在升级结算后触发神谕。
+    if (c.index === 0 && v65(185) && Elona.Faith && Elona.Faith.godMessage) {
+      Elona.Faith.godMessage(g, c, 11);
+    }
     let bonus = limit(idiv(5 * (100 + sorg(c, 14) * 10), 300 + c.level * 15) + 1, 5, 15);  // 211883
     if (c.index === 0) {
       // 211884-211903：法术奖励点 var_65(660)/311

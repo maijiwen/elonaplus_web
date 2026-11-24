@@ -754,6 +754,10 @@
         if (c.index === 0) g.log(`【出血】${c.name} 流血不止，受到 ${dmg} 点伤害（剩余 HP ${c.hp}）。`);
         out.bleed = dmg;
       }
+      // 216163：附魔 55「抑制出血」→ cbit(29) 加快出血状态恢复。
+      const bleedCure = 1 + ((Elona.Status && Elona.Status.cbit)
+        ? (Elona.Status.cbit(c, 29) | 0) * 3 : 0);
+      healcon(c, 9, bleedCure);
       c.set(79, 100 + 9);
       regenBlocked = true;                   // 216167
     }
@@ -877,6 +881,7 @@
     // --- 216242-216244 / 216340-216341：每回合复位攻击临时标志 ---
     if (c.get(178) > 0) c.set(178, 0);       // 本回合已消耗体力（*label_3007 346025）
     if (c.get(405) !== 0) c.set(405, 0);     // 装备「追撃」本回合已触发
+    if (g) g.var1452 = 0;                    // 216341：先制射击本回合已触发标记复位
 
     // --- 216340-216362：斗志（var_58(182)）自然衰减；216244-216247：清 var_58(183) ---
     if (Elona.Morale && Elona.Morale.tick) Elona.Morale.tick(g, c);

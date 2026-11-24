@@ -205,16 +205,28 @@
       if (weather === W.ETHER) {
         if (!this.isOutside(g)) return null;              // var_126(14)==2
         if (g.player.get(140) !== 0) return null;         // 行acted 中不累积（源码在行动结算处）
+        let corruptResult = null;
         if (rnd(2) === 0) {
           if (!this.inShelter(g)) {
             // var_65(4)/20000 作为强度项；var_65(4) 由 game.js spawnVisitorsHourly 每小时自增
             //   （603122-603123，与「建筑访客」共用同一计数）
             const bonus = limit(idiv(g.getV65(4) | 0, 20000), 0, 15);
-            return this.modCorrupt(g, 5 + bonus);
+            corruptResult = this.modCorrupt(g, 5 + bonus);
+          } else if (rnd(10) === 0) {
+            corruptResult = this.modCorrupt(g, 5);
           }
-          if (rnd(10) === 0) return this.modCorrupt(g, 5);
         }
-        return null;
+        // 604184-604191：以太风下的变异判定与上面的侵蚀累积是并列分支，不能提前 return。
+        // 防以太风附魔(V_SHELTER)把条件从 rnd(2000)==0 收窄到 rnd(4)==0 后再 rnd(2000)==0。
+        let mutationResult = null;
+        if (!this.inShelter(g) || rnd(4) === 0) {
+          if (rnd(2000) === 0 && Elona.Mutation && Elona.Mutation.mutate) {
+            const r = Elona.Mutation.mutate(g, g.player, { count: 1 });
+            if (r && r.messages) for (const m of r.messages) if (m) g.log(m);
+            mutationResult = { mutation: r };
+          }
+        }
+        return corruptResult || mutationResult || null;
       }
       // 非以太风：极低概率自然累积（rnd(1500)==0 → +10），地图 7/30 免疫
       if (rnd(1500) === 0) {

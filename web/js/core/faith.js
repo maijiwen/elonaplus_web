@@ -804,6 +804,28 @@
     };
   }
 
+  const V_GOD_SIGNAL = 185;      // var_65(185)：装备附魔 56「能接受神发出的电波」
+
+  /**
+   * 附魔 56 的神谕台词（源码 txtgod god, 9/10/11/12，201350/311820/605331/605020）。
+   * 本项目没有 txtgod 的全套分神台词表，保留神名 + 对应触发语境的简短台词，
+   * 触发条件与概率由调用方按源码判定。
+   */
+  function godMessage(g, c, kind) {
+    if (!g || !c || getV(g, V_GOD_SIGNAL) === 0) return null;
+    const lines = {
+      9: '你的神低声说道：“不要沉溺于杀戮。”',
+      10: '你的神低声说道：“新的一天开始了。”',
+      11: '你的神低声说道：“不要忘记你的信仰。”',
+      12: '你的神在你耳边低语。',
+    };
+    const msg = lines[kind | 0];
+    if (!msg) return null;
+    const text = `${nameOf(c.get(F_GOD))}${msg}`;
+    if (g.log) g.log(text);
+    return text;
+  }
+
   const Faith = {
     GODS, F_GOD, F_PIETY, F_CHARGE, F_SKILL_FAITH,
     V_STAGE, V_SUMMONED, V_RESERVED, V_NO_DECAY,
@@ -817,7 +839,7 @@
     offeringOf: (god) => godOf(god).offering,
     modPiety, convert, resetAfterConvert, pray, fullRestore, punish, punishContest,
     giveReward, giveServant, giveRelic, giveArtifact, giveServantLine: servantLine,
-    trySummonGod, offer, offerValue, tickHour, mapKind, blessWater, lightOrb, useScroll,
+    trySummonGod, offer, offerValue, tickHour, godMessage, mapKind, blessWater, lightOrb, useScroll,
     dropItem, ownsItem, _internals: { idiv, mod, limit, rnd, getV, setV },
   };
 
