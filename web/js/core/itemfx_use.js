@@ -2046,13 +2046,63 @@
     return { end: 'turnWeight' };
   }
 
-  /** 49（358756-358772）：自建地图静默，否则挥动并放出效果 49 / 100 */
+  /**
+   * 49（358756-358772 / 325895-325981）：挥动道具。
+   *   自建地图（var_65(20)==35）静默；否则挥动。
+   *   **盖罗克之锤（760）** 的改造逻辑在 325895-325981，紧跟在挥动之后：
+   *     1. 325914 品质 >= 4（奇迹/神器/特别）或 ibit(10)（活武器） → 「没有改良的余地」
+   *     2. 325927 `var_99(4) = 4` —— 品质直接抬到「奇迹」
+   *     3. 325929 `var_99(23) = 40000 + rnd(30000)` —— 重掷称号种子
+   *     4. 325930-325965 按 `refitem(id,5)` 大类别各加 1 条固定附魔（noFilter）
+   *     5. 325979-325980 消耗 1 个锤子
+   *   选物窗口是 `var_486 = 23, 7`（296468-296472）：只列「品质 < 4 且类别 < 50000」。
+   */
+  const HAMMER_ENC = {
+    12000: [53, 250],   // 325931
+    34000: [68, 400],   // 325934
+    20000: [34, 300],   // 325937
+    16000: [62, 250],   // 325940
+    32000: [29, 400],   // 325943
+    22000: [52, 250],   // 325946
+    19000: [39, 250],   // 325948
+    18000: [65, 300],   // 325951
+    10000: [50, 250],   // 325954
+    24000: [51, 250],   // 325957
+    14000: [66, 250],   // 325960
+    25000: [44, 600],   // 325963
+  };
+
   function eff49(g, st) {
     if ((g.getV65(20) | 0) === 35) return { end: 'silent' };
-    const name = Elona.ItemDB ? Elona.ItemDB.name(st.it.id, 'jp') : '道具';
+    const name = Elona.ItemDB ? Elona.ItemDB.name(st.it) : '道具';
     g.log(`你挥动了${name}。`);
-    castEffect(g, 49, 100, g.player);
-    return { end: 'turnWeight' };
+    // 325906-325912：`var_486 = 23, 7` 选一件可改良的装备（品质 < 4 且非消耗品）
+    return gaItem(st, '要改造哪件装备？', (it) => !!it && !!it.f
+      && (it.f[4] | 0) < 4 && ((it.field657 | 0) < 50000), 'main');
+  }
+
+  function eff49res(g, st, it) {
+    if (!it || !it.f) return { end: 'turnWeight', improved: false };
+    const DB = Elona.ItemDB;
+    if ((it.f[4] | 0) >= 4 || (DB && DB.ibit && DB.ibit(10, it) === 1)) {
+      g.log('那件道具没有改良的余地。');                    // 325918
+      return { end: 'turnWeight', improved: false };
+    }
+    const cat = it.field657 | 0;
+    it.f[4] = 4;                                            // 325927：品质 → 奇迹
+    it.f[23] = 40000 + R(g, 30000);                         // 325929：称号种子
+    const enc = HAMMER_ENC[cat];
+    if (enc && DB && DB.encadd) {
+      // 325931 起：`encadd item, id, power, 0, 1, 0, 1` —— 末位 1 = 跳过类别过滤
+      DB.encadd(it, enc[0], enc[1], g, { noFilter: true, prm553: 1 });
+    }
+    g.log(`它变成了${DB ? DB.name(it) : '一件精品'}。`);      // 325969
+    // 325975-325976：`var_691 = var_243 ; gosub *label_2174` —— 重算持有者派生值
+    if (Elona.Stats && Elona.Stats.recalcStats && g.player) {
+      try { Elona.Stats.recalcStats(g.player, g); } catch (e) { /* 未就绪 */ }
+    }
+    consume(g, st.it);                                      // 325979-325980
+    return { end: 'turnWeight', improved: true, enchant: enc ? enc[0] : 0 };
   }
 
   /** 69（357024-357035）：显示信仰深度与祈祷充能 */
@@ -3006,7 +3056,7 @@
     43: { name: '埃赫卡特尔神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 43) },
     47: { name: '领域水晶', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff47 },
     48: { name: '奇怪的石像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff48 },
-    49: { name: '挥动道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff49 },
+    49: { name: '挥动道具', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: eff49, resolve: eff49res },
     50: { name: '库米罗妮神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 50) },
     51: { name: '玛尼神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 51) },
     55: { name: '雅卡泰克特神像', tag: null, noTarget: true, empty: 'none', success: 'turnWeight', run: (g, st) => effStatue(g, st, 55) },

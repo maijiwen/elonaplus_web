@@ -850,9 +850,11 @@
    * 222393-222473：黑猫舔装备。
    * 判据（201259-201265）：击杀者是 种族 260（黒猫）且关系 10（同伴）。
    * 条件：ibit(8) 未置、类别 < 50000、装备部位 f[4] >= 3。
-   * 附魔：idx = (死者 魔力技(16) + 玩家 技19) \ 10，只处理 0..9：
-   *   (死者16 + 猫16) \ 2 == 0 → 20050+idx（威力 101）
-   *   否则 idx 0 → 20060/51；1..8 → 10010+idx/301；9 → 10018/201（222438-222467）。
+   * 分支（HSP 的 `\` 是**取余**）：
+   *   A = (死者 魔力技16 + 猫 魔力技16) % 2
+   *   B = (死者 魔力技16 + 玩家 幸运技19) % 10
+   *   A == 0 → 20050+B（各属性抗性 101）
+   *   A == 1 → B == 0 → 20060/51（魔法抗性）；B 1..8 → 10010+B / 301（力量..魅力）；B == 9 → 10018/201（速度）
    */
   function catLick(g, dead, killer, it) {
     if (!killer || !Elona.ItemDB || !Elona.ItemDB.encadd) return null;
@@ -860,8 +862,11 @@
     if (Elona.ItemDB.ibit(8, it) === 1) return null;
     if (((it.f[4] | 0) < 3) || ((Elona.ItemDB.ref(it.id, 5) | 0) >= 50000)) return null;
     Elona.ItemDB.ibitmod(8, it, 1);
-    const idx = idiv((dead.skill(16) | 0) + (g && g.charas && g.charas[0] ? (g.charas[0].skill(19) | 0) : 0), 10);
-    const paired = idiv((dead.skill(16) | 0) + (killer.skill(16) | 0), 2) === 0;
+    const pl = g.player || (g && g.charas && g.charas[0]) || null;
+    const luck = pl ? (pl.skill(19) | 0) : 0;
+    const deadMp = dead.skill(16) | 0;
+    const idx = (deadMp + luck) % 10;                       // 222406：`\ 10` = 取余
+    const paired = ((deadMp + (killer.skill(16) | 0)) % 2) === 0;   // 222405：`\ 2` = 取余
     if (idx >= 0 && idx <= 9) {
       if (paired) {
         Elona.ItemDB.encadd(it, 20050 + idx, 101, g, {});

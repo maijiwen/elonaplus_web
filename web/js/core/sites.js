@@ -299,6 +299,10 @@
       // 238647-238648：拉娜（地图 25，type 25）在 map_init 里显式
       //   `map_initcustom "highmountain"`；mapfile(25) 没有分支会退回 vernis。
       if ((mapId | 0) === 25) return 'highmountain';
+      // 238547-238563：地图 34（ミラル工房）在 map_init 里 `map_initcustom "smith0"`。
+      //   world_sites 的 mapFile 表没有 34 的条目，会退回 site.mapFile='vernis'，
+      //   于是「米拉尔与加洛克工房」进图后会变成韦尔尼斯。
+      if ((mapId | 0) === 34) return 'smith0';
       // 以下类型同样不在 mapfile() 的分支里，但 map_init 有显式 map_initcustom：
       //   240681 地图 3（レシマス）→ lesimas_1
       //   240726 地图 49（レーメイド）→ 114 层 chaos / 其余 Rehmido_1

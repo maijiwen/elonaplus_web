@@ -53,7 +53,10 @@
     1000: '武具店', 1001: '武具店', 1002: '道具店', 1003: '面包房', 1004: '魔法店',
     1005: '旅店', 1006: '杂货店', 1007: '黑市', 1008: '万事屋', 1009: '家具店',
     1010: '行商', 1011: '交易店', 1012: '纪念品店', 1013: '电子巨蛋商人',
-    1014: '钓饵店', 1015: '见世物屋', 1016: '精灵球屋', 1017: '染料店',
+    // 0-Z71：1016 不是宠物店 —— 源码 238547-238563 在地图 34「ミラル工房」里给
+    //   209 号（伝説の職人ミラル）设 `var_58(150) = 1016, 100`，货架是 25 件固定珍品
+    //   （427227-427305，含盖罗克之锤 760），交易方式是「用小奖章交换」（299173-299222）。
+    1014: '钓饵店', 1015: '见世物屋', 1016: '米拉尔工房（奖章兑换）', 1017: '染料店',
     1018: '杂货商', 1019: '妹妹的店', 1020: '魔術士ギルド書店', 1021: '盗贼店',
     1022: '祭典摊', 1023: '宝具商', 1024: '小摊', 1026: '船商', 2003: '商人',
   };
@@ -66,7 +69,7 @@
   const CAT_645 = [10000, 10000, 24000, 24000, 25000, 12000, 16000, 20000, 19000, 18000, 22000, 14000, 32000, 34000];
   const POOL_1547 = [344, 521, 522, 542, 543, 555, 572, 1296, 1190, 1189, 1188, 1187, 1281, 1280, 1279, 1278, 1277, 1276];
   const POOL_1543 = [934, 1132, 1131, 1070, 1069, 1005];
-  /** 精灵球屋固定货架（427228-427305） */
+  /** 1016 米拉尔工房的固定货架（427227-427305）：25 件，顺序即 cnt 0..24 */
   const PETSHOP_IDS = [430, 431, 502, 480, 421, 603, 615, 559, 516, 616, 623, 505,
     624, 625, 626, 627, 56, 742, 760, 892, 1037, 1186, 1113, 1310, 1311];
   /** 宝具商固定货架（427307-427371） */
@@ -377,7 +380,7 @@
         break;
       }
       case 1014: itemId = 617; break;                  // 鱼店（427224）
-      case 1016: {                                     // 精灵球店（427227-427305）
+      case 1016: {                                     // 米拉尔工房（427227-427305）
         if (cnt >= PETSHOP_IDS.length) return { skip: true };
         itemId = PETSHOP_IDS[cnt];
         break;
@@ -464,7 +467,7 @@
           continue;
         }
       }
-      // 精灵球屋 / 宝具商：固定 1 个、无诅咒。源码在 427377/427385 就 continue，
+      // 1016 米拉尔工房 / 1023 宝具商：固定 1 个、无诅咒。源码在 427377/427385 就 continue，
       // 位于 427390 的标签检查之前，所以这两类店不受 /neg/、/noshop/ 影响。
       if (role === 1016) {
         it.f[0] = 1; it.f[17] = 0;
@@ -891,6 +894,67 @@
     return { ok: true, price: total, item: got, rankUp, cargo, exp };
   }
 
+  /** 1016 号店（ミラル）的计价单位 = 小奖章（calcmedalvalue 213985-214061） */
+  function exchangePrice(it) {
+    if (Elona.Medal && Elona.Medal.value) return Elona.Medal.value(it) | 0;
+    return 1;
+  }
+
+  /** 背包剩余空格（inv_getfreeid(0)）：有空格返回下标，否则 -1 */
+  function freeSlot(c) {
+    if (!c || !c.inv) return -1;
+    for (let k = 0; k < c.inv.length; k++) {
+      const it = c.inv[k];
+      if (!it || (it.f[0] | 0) <= 0) return k;
+    }
+    return c.inv.length < 200 ? c.inv.length : -1;
+  }
+
+  /**
+   * 小奖章兑换（299173-299222）。
+   *
+   * 【源码流程】
+   *   299176 `inv_getfreeid(0) == -1` → 「これ以上持てない」（背包满）
+   *   299196-299203 `item_find 622, 3, 1` → 背包里 622 的总枚数
+   *   299204-299211 总数 < `calcmedalvalue(商品)` → 「メダルの数が足りない…」
+   *   299213 扣奖章；299215 `item_copy` 给货；299221 `item_stack` + `convertartifact`
+   *
+   * 【与金币买入的差别】不扣金币、不给店主持金、不涨店规模、不算交涉经验
+   *   —— 原版这条分支（`var_486 == 28`）完全不经过 calcitemvalue / 342191-342217。
+   *
+   * @param {object} g
+   * @param {number} idx   keeper.inv 下标
+   * @param {number} [count] 一次兑换几件（原版每次 1 件；这里允许批量，逐件计价）
+   */
+  function exchange(g, idx, count) {
+    const s = g && g.shopSession;
+    if (!s) return { ok: false, reason: 'no-shop' };
+    const it = s.keeper.inv[idx];
+    if (!it || (it.f[0] | 0) <= 0) return { ok: false, reason: 'no-item' };
+    const n = limit(count | 0, 1, it.f[0] | 0);
+    const unit = exchangePrice(it);
+    const need = unit * n;
+    const have = (Elona.Medal && Elona.Medal.count) ? (Elona.Medal.count(g) | 0) : 0;
+    if (have < need) return { ok: false, reason: 'medals', price: need, have };
+    if (freeSlot(g.player) < 0) return { ok: false, reason: 'full', price: need };
+    // 299213：先付奖章，再给货
+    if (Elona.Medal && Elona.Medal.pay) Elona.Medal.pay(g, need);
+    let got;
+    if (n >= (it.f[0] | 0)) {
+      s.keeper.inv.splice(idx, 1);
+      got = it;
+      got.eqSlot = -1;
+      got.f[0] = n;
+    } else {
+      it.f[0] -= n;
+      got = cloneItem(it, n);
+    }
+    // 299219-299222：入包 → stack → convertartifact（唯一物品重复时化星尘，addToInv 内已做）
+    addToInv(g.player, got, g);
+    s.keeper._boughtSinceStock = true;
+    return { ok: true, price: need, unit, item: got, medals: have - need };
+  }
+
   /**
    * 偷窃（在商店里拿走商品不付钱）。
    * 【源码依据】物品的 ibit(9) 为「盗品」标记，calcitemvalue 会据此压价（214250-214265）；
@@ -971,6 +1035,8 @@
   Elona.Shop = {
     ROLE_NAMES, SHOP_ROLES, roleOf, isShopkeeper, roleName, stockSize, stackCount,
     restock, needsRestock, canRefresh, refresh, open, close, buy, sell, steal, unitPrice, cloneItem,
+    // 0-Z71：1016 米拉尔工房的奖章兑换（299173-299222）
+    exchange, exchangePrice,
     pickCategory, bookIdForSpell, CAT_645, POOL_1547, POOL_1543,
     investValue, invest, FURNITURE_PRICES, furniturePct, furnitureDrift, furniturePctLive,
     itemTag, sfCandidates,

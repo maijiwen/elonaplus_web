@@ -886,7 +886,13 @@
      *   源码依据：
      *     238647-238660  地图 25（拉娜）：`var_65(250+273)==1` 时放诺恩（605）@(23,4)
      *     244275-244288  地图 79（中央神殿）：665 @(20,13)、诺恩（605）@(15,10)
+     *     238547-238563  地图 34（ミラル工房）：208 @(17,11)、209 @(8,16)
+     *                    （`var_58(150)=1016, 100` 奖章交换店）、164 ×5 随机站位
      *   诺恩的对话分支（389022-389094）负责世界地图切换（见 Game.travelToWorld）。
+     *
+     * 列表项：[物种, x, y, opts?]；x === -3 表示随机站位（`characreate -1,id,-3,0`）。
+     *   opts.role   var_58(150)   0-Z71：1016 = 奖章交换店
+     *   opts.rank   var_58(151)   店等级
      * @returns {number} 实际生成数量
      */
     spawnMapInitNpcs(mapId) {
@@ -898,13 +904,36 @@
         list.push([665, 20, 13]);
         list.push([605, 15, 10]);
       }
+      // 0-Z71：米拉尔与加洛克工房 —— 209（伝説の職人ミラル）开奖章兑换店，等级 100。
+      if (id === 34) {
+        list.push([208, 17, 11, { role: 3 }]);
+        list.push([209, 8, 16, { role: 1016, rank: 100 }]);
+        for (let i = 0; i < 5; i++) list.push([164, -3, 0, { role: 3 }]);
+      }
       if (!list.length) return 0;
       const used = new Set();
       for (const c of this.charas) {
         if (c && (c.get(0) | 0) === 1) used.add(`${c.x},${c.y}`);
       }
+      /** 随机站位：在地图内找一个可走且没人的格子（`characreate -1,id,-3,0`） */
+      const randSpot = () => {
+        const m = this.map;
+        for (let k = 0; k < 400; k++) {
+          const x = 1 + this.rng.rnd(Math.max(1, m.width - 2));
+          const y = 1 + this.rng.rnd(Math.max(1, m.height - 2));
+          if (!m.walkable(x, y) || used.has(`${x},${y}`)) continue;
+          return [x, y];
+        }
+        return null;
+      };
       let spawned = 0;
-      for (const [sp, x, y] of list) {
+      for (const [sp, ox, oy, opts] of list) {
+        let x = ox | 0, y = oy | 0;
+        if (x === -3) {
+          const spot = randSpot();
+          if (!spot) continue;
+          x = spot[0]; y = spot[1];
+        }
         if (!this.map.walkable(x, y) || used.has(`${x},${y}`)) continue;
         let slot = -1;
         for (let i = 57; i <= 131; i++) {
@@ -916,7 +945,8 @@
         if (!c) continue;
         c.set(9, 0);        // 中立
         c.set(69, 0);
-        c.set(150, 3);      // var_58(150)=3：固定居民
+        c.set(150, (opts && opts.role) || 3);   // var_58(150)=3：固定居民
+        if (opts && opts.rank) c.set(151, opts.rank | 0);
         c.set(202, 3);
         this.charas[slot] = c;
         used.add(`${x},${y}`);

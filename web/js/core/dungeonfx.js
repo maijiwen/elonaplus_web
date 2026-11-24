@@ -83,12 +83,23 @@
   };
   const MAT_DEFAULT = 175;
 
-  /** 969 生成时的附魔表（224606-224750）：f[25] → encadd 30000+id，威力 500 */
-  const CORE_ENC = [
+  /**
+   * 969 生成时的附魔表（224599-224760）：`f[25]` 0..49 共 50 种。
+   *
+   *   0..32  技能 `3*10000 + skillId`，威力 500
+   *   33..40 主属性 力..意志 `1*10000 + 10..17`，威力 500
+   *   41..42 魔力 / 魅力 `1*10000 + 18/19`，威力 **400**
+   *   43..48 抗性（24 火 / 25 冷 / 26 电 / 27 暗 / 28 幻惑 / 23 毒），威力 100
+   *   49     令你可以看到透明生物（35），威力 150，带额外参数 `0,1,0,1`
+   * 对应 wiki「奈菲亚之核」表的 33 技能 / 9 主属性 / 6 异常无效 / 看到透明生物。
+   */
+  const CORE_SKILL = [
     168, 173, 166, 167, 152, 189, 154, 175, 169, 170, 171,
     157, 187, 155, 174, 188, 172, 153, 176, 177, 179, 300,
     190, 185, 161, 150, 151, 165, 181, 156, 160, 183, 301,
   ];
+  const CORE_ATTR = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+  const CORE_RES = [24, 25, 26, 27, 28, 23];
 
   /** calcfame（32217-32222） */
   function calcFame(g, base) {
@@ -121,8 +132,19 @@
     if ((seed | 0) <= 0) q = R(50);
     else q = (seed | 0) - 1;
     it.f[25] = q;
-    if (q >= 0 && q < CORE_ENC.length && Elona.ItemDB && Elona.ItemDB.encadd) {
-      Elona.ItemDB.encadd(it, 3 * 10000 + CORE_ENC[q], 500, g, { noFilter: true });
+    const I = Elona.ItemDB;
+    if (!I || !I.encadd) return it;
+    const opt = { noFilter: true };
+    if (q >= 0 && q < 33) {
+      I.encadd(it, 3 * 10000 + CORE_SKILL[q], 500, g, opt);
+    } else if (q >= 33 && q < 43) {
+      const a = q - 33;                                  // 0..9
+      I.encadd(it, 1 * 10000 + CORE_ATTR[a], a >= 8 ? 400 : 500, g, opt);
+    } else if (q >= 43 && q < 49) {
+      I.encadd(it, CORE_RES[q - 43], 100, g, opt);
+    } else if (q === 49) {
+      // 224748-224750：`encadd 35, 150, 0, 1, 0, 1`（多两个参数）
+      I.encadd(it, 35, 150, g, { noFilter: true, p552: 0, prm553: 1, prm554: 0, prm555: 1 });
     }
     return it;
   }
@@ -774,7 +796,9 @@
   }
 
   Elona.DungeonFx = {
-    MAT, MAT_DEFAULT, CORE_ENC, CHEST_CATS, RARE_CATS, DIG_TABLE, KIND_TAG,
+    MAT, MAT_DEFAULT, CORE_SKILL, CORE_ATTR, CORE_RES,
+    CORE_ENC: CORE_SKILL,          // 旧名兼容（0..32 技能段）
+    CHEST_CATS, RARE_CATS, DIG_TABLE, KIND_TAG,
     calcFame, raceNameOf, materialOf, applyCoreSeed,
     onBossKilled, rollSeeds, kindTag,
     trapIdAllowed, placeTrap, placeFloorHazards,

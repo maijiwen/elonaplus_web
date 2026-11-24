@@ -403,9 +403,15 @@
       out.push({ id: 'talk', label: '来聊聊天吧' });
     }
     if (isShop(r)) {
-      out.push({ id: 'shop-buy', label: '买东西' });
-      out.push({ id: 'shop-sell', label: '卖东西' });
-      out.push({ id: 'invest', label: '想投资' });
+      // 0-Z71：1016（ミラル工房）在原版里只有「小さなメダル」交换（372399-372436），
+      //   没有买卖与投资，所以只给一项「交换小奖章」。
+      if (r === 1016) {
+        out.push({ id: 'shop-buy', label: '交换小奖章' });
+      } else {
+        out.push({ id: 'shop-buy', label: '买东西' });
+        out.push({ id: 'shop-sell', label: '卖东西' });
+        out.push({ id: 'invest', label: '想投资' });
+      }
     }
     // 415538-415541：魔法店（var_58(150) == 1004）的「ポーションの栓を分けて欲しい」
     if (r === 1004) {

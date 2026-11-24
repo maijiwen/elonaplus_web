@@ -1040,13 +1040,17 @@
       if (!Elona.Shop) return;
       const s = Elona.Shop.open(game, keeper);
       if (!s) return;
-      this.shopMode = (mode === 'sell') ? 'sell' : 'buy';
+      // 0-Z71：1016 米拉尔工房只有奖章兑换，没有卖出/投资
+      const medalShop = Elona.Shop.roleOf(keeper) === 1016;
+      this.shopMode = (!medalShop && mode === 'sell') ? 'sell' : 'buy';
       this.shopSel = -1;
       this.shopPage = 0;
       this.shopCursor = 0;
       this.el('shop-tab-buy').classList.add('on');
       this.el('shop-tab-sell').classList.remove('on');
-      if (mode === 'invest') this.pushMessage('在下方选择投资金额。');
+      this.el('shop-tab-sell').style.display = medalShop ? 'none' : '';
+      this.el('shop-tab-buy').textContent = medalShop ? '兑换' : '购买';
+      if (mode === 'invest' && !medalShop) this.pushMessage('在下方选择投资金额。');
       this.el('shop').classList.remove('hidden');
       this.wireShop(game);
       this.renderShop(game);
@@ -1100,10 +1104,16 @@
       const s = game.shopSession;
       if (!s) return;
       const keeper = s.keeper;
-      this.el('shop-title').textContent =
-        `${Elona.Shop.roleName(s.role)}（店主金币 ${keeper.get(30)}）`;
-      this.el('shop-money').textContent =
-        `你的金币：${game.player.get(30)}　店等级：${keeper.get(151)}`;
+      // 0-Z71：1016 米拉尔工房是以小奖章（622）计价的交换所（299173-299222），
+      //   不显示金币/店等级，改显示持有奖章数。
+      const medalShop = (s.role | 0) === 1016;
+      const medals = (Elona.Medal && Elona.Medal.count) ? (Elona.Medal.count(game) | 0) : 0;
+      this.el('shop-title').textContent = medalShop
+        ? `${Elona.Shop.roleName(s.role)}（${medals} 枚小奖章）`
+        : `${Elona.Shop.roleName(s.role)}（店主金币 ${keeper.get(30)}）`;
+      this.el('shop-money').textContent = medalShop
+        ? `你的小奖章：${medals} 枚　（每一件按 calcmedalvalue 计价）`
+        : `你的金币：${game.player.get(30)}　店等级：${keeper.get(151)}`;
       const buy = this.shopMode === 'buy';
       const rows = [];
       if (buy) {
@@ -1135,11 +1145,14 @@
         // 图标表按 2/3 缩放（CSS background-size: 1056px），坐标同步缩放
         const pos = Elona.ItemDB.iconPos(it.id);
         const k = 2 / 3;
-        const price = Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
+        const price = medalShop
+          ? Elona.Shop.exchangePrice(it)
+          : Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
+        const unit = medalShop ? ' 枚' : ' gp';
         return `<div class="inv-row${i === this.shopCursor ? ' sel' : ''}" data-i="${i}">
           <span class="inv-icon" style="background-position:-${pos.x * k}px -${pos.y * k}px"></span>
           <span class="inv-name">${this.esc(Elona.ItemDB.name(it))}</span>
-          <span class="inv-meta">${it.f[0]} 个 / ${price} gp</span>
+          <span class="inv-meta">${it.f[0]} 个 / ${price}${unit}</span>
         </div>`;
       }).join('') : '<div id="shop-empty">没有可以交易的物品。</div>';
 
@@ -1161,6 +1174,12 @@
       this.el('shop-buy5').disabled = !buy || !slice.length;
       this.el('shop-sell1').disabled = buy || !slice.length;
       this.el('shop-sell5').disabled = buy || !slice.length;
+      // 0-Z71：奖章兑换里没有卖出/投资，按钮改成「兑换 N 个」
+      this.el('shop-buy1').textContent = medalShop ? '兑换 1 个' : '买 1 个';
+      this.el('shop-buy5').textContent = medalShop ? '兑换 5 个' : '买 5 个';
+      for (const bid of ['shop-sell1', 'shop-sell5', 'shop-invest1', 'shop-invest50']) {
+        this.el(bid).style.display = medalShop ? 'none' : '';
+      }
       // 0-HO：刷新按钮只在「本次库存还没买过东西」时可用（与 R 键同一判定）
       if (Elona.Shop && Elona.Shop.canRefresh) {
         this.el('shop-refresh').disabled = !Elona.Shop.canRefresh(game, keeper);
@@ -1206,9 +1225,12 @@
       const keeper = game.shopSession && game.shopSession.keeper;
       const it = buy ? (keeper ? keeper.inv[this.shopSel] : null) : game.player.inv[this.shopSel];
       if (!it) { this.el('shop-detail').textContent = '选择一件物品。'; this.shopSel = -1; return; }
-      const price = Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
+      const price = (game.shopSession && (game.shopSession.role | 0) === 1016)
+        ? Elona.Shop.exchangePrice(it)
+        : Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
+      const unit = (game.shopSession && (game.shopSession.role | 0) === 1016) ? ' 枚小奖章' : ' gp';
       this.el('shop-detail').innerHTML =
-        `<b>${this.esc(Elona.ItemDB.name(it.id))}</b>　单价 ${price} gp<br>` +
+        `<b>${this.esc(Elona.ItemDB.name(it.id))}</b>　单价 ${price}${unit}<br>` +
         this.esc(Elona.ItemDB.desc(it.id));
     },
 
@@ -1280,8 +1302,12 @@
       this.renderShop(game);
     },
 
-    /** 键盘 Tab：在购买 / 出售之间切换 */
+    /** 键盘 Tab：在购买 / 出售之间切换（1016 奖章兑换没有出售，忽略） */
     toggleShopMode(game) {
+      if (game && game.shopSession && (game.shopSession.role | 0) === 1016) {
+        this.pushMessage('这里只接受小奖章交换，没有卖出。');
+        return;
+      }
       this.shopMode = this.shopMode === 'buy' ? 'sell' : 'buy';
       this.el('shop-tab-buy').classList.toggle('on', this.shopMode === 'buy');
       this.el('shop-tab-sell').classList.toggle('on', this.shopMode === 'sell');
@@ -1292,15 +1318,22 @@
 
     shopAct(game, kind, count) {
       if (!game.shopSession || this.shopSel < 0) { this.pushMessage('请先选择一件物品。'); return; }
-      const r = kind === 'buy'
-        ? Elona.Shop.buy(game, this.shopSel, count)
+      const medalShop = (game.shopSession.role | 0) === 1016;
+      const r = (kind === 'buy')
+        ? (medalShop
+          ? Elona.Shop.exchange(game, this.shopSel, count)
+          : Elona.Shop.buy(game, this.shopSel, count))
         : Elona.Shop.sell(game, this.shopSel, count);
       if (!r.ok) {
         const msg = {
-          money: '金币不足。', 'shop-money': '店主没有足够的金币。',
+          money: '金币不足。', medals: '小奖章不够。', full: '背包已经没有空位。',
+          'shop-money': '店主没有足够的金币。',
           equipped: '装备中的物品不能出售。', 'no-item': '物品不存在。',
         }[r.reason] || '交易失败。';
         this.pushMessage(msg);
+      } else if (medalShop && kind === 'buy') {
+        this.pushMessage(`兑换了 ${Elona.ItemDB.name(r.item.id)} ×${r.item.f[0]}`
+          + `（-${r.price} 枚，余 ${r.medals} 枚）。`);
       } else {
         this.pushMessage(kind === 'buy'
           ? `买入 ${Elona.ItemDB.name(r.item.id)} ×${r.item.f[0]}（${r.price} gp）。`
