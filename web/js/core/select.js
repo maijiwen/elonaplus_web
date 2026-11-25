@@ -215,7 +215,14 @@
     opt = opt || {};
     // 23 = 分类过滤（var_486(1) 子模式）；32 = 道具图像（296202 里没有分类行，
     //   等价于「全部物品」—— 只有 296236-296246 的通用门槛）
-    if (mode !== 23 && mode !== 32) return null;   // 22 临时背包 / 其它模式未实现
+    if (mode === 22) {
+      // 296203 / 378920：谜之科学家的临时容器（begintempinv）。
+      // 退出界面后容器销毁，所以列表只在本次对话里有效。
+      const tmp = Array.isArray(opt.tempInv) ? opt.tempInv : [];
+      return tmp.map((it, i) => (it && (fv(it, 0) | 0) > 0)
+        ? { v: i, label: itemLabel(it, i) } : null).filter(Boolean);
+    }
+    if (mode !== 23 && mode !== 32) return null;   // 其它模式未实现
     const p = (g && g.player) || null;
     const inv = (p && p.inv) || [];
     const out = [];

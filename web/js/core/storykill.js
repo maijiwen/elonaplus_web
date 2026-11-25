@@ -85,6 +85,35 @@
     { id: 'kill34', line: 201211, species: 34, effects: [{ k: 'addV65', i: 250 + 53, v: 1 }] },
     { id: 'kill213', line: 201213, species: 213, effects: [{ k: 'addV65', i: 250 + 52, v: 1 }] },
     { id: 'kill499', line: 201213, species: 499, effects: [{ k: 'addV65', i: 250 + 52, v: 1 }] },
+    // 200766-200777 ビッグダディ(318)：击杀者是自己/前 16 槽/cbit 992 时，
+    //   `evadd 27, x, y`（事件 27 在死者位置生成リトルシスター 319）；
+    //   否则只提示「小姐姐已经被转移走了」。
+    {
+      id: 'kill318Spawn', line: 200766, species: 318,
+      test: (c) => {
+        const k = c.killerIndex | 0;
+        if (k < 0) return false;
+        if (k === 0 || k < 16) return true;
+        return !!(c.killer && Elona.Status && Elona.Status.cbit
+          && Elona.Status.cbit(c.killer, 992));
+      },
+      effects: [{ k: 'evadd', id: 27, at: 'dead', line: 200768 }],
+    },
+    {
+      id: 'kill318Evacuated', line: 200770, species: 318,
+      test: (c) => {
+        const k = c.killerIndex | 0;
+        if (k < 0) return false;
+        if (k === 0 || k < 16) return false;
+        return !(c.killer && Elona.Status && Elona.Status.cbit
+          && Elona.Status.cbit(c.killer, 992));
+      },
+      effects: [{
+        k: 'msg', line: 200774,
+        zh: '大爹地已经把小妹妹转移到别处了。',
+        en: 'Big daddy had already evacuated Little sister to somewhere.',
+      }],
+    },
   ];
 
   let TABLE = null;

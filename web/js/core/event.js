@@ -304,6 +304,11 @@
     }
     if (v.expr !== undefined) {
       if (/^-?\d+$/.test(v.expr)) return parseInt(v.expr, 10);
+      // 606892 等事件把 evadd 的两个参数经 var_110/111(0) 取坐标：
+      //   var_110(var_106 - (var_106 != 0) * 1) → 事件参数 a（x）
+      //   var_111(...)                          → 事件参数 b（y）
+      if (/^var_110\(var_106\s*-/.test(v.expr)) return ctx.a | 0;
+      if (/^var_111\(var_106\s*-/.test(v.expr)) return ctx.b | 0;
       ctx.unknownValue++;
       return 0;
     }
@@ -421,6 +426,12 @@
         else if (!r) out.skippedCond++;
       }
       if (!condCache.every((x) => x.val === true)) continue;
+      // 606888 的 `if (map==35) goto *label_4377` 被提取成带 cond 的 skip；
+      // 这里的 goto 是「跳出整个事件」，不能只跳过这一条指令。
+      if (op.k === 'skip' && /^goto\b/.test(String(op.src || '').trim())) {
+        out.skippedByGoto = true;
+        return out;
+      }
       if (op.k === 'raw') { out.raw++; continue; }
       if (op.k === 'skip') { out.skip = (out.skip | 0) + 1; continue; }
       out.done++;

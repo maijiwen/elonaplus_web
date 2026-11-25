@@ -208,6 +208,12 @@
     }
     c.set(A.ACTIVE, 0);                                // 194144
     c.set(150, 0);                                     // 194145
+    // 原版同伴槽清空后自然离开队伍；项目用 g.party 持久化同伴，需同步移除
+    // （379123 把リトルシスター交给科学家时依赖这一步）。
+    if (Array.isArray(g.party)) {
+      const pi = g.party.indexOf(c);
+      if (pi >= 0) g.party.splice(pi, 1);
+    }
     const cb = Elona.Status && Elona.Status.cbit;
     if (!(cb && (cb(c, 992) | 0) === 1) && Elona.QuestCheck && Elona.QuestCheck.check) {
       try { Elona.QuestCheck.check(g); } catch (e) { /* 委托系统未就绪 */ }

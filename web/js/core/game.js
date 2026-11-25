@@ -910,6 +910,17 @@
         list.push([209, 8, 16, { role: 1016, rank: 100 }]);
         for (let i = 0; i < 5; i++) list.push([164, -3, 0, { role: 3 }]);
       }
+      // 0-Z72：244198-244210 —— 地图 82（10dwa）放 652（イルマ，隐藏工房附魔师）
+      //   @(17,11)、651（サリム）@(26,7)、164 ×5 随机站位，三者都是固定居民（role=3）。
+      if (id === 82) {
+        list.push([652, 17, 11, { role: 3 }]);
+        list.push([651, 26, 7, { role: 3 }]);
+        for (let i = 0; i < 5; i++) list.push([164, -3, 0, { role: 3 }]);
+      }
+      // 地图 77（5cave，ルストール仙窟）是 kind 3 城镇 → enterSite 走
+      //   travelToTown → populateTown，不会走本函数；它的 652/651/650/653 等
+      //   剧情 NPC 已由 tools/extract_town_npcs.py 提取到 town_npcs.json 的
+      //   `5cave` 条目（条件 v520 <= 7 由 TownNpc.passes 求值）。放这里是死代码。
       if (!list.length) return 0;
       const used = new Set();
       for (const c of this.charas) {
@@ -2304,6 +2315,25 @@
       header[6] = this.dungeonKind | 0;
       // var_126(7) = var_132(11, mapId)：是否允许放地图采集点（228820）
       header[7] = 1;
+
+      // 231014-231021：随机地城（var_126(7)==1）每层按 killed(810) 递减的概率
+      //   生成ビッグダディ(318)；`var_1023 = limit(层数,30,300)` 固定其等级。
+      //   `var_1751 = limit(15 + killed*2, 15, 35) * 2 / 3`（HSP 整除），rnd(var_1751)==0。
+      if (header[7] === 1) {
+        const killedSisters = this.getV65 ? (this.getV65(810) | 0) : 0;
+        const denom = Math.floor(Math.min(35, Math.max(15, 15 + killedSisters * 2)) * 2 / 3);
+        if (denom > 0 && this.rng.rnd(denom) === 0) {
+          const spot = this.randomFloorCell(cells, W, H, up, down);
+          if (spot) {
+            const forced = Math.min(300, Math.max(30, depth | 0));
+            monsters.push({
+              id: 318, level: forced, x: spot.x, y: spot.y,
+              var1023: forced, var1475: 1, bigDaddy: true,
+            });
+          }
+        }
+      }
+
       // 0-FB：230989-231013 —— 陷阱 / 网 / 木桶（生成阶段直接写 cells）
       let hazards = null;
       if (Elona.DungeonFx && Elona.DungeonFx.placeFloorHazards) {
@@ -2554,8 +2584,13 @@
         this.checkStoryEvents();       // 0-DG：进图剧情（Vernis 宠物再会）
         for (const m of f.monsters) {
           try {
-            const c = Elona.CharaFactory.create(this, m.id, m.level, m.x, m.y);
-            if (c) { c.set(9, -3); c.set(69, 0); }
+            const c = Elona.CharaFactory.create(this, m.id, m.level, m.x, m.y, {
+              var1023: m.var1023 || 0,
+            });
+            if (c) {
+              c.set(9, -3); c.set(69, 0);
+              if (m.bigDaddy) c.isBigDaddy = true;
+            }
           } catch (_) { /* 单只生成失败不影响楼层 */ }
         }
         // 0-FA：地城主（品质 4、等级 层数+20）与最深层提示
@@ -4414,8 +4449,23 @@
         }
         return nr;
       }
-      // 0-CF：捕获玉（685 monster ball / 699 little ball）→ 收服相邻怪物为宠物
-      if ((it.id | 0) === 685 || (it.id | 0) === 699) {
+      // 0-CF：捕获玉（685 monster ball / 699 little ball）
+      //   699 走 340989-341008 的专用分支：目标必须是リトルシスター(319)，
+      //   没有「球等级 >= 目标等级 / HP <= 1/10」这些 685 判定，成功直接入队。
+      if ((it.id | 0) === 699) {
+        if (!Elona.Throw || !Elona.Throw.captureLittle) {
+          this.log('现在无法使用小妹妹捕获球。');
+          return { ok: false, reason: 'no-throw' };
+        }
+        const target = (Elona.Party && Elona.Party.findCaptureTarget)
+          ? Elona.Party.findCaptureTarget(this, this.player) : null;
+        const cap = Elona.Throw.captureLittle(this, this.player, target);
+        this.log(cap.message || (cap.ok ? '小妹妹成为了同伴。' : '捕获失败。'));
+        if ((it.f[0] | 0) > 0) it.f[0]--;
+        this.endTurn();
+        return { ok: cap.ok, capture: cap };
+      }
+      if ((it.id | 0) === 685) {
         if (!Elona.Party || !Elona.Party.capture) {
           this.log('现在无法使用捕获玉。');
           return { ok: false, reason: 'no-party' };

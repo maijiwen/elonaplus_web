@@ -303,6 +303,10 @@
       //   world_sites 的 mapFile 表没有 34 的条目，会退回 site.mapFile='vernis'，
       //   于是「米拉尔与加洛克工房」进图后会变成韦尔尼斯。
       if ((mapId | 0) === 34) return 'smith0';
+      // 244198：地图 82（10dwa，伊尔玛与萨利的隐秘工房）在 map_init 里
+      //   `map_initcustom "10dwa"`；world_sites 的 mapFile 没有 82 → 退回 vernis，
+      //   玩家从大地图进工房会落到韦尔尼斯，艾露玛/工房对话永远看不到。
+      if ((mapId | 0) === 82) return '10dwa';
       // 以下类型同样不在 mapfile() 的分支里，但 map_init 有显式 map_initcustom：
       //   240681 地图 3（レシマス）→ lesimas_1
       //   240726 地图 49（レーメイド）→ 114 层 chaos / 其余 Rehmido_1

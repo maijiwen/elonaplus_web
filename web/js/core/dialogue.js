@@ -107,7 +107,7 @@
     self: 1, buf: 1, txtef: 1, tagend: 1, invheader: 1, mreset: 0,
   };
 
-  const MAX_STEPS = 20000;     // 死循环护栏
+  const MAX_STEPS = 120000;    // 死循环护栏；小妹妹奖励要遍历 1500 个物品槽
 
   let PROG = null;             // { entry, labels, instrs }
   let BRANCHES = null;         // [{ chain, species, line, pc, ... }]
@@ -359,6 +359,8 @@
       this.ended = false;
       this.blocked = null;
       this.pending = null;         // 等待玩家在 pick_chara / pick_item 里选
+      this.tempInv = null;         // begintempinv 的临时容器（谜之科学家小妹妹报酬）
+      this.var579Item = null;      // 临时容器里选中的物品（iset tgt:'sel' 用）
       this.lastJoin = null;        // 4274 的结果（测试用）
       this.startWorld = (g && g.getV65) ? (g.getV65(850) | 0) : 0;
       this.worldChanged = 0;       // A49：对话结束时 var_65(850) 相对开场的变化
@@ -405,6 +407,8 @@
       const scope = {
         // ---- 跨模块访问器 ----
         V: (n) => (g && g.getV65 ? (g.getV65(n | 0) | 0) : 0),
+        // raw 指令里保留源码写法 `var_65(12) + cnt`（378934 的小妹妹奖励种子）
+        var_65: (n) => (g && g.getV65 ? (g.getV65(n | 0) | 0) : 0),
         /**
          * 0-HY：`var_126(n)` = 当前地图头（见上面的 hdrRead）。
          *   源码里 381451-381493（街长的 27/26/32 判定）与 4220xx（74 的政策菜单）
@@ -454,7 +458,19 @@
         SK: (n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
         SKI: (a, n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
         VX: (n) => (VX[n | 0] | 0),
-        VXA: (n, i) => ((n | 0) === 126 ? hdrRead(g, i) : (VXA[(n | 0) * 1000 + (i | 0)] | 0)),
+        VXA: (n, i, j) => {
+          if ((n | 0) === 126) return hdrRead(g, i);
+          // var_498(0, itemId)：已鉴定过的物品编号表（item.js 的 ItemDB.known）。
+          // 谜之科学家报酬（378936）遍历全物品表，只有鉴定过的才生成。
+          if ((n | 0) === 498 && j !== undefined) {
+            if ((i | 0) === 0) {
+              const known = Elona.ItemDB && Elona.ItemDB.known;
+              return (known && known[j | 0]) ? 1 : 0;
+            }
+            return (VXA[(498 * 1000 + (i | 0)) * 1000 + (j | 0)] | 0);
+          }
+          return (VXA[(n | 0) * 1000 + (i | 0)] | 0);
+        },
         // ---- 具名局部量 ----
         var1302: this.var1302,
         var1303: 0,
@@ -587,7 +603,7 @@
         guildname: () => (Elona.Guild
           ? Elona.Guild.name(g, undefined, self.lang === 'jp' ? 'jp' : 'ch') : ''),
         calcobjlv: () => 1,
-        calcfixlv: () => 1,
+        calcfixlv: (q) => calcFixLv(g, q === undefined ? 2 : (q | 0)),
         sorg: (n) => (self.var244 && self.var244.get ? (self.var244.get(60 + (n | 0)) | 0) : 0),
         lang: (jp, en) => (self.lang === 'jp' ? jp : en),
       };
@@ -864,7 +880,10 @@
       const mode = this.vx(486);
       const sub = this._VXA[(486 * 1000) + 1] | 0;
       const list = (Elona.Select && Elona.Select.itemList)
-        ? Elona.Select.itemList(g, mode, sub, { var1580: this.vx(1580) })
+        ? Elona.Select.itemList(g, mode, sub, {
+          var1580: this.vx(1580),
+          tempInv: this.tempInv,
+        })
         : null;
       if (!list) {
         // 模式 22（临时背包）等没有对应实现 —— 如实报告，不拿玩家背包冒充
@@ -874,6 +893,7 @@
       }
       this.pending = {
         kind: 'item', label: L, list, mode, sub,
+        temp: mode === 22 && Array.isArray(this.tempInv),
         evt: {
           kind: 'pick_item', mode, sub, label: L, line: d && d.l,
           text: pick(Elona.Select.itemPrompt(mode, sub), lang),
@@ -1088,10 +1108,28 @@
                   if (kk >= 400000 && kk < 401000) this._VXA[k] = 0;
                 }
               }
+              // 0-Z72：`var_486 = 23, 8` 是 `var_486(0)=23, (1)=8` 的简写（296163
+              //   *label_2824 物品选择窗）。提取器目前把整串当标量表达式落进 lset，
+              //   ev("23, 8") 只取末项 8 → 被当成 mode 8，工房/波球曼等所有物品选择
+              //   都报 `gosub-2824:mode-8` blocked。这里按数组初始化还原（与 400 特判同口径）。
+              if (n === 486 && String(d.e || '').indexOf(',') >= 0) {
+                const part = splitTopArgs(d.e);
+                this._VX[486] = ev(part[0], S) | 0;
+                for (let i = 0; i < part.length; i++) {
+                  this._VXA[486 * 1000 + i] = ev(part[i], S) | 0;
+                }
+                this.pullScope();
+                this.pc++;
+                break;
+              }
               this._VX[n] = ev(d.e, S) | 0;
             } else if (d.o === 'ladd') this._VX[n] = (this._VX[n] | 0) + (ev(d.e, S) | 0);
             else if (d.o === 'linc') this._VX[n] = (this._VX[n] | 0) + 1;
             else this._VX[n] = (this._VX[n] | 0) - 1;
+            // 0-Z72：`lset 579, stat`（item_find 结果 → 选中槽）写完会被 pullScope()
+            // 用旧 var579 覆盖。写回 scope 镜像后再拉回，避免卷轴/素材槽号丢失。
+            if (n === 579) this._scope.var579 = this._VX[579] | 0;
+            if (n === 581) this._scope.var581 = this._VX[581] | 0;
             this.pullScope();
             this.pc++;
             break;
@@ -1154,10 +1192,18 @@
           case 'iset':
           case 'isub': {
             // var_99(n, var_579) = 选中物；var_99(n, stat) = gosub 返回的物品槽
-            const it = (d.tgt === 'stat') ? this.itemAt(this._scope.stat | 0) : this.item;
+            // 0-Z72：提取器把 `var_99(n, var_1580)`（工房里「正在附魔的装备」）
+            //   笼统标成 tgt:'other'，解释器此前当成选中素材 → 15 槽消除写错物品。
+            //   工房段（394735-395405）的 other 一律按 var_1580 解析。
+            const otherSlot = ((d.l | 0) >= 394735 && (d.l | 0) <= 395405)
+              ? (this.vx(1580) | 0) : -1;
+            const it = (d.tgt === 'stat') ? this.itemAt(this._scope.stat | 0)
+              : ((d.tgt === 'other' && otherSlot >= 0) ? this.itemAt(otherSlot) : this.item);
             if (!it) { this.pc++; break; }
             this.syncScope();
-            const n = d.n | 0;
+            // 0-Z72：工房 15 槽消除写成 `var_99(40 + (15-1)*2, var_1580) = 0`，
+            //   `d.n` 是表达式字符串；此前 `d.n | 0` 得 0 → 把数量字段清零。
+            const n = ev('(' + String(d.n) + ')', S) | 0;
             const v = ev(d.e, S) | 0;
             this.pullScope();
             const old = (it.f[n] | 0);
@@ -1652,6 +1698,44 @@
               this.pc++;
               break;
             }
+            // 0-Z74：谜之科学家的「小妹妹兑换」奖励容器（378920-379008）。
+            //   begintempinv / exittempinv / randomize 在指令表里都是 raw。
+            if (d.o === 'raw') {
+              const src = String(d.s || '').trim();
+              if (src === 'begintempinv') {
+                this.tempInv = [];
+                this.var579Item = null;
+                this.pc++;
+                break;
+              }
+              if (src === 'exittempinv') {
+                // 容器退出时只保留玩家选中的那一件（379005-379008 的 2824 mode 22）。
+                const chosen = this.var579Item;
+                if (chosen && (chosen.f[0] | 0) > 0 && this.player && Array.isArray(this.player.inv)) {
+                  if (this.player.inv.indexOf(chosen) < 0) this.player.inv.push(chosen);
+                }
+                this.tempInv = null;
+                this.var579Item = null;
+                this.pc++;
+                break;
+              }
+              const mr = /^randomize(?:\s+(.+))?$/.exec(src);
+              if (mr) {
+                const r = this.g && this.g.rng;
+                if (r && typeof r.randomize === 'function') {
+                  if (mr[1] !== undefined) {
+                    this.syncScope();
+                    const seed = ev(mr[1], S) | 0;
+                    this.pullScope();
+                    r.randomize(seed);
+                  } else {
+                    r.randomize(Date.now() >>> 0);   // randomize（无参）= 恢复时间种子
+                  }
+                }
+                this.pc++;
+                break;
+              }
+            }
             this.unsupported = this.unsupported || [];
             // ---- 0-Z34：背包遍历类 raw（交付道具的支线全靠它）----
             //   抽取器只把「var_99(n, cnt)」这种以 cnt 为下标的写法留在 raw 里，
@@ -1764,11 +1848,29 @@
         return;
       }
       try {
-        const it = DB.createItem(id, qty, this.g && this.g.rng);
+        let it = null;
+        // 谜之科学家的临时容器：itemcreate 前紧跟 flt，必须按 var_640/var_641
+        // 生成（品质过滤 `var_99(4) >= 4` 全靠这里），不能走固定表 createItem。
+        const inTemp = Array.isArray(this.tempInv) && this.vx(577) === 6;
+        if (inTemp && DB.create && (this.vx(640) || this.vx(641))) {
+          it = DB.create(this.g, {
+            itemId: id,
+            level: this.vx(640) || undefined,
+            fix: this.vx(641) || undefined,
+          });
+        }
+        if (!it) it = DB.createItem(id, qty, this.g && this.g.rng);
         if (!it) return;
         it.f[0] = qty;
+        this._scope.stat = 1;   // 224xxx：itemcreate 成功把 stat 置 1（378992 据此过滤品质）
         if (Elona.ItemDB && Elona.ItemDB.identify) { /* 保持未鉴定，与原版一致 */ }
-        if (this.g && this.g.giveItem) this.g.giveItem(it);
+        if (inTemp) {
+          this.tempInv.push(it);
+          // 378992-378995 紧跟 itemcreate 用 var_579 检查新物品品质；
+          // 这里让 `iset tgt:'sel'` 指向刚生成的临时物品（稍后选择窗会覆盖）。
+          this.setVx(579, this.tempInv.length - 1);
+          this.var579Item = it;
+        } else if (this.g && this.g.giveItem) this.g.giveItem(it);
         else if (this.player && Array.isArray(this.player.inv)) this.player.inv.push(it);
       } catch (e) { /* noop */ }
     }
@@ -1779,18 +1881,38 @@
       this.syncScope();
       const a = (d.a || []).map((x) => ev(x, this.S) | 0);
       this.pullScope();
-      try { DB.encadd(this.g, this.player, a[0], a[1], a[2], a[3]); } catch (e) { /* noop */ }
+      // 源码 #deffunc encadd(27825)：prm_549=物品槽, 550=附魔id, 551=威力,
+      // 552=p552(负威力概率), 553=prm553(25000 类放行), 554=保留, 555=noFilter。
+      // 此前误传 (g, player, ...) → 把 game 当物品写，附魔永远落不到背包物品上。
+      const inv = (this.player && this.player.inv) || [];
+      const it = inv[a[0] | 0];
+      if (!it || !it.f) return;
+      const opt = {
+        p552: a[3] | 0,
+        prm553: a[4] | 0,
+        noFilter: (a[6] | 0) !== 0,
+      };
+      try { DB.encadd(it, a[1], a[2], this.g, opt); } catch (e) { /* noop */ }
     }
 
     doItemFind(d) {
-      const DB = Elona.ItemDB;
-      if (!DB || !DB.find) return;
+      // 源码 29313-29370 `#defcfunc item_find`：mode 3 = 按物品 id，mode 4 = 同 id 且 f26>=3；
+      // prm_571 > 0 只搜背包（本表 40 处全是 range=1）。#defcfunc 的返回值写 stat。
       this.syncScope();
       const a = (d.a || []).map((x) => ev(x, this.S) | 0);
       this.pullScope();
-      let idx = -1;
-      try { idx = DB.find(this.player, a[0]) ; } catch (e) { idx = -1; }
-      this._VX[400] = idx | 0;         // var_400 常用来接 item_find 的结果
+      const id = a[0] | 0, mode = a[1] | 0;
+      const inv = (this.player && this.player.inv) || [];
+      let found = -1;
+      for (let i = 0; i < inv.length; i++) {
+        const it = inv[i];
+        if (!it || !it.f || (it.f[0] | 0) <= 0 || (it.f[3] | 0) !== id) continue;
+        if (mode === 4 && (it.f[26] | 0) < 3) continue;
+        found = i;
+        break;
+      }
+      this._scope.stat = found;
+      this._VX[400] = found;           // 兼容把结果写在 var_400 的调用点
     }
 
     finish() {
@@ -1810,6 +1932,8 @@
           this.setVx(761, 0);
         } else {
           this.setVx(579, v | 0);    // 选中物品槽号
+          this.var579Item = p.temp && Array.isArray(this.tempInv)
+            ? (this.tempInv[v | 0] || null) : null;
           this._scope.var138 = 1;    // 非 Esc 键（372 处 `var_138 == var_150` 判定）
           this.setStat(1);
         }
@@ -1833,6 +1957,7 @@
         if (p.kind === 'chara') {
           this.setStat(-1);          // 284573：`return -1`
         } else {
+          this.var579Item = null;
           this.setStat(0);
           this._scope.var138 = 0;
           this._scope.var150 = 0;    // 371658：var_138 == var_150 → 视为取消
@@ -1915,6 +2040,7 @@
       const s = new Session(g, npc, o);
       s.pc = pc;
       s.var506 = o.var506 | 0;
+      s._scope.var506 = s.var506;
       return s;
     },
 

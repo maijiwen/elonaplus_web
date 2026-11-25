@@ -163,6 +163,10 @@
    * 注意 340905 的可放置列表不含 699，球投出后即消失（网页 685 分支沿用「不消耗」的既有简化）。
    */
   function captureLittle(g, thrower, target) {
+    if (!target || typeof target.get !== 'function') {
+      return { ok: false, reason: 'nothing',
+        message: '何もおきない… / Nothing happens...' };
+    }
     const special = g.getV65 ? (g.getV65(250 + 306) | 0) : 0;
     if ((target.get(27) | 0) !== 319 || (target.index | 0) < 16
       || special === (target.index | 0)) {
@@ -174,18 +178,22 @@
       return { ok: false, reason: 'area',
         message: 'この場所では効果がない。 / This doesn\'t work in this area.' };
     }
-    // 589938-589962：get_freeally() 无空位 → 不收人，也不移除原角色
-    let pet = null;
-    if (Elona.Party && Elona.Party.addPet) {
-      pet = Elona.Party.addPet(g, 319, (target.get(38) | 0) || (target.level | 0), target.name);
+    // 341006-341009：var_581 = 死者 → gosub *label_4274 → chara_vanquish。
+    // label_4274（589937-590180）是 relocate_chara，**原个体**转同伴（不是捕获球
+    // 那种「造一只新宠物」），并清掉敌对/临时标记、把关系设为 100。
+    if (!Elona.Party || !Elona.Party.joinChara) {
+      return { ok: false, reason: 'no-party', message: '现在无法让它加入队伍。' };
     }
-    if (!pet || pet.ok === false) {
+    const joined = Elona.Party.joinChara(g, target);
+    if (!joined || joined.ok === false) {
       return { ok: false, reason: 'party-full',
         message: '仲間の最大数に達しているため、仲間にできなかった…。' };
     }
-    vanquish(g, target);
+    // joinChara 已实现 590131-590152 的 relocate + 字段归一化；
+    // 这里补 589996 的 god/machinegod 等特例之外的 cbit 清理（小妹妹不涉及）。
     return { ok: true, creatureId: 319, little: true,
-      level: (target.get(38) | 0) || (target.level | 0) };
+      level: (target.get(38) | 0) || (target.level | 0),
+      chara: target.index | 0, slot: joined.slot | 0 };
   }
 
   /** 在落点生成一件地面物品（341142 / 341314 的 itemcreate -1, 617, x, y, 0） */

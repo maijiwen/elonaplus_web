@@ -2089,6 +2089,159 @@
    }
   ]
  },
+ "5cave": {
+  "mapId": 77,
+  "npcs": [
+   {
+    "id": 652,
+    "x": 39,
+    "y": 7,
+    "role": 3,
+    "level": 0,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": false
+   },
+   {
+    "id": 651,
+    "x": 32,
+    "y": 3,
+    "role": 3,
+    "level": 0,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": true,
+    "when": [
+     {
+      "v": 520,
+      "op": "<=",
+      "n": 7
+     }
+    ],
+    "src": 244225
+   },
+   {
+    "id": 650,
+    "x": 8,
+    "y": 13,
+    "role": 3,
+    "level": 0,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": true,
+    "when": [
+     {
+      "v": 520,
+      "op": "<=",
+      "n": 7
+     }
+    ],
+    "src": 244230
+   },
+   {
+    "id": 647,
+    "x": -3,
+    "y": 0,
+    "role": 4,
+    "level": 0,
+    "sprite": 0,
+    "sex": -1,
+    "count": 9,
+    "cond": false
+   },
+   {
+    "id": 649,
+    "x": 17,
+    "y": 2,
+    "role": 1013,
+    "level": 21,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": false
+   },
+   {
+    "id": 649,
+    "x": 31,
+    "y": 21,
+    "role": 1013,
+    "level": 45,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": false
+   },
+   {
+    "id": 649,
+    "x": 42,
+    "y": 27,
+    "role": 1012,
+    "level": 41,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": false
+   },
+   {
+    "id": 649,
+    "x": 16,
+    "y": 27,
+    "role": 1002,
+    "level": 23,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": false
+   },
+   {
+    "id": 653,
+    "x": 11,
+    "y": 29,
+    "role": 5,
+    "level": 0,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": false
+   },
+   {
+    "id": 653,
+    "x": 10,
+    "y": 37,
+    "role": 8,
+    "level": 0,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": false
+   },
+   {
+    "id": 620,
+    "x": 3,
+    "y": 26,
+    "role": 1004,
+    "level": 21,
+    "sprite": 0,
+    "sex": -1,
+    "count": 1,
+    "cond": false
+   },
+   {
+    "id": 648,
+    "x": -3,
+    "y": 0,
+    "role": 0,
+    "level": 0,
+    "sprite": 0,
+    "sex": -1,
+    "count": 10,
+    "cond": false
+   }
+  ]
+ },
  "eirel": {
   "mapId": 50,
   "npcs": [

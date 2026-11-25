@@ -323,6 +323,7 @@
     c.set(177, 0);
     c.set(84, 0);
     c.set(80, 0);           // 清地图归属（项目字段）
+    c.set(58, 100);         // 590149：var_58(58) = 100
     const cb = Elona.Status && Elona.Status.cbitmod;
     if (cb) { try { cb(c, 970, 0); cb(c, 979, 0); } catch (e) { /* 特性系统未就绪 */ } }
     if (!(c.hp > 0)) c.hp = Math.max(1, c.hpMax | 0);
