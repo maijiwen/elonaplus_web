@@ -3414,7 +3414,7 @@
       }
       this.openChoiceList(`幾つ作る？（成功率 ${rate}%　${C.rateText(rate)}）`, opts,
         (sel) => { startBlend(sel < 0 ? 1 : sel); },
-        { title: `${C.data.recipes[String(recipeId)].jp || ''}` });
+        { title: C.recipeName(recipeId) });
     },
 
     // ======================================================================

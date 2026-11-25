@@ -295,12 +295,45 @@
     return { turns, hours, text };
   }
 
+  /**
+   * 280631：只有 `var_500(id) > 0` 的配方才会出现在「どのレシピを使う？」里。
+   *   var_500 的初值来自 *label_2644 —— `var_2161` 里登记的配方（recipes.json 的 cat=1，
+   *   本版是 200-272 共 73 条）全部置 1；没登记的（cat=0，本版是 1277/1282-1285/1333
+   *   这 6 条食谱专属配方）必须读 783 レシピ 才会 +1。
+   */
+  function isKnown(g, r) {
+    if (!r) return false;
+    if ((r.cat | 0) > 0) return true;
+    const kr = g && g.knownRecipes;
+    return !!(kr && (kr[r.id] | 0) > 0);
+  }
+
+  /**
+   * 配方名 —— rpname（29901-29909）：
+   *   var_718 有名字就用它；否则 `id >= 400` 时退回 `var_54(id - 400)`，
+   *   也就是**产物物品的名字**（6 条食谱专属配方没有 var_718，wiki 上的名字就是产物名）。
+   */
+  function recipeName(rid) {
+    // DATA 只在 load() 之后才有；读 783 可能发生在第一次开调合窗之前，
+    //   这时用 tableSync 同步取一次表（读不到就退回 #id）。
+    let tbl = DATA;
+    if (!tbl && Elona.Data && Elona.Data.tableSync) {
+      try { tbl = Elona.Data.tableSync('recipes'); } catch (e) { tbl = null; }
+    }
+    const r = tbl && tbl.recipes && tbl.recipes[String(rid)];
+    if (!r) return '?????';                       // rpname 的兜底（29903）
+    if (r.en || r.jp) return r.en || r.jp;
+    const pid = (r.products && (r.products[0] | 0)) || 0;
+    return (pid && Elona.ItemDB) ? Elona.ItemDB.name(pid) : String(rid);
+  }
+
   /** 配方列表（含当前可用性），供面板显示 */
   function list(g) {
     if (!DATA) return [];
     const out = [];
     for (const k in DATA.recipes) {
       const r = DATA.recipes[k];
+      if (!isKnown(g, r)) continue;                    // 280631
       const pick = pickMaterials(g, r);
       const rate = successRate(g, r, pick.picks);
       // 需求技能是否已习得（未习得时 rpdiff 直接 -125，成功率为 0）
@@ -308,7 +341,7 @@
       const lackSkills = (r.skills || []).filter((pair) => pair[0] && (g.player.skill(pair[0]) | 0) <= 0)
         .map((pair) => pair[0]);
       out.push({
-        id: r.id, name: r.en || r.jp, jp: r.jp,
+        id: r.id, name: recipeName(r.id), jp: r.jp,
         rate, rateText: rateText(rate),
         time: timeOf(r),                              // 0-CM：必要時間
         ok: pick.ok, missing: pick.missing, skillOk, lackSkills,
@@ -652,7 +685,7 @@
       }
     }
 
-    const name = r.en || r.jp;
+    const name = recipeName(r.id);
     if (success) {
       if (productPid === 10023) {
         g.log(`调合成功：${name} → 生体复原完成。`);   // 产物是怪物本体
@@ -716,6 +749,7 @@
     const o = opts || {};
     const r = DATA.recipes[String(recipeId)];
     if (!r) return { ok: false, message: '没有这个配方。' };
+    if (!isKnown(g, r)) return { ok: false, message: `你还没有学会「${recipeName(r.id)}」的配方。` };
     if ((g.player.get(140) | 0) !== 0) return { ok: false, message: '你正忙着别的事情。' };
     // A28：逐槽选料结果（{where,idx}[]）；未传则沿用自动挑料校验
     let pick;
@@ -751,8 +785,8 @@
     });
     if (!st.ok) return { ok: false, message: st.message || '现在不能调合。' };
     g.log(count > 1
-      ? `你开始调合 ${r.en || r.jp} ×${count}。（每件 ${tm.text}）`
-      : `你开始调合 ${r.en || r.jp}。（${tm.text}）`);
+      ? `你开始调合 ${recipeName(r.id)} ×${count}。（每件 ${tm.text}）`
+      : `你开始调合 ${recipeName(r.id)}。（${tm.text}）`);
     g.endTurn();
     return { ok: true, started: true, turns, hours: tm.hours, count, maxCount: maxN, recipeId };
   }
@@ -782,7 +816,7 @@
 
   Elona.Craft = {
     load, list, craft, begin, finish, successRate, rateText, timeOf, matMatches, matName, countMat,
-    pickMaterials, candidatesFor, resolvePicks, tagOf, maxCount,
+    pickMaterials, candidatesFor, resolvePicks, tagOf, maxCount, isKnown, recipeName,
     get data() { return DATA; },
     get tags() { return TAGS; },
     /** 已实现的产物分支 id（*label_2658 的 33 项 + 10000 系列见 craftprod） */

@@ -5278,6 +5278,11 @@
       const turns = idiv(diff, 2 + lit) + 1;
       const started = A.begin(this, 2, turns, { idx, id: eid, spellId, diff });
       if (!started.ok) { this.log(started.message || '现在不能读书。'); return started; }
+      // 313765：`item_separate var_579` —— 读的是「拆出来的那一份」，
+      //   读完 removeitem 1 才不会把整叠一起烧掉。
+      if (Elona.ItemDB && Elona.ItemDB.separate && (it.f[0] | 0) > 1) {
+        try { Elona.ItemDB.separate(p, idx); } catch (e) { /* 槽位异常时保持原样 */ }
+      }
       const verb = eid === 687 ? '解读' : (eid === 783 ? '研究' : '读');
       this.log(`你开始${verb}${Elona.ItemDB.name(eid)}。（约 ${turns} 回合）`);
       this.endTurn();
@@ -5447,10 +5452,17 @@
         }
         const rid = it.f[23] | 0;
         if (!this.knownRecipes) this.knownRecipes = {};
-        this.knownRecipes[rid] = 1;
-        consumeBookPage(it, true);
-        this.log(`你学会了配方 #${rid}！${bname}化作了尘土。`);
-        return { ok: true, recipe: rid, learned: true };
+        // 313832：`var_500(var_99(23, var_579))++` —— 是累加而不是置 1
+        this.knownRecipes[rid] = (this.knownRecipes[rid] | 0) + 1;
+        // 313833：item_identify 1（先鉴定，再销毁）
+        if (Elona.ItemDB && Elona.ItemDB.identify) Elona.ItemDB.identify(it, 1);
+        // 313834：removeitem 1 —— 只去掉正在读的这一份（前面已 item_separate）
+        if ((it.f[0] | 0) > 1) it.f[0] = (it.f[0] | 0) - 1;
+        else consumeBookPage(it, true);
+        const rname = (Elona.Craft && Elona.Craft.recipeName)
+          ? Elona.Craft.recipeName(rid) : ('#' + rid);
+        this.log(`你记住了「${rname}」的配方！${bname}化作了飞灰。`);
+        return { ok: true, recipe: rid, learned: true, recipeName: rname };
       }
 
       // 313828-313863：古書物 / 解読用石
