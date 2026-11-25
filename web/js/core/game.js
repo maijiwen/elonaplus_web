@@ -899,6 +899,33 @@
       if (!Elona.CharaFactory || !this.map) return 0;
       const id = mapId | 0;
       const list = [];
+      // 238611-238645：地图 21（アクリ・テオラ / cyberdome）固定 NPC 与终端物品
+      if (id === 21) {
+        list.push([173, 9, 16, { role: 1011, rank: 10 }]);
+        list.push([173, 9, 8, { role: 1011, rank: 10 }]);
+        list.push([322, 28, 7, { role: 3 }]);
+        if ((this.getV65(250 + 254) | 0) >= 1 && (this.getV65(250 + 2) | 0) < 200) {
+          list.push([526, 17, 21, { role: 3 }]);
+        }
+        for (let i = 0; i < 4; i++) {
+          list.push([171, -3, 0, { role: 4 }]);
+          list.push([172, -3, 0, { role: 4 }]);
+        }
+        // 238614-238617：itemcreate -1, 171, 19, 5, 0; f[25]=1, f[21]=1
+        if (Elona.ItemDB && Elona.ItemDB.createItem && Array.isArray(this.groundItems)) {
+          const has171 = this.groundItems.some((it) => it && (it.id | 0) === 171 && (it.f[5] | 0) === 19 && (it.f[6] | 0) === 5);
+          if (!has171) {
+            try {
+              const it = Elona.ItemDB.createItem(171, 1, this.rng);
+              if (it) {
+                it.f[5] = 19; it.f[6] = 5; it.f[25] = 1; it.f[21] = 1;
+                this.groundItems.push(it);
+                if (this.refreshGroundCell) this.refreshGroundCell(19, 5);
+              }
+            } catch (_) { /* noop */ }
+          }
+        }
+      }
       if (id === 25 && (this.getV65(250 + 273) | 0) === 1) list.push([605, 23, 4]);
       if (id === 79) {
         list.push([665, 20, 13]);
@@ -2313,8 +2340,10 @@
       // 0-FB：地城地图的 var_126(6) 就是 kind（20..27）——种族分布（236719）与
       //   挖墙掉落表（313183-313266）都按它分派，0-FA 之前一直是 0。
       header[6] = this.dungeonKind | 0;
-      // var_126(7) = var_132(11, mapId)：是否允许放地图采集点（228820）
-      header[7] = 1;
+      // var_126(7) = var_132(11, mapId)：是否允许放地图采集点与大爹地（237971）
+      header[7] = (Elona.Sites && Elona.Sites.field && this.dungeonSiteId)
+        ? (Elona.Sites.field(11, this.dungeonSiteId, this) | 0)
+        : 1;
 
       // 231014-231021：随机地城（var_126(7)==1）每层按 killed(810) 递减的概率
       //   生成ビッグダディ(318)；`var_1023 = limit(层数,30,300)` 固定其等级。
@@ -4633,6 +4662,12 @@
       if (mode === 14 && edible) {
         return this.eatFood(p, it);
       }
+      // 0-Z76 / 315269-315334 + 318499-318648：宝物地图(621，效果 1136)
+      //   阅读不消耗地图（只有被诅咒时 1/5 概率碎裂）；首次在世界地图阅读时
+      //   随机生成埋藏点 f[25]/f[26] 与所属大陆 f[27]，并弹出 7×5 局部世界地图窗。
+      if ((it.id | 0) === 621) {
+        return this.readTreasureMap(idx, opts);
+      }
       // 书物（54000）：*label_2947 —— 分回合阅读；魔法书读完加魔力库存，
       //   783 食谱学配方、687 古书解读成深淵魔力（0-FY 补齐）。
       if (cat === 54000) {
@@ -4660,6 +4695,122 @@
       // 使用是一次行动；效果若为 UI 请求（如鉴定卷轴 411）由表现层消费
       this.endTurn();
       return Object.assign({ ok: true }, r);
+    }
+
+    /**
+     * 0-Z76 / 315269-315334 + 318499-318648：阅读宝物地图(621，效果 1136)。
+     *   · 盲目(cbit 978) / 混乱(cbit 979, 3/4) 时无法阅读；不消耗地图。
+     *   · 必须在世界地图上阅读（47 海域 / 91 艾姆威尔拒绝）。
+     *   · 诅咒/堕落(f[17] <= -1) 时 1/5 概率碎裂并消耗 1 张。
+     *   · 首次阅读（f[25]==0 || f[27]==0）且堆叠 >1 时先 item_separate 拆出 1 张，
+     *     再随机找避开中枢区域 [50..73, 39..54] 且至少一个方向连续 3 格为非水非阻挡的坐标，
+     *     写入 f[25]=x、f[26]=y、f[27]=大陆编号（1=北提里斯4 / 2=南提里斯44 / 3=失落伊尔瓦70）。
+     *   · 校验 f[27] 与当前世界匹配后播放 snd 59，返回 { action: 'treasure-map' } 由 UI 弹窗。
+     */
+    readTreasureMap(idx, opts) {
+      const p = this.player;
+      let it = p && p.inv && p.inv[idx];
+      if (!it || (it.f[0] | 0) <= 0) return { ok: false, reason: 'no-item' };
+      const C = Elona.Status && Elona.Status.cbit;
+      if (C && C(p, 978)) {
+        this.log('你什么也看不见。');
+        return { ok: false, reason: 'blind' };
+      }
+      if (C && C(p, 979) && this.rng.rnd(4) !== 0) {
+        this.log('你摇摇晃晃的，无法集中精神阅读。');
+        return { ok: false, reason: 'confused' };
+      }
+      const onWorld = !!this.worldMap || (this.map && this.map.header && (this.map.header[6] | 0) === 1);
+      if (!onWorld) {
+        this.log('需要在世界地图上阅读。');
+        return { ok: false, reason: 'not-world' };
+      }
+      const wid = (this.getV65(850) | 0) || 4;
+      if (wid === 47) {
+        this.log('这不是航海图。');
+        return { ok: false, reason: 'sea-map' };
+      }
+      if (wid === 91) {
+        this.log('这不是艾姆威尔的地图。');
+        return { ok: false, reason: 'ether-map' };
+      }
+      if ((it.f[17] | 0) <= -1 && this.rng.rnd(5) === 0) {
+        it.f[0] = (it.f[0] | 0) - 1;
+        if ((it.f[0] | 0) <= 0) p.inv[idx] = null;
+        this.log('被诅咒的地图一碰就碎掉了。');
+        return { ok: false, reason: 'cursed-crumble', crumbled: true };
+      }
+
+      if ((it.f[25] | 0) === 0 || (it.f[27] | 0) === 0) {
+        if ((it.f[0] | 0) > 1 && !(opts && opts.onGround) && Elona.ItemDB && Elona.ItemDB.separate) {
+          idx = Elona.ItemDB.separate(p, idx);
+          it = p.inv[idx];
+        }
+        const WM = Elona.WorldMap;
+        const W = (WM && WM.width) ? (WM.width | 0) : 95;
+        const H = (WM && WM.height) ? (WM.height | 0) : 55;
+        const ts = (WM && WM.tileset !== undefined) ? (WM.tileset | 0) : 0;
+        const attrs = (this.tileAttrs && this.tileAttrs[String(ts)]) || {};
+        const hasCells = !!(WM && WM.cells && typeof WM.tileAt === 'function');
+        const D4 = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+        let tx = 4, ty = 3;
+        for (let tries = 0; tries < 1000; tries++) {
+          const cx = 4 + this.rng.rnd(Math.max(1, W - 8));
+          const cy = 3 + this.rng.rnd(Math.max(1, H - 6));
+          if (cx >= 50 && cy >= 39 && cx <= 73 && cy <= 54) continue;
+          let good = false;
+          if (!hasCells) {
+            good = true;
+          } else {
+            for (const [dx, dy] of D4) {
+              let dirOk = true;
+              for (let k = 0; k < 3; k++) {
+                const tid = WM.tileAt(cx + dx * k, cy + dy * k) | 0;
+                const a7 = (attrs[String(tid)] && attrs[String(tid)][7]) | 0;
+                if ((tid >= 264 && tid < 363) || (a7 & 4) !== 0) {
+                  dirOk = false;
+                  break;
+                }
+              }
+              if (dirOk) { good = true; break; }
+            }
+          }
+          tx = cx; ty = cy;
+          if (good) break;
+        }
+        it.f[25] = tx;
+        it.f[26] = ty;
+        // 318565-318575：只有 4 / 44 / 70 三个大陆会写 f[27]=1/2/3，其余保持 0
+        if (wid === 4) it.f[27] = 1;
+        else if (wid === 44) it.f[27] = 2;
+        else if (wid === 70) it.f[27] = 3;
+      }
+
+      const f27 = it.f[27] | 0;
+      if (f27 === 1 && wid !== 4) {
+        this.log('这是北提里斯的地图。请在北提里斯阅读。');
+        return { ok: false, reason: 'wrong-world', needWorld: 4 };
+      }
+      if (f27 === 2 && wid !== 44) {
+        this.log('这是南提里斯的地图。请在南提里斯阅读。');
+        return { ok: false, reason: 'wrong-world', needWorld: 44 };
+      }
+      if (f27 === 3 && wid !== 70) {
+        this.log('这是失落伊尔瓦的地图。请在失落伊尔瓦阅读。');
+        return { ok: false, reason: 'wrong-world', needWorld: 70 };
+      }
+
+      this.log('这张地图似乎标记了某个地方……');
+      if (this.playSnd) this.playSnd(59);
+      return {
+        ok: true,
+        action: 'treasure-map',
+        item: it,
+        x: it.f[25] | 0,
+        y: it.f[26] | 0,
+        world: wid,
+        f27,
+      };
     }
 
     /**
@@ -6438,11 +6589,20 @@
       let pickedWeight = 0;
       let blocked = false;
       let harvest = false;          // 0-FZ：本轮转入了 103 采摘
+      const onWorld = !!(this.worldMap && typeof this.worldMap === 'object');
+      const wid = onWorld ? ((this.getV65 ? (this.getV65(850) | 0) : 0) || 4) : 0;
+      const cx = onWorld ? (this.worldMap.x | 0) : (c.x | 0);
+      const cy = onWorld ? (this.worldMap.y | 0) : (c.y | 0);
       const rest = [];
       for (const it of this.groundItems) {
         if (!it || it.f[0] <= 0) continue;
         if (only && it !== only) { rest.push(it); continue; }
-        if (it.f[5] !== c.x || it.f[6] !== c.y) { rest.push(it); continue; }
+        if (onWorld) {
+          if ((it._worldId | 0) !== wid) { rest.push(it); continue; }
+        } else if (it._worldId) {
+          rest.push(it); continue;
+        }
+        if ((it.f[5] | 0) !== cx || (it.f[6] | 0) !== cy) { rest.push(it); continue; }
         // 0-CI：城镇预设物品（有主）不能白拿 → 留给 stealAt 处理
         if (this.isOwnedItem(it)) { rest.push(it); continue; }
         // 341874-341935：金币（54）/白金币（55）**不进背包**，直接累加到
@@ -6533,6 +6693,7 @@
           if (Elona.ItemDB) Elona.ItemDB.stack(c, slot);
         }
         it.f[21] = 0;                      // 所有者 = 玩家/角色
+        delete it._worldId;
         // 0-BY：唯一物品重复 → 化为星尘（convertartifact 222003-222063）
         if (Elona.ItemDB && Elona.ItemDB.convertArtifact) {
           const slotIdx = c.inv.indexOf(it);

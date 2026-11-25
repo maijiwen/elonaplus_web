@@ -3363,6 +3363,7 @@
         if (m && m !== 208) slots.push(i);
       }
       const picks = [];
+      const chosen = [];
       const used = new Set();
       // 逐槽收集（串行，每槽一个选择窗）
       const pickSlot = (slot) => new Promise((resolve) => {
@@ -3382,6 +3383,7 @@
           const cand = cands[sel];
           used.add(cand.item);
           picks.push({ where: cand.where, idx: cand.idx });
+          chosen.push(cand.item);
           resolve({ where: cand.where, idx: cand.idx });
         }, { title: `调合材料 ${picks.length + 1}/${slots.length}` });
       });
@@ -3389,14 +3391,30 @@
         const got = await pickSlot(slot);
         if (!got) return;   // 取消 / 材料不足 → 中止
       }
-      // 0-FY：*label_2659 —— 选中全部材料后才开始调合，等 rowact 12 结算
-      const res = await C.begin(g, recipeId, { picks });
-      if (res && res.started) {
-        Elona.UI.pushMessage(`开始调合（约 ${res.turns} 回合，移动会中断）。`);
-        this.close();
-      } else {
-        Elona.UI.pushMessage(res ? res.message : '无法调合。');
+      // 280571-280596：全部材料选定后问「幾つ作る？」——
+      //   上限 = 材料最小堆叠（催化剂配方跳过第 0 槽），最多 10，默认 1。
+      const startBlend = async (count) => {
+        // 0-FY：*label_2659 —— 选中全部材料后才开始调合，等 rowact 12 结算
+        const res = await C.begin(g, recipeId, { picks, count });
+        if (res && res.started) {
+          Elona.UI.pushMessage(res.count > 1
+            ? `开始调合 ×${res.count}（约 ${res.turns} 回合，移动会中断）。`
+            : `开始调合（约 ${res.turns} 回合，移动会中断）。`);
+          this.close();
+        } else {
+          Elona.UI.pushMessage(res ? res.message : '无法调合。');
+        }
+      };
+      const maxN = C.maxCount(g, recipe, chosen.map((it) => ({ item: it })));
+      if (maxN <= 1) { await startBlend(1); return; }
+      const rate = C.successRate(g, recipe, chosen.map((it) => ({ item: it })));
+      const opts = [];
+      for (let n = 1; n <= maxN; n++) {
+        opts.push({ text: `${n} 个　（${C.timeOf(recipe).text} × ${n}）`, value: n });
       }
+      this.openChoiceList(`幾つ作る？（成功率 ${rate}%　${C.rateText(rate)}）`, opts,
+        (sel) => { startBlend(sel < 0 ? 1 : sel); },
+        { title: `${C.data.recipes[String(recipeId)].jp || ''}` });
     },
 
     // ======================================================================
@@ -3576,8 +3594,98 @@
     },
 
     // ======================================================================
-    // 0-FS：房屋告示板（ハウスボード 611）—— 233240-233300
+    // 0-Z76：宝物地图（621，效果 1136）—— 318499-318648
     // ======================================================================
+    /**
+     * 源码在 txt_select「何かの場所を記した地図のようだ…」之后直接画窗口：
+     *   400×300 的 paper.bmp 左半页作底（`gcopy 4, 0, 0, 400, 300`），
+     *   再以 (f[25], f[26]) 为中心画 7 列 × 5 行的世界地图局部（格 48px，
+     *   起点 46,26，`var_704` 取图块），中心用红色 40px 的「○」标记，
+     *   最后把右半页（`gcopy 4, 400, 0`）半透明叠上来做纸张质感，press 关闭。
+     */
+    openTreasureMap(g, res) {
+      const cx = (res && res.x) | 0;
+      const cy = (res && res.y) | 0;
+      this.rows = [];
+      const html = '<div style="display:flex;justify-content:center">'
+        + '<canvas id="pui-tmap" width="400" height="300" '
+        + 'style="image-rendering:pixelated;border:1px solid #6b5a3a"></canvas></div>'
+        + `<div class="pui-note">地图上标记的地点在 (${cx}, ${cy})。`
+        + '走到那里按 D 挖掘。</div>';
+      this.open('treasure-map', '宝の地図 / 宝物地图', html, { hint: 'Esc 关闭' });
+      this.drawTreasureMap(g, cx, cy);
+    },
+
+    /** 画纸面 + 7×5 局部世界地图（图片异步就绪后会自动重画） */
+    drawTreasureMap(g, cx, cy) {
+      const cv = this.root ? this.root.querySelector('#pui-tmap') : null;
+      if (!cv) return;
+      const c2 = cv.getContext('2d');
+      if (!c2) return;
+      // 纸：paper.bmp 是 800×300 的双页图（0..399 左页 / 400..799 右页）
+      if (this._paper === undefined) {
+        this._paper = null;
+        const im = new Image();
+        im.onload = () => { this._paper = im; this.drawTreasureMap(g, cx, cy); };
+        im.onerror = () => { this._paper = null; };
+        im.src = 'assets/graphic/paper.bmp';
+      }
+      const WM = Elona.WorldMap;
+      const T = 48, X0 = 46, Y0 = 26, COLS = 7, ROWS = 5;
+      c2.setTransform(1, 0, 0, 1, 0, 0);
+      c2.globalAlpha = 1;
+      c2.fillStyle = '#1a1408';
+      c2.fillRect(0, 0, 400, 300);
+      const paper = this._paper;
+      if (paper) c2.drawImage(paper, 0, 0, 400, 300, 0, 0, 400, 300);
+      else { c2.fillStyle = '#ceba8c'; c2.fillRect(0, 0, 400, 300); }
+
+      const R = Elona.renderer;
+      const ts = ((WM && WM.tileset) | 0) || 0;
+      let sheet = (R && R.sheets) ? R.sheets[ts] : null;
+      if (sheet) this._tmTry = 0;
+      else if (R && R.loadSheet && (this._tmTry | 0) < 2) {
+        this._tmTry = (this._tmTry | 0) + 1;
+        try {
+          Promise.resolve(R.loadSheet(ts)).then(() => this.drawTreasureMap(g, cx, cy)).catch(() => { });
+        } catch (_) { /* 图未就绪时先只画纸与标记 */ }
+      }
+      if (sheet) c2.imageSmoothingEnabled = false;
+      for (let row = 0; row < ROWS; row++) {
+        for (let col = 0; col < COLS; col++) {
+          const wx = cx + col - 3;
+          const wy = cy + row - 2;
+          const dx = X0 + col * T;
+          const dy = Y0 + row * T;
+          let tile = 264;                       // 越界按海洋画（var_704 的默认值同源）
+          if (WM && WM.cells && wx >= 0 && wy >= 0 && wx < WM.width && wy < WM.height) {
+            tile = WM.cells[wy][wx][0] | 0;
+          }
+          if (sheet) {
+            const sx = (tile % 33) * 48;
+            const sy = Math.floor(tile / 33) * 48;
+            try { c2.drawImage(sheet, sx, sy, 48, 48, dx, dy, T, T); } catch (_) { /* noop */ }
+          } else {
+            c2.fillStyle = '#3a5a3a';
+            c2.fillRect(dx, dy, T, T);
+          }
+        }
+      }
+      // 318630-318640：中心的红色「○」（font 40 - var_205*2 ≈ 40px）
+      c2.font = 'bold 40px "MS Gothic", monospace';
+      c2.textAlign = 'center';
+      c2.textBaseline = 'middle';
+      c2.fillStyle = '#ff1414';
+      c2.fillText('○', X0 + 3 * T + T / 2, Y0 + 2 * T + T / 2);
+      // 318643-318646：`gmode 2` 把右半页半透明叠回去，模拟"印在纸上"的质感
+      if (paper) {
+        c2.globalAlpha = 0.26;
+        try { c2.drawImage(paper, 400, 0, 400, 300, 0, 0, 400, 300); } catch (_) { /* noop */ }
+        c2.globalAlpha = 1;
+      }
+    },
+
+
     /**
      * 菜单本体（233269-233300）。每行对应源码的一个 var_1302：
      *   0 家の模様替え / 2 家の情報 / 3 滞在者の移動 / 4 仲間の滞在 /

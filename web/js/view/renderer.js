@@ -2412,6 +2412,26 @@
           ctx.fillText('你', px, py - 7);
         }
       }
+      // 0-Z76：挖宝掉落物（313055-313092）—— 原版世界地图不画物品图标，
+      //   但网页版需要提示"脚下有东西可以拾取"：脚下格有本世界物品时画金色小点，
+      //   配合日志「有什么东西滚到了脚下」。
+      {
+        const px0 = w.x | 0, py0 = w.y | 0;
+        const here = (game.groundItems || []).filter((it) => it && (it.f[0] | 0) > 0
+          && (it._worldId | 0) === wid && (it.f[5] | 0) === px0 && (it.f[6] | 0) === py0);
+        const hvx = px0 - startX, hvy = py0 - startY;
+        if (here.length && hvx >= 0 && hvy >= 0 && hvx < this.viewW && hvy < this.viewH) {
+          const gx = hvx * TILE + TILE - 11;
+          const gy = hvy * TILE + 11;
+          ctx.beginPath();
+          ctx.arc(gx, gy, 6, 0, Math.PI * 2);
+          ctx.fillStyle = '#ffd23f';
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = '#4a3000';
+          ctx.stroke();
+        }
+      }
       // 城镇标记（世界坐标与地图格一一对应）
       const towns = (Elona.Towns && Elona.Towns.LIST) || [];
       const townName = (t) => ((Elona.Towns && Elona.Towns.labelOf) ? Elona.Towns.labelOf(t) : t.label);

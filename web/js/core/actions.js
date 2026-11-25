@@ -430,13 +430,17 @@
       if (this.busy(g)) return { ok: false };
       const p = g.player;
       const d = DIRS[dir || 8] || [0, -1];
+      // 世界地图上未传方向时直接挖脚下；否则按指定方向（5=脚下）
+      if (this.onWorldMap(g) && (!dir || dir === 5)) return this.digGround(g);
+      const px = (g.worldMap && typeof g.worldMap === 'object') ? (g.worldMap.x | 0) : (p.x | 0);
+      const py = (g.worldMap && typeof g.worldMap === 'object') ? (g.worldMap.y | 0) : (p.y | 0);
       // 未指定方向时用面朝方向
       const dx = dir ? d[0] : this.frontCell(g).dx;
       const dy = dir ? d[1] : this.frontCell(g).dy;
-      const tx = p.x + dx, ty = p.y + dy;
+      const tx = px + dx, ty = py + dy;
       // 288709-288714：目标格是**自己脚下** → 立即执行 *label_2942（不进入 rowact）：
       //   世界地图 → 埋藏物 621 判定；其它地图 → 脚下没有 feat 时挖出落とし穴。
-      if (tx === (p.x | 0) && ty === (p.y | 0)) return this.digGround(g);
+      if (tx === px && ty === py) return this.digGround(g);
       if (this.onWorldMap(g)) { g.log('在世界地图上无法挖掘。'); return { ok: false }; }   // 288716 的 var_126(6)==1
       if (!g.map.inBounds(tx, ty)) { g.log('那里挖不到。'); return { ok: false } }
       const cell = g.map.cell(tx, ty);
@@ -462,19 +466,28 @@
       const p = g.player;
       const M = Elona.MapFeat;
       if (this.onWorldMap(g)) {
+        const px = (g.worldMap && typeof g.worldMap === 'object') ? (g.worldMap.x | 0) : (p.x | 0);
+        const py = (g.worldMap && typeof g.worldMap === 'object') ? (g.worldMap.y | 0) : (p.y | 0);
         g.log('你挖完了地面。');                                   // 313042
         for (const it of (p.inv || [])) {
           if (!it || (it.f[0] | 0) <= 0 || (it.f[3] | 0) !== 621) continue;
-          if ((it.f[25] | 0) !== (p.x | 0) || (it.f[26] | 0) !== (p.y | 0)) continue;
+          // 313050-313053：源码只判 `var_99(25) != 0` 并与玩家世界坐标比对，
+          //   **不校验 f[27] 的大陆编号**（f27 只在读图 318540-318575 时做世界校验）。
+          if ((it.f[25] | 0) === 0) continue;                      // 313051：未阅读/无坐标的地图不能挖
+          if ((it.f[25] | 0) !== px || (it.f[26] | 0) !== py) continue;
           g.setV65(283, (g.getV65(283) | 0) + 1);                  // 313054 var_65(250+33)
+          if (g.playSnd) g.playSnd(23);
           g.log(' *ガチッ* ……有什么东西！');                          // 313060
-          this.spawnDigLoot(g, p);
+          if (g.playSnd) g.playSnd(24);
+          this.spawnDigLoot(g, p, px, py);
           it.f[0] = (it.f[0] | 0) - 1;                              // 313090
           if ((it.f[0] | 0) <= 0) p.inv[p.inv.indexOf(it)] = null;
-          g.endTurn();
-          return { ok: true, relic: true };
+          if (g.worldMap && typeof g.advanceClock === 'function') g.advanceClock();
+          else g.endTurn();
+          return { ok: true, relic: true, x: px, y: py };
         }
-        g.endTurn();
+        if (g.worldMap && typeof g.advanceClock === 'function') g.advanceClock();
+        else g.endTurn();
         return { ok: true, relic: false };
       }
       if (M && g.map && g.map.inBounds(p.x, p.y)) {
@@ -1085,6 +1098,8 @@
         p.set(446, (p.get(446) | 0) - idiv(1500, 2));
       }
       g.log(`睡了 ${hours} 小时。你感到神清气爽。`);
+      // 311990-312000：`var_65(250+427)` 累计睡眠次数，满 3 次 → 命运信标完成度 +1
+      if (Elona.Daily && Elona.Daily.onSleep) Elona.Daily.onSleep(g);
       // 311991-312026：床的品質 → 睡眠点数（var_65(92)）
       const bed = (p && bedIdx !== undefined && bedIdx !== null && bedIdx >= 0) ? p.inv[bedIdx] : null;
       const quality = bed ? (bed.f[25] | 0) : 0;
@@ -1196,37 +1211,49 @@
 
     /**
      * 313055-313092：埋藏物挖出后的收获 —— 622 小徽章 2+rnd(3) 枚、55 ×(1+rnd(3))、
-     *   54 金币 rnd(10000)+2000、1/100 概率 290；再按玩家等级 +10 的生成等级
-     *   掷 4 件随机物品（var_1513 类别表 → `ItemDB.create`）。
+     *   54 金币 rnd(10000)+2000、1/100 概率 290；再按 calcobjlv(玩家等级+10)、
+     *   calcfixlv(3)（第 1 件强制定 var_641=5 奇迹品质）且 var_678=2 掷 4 件随机物品
+     *   （var_1513 类别表 → `ItemDB.create`）。
      */
-    spawnDigLoot(g, p) {
+    spawnDigLoot(g, p, wx, wy) {
+      const lx = wx !== undefined ? (wx | 0) : (p.x | 0);
+      const ly = wy !== undefined ? (wy | 0) : (p.y | 0);
+      const onWorld = !!(g.worldMap && typeof g.worldMap === 'object');
+      const wid = onWorld ? ((g.getV65 ? (g.getV65(850) | 0) : 0) || 4) : 0;
+      const place = (it) => {
+        if (!it) return null;
+        it.f[5] = lx; it.f[6] = ly; it.f[21] = -1;
+        if (onWorld) it._worldId = wid;
+        if (g.groundItems) {
+          g.groundItems.push(it);
+          if (!onWorld && g.refreshGroundCell) g.refreshGroundCell(lx, ly);
+        }
+        return it;
+      };
       const drop = (id, count) => {
         try {
-          const it = Elona.ItemDB.createItem(id, count | 0);
-          if (it) {
-            it.f[5] = p.x; it.f[6] = p.y; it.f[21] = -1;
-            if (g.groundItems) {
-              g.groundItems.push(it);
-              if (g.refreshGroundCell) g.refreshGroundCell(p.x, p.y);
-            }
-          }
-          return it;
+          return place(Elona.ItemDB.createItem(id, count | 0, g.rng));
         } catch (e) { return null; }
       };
       drop(622, 2 + g.rng.rnd(3));
       drop(55, 1 + g.rng.rnd(3));
       drop(54, g.rng.rnd(10000) + 2000);
       if (g.rng.rnd(100) === 0) drop(290, 1);
+      // 222063：var_1513 随机装备/道具大类表（313080）
+      const CATS_1513 = [10000, 24000, 12000, 16000, 20000, 19000, 18000, 22000, 14000, 32000, 34000, 54000, 59000];
       for (let k = 0; k < 4; k++) {
         try {
-          const it = Elona.ItemDB.create(g, { level: (p.get(38) | 0) + 10, fix: 3 });
-          if (it) {
-            it.f[5] = p.x; it.f[6] = p.y; it.f[21] = -1;
-            if (g.groundItems) {
-              g.groundItems.push(it);
-              if (g.refreshGroundCell) g.refreshGroundCell(p.x, p.y);
-            }
-          }
+          const baseLv = (p.get(38) | 0) + 10;
+          const level = Elona.ItemDB.calcObjLv ? Elona.ItemDB.calcObjLv(baseLv, g) : baseLv;
+          // 313078-313082：`flt calcobjlv(...), calcfixlv(3)` 每件都掷一次品质，
+          //   随后 cnt==0 才把 var_641 覆盖成 5（奇迹）
+          let fix = Elona.ItemDB.calcFixLv ? Elona.ItemDB.calcFixLv(3, g) : 3;
+          if (k === 0) fix = 5;
+          const t638 = CATS_1513[g.rng.rnd(CATS_1513.length)];
+          // 313074 的 `var_678 = 2` 在第一次 itemcreate 内部就被清零（28225），
+          //   所以只有第 1 件享受「保底 12 条随机附魔」。
+          const it = Elona.ItemDB.create(g, { level, fix, t638, var678: k === 0 ? 2 : 0 });
+          place(it);
         } catch (e) { /* 生成失败不阻断 */ }
       }
       g.log('有什么东西滚到了脚下。');                              // 313087
@@ -1411,8 +1438,16 @@
      */
     get(g) {
       const p = g.player;
-      const here = ((g.groundItems || [])).filter((it) => it && (it.f[0] | 0) > 0
-        && (it.f[5] | 0) === (p.x | 0) && (it.f[6] | 0) === (p.y | 0));
+      const onWorld = !!(g.worldMap && typeof g.worldMap === 'object');
+      const wid = onWorld ? ((g.getV65 ? (g.getV65(850) | 0) : 0) || 4) : 0;
+      const cx = onWorld ? (g.worldMap.x | 0) : (p.x | 0);
+      const cy = onWorld ? (g.worldMap.y | 0) : (p.y | 0);
+      const here = ((g.groundItems || [])).filter((it) => {
+        if (!it || (it.f[0] | 0) <= 0) return false;
+        if (onWorld) { if ((it._worldId | 0) !== wid) return false; }
+        else if (it._worldId) return false;
+        return (it.f[5] | 0) === cx && (it.f[6] | 0) === cy;
+      });
       // 0-Z36 / 296010-296020：格子上有**多件**物品时，源码先
       //   `var_486 = 3; snd 100; goto *label_2824` —— 打开「どのアイテムを拾う？」物品窗，
       //   玩家选中一件才走 *label_2978 拿走。此前本项目直接 pickupAt 全拿。

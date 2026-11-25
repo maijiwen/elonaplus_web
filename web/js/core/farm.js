@@ -565,7 +565,9 @@
           it.genLevel = idiv(skill + 1, 2) + 15;                    // 365095 flt
         } else {
           // 产物 id 为 0 → 按类别随机（原版 itemcreate 用 var_639 / var_638 类别）
-          it = Elona.ItemDB.create(g, { t639: category, level: idiv(skill + 1, 2) + 15, fix: 2 });
+          it = Elona.ItemDB.create(g, {
+            t639: category, level: idiv(skill + 1, 2) + 15, fix: 2, container: 0,
+          });
         }
       } catch (e) { it = null; }
 

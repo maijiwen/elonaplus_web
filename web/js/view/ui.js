@@ -327,9 +327,17 @@
         // 源码 296247-296260 的过滤是 `var_99(5/6) == var_58(1/2, var_243)`，
         // 不区分有主/无主 —— 有主的在选中后才由 *label_2819 提示「那不是你的东西」。
         const pp = game.player;
+        // 0-Z76：世界地图上玩家坐标在 worldMap 里（player.x/y 是地图内坐标），
+        //   否则挖宝掉在脚下的物品在拾取列表里看不到。
+        const gW = !!(game.worldMap && typeof game.worldMap === 'object');
+        const gWid = gW ? (((game.getV65 ? game.getV65(850) : 0) | 0) || 4) : 0;
+        const gpx = gW ? (game.worldMap.x | 0) : (pp.x | 0);
+        const gpy = gW ? (game.worldMap.y | 0) : (pp.y | 0);
         for (const it of (game.groundItems || [])) {
           if (!it || (it.f[0] | 0) <= 0) continue;
-          if ((it.f[5] | 0) !== (pp.x | 0) || (it.f[6] | 0) !== (pp.y | 0)) continue;
+          if (gW) { if ((it._worldId | 0) !== gWid) continue; }
+          else if (it._worldId) continue;
+          if ((it.f[5] | 0) !== gpx || (it.f[6] | 0) !== gpy) continue;
           rows.push(it);
         }
       } else if (this.invMode === 'equip') {
@@ -370,7 +378,9 @@
         };
         for (const it of (game.groundItems || [])) {
           if (!it || (it.f[0] | 0) <= 0) continue;
-          if ((it.f[5] | 0) !== (pp.x | 0) || (it.f[6] | 0) !== (pp.y | 0)) continue;
+          if (gW) { if ((it._worldId | 0) !== gWid) continue; }
+          else if (it._worldId) continue;
+          if ((it.f[5] | 0) !== gpx || (it.f[6] | 0) !== gpy) continue;
           if (!useFilter(it)) continue;
           it._onGround = true;
           rows.push(it);
@@ -495,6 +505,9 @@
     /** 执行选中行（对应原版 cs_list 的确定动作） */
     activateInventoryRow(game, row) {
       if (!row) return;
+      // 0-Z76：本函数里多处要用面板层（活武器升级 / 宝物地图 …），
+      //   此前直接引用 `P` 而没有声明，运行时会是 ReferenceError。
+      const P = Elona.Panels;
       // 0-Z50：通用物品选择器复用 X 列表外观，回车只把行交回调用方
       if (this.invMode === 'picker') { this.finishItemPicker(game, row); return; }
       // 0-Z36：拾取列表（var_486 == 3）—— 只拿选中的这一件，然后回主循环
@@ -611,6 +624,12 @@
             const chosen = opts[i];
             game.chooseLivingUpgrade(chosen ? chosen.value : -1);
           });
+          return;
+        }
+        // 0-Z76：宝物地图（621）阅读成功 → 纸上 7×5 局部世界地图（318499-318648）
+        if (r && r.action === 'treasure-map' && P) {
+          this.closeInventory();
+          P.openTreasureMap(game, r);
           return;
         }
         // 0-EP：效果本体在做完前置判断后，可能要一次 UI（输入 / 确认 / 选部位 / 选元素 / 选镜子）
@@ -2165,7 +2184,7 @@
       const list = this.npcActions || [];
       const i = this.npcSel | 0;
       if (i === list.length && this.npcCloseRow) {          // 「再见」/ 二级菜单「取消」
-        const isPick = !!(this.npcDialog && this.npcDialog.pick);
+        const isPick = !!(this.npcDialog && this.npcDialog.pick && this.npcPick);
         if (isPick) { this.npcPick = null; this.npcDialog = null; this.renderNPC(this.npcGame); }
         else if (this.npcDialog) this.cancelTalk(this.npcGame);
         else this.closeNPC();
@@ -2212,7 +2231,7 @@
         close.innerHTML = `<span class="npc-key">${key}</span><span class="npc-label"></span>`;
         close.querySelector('.npc-label').textContent = isPick ? '取消' : '再见';
         close.onclick = () => {
-          if (isPick) { this.npcPick = null; this.npcDialog = null; this.renderNPC(game); }
+          if (isPick && this.npcPick) { this.npcPick = null; this.npcDialog = null; this.renderNPC(game); }
           else this.cancelTalk(game);
         };
         wrap.appendChild(close);

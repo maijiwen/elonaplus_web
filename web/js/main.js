@@ -486,6 +486,10 @@
       case 'search': Act.search(game); return true;
       // 0-EO：原版「どの方向を掘る？」（*label_2736 → *label_2893）
       case 'dig':
+        // 0-Z76：世界地图上方向光标默认停在自己脚下（288696-288714 的 var_428=0），
+        //   回车即 `*label_2942` 挖脚下；选到邻格反而提示「それは無理だ」。
+        //   网页版没有方向光标，这里直接按「挖脚下」处理。
+        if (game.worldMap) { Act.dig(game, 5); return true; }
         if (Elona.DirSel) { Elona.DirSel.startCmd(game, '挖掘', (gg, dx, dy) => Act.dig(gg, Elona.DirSel.keyOf(dx, dy))); UI.pushMessage('挖哪个方向？（方向键 / 小键盘 1-9，Esc 取消）'); return true; }
         Act.dig(game, 0); return true;
       // 0-EO：原版「どの方向に体当たりする？」（*label_2737）
@@ -850,8 +854,11 @@
       }
       // 0-FF：世界地图上仍要能打开背包(x/X)与阅读窗(r) —— 产权书正是
       //   「站在世界地图的空格上按 r 读」（232703 的「只能在世界地图使用」）。
+      // 0-Z76：宝物地图挖宝 —— 原版在世界地图上按 key_dig(D) 挖脚下（*label_2736），
+      //   挖出的物品按 key_get(g) 拾取。这两个键必须放行到动作分派。
       //   其余按键照旧吞掉，避免误触地图上的其它动作。
       if (!(e.key === 'x' || e.key === 'X' || e.key === 'r' || e.key === 'R'
+        || e.key === 'D' || e.key === 'g' || e.key === 'G'
         || e.key === 'Escape')) return;
     }
 

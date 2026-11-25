@@ -296,6 +296,9 @@
       // 245601-245609：map_init 在 var_65(20)==67 时 map_initcustom "Doujyou"。
       // world_sites 的 mapFile 表没有 67 的条目（会退回 site.mapFile='vernis'），这里补上。
       if ((mapId | 0) === 67) return 'doujyou';
+      // 238611-238612：地图 21（アクリ・テオラ / Cyber Dome）在 map_init 里显式
+      //   `map_initcustom "cyberdome"`；world_sites 的 mapFile 表没有 21，会退回 vernis。
+      if ((mapId | 0) === 21) return 'cyberdome';
       // 238647-238648：拉娜（地图 25，type 25）在 map_init 里显式
       //   `map_initcustom "highmountain"`；mapfile(25) 没有分支会退回 vernis。
       if ((mapId | 0) === 25) return 'highmountain';

@@ -37,6 +37,8 @@
 
   const SLOT_GROUP = 670;
   const SLOT_EXP0 = 671;     // 671..675
+  const SLOT_KILL = 676;     // 250+426：深层首杀（dungeonfx.js 609461 写入）
+  const SLOT_SLEEP = 677;    // 250+427：睡眠次数，满 3 次 → 完成度 +1（311990-312000）
   const SLOT_DONE = 678;
   const SLOT_FEVER = 603;
   const SLOT_FEVER_MONTH = 604;
@@ -73,6 +75,22 @@
       S(g, SLOT_EXP0 + i, Math.min(nv, NEED));
       if (nv >= NEED && doneCount(g) < 7) S(g, SLOT_DONE, doneCount(g) + 1);
       return nv >= NEED;
+    }
+    return false;
+  }
+
+  /**
+   * 311990-312000：睡醒结算 —— `var_65(250+427)` 计睡眠次数（上限 3），
+   *   第 3 次时完成度 +1（上限 7）。命运信标的 7 点里就有这 1 点。
+   * @returns {boolean} 本次是否让完成度 +1
+   */
+  function onSleep(g) {
+    const n = V(g, SLOT_SLEEP);
+    if (n >= 3) return false;
+    S(g, SLOT_SLEEP, n + 1);
+    if (n + 1 >= 3 && doneCount(g) < 7) {
+      S(g, SLOT_DONE, doneCount(g) + 1);
+      return true;
     }
     return false;
   }
@@ -184,9 +202,22 @@
       out.items.push({ id: 724, count: limit(idiv(depth, 3), 1, 70) });
     }
     if (doneCount(g) >= 7) {                             // 231041
+      // 231042-231046：`repeat 3 { flt; var_638 = var_645(rnd(14)); var_641 = 5;
+      //   itemcreate -1, 0, 玩家坐标 }` —— flt 无参 → `var_640 = calcobjlv(深度)`（有浮动），
+      //   品质固定 5，类别从 var_645 的 14 项表里掷。
+      //   此前用 `level: depth + 10` 且未指定类别，强度/类别都与源码不符。
+      const CAT_645 = [10000, 10000, 24000, 24000, 25000, 12000, 16000, 20000,
+        19000, 18000, 22000, 14000, 32000, 34000];
+      // 231044：生成期间把完成度写成 8 —— itemcreate 的 *label_2297 见到
+      //   `250+428 == 8` 就不再对品质 5 做 1/2 降级，保证这三件稳住奇迹品质。
+      S(g, SLOT_DONE, 8);
       for (let i = 0; i < 3; i++) {
         let it = null;
-        try { it = Elona.ItemDB.create(g, { level: depth + 10, fix: 5 }); } catch (e) { it = null; }
+        try {
+          const lv = (Elona.ItemDB.calcObjLv) ? Elona.ItemDB.calcObjLv(0, g) : depth;
+          const cat = CAT_645[g.rng.rnd(CAT_645.length)];
+          it = Elona.ItemDB.create(g, { level: lv, fix: 5, t638: cat, container: -1 });
+        } catch (e) { it = null; }
         if (!it) continue;
         it.f[5] = p.x; it.f[6] = p.y;
         const cell = g.map && g.map.cell ? g.map.cell(p.x, p.y) : null;
@@ -196,8 +227,11 @@
       }
       out.fate = true;
       out.messages.push('このフロアには運命を感じる…！');
+      // 231054-231062：完成度与 421-428 全部清零（含 426 首杀 / 427 睡眠次数）
       S(g, SLOT_DONE, 0);
       for (let i = 0; i < 5; i++) S(g, SLOT_EXP0 + i, 0);
+      S(g, SLOT_KILL, 0);
+      S(g, SLOT_SLEEP, 0);
     }
     return out;
   }
@@ -215,9 +249,9 @@
 
   Elona.Daily = {
     GROUPS, GROUP_NAMES, GROUP_MSG, NEED,
-    SLOT_GROUP, SLOT_EXP0, SLOT_DONE, SLOT_FEVER, SLOT_FEVER_MONTH, SLOT_FEVER_HOURS,
+    SLOT_GROUP, SLOT_EXP0, SLOT_KILL, SLOT_SLEEP, SLOT_DONE, SLOT_FEVER, SLOT_FEVER_MONTH, SLOT_FEVER_HOURS,
     group, setGroup, groupExp, groupName, inCurrentGroup,
-    addGroupExp, tickDay, tickHour, status,
+    addGroupExp, tickDay, tickHour, status, onSleep,
     onEnterFloor,
     // 兼容命名
     Destiny: { onEnterFloor },

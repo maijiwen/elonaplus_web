@@ -445,6 +445,9 @@
       const it = Elona.ItemDB.create(g, {
         level, fix, t638: cat.t638, t639: cat.t639,
         itemId: cat.itemId || -1,
+        // itemcreate 的生成位置参数为 0 → *label_2297 的幸运修正生效
+        // （224288-224301：幸运 > rnd(5000) 品质 +1；品质 5 有 1/2 打回 4）
+        container: 0,
       });
       if (!it || !it.id) continue;
       it.f[8] = 3;                               // 店内商品已鉴定

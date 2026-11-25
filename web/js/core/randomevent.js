@@ -814,7 +814,25 @@
       const table = (skillId === 177) ? high : low;
       for (let k = 0; k < 9; k++) { if (quality >= th[k]) itemId = table[k]; }
       if (skillId === 177 && quality < 20) itemId = 445;
-      const it = giveItem(g, itemId, 1, 1);
+      // 274357-274375 / 274558-274576：`flt 100, 4/5` —— 生成强度固定 100，
+      //   品质 4；`var_82(19,0) + var_58(17,制作人)*2 > rnd(10000)` 时升到 5（奇迹）。
+      //   之前直接 createItem，强度/品质都没落地。
+      const lucky = (luck(g) + (chara(g, maker).get(17) | 0) * 2) > R(g, 10000);
+      const fix = lucky ? 5 : 4;
+      const it = (Elona.ItemDB && Elona.ItemDB.create)
+        ? Elona.ItemDB.create(g, { itemId, level: 100, fix, container: -1 })
+        : (Elona.ItemDB ? Elona.ItemDB.createItem(itemId, 1) : null);
+      if (it) {
+        it.f[0] = 1;
+        it.f[5] = g.player.x; it.f[6] = g.player.y; it.f[21] = -1;
+        it.f[17] = 1;                                  // 274368 / 274576：祝福
+        let slot = -1;
+        for (let i = 0; i < g.player.inv.length; i++) {
+          if (!g.player.inv[i] || (g.player.inv[i].f[0] | 0) <= 0) { slot = i; break; }
+        }
+        if (slot >= 0) g.player.inv[slot] = it;
+        else g.player.inv.push(it);
+      }
       ev.lines.push(it ? `有什么东西滚到了脚边（${itemName(itemId)}）。` : '背包满了，东西掉在了地上。');
       if (it) ev.lines.push(`${nm} 显得很高兴。`);
     } else {

@@ -913,6 +913,8 @@
           this.encadd(it, this.randomenc(99, g, cat), this.randomencp(0, g, feat163), g);
         }
         let n = fix === 4 ? R(R(R(10) + 1) + 3) + 3 : R(R(R(10) + 1) + 3) + 6;
+        // 28212-28218：var_678 == 2（宝图/特殊生成）且为武器/防具时保底 12 条随机附魔
+        if (opt.var678 === 2 && (cat === 10000 || cat === 24000)) n = 12;
         if (n > 11 && (cat === 10000 || cat === 24000) && (R(10) === 0 || opt.var678 === 2)) {
           this.ibitmod(15, it, 1);
           this.encadd(it, this.randomenc(99, g, cat), this.randomencp(0, g, feat163), g);
@@ -1230,11 +1232,18 @@
       const level = opt.level === undefined ? this.calcObjLv(opt.prm || 0, g) : opt.level;
       const fix = opt.fix === undefined ? this.calcFixLv(2, g) : opt.fix;
       const R = (n) => ((g && g.rng) || Elona.rng).rnd(n);
-      // 224288-224301：品质自增
+      // 224288-224301：*label_2297 —— 生成时的「幸运修正」
+      //   ① 幸运 > rnd(5000) → 品质 +1（上限 5）
+      //   ② `var_65(250+428) != 8`（命运三神器生成期间不降级）且品质 == 5
+      //      时 1/2 概率打回 4
       let fix2 = fix;
       if ((opt.container === 0 || opt.container === -1)) {
         const s19 = (g && g.charas && g.charas[0]) ? g.charas[0].skill(19) : 0;
         if (s19 > R(5000)) { if (fix2 < 5) fix2++; }
+        const v678 = (g && typeof g.getV65 === 'function') ? (g.getV65(678) | 0) : 0;
+        if (v678 !== 8) {
+          if (fix2 === 5 && R(2) === 0) fix2--;
+        }
       }
       if (id === -1 || id === 0) {
         let t637 = opt.t637 === undefined ? 0 : opt.t637;
@@ -1802,6 +1811,9 @@
       if (this.note) o.note = this.note;
       if (this.owned) o.owned = 1;
       if (this.__giftOpened) o.__giftOpened = 1;
+      // 0-Z76：世界地图上挖出的物品按 `_worldId` 归属到具体大陆（多世界共存时
+      //   同坐标会撞车）。这是 web 端的运行期标记，不写存档会读档后捡不回来。
+      if (this._worldId) o._worldId = this._worldId;
       // 容器内容物（core/container.js）：只在非空时写入，避免存档膨胀
       if (Array.isArray(this.inv) && this.inv.length) o.inv = this.inv.map((x) => x.toJSON());
       return o;
@@ -1823,6 +1835,7 @@
       if (o.note) it.note = o.note;
       if (o.owned) it.owned = true;
       if (o.__giftOpened) it.__giftOpened = true;
+      if (o._worldId) it._worldId = o._worldId | 0;
       // 容器内容物可能嵌套（箱子里还有箱子），递归还原
       if (Array.isArray(o.inv) && o.inv.length) it.inv = o.inv.map((x) => Item.fromJSON(x));
       return it;

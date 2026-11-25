@@ -877,6 +877,7 @@
         return this.pending.evt;
       }
       // kind === 'item'
+      this.var579Item = null;
       const mode = this.vx(486);
       const sub = this._VXA[(486 * 1000) + 1] | 0;
       const list = (Elona.Select && Elona.Select.itemList)
@@ -1936,6 +1937,14 @@
             ? (this.tempInv[v | 0] || null) : null;
           this._scope.var138 = 1;    // 非 Esc 键（372 处 `var_138 == var_150` 判定）
           this.setStat(1);
+          // 297715-297730：*label_2824 mode 22 选中物品后的全局计数更新
+          if ((p.mode | 0) === 22 && this.g && this.g.getV65 && this.g.setV65) {
+            if ((p.sub | 0) === 1) {
+              this.g.setV65(97, (this.g.getV65(97) | 0) - 1);
+            } else if ((p.sub | 0) === 4) {
+              this.g.setV65(812, (this.g.getV65(812) | 0) + 1);
+            }
+          }
         }
         this.pc++;
         return this;
