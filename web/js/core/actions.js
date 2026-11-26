@@ -547,13 +547,27 @@
       const tree = ground.find((it) => it.id === 526);
       if (tree) {
         g.log(`你撞向了 ${Elona.ItemDB.name(tree.id)}。`);
-        if ((tree.f[25] | 0) <= 0) { g.log('树上似乎已经没有果实了。'); g.endTurn(); return { ok: true }; }
+        // 342635：有主（f[21]==5）或果实耗尽都算「没有果实」
+        if ((tree.f[21] | 0) === 5 || (tree.f[25] | 0) <= 0) {
+          g.log('树上似乎已经没有果实了。');
+          g.endTurn();
+          return { ok: true };
+        }
         tree.f[25] = (tree.f[25] | 0) - 1;
         if ((tree.f[25] | 0) <= 0) {
-          tree.id = 592;                                   // 342646：变成枯树
+          // 342646：改的是图像字段 var_99(2)=592（果树→无果枯树），
+          // 不是物品 id。Item.id 只有 getter，旧写法 tree.id=592 在严格模式下会抛错。
+          tree.f[2] = 592;
           g.refreshGroundCell(tx, ty);
         }
-        const fruit = Elona.ItemDB.createItem(tree.f[26] | 0, 1);
+        // 342655：旧存档里的 526 没有 f[26]，按 222101 的 7 种水果随机兜底
+        let fid = tree.f[26] | 0;
+        if (!fid) {
+          const FRUITS_526 = [180, 181, 196, 197, 192, 183, 944];
+          fid = FRUITS_526[(g.rng && g.rng.rnd ? g.rng.rnd(FRUITS_526.length) : 0) | 0];
+          tree.f[26] = fid;
+        }
+        const fruit = Elona.ItemDB.createItem(fid, 1);
         if (fruit) {
           // 342649-342652：若下方格可通行，果实落在下方一格
           let fy = ty;
@@ -586,6 +600,32 @@
         if ((tree2.f[0] | 0) <= 0) g.removeGroundItem(tree2);
         g.endTurn();
         return { ok: true, action: 'bank' };
+      }
+
+      // 2.5) 撞自己（*label_2893 按确定键 → var_451/1166 = 玩家坐标）
+      //   源码 *label_2987 的角色分支用 `var_704(x,y,1)-1` 取角色，玩家自己那格会取到
+      //   var_244 = 0；342703-342766 于是按「对角色体当たり」处理：
+      //     窒息（var_58(263)>=15）→ 全力撞击（力量×2 伤害）并「确保了气道」；
+      //     其余 → 只打印「你向自己撞了过去」——hostileaction(0, 0) 因目标是玩家直接返回。
+      if (tx === (p.x | 0) && ty === (p.y | 0)) {
+        const str = p.skill ? (p.skill(10) | 0) : (p.get(10) | 0);
+        const asleep = (p.get(251) | 0) !== 0 || (p.get(256) | 0) >= 60;
+        if (!asleep && (p.get(263) | 0) >= 15) {
+          g.log('你用尽全力撞向自己！');
+          if (Elona.Battle && Elona.Battle.applyDamage) {
+            Elona.Battle.applyDamage(p, str * 2, g, p, 0, 0);
+          }
+          if ((p.get(0) | 0) === 1) {
+            g.log('你确保了气道。');
+            p.set(263, 0);
+          }
+        } else {
+          g.log('你向自己撞了过去。');
+        }
+        if ((p.get(256) | 0) > 60) p.set(256, 59);
+        p.set(251, 0);
+        g.endTurn();
+        return { ok: true, action: 'bash-self' };
       }
 
       // 3) 壶（342770-342788：var_503(1)==30 → 清特性 + spillfrag + 随机物品）
@@ -1462,8 +1502,12 @@
      * 拾取脚下物品的实际结算（*label_2819 的后半段）。
      * @param {object} g
      * @param {object[]} here 要拾取的物品（1 件；多件时由 `get` 先开列表）
+     * @param {object} [opts] { keepTurn } —— 从拾取列表里选中时用：
+     *   源码 `*label_2978` 在列表里**不结算回合**，窗口把列表取空 / 玩家按 Esc 时
+     *   才 `goto *label_4358` 结束一回合（296880-296883、297708-297734）。
      */
-    pickHere(g, here) {
+    pickHere(g, here, opts) {
+      const keepTurn = !!(opts && opts.keepTurn);
       const p = g.player;
       const only = (here && here.length === 1) ? here[0] : null;
       // 只拿有主物品之外的（含作物等无主物）；只选一件时允许它自己转采摘
@@ -1476,7 +1520,7 @@
       }
       // 0-GW / 342338：逐件播报改由 pickupAt 承担（「你拾取了◯◯。」），这里不再汇总
       if (n > 0) {
-        g.endTurn();
+        if (!keepTurn) g.endTurn();
         return { ok: true, count: n };
       }
       // 没拿到东西：若有主物品在脚下，给出原版的三种提示之一

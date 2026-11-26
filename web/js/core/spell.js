@@ -81,6 +81,13 @@
     const e = ACTIONS && ACTIONS[String(id)];
     return e ? e.name : null;
   }
+  /** var_84(id)：动作/魔法的效果短说明（actions.json 的 desc，中文优先） */
+  function actionDesc(id) {
+    const e = ACTIONS && ACTIONS[String(id)];
+    const d = e && e.desc;
+    if (!d) return '';
+    return d.ch || d.jp || d.en || '';
+  }
 
   // ================= calcspellpower（214809-214824）=================
   /**
@@ -2027,10 +2034,60 @@
     return { ok: true, type: f1, implemented: false, target };
   }
 
+  /**
+   * 魔法咏唱窗的「效果」栏文字 —— `*label_2775`（292142-292182）。
+   *   ① `var_83(1,id) / 1000 == 1`（增益系）：`calcbuff -2, buff, power` 得到
+   *      var_79（持续回合）与 var_78（说明）→ 「Nターン 说明」。
+   *   ② 其余：`calcskill` 得到骰子 → 「XdY+Z 说明」；骰子数为 0 时
+   *      461 显示百分比，其它显示「パワーN」。说明取 var_84(id)（actions.json desc）。
+   * @param {number} id 法术 id
+   * @param {object} caster 施法者
+   * @param {object} [g]
+   * @returns {string}
+   */
+  const EFFECT_TEXT_CACHE = new Map();   // 咏唱窗每帧调用，按「id+威力+技能」缓存
+  function spellEffectText(id, caster, g) {
+    const f1 = field(id, 1) | 0;
+    const power = calcSpellPower(id, caster);
+    const ck = id + '|' + power + '|' + (caster.skill ? caster.skill(id) : 0)
+      + '|' + (caster.skill ? caster.skill(172) : 0);
+    const hit0 = EFFECT_TEXT_CACHE.get(ck);
+    if (hit0 !== undefined) return hit0;
+    const text = (() => {
+      if (idiv(f1, 1000) === 1) {                       // 292145-292149
+        const buffId = f1 % 1000;
+        const BE = Elona.BuffEffects;
+        let turns = 0, desc = '';
+        if (BE) {
+          if (BE.turnsOf) turns = BE.turnsOf(buffId, power) | 0;
+          if (BE.descOf) desc = (BE.descOf(buffId, power) || {}).text || '';
+        }
+        return `${turns}回合 ${desc}`.trim();
+      }
+      const d = calcSkill(id, caster, power, (g && g.var2422) || 0);
+      let s = '';
+      if (d) {                                          // 292159-292180
+        if ((d.dice | 0) !== 0) {
+          s = `${d.dice}d${d.sides}`;
+          if (d.bonus) s += (d.bonus > 0 ? '+' : '') + d.bonus;
+        } else if (id === 461) {
+          s = `${limit(d.bonus | 0, 1, 100)}%`;
+        } else {
+          s = `威力${d.bonus | 0}`;
+        }
+        s += ' ';
+      }
+      return (s + actionDesc(id)).trim();
+    })();
+    if (EFFECT_TEXT_CACHE.size > 512) EFFECT_TEXT_CACHE.clear();
+    EFFECT_TEXT_CACHE.set(ck, text);
+    return text;
+  }
+
   Elona.Spell = {
     loadTable, setTable, field, actionName,
     calcSpellPower, calcSpellFail, calcSpellCostMp, calcSpellCostStock, applyPowerBoost,
-    calcSkill, fovLos, losBlockedTile, precheck, grantCastExp,
+    calcSkill, fovLos, losBlockedTile, precheck, grantCastExp, spellEffectText,
     effectType0, effectType1, effectType2, effectType3, effectType4, effectType5, effectType6, effectType7, effectType8, effectType10,
     healRoutine, getRoute, routeInfo, breathList, calcMagicControl, calcMagicCrit, isHostile, sameGroup, placeChar, mefTypeOf, cast, dispatchEffect,
     dmgconOf,   // 0-EL：此前漏导出，导致 battle/abyss/itemfx 里的 dmgcon 调用全部静默跳过

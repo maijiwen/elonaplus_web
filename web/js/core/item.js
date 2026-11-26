@@ -1030,6 +1030,15 @@
       //   没有这一句，商店/节日买到的 869 全是 f[25] = 0（残りカス），任何规则都匹配不到。
       //   合成の壺的「進化の側枝」在 craftprod 里把 f[25] 改写为 14（281879），顺序一致。
       if ((id | 0) === 869 && !(it.f[25] | 0)) it.f[25] = 15;
+      // 0-Z85 / 222101：526 果树的 f[26]（果实种类）在 items.json 里写作
+      //   `var_1014(rnd(length(var_1014)))`，evalExpr 解析不了会留 0，
+      //   撞击时 createItem(0) 生成「未知物品」。这里按原版 7 种水果补初值。
+      if ((id | 0) === 526 && !(it.f[26] | 0)) {
+        const FRUITS_526 = [180, 181, 196, 197, 192, 183, 944];
+        const R = (n) => ((rng && rng.rnd) ? rng.rnd(n)
+          : ((Elona.rng && Elona.rng.rnd) ? Elona.rng.rnd(n) : 0));
+        it.f[26] = FRUITS_526[R(FRUITS_526.length) | 0];
+      }
       if (quality !== null) it.f[4] = quality;
       for (const b of bits) this.ibitmod(b, it, 1);
       // var_657 / var_677 = 类别/子类别（原版写入全局 var_657/var_677）

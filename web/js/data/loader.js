@@ -9,7 +9,7 @@
   const cache = {};
   // 0-Z50：静态表按版本后缀请求，避免浏览器沿用改动前的 board.json 缓存
   // （中文 board.txt 对译是 0-Z49 才加进去的，旧缓存会让掲示板正文回退英文）。
-  const DATA_VER = '0z85';
+  const DATA_VER = '0z86';
 
   async function fetchJson(path) {
     const url = path + (path.indexOf('?') < 0 ? '?' : '&') + 'v=' + DATA_VER;

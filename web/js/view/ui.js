@@ -88,6 +88,8 @@
       this.invMode = mode;
       this.invSel = 0;
       this.invOpen = true;
+      // 0-Z87：拾取列表的「关窗才结算回合」标记随新窗口重置
+      this._pickupTurnPending = false;
       this.invalidateInventory();
     },
 
@@ -216,6 +218,12 @@
         g.player._equipChanged = false;
         if ((g.player.get(269) | 0) === 0) this.pushMessage('你改变了装备。');
         if (g.endTurn) g.endTurn();
+      }
+      // 0-Z87：拾取列表里拿过东西 → 关窗时统一结算一次回合
+      //   （源码 *label_2824 的 var_486 == 3 期间不消耗回合，退出时才 goto *label_4358）
+      if (this._pickupTurnPending) {
+        this._pickupTurnPending = false;
+        if (g && g.endTurn && g.state === Elona.Game.STATE.PLAY) g.endTurn();
       }
       const cancelPicker = (this.invMode === 'picker' && this.invPicker
         && !this.invPicker.done) ? this.invPicker.onCancel : null;
@@ -376,11 +384,18 @@
           if (!this.useMode && !this.usableInList(it)) return false;
           return true;
         };
+        // 0-Z85：use 分支也要按世界地图坐标过滤地面物品。此前误用了 ground
+        //   分支里 const 定义的 gW/gWid/gpx/gpy，块作用域外不可见 → 按 R 键时
+        //   `ReferenceError: gW is not defined`，整个输入循环中断，角色卡死。
+        const uW = !!(game.worldMap && typeof game.worldMap === 'object');
+        const uWid = uW ? (((game.getV65 ? game.getV65(850) : 0) | 0) || 4) : 0;
+        const upx = uW ? (game.worldMap.x | 0) : (pp.x | 0);
+        const upy = uW ? (game.worldMap.y | 0) : (pp.y | 0);
         for (const it of (game.groundItems || [])) {
           if (!it || (it.f[0] | 0) <= 0) continue;
-          if (gW) { if ((it._worldId | 0) !== gWid) continue; }
+          if (uW) { if ((it._worldId | 0) !== uWid) continue; }
           else if (it._worldId) continue;
-          if ((it.f[5] | 0) !== gpx || (it.f[6] | 0) !== gpy) continue;
+          if ((it.f[5] | 0) !== upx || (it.f[6] | 0) !== upy) continue;
           if (!useFilter(it)) continue;
           it._onGround = true;
           rows.push(it);
@@ -399,6 +414,13 @@
         for (let i = 0; i < 200; i++) {
           if ((st[i] | 0) > 0 && (seal[i] | 0) === 0) rows.push(400 + i);
         }
+        // 0-Z87 / *label_2821（296114-296131）：按 var_83(0, id)（关联属性）稳定排序，
+        //   咏唱窗里同属性的魔法因此聚在一起（与截图的分组图标一致）。
+        rows.sort((a, b) => {
+          const fa = Elona.Spell ? (Elona.Spell.field(a, 0) | 0) : 0;
+          const fb = Elona.Spell ? (Elona.Spell.field(b, 0) | 0) : 0;
+          return (fa - fb) || (a - b);
+        });
       } else {
         // 图鉴：按 id 升序展示全部物品（使用名称表数据，不创建实例）
         const ids = Object.keys(Elona.ItemDB.data).map(Number).sort((a, b) => a - b);
@@ -510,11 +532,21 @@
       const P = Elona.Panels;
       // 0-Z50：通用物品选择器复用 X 列表外观，回车只把行交回调用方
       if (this.invMode === 'picker') { this.finishItemPicker(game, row); return; }
-      // 0-Z36：拾取列表（var_486 == 3）—— 只拿选中的这一件，然后回主循环
+      // 0-Z36：拾取列表（var_486 == 3）—— 只拿选中的这一件；
+      //   0-Z87：窗口**不立刻关闭**，同格还有物品就继续列（源码 296880-296883
+      //   只在列表取空时 `goto *label_4358`；297708-297734 取完一件后回到 *label_2824 重画）。
       if (this.invMode === 'pickup') {
-        this.closeInventory();
-        const r = Elona.Actions ? Elona.Actions.pickHere(game, [row]) : null;
-        if (r && r.ok === false && r.reason === 'not-yours') return;
+        const r = Elona.Actions ? Elona.Actions.pickHere(game, [row], { keepTurn: true }) : null;
+        if (r && r.harvest) { this._pickupTurnPending = false; this.closeInventory(); return; }
+        if (r && r.ok === false && r.reason === 'not-yours') return;   // 窗口留着，玩家可继续挑
+        if (r && r.ok) this._pickupTurnPending = true;
+        this.invalidateInventory();
+        const left = this.inventoryRows(game);
+        if (left.length > 0) {
+          this.invSel = Math.max(0, Math.min(this.invSel | 0, left.length - 1));
+          return;
+        }
+        this.closeInventory();          // 取空 → 关闭并结算这一回合
         return;
       }
       if (this.invMode === 'spell') {

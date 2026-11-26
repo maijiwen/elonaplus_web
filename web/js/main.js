@@ -493,11 +493,13 @@
         //   回车即 `*label_2942` 挖脚下；选到邻格反而提示「それは無理だ」。
         //   网页版没有方向光标，这里直接按「挖脚下」处理。
         if (game.worldMap) { Act.dig(game, 5); return true; }
-        if (Elona.DirSel) { Elona.DirSel.startCmd(game, '挖掘', (gg, dx, dy) => Act.dig(gg, Elona.DirSel.keyOf(dx, dy))); UI.pushMessage('挖哪个方向？（方向键 / 小键盘 1-9，Esc 取消）'); return true; }
+        if (Elona.DirSel) { Elona.DirSel.startCmd(game, '挖掘', (gg, dx, dy) => Act.dig(gg, Elona.DirSel.keyOf(dx, dy)), { allowSelf: true }); UI.pushMessage('挖哪个方向？（方向键 / 小键盘 1-9，回车=脚下，Esc 取消）'); return true; }
         Act.dig(game, 0); return true;
       // 0-EO：原版「どの方向に体当たりする？」（*label_2737）
       case 'bash':
-        if (Elona.DirSel) { Elona.DirSel.startCmd(game, '撞', (gg, dx, dy) => Act.bash(gg, Elona.DirSel.keyOf(dx, dy))); UI.pushMessage('撞哪个方向？（方向键 / 小键盘 1-9，Esc 取消）'); return true; }
+        // 0-Z87：源码 *label_2893 按确定键时 var_451/1166 = 玩家坐标（305161-305166），
+        //   b 键因此可以「撞自己」（*label_2987 的角色分支取到 var_244 = 0）。
+        if (Elona.DirSel) { Elona.DirSel.startCmd(game, '撞', (gg, dx, dy) => Act.bash(gg, Elona.DirSel.keyOf(dx, dy)), { allowSelf: true }); UI.pushMessage('撞哪个方向？（方向键 / 小键盘 1-9，回车=自己，Esc 取消）'); return true; }
         Act.bash(game, 0); return true;
       case 'rest': Act.rest(game); return true;
       case 'hijump': Act.hijump(game); return true;

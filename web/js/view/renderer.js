@@ -84,6 +84,7 @@
       this.loadInterfaceSheet().catch(() => { });
       this.loadItemSheet().catch(() => { });
       this.loadDecoInv().catch(() => { });
+      this.loadDecoSpell().catch(() => { });
     }
 
     loadItemSheet() {
@@ -170,8 +171,41 @@
       return this._decoPromise;
     }
 
-    /** interface.bmp —— 原版所有 HUD / 窗口切片都取自这张 1440×800 的图 */
-    loadInterfaceSheet() {
+    /**
+     * 0-Z87 / 291935-291938：魔法咏唱窗的装饰 `graphic/deco_spell.bmp`（240×264）。
+     *   原版 `gsel 3: picload ...: gsel 0` 之后用 `gcopy 3` 取其中两块：
+     *     (960,96,72,144) → 大十字架；(1032,96,72,96) → 圆形吊坠。
+     *   图是黑底 + gmode 2（加算），网页版先做「纯黑→透明」副本。
+     */
+    loadDecoSpell() {
+      if (this.decoSpell) return Promise.resolve(this.decoSpell);
+      if (!this._decoSpellPromise) {
+        this._decoSpellPromise = new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            try {
+              const cv = document.createElement('canvas');
+              cv.width = img.width; cv.height = img.height;
+              const g = cv.getContext('2d');
+              g.drawImage(img, 0, 0);
+              const d = g.getImageData(0, 0, cv.width, cv.height);
+              const px = d.data;
+              for (let i = 0; i < px.length; i += 4) {
+                if (px[i] === 0 && px[i + 1] === 0 && px[i + 2] === 0) px[i + 3] = 0;
+              }
+              g.putImageData(d, 0, 0);
+              this.decoSpell = cv;
+            } catch (e) { this.decoSpell = img; }
+            resolve(this.decoSpell);
+          };
+          img.onerror = () => resolve(null);
+          img.src = 'assets/graphic/deco_spell.bmp';
+        });
+      }
+      return this._decoSpellPromise;
+    }
+
+    /** interface.bmp —— 原版所有 HUD / 窗口切片都取自这张 1440×800 的图 */    loadInterfaceSheet() {
       if (this.ui) return Promise.resolve(this.ui);
       if (this._uiPromise) return this._uiPromise;
       this._uiPromise = new Promise((resolve) => {
@@ -394,6 +428,15 @@
       //   因此必须按 y 从小到大绘制（远处的先画，近处的高家具才能正确遮挡）。
       const list = items.slice().sort((a, b) =>
         ((a.f[6] | 0) - (b.f[6] | 0)) || ((a.f[5] | 0) - (b.f[5] | 0)));
+      // 0-Z87 / cell_refresh（29565-29568）：同格物品超过 3 件时，整格只画一个
+      //   「袋」图标（item.bmp graphic 363），不再把全部图标叠在一起。
+      const countAt = new Map();
+      for (const it of list) {
+        if (!it || (it.f[0] | 0) <= 0) continue;
+        const k = (it.f[5] | 0) + ':' + (it.f[6] | 0);
+        countAt.set(k, (countAt.get(k) | 0) + 1);
+      }
+      const bagDrawn = new Set();
       for (const it of list) {
         if (!it || (it.f[0] | 0) <= 0) continue;
         const x = it.f[5] | 0, y = it.f[6] | 0;
@@ -405,7 +448,16 @@
         //   角色层随后叠上去；角色贴图的黑色背景已抠成透明，因此物品未与角色
         //   重叠的部分会露出来，只有重叠部分被角色挡住（用户要求的表现）。
         //   此前这里 `continue` 跳过整格，导致物品被完全隐藏。
-        const gid = Elona.ItemDB.graphic(it.id);
+        // 0-Z87：图标取物品的 var_99(2) 图像字段（`item.graphic`/f[2]），而不是 id。
+        //   果树 526 的 create 表把 v99_2 设成 591；果实耗尽时源码只改 var_99(2)=592
+        //   （342646 枯树），id 仍是 526。此前按 id 取图标，所以贴图永远不变。
+        const cellKey = x + ':' + y;
+        let gid = (it.f[2] | 0) > 0 ? (it.f[2] | 0) : Elona.ItemDB.graphic(it.id);
+        if ((countAt.get(cellKey) | 0) > 3) {
+          if (bagDrawn.has(cellKey)) continue;
+          bagDrawn.add(cellKey);
+          gid = 363;                                  // 29566：多件物品 → 袋
+        }
         if (!Number.isFinite(gid) || gid < 0) continue;
         const ih = (Elona.ItemDB.iconHeight ? Elona.ItemDB.iconHeight(gid) : TILE) | 0;
         const sx = (gid % COLS) * TILE, sy = Math.floor(gid / COLS) * TILE;
@@ -413,7 +465,7 @@
         const dx = vx * TILE;
         const dy = vy * TILE + TILE - ih;      // 底对齐格底
         ctx.drawImage(this.itemSheet, sx, sy, TILE, ih, dx, dy, TILE, ih);
-        const n = it.f[0] | 0;
+        const n = (gid === 363) ? 1 : (it.f[0] | 0);
         if (n > 1) {
           ctx.save();
           ctx.font = 'bold 13px "Courier New", monospace';
@@ -1608,11 +1660,159 @@
       ctx.restore();
     }
 
+    /**
+     * 魔法咏唱窗 —— `*label_2772`（291915-292100）。
+     *
+     * 布局（全部按源码坐标）：
+     *   窗口 display_window((800-720)/2, winposy(438), 720, 438)
+     *   表头 display_topic：x+28「魔法の名称」/ x+190「消費MP(ｽﾄｯｸ) LV/成功 (潜在)」/ x+460「効果」
+     *   装饰 deco_spell.bmp：大十字架 (x+W-78, y, 72×144)、圆吊坠 (x+W-180, y, 72×96)
+     *   行：16 行 × 19px，从 y+66 开始；偶数行有 cs_listbk 底纹（x+70 起）
+     *   每行：快捷键字母(x+58) → 属性图标(x+40) → 名称(x+84) →
+     *         MP(库存) 右对齐到 x+296 → LV/成功%(潜力) 在 x+305 → 效果说明 x+420
+     *   右下角 Page.x/y；底部一行按键提示（源码 `mes var_121(1)`）。
+     */
+    drawSpellcastWindow(game) {
+      const UI = Elona.UI, K = Elona.UiKit, S = Elona.Spell;
+      if (!UI || !K || !this.ui || !S) return;
+      const ctx = this.ctx;
+      const p = game.player;
+      const rows = UI.inventoryRows ? UI.inventoryRows(game) : [];
+      const W = 720, H = 438;
+      const X = ((UI_W - W) / 2) | 0, Y = 81;          // winposy(438) = (600-438)/2
+      const NROWS = 16, RH = 19;
+      const pages = Math.max(1, Math.ceil(rows.length / NROWS));
+      let sel = UI.invSel | 0;
+      if (sel >= rows.length) sel = Math.max(0, rows.length - 1);
+      if (sel < 0) sel = 0;
+      const page = Math.min(pages - 1, Math.floor(sel / NROWS));
+      const start = page * NROWS;
+
+      // label_2132：整屏淡出
+      ctx.fillStyle = 'rgba(0,0,0,0.45)';
+      ctx.fillRect(0, 0, UI_W, UI_H);
+      K.drawWindow(ctx, this.ui, X, Y, W, H);
+
+      // 标题页签（display_window 里 window2 的位置：+34, -4, 324+clamp, 32）
+      const title = '魔法咏唱';
+      const tabW = 324 + Math.max(0, Math.min(200, title.length * 8 - 120));
+      ctx.fillStyle = '#cfc3b2';
+      ctx.fillRect(X + 34, Y - 4, tabW, 32);
+      ctx.strokeStyle = '#6b5d49';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(X + 34.5, Y - 3.5, tabW - 1, 31);
+      ctx.font = K.FONT(13);
+      K.btext(ctx, title, X + 34 + (tabW - ctx.measureText(title).width) / 2,
+        Y + 2, '#fff', K.FONT(13));
+      // 291963-291964：标题左边的魔法书图标
+      if (this.itemSheet) {
+        const gsx = (429 % COLS) * TILE, gsy = Math.floor(429 / COLS) * TILE;
+        if (gsx + TILE <= this.itemSheet.width && gsy + TILE <= this.itemSheet.height) {
+          ctx.drawImage(this.itemSheet, gsx, gsy, TILE, TILE, X + 46, Y - 14, 32, 32);
+        }
+      }
+
+      // 表头（display_topic）
+      const topic = (x, label) => {
+        this.gspr(120, 360, 24, 16, x, Y + 37, 24, 16);
+        ctx.font = K.FONT(12);
+        const tw = ctx.measureText(label).width;
+        K.text(ctx, label, x + 26, Y + 38, '#000', K.FONT(12));
+        ctx.fillStyle = '#000';
+        ctx.fillRect(x + 22, Y + 51, tw + 14, 1);
+      };
+      topic(X + 28, '魔法名称');
+      topic(X + 190, '消耗MP(库存) LV/成功 (潜力)');
+      topic(X + 460, '效果');
+
+      // 291965-291968：deco_spell.bmp 的两块装饰（黑底→透明）
+      if (this.decoSpell) {
+        const d = this.decoSpell;
+        ctx.drawImage(d, 0, 0, 72, 144, X + W - 78, Y, 72, 144);
+        ctx.drawImage(d, 72, 0, 72, 96, X + W - 180, Y, 72, 96);
+      }
+
+      // ---------------- 列表 ----------------
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(X + 30, Y + 60, W - 40, NROWS * RH + 4);
+      ctx.clip();
+      for (let i = 0; i < NROWS; i++) {
+        const idx = start + i;
+        if (idx >= rows.length) break;
+        const sid = rows[idx] | 0;
+        const rowY = Y + 66 + i * RH;
+        const isSel = idx === sel;
+        // 291977-291981：偶数行 cs_listbk 底纹
+        if (i % 2 === 0) {
+          ctx.fillStyle = ROW_ALT;
+          ctx.fillRect(X + 70, rowY - 2, W - 90, 18);
+        }
+        if (isSel) {
+          ctx.fillStyle = 'rgba(40,18,4,0.88)';
+          ctx.fillRect(X + 34, rowY - 2, W - 84, 18);
+          ctx.strokeStyle = '#4a3a2a';
+          ctx.strokeRect(X + 34.5, rowY - 1.5, W - 85, 17);
+        }
+        const fg = isSel ? '#fff8e0' : '#2a1a08';
+        // display_key：a..p
+        ctx.font = K.FONT(11);
+        K.text(ctx, String.fromCharCode(97 + i), X + 58, rowY, isSel ? '#ffe9b0' : '#6a4a22', K.FONT(11));
+        // 291991-291994：属性图标（item.bmp y=672，第 var_83(0,id)-10 列）
+        const attr = S.field(sid, 0) | 0;
+        if (this.itemSheet && attr >= 10) {
+          const sx = (attr - 10) * TILE, sy = 672;
+          if (sx >= 0 && sy + TILE <= this.itemSheet.height) {
+            ctx.drawImage(this.itemSheet, sx, sy, TILE, TILE, X + 38, rowY - 3, 24, 24);
+          }
+        }
+        // 名称（中文优先）
+        const nm = S.actionName(sid);
+        const name = nm ? (nm.ch || nm.jp || nm.en || ('魔法 ' + sid)) : ('魔法 ' + sid);
+        ctx.font = K.FONT(12);
+        K.text(ctx, name, X + 84, rowY, fg, K.FONT(12));
+        // 292007-292009：MP(库存)，右对齐到 x+296
+        const mp = S.calcSpellCostMp(sid, p, game) | 0;
+        const stock = (p.spellStock && (p.spellStock[sid - 400] | 0)) || 0;
+        const mpTxt = `${mp}(${stock})`;
+        ctx.font = K.FONT(11);
+        K.text(ctx, mpTxt, X + 296 - ctx.measureText(mpTxt).width, rowY, fg, K.FONT(11));
+        // 292013：LV/成功率(潜力)
+        const lv = p.skill ? (p.skill(sid) | 0) : 0;
+        const fail = S.calcSpellFail ? (S.calcSpellFail(sid, p, game) | 0) : 0;
+        const pot = (Elona.Stats && Elona.Stats.sgrowth) ? (Elona.Stats.sgrowth(p, sid) | 0) : 0;
+        K.text(ctx, `${lv}/${fail}% (${pot}%)`, X + 305, rowY, fg, K.FONT(11));
+        // 292011-292015：效果说明（var_121 截断到 40 字）
+        const eff = (S.spellEffectText ? S.spellEffectText(sid, p, game) : '') || '';
+        const clip = (eff.length > 40) ? (eff.slice(0, 40) + '…') : eff;
+        K.text(ctx, clip, X + 420, rowY, fg, K.FONT(11));
+      }
+      ctx.restore();
+
+      // Page.x/y（display_window 的 var_893 != 0 分支）
+      const pg = `Page.${page + 1}/${pages}`;
+      ctx.font = K.FONT(12);
+      K.text(ctx, pg, X + W - 40 - ctx.measureText(pg).width, Y + H - 58, '#2a1a08', K.FONT(12));
+
+      // 底部按键提示（源码 `mes var_121(1)` 的位置，y+H-43）
+      ctx.strokeStyle = 'rgba(120,100,64,0.55)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(X + 50, Y + H - 48);
+      ctx.lineTo(X + W - 40, Y + H - 48);
+      ctx.stroke();
+      const hint = '＋- [切换页]　Shift,Esc [关闭]　0～9 [快捷]　* [非显示]　/ [全显示]';
+      ctx.font = K.FONT(11);
+      K.text(ctx, hint, X + 58, Y + H - 43, '#2a1a08', K.FONT(11));
+    }
+
     drawInventory(game) {
       const UI = Elona.UI, K = Elona.UiKit;
       if (!UI || !K || !this.ui) return;
       // w 键的装备窗是「部位表」，与物品列表共用窗口但布局不同（*label_2815）
       if (UI.invMode === 'equip') { this.drawEquipWindow(game); return; }
+      // 0-Z87：v 键的魔法咏唱窗（*label_2772，291915-292100）是 720×438 的独立窗口
+      if (UI.invMode === 'spell') { this.drawSpellcastWindow(game); return; }
       const ctx = this.ctx;
       const rows = UI.inventoryRows ? UI.inventoryRows(game) : [];
       // 0-GU / 296794：使用模式的标题取 var_365(var_486) + 「アイテムの選択」

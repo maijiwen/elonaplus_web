@@ -303,9 +303,16 @@
       };
       const ctx = new Ctx(fake, id | 0, power | 0);
       runOps(e.ops, ctx);
-      const text = ctx.var78
+      let text = ctx.var78
         ? evalLangText(ctx.var78, ctx.vars)
         : ((e.desc && (e.desc.jp || e.desc.en)) || '');
+      // 0-Z87：buffs.json 的 descCh 是魔法咏唱窗用的中文说明，
+      //   {80} / {80b} 分别代入 var_80 / var_80(1)（与 evalLangText 的代入同源）。
+      if (e.descCh) {
+        text = String(e.descCh)
+          .replace(/\{80b\}/g, String(ctx.vars['var_80(1)'] | 0))
+          .replace(/\{80\}/g, String(ctx.vars.var_80 | 0));
+      }
       return { power: ctx.vars.var_79 | 0, text };
     },
 
