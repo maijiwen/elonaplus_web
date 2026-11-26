@@ -563,17 +563,18 @@
       const broken = (cur.id === 556 || cur.id === 557 || cur.id === 558 || cur.id === 664);
       const fixQ = broken
         ? ((Elona.ItemDB.calcObjLv && Elona.ItemDB.calcObjLv(3, g)) | 0) : 4;
-      const it = Elona.ItemDB && Elona.ItemDB.create
+      let it = Elona.ItemDB && Elona.ItemDB.create
         ? Elona.ItemDB.create(g, { itemId: cur.id, level: playerLevel(g) + 10, fix: fixQ })
         : null;
       if (!it) { cur = null; break; }
-      // 288351-288359：黑星（ibit 5）或品质 6 → 丢弃重试；
-      //   但 var_65(828)（wizard 模式）时保留黑星 —— 源码 `if ( var_65(828) == 0 )`
-      const wizard = (g.getV65 ? (g.getV65(828) | 0) : 0) !== 0;
+      // 288351-288359 原版在普通模式丢弃黑星（只有 wizard 模式能留）。
+      // 0-Z84：按用户要求，输入黑星物品名（全名或「斩铁剑」这类简称）都能获得，
+      // 因此不再丢弃；普通物品不走这条分支，fix 仍是源码的 4。
       const blackStar = Elona.ItemDB.ibit ? (Elona.ItemDB.ibit(5, it) | 0) === 1 : false;
-      if (!wizard && (blackStar || (it.f[4] | 0) === 6)) {
-        cur = matchItem(g, text);   // 简化：重新匹配（原版取次高分）
-        continue;
+      if (blackStar || (it.f[4] | 0) === 6) {
+        // 让附魔也走品质 6 的 spec 表（item.js:875-877），不只是 f[4]=6
+        const six = Elona.ItemDB.create(g, { itemId: cur.id, level: playerLevel(g) + 10, fix: 6 });
+        if (six) it = six;
       }
       // 288360-288466：各类特例
       let qty = 1;

@@ -35,8 +35,8 @@
  *     作物 = 向委托人缴纳食物，陷阱 = 在地下城拆除陷阱。
  *   - 1002 的配送目的地原版是另一座城镇；当前只有 vernis 有人口，改为镇内另一名 NPC。
  *   - 1001/1010 原版「清空区域」，这里用「击倒 N 只怪物」近似（N 由难度换算）。
- *   - 报酬物品按原版数量与等级生成，但原版 var_645/1514/1518-1520 分类轮盘
- *     尚未提取，改用 ItemDB 的通用生成轮盘。
+ *   - 0-Z84：报酬改为按 *label_4294 在玩家当前格生成金币/白金币/物品；
+ *     var_645/1514/1518-1520（222062-222073）分类轮盘已提取，用于 rewardItem 1..5。
  */
 (function (global) {
   const Elona = global.Elona = global.Elona || {};
@@ -60,6 +60,15 @@
     1001: '讨伐', 1002: '配送', 1003: '料理', 1004: '缴纳',
     1006: '收获', 1007: '护送', 1008: '讨伐', 1009: '派对',
     1010: '讨伐', 1011: '调达', 1013: '陷阱',
+  };
+  // 0-Z84 / start.hsp:222062-222073：var_434(7) 的 1..5 是类别轮盘索引，
+  // 只有 >=10000 时才是直接物品 id（591562-591580）。
+  const REWARD_CATS = {
+    1: [10000, 10000, 24000, 24000, 25000, 12000, 16000, 20000, 19000, 18000, 22000, 14000, 32000, 34000], // var_645
+    2: [53000, 56000, 54000],                                                                                  // var_1518
+    3: [12000, 16000, 20000, 19000, 18000, 22000, 14000],                                                     // var_1519
+    4: [10000, 24000, 25000],                                                                                  // var_1520
+    5: [52000, 53000, 56000, 54000, 57000],                                                                    // var_1514
   };
   /** 地图名 → 原版 var_65(20) 地图编号（mapfile 11977-12110） */
   const MAP_IDS = {
@@ -211,7 +220,7 @@
             daysLeft: R(g, 3) + 2,
             difficulty: idiv(target.level | 0, 3),
             targetClientIndex: target.index, targetName: target.name,
-            itemId: itemId, rewardFactor: 60,
+            itemId: itemId, rewardItem: 5, rewardFactor: 60,   // 590819：var_434(7)=5
           });
         }
       }
@@ -971,6 +980,24 @@
   // ---------------------------------------------------------------------------
   // 五、报告 / 报酬（*label_4294）
   // ---------------------------------------------------------------------------
+  /** 0-Z84 / 591481：itemcreate -1, id, var_58(1,0), var_58(2,0), n —— 落在玩家当前格 */
+  function dropGround(g, it) {
+    if (!it) return null;
+    it.f[5] = g.player.x;
+    it.f[6] = g.player.y;
+    if (g.groundItems) g.groundItems.push(it);
+    if (g.refreshGroundCell) g.refreshGroundCell(it.f[5], it.f[6]);
+    return it;
+  }
+  function dropReward(g, id, count) {
+    if (!Elona.ItemDB || !Elona.ItemDB.createItem) return null;
+    return dropGround(g, Elona.ItemDB.createItem(id | 0, Math.max(1, count | 0)));
+  }
+  function dropGenerated(g, opt) {
+    if (!Elona.ItemDB || !Elona.ItemDB.create) return null;
+    return dropGround(g, Elona.ItemDB.create(g, opt));
+  }
+
   function report(g, id) {
     ensure(g);
     const q = g.quests.find((x) => x.id === id);
@@ -985,26 +1012,58 @@
     if (q.type === TYPE.COOK || q.type === TYPE.SUPPLY || q.type === TYPE.COLLECT) {
       if (hasItem(g, q.itemId)) consumeItem(g, q.itemId, 1);
     }
-    // 报酬金（原版 itemcreate 54），这里直接加到货币
+    // 0-Z84 / *label_4294：金币、白金币、物品都 itemcreate 到玩家当前格，
+    // 不再直接改 player 的货币字段（591479-591493）。
     const player = g.player;
     const gold = q.rewardGold | 0;
-    player.set(30, (player.get(30) | 0) + gold);
-    // 白金：数量 1..3（1008/1010 +2）
+    if (gold > 0) dropReward(g, 54, gold);
     let plat = limit(R(g, 1 + idiv(fame(g), 10000)), 1, 3);
     if (q.type === TYPE.CONQUER || q.type === TYPE.HUNTEX) plat += 2;
-    player.set(31, (player.get(31) | 0) + plat);
-    // 报酬物品（var_434(7)）
+    if (q.type === TYPE.PARTY) plat = 1;               // 591483-591484
+    dropReward(g, 55, plat);
+
+    // 591494-591547：各委托类型的特殊报酬（var_434(12)=targetData, (13)=progress）
+    const target = q.targetData | 0;
+    const done = q.progress | 0;
+    if (q.type === TYPE.PARTY && idiv(target * 150, 100) < done) {
+      dropReward(g, 724, 1 + idiv(done, 10));          // 591497
+    }
+    if (q.type === TYPE.TRAP) {
+      const can = dropReward(g, 1130, 1);              // 591502
+      if (can) { can.f[26] = limit(1 + idiv(done, 5), 1, 30); can.f[17] = 0; }
+      if (idiv(target * 125, 100) <= done || q.subtype === 1) dropReward(g, 1041, 1); // 591507
+      const n = limit(1 + idiv(target, 15), 1, 5);
+      for (let i = 0; i < n; i++) dropGenerated(g, { level: done, fix: 2, itemId: 687 }); // 591511
+    }
+    if (q.type === TYPE.HARVEST) {
+      if (idiv(target * 125, 100) < done) dropReward(g, 1041, 1); // 591517
+      const skill = (player.skill && player.skill(180)) || 0;
+      const v = R(g, limit(idiv(skill, 2), 0, 30) + 80);         // 591519
+      if (v >= 90) dropReward(g, 419, R(g, 2) === 0 ? 3 : 2);
+      else if (v >= 70) {
+        if (R(g, 2) === 0) dropReward(g, 420, 3);
+        else dropReward(g, 554, 4);
+      } else if (v >= 50) dropReward(g, 553, 4);
+      else if (R(g, 2) === 0) dropReward(g, 418, 5);
+      else dropReward(g, 417, 5);
+    }
+
+    // 591548-591583：var_434(7) 是类别轮盘索引 1..5，>=10000 才是直接物品 id
     if (q.rewardItem) {
       let n = R(g, R(g, 4) + 1) + 1;
       if (q.type === TYPE.CONQUER || q.type === TYPE.HUNTEX) n += 2;
       const level = idiv((q.difficulty | 0) + idiv(danger(g), 2), 2) + 1;
       for (let i = 0; i < n; i++) {
-        let it = null;
-        if (Elona.ItemDB && Elona.ItemDB.create) {
-          if (q.rewardItem >= 10000) it = Elona.ItemDB.createItem(q.rewardItem, 1);
-          else it = Elona.ItemDB.create(g, { level: level, fix: 2 });
+        let fix = 2;
+        if (R(g, 2)) { fix = 3; if (R(g, 12) === 0) fix = 4; }   // 591554-591560
+        const fixlv = (Elona.ItemDB && Elona.ItemDB.calcFixLv)
+          ? Elona.ItemDB.calcFixLv(fix, g) : fix;
+        if (q.rewardItem >= 10000) {
+          dropGenerated(g, { level: level, fix: fixlv, t638: q.rewardItem });
+        } else {
+          const pool = REWARD_CATS[q.rewardItem] || REWARD_CATS[5];
+          dropGenerated(g, { level: level, fix: fixlv, t638: pool[R(g, pool.length)] });
         }
-        if (it) addRewardItem(g, it);
       }
     }
     // 名声：calcfame(difficulty*3+10)
@@ -1025,26 +1084,11 @@
     q.refreshAt = nowH(g) + R(g, 4) * DAY_H;
     syncActive(g);
     return { ok: true, quest: q, gold: gold, platinum: plat, fame: fameGain,
-      message: `${q.clientName} 的委托完成了！获得 ${gold} gold、${plat} 白金、${fameGain} 名声。` };
+      message: `${q.clientName} 的委托完成了！获得 ${gold} gold、${plat} 白金、${fameGain} 名声。有什么东西滚到了脚边。` };
   }
 
-  function addRewardItem(g, it) {
-    const inv = g.player.inv || (g.player.inv = []);
-    const cap = g.player.invCap || 0;
-    if (!cap || inv.filter(Boolean).length < cap) {
-      inv.push(it);
-      // 0-BZ：唯一物品重复 → 化为星尘（convertartifact 222003；原版 299222/299273 在「收到物品」处调用）
-      if (Elona.ItemDB && Elona.ItemDB.convertArtifact) {
-        const conv = Elona.ItemDB.convertArtifact(g.player, inv.length - 1, g);
-        if (conv && g.log) g.log(`${conv.name} 化成了星尘。`);
-      }
-      return;
-    }
-    it.f[5] = g.player.x;
-    it.f[6] = g.player.y;
-    g.groundItems.push(it);
-    if (g.refreshGroundCell) g.refreshGroundCell(it.f[5], it.f[6]);
-  }
+  // 0-Z84：报酬不再塞背包，统一落到玩家当前格（*label_4294）
+  function addRewardItem(g, it) { return dropGround(g, it); }
 
   // ---------------------------------------------------------------------------
   // 六、描述 / UI 辅助

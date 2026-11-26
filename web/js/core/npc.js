@@ -2287,6 +2287,40 @@
           message: '「来看看马厩里的货吧。」' };
       }
       case 'heal': return heal(g, player, npc);
+      // 0-Z84：对话窗 services() 生成的 act-37/38/39 走 performDispatch，
+      // 此前只有 i 键操作弹窗经 UI.runActionAct 处理，导致对话里选「设为重要的伙伴」
+      // 落到 default → 「什么也没有发生」。这里与 ui.js 的 case 37/38/39 保持同口径。
+      case 'act-37': {                                  // 289884-289953 cbit 1053
+        const bit = (Elona.Status && Elona.Status.cbit)
+          ? (Elona.Status.cbit(npc, 1053) | 0) : 0;
+        if (Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(npc, 1053, bit ? 0 : 1);
+        if (bit) return { ok: true, message: `${npc.name}显得有些绝望……` };
+        const fav = npc.get(17) | 0;
+        const message = fav >= 150 ? `${npc.name}得意地挺起了胸膛。`
+          : fav >= 100 ? `${npc.name}有点不好意思。`
+            : fav >= 0 ? `${npc.name}有点吃惊。`
+              : `${npc.name}厌恶地咂了咂嘴。`;
+        return { ok: true, message };
+      }
+      case 'act-38': {                                  // 289954-289975 cbit 1032
+        const bit = (Elona.Status && Elona.Status.cbit)
+          ? (Elona.Status.cbit(npc, 1032) | 0) : 0;
+        if (Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(npc, 1032, bit ? 0 : 1);
+        return { ok: true, message: bit
+          ? `告诉${npc.name}，不必再忍耐脚下的物品了。`
+          : `指示${npc.name}忍耐脚下的物品。` };
+      }
+      case 'act-39': {                                  // 289976-290011 在城里待机
+        if (Elona.Party && Elona.Party.dismiss && Elona.Party.isAlly
+          && Elona.Party.isAlly(npc)) Elona.Party.dismiss(g, npc);
+        npc.set(80, g.getV65 ? (g.getV65(20) | 0) : 0);
+        if (Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(npc, 960, 1);
+        npc.set(9, -1);
+        npc.set(69, -1);
+        npc.set(0, 7);
+        if (g.syncCharaCells) g.syncCharaCells();
+        return { ok: true, message: `你吩咐${npc.name}在城里待命。` };
+      }
       case 'companion-menu': return { ok: true, action: 'companion-menu', target: npc, message: '' };
       // 0-DH / 0-Z28：evochat / 一緒に食事
       case 'evochat': return { ok: true, action: 'evochat', target: npc, message: '' };
