@@ -175,7 +175,7 @@
     ctx.save();
     // 底板（保证日期文字在任何地形上都清晰）
     ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(2, 2, 148, 62, 6); else ctx.rect(2, 2, 148, 62);
+    if (ctx.roundRect) ctx.roundRect(2, 2, 168, 70, 6); else ctx.rect(2, 2, 168, 70);
     ctx.fillStyle = 'rgba(14,12,9,0.72)';
     ctx.fill();
     // 表盘
@@ -226,7 +226,13 @@
     }
     if (Elona.Daily && Elona.Daily.status) {
       const st = Elona.Daily.status(game);
-      if (st && st.fever) put('地城狂熱', 38, 'rgb(240,140,90)');
+      if (st) {
+        // 203978-203989：冒险日和 + DESTINY 进度（满 7 变蓝提示可触发命运信标）
+        if (st.destinyText) {
+          put(st.destinyText, 38, st.done >= 7 ? 'rgb(110,185,255)' : COL.text);
+        }
+        if (st.fever) put('地城狂熱', 53, 'rgb(240,140,90)');
+      }
     }
   }
 

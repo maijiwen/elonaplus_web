@@ -33,6 +33,8 @@
     '今日は絶好の探索日和だ。',
     '今日は絶好の勉強日和だ。',
   ];
+  // 8749：var_273 命运信标进度字母
+  const DESTINY_LETTERS = ['', 'D', 'DE', 'DES', 'DEST', 'DESTI', 'DESTIN', 'DESTINY', 'DESTINY'];
   const NEED = 15000;        // 32077：每组达标线
 
   const SLOT_GROUP = 670;
@@ -68,7 +70,10 @@
   function addGroupExp(g, skillId, amount) {
     if (!(amount > 0)) return false;
     for (let i = 0; i < 5; i++) {
-      if ((GROUPS[i] || []).indexOf(skillId) < 0) continue;
+      // 32087：戦闘组（i===1）同时包含武器技能 100..111
+      const hit = (i === 1 && skillId >= 100 && skillId < 112)
+        || (GROUPS[i] || []).indexOf(skillId) >= 0;
+      if (!hit) continue;
       const cur = groupExp(g, i);
       if (cur >= NEED) return false;
       const nv = cur + amount;
@@ -170,7 +175,8 @@
     const mapType = (opt.mapType === undefined) ? 8 : (opt.mapType | 0);
     if (mapType !== 8) return out;                       // 231028：只对随机地城
     const depth = limit(opt.depth === undefined ? (g.dungeonDepth | 0) : (opt.depth | 0), 1, 400);
-    // 231029：本层未探索过（web 端用 g._destinyFloor 记录上次发放的层）
+    // 231029：本层未探索过（优先读 opt.explored，否则兼容旧的 g._destinyFloor 判重）
+    if (opt.explored === true) return out;
     const last = (g._destinyFloor | 0);
     if (opt.explored === undefined && last === depth) return out;
     g._destinyFloor = depth;
@@ -226,6 +232,7 @@
         out.items.push({ id: it.id, count: it.f[0] | 0, fix: 5 });
       }
       out.fate = true;
+      if (g.playSnd) g.playSnd(60);                       // 231051：snd 60
       out.messages.push('このフロアには運命を感じる…！');
       // 231054-231062：完成度与 421-428 全部清零（含 426 首杀 / 427 睡眠次数）
       S(g, SLOT_DONE, 0);
@@ -236,22 +243,32 @@
     return out;
   }
 
+  /** 203982：HUD 用「修行日和 / DESTINY」文本 */
+  function destinyText(g) {
+    const d = limit(doneCount(g), 0, 8);
+    const letter = DESTINY_LETTERS[d] || '';
+    return `${groupName(g)}日和 / ${letter}`;
+  }
+
   /** 调试/UI 用：当前状态一览 */
   function status(g) {
+    const done = doneCount(g);
     return {
       group: group(g),
       name: groupName(g),
       exp: [0, 1, 2, 3, 4].map((i) => groupExp(g, i)),
-      done: doneCount(g),
+      done,
+      destiny: DESTINY_LETTERS[limit(done, 0, 8)] || '',
+      destinyText: destinyText(g),
       fever: V(g, SLOT_FEVER) === 100,
     };
   }
 
   Elona.Daily = {
-    GROUPS, GROUP_NAMES, GROUP_MSG, NEED,
+    GROUPS, GROUP_NAMES, GROUP_MSG, DESTINY_LETTERS, NEED,
     SLOT_GROUP, SLOT_EXP0, SLOT_KILL, SLOT_SLEEP, SLOT_DONE, SLOT_FEVER, SLOT_FEVER_MONTH, SLOT_FEVER_HOURS,
     group, setGroup, groupExp, groupName, inCurrentGroup,
-    addGroupExp, tickDay, tickHour, status, onSleep,
+    addGroupExp, tickDay, tickHour, status, destinyText, onSleep,
     onEnterFloor,
     // 兼容命名
     Destiny: { onEnterFloor },

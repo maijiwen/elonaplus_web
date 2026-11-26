@@ -302,6 +302,11 @@
       this.setV65(13, hours % 24);
       hourly(Math.max(1, advanced));
       if (Elona.Weather) Elona.Weather.tickHour(this);
+      // 603209-603236：ネフィア热狂（跨日时同样要走整点热狂结算）
+      if (Elona.Daily && this.player) {
+        const fv = Elona.Daily.tickHour(this);
+        for (const m of (fv.messages || [])) this.log(m);
+      }
       this.spreadFireHourly();
       this.spawnVisitorsHourly();
       let newMonth = false;
@@ -2065,11 +2070,6 @@
         };
       }
       this.enterDungeon(target, false);
-      // 231028-231068：命运信标 —— 随机地城（type 8）首次进入该层时发放
-      if (Elona.Daily && Elona.Daily.onEnterFloor) {
-        const dy = Elona.Daily.onEnterFloor(this, { mapType: 8, depth: target });
-        for (const m of (dy.messages || [])) this.log(m);
-      }
       return { ok: true, up, floor: target, map: `dungeon${target}` };
     }
 
@@ -2563,6 +2563,7 @@
           return;
         }
         let f = this.dungeonFloors[depth];
+        const isNewFloor = !f;
         if (!f) {
           f = this.generateDungeon(depth);
           this.dungeonFloors[depth] = f;
@@ -2646,6 +2647,14 @@
         // 0-FB：247590-247604 —— 觉醒地城的核心品质种子、深层地城的小徽章骰
         if (Elona.DungeonFx && Elona.DungeonFx.rollSeeds) {
           Elona.DungeonFx.rollSeeds(this, depth, this.dungeonAwake);
+        }
+        // 231028-231068：命运信标 —— 随机地城（type 8）且非入口层（var_65(22) != var_132(17)），
+        //   仅在首次生成该层（未探索过）时发放金币 / 热狂道具 / 命运三神器
+        if (this.isRandomDungeon && (depth | 0) !== (this.dungeonMinDepth | 0)
+          && isNewFloor && !f._destinyDone && Elona.Daily && Elona.Daily.onEnterFloor) {
+          f._destinyDone = true;
+          const dy = Elona.Daily.onEnterFloor(this, { mapType: 8, depth, explored: false });
+          for (const m of (dy.messages || [])) this.log(m);
         }
         this.map.header[4] = f.down.y * 1000 + f.down.x;
         this.map.header[5] = f.up.y * 1000 + f.up.x;
