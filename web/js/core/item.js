@@ -1971,6 +1971,10 @@
             potion: pr, resist: resistOut, messages: pr.messages };
         }
       }
+      // 314854/314859/315273：var_2362 = var_99(17, var_579)（物品的祝福/诅咒等级），
+      //   通用效果引擎 (*label_2960) 里 buff/素材降下等都读它。此前遗漏，
+      //   导致素材生成卷轴(1117)等依赖祝福度的效果永远按 0 处理。
+      if (g) g.var2362 = Elona.Potion ? Elona.Potion.curseOf(item) : (item.f[17] | 0);
       const r = Elona.Spell
         ? Elona.Spell.dispatchEffect(g, chara, entry.spell, target || chara, power)
         : { implemented: false };

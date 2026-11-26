@@ -7,6 +7,8 @@
  *   建筑税 214540-214607  #defcfunc calccostbuilding
  *   雇工费 214468-214538  #defcfunc calchirecost / #deffunc calccosthire
  *   所得税 214608-214618  #defcfunc calccosttax
+ *   发薪日 603801-603806  每月 1 日与 15 日 gosub *label_2624
+ *   工资/账单 279026-279329  店铺收入 / 名声收入 / 赠品 / 账单 / 滞纳 / 起诉
  *   月度结算 279226-279320  发账单 / 滞纳 / 起诉 / 交通工具维护费
  *   自营店 278975-279007  #defcfunc calcincome
  *   日收入 279026-279100  9 个店铺槽的每日进账与进货
@@ -235,7 +237,34 @@
       const spend = g.getV65(170) | 0;                             // 累计雇工费
       if (gold < idiv(spend, 10)) v += idiv(spend, 100);           // 214611-214613
       if (v >= 100000) v = 100000;                                 // 214614-214616
-      return Math.abs(idiv(v * this.taxModifier(p), 10));          // 214617
+      // 214617：乘税率系数后是 `/100`，不是 `/10`（旧实现放大了 10 倍）。
+      return Math.abs(idiv(v * this.taxModifier(p), 100));         // 214617
+    },
+
+    /**
+     * 名声带来的「工资」本金（279197-279202 / 285980-285984）。
+     * var_58(34,0) 是玩家名声，不是工资箱余额；账本与发薪都走这条公式。
+     */
+    fameIncome(g) {
+      const fame = (g && g.player && g.player.get) ? (g.player.get(34) | 0) : 0;
+      let v = limit(idiv(fame, 10), 100, 25000);
+      if (fame >= 25000) v += idiv(fame - 25000, 100);
+      return v;
+    },
+
+    /** 把发薪附带的物品落到玩家脚下（源码 itemcreate -1, id, -1, -1, 0） */
+    dropSalaryItem(g, id, fields) {
+      let it = null;
+      try { it = Elona.ItemDB.createItem(id | 0, 1); } catch (e) { it = null; }
+      if (!it) return null;
+      if (fields && it.f) {
+        for (const k of Object.keys(fields)) it.f[k] = fields[k] | 0;
+      }
+      const p = g.player;
+      it.f[5] = p.x; it.f[6] = p.y;
+      if (g.groundItems) g.groundItems.push(it);
+      if (typeof g.refreshGroundCell === 'function') g.refreshGroundCell(it.f[5], it.f[6]);
+      return it;
     },
 
     /** 月度总账单（279242）：雇工费 + 建筑 + 所得税 */
@@ -251,11 +280,22 @@
     arrears(g) { return g.getV65(179) | 0; },
 
     /**
-     * 每月结算（279226-279320）。
-     * @returns {object} { messages, bill, arrears, sued }
+     * 账单结算（279224-279329）。源码只在每月 1 日且年 > 517 时进入；
+     * 603801-603806 与 *label_2624 共用入口，所以这里按 opts.day/year 判定。
+     * `force` 仅供调试命令与旧测试显式触发。
+     * @returns {object} { messages, bill, arrears, sued, skipped? }
      */
-    monthly(g) {
+    monthly(g, opts) {
+      const o = opts || {};
+      const day = (o.day !== undefined ? o.day : g.getV65(12)) | 0;
+      const year = (o.year !== undefined ? o.year : g.getV65(10)) | 0;
       const res = { messages: [], bill: 0, arrears: this.arrears(g), sued: false };
+      if (!o.force && day !== 1) { res.skipped = 'not-first-day'; return res; }
+      if (!o.force && year <= 517) {
+        res.skipped = 'first-year';
+        res.messages.push('初年度は納税の義務がない。');   // 279326
+        return res;
+      }
       const p = g.player;
 
       // 279226-279252：没有预付 → 发账单
@@ -309,6 +349,76 @@
         res.messages.push('陸と海の乗り物の維持費がリセットされた。');
         g.setV65(692, 0);
         g.setV65(696, 0);
+      }
+      return res;
+    },
+
+    /**
+     * 发薪日（*label_2624，279026-279329）：
+     * 603801-603806 在每月 1 日与 15 日调用。店铺日结（279026-279100）
+     * 已由 game.js 跨日的 `dailyIncome()` 承担，这里只补名声收入、赠品与账单，
+     * 避免在 1/15 日重复计一次店铺钱。
+     * @returns {object} { messages, gold, items, bill, arrears, sued, skipped? }
+     */
+    payday(g, opts) {
+      const o = opts || {};
+      const day = (o.day !== undefined ? o.day : g.getV65(12)) | 0;
+      const res = { messages: [], gold: 0, items: 0, bill: 0,
+        arrears: this.arrears(g), sued: false };
+      if (day !== 1 && day !== 15) { res.skipped = 'not-payday'; return res; }
+      const p = g.player;
+
+      // 279197-279208：名声换算的进账（var_189==10 时 ×95%）
+      let gold = this.fameIncome(g);
+      if ((p.get(189) | 0) === 10) gold = idiv(gold, 100) * 95;
+      if (gold > 0) { this.dropGold(g, gold); res.gold = gold; }
+
+      // 279101-279111：var_65(612) 比已发的 var_65(613) 多几个备份箱 1093
+      const earned = g.getV65(612) | 0;
+      let given = g.getV65(613) | 0;
+      if (earned >= 1 && earned > given) {
+        const need = earned - given;              // 279102：循环次数固定，别在循环里重算
+        for (let i = 0; i < need; i++) {
+          if (given >= 9) break;                  // 279103
+          if (this.dropSalaryItem(g, 1093, { 17: 0 })) res.items++;
+          given++;
+        }
+        g.setV65(613, given);
+      }
+
+      // 279113-279195：赠品（面包 1041 / 成就品 1105）
+      if ((g.getV65(20) | 0) !== 54 || (g.getV65(22) | 0) !== 3) {
+        if (this.arrears(g) <= 1 && this.dropSalaryItem(g, 1041, { 17: 0 })) res.items++;
+        const supply = (Elona.Feat && Elona.Feat.get) ? (Elona.Feat.get(p, 39) | 0) : 0;
+        if (supply && this.dropSalaryItem(g, 1041, { 17: 0 })) res.items++;
+
+        // 279128-279194：独有等级 var_65(250+365) 每跨一个档位送一个 1105
+        const unique = g.getV65(615) | 0;
+        if (unique > 0 && day === 1) {
+          const steps = [1, 50, 100, 200, 400, 700, 1100, 1600, 2200, 2900,
+            3700, 4600, 5600, 6700, 7900, 9200, 10600, 12100, 13700, 15400];
+          let tier = 1;
+          for (const s of steps) if (unique >= s) tier++;
+          if (this.dropSalaryItem(g, 1105, { 17: 0, 25: tier })) res.items++;
+        }
+      }
+
+      // 279209-279223：工资到账提示（店铺部分由 dailyIncome 单独播报）
+      if (res.gold > 0 || res.items > 0) {
+        let text = `As a salary, ${res.gold} gold pieces`;
+        if (res.items > 0) text += ` and ${res.items} items`;
+        res.messages.push(text + ' have been sent to your house.');
+      }
+
+      // 279224-279329：账单只在每月 1 日处理
+      if (day === 1) {
+        const tax = this.monthly(g, o);
+        for (const m of tax.messages) res.messages.push(m);
+        res.bill = tax.bill;
+        res.arrears = tax.arrears;
+        res.sued = tax.sued;
+        res.fameLoss = tax.fameLoss;
+        res.skipped = tax.skipped;
       }
       return res;
     },
@@ -483,7 +593,14 @@
       if (!c) return 0;
       const job = c.get(150) | 0;
       if (job === 26) return c.get(38) | 0;      // 214491：按等级
-      return HIRE_COST[job] || 0;
+      let v = HIRE_COST[job] || 0;
+      // 214494-214502：1000..1999 的专用 NPC 日薪 1000（1007 为 4000），2003 不计薪
+      if ((job >= 1000 && job < 2000) || job === 2003) {
+        v = 1000;
+        if (job === 1007) v *= 4;
+        if (job === 2003) v = 0;
+      }
+      return v;
     },
 
     /** calccosthire：在 57..244 里累加店员日薪，写回 var_65(170) */

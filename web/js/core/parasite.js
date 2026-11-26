@@ -113,8 +113,8 @@
         if (Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(born, 964, 1);
         born.set(197, 10);
         const base = c.name || '';
-        if (!base || base.length > 10 || /の子供|child/.test(base)) born.name = '寄生生物の子供';
-        else born.name = `${base}の子供`;
+        if (!base || base.length > 10 || /の子供|的孩子|child/.test(base)) born.name = '寄生生物的孩子';
+        else born.name = `${base}的孩子`;
       }
     }
     out.push({ kind: 'birth', species: sp, level: lv, born });

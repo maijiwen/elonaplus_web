@@ -784,7 +784,7 @@
       if (!E) return ['经济模块未加载。'];
       const sub = (args[0] || '').toLowerCase();
       if (sub === 'month') {
-        const r = E.monthly(g);
+        const r = E.monthly(g, { force: true });   // 调试命令显式绕过 1 日 / 首年门槛
         return ['月度结算：'].concat(r.messages, [`滞纳 ${r.arrears} 月，账单 ${r.bill} gold`]);
       }
       if (sub === 'pay') {

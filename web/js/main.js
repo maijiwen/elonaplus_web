@@ -59,7 +59,10 @@
     const tick = () => {
       // 死亡后仍要画一帧，让「你倒下了……」留在消息窗里；
       // 随后由 handleDeath 自动读档 / 回标题（0-HD）。
-      if ((game.state === STATE.PLAY || game.state === STATE.DEAD) && game.map) {
+      // 0-Z83：换图是异步的（loadMap 里要 await 地图 JSON）。worldMap 标志先清、
+      // game.map 却在 await 之后才换，若不门控，rAF 会在这段窗口里用旧地图现画一帧，
+      // 表现为「进 B 之前先闪一下 A」。过渡期间保留上一帧，等地图就绪再整帧重绘。
+      if ((game.state === STATE.PLAY || game.state === STATE.DEAD) && game.map && !game.transitioning) {
         game.updateEffects(performance.now());
         renderer.clear();
         if (game.worldMap) renderer.drawWorldMap(game);

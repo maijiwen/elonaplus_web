@@ -625,6 +625,17 @@
       const r = Elona.GiftPack.open(g, c, it);
       return { ok: !!r.ok, empty: !!r.empty, result: r, gift: true };
     }
+    // 345101-345109：素材箱 394 打开时先走 *label_2960 的 1117 材料降下，
+    //   var_578 = 100 + f[25]*10（箱子强度），随后 f[25]=0，直接 return（不生成普通容器内容）。
+    if (id === 394) {
+      const power = 100 + (it.f[25] | 0) * 10;
+      it.f[25] = 0;
+      const mf = Elona.MaterialFx;
+      const r = mf ? mf.materialRain(g, { caster: c, power, curse: it.f[17] | 0 })
+        : { ok: false, count: 0, materials: [], messages: [] };
+      for (const m of (r.messages || [])) { if (g && g.log) g.log(m); }
+      return { ok: true, materialBox: true, result: r };
+    }
     if ((it.f[25] | 0) === 0) return { ok: true, empty: true };
     if ((it.f[26] | 0) > 0 && id !== 784 && id !== 1105) {
       const u = tryUnlock(g, c, it);

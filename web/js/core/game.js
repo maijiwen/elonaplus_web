@@ -389,10 +389,16 @@
           for (const m of (cp.messages || [])) this.log(m);
         }
       }
-      // 跨月：税金结算（279226-279320）
-      if (newMonth && Elona.Economy && this.player) {
-        const tx = Elona.Economy.monthly(this);
-        for (const m of (tx.messages || [])) this.log(m);
+      // 603801-603806 / *label_2624：每月 1 日与 15 日发薪；账单只在 1 日结算，
+      // 且年 > 517（279224-279329）。店铺日结已在上面跨日处理，不在这里重复。
+      if (Elona.Economy && this.player) {
+        const pd = Elona.Economy.payday(this, {
+          day: this.getV65(12) | 0,
+          year: this.getV65(10) | 0,
+          newMonth: !!newMonth,
+          newYear: !!newYear,
+        });
+        for (const m of (pd.messages || [])) this.log(m);
       }
       // 603940：随机事件（*label_2616）
       this.randomEventHours(advanced, sleepMode);
@@ -660,8 +666,85 @@
       return { id, level: p.skill(id) | 0 };
     }
 
+    /**
+     * 0-NG：同一页面会话里反复「回标题 → 新建角色」时复用同一个 Game 实例（main.js:19），
+     * 构造函数只在页面加载时跑一次。原 startGame 只覆盖 player 和少量 v65，上一局的
+     * party / mapGround（地上扔的物品）/ homeFloors / v132 / 任务等会漏进新角色。
+     * 这里把「对局状态」恢复成构造函数的初值；options/keybindings/gene/heirloom
+     * 是跨存档设置，不放在 Game 实例上，不受影响。
+     */
+    resetForNewGame() {
+      this.state = STATE.MENU;
+      this.map = null;
+      this.player = null;
+      this.charas = [];
+      this.party = [];
+      this.groundItems = [];
+      this.mapGround = Object.create(null);
+      this.mef = new Elona.Mef();
+      this.turn = 0;
+      this.year = 517;
+      this.messages = [];
+      this.v65 = { 11: 10, 12: 12, 13: 16, 14: 10 };
+      this.v132 = {};
+      this.v132Fields = Object.create(null);
+      this.propertySites = {};
+      this.homeFloor = 1;
+      this.homeFloors = {};
+      this.homeNpcs = {};
+      this.homeTiles = {};
+      this.farmRenew = {};
+      this.events = Elona.EventQueue ? new Elona.EventQueue() : null;
+      this.effects = [];
+      this.throwState = null;
+      this.facing = 2;
+      this.lockTarget = null;
+      this.lockTile = null;
+      this.lockGround = false;
+      this.stairBack = null;
+      this.dungeonDepth = 0;
+      this.dungeonFloors = {};
+      this.sealOpened = Object.create(null);
+      this.townSnapshot = null;
+      this.transitioning = false;
+      this.pendingInteraction = null;
+      this.quests = [];
+      this.killCounts = {};
+      this.activeQuests = [];
+      this._questSeq = 0;
+      this.questMap = null;
+      this.townPos = {};
+      this.townNpcTable = null;
+      this.worldMap = null;
+      this.worldLook = null;
+      this.randSites = {};
+      this.randDungeonMeta = { init: false, lastWorld: 0 };
+      this.dungeonSiteId = 0;
+      this.dungeonMinDepth = 1;
+      this.dungeonMaxDepth = 0;
+      this.dungeonCleared = false;
+      this.dungeonAwake = false;
+      this.dungeonKind = 0;
+      this.isRandomDungeon = false;
+      this.dungeonMedalSeed = 0;
+      this.dungeonCoreSeed = 0;
+      this.wildTrip = null;
+      this.dungeonFromWorld = null;
+      this.knownRecipes = {};
+      this.readBooks = {};
+      this.cardDeck = {};
+      this.learnedAbilities = {};
+      this.materials = new Array(400).fill(0);
+      this.pocket = null;
+      this._inheritance = null;
+      // serialize() 写的是 ItemDB 上的全局神器日志，也要按新局清空
+      if (Elona.ItemDB && Array.isArray(Elona.ItemDB.artifactLog)) Elona.ItemDB.artifactLog = [];
+      if (Elona.Sites && Elona.Sites.bindGame) Elona.Sites.bindGame(this);
+    }
+
     /** 用已构建好的角色开始游戏（角色创建页面确认后调用） */
     async startGame(p, classKey, opts) {
+      this.resetForNewGame();          // 0-NG：必须先清上一局，再写新角色初值
       opts = opts || {};
       const rc = await Elona.Data.table('race_class');
       const race = rc.races[p.raceName] || {};
@@ -1121,6 +1204,9 @@
       if (Elona.Property && Elona.Property.stashStock) Elona.Property.stashStock(this);
       const json = await Elona.Data.map(mapFile);
       this.map = new Elona.GameMap(json, this.tileAttrs);
+      // 0-Z83：地图对象真正替换为新图后才脱离世界地图模式。调用方原先在 await
+      // 之前就清 worldMap，渲染循环会在等待 JSON 的窗口里用旧 map 画出上一张图。
+      this.worldMap = null;
       if (fmSel && Elona.FestivalMap) Elona.FestivalMap.tagLoadedMap(this.map, fmSel);
       // 地图对象 → 地形特性 / 地面物品（map_initcustom 227693-227735 / map_reload 227761-227777）。
       // 【注记】原版城镇走 map_reload，只创建 kind==0 的物品；kind==2 的地形对象由
@@ -2569,6 +2655,7 @@
           this.dungeonFloors[depth] = f;
         }
         this.map = new Elona.GameMap(f.json, this.tileAttrs);
+        this.worldMap = null;   // 0-Z83：地城同样在地图对象替换后才脱离世界地图模式
         const M = Elona.MapFeat;
         if (M) {
           M.write(this, f.up.x, f.up.y, 232, M.TYPE.STAIRS_UP, Math.max(0, depth - 1), 0);
@@ -4153,7 +4240,14 @@
         return false;
       }
       this.pendingSite = site.id | 0;
-      await this.loadMap(file);
+      // 0-Z83：这条分支原先没有置 transitioning，loadMap 的 await 窗口里
+      // 渲染循环会拿旧 game.map 画出上一张地图（见 main.js:62 的门控）。
+      this.transitioning = true;
+      try {
+        await this.loadMap(file);
+      } finally {
+        this.transitioning = false;
+      }
       this.setV65(20, site.id | 0);
       this.setV65(22, 1);
       this.dungeonDepth = 0;

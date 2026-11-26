@@ -818,7 +818,7 @@
       // 绕过了下面 nameCh 的兜底；creature.json 里 1163 条都已配好中文 nameCh。
       // 只在名字与原版日文字面量完全一致时替换，不影响 randomname() 生成的中文音译名，
       // 也不影响玩家自定义名 / 别名 / 品质称号「『』《》」补正。
-      if (rec.nameCh && rec.nameJp && c.name === rec.nameJp) c.name = rec.nameCh;
+      c.name = this.localizeName(c.name, rec);   // 兼容品质 4/5 的 『』/《》 与 Lv 后缀
       c.name = c.name || (rec.nameCh || rec.nameJp || ('creature#' + ctx.var60));
       c.x = x; c.y = y;
       // var_58(27) = 物种 id —— 原版 characreate 写入；dmghp 的种族 668 减免、附魔的
@@ -874,27 +874,51 @@
     },
 
     /**
+     * 0-X0：把原版日文名替换成中文名。
+     * 不能只做「完全相等」判断：品质 4/5 会在 *label_2239 给名字套上 『』/《》，
+     * 之后还可能追加 ` LvN`，导致严格相等失效、日文名残留（monster.js:534-543）。
+     * 只要原名字串里出现 nameJp 就整体替换，包裹与等级后缀原样保留。
+     */
+    localizeName(raw, rec) {
+      if (!raw || !rec || !rec.nameJp || !rec.nameCh) return raw;
+      if (raw === rec.nameJp) return rec.nameCh;
+      if (raw.indexOf(rec.nameJp) >= 0) return raw.split(rec.nameJp).join(rec.nameCh);
+      return raw;
+    },
+
+    /**
      * 0-X0：读档时把旧存档里持久化的日文名换成 creature.json 的中文名。
      * `chara.js Chara.fromJSON` 直接恢复 o.name，会绕过所有数据表；这里只在
      * 「名字仍含假名」且「按 var_58(27) 能查到中文名」时替换，
      * 不动玩家自定义名、别名和中文音译随机名。
      */
     localizeChara(c) {
-      if (!c || !c.name || !CRE.data) return false;
-      if (!/[ぁ-んァ-ヶ]/.test(c.name)) return false;
+      if (!c || !CRE.data || (!c.name && !c.cname)) return false;
+      const hasKana = (s) => /[ぁ-んァ-ヶ]/.test(s || '');
+      if (!hasKana(c.name) && !hasKana(c.cname)) return false;
+      let changed = false;
       const rec = CRE.data[String(c.get(27) | 0)] || null;
+      // cname 是显示名（textvar.js:272 / modifier.js:734 优先读它），旧版没有一起本地化
+      const keys = ['name', 'cname'];
       if (rec && rec.nameCh) {
-        c.name = rec.nameCh;
-        return true;
+        for (const k of keys) {
+          if (!c[k]) continue;
+          const cn = this.localizeName(c[k], rec);
+          if (cn !== c[k]) { c[k] = cn; changed = true; }
+        }
+        if (changed) return true;
       }
       // 0-X0：查不到 creature 记录的，多半是 randname 生成的冒险者称号
       // （旧存档持久化了「僧侶を止める僧侶」这类日文名），交给 RandName 本地化。
       const RN = global.Elona && global.Elona.RandName;
       if (RN && typeof RN.localize === 'function') {
-        const cn = RN.localize(c.name);
-        if (cn && cn !== c.name) { c.name = cn; return true; }
+        for (const k of keys) {
+          if (!c[k]) continue;
+          const cn = RN.localize(c[k]);
+          if (cn && cn !== c[k]) { c[k] = cn; changed = true; }
+        }
       }
-      return false;
+      return changed;
     },
 
     /** 供测试直接调用内部函数 */

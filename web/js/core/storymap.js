@@ -186,7 +186,11 @@
     for (const bit of (spawn.cbits || [])) {
       if (Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(c, bit | 0, 1);
     }
-    if (spawn.name) c.name = spawn.name.en || spawn.name.jp || c.name;
+    // 0-X0：剧情 NPC 的名字也走中文优先；旧逻辑只有 en/jp，导致中文表里有的名字仍显示外文
+    if (spawn.name) {
+      const nm = spawn.name.ch || spawn.name.zh || spawn.name.en || spawn.name.jp;
+      if (nm) c.name = nm;
+    }
     c.__storySpawn = { map: g.getV65 ? (g.getV65(20) | 0) : 0, depth: depth | 0, species: spawn.sp | 0 };
     out.spawned.push({ sp: spawn.sp, index: c.index | 0, x: pos.x, y: pos.y, name: c.name });
     return c;

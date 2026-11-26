@@ -390,10 +390,11 @@
      "sp": 1091,
      "x": 16,
      "y": 8,
-     "name": {
-      "jp": "メシェーラ・ギルク",
-      "en": "meshera Gilk"
-     },
+      "name": {
+       "ch": "梅谢拉·吉尔克",
+       "jp": "メシェーラ・ギルク",
+       "en": "meshera Gilk"
+      },
      "fields": [
       [
        202,
@@ -435,10 +436,11 @@
      "sp": 1091,
      "x": 16,
      "y": 8,
-     "name": {
-      "jp": "メシェーラ・エルマナ",
-      "en": "meshera Hermana"
-     },
+      "name": {
+       "ch": "梅谢拉·埃尔玛娜",
+       "jp": "メシェーラ・エルマナ",
+       "en": "meshera Hermana"
+      },
      "fields": [
       [
        202,
@@ -480,10 +482,11 @@
      "sp": 1091,
      "x": 16,
      "y": 8,
-     "name": {
-      "jp": "メシェーラ・ライモンド",
-      "en": "meshera Raimond"
-     },
+      "name": {
+       "ch": "梅谢拉·雷蒙德",
+       "jp": "メシェーラ・ライモンド",
+       "en": "meshera Raimond"
+      },
      "fields": [
       [
        202,

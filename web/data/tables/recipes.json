@@ -36,7 +36,7 @@
  "recipes": {
   "200": {
    "id": 200,
-   "jp": "がらくた錬成",
+   "jp": "垃圾炼成",
    "en": "create junk",
    "cat": 1,
    "products": [
@@ -61,7 +61,7 @@
   },
   "201": {
    "id": 201,
-   "jp": "不等価交換",
+   "jp": "不等价交换",
    "en": "inequivalent exchange",
    "cat": 1,
    "products": [
@@ -90,7 +90,7 @@
   },
   "202": {
    "id": 202,
-   "jp": "蒸留",
+   "jp": "蒸馏",
    "en": "distillation",
    "cat": 1,
    "products": [
@@ -113,7 +113,7 @@
   },
   "203": {
    "id": 203,
-   "jp": "瞬間発酵",
+   "jp": "瞬间发酵",
    "en": "instant ale",
    "cat": 1,
    "products": [
@@ -134,7 +134,7 @@
   },
   "204": {
    "id": 204,
-   "jp": "抗体結晶",
+   "jp": "抗体结晶",
    "en": "cure crystal",
    "cat": 1,
    "products": [
@@ -156,7 +156,7 @@
   },
   "205": {
    "id": 205,
-   "jp": "有害ポーション",
+   "jp": "有害药水",
    "en": "harmful potion",
    "cat": 1,
    "products": [
@@ -182,7 +182,7 @@
   },
   "206": {
    "id": 206,
-   "jp": "消毒薬",
+   "jp": "消毒药",
    "en": "antidote",
    "cat": 1,
    "products": [
@@ -208,7 +208,7 @@
   },
   "207": {
    "id": 207,
-   "jp": "魔物よけ",
+   "jp": "回避魔物",
    "en": "encount canceller",
    "cat": 1,
    "products": [
@@ -234,7 +234,7 @@
   },
   "208": {
    "id": 208,
-   "jp": "精油抽出",
+   "jp": "精油提取",
    "en": "extract essential oil",
    "cat": 1,
    "products": [
@@ -256,7 +256,7 @@
   },
   "209": {
    "id": 209,
-   "jp": "古の薬",
+   "jp": "古之药",
    "en": "ancient medicine",
    "cat": 1,
    "products": [
@@ -284,7 +284,7 @@
   },
   "210": {
    "id": 210,
-   "jp": "新式の薬",
+   "jp": "新式药",
    "en": "new medicine",
    "cat": 1,
    "products": [
@@ -312,7 +312,7 @@
   },
   "211": {
    "id": 211,
-   "jp": "苦しみの薬",
+   "jp": "痛苦之药",
    "en": "agony medicine",
    "cat": 1,
    "products": [
@@ -339,7 +339,7 @@
   },
   "212": {
    "id": 212,
-   "jp": "呪いの薬",
+   "jp": "诅咒之药",
    "en": "calamity medicine",
    "cat": 1,
    "products": [
@@ -366,7 +366,7 @@
   },
   "213": {
    "id": 213,
-   "jp": "手作りボール",
+   "jp": "手制精灵球",
    "en": "ball making",
    "cat": 1,
    "products": [
@@ -388,7 +388,7 @@
   },
   "214": {
    "id": 214,
-   "jp": "誰かの日記",
+   "jp": "某人的日记",
    "en": "mysterious diary",
    "cat": 1,
    "products": [
@@ -410,7 +410,7 @@
   },
   "215": {
    "id": 215,
-   "jp": "生体復元",
+   "jp": "化石复原",
    "en": "fossil restoration",
    "cat": 1,
    "products": [
@@ -436,7 +436,7 @@
   },
   "216": {
    "id": 216,
-   "jp": "錆取り",
+   "jp": "除锈",
    "en": "rust removal",
    "cat": 1,
    "products": [
@@ -482,7 +482,7 @@
   },
   "218": {
    "id": 218,
-   "jp": "自家製火炎瓶",
+   "jp": "自制燃烧瓶",
    "en": "homemade molotov",
    "cat": 1,
    "products": [
@@ -504,7 +504,7 @@
   },
   "219": {
    "id": 219,
-   "jp": "撒き餌",
+   "jp": "撒饵",
    "en": "ground bait",
    "cat": 1,
    "products": [
@@ -526,7 +526,7 @@
   },
   "220": {
    "id": 220,
-   "jp": "にぎりプチ",
+   "jp": "迷你饭团",
    "en": "putitoro",
    "cat": 1,
    "products": [
@@ -554,7 +554,7 @@
   },
   "221": {
    "id": 221,
-   "jp": "パンつくり",
+   "jp": "制作面包",
    "en": "puff puff bread",
    "cat": 1,
    "products": [
@@ -580,7 +580,7 @@
   },
   "222": {
    "id": 222,
-   "jp": "マンドラサラダ",
+   "jp": "曼德拉草沙拉",
    "en": "mandrake salad",
    "cat": 1,
    "products": [
@@ -608,7 +608,7 @@
   },
   "223": {
    "id": 223,
-   "jp": "特製の肉まん",
+   "jp": "特制肉包",
    "en": "meat bun",
    "cat": 1,
    "products": [
@@ -636,7 +636,7 @@
   },
   "224": {
    "id": 224,
-   "jp": "性転換の儀",
+   "jp": "性别转换仪式",
    "en": "sex change",
    "cat": 1,
    "products": [
@@ -663,7 +663,7 @@
   },
   "225": {
    "id": 225,
-   "jp": "謎の種",
+   "jp": "神秘种子",
    "en": "unknown seed",
    "cat": 1,
    "products": [
@@ -687,7 +687,7 @@
   },
   "226": {
    "id": 226,
-   "jp": "ハーブ調合",
+   "jp": "香草调配",
    "en": "herb infusion",
    "cat": 1,
    "products": [
@@ -716,7 +716,7 @@
   },
   "227": {
    "id": 227,
-   "jp": "進化の側枝",
+   "jp": "进化的旁支",
    "en": "another evolution",
    "cat": 1,
    "products": [
@@ -739,7 +739,7 @@
   },
   "228": {
    "id": 228,
-   "jp": "友情の証",
+   "jp": "友情之证",
    "en": "friendship token",
    "cat": 1,
    "products": [
@@ -774,7 +774,7 @@
   },
   "229": {
    "id": 229,
-   "jp": "ネクロマンシー",
+   "jp": "死灵术",
    "en": "necromancy",
    "cat": 1,
    "products": [
@@ -801,7 +801,7 @@
   },
   "230": {
    "id": 230,
-   "jp": "ネクロチューニング",
+   "jp": "死灵调校",
    "en": "necro remodel",
    "cat": 1,
    "products": [
@@ -828,7 +828,7 @@
   },
   "231": {
    "id": 231,
-   "jp": "魔統合",
+   "jp": "魔统合",
    "en": "dark fusion",
    "cat": 1,
    "products": [
@@ -857,7 +857,7 @@
   },
   "232": {
    "id": 232,
-   "jp": "ルビナス細工",
+   "jp": "红宝石细工",
    "en": "brilliant rubynus",
    "cat": 1,
    "products": [
@@ -886,7 +886,7 @@
   },
   "233": {
    "id": 233,
-   "jp": "エメラルド細工",
+   "jp": "绿宝石细工",
    "en": "emerald tablet",
    "cat": 1,
    "products": [
@@ -915,7 +915,7 @@
   },
   "234": {
    "id": 234,
-   "jp": "ダイヤモンド細工",
+   "jp": "钻石细工",
    "en": "brilliant diamond",
    "cat": 1,
    "products": [
@@ -944,7 +944,7 @@
   },
   "235": {
    "id": 235,
-   "jp": "木の加工",
+   "jp": "木材加工",
    "en": "wood craft",
    "cat": 1,
    "products": [
@@ -971,7 +971,7 @@
   },
   "236": {
    "id": 236,
-   "jp": "石の加工",
+   "jp": "石材加工",
    "en": "stone craft",
    "cat": 1,
    "products": [
@@ -997,7 +997,7 @@
   },
   "237": {
    "id": 237,
-   "jp": "焼き物",
+   "jp": "陶器制作",
    "en": "clay craft",
    "cat": 1,
    "products": [
@@ -1028,7 +1028,7 @@
   },
   "238": {
    "id": 238,
-   "jp": "クラフトマイン",
+   "jp": "手工地雷",
    "en": "craft mine",
    "cat": 1,
    "products": [
@@ -1055,7 +1055,7 @@
   },
   "239": {
    "id": 239,
-   "jp": "たる爆弾",
+   "jp": "桶爆弹",
    "en": "barrel bomb",
    "cat": 1,
    "products": [
@@ -1083,7 +1083,7 @@
   },
   "240": {
    "id": 240,
-   "jp": "ウンチ爆弾",
+   "jp": "粪便炸弹",
    "en": "poop bomb",
    "cat": 1,
    "products": [
@@ -1110,7 +1110,7 @@
   },
   "241": {
    "id": 241,
-   "jp": "魔力爆弾",
+   "jp": "魔力炸弹",
    "en": "crystal bomb",
    "cat": 1,
    "products": [
@@ -1136,7 +1136,7 @@
   },
   "242": {
    "id": 242,
-   "jp": "すごい魔力爆弾",
+   "jp": "超级魔力炸弹",
    "en": "big crystal bomb",
    "cat": 1,
    "products": [
@@ -1164,7 +1164,7 @@
   },
   "243": {
    "id": 243,
-   "jp": "魔剣転生",
+   "jp": "魔剑转生",
    "en": "makenn tensei",
    "cat": 1,
    "products": [
@@ -1190,7 +1190,7 @@
   },
   "244": {
    "id": 244,
-   "jp": "真・魔剣転生",
+   "jp": "真·魔剑转生",
    "en": "shin makenn tensei",
    "cat": 1,
    "products": [
@@ -1217,7 +1217,7 @@
   },
   "245": {
    "id": 245,
-   "jp": "空の大型バスケット",
+   "jp": "空的大型篮子",
    "en": "large empty basket",
    "cat": 1,
    "products": [
@@ -1240,7 +1240,7 @@
   },
   "246": {
    "id": 246,
-   "jp": "ピクニックバスケット",
+   "jp": "野餐篮",
    "en": "large picnic basket",
    "cat": 1,
    "products": [
@@ -1267,7 +1267,7 @@
   },
   "247": {
    "id": 247,
-   "jp": "ファーストエイド",
+   "jp": "急救包",
    "en": "first aid kit",
    "cat": 1,
    "products": [
@@ -1290,7 +1290,7 @@
   },
   "248": {
    "id": 248,
-   "jp": "特殊矢弾箱",
+   "jp": "特殊弹药箱",
    "en": "special ammos box",
    "cat": 1,
    "products": [
@@ -1319,7 +1319,7 @@
   },
   "249": {
    "id": 249,
-   "jp": "戦術核",
+   "jp": "战术核弹",
    "en": "tactical nuke",
    "cat": 1,
    "products": [
@@ -1349,7 +1349,7 @@
   },
   "250": {
    "id": 250,
-   "jp": "煙草加工",
+   "jp": "烟草加工",
    "en": "tobacco processing",
    "cat": 1,
    "products": [
@@ -1376,7 +1376,7 @@
   },
   "251": {
    "id": 251,
-   "jp": "にぎりめし",
+   "jp": "饭团",
    "en": "onigiri",
    "cat": 1,
    "products": [
@@ -1401,7 +1401,7 @@
   },
   "252": {
    "id": 252,
-   "jp": "こだわりコーヒー",
+   "jp": "精品咖啡",
    "en": "coffee",
    "cat": 1,
    "products": [
@@ -1426,7 +1426,7 @@
   },
   "253": {
    "id": 253,
-   "jp": "喫茶",
+   "jp": "茶饮",
    "en": "tea",
    "cat": 1,
    "products": [
@@ -1451,7 +1451,7 @@
   },
   "254": {
    "id": 254,
-   "jp": "麦加工",
+   "jp": "麦子加工",
    "en": "barley and wheat",
    "cat": 1,
    "products": [
@@ -1476,7 +1476,7 @@
   },
   "255": {
    "id": 255,
-   "jp": "乳製品",
+   "jp": "乳制品",
    "en": "dairy products",
    "cat": 1,
    "products": [
@@ -1502,7 +1502,7 @@
   },
   "256": {
    "id": 256,
-   "jp": "発酵凝固",
+   "jp": "发酵凝固",
    "en": "fermentation coagulation",
    "cat": 1,
    "products": [
@@ -1527,7 +1527,7 @@
   },
   "257": {
    "id": 257,
-   "jp": "配合飼料",
+   "jp": "配合饲料",
    "en": "mix feed",
    "cat": 1,
    "products": [
@@ -1553,7 +1553,7 @@
   },
   "258": {
    "id": 258,
-   "jp": "ジャンクフード",
+   "jp": "垃圾食品",
    "en": "junk food",
    "cat": 1,
    "products": [
@@ -1575,7 +1575,7 @@
   },
   "259": {
    "id": 259,
-   "jp": "ハンバーガー",
+   "jp": "汉堡",
    "en": "hamburger",
    "cat": 1,
    "products": [
@@ -1598,7 +1598,7 @@
   },
   "260": {
    "id": 260,
-   "jp": "鏡開き",
+   "jp": "镜开",
    "en": "kagami biraki",
    "cat": 1,
    "products": [
@@ -1619,7 +1619,7 @@
   },
   "261": {
    "id": 261,
-   "jp": "肉詰め蘇生",
+   "jp": "填肉复苏",
    "en": "Meat-filling resuscitation",
    "cat": 1,
    "products": [
@@ -1647,7 +1647,7 @@
   },
   "262": {
    "id": 262,
-   "jp": "素敵な花束",
+   "jp": "美丽花束",
    "en": "lovely bouquet",
    "cat": 1,
    "products": [
@@ -1676,7 +1676,7 @@
   },
   "263": {
    "id": 263,
-   "jp": "ログハウス",
+   "jp": "原木屋",
    "en": "log house",
    "cat": 1,
    "products": [
@@ -1705,7 +1705,7 @@
   },
   "264": {
    "id": 264,
-   "jp": "柔武具改修",
+   "jp": "软武具改修",
    "en": "Soft equip update",
    "cat": 1,
    "products": [
@@ -1733,7 +1733,7 @@
   },
   "265": {
    "id": 265,
-   "jp": "剛武具改修",
+   "jp": "硬武具改修",
    "en": "Hard equip update",
    "cat": 1,
    "products": [
@@ -1761,7 +1761,7 @@
   },
   "266": {
    "id": 266,
-   "jp": "鋭武具改修",
+   "jp": "锐武具改修",
    "en": "Sharp equip update",
    "cat": 1,
    "products": [
@@ -1789,7 +1789,7 @@
   },
   "267": {
    "id": 267,
-   "jp": "柔武具の作成",
+   "jp": "软武具制作",
    "en": "Soft equip making",
    "cat": 1,
    "products": [
@@ -1817,7 +1817,7 @@
   },
   "268": {
    "id": 268,
-   "jp": "剛武具の作成",
+   "jp": "硬武具制作",
    "en": "Hard equip making",
    "cat": 1,
    "products": [
@@ -1845,7 +1845,7 @@
   },
   "269": {
    "id": 269,
-   "jp": "鋭武具の作成",
+   "jp": "锐武具制作",
    "en": "Sharp equip making",
    "cat": 1,
    "products": [
@@ -1873,7 +1873,7 @@
   },
   "270": {
    "id": 270,
-   "jp": "強化星維",
+   "jp": "强化星纤维",
    "en": "Starfiber",
    "cat": 1,
    "products": [
@@ -1900,7 +1900,7 @@
   },
   "271": {
    "id": 271,
-   "jp": "外見模倣",
+   "jp": "外观模仿",
    "en": "Appearance imitation",
    "cat": 1,
    "products": [
@@ -1926,7 +1926,7 @@
   },
   "272": {
    "id": 272,
-   "jp": "家具の強化合成",
+   "jp": "家具强化合成",
    "en": "Furniture synthesis",
    "cat": 1,
    "products": [

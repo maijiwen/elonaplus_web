@@ -106,6 +106,17 @@
     // 200453-200454
     killer.set(35, (killer.get(35) | 0) + exp);
     killer.set(201, 0);
+    // 200460-200482：同伴（1..15）击杀累积材料进度 var_58(191..195)。
+    //   条件：死者无 cbit 23/27/964、击杀者 1..15、好感 >=100、未带 cbit 992。
+    //   每项 `var_58(field) += limit(skill/5,1,10)` 并 skillexp(skill, ally, 5)。
+    if (Elona.MaterialFx && Elona.MaterialFx.onAllyKill) {
+      try {
+        const noGain = (cbit(target, 23) === 1 || cbit(target, 27) === 1
+          || cbit(target, 964) === 1 || killer.index === 0
+          || (killer.get ? (killer.get(150) | 0) : 0) === 0);
+        Elona.MaterialFx.onAllyKill(g, killer, { noGain });
+      } catch (e) { /* 单个同伴采集失败不影响击杀结算 */ }
+    }
     // 0-Z38 / 201200：`var_499(0, 死者物种)++`（地图 40/35/6 不计）。
     //   这是通用的按物种累计击杀数，供地图初始化时的 BOSS 重生判定（610737+）使用。
     const mapId = g.getV65 ? (g.getV65(20) | 0) : 0;

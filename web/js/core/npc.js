@@ -523,6 +523,11 @@
       && Elona.Relation && ((Elona.Relation.implevel(npc.get(17) | 0) | 0) >= 5)) {
       out.push({ id: 'cuddle', label: 'いちゃつく' });
     }
+    // 415118-415122：材料进度 var_58(191..195) 任一 >200 → 能力 66
+    //   「マテリアルを受け取る / Recieve materials.」（同伴采集，200462-200478 累积）
+    if (Elona.MaterialFx && Elona.MaterialFx.canReceive(g, npc)) {
+      out.push({ id: 'receive-material', label: '领取材料' });       // 原版菜单 66
+    }
     // 0-CM：万圣节 Trick-or-Treat（事件 1025，366745-366930）—— 10/25 且未应付过
     if (Elona.Festival && Elona.Festival.isTrickTime(g) && ((npc.get(150) | 0) !== 2002)) {
       out.push({ id: 'trick-or-treat', label: '不给糖就捣蛋？' });
@@ -2167,6 +2172,17 @@
       case 'give': return give(g, player, npc, arg);
       case 'cuddle': return Elona.Love ? Elona.Love.cuddle(g, npc)
         : { ok: false, message: '恋爱模块未加载。' };
+      case 'receive-material': {
+        // 415118 + 417526-417940：把同伴采集的材料进度兑换成真实材料。
+        const mf = Elona.MaterialFx;
+        if (!mf) return { ok: false, message: '材料模块未加载。' };
+        const r = mf.receive(g, npc);
+        const lines = r.gains.map((x) => (Elona.Material
+          ? Elona.Material.name(x.id) : '材料 ' + x.id));
+        return { ok: r.ok, action: 'receive-material',
+          message: r.ok ? `收到了材料：${lines.join('、')}。` : (r.messages[0] || '同伴还没采集到材料。'),
+          materials: r.gains };
+      }
       case 'trick-or-treat': return Elona.Festival ? Elona.Festival.startTrick(g, npc)
         : { ok: false, message: '节日模块未加载。' };
       case 'trick-choice': return Elona.Festival ? Elona.Festival.resolveTrick(g, npc, arg)

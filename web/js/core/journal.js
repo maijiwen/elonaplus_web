@@ -322,9 +322,9 @@
 
   /** var_2203 的初值：limit(var_58(34,0)/10,100,25000) + 超出部分/100（285980-285984） */
   function income_total(g, deep) {
-    const fame = g.player && g.player.get ? (g.player.get(34) | 0) : 0;
-    let v = limit(idiv(fame, 10), 100, 25000);
-    if (fame >= 25000) v += idiv(fame - 25000, 100);
+    // 285980-285984：名声换算部分与发薪日（279197-279202）共用同一条公式
+    let v = (Elona.Economy && Elona.Economy.fameIncome)
+      ? Elona.Economy.fameIncome(g) : 0;
     for (let cat = 0; cat < 9; cat++) {
       if (slotOf(g, 120 + cat) >= 10000) continue;
       if (Elona.Economy && Elona.Economy.calcIncome) v += Elona.Economy.calcIncome(g, cat);

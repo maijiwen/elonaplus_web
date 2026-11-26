@@ -1653,6 +1653,17 @@
     if (id === 1162) {
       return { ok: true, type: 0, implemented: true, request: 'worldmap' };
     }
+    // 1117 マテリал降下（320164-320215）：素材生成卷轴(395)/素材箱(394) 共用。
+    //   var_578 = power（卷轴 250，素材箱 100 + f[25]*10）；var_2362 = 物品祝福度。
+    if (id === 1117) {
+      const mf = Elona.MaterialFx;
+      const r = mf ? mf.materialRain(g, {
+        caster, power,
+        curse: (g && g.var2362 !== undefined) ? g.var2362 : 0,
+      }) : { ok: false, materials: [], messages: [] };
+      for (const m of (r.messages || [])) { if (g && g.log) g.log(m); }
+      return { ok: true, type: 0, implemented: !!mf, material: r };
+    }
     // 441 願い（324962-324988）：打开许愿输入；特定地图女神够不着
     if (id === 441) {
       const mapId = (g.getV65 ? (g.getV65(20) | 0) : 0);
