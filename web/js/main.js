@@ -1019,11 +1019,24 @@
         }
       }
       if (e.key === 'Escape' || (e.key === 'X')
+        || (mode === 'shop' && (e.key === 't' || e.key === 'T'))
         || (mode === 'throw' && (e.key === 'T'))
         || (mode === 'equip' && (e.key === 'w'))
         || (mode === 'equip-pick' && (e.key === 'w'))
         || (mode === 'spell' && (e.key === 'v'))) {
         e.preventDefault(); UI.closeInventory();
+      } else if (mode === 'shop' && e.key === 'Tab') {
+        e.preventDefault(); UI.toggleShopMode(game);
+      } else if (mode === 'shop' && (e.key === 'r' || e.key === 'R')) {
+        e.preventDefault(); UI.shopRefresh(game);
+      } else if (mode === 'shop' && (e.key === 'i' || e.key === 'I')) {
+        e.preventDefault(); UI.shopInvest(game, e.shiftKey ? 2 : 1);
+      } else if (mode === 'shop' && (e.key === 'ArrowLeft' || e.key === '4')) {
+        e.preventDefault(); UI.moveSelection(game, -16);
+      } else if (mode === 'shop' && (e.key === 'ArrowRight' || e.key === '6')) {
+        e.preventDefault(); UI.moveSelection(game, 16);
+      } else if (mode === 'shop' && (e.key === 'Enter' || e.key === ' ' || e.key === '5')) {
+        e.preventDefault(); UI.shopAct(game, UI.shopMode === 'buy' ? 'buy' : 'sell', e.shiftKey ? 5 : 1);
       } else if (e.key === 'x') {
         // 295825 / 297350：x = 既知の情報（原版所有物品列表模式都能用）
         e.preventDefault();

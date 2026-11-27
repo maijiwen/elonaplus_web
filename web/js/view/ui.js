@@ -225,6 +225,9 @@
         this._pickupTurnPending = false;
         if (g && g.endTurn && g.state === Elona.Game.STATE.PLAY) g.endTurn();
       }
+      if (this.invMode === 'shop' && Elona.Shop && g) {
+        Elona.Shop.close(g);
+      }
       const cancelPicker = (this.invMode === 'picker' && this.invPicker
         && !this.invPicker.done) ? this.invPicker.onCancel : null;
       this.invOpen = false;
@@ -421,6 +424,22 @@
           const fb = Elona.Spell ? (Elona.Spell.field(b, 0) | 0) : 0;
           return (fa - fb) || (a - b);
         });
+      } else if (this.invMode === 'shop') {
+        const s = game && game.shopSession;
+        const keeper = s && s.keeper;
+        const buy = this.shopMode === 'buy';
+        const src = buy ? (keeper && keeper.inv) : (game && game.player && game.player.inv);
+        const mapped = [];
+        if (Array.isArray(src)) {
+          for (let i = 0; i < src.length; i++) {
+            const it = src[i];
+            if (!it || (it.f[0] | 0) <= 0) continue;
+            if (!buy && it.eqSlot >= 0) continue;
+            rows.push(it);
+            mapped.push({ it, idx: i });
+          }
+        }
+        this.shopRows = mapped;
       } else {
         // 图鉴：按 id 升序展示全部物品（使用名称表数据，不创建实例）
         const ids = Object.keys(Elona.ItemDB.data).map(Number).sort((a, b) => a - b);
@@ -450,7 +469,7 @@
         return;
       }
       const rows = this.inventoryRows(game);
-      if (!rows.length) { this.invSel = 0; return; }
+      if (!rows.length) { this.invSel = 0; if (this.invMode === 'shop') this.shopSel = -1; return; }
       let i = (this.invSel | 0) + delta;
       // 单项上下移动时首尾循环（PageUp/PageDown 的大步跳仍夹在两端）
       if (Math.abs(delta) === 1) {
@@ -460,6 +479,7 @@
         if (i >= rows.length) i = rows.length - 1;
       }
       this.invSel = i;
+      if (this.invMode === 'shop') this._syncShopCursor();
     },
 
     /** 装备窗里直接按 a..n 跳到第 i 行（原版 display_key + var_138 匹配，i 是当前页内的行号） */
@@ -527,6 +547,11 @@
     /** 执行选中行（对应原版 cs_list 的确定动作） */
     activateInventoryRow(game, row) {
       if (!row) return;
+      if (this.invMode === 'shop') {
+        this._syncShopCursor();
+        this.shopAct(game, this.shopMode === 'buy' ? 'buy' : 'sell', 1);
+        return;
+      }
       // 0-Z76：本函数里多处要用面板层（活武器升级 / 宝物地图 …），
       //   此前直接引用 `P` 而没有声明，运行时会是 ReferenceError。
       const P = Elona.Panels;
@@ -1083,8 +1108,25 @@
     /** 当前模式的完整行（`idx` 是容器下标：购买=店主背包 / 出售=玩家背包） */
     shopRows: [],
 
+    /** 同步 Canvas 商店光标（invSel ↔ shopPage/shopCursor/shopSel） */
+    _syncShopCursor() {
+      const rows = this.shopRows || [];
+      if (!rows.length) {
+        this.invSel = 0;
+        this.shopPage = 0;
+        this.shopCursor = 0;
+        this.shopSel = -1;
+        return;
+      }
+      const sel = Math.max(0, Math.min(rows.length - 1, this.invSel | 0));
+      this.invSel = sel;
+      this.shopPage = Math.floor(sel / 16);
+      this.shopCursor = sel % 16;
+      this.shopSel = rows[sel].idx;
+    },
+
     /**
-     * 打开商店窗口。
+     * 打开商店窗口（0-Z92：参照 x 键物品列表重做为 640×432 Canvas 窗口）。
      * @param {string} [mode] 'buy'（默认）/ 'sell' / 'invest'（0-BX：从 NPC 菜单进入）
      */
     openShop(game, keeper, mode) {
@@ -1097,218 +1139,49 @@
       this.shopSel = -1;
       this.shopPage = 0;
       this.shopCursor = 0;
-      this.el('shop-tab-buy').classList.add('on');
-      this.el('shop-tab-sell').classList.remove('on');
-      this.el('shop-tab-sell').style.display = medalShop ? 'none' : '';
-      this.el('shop-tab-buy').textContent = medalShop ? '兑换' : '购买';
-      if (mode === 'invest' && !medalShop) this.pushMessage('在下方选择投资金额。');
-      this.el('shop').classList.remove('hidden');
-      this.wireShop(game);
+      if (mode === 'invest' && !medalShop) this.pushMessage('按 i 进行小额投资，Shift+i 投资 50 规模。');
+      const shopPanel = this.el('shop');
+      if (shopPanel) shopPanel.classList.add('hidden');
+      this.invOpen = true;
+      this.invMode = 'shop';
+      this.invSel = 0;
+      this.invInfo = null;
+      this.invInfoPage = 0;
+      this.invInfoCols = false;
+      this._invRows = null;
       this.renderShop(game);
-    },
-
-    /** 绑定商店按钮（只绑定一次） */
-    wireShop(game) {
-      if (this.shopWired) return;
-      this.shopWired = true;
-      const el = (id) => this.el(id);
-      el('shop-tab-buy').onclick = () => {
-        this.shopMode = 'buy';
-        el('shop-tab-buy').classList.add('on'); el('shop-tab-sell').classList.remove('on');
-        this.renderShop(game);
-      };
-      el('shop-tab-sell').onclick = () => {
-        this.shopMode = 'sell';
-        el('shop-tab-sell').classList.add('on'); el('shop-tab-buy').classList.remove('on');
-        this.renderShop(game);
-      };
-      el('shop-buy1').onclick = () => this.shopAct(game, 'buy', 1);
-      el('shop-buy5').onclick = () => this.shopAct(game, 'buy', 5);
-      el('shop-sell1').onclick = () => this.shopAct(game, 'sell', 1);
-      el('shop-sell5').onclick = () => this.shopAct(game, 'sell', 5);
-      el('shop-invest1').onclick = () => {
-        const s = game.shopSession;
-        if (!s) return;
-        const r = Elona.Shop.invest(game, s.keeper, game.player, 1);
-        this.pushMessage(r.ok ? `投资了 ${r.cost} gp，店等级提升到 ${r.rank}。`
-          : (r.reason === 'money' ? '金币不足。' : '投资失败。'));
-        this.renderShop(game);
-      };
-      el('shop-invest50').onclick = () => {
-        const s = game.shopSession;
-        if (!s) return;
-        const r = Elona.Shop.invest(game, s.keeper, game.player, 2);
-        this.pushMessage(r.ok ? `投资了 ${r.cost} gp，店等级提升到 ${r.rank}。`
-          : (r.reason === 'money' ? '金币不足。' : '投资失败。'));
-        this.renderShop(game);
-      };
-      el('shop-refresh').onclick = () => this.shopRefresh(game);
     },
 
     closeShop(game) {
       this.closeInvInfo();
-      this.el('shop').classList.add('hidden');
+      const shopPanel = this.el('shop');
+      if (shopPanel) shopPanel.classList.add('hidden');
+      if (this.invOpen && this.invMode === 'shop') {
+        this.invOpen = false;
+        this.invMode = 'bag';
+        this._invRows = null;
+      }
       if (Elona.Shop) Elona.Shop.close(game);
     },
 
     renderShop(game) {
-      const s = game.shopSession;
+      const s = game && game.shopSession;
       if (!s) return;
-      const keeper = s.keeper;
-      // 0-Z71：1016 米拉尔工房是以小奖章（622）计价的交换所（299173-299222），
-      //   不显示金币/店等级，改显示持有奖章数。
-      const medalShop = (s.role | 0) === 1016;
-      const medals = (Elona.Medal && Elona.Medal.count) ? (Elona.Medal.count(game) | 0) : 0;
-      this.el('shop-title').textContent = medalShop
-        ? `${Elona.Shop.roleName(s.role)}（${medals} 枚小奖章）`
-        : `${Elona.Shop.roleName(s.role)}（店主金币 ${keeper.get(30)}）`;
-      this.el('shop-money').textContent = medalShop
-        ? `你的小奖章：${medals} 枚　（每一件按 calcmedalvalue 计价）`
-        : `你的金币：${game.player.get(30)}　店等级：${keeper.get(151)}`;
-      const buy = this.shopMode === 'buy';
-      const rows = [];
-      if (buy) {
-        for (let i = 0; i < keeper.inv.length; i++) {
-          const it = keeper.inv[i];
-          if (it && it.f[0] > 0) rows.push({ it, idx: i });
-        }
-      } else {
-        for (let i = 0; i < game.player.inv.length; i++) {
-          const it = game.player.inv[i];
-          if (it && it.f[0] > 0 && it.eqSlot < 0) rows.push({ it, idx: i });
-        }
-      }
-      this.shopRows = rows;
-      const per = this.SHOP_PAGE_SIZE;
-      const pages = Math.max(1, Math.ceil(rows.length / per));
-      this.shopPage = Math.max(0, Math.min(pages - 1, this.shopPage | 0));
-      const from = this.shopPage * per;
-      const slice = rows.slice(from, from + per);
-      if (!slice.length) this.shopCursor = 0;
-      else this.shopCursor = Math.max(0, Math.min(slice.length - 1, this.shopCursor | 0));
-
-      // 0-Z19：此前硬编码 'en'，导致商品列表显示英文名、按 x 的情报窗却是中文。
-      //   源码没有语言切换，名称一律取当前语言的名称表（中文优先），
-      //   所以这里改为交给 ItemDB.name 的默认语言解析（Elona.Lang 当前档）。
-      const list = this.el('shop-list');
-      list.innerHTML = slice.length ? slice.map((r, i) => {
-        const it = r.it;
-        // 图标表按 0.75 倍缩放（CSS background-size: 1188px），坐标同步缩放
-        const pos = Elona.ItemDB.iconPos(it.id);
-        const k = 0.75;
-        const price = medalShop
-          ? Elona.Shop.exchangePrice(it)
-          : Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
-        const unit = medalShop ? ' 枚' : ' gp';
-        return `<div class="inv-row${i === this.shopCursor ? ' sel' : ''}" data-i="${i}">
-          <span class="inv-icon" style="background-position:-${pos.x * k}px -${pos.y * k}px"></span>
-          <span class="inv-name">${this.esc(Elona.ItemDB.name(it))}</span>
-          <span class="inv-meta">${it.f[0]} 个 / ${price}${unit}</span>
-        </div>`;
-      }).join('') : '<div id="shop-empty">没有可以交易的物品。</div>';
-
-      list.onclick = (ev) => {
-        const row = ev.target.closest('.inv-row');
-        if (!row) return;
-        this.selectShopRow(game, parseInt(row.dataset.i, 10) | 0);
-      };
-
-      // 分页信息
-      const pg = this.el('shop-page-text');
-      if (pg) {
-        pg.textContent = pages > 1
-          ? `第 ${this.shopPage + 1} / ${pages} 页（${rows.length} 种）`
-          : `共 ${rows.length} 种`;
-      }
-
-      this.el('shop-buy1').disabled = !buy || !slice.length;
-      this.el('shop-buy5').disabled = !buy || !slice.length;
-      this.el('shop-sell1').disabled = buy || !slice.length;
-      this.el('shop-sell5').disabled = buy || !slice.length;
-      // 0-Z71：奖章兑换里没有卖出/投资，按钮改成「兑换 N 个」
-      this.el('shop-buy1').textContent = medalShop ? '兑换 1 个' : '买 1 个';
-      this.el('shop-buy5').textContent = medalShop ? '兑换 5 个' : '买 5 个';
-      for (const bid of ['shop-sell1', 'shop-sell5', 'shop-invest1', 'shop-invest50']) {
-        this.el(bid).style.display = medalShop ? 'none' : '';
-      }
-      // 0-HO：刷新按钮只在「本次库存还没买过东西」时可用（与 R 键同一判定）
-      if (Elona.Shop && Elona.Shop.canRefresh) {
-        this.el('shop-refresh').disabled = !Elona.Shop.canRefresh(game, keeper);
-      }
-      // 投资按钮：显示实时价格
-      if (Elona.Shop && Elona.Shop.investValue) {
-        const c1 = Elona.Shop.investValue(game, keeper, game.player, 1);
-        const c50 = Elona.Shop.investValue(game, keeper, game.player, 20);
-        this.el('shop-invest1').textContent = `投资(${c1})`;
-        this.el('shop-invest50').textContent = `投资50(${c50})`;
-        this.el('shop-invest1').disabled = (game.player.get(30) | 0) < c1;
-        this.el('shop-invest50').disabled = (game.player.get(30) | 0) < c50;
-      }
-      // 光标落在第一行（有货时）
-      if (slice.length) this.selectShopRow(game, this.shopCursor);
-      else { this.shopSel = -1; this.el('shop-detail').textContent = '选择一件物品。'; }
+      this.invalidateInventory();
+      this.inventoryRows(game);
+      this._syncShopCursor();
     },
 
     /** 当前页的行（rows 的切片） */
     shopPageRows() {
-      const per = this.SHOP_PAGE_SIZE;
+      const per = 16;
       const from = (this.shopPage | 0) * per;
       return (this.shopRows || []).slice(from, from + per);
     },
 
-    /**
-     * 把光标移到本页第 i 行：同步高亮、`shopSel`（容器下标）与详情栏。
-     * 鼠标点击与键盘↑↓共用。
-     */
-    selectShopRow(game, i) {
-      const slice = this.shopPageRows();
-      const list = this.el('shop-list');
-      if (!slice.length || !list) { this.shopSel = -1; return; }
-      const n = slice.length;
-      this.shopCursor = ((i | 0) % n + n) % n;
-      const nodes = list.querySelectorAll('.inv-row');
-      nodes.forEach((node, k) => node.classList.toggle('sel', k === this.shopCursor));
-      const node = nodes[this.shopCursor];
-      if (node && node.scrollIntoView) node.scrollIntoView({ block: 'nearest' });
-      const row = slice[this.shopCursor];
-      this.shopSel = row.idx;
-      const buy = this.shopMode === 'buy';
-      const keeper = game.shopSession && game.shopSession.keeper;
-      const it = buy ? (keeper ? keeper.inv[this.shopSel] : null) : game.player.inv[this.shopSel];
-      if (!it) { this.el('shop-detail').textContent = '选择一件物品。'; this.shopSel = -1; return; }
-      const price = (game.shopSession && (game.shopSession.role | 0) === 1016)
-        ? Elona.Shop.exchangePrice(it)
-        : Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
-      const unit = (game.shopSession && (game.shopSession.role | 0) === 1016) ? ' 枚小奖章' : ' gp';
-      this.el('shop-detail').innerHTML =
-        `<b>${this.esc(Elona.ItemDB.name(it.id))}</b>　单价 ${price}${unit}<br>` +
-        this.esc(Elona.ItemDB.desc(it.id));
-    },
-
-    /**
-     * 0-HO：商品列表按 x —— 打开「道具的知识」弹窗（与主界面调查道具共用
-     *   openInvInfo / closeInvInfo / UI.invInfo），再按一次 x 关闭。
-     */
-    toggleShopInfo(game) {
-      if (!game.shopSession) return;
-      if (this.invInfo) {
-        this.closeInvInfo();
-        this.el('shop').classList.remove('hidden');   // 关闭情报窗 → 回到商品列表
-        return;
-      }
-      if (this.shopSel < 0) { this.pushMessage('请先选择一件物品。'); return; }
-      const buy = this.shopMode === 'buy';
-      const keeper = game.shopSession && game.shopSession.keeper;
-      const it = buy ? (keeper ? keeper.inv[this.shopSel] : null) : game.player.inv[this.shopSel];
-      if (!it) return;
-      // 情报窗画在 canvas 上，暂时收起 HTML 商店面板，避免遮住窗口
-      this.el('shop').classList.add('hidden');
-      this.openInvInfo(game, it);
-    },
-
     /** 0-HO：R 键刷新商店库存（本次库存未买过东西时可用） */
     shopRefresh(game) {
-      const s = game.shopSession;
+      const s = game && game.shopSession;
       if (!s || !Elona.Shop) return;
       const r = Elona.Shop.refresh(game, s.keeper);
       if (!r.ok) {
@@ -1317,6 +1190,7 @@
           : '现在无法刷新商品。');
         return;
       }
+      this.invSel = 0;
       this.shopPage = 0;
       this.shopCursor = 0;
       this.shopSel = -1;
@@ -1324,33 +1198,32 @@
       this.renderShop(game);
     },
 
-    /** 键盘 ↑↓：在整个商品表里循环移动（越过首尾会绕到另一端，并自动翻页） */
-    moveShopSel(game, d) {
-      const rows = this.shopRows || [];
-      const n = rows.length;
-      if (!n) return;
-      const per = this.SHOP_PAGE_SIZE;
-      let g = (this.shopPage | 0) * per + (this.shopCursor | 0) + (d | 0);
-      g = ((g % n) + n) % n;
-      const page = Math.floor(g / per);
-      const cursor = g % per;
-      if (page !== (this.shopPage | 0)) {
-        this.shopPage = page;
-        this.shopCursor = cursor;
-        this.renderShop(game);          // renderShop 末尾会按 shopCursor 选中该行
+    /** 商店投资（kind=1 小额，kind=2 +50 规模） */
+    shopInvest(game, kind) {
+      const s = game && game.shopSession;
+      if (!s || !Elona.Shop) return;
+      if ((s.role | 0) === 1016) {
+        this.pushMessage('这里只接受小奖章交换，无法投资。');
         return;
       }
-      this.selectShopRow(game, cursor);
+      const r = Elona.Shop.invest(game, s.keeper, game.player, kind || 1);
+      if (r.ok) {
+        this.pushMessage(`投资了 ${r.cost} gp，店等级提升到 ${r.rank}。`);
+        this.invSel = 0;
+        this.renderShop(game);
+      } else {
+        this.pushMessage(r.reason === 'money' ? `金币不足（需要 ${r.cost} gp）。` : '投资失败。');
+      }
     },
 
-    /** 键盘 ←→：翻页（光标保持在首行） */
+    /** 键盘 ↑↓：在整个商品表里循环移动 */
+    moveShopSel(game, d) {
+      this.moveSelection(game, d | 0);
+    },
+
+    /** 键盘 ←→：翻页（按 16 行/页） */
     changeShopPage(game, d) {
-      const pages = Math.max(1, Math.ceil((this.shopRows || []).length / this.SHOP_PAGE_SIZE));
-      const next = (this.shopPage | 0) + (d | 0);
-      if (next < 0 || next >= pages) return;
-      this.shopPage = next;
-      this.shopCursor = 0;
-      this.renderShop(game);
+      this.moveSelection(game, (d | 0) * 16);
     },
 
     /** 键盘 Tab：在购买 / 出售之间切换（1016 奖章兑换没有出售，忽略） */
@@ -1360,14 +1233,14 @@
         return;
       }
       this.shopMode = this.shopMode === 'buy' ? 'sell' : 'buy';
-      this.el('shop-tab-buy').classList.toggle('on', this.shopMode === 'buy');
-      this.el('shop-tab-sell').classList.toggle('on', this.shopMode === 'sell');
+      this.invSel = 0;
       this.shopPage = 0;
       this.shopCursor = 0;
       this.renderShop(game);
     },
 
     shopAct(game, kind, count) {
+      this._syncShopCursor();
       if (!game.shopSession || this.shopSel < 0) { this.pushMessage('请先选择一件物品。'); return; }
       const medalShop = (game.shopSession.role | 0) === 1016;
       const r = (kind === 'buy')
@@ -1379,16 +1252,19 @@
         const msg = {
           money: '金币不足。', medals: '小奖章不够。', full: '背包已经没有空位。',
           'shop-money': '店主没有足够的金币。',
-          equipped: '装备中的物品不能出售。', 'no-item': '物品不存在。',
+          equipped: '装备中的物品不能出售。',
+          artifact: '店主不收购黑星物品。',
+          rotten: '店主不收购腐烂的食物。',
+          'no-item': '物品不存在。',
         }[r.reason] || '交易失败。';
         this.pushMessage(msg);
       } else if (medalShop && kind === 'buy') {
-        this.pushMessage(`兑换了 ${Elona.ItemDB.name(r.item.id)} ×${r.item.f[0]}`
+        this.pushMessage(`兑换了 ${Elona.ItemDB.name(r.item)} ×${r.item.f[0]}`
           + `（-${r.price} 枚，余 ${r.medals} 枚）。`);
       } else {
         this.pushMessage(kind === 'buy'
-          ? `买入 ${Elona.ItemDB.name(r.item.id)} ×${r.item.f[0]}（${r.price} gp）。`
-          : `卖出 ${Elona.ItemDB.name(r.item.id)} ×${r.item.f[0]}（${r.price} gp）。`);
+          ? `买入 ${Elona.ItemDB.name(r.item)} ×${r.item.f[0]}（${r.price} gp）。`
+          : `卖出 ${Elona.ItemDB.name(r.item)} ×${r.item.f[0]}（${r.price} gp）。`);
       }
       this.renderShop(game);
     },

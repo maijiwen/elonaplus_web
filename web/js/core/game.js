@@ -916,6 +916,7 @@
         c.set(9, 0);                                  // 中立
         c.set(69, 0);
         if (role) c.set(150, role);
+        if (extra) extra(c);
         // 0-Z50 / 219323-219324 + 593854-593867：记下「家」坐标并设为归位式游荡，
         // 城镇 NPC 只会在出生点附近 ±1~2 格活动，远离时逐格回家。
         c.set(171, pos.x);
@@ -937,14 +938,14 @@
           for (let i = 0; i < times; i++) {
             const cid = e.id ? (e.id | 0) : folkPool[this.rng.rnd(folkPool.length)];
             const role = e.id ? (e.role | 0) : ((e.role | 0) || 4);
+            const isShop = (role >= 1000 && role < 2000) || role === 2003;
             const lv = e.level
               || (role >= 5 ? 8 + this.rng.rnd(8) : 3 + this.rng.rnd(5));
-            const extra = (e.sprite > 0 || e.sex >= 0)
-              ? (c) => {
-                if (e.sprite > 0) c.set(7, e.sprite | 0);
-                if (e.sex >= 0) c.set(8, e.sex | 0);
-              }
-              : null;
+            const extra = (c) => {
+              if (isShop && (e.level | 0) > 0) c.set(151, e.level | 0);
+              if (e.sprite > 0) c.set(7, e.sprite | 0);
+              if (e.sex >= 0) c.set(8, e.sex | 0);
+            };
             spawn(cid, e.x, e.y, role, lv, extra);
           }
         }
@@ -955,7 +956,10 @@
           [74, 12, 8], [70, 9, 8], [69, 8, 8], [77, 14, 5],
           [16, 4, 3],
         ];
-        for (const [id, role, lv] of generic) spawn(id, -3, 0, role, lv);
+        for (const [id, role, lv] of generic) {
+          const isShop = (role >= 1000 && role < 2000) || role === 2003;
+          spawn(id, -3, 0, role, lv, isShop ? (c) => c.set(151, lv) : null);
+        }
       }
 
       // 0-Z18：252304-252632 的节日临时 NPC / 祭品。原版由 *label_2477/2478
@@ -1096,6 +1100,7 @@
       await Elona.Battle.loadWeaponSpells();
       await Elona.Battle.loadWeaponRange();
       await Elona.ItemUse.loadTable();
+      if (Elona.Cook && Elona.Cook.load) await Elona.Cook.load();
       if (Elona.EatFX) await Elona.EatFX.load();   // 0-GX：被吃时的物种特殊效果（var_59=12）
       await Elona.Resist.loadTable();   // 0-BS：resist_msgs（resistmod/resistmodh 提示文本）
       if (Elona.Relation && Elona.Relation.loadWords) await Elona.Relation.loadWords();  // 0-BV：关系阶段名表
@@ -7673,6 +7678,7 @@
       await Elona.Spell.loadTable();
       await Elona.Battle.loadWeaponRange();
       await Elona.ItemUse.loadTable();
+      if (Elona.Cook && Elona.Cook.load) await Elona.Cook.load();
       if (Elona.EatFX) await Elona.EatFX.load();   // 0-GX：被吃时的物种特殊效果（var_59=12）
       await Elona.Resist.loadTable();   // 0-BS：resist_msgs（resistmod/resistmodh 提示文本）
       if (Elona.Relation && Elona.Relation.loadWords) await Elona.Relation.loadWords();  // 0-BV：关系阶段名表

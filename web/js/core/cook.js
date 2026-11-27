@@ -101,7 +101,8 @@
    */
   function makeDish(g, it, quality) {
     const q = Math.max(0, Math.min(9, quality | 0));
-    it.f[2] = dishImage(q, idiv(it.f[25] | 0, 1000));
+    const img = dishImage(q, idiv(it.f[25] | 0, 1000));
+    if (img > 0) it.f[2] = img;
     it.f[7] = 500;
     if ((it.f[24] | 0) === 35 && (it.f[27] | 0) >= 0) {
       it.f[27] = clockHours(g) + 72;

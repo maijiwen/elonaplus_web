@@ -1885,11 +1885,19 @@
       // 0-GU / 296794：使用模式的标题取 var_365(var_486) + 「アイテムの選択」
       const IC = Elona.ItemCmd;
       const useCmd = (IC && UI.invMode === 'use') ? IC.current(game) : 0;
-      const title = UI.invMode === 'picker'
-        ? ((UI.invPicker && UI.invPicker.title) || '选择物品')
-        : (IC && UI.invMode === 'use')
-          ? IC.pickTitle(useCmd || 14)
-          : (INV_TITLE[UI.invMode] || 'Items');
+      const isShop = UI.invMode === 'shop' && !!game.shopSession;
+      const shopSess = isShop ? game.shopSession : null;
+      const medalShop = isShop && ((shopSess.role | 0) === 1016);
+      const shopBuy = UI.shopMode === 'buy';
+      const title = isShop
+        ? (medalShop
+          ? `兑换物品（${Elona.Shop ? Elona.Shop.roleName(shopSess.role) : '米拉尔工房'}）`
+          : `${shopBuy ? '购买物品' : '出售物品'}（${Elona.Shop ? Elona.Shop.roleName(shopSess.role) : '商店'}）`)
+        : UI.invMode === 'picker'
+          ? ((UI.invPicker && UI.invPicker.title) || '选择物品')
+          : (IC && UI.invMode === 'use')
+            ? IC.pickTitle(useCmd || 14)
+            : (INV_TITLE[UI.invMode] || 'Items');
       const pages = Math.max(1, Math.ceil(rows.length / INV_ROWS));
       let sel = UI.invSel | 0;
       if (sel >= rows.length) sel = Math.max(0, rows.length - 1);
@@ -1920,6 +1928,30 @@
       }
       // 0-GU / 297059-297084：命令条（当前组 + 高亮当前命令）
       if (IC && UI.invMode === 'use') this.drawItemCmdBar(game, ctx, K);
+      // 0-Z92：商店上方买卖切换条（购买 / 出售，1016 奖章店只有兑换）
+      if (isShop && !medalShop) {
+        const tabs = [['购买', shopBuy], ['出售', !shopBuy]];
+        const tw = 64, th = 22, ty = INV_Y - 30;
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        for (let ti = 0; ti < tabs.length; ti++) {
+          const tx = INV_X + 34 + ti * tw;
+          const [lbl, on] = tabs[ti];
+          ctx.fillStyle = on ? 'rgba(240,225,180,0.92)' : 'rgba(40,36,30,0.55)';
+          ctx.fillRect(tx, ty, tw - 4, th);
+          ctx.strokeStyle = on ? '#fff3cf' : '#6b5d49';
+          ctx.lineWidth = 1;
+          ctx.strokeRect(tx + 0.5, ty + 0.5, tw - 5, th - 1);
+          ctx.font = K.FONT(11);
+          K.btext(ctx, lbl, tx + (tw - 4) / 2, ty + th / 2, on ? '#2a2010' : '#d9d2c4', K.FONT(11));
+        }
+        ctx.textAlign = 'left';
+        ctx.font = K.FONT(10);
+        ctx.fillStyle = '#cfc3b2';
+        ctx.fillText('Tab[切换买卖]', INV_X + 34 + tabs.length * tw + 8, ty + th / 2);
+        ctx.restore();
+      }
 
       // deco_inv.bmp：窗口四角的皮革装饰
       if (this.decoInv) {
@@ -1944,8 +1976,17 @@
       topic(INV_X + 28, '道具名称');
       const isBook = UI.invMode === 'book';
       const infoCols = !!UI.invInfoCols;
+      if (isShop && !infoCols) {
+        const medals = (Elona.Medal && Elona.Medal.count) ? (Elona.Medal.count(game) | 0) : 0;
+        if (medalShop) {
+          K.text(ctx, `持有小奖章: ${medals} 枚`, INV_X + 320, INV_Y + 37, '#2a1a08', K.FONT(12));
+        } else {
+          this.gspr(0, 392, 24, 24, INV_X + 318, INV_Y + 32, 24, 24);
+          K.text(ctx, `${shopSess.keeper.get(30)} gp`, INV_X + 346, INV_Y + 37, '#000', K.FONT(12));
+        }
+      }
       if (infoCols) this.drawResistHead(ctx, K, INV_X + RESIST_X, INV_Y + 40);
-      else topic(INV_X + 526, isBook ? '价格' : '重量');
+      else topic(INV_X + 526, isShop ? (medalShop ? '奖章' : '价格') : (isBook ? '价格' : '重量'));
 
       // 列表
       ctx.save();
@@ -1986,9 +2027,18 @@
           // 0-DF：使用列表里脚下物品加标记（源码中它们来自 header -1）
           if (row._onGround && UI.invMode === 'use') name = '〔地面〕' + name;
           weight = (row.f[7] | 0) * count;
-          right = UI.invMode === 'picker' && UI.invPicker && UI.invPicker.decorate
-            ? String(UI.invPicker.decorate(row) || '')
-            : K.cnvweight(weight);
+          if (isShop) {
+            const price = medalShop
+              ? Elona.Shop.exchangePrice(row)
+              : Elona.Shop.unitPrice(game, row, shopBuy ? 0 : 1);
+            const unit = medalShop ? ' 枚' : ' gp';
+            right = `${price}${unit}`;
+            name = `${name} (${K.cnvweight(row.f[7] | 0)})`;
+          } else {
+            right = UI.invMode === 'picker' && UI.invPicker && UI.invPicker.decorate
+              ? String(UI.invPicker.decorate(row) || '')
+              : K.cnvweight(weight);
+          }
         }
         // itemname 30332-30367：数量 > 1 时加「数字 + 量词」（7瓶…）
         if (count > 1) {
@@ -1998,9 +2048,9 @@
 
         // 选中行（cs_list 31598-31612：名字块加亮 + 右端 ◆，不是整行压黑）
 
-        // 物品图标（item.bmp 的 48px 切片，按原版比例略放大到 26px）
+        // 物品图标（item.bmp 的 48px 切片，优先读实例 f[2]）
         if (id >= 0 && this.itemSheet) {
-          const g = Elona.ItemDB.graphic(id);
+          const g = Elona.ItemDB.graphic((typeof row === 'object' && row) ? row : id);
           if (Number.isFinite(g) && g >= 0) {
             const sx = (g % COLS) * TILE, sy = Math.floor(g / COLS) * TILE;
             if (sx + TILE <= this.itemSheet.width && sy + TILE <= this.itemSheet.height) {
@@ -2048,7 +2098,11 @@
       const cargoMax = game.getV65 ? (game.getV65(82) | 0) : 0;
       const cargoPart = cargoMax > 0
         ? ` 荷车 ${K.cnvweight(cargo)}/${K.cnvweight(cargoMax)}` : '';
-      const note = `${rows.length} 件（重量合计 ${K.cnvweight(total)}/${K.cnvweight(maxW)}${cargoPart}）`;
+      const note = isShop
+        ? (medalShop
+          ? `${rows.length} 件（小奖章 ${((Elona.Medal && Elona.Medal.count) ? (Elona.Medal.count(game) | 0) : 0)} 枚  负重 ${K.cnvweight(total)}/${K.cnvweight(maxW)}）`
+          : `${rows.length} 件（金币 ${p.get(30)} gp  店等级 ${shopSess.keeper.get(151)}  负重 ${K.cnvweight(total)}/${K.cnvweight(maxW)}）`)
+        : `${rows.length} 件（重量合计 ${K.cnvweight(total)}/${K.cnvweight(maxW)}${cargoPart}）`;
       ctx.font = K.FONT(10);
       ctx.textAlign = 'left';
       ctx.textBaseline = 'top';
@@ -2056,11 +2110,15 @@
       // 0-FJ：原来右对齐到 INV_X+580，运费文字一长就会压到右下角的 Page.x/x
       ctx.fillText(note, INV_X + 30, INV_Y + 367);
       // 297101：var_340 + var_346 + var_347 + var_343（+ 保持指定，仅 Examine）
-      const hint = (UI.invMode === 'picker')
-        ? '↑↓[选择]  Enter[决定]  Esc[取消]'
-        : (UI.invMode === 'bag')
-          ? '↑↓[选择]  x[知识]  z[情报切换]  *[保持]  Enter[决定]  Esc[关闭]'
-          : '↑↓[选择]  x[知识]  z[切换]  Enter[决定]  Esc[关闭]';
+      const hint = isShop
+        ? (medalShop
+          ? '↑↓[选择]  ←→[翻页]  Enter[兑换1]  Shift+Enter[兑换5]  x[知识]  Esc[关闭]'
+          : '↑↓[选择]  ←→[翻页]  Tab[买卖]  Enter[交易1]  Shift+Enter[×5]  i[投资]  r[刷新]  x[知识]  Esc[关闭]')
+        : (UI.invMode === 'picker')
+          ? '↑↓[选择]  Enter[决定]  Esc[取消]'
+          : (UI.invMode === 'bag')
+            ? '↑↓[选择]  x[知识]  z[情报切换]  *[保持]  Enter[决定]  Esc[关闭]'
+            : '↑↓[选择]  x[知识]  z[切换]  Enter[决定]  Esc[关闭]';
       ctx.fillText(hint, INV_X + 30, INV_Y + 386);
       const pageText = `Page.${page + 1}/${pages}`;
       ctx.textAlign = 'right';

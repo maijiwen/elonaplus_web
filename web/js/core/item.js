@@ -260,6 +260,21 @@
         }
         return '(钓获物)';
       }
+      // 29926：鱼饵 617（var_721(f[25])）：水蚤 / 蝗虫 / 瓢虫 / 蜻蜓 / 蝉 / 赫拉克勒斯大兜虫
+      if ((it.id | 0) === 617) {
+        const BAIT_NAMES = [
+          ['水蚤', 'ミジンコ', 'water flea'],
+          ['蝗虫', 'バッタ', 'grasshopper'],
+          ['瓢虫', 'テントウ', 'ladybug'],
+          ['蜻蜓', 'トンボ', 'dragonfly'],
+          ['蝉', 'セミ', 'locust'],
+          ['赫拉克勒斯大兜虫', 'ヘラクレス', 'beetle'],
+        ];
+        const b = BAIT_NAMES[it.f[25] | 0] || BAIT_NAMES[0];
+        const base = this.name(it.id, lang);
+        if (lang === 'en') return `${base} <${b[2]}>`;
+        return lang === 'jp' ? `${base}${b[1]}` : `${base}（${b[0]}）`;
+      }
       // 0-EZ / 源码 itemname 30169-30172：已烹饪的食材（f[26]>0）按
       //   foodname(f[25]/1000, 基础名, f[26], f[23]) 显示料理名。
       //   项目此前整段未接线，只显示食材原名；现在按 wiki 中文表替换。
@@ -947,12 +962,21 @@
       }
     },
 
-    /** 外观图号 var_1015（item.bmp 中的图块序号） */
-    graphic(id) { const e = this.eq(id); return e ? (e.graphic || 0) : 0; },
+    /** 外观图号 var_1015（item.bmp 中的图块序号）；支持传入 Item 实例优先读 f[2] */
+    graphic(idOrItem) {
+      if (idOrItem && typeof idOrItem === 'object') {
+        const f2 = (idOrItem.f && (idOrItem.f[2] | 0)) || 0;
+        if (f2 > 0) return f2;
+        const e = this.eq(idOrItem.id);
+        return e ? (e.graphic || 0) : 0;
+      }
+      const e = this.eq(idOrItem);
+      return e ? (e.graphic || 0) : 0;
+    },
 
     /** 图标在 item.bmp 中的像素位置 */
-    iconPos(id) {
-      const g = this.graphic(id);
+    iconPos(idOrItem) {
+      const g = this.graphic(idOrItem);
       return { x: (g % COLS) * TILE, y: Math.floor(g / COLS) * TILE };
     },
 
@@ -1256,7 +1280,7 @@
       }
       if (id === -1 || id === 0) {
         let t637 = opt.t637 === undefined ? 0 : opt.t637;
-        if (t637 === 0) {                                   // 224355-224368
+        if (t637 === 0 && (opt.var577 | 0) !== 6) {        // 224355-224368（商店模式 var_577==6 不进稀有轮盘）
           if (fix2 === 3 && R(1000) === 0) t637 = 2;
           if (fix2 === 4 && R(100) === 0) t637 = 2;
         }
@@ -1272,6 +1296,23 @@
       //   没有这个字段，此前 f[4] 恒为 0，于是许愿 fix=4 的奇迹武器也被当成普通品质。
       //   按源码补写：未显式指定品质时用 fix2。
       if (!(it.f[4] | 0)) it.f[4] = fix2;
+      // 224534-224538：鱼饵 617（f[25]=0..5，贴图 385+f[25]，价值 f[25]^2*500+200）
+      if ((it.id | 0) === 617) {
+        const b = R(6);
+        it.f[25] = b;
+        it.f[2] = 385 + b;
+        it.f[1] = b * b * 500 + 200;
+      }
+      // 224807-224819：食物（57000）在商店进货（var577 == 6）时有 1/2 概率生成料理（品质 3..5）并切换贴图
+      if ((it.field657 | 0) === 57000 && (it.f[25] | 0) !== 0) {
+        if ((opt.var577 | 0) === 6) {
+          it.f[26] = R(2) === 0 ? 0 : (3 + R(3));
+        }
+        if ((it.f[26] | 0) !== 0 && Elona.Cook && Elona.Cook.dishImage) {
+          const dimg = Elona.Cook.dishImage(it.f[26] | 0, idiv(it.f[25] | 0, 1000));
+          if (dimg > 0) it.f[2] = dimg;
+        }
+      }
       // 0-FB：224785-224806 —— 容器（宝箱/金库/钱包…）的内容编号 f[25]、锁等级 f[26]、随机种子 f[27]
       if (Elona.DungeonFx && Elona.DungeonFx.genContainerFields) {
         const dep = g && g.getV65 ? (g.getV65(22) | 0) : 0;

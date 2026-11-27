@@ -448,28 +448,12 @@
         // itemcreate 的生成位置参数为 0 → *label_2297 的幸运修正生效
         // （224288-224301：幸运 > rnd(5000) 品质 +1；品质 5 有 1/2 打回 4）
         container: 0,
+        var577: 6,
       });
       if (!it || !it.id) continue;
       it.f[8] = 3;                               // 店内商品已鉴定
       it.eqSlot = -1;
       it.f[17] = it.f[17] || 0;
-      // 279070：`rnd(100 + var_65(120+店槽)/5) < 2` → 这一件强制成 559
-      //   （エーテル抗体のポーション）。店槽按 role 末位近似（var_450 = 0..8）。
-      //   这里用独立的随机流：原版消耗的是主 rnd，但进货的其余判定在本项目里
-      //   与原版的调用顺序不同，共用一条流会让既有货架序列整体偏移。
-      const shopSlot = limit((role % 10) | 0, 0, 8);
-      const stockPts = (g && g.getV65) ? (g.getV65(120 + shopSlot) | 0) : 10000;
-      if (antiRnd(100 + idiv(stockPts, 5)) < 2) {
-        let anti = null;
-        try { anti = Elona.ItemDB.create(g, { itemId: 559 }); } catch (e) { anti = null; }
-        if (anti) {
-          anti.f[0] = 1;
-          anti.f[8] = 3;
-          anti.eqSlot = -1;
-          keeper.inv.push(anti);
-          continue;
-        }
-      }
       // 1016 米拉尔工房 / 1023 宝具商：固定 1 个、无诅咒。源码在 427377/427385 就 continue，
       // 位于 427390 的标签检查之前，所以这两类店不受 /neg/、/noshop/ 影响。
       if (role === 1016) {
