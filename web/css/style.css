@@ -149,14 +149,12 @@ html, body {
 }
 .inv-row.sel > .inv-name::after { content: '◆'; float: right; color: #2f5f9c; }
 .inv-icon {
-  /* 0-EU：图标表改用构建期生成的 item.png（纯黑已转透明，见 tools/gen_item_png.js）。
-   * 原图 1584×2208，这里按 2/3 缩放成 32px 窗口，行高从 54px 降到 40px，
-   * 一页正好放 8 行。background-position 由 ui.js 按同一比例换算。 */
-  width: 32px; height: 32px; flex: 0 0 32px;
+  /* 0-EU / 0-Z92：图标表改用构建期生成的 item.png（1584×2208，48px 格）。
+   * 按原版 0.75 倍（36px）显示，1584×0.75 = 1188px，避免图元留白多导致显得过小。 */
+  width: 36px; height: 36px; flex: 0 0 36px;
   background-image: url('../assets/graphic/item.png');
   background-repeat: no-repeat;
-  background-size: 1056px auto;
-  /* 48px 格缩到 32px：pixelated 会丢 1px 细线，图标显得又小又碎 */
+  background-size: 1188px auto;
   image-rendering: auto;
 }
 .inv-name { flex: 1; }
@@ -592,7 +590,7 @@ table tr.pui-row:hover > td, table tr.pui-opt:hover > td { background: rgba(120,
 }
 .mat-topic-desc { margin-left: 8px; }
 .pui-row.mat-row {
-  display: grid; grid-template-columns: 24px 20px 236px 1fr;
+  display: grid; grid-template-columns: 32px 20px 236px 1fr;
   align-items: center; gap: 6px; padding: 1px 2px; min-height: 26px;
   border: 1px solid transparent; border-radius: 0;
 }
@@ -602,7 +600,7 @@ table tr.pui-row:hover > td, table tr.pui-opt:hover > td { background: rgba(120,
 .pui-row.mat-row.sel { background: transparent; border-color: transparent; }
 /* 光标行也要保留自己的隔行底纹（选中效果只加在「名称」那一块上） */
 .pui-row.mat-row.odd.sel { background: rgba(60, 40, 10, 0.07); }
-.mat-icon { width: 24px; height: 24px; image-rendering: pixelated; display: block; }
+.mat-icon { width: 36px; height: 36px; margin: -5px -2px; image-rendering: auto; display: block; }
 .mat-key {
   width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;
   background: #35291c; color: #ece2c6; border-radius: 3px;
@@ -841,20 +839,22 @@ table tr.pui-row:hover > td, table tr.pui-opt:hover > td { background: rgba(120,
 .ci-skills .ci-cost { text-align: right; padding-right: 10px; font-family: monospace; }
 .ci-skills .ci-th-cost { text-align: right; padding-right: 10px; }
 .ci-skills .ci-mark { padding: 0; }
-.ci-skills .ci-ico { padding: 0 2px 0 0; }
+.ci-skills .ci-ico { padding: 0; position: relative; overflow: visible; }
 .ci-skills .ci-key { padding: 0 4px 0 2px; }
 .ci-skills .ci-nums { text-align: right; padding-right: 10px; }
 .ci-skills .ci-th-name { padding-left: 0; }
 .ci-skills .ci-th-num { text-align: right; padding-right: 10px; }
 .ci-skills .ci-th-desc { padding-left: 6px; }
 .ci-sico {
-  display: inline-block; width: 24px; height: 24px; flex: 0 0 24px;
-  vertical-align: -6px; margin-right: 0;
+  /* 0-Z92：与咏唱窗一致，48px 格按 40×40 平滑绘制（1584×40/48 = 1320px），
+     绝对居中在 26×19 的单元格上，不撑高行距也不被裁切。 */
+  position: absolute; left: 50%; top: 50%;
+  width: 40px; height: 40px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
   background-image: url('../assets/graphic/item.png');
   background-repeat: no-repeat;
-  background-size: 792px auto;
-  /* 48px 图元缩到 24px：pixelated（最近邻）会把 1px 细线整行丢掉，图标显得又小又碎；
-     原版 grotate 是平滑缩放，这里保持 auto。 */
+  background-size: 1320px auto;
   image-rendering: auto;
 }
 /* 0-Z21：绿色 EXP UP 标记 —— 原版截图是三个纵向叠在一起的绿色「^」。

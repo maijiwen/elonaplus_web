@@ -1390,9 +1390,9 @@
       const hud = Elona.Hud;
       const costFn = (opts && opts.costFn) || null;
       const ncol = costFn ? 7 : 6;
-      // 图标表 item.png 是 1584×2208 原尺寸（48px 格），按 0.5 倍显示：
-      //   background-size 792px → 48px 格变 24px；属性图标行 y = 672×0.5 = 336
-      const ICON = 24;
+      // 图标表 item.png 是 1584×2208 原尺寸（48px 格），按 40px（与咏唱窗一致）显示：
+      //   background-size 1320px → 48px 格变 40px；属性图标行 y = 672×(40/48) = 560
+      const ICON = 40;
       const iconStyle = (attr) => {
         if (!(attr >= 0)) return '';
         return ` style="background-position:-${attr * ICON}px -${(672 / 48) * ICON}px"`;
@@ -3227,7 +3227,7 @@
           // 图标 id = var_999(2, 材料 id)，与 item.bmp 的 33 列 × 48px 网格同一套
           const icon = (d && d.icon) | 0;
           body += `<div class="pui-row mat-row${i % 2 ? '' : ' odd'}" data-i="${i}">`
-            + `<canvas class="mat-icon" width="24" height="24" data-icon="${icon}"></canvas>`
+            + `<canvas class="mat-icon" width="36" height="36" data-icon="${icon}"></canvas>`
             + `<span class="mat-key">${'abcdefghijklmno'[i] || ''}</span>`
             + '<span class="mat-item">'
             + `<span class="mat-name">${esc(Mat.name(r.id, 'jp'))} × ${r.count | 0}</span>`

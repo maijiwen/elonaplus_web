@@ -1193,9 +1193,9 @@
       const list = this.el('shop-list');
       list.innerHTML = slice.length ? slice.map((r, i) => {
         const it = r.it;
-        // 图标表按 2/3 缩放（CSS background-size: 1056px），坐标同步缩放
+        // 图标表按 0.75 倍缩放（CSS background-size: 1188px），坐标同步缩放
         const pos = Elona.ItemDB.iconPos(it.id);
-        const k = 2 / 3;
+        const k = 0.75;
         const price = medalShop
           ? Elona.Shop.exchangePrice(it)
           : Elona.Shop.unitPrice(game, it, buy ? 0 : 1);
