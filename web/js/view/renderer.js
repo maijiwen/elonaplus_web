@@ -250,7 +250,40 @@
       const img = this.uik || this.ui;
       if (!img || w <= 0 || h <= 0) return;
       const tw = dw === undefined ? w : dw, th = dh === undefined ? h : dh;
+      // 有缩放时才开平滑：小图标（24→20 之类）用最近邻会丢掉 1px 边线；
+      // 1:1 的切片不受影响，保持像素风。
+      if (tw === w && th === h) {
+        this.ctx.drawImage(img, sx, sy, w, h, dx, dy, tw, th);
+        return;
+      }
+      const sm = this.ctx.imageSmoothingEnabled;
+      this.ctx.imageSmoothingEnabled = true;
+      this.ctx.imageSmoothingQuality = 'high';
       this.ctx.drawImage(img, sx, sy, w, h, dx, dy, tw, th);
+      this.ctx.imageSmoothingEnabled = sm;
+    }
+
+    /**
+     * cs_list 的光标（31598-31612）。
+     *   原版不是「整行变黑」：只把名字所在的一小块**加亮**（`gfinc 50,50,50` 的加算渐变）
+     *   再描一圈深棕边，右端画 16×16 的 ◆（interface.bmp 48,360）。
+     */
+    listCursor(x, y, w) {
+      const ctx = this.ctx;
+      const ww = Math.max(10, Math.min(w | 0, 480));
+      const h = 19;
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';   // 加算，近似源码的 gfinc
+      const grd = ctx.createLinearGradient(0, y, 0, y + h);
+      grd.addColorStop(0, 'rgb(56,50,42)');
+      grd.addColorStop(1, 'rgb(26,23,19)');
+      ctx.fillStyle = grd;
+      ctx.fillRect(x, y, ww, h);
+      ctx.restore();
+      ctx.strokeStyle = 'rgba(72,42,14,0.9)';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(x + 0.5, y + 0.5, ww - 1, h - 1);
+      this.gspr(48, 360, 16, 16, x + ww - 20, y + 3, 16, 16);
     }
 
     /** 预加载图块表 */
@@ -534,6 +567,11 @@
       // `picload var_2220, 1`（289369）第二参 1 = 黑透明：BMP 里的纯黑要先抠成透明，
       //   否则 300×500 的图会带一块黑底盖住地图。
       rec = { canvas: null, bad: false };
+      if (this._faceCache.size > 24) {
+        // 立绘 300×500 解成位图约 0.6MB，按最老的淘汰，避免一路累积
+        const oldest = this._faceCache.keys().next();
+        if (!oldest.done) this._faceCache.delete(oldest.value);
+      }
       this._faceCache.set(file, rec);
       const img = new Image();
       img.onload = () => {
@@ -956,6 +994,7 @@
         cx.globalCompositeOperation = 'destination-in';
         cx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
       }
+      if (Object.keys(this._tintCache).length > 128) this._tintCache = Object.create(null);
       this._tintCache[key] = cv;
       return cv;
     }
@@ -1540,12 +1579,7 @@
           ctx.fillStyle = ROW_ALT;
           ctx.fillRect(INV_X + 70, rowY, 540, 18);
         }
-        if (isSel) {
-          ctx.fillStyle = 'rgba(40,18,4,0.9)';
-          ctx.fillRect(INV_X + 26, rowY - 1, 592, 19);
-          ctx.strokeStyle = '#4a3a2a';
-          ctx.strokeRect(INV_X + 26.5, rowY - 0.5, 591, 18);
-        }
+        // 装备窗同样走 cs_list（295749）：光标只加亮装备名那一块，不是整行压黑
         // 部位图标（295655：gcopy 3, 600 + (type-1)*24, 336, 24, 24）
         if (r.type >= 1 && r.type <= 11) {
           this.gspr(600 + (r.type - 1) * 24, 336, 24, 24, INV_X + 20, rowY - 3, 20, 20);
@@ -1553,7 +1587,7 @@
         // 部位名（295666：利手槽显示「利手」而不是「手」）
         const part = r.dominant ? '利手' : E.typeName(r.type);
         ctx.font = K.FONT(12);
-        K.text(ctx, part, INV_X + 44, rowY + 2, isSel ? '#fdf6e3' : '#241a0c', K.FONT(12));
+        K.vtext(ctx, part, INV_X + 44, rowY + 9, '#241a0c', K.FONT(12));
         // 快捷键方块（display_key 295663）
         const lx = INV_X + 92, ly = rowY - 1;
         ctx.fillStyle = isSel ? 'rgba(253,246,227,0.9)' : 'rgba(215,205,180,0.95)';
@@ -1565,12 +1599,12 @@
         // 装备名 / 「-」
         const it = r.item;
         let name = '-';
-        let color = isSel ? '#fdf6e3' : '#5a5040';
+        let color = '#5a5040';
         if (it) {
           name = Elona.ItemDB.name(it);
           const n = it.f[0] | 0;
           if (n > 1) name = `${n} ${name}`;
-          color = isSel ? '#fdf6e3' : this.itemColor(it);
+          color = this.itemColor(it);
         }
         ctx.font = K.FONT(12);
         let nm = name;
@@ -1580,19 +1614,20 @@
         } else {
           while (nm.length > 1 && ctx.measureText(nm).width > 400) nm = nm.slice(0, -1);
         }
-        K.text(ctx, nm, INV_X + 124, rowY + 2, color, K.FONT(12));
+        // cs_list 的光标块：x+114 起、宽度 strlen*7+32+30（295749 的 prm_647=30）
+        if (isSel) {
+          const tw = Math.min(ctx.measureText(nm).width + 32 + 30, 480);
+          this.listCursor(INV_X + 114, rowY - 1, tw);
+        }
+        K.vtext(ctx, nm, INV_X + 124, rowY + 9, color, K.FONT(12));
         // 耐性栏（equipinfo 31474：只画 type 2 的附魔）
         if (infoCols && it) this.drawResistRow(ctx, K, it, INV_X + RESIST_X, rowY + 2);
         // 重量（右列；空部位同样画「-」，与原版 cs_list 一致）
         ctx.font = K.FONT(12);
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'top';
-        ctx.fillStyle = color;
         if (!infoCols) {
-          ctx.fillText(it ? K.cnvweight((it.f[7] | 0) * Math.max(1, it.f[0] | 0)) : '-',
-            INV_X + 600, rowY + 2);
+          K.vtext(ctx, it ? K.cnvweight((it.f[7] | 0) * Math.max(1, it.f[0] | 0)) : '-',
+            INV_X + 600, rowY + 9, color, K.FONT(12), 'right');
         }
-        ctx.textAlign = 'left';
       }
       ctx.restore();
 
@@ -1681,6 +1716,7 @@
       const W = 720, H = 438;
       const X = ((UI_W - W) / 2) | 0, Y = 81;          // winposy(438) = (600-438)/2
       const NROWS = 16, RH = 19;
+      const ICON = 40;                                  // 4:5 缩放的 48px 图元：可见部分约 20px
       const pages = Math.max(1, Math.ceil(rows.length / NROWS));
       let sel = UI.invSel | 0;
       if (sel >= rows.length) sel = Math.max(0, rows.length - 1);
@@ -1693,49 +1729,53 @@
       ctx.fillRect(0, 0, UI_W, UI_H);
       K.drawWindow(ctx, this.ui, X, Y, W, H);
 
-      // 标题页签（display_window 里 window2 的位置：+34, -4, 324+clamp, 32）
+      // ---- 标题页签（display_window 的 window2：x+34, y-4, 45%W+clamp, 32）
+      // 原版 window2 是深色木纹页签，文字白色带黑描边；先前用浅米色+白字，对比度与原版差距明显。
       const title = '魔法咏唱';
-      const tabW = 324 + Math.max(0, Math.min(200, title.length * 8 - 120));
-      ctx.fillStyle = '#cfc3b2';
-      ctx.fillRect(X + 34, Y - 4, tabW, 32);
-      ctx.strokeStyle = '#6b5d49';
+      const clamp = Math.max(0, Math.min(200, title.length * 8 - 120));
+      const tabW = ((45 * W / 100) | 0) + clamp;
+      const tabX = X + 34, tabY = Y - 4, tabH = 32;
+      const grd = ctx.createLinearGradient(0, tabY, 0, tabY + tabH);
+      grd.addColorStop(0, '#4a3521');
+      grd.addColorStop(0.45, '#2f2012');
+      grd.addColorStop(1, '#1d1208');
+      ctx.fillStyle = grd;
+      ctx.fillRect(tabX, tabY, tabW, tabH);
+      ctx.strokeStyle = '#120b05';
       ctx.lineWidth = 1;
-      ctx.strokeRect(X + 34.5, Y - 3.5, tabW - 1, 31);
-      ctx.font = K.FONT(13);
-      K.btext(ctx, title, X + 34 + (tabW - ctx.measureText(title).width) / 2,
-        Y + 2, '#fff', K.FONT(13));
-      // 291963-291964：标题左边的魔法书图标
-      if (this.itemSheet) {
-        const gsx = (429 % COLS) * TILE, gsy = Math.floor(429 / COLS) * TILE;
-        if (gsx + TILE <= this.itemSheet.width && gsy + TILE <= this.itemSheet.height) {
-          ctx.drawImage(this.itemSheet, gsx, gsy, TILE, TILE, X + 46, Y - 14, 32, 32);
-        }
-      }
+      ctx.strokeRect(tabX + 0.5, tabY + 0.5, tabW - 1, tabH - 1);
+      ctx.fillStyle = 'rgba(255,226,180,0.22)';
+      ctx.fillRect(tabX + 1, tabY + 1, tabW - 2, 1);
+      ctx.fillStyle = 'rgba(0,0,0,0.45)';
+      ctx.fillRect(tabX + 1, tabY + tabH - 2, tabW - 2, 1);
+      // 291963-291964：gcopy 3, 288 + 13*48, 48, 48, 48 —— interface.bmp 的法术书徽记 48×48
+      this.gspr(288 + 13 * 48, 48, 48, 48, X + 46, Y - 16, 48, 48);
+      // window2 的标题文字（font 15，bmes 白字黑边）
+      ctx.font = K.FONT(14);
+      const tw = ctx.measureText(title).width;
+      const tx = tabX + 46 + (tabW - 46 - tw) / 2;
+      K.btext(ctx, title, tx, Y + 5, '#f6ecd8', K.FONT(14));
 
-      // 表头（display_topic）
+      // ---- 表头（display_topic）
       const topic = (x, label) => {
         this.gspr(120, 360, 24, 16, x, Y + 37, 24, 16);
         ctx.font = K.FONT(12);
-        const tw = ctx.measureText(label).width;
+        const w = ctx.measureText(label).width;
         K.text(ctx, label, x + 26, Y + 38, '#000', K.FONT(12));
         ctx.fillStyle = '#000';
-        ctx.fillRect(x + 22, Y + 51, tw + 14, 1);
+        ctx.fillRect(x + 22, Y + 51, w + 14, 1);
       };
       topic(X + 28, '魔法名称');
       topic(X + 190, '消耗MP(库存) LV/成功 (潜力)');
       topic(X + 460, '效果');
 
-      // 291965-291968：deco_spell.bmp 的两块装饰（黑底→透明）
-      if (this.decoSpell) {
-        const d = this.decoSpell;
-        ctx.drawImage(d, 0, 0, 72, 144, X + W - 78, Y, 72, 144);
-        ctx.drawImage(d, 72, 0, 72, 96, X + W - 180, Y, 72, 96);
-      }
-
       // ---------------- 列表 ----------------
+      // 属性图标来自 48px 的原图格，缩到 24px。画布全局是 imageSmoothingEnabled=false
+      // （像素地图需要），直接缩会把 1px 细线整行丢掉，图标看起来又小又碎 —— 原版是平滑缩放。
+      const smooth = ctx.imageSmoothingEnabled;
       ctx.save();
       ctx.beginPath();
-      ctx.rect(X + 30, Y + 60, W - 40, NROWS * RH + 4);
+      ctx.rect(X + 30, Y + 60, W - 40, NROWS * RH + 6);
       ctx.clip();
       for (let i = 0; i < NROWS; i++) {
         const idx = start + i;
@@ -1743,56 +1783,83 @@
         const sid = rows[idx] | 0;
         const rowY = Y + 66 + i * RH;
         const isSel = idx === sel;
-        // 291977-291981：偶数行 cs_listbk 底纹
+        // 291977-291981：偶数行 `gfini 620,18` 底纹（x+70 起 620 宽）
         if (i % 2 === 0) {
           ctx.fillStyle = ROW_ALT;
-          ctx.fillRect(X + 70, rowY - 2, W - 90, 18);
+          ctx.fillRect(X + 70, rowY, 620, 18);
         }
-        if (isSel) {
-          ctx.fillStyle = 'rgba(40,18,4,0.88)';
-          ctx.fillRect(X + 34, rowY - 2, W - 84, 18);
-          ctx.strokeStyle = '#4a3a2a';
-          ctx.strokeRect(X + 34.5, rowY - 1.5, W - 85, 17);
+        // cs_list 的光标只加亮「名字」这一小块，行底纹保持不变（31598-31612）
+        const fg = '#2a1a08';
+        // display_key（36940-36943）：24×18 的按键帽 + 字母。素材表里这一块对不上，
+        // 直接画原版那种「下宽上窄」的米色梯形键帽，避免取样到别的图块。
+        {
+          const kx = X + 58, ky = rowY - 2, kw = 24, kh = 18;
+          ctx.beginPath();
+          ctx.moveTo(kx + 4, ky + 1);
+          ctx.lineTo(kx + kw - 3, ky + 1);
+          ctx.lineTo(kx + kw - 1, ky + kh - 1);
+          ctx.lineTo(kx + 1, ky + kh - 1);
+          ctx.closePath();
+          ctx.fillStyle = isSel ? '#e8d7b4' : '#d9c9a8';
+          ctx.fill();
+          ctx.strokeStyle = isSel ? '#8a7448' : '#6b5636';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.font = K.FONT(11);
+          const ch = String.fromCharCode(97 + i);
+          const cw = ctx.measureText(ch).width;
+          K.vtext(ctx, ch, kx + (kw - cw) / 2, ky + 9, '#3a2410', K.FONT(11));
         }
-        const fg = isSel ? '#fff8e0' : '#2a1a08';
-        // display_key：a..p
-        ctx.font = K.FONT(11);
-        K.text(ctx, String.fromCharCode(97 + i), X + 58, rowY, isSel ? '#ffe9b0' : '#6a4a22', K.FONT(11));
-        // 291991-291994：属性图标（item.bmp y=672，第 var_83(0,id)-10 列）
+        // 291991-291994：属性图标 —— grotate 的源区 48×48、倍率 48/64 = 0.75，即 36×36；
+        //   图元本身只有 20~29px，所以可见部分约 17px，比 14px 文字略大（原版即如此）。
         const attr = S.field(sid, 0) | 0;
         if (this.itemSheet && attr >= 10) {
           const sx = (attr - 10) * TILE, sy = 672;
-          if (sx >= 0 && sy + TILE <= this.itemSheet.height) {
-            ctx.drawImage(this.itemSheet, sx, sy, TILE, TILE, X + 38, rowY - 3, 24, 24);
+          if (sx >= 0 && sx + TILE <= this.itemSheet.width && sy + TILE <= this.itemSheet.height) {
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(this.itemSheet, sx, sy, TILE, TILE, X + 20, rowY - 12, ICON, ICON);
+            ctx.imageSmoothingEnabled = smooth;
           }
         }
         // 名称（中文优先）
         const nm = S.actionName(sid);
         const name = nm ? (nm.ch || nm.jp || nm.en || ('魔法 ' + sid)) : ('魔法 ' + sid);
-        ctx.font = K.FONT(12);
-        K.text(ctx, name, X + 84, rowY, fg, K.FONT(12));
+        ctx.font = K.FONT(13);
+        // 光标块宽度 = 文字宽 + 32（源码 `strlen*7 + 32`），文字再右移 4px
+        if (isSel) this.listCursor(X + 84, rowY - 1, Math.min(ctx.measureText(name).width + 32, 480));
+        // 0-Z91：按字形上下沿居中到 19px 行中线（rowY+9），不再顶端对齐
+        K.vtext(ctx, name, X + 88, rowY + 9, fg, K.FONT(13));
         // 292007-292009：MP(库存)，右对齐到 x+296
         const mp = S.calcSpellCostMp(sid, p, game) | 0;
         const stock = (p.spellStock && (p.spellStock[sid - 400] | 0)) || 0;
         const mpTxt = `${mp}(${stock})`;
-        ctx.font = K.FONT(11);
-        K.text(ctx, mpTxt, X + 296 - ctx.measureText(mpTxt).width, rowY, fg, K.FONT(11));
+        ctx.font = K.FONT(12);
+        K.vtext(ctx, mpTxt, X + 296 - ctx.measureText(mpTxt).width, rowY + 9, fg, K.FONT(12));
         // 292013：LV/成功率(潜力)
         const lv = p.skill ? (p.skill(sid) | 0) : 0;
         const fail = S.calcSpellFail ? (S.calcSpellFail(sid, p, game) | 0) : 0;
         const pot = (Elona.Stats && Elona.Stats.sgrowth) ? (Elona.Stats.sgrowth(p, sid) | 0) : 0;
-        K.text(ctx, `${lv}/${fail}% (${pot}%)`, X + 305, rowY, fg, K.FONT(11));
+        K.vtext(ctx, `${lv}/${fail}% (${pot}%)`, X + 305, rowY + 9, fg, K.FONT(12));
         // 292011-292015：效果说明（var_121 截断到 40 字）
         const eff = (S.spellEffectText ? S.spellEffectText(sid, p, game) : '') || '';
         const clip = (eff.length > 40) ? (eff.slice(0, 40) + '…') : eff;
-        K.text(ctx, clip, X + 420, rowY, fg, K.FONT(11));
+        K.vtext(ctx, clip, X + 420, rowY + 9, fg, K.FONT(12));
       }
       ctx.restore();
 
-      // Page.x/y（display_window 的 var_893 != 0 分支）
+      // 291965-291968：deco_spell.bmp 的两块装饰（源图黑底已抠透明）。
+      //   放在列表之后画：长效果文字被装饰自然盖住，装饰本身保持完整（原版视觉如此）。
+      if (this.decoSpell) {
+        const d = this.decoSpell;
+        ctx.drawImage(d, 0, 0, 72, 144, X + W - 78, Y, 72, 144);
+        ctx.drawImage(d, 72, 0, 72, 96, X + W - 180, Y, 72, 96);
+      }
+
+      // Page.x/y：display_window 里 `x+W-strlen*7-40, y+H-65-H\8`
       const pg = `Page.${page + 1}/${pages}`;
       ctx.font = K.FONT(12);
-      K.text(ctx, pg, X + W - 40 - ctx.measureText(pg).width, Y + H - 58, '#2a1a08', K.FONT(12));
+      K.text(ctx, pg, X + W - pg.length * 7 - 40, Y + H - 65 - ((H / 8) | 0), '#2a1a08', K.FONT(12));
 
       // 底部按键提示（源码 `mes var_121(1)` 的位置，y+H-43）
       ctx.strokeStyle = 'rgba(120,100,64,0.55)';
@@ -1883,7 +1950,9 @@
       // 列表
       ctx.save();
       ctx.beginPath();
-      ctx.rect(INV_X + 30, INV_Y + 56, 580, INV_ROWS * INV_ROW_H + 2);
+      // 0-Z90：行首图标是 36px（x+19 .. x+55、首行上探 5px），裁剪区要相应放大，
+      //   否则图标左侧与首行顶部会被切掉一条。
+      ctx.rect(INV_X + 16, INV_Y + 50, 596, INV_ROWS * INV_ROW_H + 8);
       ctx.clip();
       for (let i = 0; i < INV_ROWS; i++) {
         const idx = start + i;
@@ -1927,16 +1996,7 @@
           name = count + unit + name;
         }
 
-        // 选中行（cs_list：深色底 + 内框 + 右侧箭头）
-        if (idx === sel) {
-          ctx.font = K.FONT(12);
-          const tw = Math.min(ctx.measureText(name).width + 34, 480);
-          ctx.fillStyle = 'rgba(40,18,4,0.9)';
-          ctx.fillRect(INV_X + 84, rowY - 1, tw, 19);
-          ctx.strokeStyle = '#4a3a2a';
-          ctx.strokeRect(INV_X + 84.5, rowY - 0.5, tw - 1, 18);
-          this.gspr(48, 360, 16, 16, INV_X + 84 + tw - 20, rowY + 1, 16, 16);
-        }
+        // 选中行（cs_list 31598-31612：名字块加亮 + 右端 ◆，不是整行压黑）
 
         // 物品图标（item.bmp 的 48px 切片，按原版比例略放大到 26px）
         if (id >= 0 && this.itemSheet) {
@@ -1944,7 +2004,15 @@
           if (Number.isFinite(g) && g >= 0) {
             const sx = (g % COLS) * TILE, sy = Math.floor(g / COLS) * TILE;
             if (sx + TILE <= this.itemSheet.width && sy + TILE <= this.itemSheet.height) {
-              ctx.drawImage(this.itemSheet, sx, sy, TILE, TILE, INV_X + 35, rowY - 4, 26, 26);
+              // 297332-297334：`grotate 1, 0,960,0, w*var_452/h, var_452`
+              //   与咏唱窗同一套 0.75 倍率 → 48×0.75 = 36px 的格子，中心对齐行中线。
+              //   图元本身只占 48 格里的一小块，36px 才是原版的视觉大小（26px 会显得又小又碎）。
+              //   48→36 是非整数缩放，必须开平滑，否则 1px 细线会被整行丢掉。
+              const sm = ctx.imageSmoothingEnabled;
+              ctx.imageSmoothingEnabled = true;
+              ctx.imageSmoothingQuality = 'high';
+              ctx.drawImage(this.itemSheet, sx, sy, TILE, TILE, INV_X + 19, rowY - 9, 36, 36);
+              ctx.imageSmoothingEnabled = sm;
             }
           }
         }
@@ -1955,20 +2023,19 @@
         const nameMax = infoCols ? 205 : 470;
         while (nm.length > 1 && ctx.measureText(nm).width > nameMax) nm = nm.slice(0, -1);
         const isSel = idx === sel;
-        K.text(ctx, nm, INV_X + 84, rowY + 2,
-          isSel ? '#fdf6e3' : this.itemColor(row), K.FONT(12));
+        // cs_list 内部把文字再右移 4px（31642 `pos prm_644 + 4`），光标块从 x 起算
+        if (isSel) {
+          this.listCursor(INV_X + 84, rowY - 1,
+            Math.min(ctx.measureText(nm).width + 32, 480));
+        }
+        K.vtext(ctx, nm, INV_X + 88, rowY + 9, this.itemColor(row), K.FONT(12));
         // 耐性栏（equipinfo 31474）
         if (infoCols && typeof row === 'object' && row) {
           this.drawResistRow(ctx, K, row, INV_X + RESIST_X, rowY + 2);
         }
 
-        // 右列（重量 / 价格 / MP）
-        ctx.font = K.FONT(12);
-        ctx.textAlign = 'right';
-        ctx.textBaseline = 'top';
-        ctx.fillStyle = isSel ? '#fdf6e3' : '#0a0a0a';
-        ctx.fillText(right, INV_X + 600, rowY + 2);
-        ctx.textAlign = 'left';
+        // 右列（重量 / 价格 / MP）—— 与名字同一行中线
+        K.vtext(ctx, right, INV_X + 600, rowY + 9, '#0a0a0a', K.FONT(12), 'right');
       }
       ctx.restore();
 
@@ -2432,7 +2499,9 @@
       } catch (e) {
         cv = null;   // 取不到像素（跨域等）→ 退回原图
       }
-      if (this._keyed.size > 4096) this._keyed.clear();
+      // 每个抠黑图块是一张独立的小 canvas（= 一张 GPU 纹理）。屏幕上同屏最多 ~154 格，
+      // 512 已足够覆盖多套图集；上限过高会让显存随跑图数量一路涨上去。
+      if (this._keyed.size > 512) this._keyed.clear();
       this._keyed.set(key, cv);
       return cv;
     }

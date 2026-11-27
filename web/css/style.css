@@ -142,7 +142,12 @@ html, body {
   padding: 3px 4px; cursor: pointer; border-bottom: 1px solid rgba(90, 70, 40, 0.28);
 }
 .inv-row:hover { background: rgba(120, 96, 48, 0.16); }
-.inv-row.sel { background: rgba(126, 96, 30, 0.34); }
+/* 0-Z91：cs_list 光标 —— 只提亮「名字」这一块 + 右端 ◆，不再整行压色 */
+.inv-row.sel { background: transparent; }
+.inv-row.sel > .inv-name {
+  background: #efe7cf; box-shadow: inset 0 0 0 1px #6b4a1e; padding: 0 4px;
+}
+.inv-row.sel > .inv-name::after { content: '◆'; float: right; color: #2f5f9c; }
 .inv-icon {
   /* 0-EU：图标表改用构建期生成的 item.png（纯黑已转透明，见 tools/gen_item_png.js）。
    * 原图 1584×2208，这里按 2/3 缩放成 32px 窗口，行高从 54px 降到 40px，
@@ -151,7 +156,8 @@ html, body {
   background-image: url('../assets/graphic/item.png');
   background-repeat: no-repeat;
   background-size: 1056px auto;
-  image-rendering: pixelated;
+  /* 48px 格缩到 32px：pixelated 会丢 1px 细线，图标显得又小又碎 */
+  image-rendering: auto;
 }
 .inv-name { flex: 1; }
 .inv-meta { color: #5a482c; font-size: 11px; text-align: right; }
@@ -540,7 +546,11 @@ html, body {
   border: 1px solid transparent;
 }
 .pui-row:hover { background: rgba(120, 96, 48, 0.16); }
-.pui-row.sel { background: rgba(126, 96, 30, 0.34); border-color: #6b5a3a; }
+.pui-row.sel { background: transparent; border-color: transparent; }
+.pui-row.sel > .pui-name {
+  background: #efe7cf; box-shadow: inset 0 0 0 1px #6b4a1e; padding: 0 4px;
+}
+.pui-row.sel > .pui-name::after { content: '◆'; float: right; color: #2f5f9c; }
 /* 0-U0：表格行的光标记（awaken / abilities 等 <tr> 列表，不套用 flex 布局） */
 .pui-opt { cursor: pointer; }
 .pui-opt.sel { background: rgba(126, 96, 30, 0.34); }
@@ -800,7 +810,11 @@ table tr.pui-row:hover > td, table tr.pui-opt:hover > td { background: rgba(120,
 .ci-dim { color: #5a482c; }
 .ci-on { color: #1e6b2e; }
 /* 0-DF：人物信息窗列表页的光标行（↑↓ 移动，「,」锁定） */
-.ci-table tr.ci-item.ci-sel { background: rgba(126, 96, 30, 0.26); outline: 1px solid rgba(90, 70, 40, 0.7); }
+.ci-table tr.ci-item.ci-sel { background: transparent; outline: none; }
+.ci-table tr.ci-item.ci-sel td.ci-skill-name {
+  background: #efe7cf; box-shadow: inset 0 0 0 1px #6b4a1e; padding: 0 4px;
+}
+.ci-table tr.ci-item.ci-sel td.ci-skill-name::after { content: '◆'; float: right; color: #2f5f9c; }
 .ci-table tr.ci-item { cursor: default; }
 
 /* 0-Z20：技能页 —— 行内顺序与源码 293936-294103 的坐标一致：
@@ -839,7 +853,9 @@ table tr.pui-row:hover > td, table tr.pui-opt:hover > td { background: rgba(120,
   background-image: url('../assets/graphic/item.png');
   background-repeat: no-repeat;
   background-size: 792px auto;
-  image-rendering: pixelated;
+  /* 48px 图元缩到 24px：pixelated（最近邻）会把 1px 细线整行丢掉，图标显得又小又碎；
+     原版 grotate 是平滑缩放，这里保持 auto。 */
+  image-rendering: auto;
 }
 /* 0-Z21：绿色 EXP UP 标记 —— 原版截图是三个纵向叠在一起的绿色「^」。
  *   源码 293993 用 `grotate 1, 576, 1680, 0, var_452, var_452` 从 item 图集

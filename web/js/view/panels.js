@@ -3297,7 +3297,9 @@
       if (sx + 48 > sheet.width || sy + 48 > sheet.height) return;
       try {
         const c2 = cv.getContext('2d');
-        c2.imageSmoothingEnabled = false;
+        // 48px 图元缩到 20~24px：必须平滑，最近邻会把 1px 细线整行丢掉
+        c2.imageSmoothingEnabled = true;
+        c2.imageSmoothingQuality = 'high';
         c2.drawImage(sheet, sx, sy, 48, 48, 0, 0, size, size);
       } catch (e) { /* 图未就绪时留空 */ }
     },
@@ -4024,7 +4026,9 @@
         const sx = (id % 33) * 48, sy = Math.floor(id / 33) * 48;
         try {
           const c2 = cv.getContext('2d');
-          c2.imageSmoothingEnabled = false;
+          // 地砖缩略图也是 48→24，同样要平滑
+          c2.imageSmoothingEnabled = true;
+          c2.imageSmoothingQuality = 'high';
           if (sheet) c2.drawImage(sheet, sx, sy, 48, 48, 0, 0, 24, 24);
         } catch (e) { /* 图未就绪时留空 */ }
       }

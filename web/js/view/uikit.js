@@ -28,6 +28,23 @@
     ctx.fillText(s, x, y);
   }
 
+  /**
+   * 垂直居中的文字：按实际字形上下沿（actualBoundingBox）把基线放到 cy 的中心。
+   *   HSP 的 mes 是以字形基线绘制的，行内文字天然居中；canvas 的 textBaseline='top'
+   *   是按 em 框顶端对齐，13px 字号在 19px 行里会有 2~3px 的偏上，看起来就「贴着上边框」。
+   */
+  function vtext(ctx, s, x, cy, color, font, align) {
+    ctx.font = font;
+    ctx.textAlign = align || 'left';
+    ctx.textBaseline = 'alphabetic';
+    const m = ctx.measureText(s);
+    const asc = (m.actualBoundingBoxAscent || 0);
+    const desc = (m.actualBoundingBoxDescent || 0);
+    const off = (asc || desc) ? (asc - desc) / 2 : 0;
+    ctx.fillStyle = color;
+    ctx.fillText(s, x, cy + off);
+  }
+
   /** bmes：带黑色描边（左下偏移 1px）的文字 */
   function btext(ctx, s, x, y, color, font) {
     ctx.font = font;
@@ -87,5 +104,5 @@
     }
   }
 
-  Elona.UiKit = { FONT, loadImage, text, btext, cnvweight, drawWindow };
+  Elona.UiKit = { FONT, loadImage, text, btext, vtext, cnvweight, drawWindow };
 })(window);
