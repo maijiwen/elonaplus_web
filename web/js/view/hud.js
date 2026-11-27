@@ -622,6 +622,21 @@
         ctx.fillStyle = COL.hp;
         ctx.fillRect(bx, by, ww, 3);
       }
+      // 34628-34652：被监视目标的「被分析度」小图标（interface.bmp 1392,534）。
+      // 源码在 HP 条上方 8px 处画 5 档 8×8 图标，满 100 时画 42×8 的 Complete 条。
+      const analysis = c.get(31) | 0;
+      if (analysis > 0 && game.getV65 && (game.getV65(94) | 0) === (c.index | 0)) {
+        const sy = 534 + Math.min(4, Math.floor(analysis / 20)) * 8;
+        const sw = analysis >= 100 ? 42 : 8;
+        const gx = bx + 9, gy = by - 10;
+        if (rd.ui) {
+          ctx.drawImage(rd.ui, 1392, sy, sw, 8, gx, gy, sw, 8);
+        } else {
+          // 图片尚未加载时的等价占位（不依赖素材即可显示档位）
+          ctx.fillStyle = analysis >= 100 ? '#88d8ff' : '#ffffff';
+          ctx.fillRect(gx, gy, Math.max(4, idiv(analysis, 3)), 5);
+        }
+      }
       ctx.restore();
     }
   }

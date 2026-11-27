@@ -337,11 +337,11 @@
         else r1378 += idiv(swim, 2);
       }
     }
-    // ---- 212407-212420：背诵（var_58(31) = 记忆中的法术数）的命中修正 ----
+    // ---- 212407-212420：背诵/暗记(165) 与被分析度（var_58(31)）的命中修正 ----
     //   只在普通攻击（prm_1036 == 0）里结算，且双方都不能是玩家（index 0）：
-    //     · 攻击者带记忆法术 → 防守方回避 += (limit(防守方背诵/3,1,300)+15) * (攻击者记忆数/10+1)
-    //     · 防守方带记忆法术 → 回避 -= (limit(攻击者背诵/3,1,300)+15) * (防守方记忆数/10+1)
-    //   每次结算给「因背诵而受益/受损」的一方 skillexp 165,4,0,1000。
+    //     · 攻击者被分析 → 防守方回避 += (limit(防守方暗记/3,1,300)+15) * (攻击者分析度/10+1)
+    //     · 防守方被分析 → 回避 -= (limit(攻击者暗记/3,1,300)+15) * (防守方分析度/10+1)
+    //   每次结算给「因分析而受益/受损」的一方 skillexp 165,4,0,1000。
     if (mode === 0) {
       const mem = (c2) => (c2 && typeof c2.get === 'function' ? (c2.get(31) | 0) : 0);
       const noteMemorize = (who, base) => {
@@ -517,6 +517,40 @@
       return { result: 1, hit: r1370, eva: evaFinal, pierce, critical: false };
     }
     return { result: -1, hit: r1370, eva: evaFinal, pierce, critical: false };
+  }
+
+  /**
+   * 346160-346187 / 347358-347390：敌人攻击玩家（或同伴）时累积「被分析度」。
+   * var_58(31, 攻击者) 是 0..100 的分析计量（也是洞察透镜清零的字段），
+   * 命中 +2 / 回避 +5，再按己方分析技能 162 掷 50/200/500 三档加算，
+   * 队友有数据扫描（var_65(250+419)）时额外掷 100 一档，上限 100。
+   * @param {number} kind 1=非暴击命中，-1=普通回避/看穿回避
+   * @returns {number} 本次增加的分析度
+   */
+  function bumpAnalysis(g, att, def, kind) {
+    if (!g || !att || !def || !kind) return 0;
+    const ai = att.index | 0, di = def.index | 0;
+    // 源码 var_243 != 0（攻击者是 NPC）且 var_244 < 16（防守方是玩家/同伴）
+    if (ai === 0 || di >= 16 || ai === di) return 0;
+    if (g.getV65 && (g.getV65(193) | 0) !== 0) return 0;
+    const target = att;                                // var_243：被分析的敌人
+    const cur = target.get(31) | 0;
+    if (cur >= 100) return 0;
+    const R = (n) => ((g.rng && typeof g.rng.rnd === 'function') ? g.rng.rnd(n)
+      : ((Elona.rng && Elona.rng.rnd) ? Elona.rng.rnd(n) : 0));
+    const a = (def.skill ? (def.skill(162) | 0) : 0);
+    const hit = kind > 0;
+    let gain = hit ? 2 : 5;
+    const extra = hit ? 1 : 3;
+    if (R(a + 1) > R(50)) gain += extra;
+    if ((g.getV65 ? (g.getV65(669) | 0) : 0) !== 0 && R(a + 50) > R(100)) gain += extra;
+    if (R(a + 1) > R(200)) gain += extra;
+    if (R(a + 1) > R(500)) gain += extra;
+    target.set(31, Math.min(100, cur + gain));
+    if (Elona.Stats && Elona.Stats.skillExp) {
+      Elona.Stats.skillExp(def, 162, def, hit ? 4 : 8, 0, 0, g);
+    }
+    return Math.min(100, cur + gain) - cur;
   }
 
   /**
@@ -765,6 +799,12 @@
     if ((att.index | 0) === 0 && def) g.lastAttacked = def.index | 0;
 
     const hit = calcAttackHit(g, att, def, weapon, weapon2, skillId, atkType, 0);
+    // 346160-346187 / 347358-347390：非暴击物理命中或被回避时，NPC 攻击者的
+    // 被分析度上升（物理攻击限定；skillId 106 是魔法/能力共用管线）。
+    if (skillId !== 106) {
+      if (hit.result === 1 && !hit.critical) bumpAnalysis(g, att, def, 1);
+      else if (hit.result === -1 || hit.result === -2) bumpAnalysis(g, att, def, -1);
+    }
     if (hit.result === -2) {
       // 0-CP：看穿回避（212876-212883）——区别于普通未命中
       return { hit: false, kanzen: true, dmg: 0, killed: false, hitPower: hit.hit, evaPower: hit.eva };
@@ -1838,6 +1878,7 @@
 
   Elona.Battle = {
     role, rolemax, dist, carmor, calcArmor, calcAttackHit, calcAttackDmg, attack, applyDamage,
+    bumpAnalysis,
     onDeath, checkDeath,
     attackSeq, attackOne, critCheck,
     loadWeaponSpells, setWeaponSpells,

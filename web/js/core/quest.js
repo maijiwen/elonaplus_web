@@ -303,12 +303,18 @@
         ].filter((d) => d.name !== curName);
       }
       const dest = dests[R(g, dests.length)] || dests[0];
+      // 0-Z0 / world_sites.json：dest.label 是英文名（Kapul / Yowyn …），
+      // 显示必须用同一张表的中文字段。targetMapName 仍保留地图文件名，
+      // 供 onArriveTown 与掲示板 {map} 占位符定位；targetName 只用于显示。
+      const destZh = dest.zh
+        || (Elona.Towns && Elona.Towns.labelOf ? Elona.Towns.labelOf(dest) : '')
+        || dest.name;
       Object.assign(q, {
         created: now + (R(g, 6) + 2) * DAY_H, refreshAt: 0,
         type: TYPE.ESCORT, category: 6, subtype: sub,
         targetData: dest.id,              // var_434(12)：目的地地图编号
         targetMapName: dest.name,
-        targetName: dest.label,           // 显示用
+        targetName: destZh,               // 显示用：world_sites.json 的中文名
         rewardItem: 5, daysLeft: days, difficulty: diff,
         rewardFactor: factor,
       });
@@ -694,16 +700,20 @@
       return { ok: false, reason: 'no-item',
         message: `需要 ${itemName(q.itemId)}。` };
     }
+    // 417244-417284：源码选项 25（配達物を渡す）/ 26（缴纳）在 gosub *label_4278
+    // 收走物品后**直接** `gosub *label_4294` 发报酬并清委托，不需要再选「报告委托」。
     consumeItem(g, q.itemId, 1);
-    if (q.type === TYPE.DELIVER) {
-      // 交给目的地的 NPC，之后回委托人处报告
-      q.status = 3;
-      syncActive(g);
-      return { ok: true, quest: q, completed: true, message: '把配达物交给了对方。' };
-    }
     markComplete(q);
+    const result = report(g, q.id, { consumed: true });
     syncActive(g);
-    return { ok: true, quest: q, completed: true, message: `缴纳了 ${itemName(q.itemId)}。` };
+    return {
+      ok: true,
+      quest: q,
+      completed: true,
+      report: result,
+      message: result.ok ? result.message
+        : (q.type === TYPE.DELIVER ? '把配达物交给了对方。' : `缴纳了 ${itemName(q.itemId)}。`),
+    };
   }
 
   /** 1006 收获：把背包里的食物按重量缴纳给委托人 */
@@ -773,6 +783,37 @@
   function itemName(id) {
     if (!id) return '物品';
     return Elona.ItemDB ? Elona.ItemDB.name(id) : ('item ' + id);
+  }
+  /**
+   * 委托文本里的地名汉化 —— 数据源是 world_sites.json（经 Sites / Towns 读取）。
+   * 旧存档里可能存的是地图文件名（kapul）或英文 label（Port Kapul），
+   * 这里统一回查中文名，避免委托正文/护送目标出现英文城镇名。
+   */
+  function placeName(v) {
+    if (!v) return '';
+    const T = Elona.Towns;
+    const low = String(v).toLowerCase();
+    if (T && T.LIST) {
+      const t = T.LIST.find((x) => x && (
+        x.name === v || x.label === v || x.zh === v
+        || String(x.name).toLowerCase() === low
+        || String(x.label).toLowerCase() === low
+      ));
+      if (t) return T.labelOf ? T.labelOf(t) : (t.zh || t.label || t.name);
+    }
+    return String(v);
+  }
+
+  /** 掲示板 {map} 占位符：护送用目的地，其余用委托发布城镇（均为中文名） */
+  function boardMapName(q) {
+    if (!q) return '这附近';
+    if (q.type === TYPE.ESCORT) return placeName(q.targetName || q.targetMapName);
+    const id = q.mapId | 0;
+    if (id && Elona.Sites && Elona.Sites.nameOf) {
+      const n = Elona.Sites.nameOf(id, 'ch');
+      if (n) return n;
+    }
+    return placeName(q.map) || '这附近';
   }
   function isFood(id) {
     return Elona.ItemDB ? Elona.ItemDB.ref(id, 5) === 57000 : false;
@@ -998,7 +1039,7 @@
     return dropGround(g, Elona.ItemDB.create(g, opt));
   }
 
-  function report(g, id) {
+  function report(g, id, opts) {
     ensure(g);
     const q = g.quests.find((x) => x.id === id);
     if (!q || (q.status !== 1 && q.status !== 3)) {
@@ -1008,9 +1049,10 @@
     if (q.status !== 3) {
       return { ok: false, reason: 'incomplete', message: `委托尚未完成：${progressText(g, q)}。` };
     }
-    // 缴纳型：报告时收走物品
+    // 缴纳型：报告时收走物品。handOver()（选项 25/26）已在调用前收走，
+    // 用 opts.consumed 避免同格的另一件同名物品被误扣。
     if (q.type === TYPE.COOK || q.type === TYPE.SUPPLY || q.type === TYPE.COLLECT) {
-      if (hasItem(g, q.itemId)) consumeItem(g, q.itemId, 1);
+      if (!(opts && opts.consumed) && hasItem(g, q.itemId)) consumeItem(g, q.itemId, 1);
     }
     // 0-Z84 / *label_4294：金币、白金币、物品都 itemcreate 到玩家当前格，
     // 不再直接改 player 的货币字段（591479-591493）。
@@ -1101,7 +1143,7 @@
       case TYPE.CONQUER:
         return q.status === 3 ? '已讨伐目标' : `讨伐 ${creatureName(q.targetCreature)}`;
       case TYPE.DELIVER:
-        return q.status === 3 ? '已送达目的地' : `把 ${itemName(q.itemId)} 交给 ${q.targetName}`;
+        return q.status === 3 ? '已送达目的地' : `把 ${itemName(q.itemId)} 交给 ${placeName(q.targetName)}`;
       case TYPE.COOK:
         return `缴纳料理（需要等级 ${q.requiredLevel}）`;
       case TYPE.SUPPLY:
@@ -1109,11 +1151,11 @@
       case TYPE.HARVEST:
         return `缴纳作物 ${q.progress}/${q.targetData}`;
       case TYPE.ESCORT:
-        return q.status === 3 ? '已护送到达' : `护送到 ${q.targetName || q.targetMapName || '目的地'}`;
+        return q.status === 3 ? '已护送到达' : `护送到 ${placeName(q.targetName || q.targetMapName) || '目的地'}`;
       case TYPE.PARTY:
         return `派对分数 ${q.progress}/${q.targetData}`;
       case TYPE.COLLECT:
-        return `从 ${q.targetName} 处取得 ${itemName(q.itemId)}`;
+        return `从 ${placeName(q.targetName)} 处取得 ${itemName(q.itemId)}`;
       case TYPE.TRAP:
         return `拆除陷阱 ${q.progress}/${q.targetData} 点`;
       default:
@@ -1131,7 +1173,7 @@
       case TYPE.CONQUER:
         return `讨伐 ${creatureName(q.targetCreature)}`;
       case TYPE.DELIVER:
-        return `把 ${itemName(q.itemId)} 配送给 ${q.targetName}`;
+        return `把 ${itemName(q.itemId)} 配送给 ${placeName(q.targetName)}`;
       case TYPE.COOK:
         return `缴纳料理（等级 ${q.requiredLevel}）`;
       case TYPE.SUPPLY:
@@ -1139,11 +1181,11 @@
       case TYPE.HARVEST:
         return `缴纳作物（重量 ${q.targetData}）`;
       case TYPE.ESCORT:
-        return `护送 ${q.clientName} 到 ${q.targetName || q.targetMapName || '目的地'}`;
+        return `护送 ${q.clientName} 到 ${placeName(q.targetName || q.targetMapName) || '目的地'}`;
       case TYPE.PARTY:
         return `获得 ${q.targetData} 点派对分数`;
       case TYPE.COLLECT:
-        return `从 ${q.targetName} 处调达 ${itemName(q.itemId)}`;
+        return `从 ${placeName(q.targetName)} 处调达 ${itemName(q.itemId)}`;
       case TYPE.TRAP:
         return `拆除陷阱（${q.targetData} 点）`;
       default:
@@ -1196,10 +1238,10 @@
     const who = (g && g.player && g.player.name) || '你';
     const ctx = {
       client: q.clientName || '委托人',
-      map: q.targetMapName || q.map || '这附近',
+      map: boardMapName(q),
       ref: boardRef(q),
       you: '你', me: '我',
-      npc: q.targetName || '目标人物',
+      npc: placeName(q.targetName) || '目标人物',
       player: who, aka: who,
       reward: `${q.rewardGold | 0} 金币${q.rewardItem ? '和物品' : ''}`,
       objective: describe(q),
@@ -1309,7 +1351,7 @@
     fail: failQuest,
     onKill, onEnterFloor, onTrapDisarmed, handOver, harvest, party, collect,
     spawnEscortFollower, restoreEscortFollowers, tickEscort, onArriveTown,
-    describe, progressText, stars, daysText, rewardText, questText, itemName,
+    describe, progressText, stars, daysText, rewardText, questText, itemName, placeName, boardMapName,
     boardEntry, boardName, boardTalkText,
     npcServices, nowH, curDay,
   };

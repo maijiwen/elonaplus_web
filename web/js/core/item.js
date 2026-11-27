@@ -331,15 +331,16 @@
 
     /**
      * `var_53` 未鉴定别名（items.json 的 aliasJp / aliasEn）。
-     * 【数据缺口】items.json 没有 aliasCh，中文模式返回空串 → 由调用方回退真名，
-     *   以免未鉴定物品显示成日文别名；日/英模式按源码取值。
+     * items.json 没有 aliasCh：中文模式此前返回空串，调用方于是回退真名，
+     * 让 f[8]==0 的委托报酬看起来像「已经鉴定」。按项目其它汉化表惯例，
+     * 中文缺条目时回退日文别名（仍是未鉴定名，不是真名）。
      */
     aliasName(it, lang) {
       const e = this.eq(it && it.id);
       if (!e) return '';
-      if (lang === 'en') return e.aliasEn || '';
+      if (lang === 'en') return e.aliasEn || e.aliasJp || '';
       if (lang === 'jp') return e.aliasJp || '';
-      return e.aliasCh || '';
+      return e.aliasCh || e.aliasJp || '';
     },
 
     /** `var_332`（9078/9081）：0 空 / 1 粗悪 / 2 平凡 / 3 高品質 / 4 奇跡 / 5 神器 / 6 特別 */
@@ -1350,6 +1351,15 @@
       }
       // 224278-224279：类别 < 52000 → *label_0350 随机附魔
       if ((it.field657 || 0) < 52000) this.applyRandomEnchants(it, g, opt);
+      // 224857-224867：itemcreate 末尾的自动感知 —— `var_9 == 0` 且非商店进货
+      //   （var_577 != 6）且 var_657 < 50000 时，`rnd(分析+1) > 5 || 分析 >= 50`
+      //   → f[8] = 2（初步鉴定，能看到材质/耐性等基础信息，但仍是未鉴定完全）。
+      //   注意：这不是「完全鉴定」，委托报酬在高分析角色手里也会被感知到 2 级。
+      if ((opt.var577 | 0) !== 6 && (it.field657 | 0) < 50000) {
+        const analysis = (g && g.charas && g.charas[0]
+          && typeof g.charas[0].skill === 'function') ? (g.charas[0].skill(162) | 0) : 0;
+        if (analysis >= 50 || R(analysis + 1) > 5) it.f[8] = 2;
+      }
       return it;
     },
 
@@ -1378,6 +1388,60 @@
       if (!it) return;
       if ((it.f[8] || 0) >= 3) it.f[8] = 3;
       if (this.known && this.known[it.id] && (it.f[8] || 0) === 0) this.identify(it, 1);
+    },
+
+    /**
+     * 224184-224244 `*label_2295`：背包自动鉴定/感知。
+     * 由 Game 在 `var_65(4) % 10 == 1` 的整点调用（源码 603122-603130）。
+     *
+     * 条件与源码逐项对应：
+     *   · 玩家 254/251/252/263 任一非 0 → 不鉴定（睡眠/麻痹/混乱/呼吸困难）
+     *   · 非装备（var_657 >= 50000）只有在持续行动（var_58(140) != 0）时才鉴定，
+     *     且最多 6 件；装备（< 50000）不限数量
+     *   · a = 感知(13) + 分析(162) * 5，b = 1500 + f[29] * 5
+     *   · a > rnd(b * 5) → 完全鉴定（3）；否则装备 a > rnd(b) → 初步鉴定（2）
+     *   · 每次成功 skillexp 162, 50
+     */
+    appraiseInventory(g) {
+      const out = { blocked: false, full: 0, basic: 0, named: [], messages: [] };
+      if (!g || !g.player) return out;
+      const p = g.player;
+      const blockFields = [254, 251, 252, 263];
+      if (blockFields.some((n) => (p.get(n) | 0) !== 0)) { out.blocked = true; return out; }
+      const R = (n) => ((g.rng && typeof g.rng.rnd === 'function') ? g.rng.rnd(n)
+        : ((Elona.rng && Elona.rng.rnd) ? Elona.rng.rnd(n) : 0));
+      const a = (p.skill ? (p.skill(13) | 0) : 0) + (p.skill ? (p.skill(162) | 0) : 0) * 5;
+      const continuous = (p.get(140) | 0) !== 0;
+      const inv = p.inv || [];
+      let nonEquip = 0;
+      for (const it of inv) {
+        if (!it || (it.f[0] | 0) <= 0 || (it.f[8] | 0) >= 3) continue;
+        const cat = (it.field657 | 0) || (this.ref ? (this.ref(it.id | 0, 5) | 0) : 0);
+        const equip = cat < 50000;
+        if (!equip && (nonEquip > 5 || !continuous)) continue;
+        const b = 1500 + (it.f[29] | 0) * 5;
+        const name = this.name(it);
+        if (a > R(b * 5)) {
+          this.identify(it, 3);
+          out.full++;
+          if (out.named.length < 2 && equip) out.named.push([name, this.name(it)]);
+          if (Elona.Stats && Elona.Stats.skillExp) {
+            Elona.Stats.skillExp(p, 162, p, 50, 0, 0, g);
+          }
+          if (!equip) nonEquip++;
+        } else if (equip && (it.f[8] | 0) < 2 && a > R(b)) {
+          this.identify(it, 2);
+          out.basic++;
+          if (Elona.Stats && Elona.Stats.skillExp) {
+            Elona.Stats.skillExp(p, 162, p, 50, 0, 0, g);
+          }
+        }
+      }
+      for (const [before, after] of out.named) {
+        out.messages.push(`背包里的${before}原来是${after}。`);
+      }
+      if (nonEquip > 0) out.messages.push('背包里的几件物品的详细情况变清楚了。');
+      return out;
     },
 
     /**

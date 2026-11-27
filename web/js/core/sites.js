@@ -356,15 +356,20 @@
       if (rec && rec.dyn) {
         return Elona.RandDungeon ? Elona.RandDungeon.nameOf(rec) : (rec.nameZh || '');
       }
+      // 0-※：world_sites.json 的 nameJp / mapName.jp 实际是**汉化名**，
+      //   nameEn 才是英文名。此前用 `lang !== 'jp' → en`，导致中文界面（以及
+      //   不传 lang 的掲示板/日记调用）显示 Vernis / Port Kapul 等英文城镇名。
+      //   与 item.js 的语言归口一致：只有显式 'en' 才取英文，其余都取中文。
+      const wantEn = String(lang || '').toLowerCase() === 'en';
       if (rec && rec.player) {
-        return lang === 'jp' ? (rec.nameJp || rec.name || '') : (rec.nameEn || rec.name || '');
+        return wantEn ? (rec.nameEn || rec.name || '') : (rec.nameJp || rec.name || '');
       }
       const t = table();
       const type = this.rawType(mapId, g) || (mapId | 0);
       const nm = t && t.mapName && t.mapName[String(type)];
-      if (nm) return lang === 'jp' ? (nm.jp || '') : (nm.en || '');
+      if (nm) return wantEn ? (nm.en || nm.jp || '') : (nm.jp || nm.en || '');
       const s = this.get(mapId, g);
-      if (s) return lang === 'jp' ? (s.nameJp || '') : (s.nameEn || '');
+      if (s) return wantEn ? (s.nameEn || '') : (s.nameJp || s.nameEn || '');
       return '';
     },
 

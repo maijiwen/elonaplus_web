@@ -446,6 +446,12 @@
       if (!this.player) return null;
       const counter = (this.getV65(4) | 0) + 1;
       this.setV65(4, counter);
+      // 603125-603130：同一个整点计数器还驱动 `*label_2295` 的背包自动鉴定
+      //   （var_65(4) % 10 == 1；分析技能见 core/item.js appraiseInventory）。
+      if (counter % 10 === 1 && Elona.ItemDB && Elona.ItemDB.appraiseInventory) {
+        const ap = Elona.ItemDB.appraiseInventory(this);
+        for (const m of (ap && ap.messages) || []) this.log(m);
+      }
       if (counter % 10 !== 0) return null;
       return this.spawnVisitors(5);
     }
