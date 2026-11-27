@@ -48,14 +48,14 @@
    *   minStage / maxStage  主线阶段区间（含）
    */
   const WARPS = [
-    // 386376-386380：主线 399 → Valm
-    { map: 54, sub: 1, stage: 399, label: '前往 Valm', at: 15, minStage: 399, maxStage: 399 },
+    // 386376-386380：主线 399 → Valm（world_sites.json 中文名：瓦尔姆）
+    { map: 54, sub: 1, stage: 399, label: '前往瓦尔姆', at: 15, minStage: 399, maxStage: 399 },
     // 386417-386421：主线 398 → Valm
-    { map: 54, sub: 1, stage: 398, label: '前往 Valm', at: 15, minStage: 398, maxStage: 398 },
-    // 389083-389094：主线 390 → Lost Irva
-    { map: 70, sub: 1, stage: 390, label: '前往 Lost Irva', at: 56, minStage: 390, maxStage: 396 },
-    // 389259-389268：主线收尾 → South Tyris
-    { map: 44, sub: 1, stage: 366, label: '前往 South Tyris', at: 70, minStage: 365, maxStage: 365 },
+    { map: 54, sub: 1, stage: 398, label: '前往瓦尔姆', at: 15, minStage: 398, maxStage: 398 },
+    // 389083-389094：主线 390 → Lost Irva（失落伊尔瓦）
+    { map: 70, sub: 1, stage: 390, label: '前往失落伊尔瓦', at: 56, minStage: 390, maxStage: 396 },
+    // 389259-389268：主线收尾 → South Tyris（南提里斯）
+    { map: 44, sub: 1, stage: 366, label: '前往南提里斯', at: 70, minStage: 365, maxStage: 365 },
     // 408123-408134：主线 995 → 混沌の城 179
     { map: 76, sub: 179, stage: 995, label: '前往混沌巨城', at: 76, minStage: 880, maxStage: 990 },
     // 409371-409378：NPC 菜单 → 混沌の城 179
@@ -99,10 +99,12 @@
   /** 地图 id → 显示名 */
   function labelOf(id) {
     const S = Elona.Sites;
-    const jp = S && S.nameOf ? (S.nameOf(id, 'jp') || S.nameOf(id)) : '';
-    if (jp) return jp;
+    // 中文档优先取汉化名；nameOf 的默认语言已经是当前档（中文），
+    // 此前先取 'jp' 会让传送提示落到日文原名。
+    const zh = S && S.nameOf ? (S.nameOf(id, 'ch') || S.nameOf(id)) : '';
+    if (zh) return zh;
     const t = Elona.Towns && Elona.Towns.byId ? Elona.Towns.byId(id) : null;
-    return t ? t.label : (`map ${id}`);
+    return t ? (t.zh || t.label || t.name) : (`地图 ${id}`);
   }
 
   /**

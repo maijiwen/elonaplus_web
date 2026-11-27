@@ -18,14 +18,27 @@
   const Elona = global.Elona = global.Elona || {};
 
   const DB_NAME = 'elona_saves';
-  const DB_VER = 1;
+  const DB_VER = 2;
   const ST_SAVES = 'saves';
+  const ST_FLOORS = 'floors';
   const ST_KV = 'kv';
   const DIR_KEY = 'savesDir';
   const LS_PREFIX = 'elona.save.';
+  const LS_FLOOR_PREFIX = 'elona.floor.';
   const META_SUFFIX = '.meta.json';
+  const CORE_FILE = 'core.json';
+  const META_FILE = 'meta.json';
+  const FLOORS_DIR = 'floors';
 
   let dbPromise = null;
+
+  function floorFileName(floorKey) {
+    return 'floor_' + String(floorKey || '').replace(/[^a-zA-Z0-9_-]/g, '_') + '.json';
+  }
+
+  function floorDbKey(slot, floorKey) {
+    return String(slot || '') + '::' + String(floorKey || '');
+  }
 
   function openDb() {
     if (dbPromise) return dbPromise;
@@ -38,6 +51,10 @@
         const db = req.result;
         if (!db.objectStoreNames.contains(ST_SAVES)) {
           db.createObjectStore(ST_SAVES, { keyPath: 'slot' });
+        }
+        if (!db.objectStoreNames.contains(ST_FLOORS)) {
+          const st = db.createObjectStore(ST_FLOORS, { keyPath: 'k' });
+          st.createIndex('slot', 'slot', { unique: false });
         }
         if (!db.objectStoreNames.contains(ST_KV)) {
           db.createObjectStore(ST_KV, { keyPath: 'k' });
@@ -53,6 +70,14 @@
     return new Promise((resolve, reject) => {
       req.onsuccess = () => resolve(req.result);
       req.onerror = () => reject(req.error);
+    });
+  }
+
+  function txP(tx) {
+    return new Promise((resolve, reject) => {
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error);
+      tx.onabort = () => reject(tx.error || new Error('aborted'));
     });
   }
 
@@ -80,6 +105,79 @@
     try {
       const tx = db.transaction(ST_SAVES, 'readwrite');
       tx.objectStore(ST_SAVES).put(rec);
+      await txP(tx);
+      return true;
+    } catch (e) { return false; }
+  }
+
+  async function cacheGetFloor(slot, floorKey) {
+    const db = await openDb();
+    if (!db || !db.objectStoreNames.contains(ST_FLOORS)) return null;
+    try {
+      const tx = db.transaction(ST_FLOORS, 'readonly');
+      const rec = await reqP(tx.objectStore(ST_FLOORS).get(floorDbKey(slot, floorKey)));
+      return rec ? rec.data : null;
+    } catch (e) { return null; }
+  }
+
+  async function cacheListFloors(slot) {
+    const db = await openDb();
+    if (!db || !db.objectStoreNames.contains(ST_FLOORS)) return [];
+    try {
+      const tx = db.transaction(ST_FLOORS, 'readonly');
+      const st = tx.objectStore(ST_FLOORS);
+      const idx = st.index('slot');
+      const recs = await reqP(idx.getAll(slot));
+      return Array.isArray(recs) ? recs : [];
+    } catch (e) { return []; }
+  }
+
+  async function cacheSyncFloors(slot, dirtyFloors, deletedFloors, copyFromSlot) {
+    const db = await openDb();
+    if (!db || !db.objectStoreNames.contains(ST_FLOORS)) return false;
+    let copyRecs = [];
+    if (copyFromSlot && copyFromSlot !== slot) {
+      copyRecs = await cacheListFloors(copyFromSlot);
+    }
+    try {
+      const tx = db.transaction(ST_FLOORS, 'readwrite');
+      const st = tx.objectStore(ST_FLOORS);
+      const delSet = new Set(deletedFloors || []);
+      const dirtyKeys = Object.keys(dirtyFloors || {});
+      const dirtySet = new Set(dirtyKeys);
+      for (const rec of copyRecs) {
+        if (!rec || !rec.floorKey) continue;
+        if (delSet.has(rec.floorKey) || dirtySet.has(rec.floorKey)) continue;
+        st.put({
+          k: floorDbKey(slot, rec.floorKey),
+          slot,
+          floorKey: rec.floorKey,
+          data: rec.data,
+        });
+      }
+      for (const fk of dirtyKeys) {
+        st.put({
+          k: floorDbKey(slot, fk),
+          slot,
+          floorKey: fk,
+          data: dirtyFloors[fk],
+        });
+      }
+      for (const fk of delSet) {
+        st.delete(floorDbKey(slot, fk));
+      }
+      await txP(tx);
+      return true;
+    } catch (e) { return false; }
+  }
+
+  async function cacheDeleteFloor(slot, floorKey) {
+    const db = await openDb();
+    if (!db || !db.objectStoreNames.contains(ST_FLOORS)) return false;
+    try {
+      const tx = db.transaction(ST_FLOORS, 'readwrite');
+      tx.objectStore(ST_FLOORS).delete(floorDbKey(slot, floorKey));
+      await txP(tx);
       return true;
     } catch (e) { return false; }
   }
@@ -144,39 +242,114 @@
     await w.close();
   }
 
-  async function diskSave(h, slot, data, time) {
-    await writeFile(h, slot + '.json', JSON.stringify(data));
-    await writeFile(h, slot + META_SUFFIX, JSON.stringify({ time, meta: metaOf(data) }));
+  async function readJsonFile(h, name) {
+    const fh = await h.getFileHandle(name);
+    const f = await fh.getFile();
+    return JSON.parse(await f.text());
+  }
+
+  async function diskSave(h, slot, data, time, floorSync) {
+    const slotDir = await h.getDirectoryHandle(slot, { create: true });
+    await writeFile(slotDir, CORE_FILE, JSON.stringify(data));
+    await writeFile(slotDir, META_FILE, JSON.stringify({ time, meta: metaOf(data) }));
+    if (!floorSync) return;
+    const dirtyFloors = floorSync.dirtyFloors || {};
+    const dirtyKeys = Object.keys(dirtyFloors);
+    const deletedFloors = floorSync.deletedFloors || [];
+    const copyFromSlot = floorSync.copyFromSlot || null;
+    if (!dirtyKeys.length && !deletedFloors.length && (!copyFromSlot || copyFromSlot === slot)) return;
+
+    const floorsDir = await slotDir.getDirectoryHandle(FLOORS_DIR, { create: true });
+    const delSet = new Set(deletedFloors);
+    const dirtySet = new Set(dirtyKeys);
+
+    // 另存为到新槽位时，把源槽位已落盘的楼层文件一并复制到新槽位目录
+    if (copyFromSlot && copyFromSlot !== slot) {
+      try {
+        const srcSlotDir = await h.getDirectoryHandle(copyFromSlot);
+        const srcFloorsDir = await srcSlotDir.getDirectoryHandle(FLOORS_DIR);
+        if (srcFloorsDir && srcFloorsDir.entries) {
+          for await (const [fname, entry] of srcFloorsDir.entries()) {
+            if (entry.kind !== 'file' || !fname.endsWith('.json')) continue;
+            try {
+              const f = await entry.getFile();
+              const obj = JSON.parse(await f.text());
+              const fk = obj && obj.floorKey;
+              if (fk && (delSet.has(fk) || dirtySet.has(fk))) continue;
+              await writeFile(floorsDir, fname, await f.text());
+            } catch (e) { /* 跳过损坏的楼层文件 */ }
+          }
+        }
+      } catch (e) { /* 源槽位没有 floors/ 目录则忽略 */ }
+    }
+
+    for (const fk of dirtyKeys) {
+      await writeFile(floorsDir, floorFileName(fk), JSON.stringify(dirtyFloors[fk]));
+    }
+    for (const fk of delSet) {
+      try {
+        if (floorsDir.removeEntry) await floorsDir.removeEntry(floorFileName(fk));
+      } catch (e) { /* 不存在则忽略 */ }
+    }
   }
 
   async function diskList() {
     const h = await getDir(false);
     if (!h || !h.entries) return { list: [], name: null };
     const out = [];
-    const seen = new Set();
+    const bySlot = new Map();
+    const pushItem = (item) => {
+      const cur = bySlot.get(item.slot);
+      if (!cur) {
+        out.push(item);
+        bySlot.set(item.slot, item);
+      } else if ((Number(item.time) || 0) > (Number(cur.time) || 0)) {
+        cur.time = item.time;
+        cur.meta = item.meta || cur.meta;
+      }
+    };
     try {
       for await (const [name, entry] of h.entries()) {
-        if (entry.kind !== 'file' || !name.endsWith(META_SUFFIX)) continue;
-        const slot = name.slice(0, -META_SUFFIX.length);
-        try {
-          const f = await entry.getFile();
-          const m = JSON.parse(await f.text());
-          out.push({
-            slot, time: Number(m.time) || f.lastModified || 0,
-            meta: m.meta || null, source: 'disk',
-          });
-          seen.add(slot);
-        } catch (e) { /* 跳过损坏的 meta */ }
+        // 新版分目录存档：<slot>/meta.json（或 <slot>/core.json）
+        if (entry.kind === 'directory') {
+          try {
+            const m = await readJsonFile(entry, META_FILE);
+            pushItem({
+              slot: name, time: Number(m.time) || 0,
+              meta: m.meta || null, source: 'disk',
+            });
+            continue;
+          } catch (e) { /* 没有 meta.json 时尝试读取 core.json */ }
+          try {
+            const core = await readJsonFile(entry, CORE_FILE);
+            pushItem({
+              slot: name, time: Date.parse(core.savedAt) || 0,
+              meta: metaOf(core), source: 'disk',
+            });
+          } catch (e) { /* 非存档子目录忽略 */ }
+          continue;
+        }
+        if (entry.kind === 'file' && name.endsWith(META_SUFFIX)) {
+          const slot = name.slice(0, -META_SUFFIX.length);
+          try {
+            const f = await entry.getFile();
+            const m = JSON.parse(await f.text());
+            pushItem({
+              slot, time: Number(m.time) || f.lastModified || 0,
+              meta: m.meta || null, source: 'disk',
+            });
+          } catch (e) { /* 跳过损坏的 meta */ }
+        }
       }
-      // 兼容旧版（Java 后端）留下的 <slot>.json：没有 meta 时解析一次补上
+      // 兼容旧版单文件存档：<slot>.json
       for await (const [name, entry] of h.entries()) {
         if (entry.kind !== 'file' || !name.endsWith('.json') || name.endsWith(META_SUFFIX)) continue;
         const slot = name.slice(0, -'.json'.length);
-        if (seen.has(slot)) continue;
+        if (bySlot.has(slot)) continue;
         try {
           const f = await entry.getFile();
           const data = JSON.parse(await f.text());
-          out.push({
+          pushItem({
             slot, time: Date.parse(data.savedAt) || f.lastModified || 0,
             meta: metaOf(data), source: 'disk',
           });
@@ -189,9 +362,64 @@
   async function diskLoad(slot) {
     const h = await getDir(true);
     if (!h) throw new Error('未连接磁盘存档文件夹');
-    const fh = await h.getFileHandle(slot + '.json');
-    const f = await fh.getFile();
-    return JSON.parse(await f.text());
+    // 优先读取新版分目录存档 <slot>/core.json
+    try {
+      const slotDir = await h.getDirectoryHandle(slot);
+      return await readJsonFile(slotDir, CORE_FILE);
+    } catch (e) {
+      // 回退兼容旧版单文件 <slot>.json
+      return await readJsonFile(h, slot + '.json');
+    }
+  }
+
+  async function diskLoadFloor(slot, floorKey, allowPrompt) {
+    const h = await getDir(!!allowPrompt);
+    if (!h) return null;
+    try {
+      const slotDir = await h.getDirectoryHandle(slot);
+      const floorsDir = await slotDir.getDirectoryHandle(FLOORS_DIR);
+      return await readJsonFile(floorsDir, floorFileName(floorKey));
+    } catch (e) { return null; }
+  }
+
+  async function diskDeleteFloor(slot, floorKey) {
+    const h = await getDir(false);
+    if (!h) return false;
+    try {
+      const slotDir = await h.getDirectoryHandle(slot);
+      const floorsDir = await slotDir.getDirectoryHandle(FLOORS_DIR);
+      if (floorsDir.removeEntry) await floorsDir.removeEntry(floorFileName(floorKey));
+      return true;
+    } catch (e) { return false; }
+  }
+
+  // ---------------------------------------------------------------- localStorage（旧存档 / 无 IDB 回退）
+  function localFloorStorageKey(slot, floorKey) {
+    return LS_FLOOR_PREFIX + String(slot || '') + '.' + String(floorKey || '');
+  }
+
+  function localSyncFloors(slot, dirtyFloors, deletedFloors, copyFromSlot) {
+    const ls = global.localStorage;
+    if (!ls) return;
+    const delSet = new Set(deletedFloors || []);
+    const dirtyKeys = Object.keys(dirtyFloors || {});
+    const dirtySet = new Set(dirtyKeys);
+    if (copyFromSlot && copyFromSlot !== slot) {
+      const prefix = LS_FLOOR_PREFIX + String(copyFromSlot) + '.';
+      for (let i = 0; i < ls.length; i++) {
+        const k = ls.key(i);
+        if (!k || !k.startsWith(prefix)) continue;
+        const fk = k.slice(prefix.length);
+        if (delSet.has(fk) || dirtySet.has(fk)) continue;
+        try { ls.setItem(localFloorStorageKey(slot, fk), ls.getItem(k)); } catch (e) {}
+      }
+    }
+    for (const fk of dirtyKeys) {
+      try { ls.setItem(localFloorStorageKey(slot, fk), JSON.stringify(dirtyFloors[fk])); } catch (e) {}
+    }
+    for (const fk of delSet) {
+      try { ls.removeItem(localFloorStorageKey(slot, fk)); } catch (e) {}
+    }
   }
 
   // ---------------------------------------------------------------- localStorage（旧存档）
@@ -214,6 +442,28 @@
       list.push({ slot: k.slice(LS_PREFIX.length), time, meta, source: 'cache' });
     }
     return list;
+  }
+
+  function attachLoadedSlot(data, slot) {
+    if (data && typeof data === 'object') {
+      try {
+        Object.defineProperty(data, '_loadedSlot', {
+          value: slot, enumerable: false, configurable: true, writable: true,
+        });
+      } catch (e) { /* 冻结对象忽略 */ }
+    }
+    return data;
+  }
+
+  function stripFloorSync(data) {
+    if (!data || typeof data !== 'object') return { coreData: data, floorSync: null };
+    const floorSync = data._floorSync || null;
+    if (!Object.prototype.propertyIsEnumerable.call(data, '_floorSync')) {
+      return { coreData: data, floorSync };
+    }
+    const coreData = Object.assign({}, data);
+    delete coreData._floorSync;
+    return { coreData, floorSync };
   }
 
   const Save = {
@@ -282,14 +532,31 @@
       return out;
     },
 
-    /** 保存到指定槽位：浏览器缓存 + 磁盘目录（已授权时）各写一份 */
+    /** 保存到指定槽位：浏览器缓存 + 磁盘目录（已授权时）各写一份（核心 + 分文件楼层） */
     async save(slot, data) {
       const now = Date.now();
-      const meta = metaOf(data);
-      let cached = await cachePut({ slot, time: now, meta, data });
+      const { coreData, floorSync } = stripFloorSync(data);
+      const meta = metaOf(coreData);
+      let cached = await cachePut({ slot, time: now, meta, data: coreData });
+      if (cached && floorSync) {
+        await cacheSyncFloors(
+          slot,
+          floorSync.dirtyFloors,
+          floorSync.deletedFloors,
+          floorSync.copyFromSlot
+        );
+      }
       if (!cached) {
         try {
-          global.localStorage.setItem(LS_PREFIX + slot, JSON.stringify(data));
+          global.localStorage.setItem(LS_PREFIX + slot, JSON.stringify(coreData));
+          if (floorSync) {
+            localSyncFloors(
+              slot,
+              floorSync.dirtyFloors,
+              floorSync.deletedFloors,
+              floorSync.copyFromSlot
+            );
+          }
           cached = true;
         } catch (e) { /* localStorage 也写不了时只能依赖磁盘 */ }
       }
@@ -297,27 +564,61 @@
       try {
         const h = await getDir(false);
         if (h) {
-          await diskSave(h, slot, data, now);
+          await diskSave(h, slot, coreData, now, floorSync);
           disk = true;
           this.folderName = h.name || null;
         }
       } catch (e) { /* 磁盘写失败不影响浏览器缓存里的存档 */ }
       this.mode = disk ? 'both' : 'cache';
-      return cached || disk;
+      const ok = cached || disk;
+      if (ok && floorSync && typeof floorSync.onSaved === 'function') {
+        try { floorSync.onSaved(slot); } catch (e) { /* ignore */ }
+      }
+      return ok;
     },
 
     /** 读取槽位：先浏览器缓存，没有再去磁盘目录 */
     async load(slot) {
       const rec = await cacheGet(slot);
-      if (rec && rec.data) { this.mode = 'cache'; return rec.data; }
+      if (rec && rec.data) { this.mode = 'cache'; return attachLoadedSlot(rec.data, slot); }
       let raw = null;
       try {
         raw = global.localStorage ? global.localStorage.getItem(LS_PREFIX + slot) : null;
       } catch (e) { raw = null; }
-      if (raw) { this.mode = 'cache'; return JSON.parse(raw); }
+      if (raw) { this.mode = 'cache'; return attachLoadedSlot(JSON.parse(raw), slot); }
       const data = await diskLoad(slot);
       this.mode = 'disk';
-      return data;
+      return attachLoadedSlot(data, slot);
+    },
+
+    /** 按需读取单个地城楼层 JSON（先浏览器缓存，没有再去磁盘 <slot>/floors/） */
+    async loadFloor(slot, floorKey) {
+      if (!slot || !floorKey) return null;
+      const fromIdb = await cacheGetFloor(slot, floorKey);
+      if (fromIdb) return fromIdb;
+      try {
+        const raw = global.localStorage ? global.localStorage.getItem(localFloorStorageKey(slot, floorKey)) : null;
+        if (raw) return JSON.parse(raw);
+      } catch (e) { /* ignore */ }
+      return await diskLoadFloor(slot, floorKey, false);
+    },
+
+    /** 删除指定槽位的单个楼层文件（缓存 + 磁盘） */
+    async deleteFloor(slot, floorKey) {
+      if (!slot || !floorKey) return false;
+      const a = await cacheDeleteFloor(slot, floorKey);
+      try {
+        if (global.localStorage) global.localStorage.removeItem(localFloorStorageKey(slot, floorKey));
+      } catch (e) { /* ignore */ }
+      const b = await diskDeleteFloor(slot, floorKey);
+      return a || b;
+    },
+
+    /** 列出指定槽位在缓存中的楼层键（调试/校验用） */
+    async listFloors(slot) {
+      if (!slot) return [];
+      const recs = await cacheListFloors(slot);
+      return recs.map((r) => r.floorKey).filter(Boolean);
     },
 
     /** 最新存档的槽位（死亡后自动读档用） */
@@ -329,4 +630,5 @@
   };
 
   Elona.Save = Save;
-})(window);
+  if (typeof module !== 'undefined' && module.exports) module.exports = Save;
+})(typeof window !== 'undefined' ? window : global);

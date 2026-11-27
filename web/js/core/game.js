@@ -142,6 +142,16 @@
       this.stairBack = null;  // 暂定的楼梯返回点
       this.dungeonDepth = 0;  // var_65(22)：0 = 地表/城镇
       this.dungeonFloors = {}; // 已生成的楼层缓存 { depth: {json, up, down, monsters, items} }
+      // 同一轮地城探索内的楼层现场（地图/角色/地面物品的**引用**，不深拷贝）。
+      // 源码把每层写进 tmp/mdata_*.s2，离开再回来时敌人与掉落保持原状；
+      // 此前 Web 端每次进层都从 f.monsters/f.items 重建，击杀的 BOSS 会复活。
+      this.dungeonFloorLive = Object.create(null);
+      this._floorKey = null;
+      // 跨存档分文件楼层持久化：当前槽位、已落盘键、待写入键、待删除键
+      this.currentSaveSlot = null;
+      this.savedFloorKeys = new Set();
+      this.dirtyFloorKeys = new Set();
+      this.deletedFloorKeys = new Set();
       // D-015：已开启的封印门（键 `mapId:depth`）。原版 344573 把 231 写回持久
       //   地图数据（mdata），开一次即跨存档保持；本项目楼层地图每次进层都从缓存
       //   json 重建，故用此标记等价模拟「开过就开着」。0-Z52 起该表纳入 serialize/
@@ -157,6 +167,9 @@
       this.activeQuests = [];          // status 1/3 的委托（上限 5，见 Quest.MAX_ACTIVE）
       this._questSeq = 0;
       this.questMap = null;            // 委托专用地图（原版 var_65(64)=13）
+      // 原版地图 13 的地面敌人/物品/地形在走出后又回来时不会重新生成
+      // （var_65(73) 只标记完成状态，地图内容留在原槽位里）。按 questId 存快照。
+      this.questMapSnapshots = {};
       this.townPos = {};               // 各城镇上次离开时的坐标
       this.townNpcTable = null;        // 各城镇固定 NPC 表（town_npcs.json）
       this.worldMap = null;            // 世界地图步行模式 {x,y}
@@ -710,6 +723,12 @@
       this.stairBack = null;
       this.dungeonDepth = 0;
       this.dungeonFloors = {};
+      this.dungeonFloorLive = Object.create(null);
+      this._floorKey = null;
+      this.currentSaveSlot = null;
+      this.savedFloorKeys = new Set();
+      this.dirtyFloorKeys = new Set();
+      this.deletedFloorKeys = new Set();
       this.sealOpened = Object.create(null);
       this.townSnapshot = null;
       this.transitioning = false;
@@ -719,6 +738,7 @@
       this.activeQuests = [];
       this._questSeq = 0;
       this.questMap = null;
+      this.questMapSnapshots = {};
       this.townPos = {};
       this.townNpcTable = null;
       this.worldMap = null;
@@ -2615,7 +2635,24 @@
       if (Elona.MapFeat && Elona.MapFeat.applyObjects) {
         Elona.MapFeat.applyObjects(this, json.objects);
       }
+      // 227705-227711：`map_initcustom` 对 `var_469(4,cnt)==0` 的对象执行
+      //   `flt + itemcreate`——三魔石 BOSS 图（firet1/undeadt1/roguet1）各有
+      //   30~38 件预设地面物品。此前只处理了 o[4]==1 的角色，整层空无一物。
       this.groundItems = [];
+      for (const o of (json.objects || [])) {
+        if (!o || (o[4] | 0) !== 0 || !(o[0] | 0)) continue;
+        try {
+          const it = Elona.ItemDB && Elona.ItemDB.createItem
+            ? Elona.ItemDB.createItem(o[0] | 0, 1) : null;
+          if (!it) continue;
+          it.f[5] = o[1] | 0; it.f[6] = o[2] | 0;
+          it.f[21] = o[3] | 0;
+          this.groundItems.push(it);
+        } catch (_) { /* 单件物品失败不影响楼层 */ }
+      }
+      for (const it of this.groundItems) {
+        if (this.refreshGroundCell) this.refreshGroundCell(it.f[5], it.f[6]);
+      }
       this.charas = [this.player];
       // 玩家落点：applyObjects 已把上行楼梯坐标写进 header[5]（227723-227724）
       let spot = null;
@@ -2645,18 +2682,258 @@
       this.log(`你进入了地下 ${depth} 层。`);
     }
 
+    /**
+     * 清理指定站点（如随机地城刷新/消失）的全部已探索楼层缓存与待删标记。
+     *   对应原版 `var_541 = 13`（fmode13replacer）在随机地城销毁时删除 mdata_*.s2 / inv_*.s2。
+     */
+    purgeSiteFloors(siteId) {
+      const sid = siteId | 0;
+      if (!sid) return 0;
+      const prefix = sid + ':';
+      let n = 0;
+      if (this.dungeonFloorLive) {
+        for (const k of Object.keys(this.dungeonFloorLive)) {
+          if (k.startsWith(prefix)) { delete this.dungeonFloorLive[k]; n++; }
+        }
+      }
+      if (this.dirtyFloorKeys) {
+        for (const k of Array.from(this.dirtyFloorKeys)) {
+          if (k.startsWith(prefix)) this.dirtyFloorKeys.delete(k);
+        }
+      }
+      if (this.savedFloorKeys) {
+        for (const k of Array.from(this.savedFloorKeys)) {
+          if (k.startsWith(prefix)) {
+            this.savedFloorKeys.delete(k);
+            if (this.deletedFloorKeys) this.deletedFloorKeys.add(k);
+            n++;
+          }
+        }
+      }
+      if ((this.dungeonSiteId | 0) === sid) {
+        this.dungeonFloors = {};
+      }
+      if (this._floorKey && this._floorKey.startsWith(prefix)) {
+        this._floorKey = null;
+      }
+      return n;
+    }
+
+    /** 把一条楼层现场序列化为可独立落盘的 JSON（floor_<siteId>_<depth>.json） */
+    serializeFloorLive(key, live) {
+      if (!live || !live.map) return null;
+      const m = live.map;
+      const W = m.width | 0, H = m.height | 0;
+      const cells = [];
+      for (let y = 0; y < H; y++) {
+        const row = [];
+        for (let x = 0; x < W; x++) {
+          const c = m.cells[y] && m.cells[y][x];
+          if (!c) { row.push([0, 0, 0, 0, 0, 0, 0]); continue; }
+          const cp = c.slice();
+          cp[1] = 0; // cell[1] 是瞬态角色占格，恢复时由 syncCharaCells() 重写
+          row.push(cp);
+        }
+        cells.push(row);
+      }
+      const partySet = new Set(this.party || []);
+      const charas = [];
+      for (let i = 1; i < (live.charas ? live.charas.length : 0); i++) {
+        const c = live.charas[i];
+        if (!c || typeof c.get !== 'function') continue;
+        if ((c.get(0) | 0) !== 1) continue;
+        if (c === this.player || c.__ally || c.__pet || c.__necro || partySet.has(c)) continue;
+        charas.push({
+          i: c.index | 0,
+          boss: c.isDungeonBoss ? 1 : 0,
+          bigDaddy: c.isBigDaddy ? 1 : 0,
+          c: c.toJSON(),
+        });
+      }
+      const parts = String(key).split(':');
+      return {
+        version: 1,
+        floorKey: String(key),
+        siteId: parts[0] | 0,
+        depth: parts[1] | 0,
+        mapJson: {
+          name: m.name,
+          width: W,
+          height: H,
+          tileset: m.tileset,
+          header: Array.isArray(m.header) ? m.header.slice() : [],
+          cells,
+          objects: Array.isArray(m.objects) ? m.objects : [],
+        },
+        groundItems: (live.groundItems || []).map((it) => (it && it.toJSON ? it.toJSON() : it)).filter(Boolean),
+        charas,
+        mef: live.mef && live.mef.toJSON ? live.mef.toJSON() : (live.mef || null),
+        x: live.x | 0,
+        y: live.y | 0,
+      };
+    }
+
+    /** 把从分文件读取到的楼层 JSON 还原为内存现场对象 */
+    deserializeFloorData(data) {
+      if (!data || !data.mapJson) return null;
+      const map = new Elona.GameMap(data.mapJson, this.tileAttrs);
+      const groundItems = (data.groundItems || []).map((o) => {
+        try { return Elona.Item.fromJSON(o); } catch (e) { return null; }
+      }).filter(Boolean);
+      const charas = [null];
+      for (const rec of (data.charas || [])) {
+        if (!rec) continue;
+        try {
+          const c = Elona.Chara.fromJSON(rec.c || rec);
+          if (!c) continue;
+          if (rec.boss) c.isDungeonBoss = true;
+          if (rec.bigDaddy) c.isBigDaddy = true;
+          const idx = (rec.i | 0) || (c.index | 0) || charas.length;
+          c.index = idx;
+          charas[idx] = c;
+        } catch (e) { /* 跳过损坏角色 */ }
+      }
+      const mef = (data.mef && Elona.Mef && Elona.Mef.fromJSON)
+        ? Elona.Mef.fromJSON(data.mef)
+        : new Elona.Mef();
+      return {
+        map,
+        charas,
+        groundItems,
+        mef,
+        x: data.x | 0,
+        y: data.y | 0,
+      };
+    }
+
+    /** 存档落盘成功后同步本地脏/删楼层集合 */
+    markFloorsSaved(slot) {
+      if (slot) this.currentSaveSlot = slot;
+      if (this.savedFloorKeys && this.dirtyFloorKeys) {
+        for (const k of this.dirtyFloorKeys) this.savedFloorKeys.add(k);
+        this.dirtyFloorKeys.clear();
+      }
+      if (this.deletedFloorKeys) this.deletedFloorKeys.clear();
+    }
+
+    /**
+     * 暂存当前楼层的现场（引用，不复制）。
+     *   对应源码离开楼层时写入 tmp/mdata_*.s2 + inv_*.s2；同一轮地城探索及跨存档
+     *   再次进入同一层会原样恢复，击杀的敌人不会复活、捡走的物品不会重现。
+     */
+    stashDungeonFloorLive() {
+      const key = this._floorKey;
+      if (!key || !this.dungeonFloorLive || !this.map || !this.player) return;
+      if ((this.dungeonDepth | 0) <= 0) return;      // 当前不在楼层里（例如刚回城）
+      const partySet = new Set(this.party || []);
+      const floorCharas = [null];
+      for (let i = 1; i < (this.charas ? this.charas.length : 0); i++) {
+        const c = this.charas[i];
+        if (!c || typeof c.get !== 'function') continue;
+        if ((c.get(0) | 0) !== 1) continue;
+        if (c === this.player || c.__ally || c.__pet || c.__necro || partySet.has(c)) continue;
+        floorCharas[i] = c;
+      }
+      this.dungeonFloorLive[key] = {
+        map: this.map,
+        charas: floorCharas,
+        groundItems: this.groundItems ? this.groundItems.slice() : [],
+        mef: this.mef || new Elona.Mef(),
+        x: this.player.x | 0,
+        y: this.player.y | 0,
+      };
+      if (this.dirtyFloorKeys) this.dirtyFloorKeys.add(key);
+      if (this.deletedFloorKeys) this.deletedFloorKeys.delete(key);
+    }
+
+    /** 恢复暂存的楼层现场（不重新生成、不重跑剧情摆放） */
+    restoreDungeonFloorLive(live, depth, opts) {
+      this.map = live.map;
+      this.worldMap = null;
+      this.mef = live.mef || new Elona.Mef();
+      this.groundItems = (live.groundItems || []).slice();
+      for (const it of this.groundItems) {
+        if (it && this.refreshGroundCell) this.refreshGroundCell(it.f[5], it.f[6]);
+      }
+      this.charas = [this.player];
+      // 落点：从大地图重进地城入口、或从上下楼楼梯切换时放到对应楼梯；同层恢复时用暂存坐标
+      if (this.player) {
+        let px = live.x | 0, py = live.y | 0;
+        if (opts && opts.fromEntrance && this.map && this.map.header) {
+          const ent = this.map.header[5] | 0;
+          if (ent > 0) { px = ent % 1000; py = Math.floor(ent / 1000); }
+        } else if (opts && opts.fromBelow && this.map && this.map.header) {
+          const dn = this.map.header[4] | 0;
+          if (dn > 0) { px = dn % 1000; py = Math.floor(dn / 1000); }
+        } else if (opts && opts.fromAbove && this.map && this.map.header) {
+          const up = this.map.header[5] | 0;
+          if (up > 0) { px = up % 1000; py = Math.floor(up / 1000); }
+        }
+        this.player.x = px;
+        this.player.y = py;
+      }
+      this.syncCharaCells();
+      this.restoreParty();
+      const src = live.charas || [];
+      for (let i = 1; i < src.length; i++) {
+        const c = src[i];
+        if (!c || typeof c.get !== 'function' || (c.get(0) | 0) !== 1) continue;
+        if (c === this.player || c.__ally || c.__pet || c.__necro) continue;
+        let idx = (c.index | 0) || i;
+        if (idx <= 0 || this.charas[idx]) idx = this.freeCharaSlot ? this.freeCharaSlot(Math.max(57, idx)) : this.charas.length;
+        c.index = idx;
+        this.charas[idx] = c;
+      }
+      this.dungeonDepth = depth | 0;
+      this.setV65(22, depth | 0);
+      this.syncCharaCells();
+      if (this.onMapChange) this.onMapChange(this.map);
+      this.log(`你回到了地下 ${depth} 层。`);
+    }
+
     /** 进入/切换地下楼层（缓存已生成的地图） */
-    async enterDungeon(depth, fromBelow) {
+    async enterDungeon(depth, fromBelow, opts) {
       if (this.transitioning) return;
       this.transitioning = true;
       try {
         if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
         if (!Elona.ItemDB.data) await this.loadAllTables();
+        // 离开当前楼层前先暂存现场；同一轮地城探索及跨存档回到该层时直接恢复。
+        const siteId = (this.dungeonSiteId | 0) || (this.getV65(20) | 0);
+        const floorKey = siteId + ':' + (depth | 0);
+        if (this._floorKey && (this.dungeonDepth | 0) > 0 && this._floorKey !== floorKey) {
+          this.stashDungeonFloorLive();
+        }
+        this._floorKey = floorKey;
+        const restoreOpts = {
+          fromEntrance: !!(opts && opts.fromEntrance),
+          fromBelow: !!fromBelow,
+          fromAbove: !fromBelow && !(opts && opts.fromEntrance),
+        };
+        let live = this.dungeonFloorLive && this.dungeonFloorLive[floorKey];
+        if (live) {
+          this.restoreDungeonFloorLive(live, depth, restoreOpts);
+          return;
+        }
+        // 按需从存档槽位的分文件读取该楼层 JSON（仅当该层已落盘过）
+        if (this.currentSaveSlot && this.savedFloorKeys && this.savedFloorKeys.has(floorKey)
+          && Elona.Save && typeof Elona.Save.loadFloor === 'function') {
+          try {
+            const rawFloor = await Elona.Save.loadFloor(this.currentSaveSlot, floorKey);
+            const restored = this.deserializeFloorData(rawFloor);
+            if (restored) {
+              this.dungeonFloorLive[floorKey] = restored;
+              this.restoreDungeonFloorLive(restored, depth, restoreOpts);
+              return;
+            }
+          } catch (e) { /* 分文件读取失败时回退到正常生成 */ }
+        }
         // 241260-241291：地图 16/17/18 的最深层是手工地图（firet1/undeadt1/roguet1），
         //   直接载入，不走 generateDungeon 的随机楼层。
         const customBottom = BOTTOM_CUSTOM_MAPS[(this.dungeonSiteId | 0) || (this.getV65(20) | 0)];
         if (customBottom && (depth | 0) === (this.dungeonMaxDepth | 0)) {
           await this.enterCustomDungeonFloor(customBottom, depth);
+          this.stashDungeonFloorLive();
           return;
         }
         let f = this.dungeonFloors[depth];
@@ -2756,6 +3033,7 @@
         }
         this.map.header[4] = f.down.y * 1000 + f.down.x;
         this.map.header[5] = f.up.y * 1000 + f.up.x;
+        this.stashDungeonFloorLive();
         if (this.onMapChange) this.onMapChange(this.map);
         this.log(`你进入了地下 ${depth} 层。`);
         if (Elona.Quest) {
@@ -2772,6 +3050,10 @@
       if (this.transitioning) return;
       this.transitioning = true;
       try {
+        if (this._floorKey && (this.dungeonDepth | 0) > 0) {
+          this.stashDungeonFloorLive();
+        }
+        this._floorKey = null;
         const snap = this.townSnapshot;
         await this.loadMap(snap ? snap.map : 'vernis');
         if (snap) {
@@ -2845,6 +3127,26 @@
     }
 
     /**
+     * 425158：`var_65(70) = var_434(3), var_434(14), var_435, 1`
+     *   → 70=委托类型，71=内部类型（var_434(14)），72=委托槽位，73=进行标志。
+     * 此前只写了 70，导致 `check_quest` 的 1008 分支拿槽 0 的委托做目标判定、
+     * 歼灭委托的 `var_65(71)==1` 分支也从不生效。现在进图（含读档还原）统一写入。
+     */
+    syncQuestMapVars(q) {
+      if (!q || !this.setV65) return;
+      // 590821/851/882/893/946/970/985/001 的 var_434(14) 取值
+      const FIELD14 = {
+        1001: 1, 1002: 2, 1003: 3, 1004: 4, 1006: 5, 1007: 6,
+        1008: 8, 1009: 7, 1010: 1, 1011: 3, 1013: 10,
+      };
+      const slot = (this.quests || []).findIndex((x) => x && x.id === q.id);
+      this.setV65(70, q.type | 0);
+      this.setV65(71, FIELD14[q.type] || 0);
+      this.setV65(72, Math.max(0, slot));
+      this.setV65(73, 1);
+    }
+
+    /**
      * 进入委托专用地图 —— 对应原版 425158-425162（var_65(64)=13, var_1777=2）。
      * 地图内容由 core/questmap.js 按委托类型生成。
      */
@@ -2866,11 +3168,55 @@
             charas: this.charas.slice(), items: this.groundItems.slice(),
           };
         }
+        // 原版地图 13 不会因进出而刷新：已生成的敌人（含已击杀的空槽）、
+        // 地面物品与地形都留在同一张图上。这里按 questId 还原上次离图时的快照。
+        const snap = (!opts.fromLoad && this.questMapSnapshots)
+          ? this.questMapSnapshots[q.id | 0] : null;
+        if (snap && snap.map) {
+          this.worldMap = null;
+          this.stashGroundItems();
+          this.map = new Elona.GameMap(snap.map, this.tileAttrs);
+          this.mef = new Elona.Mef();
+          this.groundItems = (snap.items || []).map((o) => Elona.Item.fromJSON(o));
+          this.charas = [this.player];
+          for (const o of (snap.charas || [])) {
+            try {
+              const c = Elona.Chara.fromJSON(o);
+              if (!c) continue;
+              // 必须按 c.index 放回原槽位：check_quest / findcharaaz 都按
+              // 57..244 的槽位下标取值，若用 push 压成紧凑数组，
+              // 还原后所有委托敌人都落在数组前段，全灭判定会直接读不到。
+              const idx = c.index | 0;
+              if (idx > 0) this.charas[idx] = c;
+              else this.charas.push(c);
+            } catch (_) { /* 单个坏档角色忽略 */ }
+          }
+          this.player.x = snap.x | 0;
+          this.player.y = snap.y | 0;
+          this.syncCharaCells();
+          this.restoreParty();
+          this.questMap = Object.assign({}, snap.questMap);
+          this.syncQuestMapVars(q);
+          this.setV65(66, this.map.name);
+          this.setV65(20, 0);
+          this.dungeonDepth = 0;
+          this.setV65(22, 0);
+          if (this.onMapChange) this.onMapChange(this.map);
+          this.log('你回到了委托现场。');
+          return true;
+        }
+
         this.worldMap = null;          // 进入委托地图 = 离开世界地图
         const built = await this.buildQuestMapFor(q);
         if (!built) { this.transitioning = false; return false; }
         // 0-S0：委托图是非持久图，进图前先把来源城镇的地面物品暂存（同 *label_2461）
         this.stashGroundItems();
+        // HUNT / HUNTEX 的完成条件是「敌人全灭」（check_quest 193769），need 只用于
+        // 显示剩余数量；首次生成时按实际敌人数设定，避免 need 小于敌人数导致
+        // 进度显示提前满格。
+        if ((q.type | 0) === 1001 || (q.type | 0) === 1010) {
+          q.need = built.monsters.length;
+        }
         this.map = new Elona.GameMap(built.json, this.tileAttrs);
         this.mef = new Elona.Mef();
         // 0-FC 修正：1001 / 1013 的 builder 只给 `{ t638 }` 这类**描述符**（原版是
@@ -2941,7 +3287,7 @@
           // 0-FE：护送（1007）根本不进任务图，委托人随玩家在世界地图上移动，故此分支删除。
         }
         this.questMap = qm;
-        this.setV65(70, q.type);
+        this.syncQuestMapVars(q);
         this.setV65(66, this.map.name);
         this.setV65(20, 0);
         this.dungeonDepth = 0;
@@ -2994,6 +3340,27 @@
       if (this.transitioning) return;
       this.transitioning = true;
       try {
+        // 保存委托现场（地图 13）的完整状态，下次进入时按 questId 还原。
+        const qm = this.questMap;
+        if (qm && (qm.questId | 0) && this.questMapSnapshots && this.map) {
+          this.questMapSnapshots[qm.questId | 0] = {
+            map: {
+              name: this.map.name, width: this.map.width, height: this.map.height,
+              tileset: this.map.tileset,
+              header: (this.map.header || []).slice(),
+              cells: (this.map.cells || []).map((row) => row.map((c) => c.slice())),
+              objects: (this.map.objects || []).slice(),
+            },
+            items: (this.groundItems || []).filter((it) => it && (it.f[0] | 0) > 0)
+              .map((it) => it.toJSON()),
+            // 只存任务地图的敌人；同伴由 restoreParty() 按队伍列表还原，
+            // 一并存会重复生成。
+            charas: (this.charas || []).filter((c) => c && (c.index | 0) >= 16
+              && (c.get(0) | 0) === 1 && (c.get(69) | 0) <= -1).map((c) => c.toJSON()),
+            x: this.player.x | 0, y: this.player.y | 0,
+            questMap: Object.assign({}, qm),
+          };
+        }
         const snap = this.townSnapshot;
         await this.loadMap(snap ? snap.map : 'vernis');
         if (snap) {
@@ -3016,7 +3383,11 @@
         this.questMap = null;
         this.dungeonDepth = 0;
         this.setV65(22, 0);
+        // 离开地图 13 时清掉 gQuest（否则 check_quest 会在城镇里拿旧槽位判定完成）
         this.setV65(70, 0);
+        this.setV65(71, 0);
+        this.setV65(72, 0);
+        this.setV65(73, 0);
         this.syncCharaCells();
         this.townSnapshot = null;
         if (this.onMapChange) this.onMapChange(this.map);
@@ -3467,7 +3838,9 @@
       const town = site ? null
         : townList.find((t) => t.wx === nx && t.wy === ny);
       if (site || town) {
-        const label = site ? ((Elona.Sites.nameOf(site.id, 'jp') || Elona.Sites.nameOf(site.id))) : this.townName(town);
+        const label = site
+          ? ((Elona.Sites.nameOf(site.id, 'ch') || Elona.Sites.nameOf(site.id)))
+          : this.townName(town);
         // 0-FA：随机地城按源码 mapname() 的提示补上「入口危险度」
         const danger = (site && site.dyn) ? `（入口危险度 ${site.fields[17] | 0} 层相当）` : '';
         this.log(`你来到了${label}${danger}。按「回车」进入。`);
@@ -4121,11 +4494,22 @@
       const q = (Elona.Quest && Elona.Quest.activeQuests)
         ? (Elona.Quest.activeQuests(this) || []).find((x) => x.id === qm.questId)
         : null;
-      if (q && q.status === 1 && Elona.Quest.fail) {
+      // 343376-343411：歼灭委托离开时只是警告「会失败」，并不立刻调用失败结算；
+      // var_65(60/61) 保存落点后 goto *label_2459 回城，可再次从入口进图继续。
+      // 只有限时类（1006/1009/1013）才在离图时结束本次委托。
+      const timed = qm && (qm.type === 1006 || qm.type === 1009 || qm.type === 1013);
+      if (timed && q && q.status === 1 && Elona.Quest.fail) {
         Elona.Quest.fail(this, q);
-        this.log('委托失败了……');
+        this.log('委托结束了……');
+      } else if (q && q.status === 1) {
+        this.log('你暂时离开了委托现场，可以从入口再次进入。');
       }
       await this.leaveQuestMap();
+    }
+
+    /** 委托领赏/失败后丢弃该委托的现场快照，避免下次接同一 NPC 的委托时复活旧地图 */
+    clearQuestMapSnapshot(questId) {
+      if (this.questMapSnapshots) delete this.questMapSnapshots[questId | 0];
     }
 
     /**
@@ -4156,9 +4540,9 @@
       const S = Elona.Sites;
       const kind = site.fields[0] | 0;
       // 0-DF：优先显示日文名（原版 mapname(id) 的输出），缺失时退回英文
-      const nameJp = (S && S.nameOf(site.id, 'jp')) || '';
+      const nameZh = (S && S.nameOf(site.id, 'ch')) || '';
       const nameEn = (S && S.nameOf(site.id)) || ('site ' + site.id);
-      const siteLabel = nameJp || nameEn;
+      const siteLabel = nameZh || nameEn;
       this.worldMap = null;
 
       if (kind === 3) {
@@ -4181,6 +4565,7 @@
       if ((site.fields[16] | 0) === 74) {
         const start = 1, bottom = 60;
         this.dungeonFloors = {};
+        this._floorKey = null;
         this.dungeonSiteId = 74;
         this.dungeonMinDepth = start;
         this.dungeonMaxDepth = bottom;
@@ -4198,7 +4583,7 @@
           };
         }
         this.setV65(20, 74);
-        await this.enterDungeon(start, false);
+        await this.enterDungeon(start, false, { fromEntrance: true });
         this.setV65(20, 74);
         this.log(`你进入了${siteLabel}。`);
         return true;
@@ -4210,6 +4595,7 @@
         const start = Math.max(1, (S && S.minLevel(site.id)) || 1);
         const bottom = Math.max(start, (S && S.maxLevel(site.id)) || (start + 2));
         this.dungeonFloors = {};
+        this._floorKey = null;
         this.dungeonSiteId = site.id | 0;
         this.dungeonMinDepth = start;
         this.dungeonMaxDepth = bottom;
@@ -4233,7 +4619,7 @@
         //   （237493-237565），剧情链与楼层生成都要读新地图 id；旧实现先 enterDungeon
         //   再写 var_65(20)，导致 map 3/49/76 的剧情规则在进层时读到的是上一张地图。
         this.setV65(20, site.id | 0);
-        await this.enterDungeon(start, false);
+        await this.enterDungeon(start, false, { fromEntrance: true });
         this.setV65(20, site.id | 0);
         this.log(`你进入了${siteLabel}。入口的危险度是 ${start} 层相当，最深层 ${bottom} 层。`);
         return true;
@@ -5845,12 +6231,16 @@
           for (const pr of dth.quest) {
             this.log(`委托进度：${Elona.Quest.progressText(this, pr.quest)}` +
               (pr.completed ? '（可以报告了）' : ''));
-          }
-          if (this.questMap && Elona.QuestMap) {
-            const kr = Elona.QuestMap.onKill(this);
-            if (kr && kr.message) this.log(kr.message);
+            // 野外达成（1008 讨伐 / 1010 特定怪）也要提示回委托人处报告；
+            // 委托地图内由 QuestMap.onKill 统一提示，避免重复。
+            if (pr.completed && !this.questMap) {
+              const who = (pr.quest && pr.quest.clientName) || '委托人';
+              this.log(`日志已更新。回去找${who}汇报委托，领取报酬吧。`);
+            }
           }
         }
+        // 委托地图的完成判定已统一挂到 Battle.onDeath（覆盖法术/能力/同伴击杀），
+        // 这里不再重复调用，避免出现两条相同的「日志已更新」提示。
       }
       this.endTurn();
       return r;
@@ -7456,12 +7846,16 @@
           for (const pr of dth.quest) {
             this.log(`委托进度：${Elona.Quest.progressText(this, pr.quest)}` +
               (pr.completed ? '（可以报告了）' : ''));
-          }
-          if (this.questMap && Elona.QuestMap) {
-            const kr = Elona.QuestMap.onKill(this);
-            if (kr && kr.message) this.log(kr.message);
+            // 野外达成（1008 讨伐 / 1010 特定怪）也要提示回委托人处报告；
+            // 委托地图内由 QuestMap.onKill 统一提示，避免重复。
+            if (pr.completed && !this.questMap) {
+              const who = (pr.quest && pr.quest.clientName) || '委托人';
+              this.log(`日志已更新。回去找${who}汇报委托，领取报酬吧。`);
+            }
           }
         }
+        // 委托地图的完成判定已统一挂到 Battle.onDeath（覆盖法术/能力/同伴击杀），
+        // 这里不再重复调用，避免出现两条相同的「日志已更新」提示。
       }
       this.endTurn();
       return r;
@@ -7503,8 +7897,26 @@
     }
 
     serialize() {
+      if (this._floorKey && (this.dungeonDepth | 0) > 0) {
+        this.stashDungeonFloorLive();
+      }
       const savedCharas = this.collectSavedCharas();
-      return {
+      const dirtyFloors = {};
+      if (this.dirtyFloorKeys && this.dungeonFloorLive) {
+        for (const k of this.dirtyFloorKeys) {
+          const live = this.dungeonFloorLive[k];
+          if (!live) continue;
+          const fdata = this.serializeFloorLive(k, live);
+          if (fdata) dirtyFloors[k] = fdata;
+        }
+      }
+      const nextSavedSet = new Set(this.savedFloorKeys || []);
+      for (const k of Object.keys(dirtyFloors)) nextSavedSet.add(k);
+      if (this.deletedFloorKeys) {
+        for (const k of this.deletedFloorKeys) nextSavedSet.delete(k);
+      }
+      const nextSavedKeys = Array.from(nextSavedSet);
+      const out = {
         version: 1,
         turn: this.turn,
         map: this.map ? this.map.name : null,
@@ -7539,6 +7951,13 @@
         dungeonMaxDepth: this.dungeonMaxDepth,
         dungeonCleared: this.dungeonCleared,
         dungeonAwake: this.dungeonAwake,
+        dungeonFromWorld: this.dungeonFromWorld ? {
+          x: this.dungeonFromWorld.x | 0,
+          y: this.dungeonFromWorld.y | 0,
+          worldId: this.dungeonFromWorld.worldId | 0,
+        } : null,
+        floorKey: this._floorKey || null,
+        savedFloorKeys: nextSavedKeys,
         // 0-FC：野外地图的返回点（worldMap 不入档，但 wildTrip 要）
         wildTrip: this.wildTrip ? {
           wx: this.wildTrip.wx | 0, wy: this.wildTrip.wy | 0,
@@ -7587,6 +8006,8 @@
           questId: this.questMap.questId, type: this.questMap.type,
           turns: this.questMap.turns,
         } : null,
+        // 地图 13 的现场快照：进出不刷新，读档后也要接着上次的进度
+        questMapSnapshots: this.questMapSnapshots || {},
         // 0-HV：竞技场里存的档 —— 记下 var_65(66..69) 的返回点，
         //   读档后补一段上行楼梯，玩家自己走上去就能出图（原版 605109 禁的是宠物竞技场存盘）
         arena: (this.questMap && this.questMap.arena && this.arenaReturn) ? {
@@ -7608,6 +8029,20 @@
         },
         savedAt: new Date().toISOString(),
       };
+      try {
+        Object.defineProperty(out, '_floorSync', {
+          value: {
+            dirtyFloors,
+            deletedFloors: Array.from(this.deletedFloorKeys || []),
+            copyFromSlot: this.currentSaveSlot || null,
+            onSaved: (slot) => this.markFloorsSaved(slot),
+          },
+          enumerable: false,
+          configurable: true,
+          writable: true,
+        });
+      } catch (e) { /* ignore */ }
+      return out;
     }
 
     /** 0-HE：当前所在地图的显示名（城镇用中文名，其余用地图名；地下附层数） */
@@ -7758,6 +8193,20 @@
       this.dungeonMaxDepth = data.dungeonMaxDepth | 0;
       this.dungeonCleared = !!data.dungeonCleared;
       this.dungeonAwake = !!data.dungeonAwake;
+      this.dungeonFromWorld = data.dungeonFromWorld ? {
+        x: data.dungeonFromWorld.x | 0,
+        y: data.dungeonFromWorld.y | 0,
+        worldId: data.dungeonFromWorld.worldId | 0,
+      } : null;
+      this.dungeonFloors = {};
+      this.dungeonFloorLive = Object.create(null);
+      this.currentSaveSlot = (data && data._loadedSlot) ? String(data._loadedSlot) : null;
+      this.savedFloorKeys = new Set(Array.isArray(data.savedFloorKeys) ? data.savedFloorKeys : []);
+      this.dirtyFloorKeys = new Set();
+      this.deletedFloorKeys = new Set();
+      this._floorKey = data.floorKey || ((this.dungeonDepth > 0 && this.dungeonSiteId)
+        ? (this.dungeonSiteId + ':' + (this.dungeonDepth | 0))
+        : null);
       // 0-FC：野外地图返回点
       this.wildTrip = data.wildTrip ? {
         wx: data.wildTrip.wx | 0, wy: data.wildTrip.wy | 0,
@@ -7816,9 +8265,13 @@
       }
       // 城镇 NPC 不写入存档，读档后按原版固定表重建（否则委托人/委托都会消失）
       this.questMap = null;
+      this.questMapSnapshots = data.questMapSnapshots || {};
       if (data.questMap && Elona.QuestMap) {
         const qq = this.quests.find((x) => x && x.id === data.questMap.questId && x.status === 1);
-        if (qq) await this.enterQuestMap(qq, { fromLoad: true });
+        if (qq) {
+          // 有现场快照时走普通的「再次进入」分支还原上次进度；没有才重新生成。
+          await this.enterQuestMap(qq, this.questMapSnapshots[qq.id] ? {} : { fromLoad: true });
+        }
       }
       // 0-HV：在竞技场里存的档 —— 恢复返回点并补一段上行楼梯
       if (data.arena && data.arena.map) {
@@ -7850,6 +8303,31 @@
       }
       // 0-GZ：恢复角色池里的同伴 / 寄放者（旧存档没有 charas 字段时为空操作）
       this.restoreCharasFromSave(data);
+      // 跨存档地城楼层持久化：若存档时正处于地城某层，按需恢复该层现场与本地怪物
+      if (!this.questMap && (this.dungeonDepth | 0) > 0 && this._floorKey) {
+        let floorData = null;
+        if (this.currentSaveSlot && this.savedFloorKeys.has(this._floorKey)
+          && Elona.Save && typeof Elona.Save.loadFloor === 'function') {
+          try { floorData = await Elona.Save.loadFloor(this.currentSaveSlot, this._floorKey); } catch (e) { /* ignore */ }
+        }
+        if (!floorData && data._floorSync && data._floorSync.dirtyFloors) {
+          floorData = data._floorSync.dirtyFloors[this._floorKey] || null;
+        }
+        if (floorData) {
+          const restored = this.deserializeFloorData(floorData);
+          if (restored) {
+            for (let i = 1; i < restored.charas.length; i++) {
+              const c = restored.charas[i];
+              if (!c) continue;
+              let idx = (c.index | 0) || i;
+              if (idx <= 0 || this.charas[idx]) idx = this.freeCharaSlot(Math.max(57, idx));
+              c.index = idx;
+              this.charas[idx] = c;
+            }
+            this.dungeonFloorLive[this._floorKey] = restored;
+          }
+        }
+      }
       this.syncCharaCells();
       this.state = STATE.PLAY;
       this._diedWords = false;          // 0-Z29：读档后允许再留一次遗言

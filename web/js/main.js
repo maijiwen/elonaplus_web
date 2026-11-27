@@ -1269,7 +1269,7 @@
     try {
       await Elona.Save.save(id, game.serialize());
       if (Elona.Save.mode === 'both') {
-        UI.pushMessage(`已保存到存档槽 ${id}（浏览器缓存 + 磁盘 saves/${id}.json）。`);
+        UI.pushMessage(`已保存到存档槽 ${id}（浏览器缓存 + 磁盘 saves/${id}/）。`);
       } else {
         UI.pushMessage(`已保存到存档槽 ${id}（浏览器缓存；未连接 saves/ 文件夹）。`);
       }

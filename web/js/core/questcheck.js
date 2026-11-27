@@ -175,7 +175,11 @@
       const cur = g.getV65(r.varSlot) | 0;
       if (cur >= (r.stage | 0)) continue;              // 只增不减
       g.setV65(r.varSlot, r.stage | 0);
-      if (g.log) g.log('Your journal has been updated.');
+      // 193756 的 `lang("ジャーナルが更新された。", ...)`：中文档统一输出中文。
+      //   193649-193658（地图 51 / 场景 10）例外：原文只有「マーチは壊滅した。」。
+      if (g.log) {
+        g.log((mapId === 51 && subId === 10) ? '玛奇已经毁灭了。' : '日志已更新。');
+      }
       done.push(r);
     }
     return done;
@@ -183,12 +187,14 @@
 
   /** 委托地图完成时的收尾（193780-193793 / 193807-193819） */
   function completeQuestMap(g) {
-    if ((g.getV65(801) | 0) > 0) g.setV65(801, 0);
+    // 193780-193787：`var_65(801)>0` 时先解除限时并提示「時は再び動き出した。」
+    const timed = (g.getV65(801) | 0) > 0;
+    if (timed) g.setV65(801, 0);
     if ((g.getV65(250 + 413) | 0) > 0) g.setV65(250 + 413, 0);
     g.setV65(73, 3);
     if (Elona.Event && g.events && g.events.add) g.events.add(8);
     else if (Elona.Event && g.evadd) g.evadd(8);
-    if (g.log) g.log('委托的目标已经全部达成。');
+    if (g.log) g.log(timed ? '时间又开始流动了。' : '委托的目标已经全部达成。');
     return true;
   }
 
@@ -216,16 +222,23 @@
       if (g.setV65) g.setV65(84, 0);
       messages.push('讨伐成功！');
     }
-    // var_434(8, var_65(72)) = 3：把当前地图上的委托标记为完成。
+    // var_434(8, var_65(72)) = 3：只把**当前槽位**的委托标记为完成。
     // 0-HU（A200）：源码 591432/591450/591459 只在 1001 / 1010 / 1008 三种
     //   委托地图里写这一句；竞技场 var_65(70)=1（417075）也会触发事件 8，
-    //   若不收窄会把玩家身上所有进行中的委托误标为完成。
+    //   若不收窄会把竞技场胜利误算成委托完成。
+    //   此前这里遍历了所有 activeQuests，导致完成一张委托地图时把玩家身上
+    //   其他进行中的委托（如同时在身的缴纳/护送）一起置为 status=3，
+    //   属于「其他支线任务被连带完成」的严重回归，按源码改为单槽位写。
     const markable = (type === 1001 || type === 1010 || type === 1008);
-    if (markable && Elona.Quest && Elona.Quest.activeQuests && Elona.Quest.markComplete) {
+    if (markable && Elona.Quest && Elona.Quest.markComplete) {
       try {
-        for (const q of Elona.Quest.activeQuests(g)) {
-          if (q && (q.status | 0) === 1) Elona.Quest.markComplete(q);
-        }
+        const slot = g.getV65 ? (g.getV65(72) | 0) : 0;
+        const id = (g.questMap && g.questMap.questId) | 0;
+        const all = (g.quests || []);
+        const q = (id && all.find((x) => x && x.id === id))
+          || all[slot]
+          || null;
+        if (q && (q.status | 0) === 1) Elona.Quest.markComplete(q);
       } catch (e) { /* 委托表未就绪 */ }
     }
     for (const m of messages) if (g && typeof g.log === 'function') g.log(m);

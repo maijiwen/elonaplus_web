@@ -4725,7 +4725,7 @@
             await Elona.Save.save(slot.id, g.serialize());
             // 0-HE：纯 Web 版落点 —— 磁盘未授权时只写浏览器缓存
             const where = Elona.Save.mode === 'both'
-              ? `浏览器缓存 + 磁盘 saves/${slot.id}.json`
+              ? `浏览器缓存 + 磁盘 saves/${slot.id}/`
               : '浏览器缓存（未连接 saves/ 文件夹）';
             Elona.UI.pushMessage(`已保存到 ${slot.id}（${where}）。`);
             this.openSaveSlots(`已保存到 ${slot.id}（${where}）。`);

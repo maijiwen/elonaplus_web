@@ -327,7 +327,9 @@
       if ((s.fields[16] | 0) !== RAND_TYPE) continue;
       const gone = force || statue || R(5) === 0 || (s.fields[20] | 0) === -1;
       if (!gone) continue;
-      delete g.randSites[String(s.id | 0)];
+      const sid = s.id | 0;
+      delete g.randSites[String(sid)];
+      if (g && typeof g.purgeSiteFloors === 'function') g.purgeSiteFloors(sid);
       removed++;
     }
     if (!o.silent && g && g.log) g.log('这片大陆发生了剧烈的地壳变动。');
@@ -358,7 +360,10 @@
       // 249619-249627：切换大地图时 var_65(79)=1 → 先把 450..499 的动态槽全部清 0，
       // 再对新大陆执行 label_2469（槽位是全局共享的，不按世界分开存）。
       if (wasInit) {
-        for (const k of Object.keys(g.randSites)) delete g.randSites[k];
+        for (const k of Object.keys(g.randSites)) {
+          delete g.randSites[k];
+          if (g && typeof g.purgeSiteFloors === 'function') g.purgeSiteFloors(k | 0);
+        }
       }
       return Object.assign({}, newRandArea(g, wid, o), { reason: 'init', first: true });
     }

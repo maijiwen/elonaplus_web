@@ -197,6 +197,7 @@
       need: 0,
       lastDay: curDay(g),
       failed: false,
+      mapHintDone: false,
     };
     if (R(g, 3) === 0) return q;                              // 590781-590783
     if ((q.clientIndex | 0) === 0) return q;
@@ -592,12 +593,57 @@
     return true;
   }
 
+  /**
+   * 1003 COOK 的缴纳判定 —— 415704-415713：
+   *   `refitem(id,5)==57000 && f[25]/1000 == var_434(12) && f[26] == var_434(13)`
+   * 源码没有「指定物品 id」，而是按食物类别 + 料理品质匹配背包里的任意料理。
+   * 此前 Web 端把 COOK 当成 `itemId` 委托（itemId 恒为 0），导致该类委托永远
+   * 无法完成、委托菜单也永远不出现缴纳项。
+   */
+  function findCookItem(g, q) {
+    if (!q || !Elona.ItemDB) return null;
+    const inv = (g && g.player && g.player.inv) || [];
+    const cat = q.targetData | 0;
+    const lv = q.requiredLevel | 0;
+    for (const it of inv) {
+      if (!it || (it.f[0] | 0) <= 0) continue;
+      if (Elona.ItemDB.ref(it.id | 0, 5) !== 57000) continue;
+      if (Math.trunc((it.f[25] | 0) / 1000) !== cat) continue;
+      if ((it.f[26] | 0) !== lv) continue;
+      return it;
+    }
+    return null;
+  }
+
+  /** 消耗指定物品实例 1 件（findCookItem 用） */
+  function consumeInstance(g, it) {
+    if (!it) return false;
+    it.f[0] = (it.f[0] | 0) - 1;
+    if ((it.f[0] | 0) > 0) return true;
+    const inv = (g && g.player && g.player.inv) || [];
+    const k = inv.indexOf(it);
+    if (k >= 0) inv[k] = null;
+    return true;
+  }
+
+  /** 料理类别中文名（FoodName 表；表未就绪时退回「料理」） */
+  function cookCategoryName(q) {
+    try {
+      if (Elona.FoodName && Elona.FoodName.categoryName) {
+        const n = Elona.FoodName.categoryName(q.targetData | 0);
+        if (n) return n;
+      }
+    } catch (_) { /* 表未就绪 */ }
+    return '料理';
+  }
+
   function isComplete(g, q) {
     if (!q || q.type === 0) return false;
     if (q.status === 3) return true;
     switch (q.type) {
-      case TYPE.COLLECT:
       case TYPE.COOK:
+        return !!findCookItem(g, q);
+      case TYPE.COLLECT:
       case TYPE.SUPPLY:
         return hasItem(g, q.itemId);
       case TYPE.DELIVER:
@@ -658,12 +704,21 @@
       } else if (q.type === TYPE.HUNTEX) {
         if (species && species === (q.targetCreature | 0)) {
           q.progress = Math.min((q.progress | 0) + 1, q.need | 0);
-          if (q.progress >= q.need) markComplete(q);
+          // 1010 与 1001 一样，源码（193766-193794）的完成条件是「场上敌人全灭」，
+          // 不是数够 var_434(5)。委托地图内统一交给 QuestMap.onKill，
+          // 否则 6+rnd(4) 只怪里杀满 need（3..12）就提前完成，后续敌人白杀。
+          if (!g.questMap || (g.questMap.type | 0) !== TYPE.HUNTEX) {
+            if (q.progress >= q.need) markComplete(q);
+          }
           out.push({ quest: q, progress: q.progress, need: q.need, completed: q.status === 3 });
         }
       } else if (q.type === TYPE.HUNT) {
         q.progress = Math.min((q.progress | 0) + 1, q.need | 0);
-        if (q.progress >= q.need) markComplete(q);
+        // 193762-193794：任务地图里的 HUNT 完成条件是「场上 var_69==-3 的敌人
+        // 全灭」，不是数够 var_434(5)。完成判定与日志提示交给 QuestMap.onKill。
+        if (!g.questMap || (g.questMap.type | 0) !== TYPE.HUNT) {
+          if (q.progress >= q.need) markComplete(q);
+        }
         out.push({ quest: q, progress: q.progress, need: q.need, completed: q.status === 3 });
       }
     }
@@ -696,13 +751,22 @@
     const q = activeQuests(g).find((x) => x.id === questId);
     if (!q) return { ok: false, reason: 'no-active', message: '没有这件委托。' };
     if (q.status !== 1) return { ok: false, reason: 'state', message: '这份委托现在无法缴纳。' };
-    if (!q.itemId || !hasItem(g, q.itemId)) {
+    // 1003 料理没有固定 itemId，按「食物类别 + 料理品质」找背包里的任意料理。
+    let cookItem = null;
+    if (q.type === TYPE.COOK) {
+      cookItem = findCookItem(g, q);
+      if (!cookItem) {
+        return { ok: false, reason: 'no-item',
+          message: `需要 ${cookCategoryName(q)}（等级 ${q.requiredLevel}）。` };
+      }
+    } else if (!q.itemId || !hasItem(g, q.itemId)) {
       return { ok: false, reason: 'no-item',
         message: `需要 ${itemName(q.itemId)}。` };
     }
     // 417244-417284：源码选项 25（配達物を渡す）/ 26（缴纳）在 gosub *label_4278
     // 收走物品后**直接** `gosub *label_4294` 发报酬并清委托，不需要再选「报告委托」。
-    consumeItem(g, q.itemId, 1);
+    if (q.type === TYPE.COOK) consumeInstance(g, cookItem);
+    else consumeItem(g, q.itemId, 1);
     markComplete(q);
     const result = report(g, q.id, { consumed: true });
     syncActive(g);
@@ -712,7 +776,8 @@
       completed: true,
       report: result,
       message: result.ok ? result.message
-        : (q.type === TYPE.DELIVER ? '把配达物交给了对方。' : `缴纳了 ${itemName(q.itemId)}。`),
+        : (q.type === TYPE.DELIVER ? '把配达物交给了对方。'
+          : (q.type === TYPE.COOK ? `缴纳了${cookCategoryName(q)}。` : `缴纳了 ${itemName(q.itemId)}。`)),
     };
   }
 
@@ -749,8 +814,12 @@
     }
     if (q.progress >= q.targetData) markComplete(q);
     syncActive(g);
+    const base = gained > 0
+      ? `缴纳了 ${gained} 重量的作物（${q.progress}/${q.targetData}）。`
+      : '背包里没有可缴纳的作物。';
     return { ok: gained > 0, quest: q, gained: gained, completed: q.status === 3,
-      message: gained > 0 ? `缴纳了 ${gained} 重量的作物（${q.progress}/${q.targetData}）。` : '背包里没有可缴纳的作物。' };
+      message: base + (q.status === 3
+        ? `日志已更新。回去找${q.clientName}汇报委托，领取报酬吧。` : '') };
   }
 
   /** 1009 派对：举办一次派对，按交涉/魅力获得分数 */
@@ -763,7 +832,9 @@
     if (q.progress >= q.targetData) markComplete(q);
     syncActive(g);
     return { ok: true, quest: q, gained: score, completed: q.status === 3,
-      message: `派对气氛 +${score}（${q.progress}/${q.targetData}）` };
+      message: `派对气氛 +${score}（${q.progress}/${q.targetData}）`
+        + (q.status === 3
+          ? `日志已更新。回去找${q.clientName}汇报委托，领取报酬吧。` : '') };
   }
 
   /** 1011 调达：从目标 NPC 处取得委托物品 */
@@ -989,6 +1060,7 @@
     q.type = 0;
     q.progress = 0;
     q.refreshAt = nowH(g) + R(g, 4) * DAY_H;
+    if (g.clearQuestMapSnapshot) g.clearQuestMapSnapshot(q.id);
     return { failed: true, quest: q, type: type, clientName: client };
   }
 
@@ -1051,8 +1123,13 @@
     }
     // 缴纳型：报告时收走物品。handOver()（选项 25/26）已在调用前收走，
     // 用 opts.consumed 避免同格的另一件同名物品被误扣。
-    if (q.type === TYPE.COOK || q.type === TYPE.SUPPLY || q.type === TYPE.COLLECT) {
-      if (!(opts && opts.consumed) && hasItem(g, q.itemId)) consumeItem(g, q.itemId, 1);
+    if (!(opts && opts.consumed)) {
+      if (q.type === TYPE.COOK) {
+        const dish = findCookItem(g, q);
+        if (dish) consumeInstance(g, dish);
+      } else if (q.type === TYPE.SUPPLY || q.type === TYPE.COLLECT) {
+        if (hasItem(g, q.itemId)) consumeItem(g, q.itemId, 1);
+      }
     }
     // 0-Z84 / *label_4294：金币、白金币、物品都 itemcreate 到玩家当前格，
     // 不再直接改 player 的货币字段（591479-591493）。
@@ -1124,6 +1201,7 @@
     q.type = 0;
     q.progress = 0;
     q.refreshAt = nowH(g) + R(g, 4) * DAY_H;
+    if (g.clearQuestMapSnapshot) g.clearQuestMapSnapshot(q.id);
     syncActive(g);
     return { ok: true, quest: q, gold: gold, platinum: plat, fame: fameGain,
       message: `${q.clientName} 的委托完成了！获得 ${gold} gold、${plat} 白金、${fameGain} 名声。有什么东西滚到了脚边。` };
@@ -1145,7 +1223,7 @@
       case TYPE.DELIVER:
         return q.status === 3 ? '已送达目的地' : `把 ${itemName(q.itemId)} 交给 ${placeName(q.targetName)}`;
       case TYPE.COOK:
-        return `缴纳料理（需要等级 ${q.requiredLevel}）`;
+        return `缴纳${cookCategoryName(q)}（需要等级 ${q.requiredLevel}）`;
       case TYPE.SUPPLY:
         return `缴纳 ${itemName(q.itemId)}`;
       case TYPE.HARVEST:
@@ -1175,7 +1253,7 @@
       case TYPE.DELIVER:
         return `把 ${itemName(q.itemId)} 配送给 ${placeName(q.targetName)}`;
       case TYPE.COOK:
-        return `缴纳料理（等级 ${q.requiredLevel}）`;
+        return `缴纳${cookCategoryName(q)}（等级 ${q.requiredLevel}）`;
       case TYPE.SUPPLY:
         return `缴纳 ${itemName(q.itemId)}`;
       case TYPE.HARVEST:
@@ -1320,7 +1398,13 @@
         }
         if (own.type === TYPE.HARVEST) out.push({ id: 'quest-harvest', label: '缴纳作物', questId: own.id });
         if (own.type === TYPE.PARTY) out.push({ id: 'quest-party', label: '举办派对', questId: own.id });
-        if (own.type === TYPE.COOK || own.type === TYPE.SUPPLY) {
+        if (own.type === TYPE.COOK) {
+          if (findCookItem(g, own)) {
+            out.push({ id: 'quest-deliver',
+              label: `缴纳${cookCategoryName(own)}（等级 ${own.requiredLevel}）`,
+              questId: own.id });
+          }
+        } else if (own.type === TYPE.SUPPLY) {
           if (hasItem(g, own.itemId)) {
             out.push({ id: 'quest-deliver', label: `缴纳 ${itemName(own.itemId)}`, questId: own.id });
           }
@@ -1348,6 +1432,7 @@
     makeQuest, generate: ensure, ensure, available, forClient, activeQuests, activeCount,
     syncActive,
     accept, report, tick, isComplete, markComplete, hasItem, countItem, consumeItem,
+    findCookItem, cookCategoryName,
     fail: failQuest,
     onKill, onEnterFloor, onTrapDisarmed, handOver, harvest, party, collect,
     spawnEscortFollower, restoreEscortFollowers, tickEscort, onArriveTown,

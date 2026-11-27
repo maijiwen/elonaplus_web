@@ -912,7 +912,8 @@
     if (dead.__death) return dead.__death;
     const out = {
       exp: null, loot: null, recruit: null, arena: null, necro: null,
-      companion: null, morale: null, quest: null, story: null, vanquished: false, gold: 0,
+      companion: null, morale: null, quest: null, questMap: null, story: null,
+      vanquished: false, gold: 0,
     };
     // 0-GQ / 200036-200348：死因文案（var_1165 / txt_select）与尸体清理
     //   （cell_removechara + 血痕 / 碎片）。放在玩家分支之前，玩家与 NPC 都会记录；
@@ -1035,6 +1036,17 @@
     }
     if (Elona.Quest && Elona.Quest.onKill) {
       try { out.quest = Elona.Quest.onKill(g, dead); } catch (e) { out.quest = null; }
+    }
+    // 委托地图的全灭/讨伐判定必须覆盖**所有**死亡路径（近战、射击、法术、能力、
+    // 吐息、同伴击杀、环境伤害）。此前只在 game.js 的近战/射击分支调用，
+    // 用法术打死最后一个敌人时委托不会完成、也没有「日志已更新」提示。
+    if (g && g.questMap && Elona.QuestMap && Elona.QuestMap.onKill) {
+      try {
+        out.questMap = Elona.QuestMap.onKill(g);
+        if (out.questMap && out.questMap.message && typeof g.log === 'function') {
+          g.log(out.questMap.message);
+        }
+      } catch (e) { out.questMap = null; }
     }
     if (g && typeof g.syncCharaCells === 'function') g.syncCharaCells();
     dead.__death = out;

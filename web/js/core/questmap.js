@@ -612,11 +612,25 @@
       }
     }
 
+    // 232129 `map_initcustom` 会连城镇地图的物件一起载入（game.loadMap 的
+    // `o[4] == 0 → itemcreate` 分支）。此前 questMap 直接 new GameMap，跳过了
+    // loadMap 的物件实例化，导致 1008/1010 的「市街地」除了委托怪物空无一物。
+    const items = [];
+    for (const o of (townMap.objects || [])) {
+      if (!o || (o[4] | 0) !== 0 || !(o[0] | 0) || !Elona.ItemDB) continue;
+      const it = Elona.ItemDB.createItem(o[0] | 0, 1);
+      if (!it) continue;
+      it.f[5] = o[1] | 0; it.f[6] = o[2] | 0;
+      it.f[21] = o[3] | 0;
+      if ((o[3] | 0) >= 0) it.townOwned = true;
+      items.push(it);
+    }
+
     // 出口：入口处放上楼梯（返回城镇）
     const exit = { x: entry.x, y: entry.y };
     return {
       json: { name: '市街地', width: W, height: H, tileset: townMap.tileset | 0, header, cells, objects: townMap.objects || [] },
-      entry, exit, monsters, npcs: [], items: [], traps: [],
+      entry, exit, monsters, npcs: [], items, traps: [],
       // 1008 限时 360 分钟（232139）；1010 不限时
       turns: q.type === 1008 ? 360 : 0,
       townMap: true,
@@ -705,6 +719,7 @@
       Elona.Quest.syncActive(g);
       completed = true;
       messages.push('派对取得了大成功！');                       // 606785
+      messages.push(completionHint(q));
     } else {
       messages.push('派对变得一塌糊涂……');                       // 606794
     }
@@ -736,7 +751,8 @@
       Elona.Quest.markComplete(q);
       Elona.Quest.syncActive(g);
       return { quest: q, completed: true,
-        message: `收获了 ${weight} 重量（${q.progress}/${q.targetData}）。纳入了足够的作物！` };
+        message: `收获了 ${weight} 重量（${q.progress}/${q.targetData}）。纳入了足够的作物！`
+          + completionHint(q) };
     }
     return { quest: q, completed: false,
       message: `收获了 ${weight} 重量（${q.progress}/${q.targetData}）。` };
@@ -751,27 +767,68 @@
       Elona.Quest.markComplete(q);
       Elona.Quest.syncActive(g);
     }
-    return { quest: q, progress: q.progress, need: q.targetData, completed: q.status === 3 };
+    return { quest: q, progress: q.progress, need: q.targetData, completed: q.status === 3,
+      message: q.status === 3 ? completionHint(q) : undefined };
   }
 
-  /** 击倒后检查战场是否肃清 */
+  /**
+   * 击倒后检查战场是否肃清 —— check_quest 193762-193794。
+   * 源码以「槽位 57..244 里 var_69 == -3 且仍存活的敌人数 == 0」为完成条件，
+   * 不看 var_434(5) 的 need；完成时 var_65(73)=3 + evadd 8（日志/提示）。
+   */
+  function completionHint(q) {
+    return '日志已更新。回去找' + ((q && q.clientName) || '委托人') + '汇报委托，领取报酬吧。';
+  }
+
   function onKill(g) {
-    const q = activeQuest(g);
-    if (!q || q.status !== 1) return null;
+    // 不能只用 activeQuest()：Quest.onKill 可能刚把当前委托置为 3（例如 1008
+    // 命中目标种族），此时仍需补一条「回去报告」的提示。
+    const q = (g && g.questMap && (g.quests || [])
+      .find((x) => x && x.id === g.questMap.questId)) || null;
+    if (!q) return null;
     if (q.type !== 1001 && q.type !== 1010 && q.type !== 1008) return null;
+    if (q.status === 3) {
+      if (q.mapHintDone) return null;             // 已提示过，避免每次击杀重复刷屏
+      q.mapHintDone = true;
+      return { quest: q, completed: true, message: completionHint(q) };
+    }
+    if (q.status !== 1) return null;
     if (q.type === 1008) {
+      // 193805-193821：`findcharaaz(var_434(12, var_65(72))) == 0` → 完成。
+      // 不能只依赖 Quest.onKill 的「种族命中」分支：法术/能力/同伴击杀、
+      // 或目标已被其他方式清除时也必须结算。
       if (q.status === 3) {
-        return { quest: q, completed: true, message: '目标已被讨伐！可以从入口楼梯返回城镇报告。' };
+        return { quest: q, completed: true, message: completionHint(q) };
+      }
+      const gone = Elona.QuestCheck && Elona.QuestCheck.findcharaaz
+        ? Elona.QuestCheck.findcharaaz(g, q.targetCreature | 0) === 0
+        : false;
+      if (gone) {
+        Elona.Quest.markComplete(q);
+        q.mapHintDone = true;
+        Elona.Quest.syncActive(g);
+        return { quest: q, completed: true, message: completionHint(q) };
       }
       return null;
     }
-    const alive = (g.charas || []).some((c) => c && c.get(0) === 1 && (c.get(9) | 0) <= -1);
-    if (!alive) {
-      Elona.Quest.markComplete(q);
-      Elona.Quest.syncActive(g);
-      return { quest: q, completed: true, message: '区域已制压！可以从入口楼梯返回城镇报告。' };
+    // 193768-193777：只数 57..244 槽、`var_58(69)==-3`、存活且未被魅惑/驯服者。
+    // 直接用 QuestCheck.isQuestEnemy，避免把同伴或被魅惑的怪算成剩余敌人。
+    const live = (g.charas || []).filter((c) => {
+      if (!c || (c.index | 0) < 57 || (c.index | 0) > 244) return false;
+      if (Elona.QuestCheck && Elona.QuestCheck.isQuestEnemy) {
+        return Elona.QuestCheck.isQuestEnemy(c);
+      }
+      return (c.get(0) | 0) === 1 && (c.get(69) | 0) <= -1;
+    }).length;
+    if (live > 0) {
+      return { quest: q, completed: false, remaining: live,
+        message: `歼灭委托：还剩 ${live} 个敌人。` };
     }
-    return null;
+    q.progress = q.need | 0;
+    Elona.Quest.markComplete(q);
+    q.mapHintDone = true;
+    Elona.Quest.syncActive(g);
+    return { quest: q, completed: true, remaining: 0, message: completionHint(q) };
   }
 
   /** 每回合：时限（*label_2415/2416/2422 的 var_65(84)） */
