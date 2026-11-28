@@ -141,6 +141,11 @@
     },
 
     load() { return (this._read().record || null); },
+    /** 0-Z40：读档时把存档里的遗产记录写回全局继承入口 */
+    put(rec) {
+      if (!rec) return false;
+      return !!this._write({ record: rec });
+    },
     has() { return !!this.load(); },
     clear() { this._write({ record: null }); return true; },
 

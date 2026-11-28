@@ -81,6 +81,11 @@
     });
   }
 
+  /**
+   * 0-Z40：浏览器缓存只保留**一个最新槽位**的存档。
+   * 这里仍然按 slot 取记录（兼容读档 / 迁移），但 save() 在写新槽位前
+   * 会先把旧缓存档落盘并清掉缓存，避免 IndexedDB / localStorage 里堆积所有槽位。
+   */
   async function cacheGet(slot) {
     const db = await openDb();
     if (!db) return null;
@@ -88,6 +93,30 @@
       const tx = db.transaction(ST_SAVES, 'readonly');
       return await reqP(tx.objectStore(ST_SAVES).get(slot));
     } catch (e) { return null; }
+  }
+
+  async function cacheDelete(slot) {
+    const db = await openDb();
+    if (!db) return false;
+    try {
+      const tx = db.transaction(ST_SAVES, 'readwrite');
+      tx.objectStore(ST_SAVES).delete(slot);
+      await txP(tx);
+      return true;
+    } catch (e) { return false; }
+  }
+
+  async function cacheClearFloors(slot) {
+    const db = await openDb();
+    if (!db || !db.objectStoreNames.contains(ST_FLOORS)) return false;
+    try {
+      const recs = await cacheListFloors(slot);
+      if (!recs.length) return true;
+      const tx = db.transaction(ST_FLOORS, 'readwrite');
+      for (const rec of recs) tx.objectStore(ST_FLOORS).delete(floorDbKey(slot, rec.floorKey));
+      await txP(tx);
+      return true;
+    } catch (e) { return false; }
   }
 
   async function cacheAll() {
@@ -293,6 +322,41 @@
     }
   }
 
+  /** 指定槽位是否已落盘（用于判断缓存里的旧档是否只在缓存中） */
+  async function diskSlotInfo(slot) {
+    const h = await getDir(false);
+    if (!h) return null;
+    try {
+      const slotDir = await h.getDirectoryHandle(slot);
+      try {
+        const m = await readJsonFile(slotDir, META_FILE);
+        return { exists: true, time: Number(m.time) || 0, source: 'disk' };
+      } catch (e) {
+        const core = await readJsonFile(slotDir, CORE_FILE);
+        return { exists: true, time: Date.parse(core.savedAt) || 0, source: 'disk' };
+      }
+    } catch (e) { /* 不是分目录存档 */ }
+    try {
+      const rec = await readJsonFile(h, slot + '.json');
+      return { exists: true, time: Date.parse(rec.savedAt) || 0, source: 'disk' };
+    } catch (e) { return null; }
+  }
+
+  /** 把缓存里的楼层数据补写到磁盘（迁移旧缓存档时用） */
+  async function diskWriteCachedFloors(h, slot, floorRecs) {
+    if (!floorRecs || !floorRecs.length) return 0;
+    const floorsDir = await h.getDirectoryHandle(FLOORS_DIR, { create: true });
+    let n = 0;
+    for (const rec of floorRecs) {
+      if (!rec || !rec.floorKey || !rec.data) continue;
+      try {
+        await writeFile(floorsDir, floorFileName(rec.floorKey), JSON.stringify(rec.data));
+        n++;
+      } catch (e) { /* 单个楼层失败不影响主档迁移 */ }
+    }
+    return n;
+  }
+
   async function diskList() {
     const h = await getDir(false);
     if (!h || !h.entries) return { list: [], name: null };
@@ -396,6 +460,30 @@
   // ---------------------------------------------------------------- localStorage（旧存档 / 无 IDB 回退）
   function localFloorStorageKey(slot, floorKey) {
     return LS_FLOOR_PREFIX + String(slot || '') + '.' + String(floorKey || '');
+  }
+
+  function localListFloors(slot) {
+    const out = [];
+    const ls = global.localStorage;
+    if (!ls) return out;
+    const prefix = LS_FLOOR_PREFIX + String(slot || '') + '.';
+    for (let i = 0; i < ls.length; i++) {
+      const k = ls.key(i);
+      if (!k || !k.startsWith(prefix)) continue;
+      try { out.push({ floorKey: k.slice(prefix.length), data: JSON.parse(ls.getItem(k) || 'null') }); }
+      catch (e) { /* ignore */ }
+    }
+    return out;
+  }
+
+  function localClearFloors(slot) {
+    const ls = global.localStorage;
+    if (!ls) return;
+    const prefix = LS_FLOOR_PREFIX + String(slot || '') + '.';
+    for (let i = ls.length - 1; i >= 0; i--) {
+      const k = ls.key(i);
+      if (k && k.startsWith(prefix)) { try { ls.removeItem(k); } catch (e) {} }
+    }
   }
 
   function localSyncFloors(slot, dirtyFloors, deletedFloors, copyFromSlot) {
@@ -532,11 +620,127 @@
       return out;
     },
 
-    /** 保存到指定槽位：浏览器缓存 + 磁盘目录（已授权时）各写一份（核心 + 分文件楼层） */
-    async save(slot, data) {
+    /**
+     * 0-Z40：缓存里当前存档记录（IndexedDB 优先，localStorage 回退）。
+     * @returns {null|{slot,time,meta,data,source}}
+     */
+    async cachedLatest() {
+      let best = null;
+      for (const rec of await cacheAll().catch(() => [])) {
+        if (!rec || !rec.slot || !rec.data) continue;
+        const item = {
+          slot: rec.slot,
+          time: Number(rec.time) || Date.parse((rec.data || {}).savedAt) || 0,
+          meta: rec.meta || null, data: rec.data, source: 'cache',
+        };
+        if (!best || item.time > best.time) best = item;
+      }
+      for (const s of localList()) {
+        let data = null;
+        try { data = JSON.parse(global.localStorage.getItem(LS_PREFIX + s.slot) || 'null'); }
+        catch (e) { data = null; }
+        if (!data) continue;
+        if (!best || s.time > best.time) {
+          best = { slot: s.slot, time: s.time, meta: s.meta || null, data, source: 'cache' };
+        }
+      }
+      return best;
+    },
+
+    /** 缓存中所有槽位（含时间与数据，按时间倒序） */
+    async cachedLatestSlots() {
+      const out = [];
+      for (const rec of await cacheAll().catch(() => [])) {
+        if (!rec || !rec.slot || !rec.data) continue;
+        out.push({
+          slot: rec.slot,
+          time: Number(rec.time) || Date.parse((rec.data || {}).savedAt) || 0,
+          meta: rec.meta || null, data: rec.data, source: 'cache',
+        });
+      }
+      for (const s of localList()) {
+        let data = null;
+        try { data = JSON.parse(global.localStorage.getItem(LS_PREFIX + s.slot) || 'null'); }
+        catch (e) { data = null; }
+        if (data) out.push({ slot: s.slot, time: s.time, meta: s.meta || null, data, source: 'cache' });
+      }
+      return out.sort((a, b) => Number(b.time) - Number(a.time));
+    },
+
+    /** 强制取得可写目录；无权限时按 opts 回调让玩家手动选择，仍失败抛 NEED_FOLDER */
+    async requireDisk(opts) {
+      const o = opts || {};
+      let h = await getDir(false);
+      if (!h) {
+        if (typeof o.onNeedFolder === 'function') {
+          try { o.onNeedFolder(); } catch (e) { /* 提示失败不阻断 */ }
+        }
+        try {
+          if (typeof o.promptFolder === 'function') await o.promptFolder();
+          else if (global.showDirectoryPicker) await this.connectFolder();
+        } catch (e) { /* 下面统一抛 NEED_FOLDER */ }
+        h = await getDir(false);
+      }
+      if (!h) {
+        const err = new Error('需要先连接本地存档文件夹，才能保存到另一个存档槽');
+        err.code = 'NEED_FOLDER';
+        throw err;
+      }
+      return h;
+    },
+
+    /**
+     * 把缓存里的某个槽位落盘并清掉缓存（缓存单槽位机制的核心迁移）。
+     * 若磁盘已有同槽且时间不早于缓存，只清缓存，不覆盖磁盘。
+     */
+    async evictCachedSlot(slot, opts) {
+      const rec = await cacheGet(slot);
+      let raw = null;
+      if (!rec) {
+        try { raw = global.localStorage ? global.localStorage.getItem(LS_PREFIX + slot) : null; }
+        catch (e) { raw = null; }
+      }
+      const data = rec ? rec.data : (raw ? JSON.parse(raw) : null);
+      if (!data) {
+        await cacheClearFloors(slot);
+        localClearFloors(slot);
+        return { evicted: false, wroteDisk: false };
+      }
+      const cacheTime = Number(rec ? rec.time : (Date.parse(data.savedAt) || 0)) || Date.parse(data.savedAt) || 0;
+      const disk = await diskSlotInfo(slot);
+      const shouldWrite = !disk || cacheTime > (Number(disk.time) || 0);
+      if (shouldWrite) {
+        const h = await this.requireDisk(opts);
+        await diskSave(h, slot, data, cacheTime, null);
+        const floorRecs = await cacheListFloors(slot);
+        const localFloors = localListFloors(slot);
+        const merged = new Map();
+        for (const f of floorRecs) if (f && f.floorKey) merged.set(f.floorKey, f.data);
+        for (const f of localFloors) if (f && f.floorKey && !merged.has(f.floorKey)) merged.set(f.floorKey, f.data);
+        await diskWriteCachedFloors(h, slot, Array.from(merged, ([floorKey, d]) => ({ floorKey, data: d })));
+      }
+      await cacheDelete(slot);
+      await cacheClearFloors(slot);
+      try { if (global.localStorage) global.localStorage.removeItem(LS_PREFIX + slot); } catch (e) {}
+      localClearFloors(slot);
+      return { evicted: true, wroteDisk: shouldWrite };
+    },
+
+    /**
+     * 保存到指定槽位。
+     * 0-Z40：缓存全局只保留**一个**最新存档。异槽保存时先把旧缓存档落盘、再清缓存；
+     * 同槽保存直接覆盖。磁盘目录始终按槽位分文件保存全部存档。
+     */
+    async save(slot, data, opts) {
       const now = Date.now();
       const { coreData, floorSync } = stripFloorSync(data);
       const meta = metaOf(coreData);
+      const previous = await this.cachedLatest();
+      if (previous && previous.slot !== slot) {
+        // 异槽保存：旧档必须已有磁盘副本，或此处先把缓存副本写进磁盘；
+        // 没有权限就抛 NEED_FOLDER，绝不丢掉旧档、也不允许另存。
+        await this.evictCachedSlot(previous.slot, opts);
+      }
       let cached = await cachePut({ slot, time: now, meta, data: coreData });
       if (cached && floorSync) {
         await cacheSyncFloors(
@@ -569,6 +773,16 @@
           this.folderName = h.name || null;
         }
       } catch (e) { /* 磁盘写失败不影响浏览器缓存里的存档 */ }
+      // 历史遗留的多槽缓存：把非当前槽位逐个迁移落盘后清掉，最终缓存只剩 a。
+      // 同槽保存时做 best-effort（没有权限就不动旧缓存，避免阻断普通保存）；
+      // 异槽保存时前面已经要求过权限，这里可以彻底清理。
+      const allCached = await this.cachedLatestSlots();
+      for (const s of allCached) {
+        if (s === slot) continue;
+        try {
+          await this.evictCachedSlot(s, previous && previous.slot !== slot ? opts : {});
+        } catch (e) { /* 同槽保存时保留无法迁移的旧缓存，不影响本次保存 */ }
+      }
       this.mode = disk ? 'both' : 'cache';
       const ok = cached || disk;
       if (ok && floorSync && typeof floorSync.onSaved === 'function') {

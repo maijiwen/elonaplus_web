@@ -203,6 +203,16 @@
       return (data.slots || [])[slot | 0] || null;
     },
 
+    /** 0-Z40：把存档里携带的基因快照写回指定槽位（读档恢复，不重新 capture） */
+    put(slot, gene) {
+      if (!gene) return false;
+      const idx = Math.max(0, Math.min(MAX_SLOTS - 1, slot | 0));
+      const data = this._readAll();
+      if (!data.slots) data.slots = [];
+      data.slots[idx] = gene;
+      return !!this._writeAll(data);
+    },
+
     remove(slot) {
       const data = this._readAll();
       const idx = slot | 0;

@@ -164,6 +164,8 @@
       // 0-Z38 / var_499(0, species)：通用「按物种累计击杀数」。源码 201200 在击杀时
       //   var_499(0, species)++（地图 40/35/6 除外），供 610737+ 的 BOSS 重生判定等使用。
       this.killCounts = {};
+      // shopN.s2：按 var_58(153) 商店编号保存店主库存（换城 / 读档不重新进货）
+      this.shopStocks = Object.create(null);
       // 存档块 kitem.s1 / gdatan.s1 / news.log（构造期也初始化，便于直接 serialize）
       this.knownRecipes = {};
       this.readBooks = {};
@@ -748,6 +750,7 @@
       this.pendingInteraction = null;
       this.quests = [];
       this.killCounts = {};
+      this.shopStocks = Object.create(null);
       this.activeQuests = [];
       this._questSeq = 0;
       this.questMap = null;
@@ -1021,6 +1024,9 @@
         Elona.FestivalMap.spawnContent(this);
       }
 
+      // 0-Z40 / shopN.s2：店主按编号读回库存；刚重建的城镇 NPC 尚未分配 153，
+      // 这类店留到首次 open() 分配编号后再写快照。
+      this.restoreShopStocks();
       this.syncCharaCells();
       this.log(`${this.townName(town)} 的街道上可以看到店主、市民和服务区 NPC。`);
     }
@@ -1503,7 +1509,60 @@
       }
       // 空数组也要记：它表示「这张图已经生成过」，回图时不能再跑 map_randsite 重铺一遍
       this.mapGround[key] = kept;
+      this.stashShopStocks();
       return kept.length;
+    }
+
+    /**
+     * 0-Z40 / shopN.s2：把当前在场的店主库存按 var_58(153) 编号暂存。
+     * 源码每次开/关商店都把 `var_99(0,1320)` 写到 `shop<var_1830>.s2`，
+     * 店主下次被生成时读回；Web 的城镇 NPC 每次换图重建，少了这一步
+     * 买空的货架会重新铺满、投资/卖出累积的名声也会丢。
+     */
+    stashShopStocks() {
+      if (!this.shopStocks) this.shopStocks = Object.create(null);
+      const S = Elona.Shop;
+      if (!S || !S.isShopkeeper) return 0;
+      let n = 0;
+      for (const c of (this.charas || [])) {
+        if (!S.isShopkeeper(c)) continue;
+        const sid = c.get(153) | 0;
+        if (!sid) continue;                     // 还没开过店的店主：让原逻辑分配编号
+        const rec = {
+          role: S.roleOf(c),
+          map: this.map ? this.map.name : null,
+          inv: (c.inv || []).filter((it) => it && (it.f[0] | 0) > 0).map((it) => it.toJSON()),
+          rank: c.get(151) | 0,
+          next: c.get(154) | 0,
+          fame: c.get(34) | 0,
+          gold: c.get(30) | 0,
+          bought: c._boughtSinceStock ? 1 : 0,
+        };
+        this.shopStocks[String(sid)] = rec;
+        n++;
+      }
+      return n;
+    }
+
+    /** 回城时按 shopN.s2 快照恢复店主库存（NO-OP：还没开过店的店主不写） */
+    restoreShopStocks() {
+      if (!this.shopStocks) return 0;
+      const S = Elona.Shop;
+      if (!S || !S.isShopkeeper) return 0;
+      let n = 0;
+      for (const c of (this.charas || [])) {
+        if (!S.isShopkeeper(c)) continue;
+        const rec = this.shopStocks[String(c.get(153) | 0)];
+        if (!rec) continue;
+        c.inv = (rec.inv || []).map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
+        c.set(151, rec.rank | 0);
+        c.set(154, rec.next | 0);
+        c.set(34, rec.fame | 0);
+        c.set(30, rec.gold | 0);
+        c._boughtSinceStock = !!rec.bought;
+        n++;
+      }
+      return n;
     }
 
     /**
@@ -8100,6 +8159,16 @@
         reservedBooks: this.reservedBooks || [],
         // 0-Z38 / var_499(0, species)：按物种累计击杀数（存档块 cnt6）
         killCounts: this.killCounts || {},
+        // 0-Z40 / gene.s1 + shop3.s2：基因与遗产随存档槽保存。
+        // Gene 按数字槽（0..7）从全局存储取对应快照；Heirloom 取当前全局记录。
+        legacy: {
+          geneSlot: this._geneSlotForSave | 0,
+          gene: (Elona.Gene && Elona.Gene.load)
+            ? Elona.Gene.load(this._geneSlotForSave | 0) : null,
+          heirloom: (Elona.Heirloom && Elona.Heirloom.load) ? Elona.Heirloom.load() : null,
+        },
+        // 0-Z40 / shopN.s2：按商店编号的店主库存快照（换城/读档不重新进货）
+        shopStocks: this.shopStocks || {},
         // 0-GA：var_515 牌组张数 / 已获得的一次性能力
         cardDeck: this.cardDeck || {},
         learnedAbilities: this.learnedAbilities || {},
@@ -8307,6 +8376,19 @@
       this.reservedBooks = Array.isArray(data.reservedBooks) ? data.reservedBooks.slice() : [];
       // 0-Z38 / var_499：按物种累计击杀数（旧存档无此字段时为空）
       this.killCounts = data.killCounts || {};
+      // 0-Z40：读档时把存档里的基因/遗产写回全局继承入口（旧档缺字段时保持原全局数据）。
+      if (data.legacy) {
+        const ls = data.legacy.geneSlot | 0;
+        this._geneSlotForSave = ls;
+        if (data.legacy.gene && Elona.Gene && Elona.Gene.put) Elona.Gene.put(ls, data.legacy.gene);
+        if (data.legacy.heirloom && Elona.Heirloom && Elona.Heirloom.put) Elona.Heirloom.put(data.legacy.heirloom);
+      }
+      this.shopStocks = Object.create(null);
+      if (data.shopStocks && typeof data.shopStocks === 'object') {
+        for (const k of Object.keys(data.shopStocks)) {
+          if (data.shopStocks[k]) this.shopStocks[k] = data.shopStocks[k];
+        }
+      }
       this.cardDeck = data.cardDeck || {};
       this.learnedAbilities = data.learnedAbilities || {};
       // 0-FA：随机地城站点与当前地城上下文（旧存档缺字段时按空表处理）

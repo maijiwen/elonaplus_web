@@ -662,7 +662,13 @@
     return session;
   }
 
-  function close(g) { g.shopSession = null; }
+  function close(g) {
+    const keeper = g && g.shopSession ? g.shopSession.keeper : null;
+    g.shopSession = null;
+    // 0-Z40 / shopN.s2：关店即把该店库存落进按编号的快照，
+    // 换城/读档后不再走到期重新进货。
+    if (keeper && g && typeof g.stashShopStocks === 'function') g.stashShopStocks();
+  }
 
   // ------------------------------------------------------------------
   // 0-FP：*label_2978 买卖结算的周边配套（341874-342330）

@@ -1266,8 +1266,15 @@
   // ---------- 存档 ----------
   async function doSave(slot) {
     const id = slot || 'slot1';
+    // 0-Z40：存档槽名（slot1/slot2…）映射到基因槽位，基因/遗产随存档保存。
+    game._geneSlotForSave = Math.max(0, Math.min(7, (parseInt(String(id).replace(/\D/g, ''), 10) || 1) - 1));
     try {
-      await Elona.Save.save(id, game.serialize());
+      await Elona.Save.save(id, game.serialize(), {
+        // 0-Z40：异槽保存且旧缓存档尚未落盘时，必须由玩家手动选择文件夹授权，
+        // 否则拒绝另存（不能丢掉旧存档）。
+        onNeedFolder: () => UI.pushMessage('另存到新槽位前，需要选择本地 saves/ 文件夹以保存当前缓存中的旧存档。'),
+        promptFolder: () => Elona.Save.connectFolder(),
+      });
       if (Elona.Save.mode === 'both') {
         UI.pushMessage(`已保存到存档槽 ${id}（浏览器缓存 + 磁盘 saves/${id}/）。`);
       } else {
