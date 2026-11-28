@@ -128,6 +128,8 @@
         //   不存档会导致读档后口吻/教说话全部丢失（cbit 989 却在 v[] 里保留）。
         talkFile: this.talkFile || null,
         talkText: this.talkText || null,
+        // 冒险者状态（槽 16..39，core/adventurer.js）
+        adventurer: this.adventurer ? Object.assign({}, this.adventurer) : null,
       };
     }
     static fromJSON(o) {
@@ -153,6 +155,7 @@
       // var_63(4)：口吻文件名 / 教说话文本
       if (o.talkFile) c.talkFile = o.talkFile;
       if (o.talkText) c.talkText = o.talkText;
+      if (o.adventurer) c.adventurer = Object.assign({}, o.adventurer);
       if (Array.isArray(o.spellStock)) {
         for (let i = 0; i < 200; i++) c.spellStock[i] = o.spellStock[i] | 0;
       }

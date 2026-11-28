@@ -272,7 +272,8 @@
       }
       restoreFloor(g, target);
       // 角色：清场后还原本层 NPC，再放同伴
-      g.charas = [g.player];
+      if (g.resetCharasForMap) g.resetCharasForMap();
+      else g.charas = [g.player];
       const npcBack = firstVisit ? 0 : restoreNpcs(g, target);
       if (firstVisit && !npcBack) seedNpcs(g);
       if (firstVisit) stashNpcs(g);

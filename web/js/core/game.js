@@ -788,6 +788,25 @@
       this.materials = new Array(400).fill(0);
       this.pocket = null;
       this._inheritance = null;
+      // 补齐 gdata/adata 及运行时持久状态（新局清零，避免串档）
+      this.arenaData = null;
+      this.arenaStats = null;
+      this.arenaDays = null;
+      this.arenaHidden = null;
+      this.arenaWins = 0;
+      this.petWins = 0;
+      this.playtimeHours = 0;
+      this.playtimeMark = undefined;
+      this.concertScore = null;
+      this.tidyCount = 0;
+      this.slaveOffer = null;
+      this.randomEventState = null;
+      this.shelterReturn = null;
+      this.v126 = null;
+      this.mapVar126 = null;
+      this.evoGauge = 0;
+      this.extraMap = null;
+      this.casino = null;
       // serialize() 写的是 ItemDB 上的全局神器日志，也要按新局清空
       if (Elona.ItemDB && Array.isArray(Elona.ItemDB.artifactLog)) Elona.ItemDB.artifactLog = [];
       if (Elona.Sites && Elona.Sites.bindGame) Elona.Sites.bindGame(this);
@@ -1263,6 +1282,8 @@
       const mapFile = fmSel ? fmSel.file : name;
       // 0-FY：246213 / 252210 —— 载入地图时把所有角色的行动计 var_58(10) 清零
       if (Elona.TurnGauge && Elona.TurnGauge.reset) Elona.TurnGauge.reset(this);
+      // 离开当前持久图前暂存现场（NPC 57..244 + 地形修改 + MEF）
+      this.stashPersistMapLive();
       // 0-EA：离开自建建筑前先把地面物品收进 site.stock（原版 235253-235255 写 inv_*.s2）
       if (Elona.Property && Elona.Property.stashStock) Elona.Property.stashStock(this);
       const json = await Elona.Data.map(mapFile);
@@ -1687,6 +1708,19 @@
      *   所以 restoreCharasFromSave 会传 skipReviveReset。
      * 只是 Elona.Party.restore 的入口，便于各处统一调用。
      */
+    /** 换图时重置角色池：保留玩家与槽 16..39 的全局冒险者（原版 cdata 全图共享） */
+    resetCharasForMap() {
+      const next = [this.player];
+      if (Array.isArray(this.charas)) {
+        for (let i = 16; i <= 39; i++) {
+          const c = this.charas[i];
+          if (c && c.adventurer) next[i] = c;
+        }
+      }
+      this.charas = next;
+      return next;
+    }
+
     restoreParty(opts) {
       if (!(opts && opts.skipReviveReset) && Elona.Companion
         && Elona.Companion.resetReviveFlags) {
@@ -2640,6 +2674,7 @@
       try {
         if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
         if (!Elona.ItemDB.data) await this.loadAllTables();
+        this.stashPersistMapLive();
         const p = this.player;
         if (!this.townSnapshot) {
           this.townSnapshot = {
@@ -2658,7 +2693,7 @@
           this.mef = new Elona.Mef();
           this.groundItems = (snap.items || []).map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
           for (const it of this.groundItems) this.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
-          this.charas = [this.player];
+          this.resetCharasForMap();
           for (const o of (snap.charas || [])) {
             try {
               const c = Elona.Chara.fromJSON(o);
@@ -2675,7 +2710,7 @@
         } else {
           await this.loadMap(file);
           this.mef = new Elona.Mef();
-          this.charas = [this.player];
+          this.resetCharasForMap();
           // loadMap(file) 已把地图预设物件 (o[4]==0) 实例化到 groundItems，不可清空
           // 上行楼梯 + 玩家落点（原版 map_placecharaonentrance 都放在入口楼梯格）
           const spot = this.findStairCell();
@@ -2786,7 +2821,7 @@
       for (const it of this.groundItems) {
         if (this.refreshGroundCell) this.refreshGroundCell(it.f[5], it.f[6]);
       }
-      this.charas = [this.player];
+      this.resetCharasForMap();
       // 玩家落点：applyObjects 已把上行楼梯坐标写进 header[5]（227723-227724）
       let spot = null;
       const ent = this.map.header[5] | 0;
@@ -2883,12 +2918,15 @@
           c: c.toJSON(),
         });
       }
-      const parts = String(key).split(':');
+      const keyStr = String(key);
+      const isPersistMap = keyStr.startsWith('p:');
+      const parts = (isPersistMap ? keyStr.slice(2).split('_') : keyStr.split(':'));
       return {
         version: 1,
-        floorKey: String(key),
+        floorKey: keyStr,
         siteId: parts[0] | 0,
         depth: parts[1] | 0,
+        renewGen: live.renewGen !== undefined ? (live.renewGen | 0) : 0,
         mapJson: {
           name: m.name,
           width: W,
@@ -2934,6 +2972,7 @@
         charas,
         groundItems,
         mef,
+        renewGen: data.renewGen !== undefined ? (data.renewGen | 0) : 0,
         x: data.x | 0,
         y: data.y | 0,
       };
@@ -2947,6 +2986,142 @@
         this.dirtyFloorKeys.clear();
       }
       if (this.deletedFloorKeys) this.deletedFloorKeys.clear();
+    }
+
+    /**
+     * 城镇 / 持久图 NPC 现场键（原版 cdata_<map>_<100+sub>.s2 + sdata + mef）。
+     *   仅覆盖在 PERSIST_MAP_IDS 内、非地城/委托/子图、非自宅(7)、非自建地产的地表持久图。
+     */
+    persistMapKey(mapId, subId) {
+      const m = (mapId !== undefined ? mapId : this.getV65(20)) | 0;
+      const s = (subId !== undefined ? subId : this.getV65(22)) | 0;
+      if (!PERSIST_MAP_IDS.has(m) || m === 7) return null;
+      return 'p:' + m + '_' + s;
+    }
+
+    /** 暂存当前持久图现场（NPC 57..244 + 地形修改 + MEF + 刷新代数 var_65(184)） */
+    stashPersistMapLive() {
+      if (!this.map || !this.player || !this.dungeonFloorLive) return null;
+      if (this.worldMap || this.questMap || (this.dungeonDepth | 0) > 0 || (this.townSubMap | 0) > 0) return null;
+      const mapId = this.getV65(20) | 0;
+      if (Elona.Property && Elona.Property.currentSite && Elona.Property.currentSite(this)) return null;
+      const key = this.persistMapKey(mapId, this.getV65(22) | 0);
+      if (!key) return null;
+      const partySet = new Set(this.party || []);
+      const npcs = [null];
+      for (let i = 57; i < (this.charas ? this.charas.length : 0); i++) {
+        const c = this.charas[i];
+        if (!c || typeof c.get !== 'function') continue;
+        if ((c.get(0) | 0) !== 1) continue;
+        if (c === this.player || c.__ally || c.__pet || c.__necro || partySet.has(c)) continue;
+        if (i >= 236 && i <= 240) continue; // 护送委托人随行，不留原地
+        if (c.arenaAudience) continue;
+        npcs[i] = c;
+      }
+      this.dungeonFloorLive[key] = {
+        map: this.map,
+        charas: npcs,
+        groundItems: [], // 持久图地面物品由 mapGround(inv_*.s2) 独立管理
+        mef: this.mef || new Elona.Mef(),
+        renewGen: this.getV65(184) | 0,
+        x: this.player.x | 0,
+        y: this.player.y | 0,
+      };
+      if (this.dirtyFloorKeys) this.dirtyFloorKeys.add(key);
+      if (this.deletedFloorKeys) this.deletedFloorKeys.delete(key);
+      return key;
+    }
+
+    /** 恢复持久图现场（命中且刷新代数一致时直接还原 57..244 NPC 与地形/MEF） */
+    async restorePersistMapLive(mapId, subId) {
+      const key = this.persistMapKey(mapId, subId);
+      if (!key || !this.dungeonFloorLive) return false;
+      let live = this.dungeonFloorLive[key];
+      if (!live && this.currentSaveSlot && this.savedFloorKeys && this.savedFloorKeys.has(key)
+        && Elona.Save && typeof Elona.Save.loadFloor === 'function') {
+        try {
+          const raw = await Elona.Save.loadFloor(this.currentSaveSlot, key);
+          const restored = this.deserializeFloorData(raw);
+          if (restored) {
+            this.dungeonFloorLive[key] = restored;
+            live = restored;
+          }
+        } catch (e) { /* 分文件读取失败时回退到正常建图 */ }
+      }
+      if (!live || !live.map) return false;
+      // 源码 237912：var_126(19) != var_65(184) 时触发 map_init_mapUpdate 重建 NPC
+      if ((live.renewGen | 0) !== (this.getV65(184) | 0)) {
+        delete this.dungeonFloorLive[key];
+        if (this.dirtyFloorKeys) this.dirtyFloorKeys.delete(key);
+        if (this.savedFloorKeys && this.savedFloorKeys.has(key)) {
+          this.savedFloorKeys.delete(key);
+          if (this.deletedFloorKeys) this.deletedFloorKeys.add(key);
+        }
+        return false;
+      }
+      // 还原地形格（门开关、挖掘等）与 MEF，保留当前地面物品（已由 mapGround/loadMap 就位）
+      if (this.map && live.map.cells) {
+        const W = Math.min(this.map.width | 0, live.map.width | 0);
+        const H = Math.min(this.map.height | 0, live.map.height | 0);
+        for (let y = 0; y < H; y++) {
+          for (let x = 0; x < W; x++) {
+            const sc = live.map.cells[y] && live.map.cells[y][x];
+            if (!sc || !this.map.cells[y]) continue;
+            const cp = sc.slice();
+            cp[1] = 0;
+            cp[4] = 0;
+            this.map.cells[y][x] = cp;
+          }
+        }
+        for (const it of (this.groundItems || [])) {
+          if (it && this.refreshGroundCell) this.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
+        }
+      }
+      this.mef = live.mef || new Elona.Mef();
+      // 清掉 57..244 临时角色，原样放回持久化 NPC（保持原槽位、物种、名字、HP/状态）
+      if (this.charas) {
+        for (let k = 57; k < this.charas.length; k++) {
+          if (k >= 236 && k <= 240) continue;
+          const old = this.charas[k];
+          if (old && !old.__ally && !old.__pet && !old.__necro) this.charas[k] = null;
+        }
+      }
+      const src = live.charas || [];
+      for (let i = 57; i < src.length; i++) {
+        const c = src[i];
+        if (!c || typeof c.get !== 'function' || (c.get(0) | 0) !== 1) continue;
+        if (c === this.player || c.__ally || c.__pet || c.__necro) continue;
+        let idx = (c.index | 0) || i;
+        if (idx < 57 || (idx >= 236 && idx <= 240)) idx = i;
+        c.index = idx;
+        this.charas[idx] = c;
+      }
+      this.restoreShopStocks();
+      this.syncCharaCells();
+      return true;
+    }
+
+    /** 源码 *label_2856：递增 var_65(184) 并清掉过期持久图缓存，使下次进城重建 NPC */
+    renewAllMaps() {
+      this.setV65(184, (this.getV65(184) | 0) + 1);
+      if (this.dungeonFloorLive) {
+        for (const k of Object.keys(this.dungeonFloorLive)) {
+          if (k.startsWith('p:')) delete this.dungeonFloorLive[k];
+        }
+      }
+      if (this.dirtyFloorKeys) {
+        for (const k of Array.from(this.dirtyFloorKeys)) {
+          if (k.startsWith('p:')) this.dirtyFloorKeys.delete(k);
+        }
+      }
+      if (this.savedFloorKeys) {
+        for (const k of Array.from(this.savedFloorKeys)) {
+          if (k.startsWith('p:')) {
+            this.savedFloorKeys.delete(k);
+            if (this.deletedFloorKeys) this.deletedFloorKeys.add(k);
+          }
+        }
+      }
     }
 
     /**
@@ -2988,7 +3163,7 @@
       for (const it of this.groundItems) {
         if (it && this.refreshGroundCell) this.refreshGroundCell(it.f[5], it.f[6]);
       }
-      this.charas = [this.player];
+      this.resetCharasForMap();
       // 落点：从大地图重进地城入口、或从上下楼楼梯切换时放到对应楼梯；同层恢复时用暂存坐标
       if (this.player) {
         let px = live.x | 0, py = live.y | 0;
@@ -3031,7 +3206,8 @@
       try {
         if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
         if (!Elona.ItemDB.data) await this.loadAllTables();
-        // 离开当前楼层前先暂存现场；同一轮地城探索及跨存档回到该层时直接恢复。
+        // 离开当前楼层或地面持久图前先暂存现场；同一轮地城探索及跨存档回到该层时直接恢复。
+        if ((this.dungeonDepth | 0) <= 0) this.stashPersistMapLive();
         const siteId = (this.dungeonSiteId | 0) || (this.getV65(20) | 0);
         const floorKey = siteId + ':' + (depth | 0);
         if (this._floorKey && (this.dungeonDepth | 0) > 0 && this._floorKey !== floorKey) {
@@ -3103,7 +3279,7 @@
         }
         this.groundItems = f.items.slice();
         for (const it of this.groundItems) this.refreshGroundCell(it.f[5], it.f[6]);
-        this.charas = [this.player];
+        this.resetCharasForMap();
         const entry = fromBelow ? f.down : f.up;
         this.player.x = entry.x; this.player.y = entry.y;
         this.syncCharaCells();
@@ -3196,14 +3372,18 @@
           this.groundItems = snap.items;
           for (const it of this.groundItems) this.refreshGroundCell(it.f[5], it.f[6]);
           this.player.x = snap.x; this.player.y = snap.y;
+          this.mef = new Elona.Mef();
+          this.dungeonDepth = 0;
+          this.townSubMap = 0;
         } else {
-          this.charas = [this.player];
-          this.populateTown();
+          this.resetCharasForMap();
+          this.mef = new Elona.Mef();
+          this.dungeonDepth = 0;
+          this.townSubMap = 0;
+          const restoredPersist = await this.restorePersistMapLive(this.getV65(20) | 0, this.getV65(22) | 0);
+          if (!restoredPersist) this.populateTown();
           this.restoreParty();        // 0-DG：同伴随行
         }
-        this.mef = new Elona.Mef();
-        this.dungeonDepth = 0;
-        this.townSubMap = 0;
         this.setV65(22, 0);
         // 0-FA：离开地城后清掉当前地城上下文（下次进入由 enterSite 重新设置）
         this.dungeonSiteId = 0;
@@ -3293,6 +3473,7 @@
         if (!this.tileAttrs) this.tileAttrs = (await Elona.Data.tileAttributes()).tilesets;
         if (!Elona.ItemDB.data) await this.loadAllTables();
         if (!opts.fromLoad && !this.questMap) {
+          this.stashPersistMapLive();
           const p = this.player;
           // 快照的「来源地图」必须是城镇；若当前不在城镇（例如刚从野外/世界地图回来），
           // 退回默认城镇，避免 leaveQuestMap 载入不存在的地图。
@@ -3339,7 +3520,7 @@
             }
             if (this.groundItems.length) this.log('现场还散落着一些东西。');
           }
-          this.charas = [this.player];
+          this.resetCharasForMap();
           for (const o of (snap.charas || [])) {
             try {
               const c = Elona.Chara.fromJSON(o);
@@ -3401,7 +3582,7 @@
           // 0-R0 / A519：生成路径同样受 400 地面槽限制
           if (this.pushGroundItem(item)) this.refreshGroundCell(item.f[5], item.f[6]);
         }
-        this.charas = [this.player];
+        this.resetCharasForMap();
         this.player.x = built.entry.x; this.player.y = built.entry.y;
         this.syncCharaCells();
         this.restoreParty();          // 0-DG：同伴随行
@@ -3537,14 +3718,18 @@
             const spot = this.randWalkableCell();
             if (spot) { this.player.x = spot.x; this.player.y = spot.y; }
           }
+          this.mef = new Elona.Mef();
+          this.questMap = null;
+          this.dungeonDepth = 0;
         } else {
-          this.charas = [this.player];
-          this.populateTown();
+          this.resetCharasForMap();
+          this.mef = new Elona.Mef();
+          this.questMap = null;
+          this.dungeonDepth = 0;
+          const restoredPersist = await this.restorePersistMapLive(this.getV65(20) | 0, this.getV65(22) | 0);
+          if (!restoredPersist) this.populateTown();
           this.restoreParty();        // 0-DG：同伴随行
         }
-        this.mef = new Elona.Mef();
-        this.questMap = null;
-        this.dungeonDepth = 0;
         this.setV65(22, 0);
         // 离开地图 13 时清掉 gQuest（否则 check_quest 会在城镇里拿旧槽位判定完成）
         this.setV65(70, 0);
@@ -3751,20 +3936,23 @@
           }
         }
         await this.loadMap(name);
-        this.charas = [this.player];
+        this.resetCharasForMap();
         // 0-Y0：世界地图进入走四边缘落点，不恢复 townPos（旧行为是固定中心）
         const pos = fromWorld ? null : this.townPos[name];
         if (pos && this.map.walkable(pos.x, pos.y)) {
           this.player.x = pos.x; this.player.y = pos.y;
         }
-        this.restoreParty();          // 0-DG：同伴随行
-        this.mef = new Elona.Mef();
         this.dungeonDepth = 0;
         this.questMap = null;
         // 城镇的子地图号按 map_reload 的注册表（245818-246036）保持 1，
         //   不能清成 0 —— 否则「子地图」显示与剧情规则（var_65(22)）会对不上。
         if (!(this.getV65(22) | 0)) this.setV65(22, 1);
-        this.populateTown(name);
+        const restoredPersist = await this.restorePersistMapLive(this.getV65(20) | 0, this.getV65(22) | 0);
+        if (!restoredPersist) {
+          this.mef = new Elona.Mef();
+          this.populateTown(name);
+        }
+        this.restoreParty();          // 0-DG：同伴随行
         // 把护送委托人放回专用槽位并贴近玩家
         for (const e of escorts) {
           const c = e.c;
@@ -3825,6 +4013,7 @@
       // 0-FS：自宅也能出门（原版从家里上楼 = var_126(6)==5 → var_65(20)=var_65(850)）
       const home = (Elona.Home && Elona.Home.inHome(this)) ? Elona.Home.site(this) : null;
       if (!town && !home) return false;
+      this.stashPersistMapLive();
       // A49：世界地图按 var_65(850) 切换（4 北ティリス / 44 南 / 70 ロスト / 91 エーテル）
       const wid = (home ? (home.world | 0) : 0) || (this.getV65(850) | 0) || 4;
       if (Elona.WorldMap) await Elona.WorldMap.load(wid);
@@ -4067,7 +4256,7 @@
         } else {
           // 数据缺失时的旧回退路径
           await this.loadMap('2nouti');
-          this.charas = [this.player];
+          this.resetCharasForMap();
           this.mef = new Elona.Mef();
           this.dungeonDepth = 0;
           this.questMap = null;
@@ -4274,7 +4463,7 @@
         this.dungeonDepth = 0;
         this.questMap = null;
         this.mef = new Elona.Mef();
-        this.charas = [this.player];
+        this.resetCharasForMap();
         this.syncCharaCells();
         this.restoreParty();
         if (subId === 701) this.spawnPirateCrew();
@@ -4536,11 +4725,12 @@
     applyWildernessMap(built, level) {
       // 0-S0：野外（2 号）是非持久图，但**进来之前**那张图可能是持久城镇，
       //   要先按 `*label_2461` 把它的地面物品存进 mapGround，否则回城时找不到快照。
+      this.stashPersistMapLive();
       this.stashGroundItems();
       this.map = new Elona.GameMap(built.json, this.tileAttrs);
       this.mef = new Elona.Mef();
       this.groundItems = [];
-      this.charas = [this.player];
+      this.resetCharasForMap();
       this.player.x = built.entry.x; this.player.y = built.entry.y;
       this.syncCharaCells();
 
@@ -4706,6 +4896,8 @@
       const nameZh = (S && S.nameOf(site.id, 'ch')) || '';
       const nameEn = (S && S.nameOf(site.id)) || ('site ' + site.id);
       const siteLabel = nameZh || nameEn;
+      const wasWorldMap = !!this.worldMap;
+      if (!wasWorldMap) this.stashPersistMapLive();
       this.worldMap = null;
 
       if (kind === 3) {
@@ -4812,13 +5004,20 @@
       this.setV65(22, 1);
       this.dungeonDepth = 0;
       // 换图 = 全新地图，角色池清空（原版 relocate_chara 的效果）
-      this.charas = [this.player];
+      this.resetCharasForMap();
+      const isPersistSite = !site.player && PERSIST_MAP_IDS.has(site.id | 0) && (site.id | 0) !== 7;
+      const restoredPersist = isPersistSite
+        ? await this.restorePersistMapLive(site.id | 0, 1)
+        : false;
+      if (!restoredPersist) {
+        this.mef = new Elona.Mef();
+        // A49：map_init 里不走城镇表的固定 NPC（拉娜的诺恩 / 中央神殿的守卫）
+        this.spawnMapInitNpcs(site.id);
+      }
       this.syncCharaCells();
       this.restoreParty();            // 0-DG：同伴随行
-      // A49：map_init 里不走城镇表的固定 NPC（拉娜的诺恩 / 中央神殿的守卫）
-      this.spawnMapInitNpcs(site.id);
       // 245601-245609：道场（地图 67）生成师范；寄放者显隐已由 restoreParty 处理
-      if (Elona.School) Elona.School.onMapEnter(this);
+      if (!restoredPersist && Elona.School) Elona.School.onMapEnter(this);
       this.onEnterFarmMap();           // 0-FE：农田刷新（堆肥箱 / 野兽灾害）
       this.checkStoryEvents();         // 0-DG：进图剧情
       // 0-DB：建筑内部布置（家具 / 容量）与访客生成（238053-238145 / 236834-236875）
@@ -8050,7 +8249,7 @@
         // 0-Z37：死灵仆从（__necro）也必须保留 —— 源码里所有 var_58 角色整块进
         //   cdata.s1（303324），死灵自然在其中；此前它既非 ally/pet、也没设
         //   var_58(80)，collectSavedCharas 会漏掉它，读档后死灵凭空消失。
-        const keep = !!(c.__ally || c.__pet || c.__necro || stay
+        const keep = !!(c.__ally || c.__pet || c.__necro || stay || c.adventurer
           || (this.party && this.party.indexOf(c) >= 0)
           || (c.get(80) | 0) !== 0);
         if (!keep) continue;
@@ -8068,6 +8267,8 @@
     serialize() {
       if (this._floorKey && (this.dungeonDepth | 0) > 0) {
         this.stashDungeonFloorLive();
+      } else {
+        this.stashPersistMapLive();
       }
       const savedCharas = this.collectSavedCharas();
       const dirtyFloors = {};
@@ -8206,6 +8407,26 @@
           petMode: !!this.questMap.petMode,
         } : null,
         townPos: this.townPos,
+        // 补齐 gdata/adata 及各模块运行时持久状态（避免读档丢失）
+        arenaData: this.arenaData || null,
+        arenaStats: this.arenaStats || null,
+        arenaDays: this.arenaDays || null,
+        arenaHidden: this.arenaHidden || null,
+        arenaWins: this.arenaWins | 0,
+        petWins: this.petWins | 0,
+        playtimeHours: this.playtimeHours | 0,
+        concertScore: this.concertScore || null,
+        tidyCount: this.tidyCount | 0,
+        slaveOffer: this.slaveOffer || null,
+        randomEventState: this.randomEventState
+          ? (typeof this.randomEventState.toJSON === 'function' ? this.randomEventState.toJSON() : this.randomEventState)
+          : null,
+        shelterReturn: this.shelterReturn || null,
+        v126: this.v126 || null,
+        mapVar126: this.mapVar126 || null,
+        evoGauge: this.evoGauge | 0,
+        extraMap: this.extraMap || null,
+        casino: this.casino || null,
         messages: this.messages.slice(-50),
         // 0-HE：存档槽列表用的元数据（主角名 / 等级 / 所在地图 / 地下层数）。
         //   写进存档文件本身，换浏览器打开时即使只有磁盘存档也能直接显示。
@@ -8329,7 +8550,7 @@
         Elona.MapFeat.applyObjects(this, json.objects);
       }
       this.player = Elona.Chara.fromJSON(data.player);
-      this.charas = [this.player];
+      this.resetCharasForMap();
       this.party = [];
       this.turn = data.turn || 0;
       this.messages = data.messages || [];
@@ -8507,14 +8728,46 @@
         }
       }
       this.townPos = data.townPos || {};
+      this.arenaData = data.arenaData ? Object.assign({}, data.arenaData) : null;
+      this.arenaStats = data.arenaStats ? Object.assign({}, data.arenaStats) : null;
+      this.arenaDays = data.arenaDays ? Object.assign({}, data.arenaDays) : null;
+      this.arenaHidden = data.arenaHidden ? Object.assign({}, data.arenaHidden) : null;
+      this.arenaWins = data.arenaWins | 0;
+      this.petWins = data.petWins | 0;
+      this.playtimeHours = data.playtimeHours | 0;
+      this.playtimeMark = undefined;
+      this.concertScore = data.concertScore ? Object.assign({}, data.concertScore) : null;
+      this.tidyCount = data.tidyCount | 0;
+      this.slaveOffer = data.slaveOffer ? Object.assign({}, data.slaveOffer) : null;
+      this.randomEventState = data.randomEventState
+        ? (Elona.RandomEvent && Elona.RandomEvent.State && typeof Elona.RandomEvent.State.fromJSON === 'function'
+          ? Elona.RandomEvent.State.fromJSON(data.randomEventState)
+          : Object.assign({}, data.randomEventState))
+        : null;
+      this.shelterReturn = data.shelterReturn ? Object.assign({}, data.shelterReturn) : null;
+      this.v126 = data.v126 ? Object.assign({}, data.v126) : null;
+      this.mapVar126 = data.mapVar126 ? Object.assign({}, data.mapVar126) : null;
+      this.evoGauge = data.evoGauge | 0;
+      this.extraMap = data.extraMap ? Object.assign({}, data.extraMap) : null;
+      this.casino = data.casino ? Object.assign({}, data.casino) : null;
       const savedTown = Elona.Towns && Elona.Towns.byName(this.map.name);
-      if (!this.questMap && this.dungeonDepth === 0 && savedTown) {
-        this.charas = [this.player];
-        this.populateTown(this.map.name);
-        if (Elona.Quest && Elona.Quest.restoreEscortFollowers) {
-          Elona.Quest.restoreEscortFollowers(this);
+      const curMapId = this.getV65(20) | 0;
+      const curSubId = (this.getV65(22) | 0) || 1;
+      const isPersistNonTown = !savedTown && PERSIST_MAP_IDS.has(curMapId) && curMapId !== 7
+        && !(Elona.Property && Elona.Property.currentSite && Elona.Property.currentSite(this));
+      if (!this.questMap && (this.dungeonDepth | 0) === 0 && !(this.townSubMap | 0) && (savedTown || isPersistNonTown)) {
+        this.resetCharasForMap();
+        const restoredPersist = await this.restorePersistMapLive(curMapId, curSubId);
+        if (!restoredPersist) {
+          if (savedTown) this.populateTown(this.map.name);
+          else if (isPersistNonTown) this.spawnMapInitNpcs(curMapId);
         }
-        Elona.Quest.ensure(this);
+        if (savedTown) {
+          if (Elona.Quest && Elona.Quest.restoreEscortFollowers) {
+            Elona.Quest.restoreEscortFollowers(this);
+          }
+          Elona.Quest.ensure(this);
+        }
       }
       // 0-GZ：恢复角色池里的同伴 / 寄放者（旧存档没有 charas 字段时为空操作）
       this.restoreCharasFromSave(data);
@@ -8549,7 +8802,7 @@
         const snap = this.townSubMapSnapshots[sub];
         this.map = new Elona.GameMap(snap.map, this.tileAttrs);
         this.groundItems = (snap.items || []).map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
-        this.charas = [this.player];
+        this.resetCharasForMap();
         for (const o of (snap.charas || [])) {
           try {
             const c = Elona.Chara.fromJSON(o);

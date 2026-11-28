@@ -194,6 +194,20 @@
     //   237845-237866 进图时 `var_58(80) == 当前地图` → 1，自宅还要 `var_58(438) == 当前层`。
     const curMap = g.getV65 ? (g.getV65(20) | 0) : 0;
     const curFloor = g.getV65 ? (g.getV65(22) | 0) : 1;
+    const onSurface = !(g.dungeonDepth | 0) && !g.questMap && !g.worldMap && !(g.townSubMap | 0);
+    const partySet = new Set(g.party);
+    if (Array.isArray(g.charas)) {
+      for (let i = 16; i <= 39; i++) {
+        const c = g.charas[i];
+        if (!c || !c.adventurer || partySet.has(c)) continue;
+        const here = onSurface && (c.adventurer.homeMap | 0) === curMap && (c.adventurer.state | 0) !== 4;
+        c.set(0, here ? 1 : 0);
+        if (here && g.map && g.map.walkable && !g.map.walkable(c.x, c.y)) {
+          const spot = nearSpot(g, g.player.x, g.player.y);
+          c.x = spot.x; c.y = spot.y;
+        }
+      }
+    }
     for (const c of g.party) {
       if (!c || !c.get || c === g.player) continue;
       const stay = c.get(80) | 0;
