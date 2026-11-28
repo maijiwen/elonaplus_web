@@ -191,12 +191,17 @@
       (it) => it && (it.id | 0) === (id | 0) && (it.f[0] | 0) > 0);
     if (has(c && c.inv)) return true;
     if (has(g && g.groundItems)) return true;
+    // 0-Z39 / var_498(1, id)：createItem 时统一递增，任何途径拿到的宝玉都算数；
+    // faithObtained 是旧实现的显式标记，两者都要认。
+    if (g && g.itemReadCounts && (g.itemReadCounts[id | 0] | 0) > 0) return true;
     return !!(g && g.faithObtained && g.faithObtained[id | 0]);
   }
   function markObtained(g, id) {
     if (!g) return;
     if (!g.faithObtained) g.faithObtained = Object.create(null);
     g.faithObtained[id | 0] = 1;
+    if (!g.itemReadCounts) g.itemReadCounts = Object.create(null);
+    if (!(g.itemReadCounts[id | 0] | 0)) g.itemReadCounts[id | 0] = 1;
   }
 
   function recalc(c, g) {

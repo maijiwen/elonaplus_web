@@ -1093,6 +1093,13 @@
       // 神託（413）要列出「已生成的黑星物品」——原版用一个 note 缓冲 var_535 记录，
       // 这里挂在 ItemDB 上：唯一物品（var_99(4) == 6 且 refitem(id,5) < 50000）生成时记一笔。
       if ((it.f[4] | 0) === 6 && (!this.ref || this.ref(id, 5) < 50000)) this.noteArtifact(it);
+      // 224438 `var_498(1, var_60)++`：每种物品生成次数（宝玉判重 272874 等）。
+      //   计数挂在当前 Game 上并纳入存档（core/itemReadCounts）。
+      const gg = (typeof Elona !== 'undefined' && Elona.game) || null;
+      if (gg && typeof id === 'number' && id > 0) {
+        if (!gg.itemReadCounts) gg.itemReadCounts = Object.create(null);
+        gg.itemReadCounts[id] = (gg.itemReadCounts[id] | 0) + 1;
+      }
       return it;
     },
 

@@ -164,6 +164,13 @@
       // 0-Z38 / var_499(0, species)：通用「按物种累计击杀数」。源码 201200 在击杀时
       //   var_499(0, species)++（地图 40/35/6 除外），供 610737+ 的 BOSS 重生判定等使用。
       this.killCounts = {};
+      // 存档块 kitem.s1 / gdatan.s1 / news.log（构造期也初始化，便于直接 serialize）
+      this.knownRecipes = {};
+      this.readBooks = {};
+      this.itemReadCounts = {};
+      this.faithObtained = Object.create(null);
+      this.teamName = '';
+      this.news = [];
       this.activeQuests = [];          // status 1/3 的委托（上限 5，见 Quest.MAX_ACTIVE）
       this._questSeq = 0;
       this.questMap = null;            // 委托专用地图（原版 var_65(64)=13）
@@ -766,6 +773,13 @@
       this.dungeonFromWorld = null;
       this.knownRecipes = {};
       this.readBooks = {};
+      // 存档块 kitem.s1：var_498(0) 已知道具 / var_498(1) 获取次数（宝玉判重）
+      this.itemReadCounts = {};
+      this.faithObtained = Object.create(null);
+      // 存档块 gdatan.s1：var_492(0) 队伍名
+      this.teamName = '';
+      // 存档块 news.log：var_440 新闻文本池
+      this.news = [];
       this.cardDeck = {};
       this.learnedAbilities = {};
       this.materials = new Array(400).fill(0);
@@ -816,6 +830,10 @@
       this.setV65(41, 424);
       this.setV65(42, 300);
       this.setV65(43, 631);
+      // 301008-301011 / gdatan.s1：开局队伍名 = random_title(2)，存档可改。
+      if (!this.teamName && Elona.TitleText && Elona.TitleText.one) {
+        try { this.teamName = Elona.TitleText.one(this.rng); } catch (e) { this.teamName = '流浪者'; }
+      }
       // 602322-602323：世界地图初始坐标（北ティリス一带），下雪判定 var_65(5)/(6) 依赖它
       this.setV65(5, 22);
       this.setV65(6, 21);
@@ -8071,6 +8089,13 @@
         // 0-FY：var_500 已学配方 / var_498(2,id) 已读过的书
         knownRecipes: this.knownRecipes || {},
         readBooks: this.readBooks || {},
+        // 0-Z39：kitem.s1 的 var_498(0)/(1) 与「已取得宝玉」判重表
+        knownItems: (Elona.ItemDB && Elona.ItemDB.known) ? Elona.ItemDB.known : {},
+        itemReadCounts: this.itemReadCounts || {},
+        faithObtained: this.faithObtained || {},
+        // 0-Z39：gdatan.s1 的队伍名（var_492(0)）与 news.log（var_440）
+        teamName: this.teamName || '',
+        news: this.news || [],
         // 0-Z47：魔法书预订列表（源码 var_498(2)>1 的已预约书）
         reservedBooks: this.reservedBooks || [],
         // 0-Z38 / var_499(0, species)：按物种累计击杀数（存档块 cnt6）
@@ -8268,6 +8293,17 @@
       // 0-FY：旧存档缺字段时按「还没学过配方 / 没读过书」处理
       this.knownRecipes = data.knownRecipes || {};
       this.readBooks = data.readBooks || {};
+      // 0-Z39：旧存档缺字段时按「没有任何已知物品 / 新闻」处理
+      if (Elona.ItemDB) Elona.ItemDB.known = data.knownItems || {};
+      this.itemReadCounts = data.itemReadCounts || {};
+      this.faithObtained = Object.create(null);
+      if (data.faithObtained && typeof data.faithObtained === 'object') {
+        for (const k of Object.keys(data.faithObtained)) {
+          if (data.faithObtained[k]) this.faithObtained[k] = 1;
+        }
+      }
+      this.teamName = data.teamName || '';
+      this.news = Array.isArray(data.news) ? data.news.slice(0, 20) : [];
       this.reservedBooks = Array.isArray(data.reservedBooks) ? data.reservedBooks.slice() : [];
       // 0-Z38 / var_499：按物种累计击杀数（旧存档无此字段时为空）
       this.killCounts = data.killCounts || {};

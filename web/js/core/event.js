@@ -640,10 +640,22 @@
     }
 
     clear() { this.q.length = 0; }
+    /**
+     * 0-Z39：源码 evlist/evdata1/evdata2 只存前三个参数（6462-6476），
+     * 但 Web 事件脚本实际会用到 add() 的第 4 个 extra（如死者的等级/姓名）。
+     * extra 可能是字符串/数字/对象，按原样 JSON 往返即可，不强制转 int。
+     */
     toJSON() { return { q: this.q }; }
     static fromJSON(o) {
       const q = new EventQueue();
-      if (o && Array.isArray(o.q)) q.q = o.q.map((e) => [e[0] | 0, e[1] | 0, e[2] | 0]);
+      if (o && Array.isArray(o.q)) {
+        q.q = o.q.map((e) => {
+          if (!Array.isArray(e)) return [0, 0, 0];
+          const row = [e[0] | 0, e[1] | 0, e[2] | 0];
+          if (e.length > 3) row[3] = e[3];
+          return row;
+        });
+      }
       return q;
     }
   }

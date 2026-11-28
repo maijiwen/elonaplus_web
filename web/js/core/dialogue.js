@@ -1828,6 +1828,13 @@
       // 旧实现把 a[0]（prm_558）当物品 id 并 `if (id <= 0) return`，
       // 而 373 条 itemcreate 里 371 条首参是 -1、2 条是 0 —— 全部被静默跳过。
       // 最直接的后果就是 A403：光玉分支只写了 var_65(250+N)=1000，物品根本没给玩家。
+      // 0-Z38：`prm_558` 是**落点**（inv_getfreeid 的参数）：-1 = 地面 (x,y)，
+      //   0 = 玩家背包，>=200 = 角色背包。支线 31 完成奖励用的正是
+      //   `itemcreate -1, 630/54/55, P(1), P(2), n`（368410-368415）；
+      //   此前无条件 push 到玩家背包，于是对话播「有东西滚到脚边」、
+      //   地上却一件奖励都没有，按 g 反而捡到地图预设的有主物品 →
+      //   「那不是你的东西。」
+      const dest = a.length > 0 ? (a[0] | 0) : 0;
       const id = a.length > 1 ? (a[1] | 0) : 0;
       if (id <= 0) return;
       // 0-Z34：第 5 参 prm_562（→ var_694）是**数量**（29245-29248）。
@@ -1871,6 +1878,28 @@
           // 这里让 `iset tgt:'sel'` 指向刚生成的临时物品（稍后选择窗会覆盖）。
           this.setVx(579, this.tempInv.length - 1);
           this.var579Item = it;
+        } else if (dest === -1) {
+          // 落地面（inv_getfreeid(-1)，224287-224352）：x/y 取 prm_560/561；
+          // 坐标为 -1 时原版在地图内随机找一个可放置格，这里退化为玩家当前格。
+          const gx = a.length > 2 ? (a[2] | 0) : -1;
+          const gy = a.length > 3 ? (a[3] | 0) : -1;
+          it.f[5] = gx >= 0 ? gx : (this.player ? (this.player.x | 0) : 0);
+          it.f[6] = gy >= 0 ? gy : (this.player ? (this.player.y | 0) : 0);
+          // 新生成物品无主：源码 item_delete 清零 var_99(21)，玩家可直接拾取。
+          it.f[21] = 0;
+          it.townOwned = false;
+          if (this.g) {
+            if (this.g.pushGroundItem) this.g.pushGroundItem(it);
+            else if (Array.isArray(this.g.groundItems)) this.g.groundItems.push(it);
+            if (this.g.refreshGroundCell) this.g.refreshGroundCell(it.f[5], it.f[6]);
+          }
+          // 紧跟的 `var_99(24, var_579) = 15`（368411）要改这件新物品
+          this.var579Item = it;
+          this._VX[579] = -1;
+        } else if (dest >= 200 && this.g && this.g.charas) {
+          // 角色背包：inv_getowner((dest-200)/20 + 1)（29255-29263）
+          const owner = this.g.charas[Math.floor((dest - 200) / 20) + 1];
+          if (owner && Array.isArray(owner.inv)) owner.inv.push(it);
         } else if (this.g && this.g.giveItem) this.g.giveItem(it);
         else if (this.player && Array.isArray(this.player.inv)) this.player.inv.push(it);
       } catch (e) { /* noop */ }

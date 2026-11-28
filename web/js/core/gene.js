@@ -126,6 +126,13 @@
         }
       }
 
+      // g_card.s1：var_515 牌组张数（303620-303627）——此前 gene 快照漏掉，
+      // 读基因后卡牌进度会归零。
+      const cardDeck = {};
+      if (g && g.cardDeck && typeof g.cardDeck === 'object') {
+        for (const k of Object.keys(g.cardDeck)) cardDeck[k] = g.cardDeck[k] | 0;
+      }
+
       // gene.s1 的元数据（100 int）：名称、等级、年月日、版本
       const header = {
         name: m.name || p.name || '',
@@ -142,7 +149,7 @@
         v: 1,
         header,
         fields: fields,
-        skills, skillExp, spells, inv, abilities, materials,
+        skills, skillExp, spells, inv, abilities, materials, cardDeck,
         // g_genetemp：继承点数（302569-302577）
         bonus: this.bonusOf({ skills }),
         savedAt: Date.now(),
@@ -255,6 +262,12 @@
       // var_497：素材
       if (Elona.Material && Elona.Material.set) {
         for (const k of Object.keys(gene.materials || {})) Elona.Material.set(g, Number(k), gene.materials[k] | 0);
+      }
+
+      // g_card.s1：读回牌组张数（旧 gene 快照没有该字段时保持原样）
+      if (gene.cardDeck && typeof gene.cardDeck === 'object') {
+        g.cardDeck = Object.create(null);
+        for (const k of Object.keys(gene.cardDeck)) g.cardDeck[k] = gene.cardDeck[k] | 0;
       }
 
       if (!o.keepPosition) { p.x = x; p.y = y; }
