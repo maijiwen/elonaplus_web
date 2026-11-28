@@ -447,7 +447,7 @@
   function enterStock(g, site) {
     if (!site) return { ok: false, reason: 'not-estate', capacity: 0, items: 0, restored: false };
     if (Array.isArray(site.stock) && Elona.Item && Elona.Item.fromJSON) {
-      g.groundItems = site.stock.map((o) => Elona.Item.fromJSON(o));
+      g.groundItems = site.stock.map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
       if (g.refreshGroundCell) {
         for (const it of g.groundItems) {
           g.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);

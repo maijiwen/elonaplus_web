@@ -1947,10 +1947,11 @@
       //   同坐标会撞车）。这是 web 端的运行期标记，不写存档会读档后捡不回来。
       if (this._worldId) o._worldId = this._worldId;
       // 容器内容物（core/container.js）：只在非空时写入，避免存档膨胀
-      if (Array.isArray(this.inv) && this.inv.length) o.inv = this.inv.map((x) => x.toJSON());
+      if (Array.isArray(this.inv) && this.inv.length) o.inv = this.inv.map((x) => (x && x.toJSON ? x.toJSON() : null));
       return o;
     }
     static fromJSON(o) {
+      if (!o || !Array.isArray(o.f)) return null;
       const it = new Item(0);
       it.f = o.f.slice();
       it.eqSlot = o.eqSlot === undefined ? -1 : o.eqSlot;

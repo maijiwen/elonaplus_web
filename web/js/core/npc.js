@@ -2348,6 +2348,8 @@
       case 'quest-deliver': return Elona.Quest.handOver(g, arg);
       case 'quest-collect': return Elona.Quest.collect(g, arg);
       case 'quest-harvest': return Elona.Quest.harvest(g, arg);
+      // 1009 PARTY：源码无「在委托人对话里举办派对」的动作，得分只由会场
+      //   兴奋度结算（保留入口仅为兼容旧 UI，party() 会拒绝城镇调用）。
       case 'quest-party': return Elona.Quest.party(g, arg);
       case 'quest-enter': {
         const q = Elona.Quest.activeQuests(g).find((x) => x.id === arg);

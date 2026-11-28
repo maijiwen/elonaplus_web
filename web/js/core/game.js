@@ -170,6 +170,12 @@
       // 原版地图 13 的地面敌人/物品/地形在走出后又回来时不会重新生成
       // （var_65(73) 只标记完成状态，地图内容留在原槽位里）。按 questId 存快照。
       this.questMapSnapshots = {};
+      // 0-HM：城镇子地图（map 5 sub 4「盗贼的巢穴」）的现场快照。
+      //   源码 map_initcustom("sqRogue") 把敌人/物品写进 tmp/mdata_5_104.s2，
+      //   出图再进来不会重新生成；此前 Web 每次 enterTownSubMap 都 loadMap +
+      //   按 objects 重建敌人，击杀进度与拾取全丢。按 sub 存快照。
+      this.townSubMap = 0;             // 当前所在城镇子地图的 sub（0 = 不在）
+      this.townSubMapSnapshots = {};
       this.townPos = {};               // 各城镇上次离开时的坐标
       this.townNpcTable = null;        // 各城镇固定 NPC 表（town_npcs.json）
       this.worldMap = null;            // 世界地图步行模式 {x,y}
@@ -739,6 +745,8 @@
       this._questSeq = 0;
       this.questMap = null;
       this.questMapSnapshots = {};
+      this.townSubMap = 0;
+      this.townSubMapSnapshots = {};
       this.townPos = {};
       this.townNpcTable = null;
       this.worldMap = null;
@@ -1494,7 +1502,7 @@
       if (!Object.prototype.hasOwnProperty.call(this.mapGround, key)) return false;
       const list = this.mapGround[key];
       if (!Array.isArray(list)) return false;
-      this.groundItems = list.map((o) => Elona.Item.fromJSON(o));
+      this.groundItems = list.map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
       for (const it of this.groundItems) this.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
       return true;
     }
@@ -2563,30 +2571,58 @@
           };
         }
         this.worldMap = null;
-        await this.loadMap(file);
-        this.mef = new Elona.Mef();
-        this.charas = [this.player];
-        this.groundItems = [];
-        // 上行楼梯 + 玩家落点（原版 map_placecharaonentrance 都放在入口楼梯格）
-        const spot = this.findStairCell();
-        if (spot) {
-          Elona.MapFeat.write(this, spot.x, spot.y, 232, Elona.MapFeat.TYPE.STAIRS_UP, 0, 0);
-          this.player.x = spot.x;
-          this.player.y = spot.y;
-          this.map.header[5] = spot.y * 1000 + spot.x;
+        // 源码 239939-239940 / 237831-237925：子地图走 map_initcustom，
+        //   已在 tmp/mdata_5_104.s2 里的现场原样读回。有快照时直接还原，
+        //   不再走 loadMap + objects 重建（否则被杀的敌人会复活、捡走的物品重现）。
+        const snap = this.townSubMapSnapshots ? this.townSubMapSnapshots[sub | 0] : null;
+        if (snap && snap.map) {
+          this.stashGroundItems();
+          this.map = new Elona.GameMap(snap.map, this.tileAttrs);
+          this.mef = new Elona.Mef();
+          this.groundItems = (snap.items || []).map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
+          for (const it of this.groundItems) this.refreshGroundCell(it.f[5] | 0, it.f[6] | 0);
+          this.charas = [this.player];
+          for (const o of (snap.charas || [])) {
+            try {
+              const c = Elona.Chara.fromJSON(o);
+              if (!c) continue;
+              const idx = c.index | 0;
+              if (idx > 0) this.charas[idx] = c;
+              else this.charas.push(c);
+            } catch (e) { /* 单个坏档角色忽略 */ }
+          }
+          this.player.x = snap.x | 0;
+          this.player.y = snap.y | 0;
+          this.syncCharaCells();
+          this.restoreParty();
+        } else {
+          await this.loadMap(file);
+          this.mef = new Elona.Mef();
+          this.charas = [this.player];
+          // loadMap(file) 已把地图预设物件 (o[4]==0) 实例化到 groundItems，不可清空
+          // 上行楼梯 + 玩家落点（原版 map_placecharaonentrance 都放在入口楼梯格）
+          const spot = this.findStairCell();
+          if (spot) {
+            Elona.MapFeat.write(this, spot.x, spot.y, 232, Elona.MapFeat.TYPE.STAIRS_UP, 0, 0);
+            this.player.x = spot.x;
+            this.player.y = spot.y;
+            this.map.header[5] = spot.y * 1000 + spot.x;
+          }
+          this.syncCharaCells();
+          this.restoreParty();
+          // 地图对象 kind==1 = 角色（[id, x, y, 未知, 1]），槽位从 57 开始
+          let slot = 57;
+          const level = Math.max(1, this.player.level | 0);
+          for (const o of (this.map.objects || [])) {
+            if (!o || (o[4] | 0) !== 1) continue;
+            try {
+              const c = Elona.CharaFactory.create(this, o[0] | 0, level, o[1] | 0, o[2] | 0, { index: slot++ });
+              if (c) { c.set(9, -3); c.set(69, -3); }
+            } catch (err) { /* 单只失败不影响地图 */ }
+          }
+          if (Elona.QuestCheck && Elona.QuestCheck.putTarget) Elona.QuestCheck.putTarget(this);
         }
-        this.syncCharaCells();
-        this.restoreParty();
-        // 地图对象 kind==1 = 角色（[id, x, y, 未知, 1]），槽位从 57 开始
-        let slot = 57;
-        const level = Math.max(1, this.player.level | 0);
-        for (const o of (this.map.objects || [])) {
-          if (!o || (o[4] | 0) !== 1) continue;
-          try {
-            const c = Elona.CharaFactory.create(this, o[0] | 0, level, o[1] | 0, o[2] | 0, { index: slot++ });
-            if (c) { c.set(9, -3); c.set(69, -3); }
-          } catch (err) { /* 单只失败不影响地图 */ }
-        }
+        this.townSubMap = sub | 0;
         this.dungeonDepth = sub | 0;
         this.dungeonMinDepth = sub | 0;          // 上行楼梯直接回城镇
         this.dungeonMaxDepth = sub | 0;
@@ -2595,13 +2631,33 @@
         this.setV65(20, 5);
         this.setV65(22, sub | 0);
         this.syncCharaCells();
-        if (Elona.QuestCheck && Elona.QuestCheck.putTarget) Elona.QuestCheck.putTarget(this);
         if (this.onMapChange) this.onMapChange(this.map);
-        this.log('你走进了盗贼的巢穴。');
+        this.log(snap ? '你回到了盗贼的巢穴。' : '你走进了盗贼的巢穴。');
         return true;
       } finally {
         this.transitioning = false;
       }
+    }
+
+    /** 离开城镇子地图前保存现场（对应 tmp/mdata_5_104.s2 + inv_*.s2） */
+    stashTownSubMap() {
+      const sub = this.townSubMap | 0;
+      if (!sub || !this.map || !this.townSubMapSnapshots) return;
+      this.townSubMapSnapshots[sub] = {
+        map: {
+          name: this.map.name, width: this.map.width, height: this.map.height,
+          tileset: this.map.tileset,
+          header: (this.map.header || []).slice(),
+          cells: (this.map.cells || []).map((row) => row.map((c) => c.slice())),
+          objects: (this.map.objects || []).slice(),
+        },
+        items: (this.groundItems || []).filter((it) => it && it.f && (it.f[0] | 0) > 0)
+          .map((it) => it.toJSON()),
+        charas: (this.charas || []).filter((c) => c && (c.index | 0) >= 16
+          && (c.get(0) | 0) === 1 && !c.__ally && !c.__pet
+          && !(this.party && this.party.indexOf(c) >= 0)).map((c) => c.toJSON()),
+        x: this.player.x | 0, y: this.player.y | 0,
+      };
     }
 
     /** 找一格可站立、没有特性与角色的空格（支线地图的楼梯落点） */
@@ -3050,6 +3106,7 @@
       if (this.transitioning) return;
       this.transitioning = true;
       try {
+        if (this.townSubMap) this.stashTownSubMap();
         if (this._floorKey && (this.dungeonDepth | 0) > 0) {
           this.stashDungeonFloorLive();
         }
@@ -3069,6 +3126,7 @@
         }
         this.mef = new Elona.Mef();
         this.dungeonDepth = 0;
+        this.townSubMap = 0;
         this.setV65(22, 0);
         // 0-FA：离开地城后清掉当前地城上下文（下次进入由 enterSite 重新设置）
         this.dungeonSiteId = 0;
@@ -3177,7 +3235,33 @@
           this.stashGroundItems();
           this.map = new Elona.GameMap(snap.map, this.tileAttrs);
           this.mef = new Elona.Mef();
-          this.groundItems = (snap.items || []).map((o) => Elona.Item.fromJSON(o));
+          this.groundItems = (snap.items || []).map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
+          // 旧版本（buildTown 返回 items: [] 时期）留下的快照里没有任何地面物品，
+          // 直接还原会让「市街地 / 盗贼巢穴」永远空无一物。这里按地图物件的
+          // `o[4] == 0` 重新实例化一次（与 loadMap / buildTown 同口径），
+          // 用 itemsReady 标记区分「真的被搬空了」与「旧快照没生成」。
+          if (!snap.itemsReady && !this.groundItems.length
+            && Elona.ItemDB && Elona.ItemDB.data && this.map && this.map.objects) {
+            // 快照里的 cell[4]（有物品）标记可能还是旧值，不能拿它当门禁，
+            // 改为「同一格只补一件」—— 与 loadMap 的 `cell[4] !== 0 → 跳过` 同效果。
+            const usedCells = new Set();
+            for (const o of this.map.objects) {
+              if (!o || (o[4] | 0) !== 0 || !(o[0] | 0)) continue;
+              const cx = o[1] | 0, cy = o[2] | 0;
+              if (!this.map.cell(cx, cy)) continue;
+              const ck = cx + ',' + cy;
+              if (usedCells.has(ck)) continue;
+              try {
+                const it = Elona.ItemDB.createItem(o[0] | 0, 1);
+                if (!it) continue;
+                if ((it.f[0] | 0) <= 0) it.f[0] = 1;
+                it.f[5] = cx; it.f[6] = cy; it.f[21] = o[3] | 0;
+                if ((o[3] | 0) >= 0) it.townOwned = true;
+                if (this.pushGroundItem(it)) { usedCells.add(ck); this.refreshGroundCell(cx, cy); }
+              } catch (_) { /* 单件失败不影响地图 */ }
+            }
+            if (this.groundItems.length) this.log('现场还散落着一些东西。');
+          }
           this.charas = [this.player];
           for (const o of (snap.charas || [])) {
             try {
@@ -3353,6 +3437,8 @@
             },
             items: (this.groundItems || []).filter((it) => it && (it.f[0] | 0) > 0)
               .map((it) => it.toJSON()),
+            // 标记「地面物品已按当前口径生成过」，用于区分旧版空快照（见 enterQuestMap）
+            itemsReady: 1,
             // 只存任务地图的敌人；同伴由 restoreParty() 按队伍列表还原，
             // 一并存会重复生成。
             charas: (this.charas || []).filter((c) => c && (c.index | 0) >= 16
@@ -7865,11 +7951,17 @@
     /**
      * 0-GZ：挑出需要跨存档保留的角色（原版是整个 `var_58` 一起存档）。
      *   · 同伴 / 宠物：`__ally` / `__pet`，或仍在常驻同伴表 `g.party` 里
-     *   · 寄放者（道场门生、牧场家畜）：`var_58(80)` != 0 或 cbit 960，
-     *     以及 `var_58(150) == 3` 的门生
+     *   · 寄放者（道场门生、牧场家畜）：`var_58(80)` != 0 或 cbit 960
      *   · 不存：城镇 NPC（槽 57..131，每次建图由 populateTown 重建）、
      *     护送委托人（槽 236..240，由 Quest.restoreEscortFollowers 重建）、
      *     地图上的临时怪物
+     *
+     * 【0-HM/NPC 翻倍】此前把 `var_58(150)==3` 也当作门生标记存档，但
+     *   populateTown 给城镇 NPC 写的正是 role=3（spawn(cid,x,y,role=3)），
+     *   于是这些 NPC 被存进去；读档时 populateTown 重建一轮 +
+     *   restoreCharasFromSave 再把存档里的旧角色放回空槽，NPC 因此翻倍。
+     *   真正的门生（school.js 入门）已经打 cbit 960，住人家臣（home.js）与
+     *   城镇 NPC 一样是进图重建的地图角色，都不该进存档。
      */
     collectSavedCharas() {
       const out = [];
@@ -7883,7 +7975,7 @@
         //   var_58(80)，collectSavedCharas 会漏掉它，读档后死灵凭空消失。
         const keep = !!(c.__ally || c.__pet || c.__necro || stay
           || (this.party && this.party.indexOf(c) >= 0)
-          || (c.get(80) | 0) !== 0 || (c.get(150) | 0) === 3);
+          || (c.get(80) | 0) !== 0);
         if (!keep) continue;
         out.push({
           i,
@@ -7986,14 +8078,14 @@
         // 0-GA：var_515 牌组张数 / 已获得的一次性能力
         cardDeck: this.cardDeck || {},
         learnedAbilities: this.learnedAbilities || {},
-        groundItems: this.groundItems.map((it) => it.toJSON()),
+        groundItems: (this.groundItems || []).filter((it) => it && it.f).map((it) => it.toJSON()),
         // 0-S0：持久图的地面物品快照（= 原版 tmp\inv_<mapId>_<100+子层>.s2）。
         //   不进存档的话，读档后回城镇会重新生成、把玩家丢的东西冲掉。
         mapGround: this.mapGround || {},
         // 0-GX：四次元ポケット（463）与神託用的黑星记录（413）必须进存档，
         // 否则读档后口袋里的物品全部丢失、神託列表清空。
         pocket: this.pocket ? {
-          items: this.pocket.items.map((it) => it.toJSON()),
+          items: (this.pocket.items || []).filter((it) => it && it.f).map((it) => it.toJSON()),
           cap: this.pocket.cap | 0,
           weight: this.pocket.weight | 0,
         } : null,
@@ -8008,6 +8100,9 @@
         } : null,
         // 地图 13 的现场快照：进出不刷新，读档后也要接着上次的进度
         questMapSnapshots: this.questMapSnapshots || {},
+        // map 5 sub 4「盗贼的巢穴」现场快照（原版 mdata_5_104.s2）
+        townSubMap: this.townSubMap | 0,
+        townSubMapSnapshots: this.townSubMapSnapshots || {},
         // 0-HV：竞技场里存的档 —— 记下 var_65(66..69) 的返回点，
         //   读档后补一段上行楼梯，玩家自己走上去就能出图（原版 605109 禁的是宠物竞技场存盘）
         arena: (this.questMap && this.questMap.arena && this.arenaReturn) ? {
@@ -8221,7 +8316,7 @@
       this.materials = Array.isArray(data.materials) ? data.materials.slice() : new Array(400).fill(0);
       if (Elona.Material) Elona.Material.ensure(this);
       if (Elona.Weather) Elona.Weather.init(this);   // 旧存档缺 var_65(17)/(18) 时补默认值
-      this.groundItems = (data.groundItems || []).map((o) => Elona.Item.fromJSON(o));
+      this.groundItems = (data.groundItems || []).map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
       for (const it of this.groundItems) this.refreshGroundCell(it.f[5], it.f[6]);
       // 0-S0：持久图的地面物品快照（旧存档没有该字段 → 空表，回图时按首次进入生成）
       this.mapGround = Object.create(null);
@@ -8232,7 +8327,7 @@
       }
       // 0-GX：四次元ポケット / 黑星记录（旧存档没有时按空处理）
       this.pocket = data.pocket ? {
-        items: (data.pocket.items || []).map((o) => Elona.Item.fromJSON(o)),
+        items: (data.pocket.items || []).map((o) => Elona.Item.fromJSON(o)).filter(Boolean),
         cap: data.pocket.cap | 0 || 10,
         weight: data.pocket.weight | 0,
       } : null;
@@ -8266,6 +8361,8 @@
       // 城镇 NPC 不写入存档，读档后按原版固定表重建（否则委托人/委托都会消失）
       this.questMap = null;
       this.questMapSnapshots = data.questMapSnapshots || {};
+      this.townSubMap = data.townSubMap | 0;
+      this.townSubMapSnapshots = data.townSubMapSnapshots || {};
       if (data.questMap && Elona.QuestMap) {
         const qq = this.quests.find((x) => x && x.id === data.questMap.questId && x.status === 1);
         if (qq) {
@@ -8327,6 +8424,30 @@
             this.dungeonFloorLive[this._floorKey] = restored;
           }
         }
+      }
+      // 0-HM：在「盗贼的巢穴」里存的档 —— 按快照还原现场，不能重建敌人
+      if (this.townSubMap && this.townSubMapSnapshots[this.townSubMap]) {
+        const sub = this.townSubMap | 0;
+        const snap = this.townSubMapSnapshots[sub];
+        this.map = new Elona.GameMap(snap.map, this.tileAttrs);
+        this.groundItems = (snap.items || []).map((o) => Elona.Item.fromJSON(o)).filter(Boolean);
+        this.charas = [this.player];
+        for (const o of (snap.charas || [])) {
+          try {
+            const c = Elona.Chara.fromJSON(o);
+            if (!c) continue;
+            const idx = c.index | 0;
+            if (idx > 0) this.charas[idx] = c;
+            else this.charas.push(c);
+          } catch (e) { /* 单个坏档角色忽略 */ }
+        }
+        this.player.x = snap.x | 0;
+        this.player.y = snap.y | 0;
+        this.dungeonDepth = sub;
+        this.dungeonMinDepth = sub;
+        this.dungeonMaxDepth = sub;
+        this.dungeonSiteId = 0;
+        this.restoreParty();
       }
       this.syncCharaCells();
       this.state = STATE.PLAY;

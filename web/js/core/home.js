@@ -378,7 +378,7 @@
       g.homeFloors[key] = kept;
       return { restored: false, count: kept.length };
     }
-    g.groundItems = list.map((o) => (Elona.Item && Elona.Item.fromJSON) ? Elona.Item.fromJSON(o) : o);
+    g.groundItems = list.map((o) => (Elona.Item && Elona.Item.fromJSON) ? Elona.Item.fromJSON(o) : o).filter(Boolean);
     // 重建「格子上有物品」标记
     if (g.map) {
       for (let y = 0; y < g.map.height; y++) {

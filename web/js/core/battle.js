@@ -1048,6 +1048,13 @@
         }
       } catch (e) { out.questMap = null; }
     }
+    // 11. check_quest（194147 / 201171 / 325627 / 341010 / 416143）：
+    //   剧情地图的进度规则（如 map 5 sub 4 支线 31「盗贼的巢穴」→ var_65(451)=2）
+    //   只由 checkProgress 推进。此前只有 ai.js 的状态致死与 throw.js 会调，
+    //   近战/法术/能力击杀后盗贼全灭却不会触发，任务永远停在「接了委托」。
+    if (g && Elona.QuestCheck && Elona.QuestCheck.checkProgress) {
+      try { Elona.QuestCheck.checkProgress(g); } catch (e) { /* 剧情表未就绪 */ }
+    }
     if (g && typeof g.syncCharaCells === 'function') g.syncCharaCells();
     dead.__death = out;
     return out;

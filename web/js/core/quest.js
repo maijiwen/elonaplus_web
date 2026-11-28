@@ -822,19 +822,32 @@
         ? `日志已更新。回去找${q.clientName}汇报委托，领取报酬吧。` : '') };
   }
 
-  /** 1009 派对：举办一次派对，按交涉/魅力获得分数 */
+  /**
+   * 1009 派对（*label_2422 / 606768-606797）：
+   *   源码**没有**「在委托人和对话里举办派对直接加分」的路径。分数唯一来源是
+   *   会场客人的興奮度（var_58(17)，calcpartyscore / calcpartyscore2 全量重算），
+   *   并在派对结束时由事件 14 结算（QuestMap.partyFinal）。
+   *   此前 npcServices 给了「举办派对」菜单、直接 +rnd(level*2+10)+5+交涉/2，
+   *   属于绕过会场的捷径，已删除。这里只在会场内按兴奋度重算一次分数作为
+   *   「查看当前气氛」入口，不自行加分；完成仍由 partyFinal 裁决。
+   */
   function party(g, questId) {
     const q = activeQuests(g).find((x) => x.id === questId);
     if (!q || q.type !== TYPE.PARTY) return { ok: false, reason: 'no-quest', message: '没有派对委托。' };
     if (q.status !== 1) return { ok: false, reason: 'state', message: '这份委托现在无法举办。' };
-    const score = R(g, 10 + (g.player.level | 0) * 2) + 5 + idiv(playerSkill(g, 17), 2);
-    q.progress = (q.progress | 0) + score;
-    if (q.progress >= q.targetData) markComplete(q);
+    const qm = g && g.questMap;
+    if (!qm || (qm.type | 0) !== TYPE.PARTY) {
+      return { ok: false, reason: 'not-venue',
+        message: '派对只能在会场上举行。到委托地点去，让客人们兴奋起来吧。' };
+    }
+    if (!Elona.QuestMap || !Elona.QuestMap.partyScore) {
+      return { ok: false, reason: 'no-score', message: '会场结算尚未就绪。' };
+    }
+    const s = Elona.QuestMap.partyScore(g);
     syncActive(g);
-    return { ok: true, quest: q, gained: score, completed: q.status === 3,
-      message: `派对气氛 +${score}（${q.progress}/${q.targetData}）`
-        + (q.status === 3
-          ? `日志已更新。回去找${q.clientName}汇报委托，领取报酬吧。` : '') };
+    return { ok: true, quest: q, gained: s.delta, score: s.score,
+      completed: false,
+      message: `会场气氛 ${s.score}/${q.targetData}（靠表演让客人兴奋，结束后结算）。` };
   }
 
   /** 1011 调达：从目标 NPC 处取得委托物品 */
@@ -949,6 +962,8 @@
     if (!c) return null;
     c.set(9, 0);
     c.set(150, 3);
+    // 591205/591215：委托人带 cbit 963，失败结算据此找到并杀死他
+    if (Elona.Status && Elona.Status.cbitmod) Elona.Status.cbitmod(c, 963, true);
     c.name = q.clientName;
     c.__escortQuest = q.id;
     q.escortClientIndex = slot;
@@ -1038,30 +1053,78 @@
   function failQuest(g, q) {
     const type = q.type;
     const client = q.clientName;
+    const messages = [];
+    // 591196-591201 `var_428 >= 1000`：`You have failed the quest taken from X.`
+    messages.push(`你未能完成从${client}处接下的委托。`);
     // var_65(250+38)++：委托失败数
     if (g.setV65) g.setV65(288, (g.getV65(288) | 0) + 1);
-    // decfame 40（591258）
+    if (type === TYPE.DELIVER && q.targetClientIndex >= 0) {
+      const dest = g.quests.find((x) => x.clientIndex === q.targetClientIndex);
+      if (dest) dest.deliverCount = Math.max(0, (dest.deliverCount | 0) - 1);
+      // 591210-591215：`modkarma 0, -20` + "You comit a serious crime!"
+      messages.push('你犯下了严重的罪行！');
+      if (typeof g.modkarma === 'function') g.modkarma(-20);
+      else if (g.player) g.player.set(49, (g.player.get(49) | 0) - 20);
+    }
+    if (type === TYPE.ESCORT) {
+      // 591220-591257：`You have failed to protect the client.` +
+      //   找出 cbit(963) 且物种 == var_434(13) 的委托人，按 subtype 输出临终台词并处决。
+      messages.push('你未能保护好委托人。');
+      const species = q.escortSpecies | 0;
+      const cb = Elona.Status && Elona.Status.cbit;
+      const cbm = Elona.Status && Elona.Status.cbitmod;
+      let victim = null;
+      for (let i = 1; i < 16; i++) {
+        const c = (g.charas || [])[i];
+        if (!c || (c.get(0) | 0) !== 1) continue;
+        if (cb && cb(c, 963) !== 1) continue;
+        if (species && (c.get(27) | 0) !== species) continue;
+        victim = c; break;
+      }
+      if (!victim && (q.escortClientIndex | 0) > 0) {
+        const c = (g.charas || [])[q.escortClientIndex | 0];
+        if (c && (c.get(0) | 0) === 1) victim = c;
+      }
+      if (victim) {
+        if (cbm) cbm(victim, 963, false);
+        const nm = victim.name || client;
+        if ((q.subtype | 0) === 0) {
+          messages.push('「不好，刺客要杀我了！」');
+        } else if ((q.subtype | 0) === 1) {
+          messages.push('「毒！我中了毒！！」');
+        } else {
+          messages.push(`「我错过了期限。我已经没有活下去的资格了。」${nm}往自己身上浇了一瓶燃烧弹。`);
+          // 591240-591245：addmef 5,24,rnd(15)+25（玩家脚下）+ mapitem_fire（委托人脚下）
+          if (g.mef && g.mef.add && g.player) {
+            g.mef.add(g, g.player.x | 0, g.player.y | 0, 5, 24, R(g, 15) + 25, 0, 0);
+          }
+          if (Elona.ItemDB && Elona.ItemDB.mapitemFire) {
+            Elona.ItemDB.mapitemFire(g, victim.x | 0, victim.y | 0, victim);
+          }
+        }
+        victim.hp = 0;
+        victim.set(0, 0);
+      }
+      // 591255 `modkarma 0, -10`
+      if (typeof g.modkarma === 'function') g.modkarma(-10);
+      else if (g.player) g.player.set(49, (g.player.get(49) | 0) - 10);
+      removeEscortFollower(g, q);
+    }
+    // 591260-591266 `decfame 0, 40` + "You lose N fame."
     if (g.player) {
       const f = g.player.get(34) | 0;
       const loss = idiv(f, 40) + 5 + R(g, idiv(idiv(f, 40) + 5, 2)) - R(g, idiv(idiv(f, 40) + 5, 2));
       g.player.set(34, Math.max(0, f - loss));
+      messages.push(`你失去了 ${loss} 名声。`);
     }
-    if (type === TYPE.DELIVER && q.targetClientIndex >= 0) {
-      const dest = g.quests.find((x) => x.clientIndex === q.targetClientIndex);
-      if (dest) dest.deliverCount = Math.max(0, (dest.deliverCount | 0) - 1);
-      if (g.player) g.player.set(49, (g.player.get(49) | 0) - 20);   // modkarma -20
-    }
-    if (type === TYPE.ESCORT && g.player) {
-      g.player.set(49, (g.player.get(49) | 0) - 10);                 // modkarma -10
-      removeEscortFollower(g, q);
-    }
+    for (const m of messages) if (g.log) g.log(m);
     q.failed = true;
     q.status = 0;
     q.type = 0;
     q.progress = 0;
     q.refreshAt = nowH(g) + R(g, 4) * DAY_H;
     if (g.clearQuestMapSnapshot) g.clearQuestMapSnapshot(q.id);
-    return { failed: true, quest: q, type: type, clientName: client };
+    return { failed: true, quest: q, type: type, clientName: client, messages };
   }
 
   /** 每回合调用；只在跨日时递减天数（*label_4288） */
@@ -1134,7 +1197,15 @@
     // 0-Z84 / *label_4294：金币、白金币、物品都 itemcreate 到玩家当前格，
     // 不再直接改 player 的货币字段（591479-591493）。
     const player = g.player;
-    const gold = q.rewardGold | 0;
+    // 591471-591478：1006 收获委托按完成量追加报酬，最高 3 倍。
+    //   if ( var_434(12) != 0 && var_434(12)*125/100 < var_434(13) )
+    //       var_400 = limit(reward * progress / target, reward, reward*3)
+    let gold = q.rewardGold | 0;
+    const target0 = q.targetData | 0;
+    const done0 = q.progress | 0;
+    if (q.type === TYPE.HARVEST && target0 !== 0 && idiv(target0 * 125, 100) < done0) {
+      gold = limit(idiv(gold * done0, target0), gold, gold * 3);
+    }
     if (gold > 0) dropReward(g, 54, gold);
     let plat = limit(R(g, 1 + idiv(fame(g), 10000)), 1, 3);
     if (q.type === TYPE.CONQUER || q.type === TYPE.HUNTEX) plat += 2;
@@ -1185,12 +1256,29 @@
         }
       }
     }
+    // 591576 `modkarma 0, 1`：完成委托业值 +1（走 Game.modkarma 以套用特性修正）
+    if (typeof g.modkarma === 'function') g.modkarma(1);
+    else player.set(49, (player.get(49) | 0) + 1);
     // 名声：calcfame(difficulty*3+10)
     let fameGain = idiv((q.difficulty * 3 + 10) * 100,
       100 + idiv(idiv(fame(g), 100) * idiv(fame(g), 100), 2500));
     if (fameGain < 5) fameGain = R(g, 5) + 1;
     player.set(34, (player.get(34) | 0) + fameGain);
     if (g.setV65) g.setV65(74, fameGain);
+    // 591580-591598 公会发言力：`var_65(250+326)==100 → 300`，
+    //   `var_2766 = limit(sqrt(var_434(5)+1),3,10)*10; var_126(26)+=var_2766`，
+    //   当前地图 var_126(28)!=0 时提示。Web 的 var_126 落在 g.v126（dialogue 写 map.header 时同步）。
+    if (g.setV65 && (g.getV65(250 + 326) | 0) === 100) g.setV65(250 + 326, 300);
+    const praise = limit(Math.floor(Math.sqrt(Math.max(0, (q.difficulty | 0) + 1))), 3, 10) * 10;
+    let praiseTarget = null;
+    if (g.map && g.map.header) {
+      praiseTarget = g.map.header;
+      praiseTarget[26] = (praiseTarget[26] | 0) + praise;
+    }
+    if (g.v126) g.v126[26] = (g.v126[26] | 0) + praise;
+    const hasGuild = (g.map && g.map.header)
+      ? (g.map.header[28] | 0) : (g.v126 ? (g.v126[28] | 0) : 0);
+    if (hasGuild !== 0 && g.log) g.log(`你获得了 ${praise} 点发言力。`);
     // var_65(250+25)++ 达成数
     if (g.setV65) g.setV65(275, (g.getV65(275) | 0) + 1);
     if (q.type === TYPE.DELIVER && q.targetClientIndex >= 0) {
@@ -1397,7 +1485,7 @@
           out.push({ id: 'quest-enter', label: '前往委托地点', questId: own.id });
         }
         if (own.type === TYPE.HARVEST) out.push({ id: 'quest-harvest', label: '缴纳作物', questId: own.id });
-        if (own.type === TYPE.PARTY) out.push({ id: 'quest-party', label: '举办派对', questId: own.id });
+        // 1009：源码没有「举办派对」的委托人菜单项，得分只能由会场兴奋度结算。
         if (own.type === TYPE.COOK) {
           if (findCookItem(g, own)) {
             out.push({ id: 'quest-deliver',
